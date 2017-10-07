@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activities.SplashActivity">
+
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="144dp"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:paddingTop="135dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_splash_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:text="@string/app_name"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:includeFontPadding="true"
+        android:layout_below="@id/iv_logo"
+        android:textAlignment="center"
+        android:textSize="35dp"
+        android:textColor="@color/textColor"
+        />
+
+</LinearLayout>
