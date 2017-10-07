@@ -1,6 +1,8 @@
 package com.hustler.quote.ui.superclasses;
 
 import android.app.Activity;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -21,5 +23,20 @@ public class BaseActivity extends AppCompatActivity {
     }
     public void showToast(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+    public  int getMatColor(String typeColor)
+    {
+        int returnColor = Color.BLACK;
+        int arrayId = getResources().getIdentifier("mdcolor_" + typeColor, "array", getApplicationContext().getPackageName());
+
+        if (arrayId != 0)
+        {
+            TypedArray colors = getResources().obtainTypedArray(arrayId);
+            int index = (int) (Math.random() * colors.length());
+            returnColor = colors.getColor(index, Color.BLACK);
+            colors.recycle();
+        }
+        return returnColor;
     }
 }

@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginRight="20dp"
                 >
                 <TextView
                     android:layout_width="0dp"
@@ -30,20 +31,34 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="24dp"
-                    android:layout_weight="3"
-                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:src="@mipmap/ic_launcher"/>
                 <TextView
+                    android:id="@+id/header_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
+                    android:layout_weight="4"
                     android:text="@string/app_name"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
-                    android:textAlignment="textStart"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/elevation4"
+                    android:textAlignment="center"
                     android:layout_gravity="center"
                     android:textSize="@dimen/font3"
-                    android:fontFamily="serif-monospace"/>
+                   />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_weight="1"
+                  android:layout_gravity="center"
+                    android:src="@mipmap/ic_launcher"
+                    android:rotation="180"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_weight="3"/>
             </LinearLayout>
 
 

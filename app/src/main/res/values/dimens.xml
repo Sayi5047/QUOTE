@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="elevation4">4dp</dimen>
+    <dimen name="elevation8">8dp</dimen>
+
     <dimen name="padding1">16dp</dimen>
 
-
+    <dimen name="font">12sp</dimen>
     <dimen name="font1">16sp</dimen>
     <dimen name="font2">20sp</dimen>
     <dimen name="font3">25sp</dimen>

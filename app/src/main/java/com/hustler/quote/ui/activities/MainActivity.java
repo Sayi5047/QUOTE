@@ -1,10 +1,10 @@
 package com.hustler.quote.ui.activities;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.SearchView;
+import android.transition.Explode;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,35 +13,58 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.superclasses.App;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FrameLayout frameLayout;
+    EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setAnimation();
+        }
         setToolbar();
         ininView();
 
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setAnimation() {
+        Explode explode = new Explode();
+        explode.setDuration(500);
+        getWindow().setEnterTransition(explode);
     }
 
     private void ininView() {
-        frameLayout=(FrameLayout) findViewById(R.id.main_fragment);
+        frameLayout = (FrameLayout) findViewById(R.id.main_fragment);
+        searchBar = (EditText) findViewById(R.id.search_bar);
+
         getSupportFragmentManager().beginTransaction().
-                add(R.id.main_fragment,new MainFragment()).commit();
+                add(R.id.main_fragment, new MainFragment()).commit();
     }
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        TextView tv_header = (TextView) toolbar.findViewById(R.id.header_name);
+        tv_header.setTypeface(App.getZingCursive(this, Constants.FONT_ZINGCURSIVE));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,6 +93,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -78,8 +102,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_search) {
+
+//            if (searchBar.isAttachedToWindow()) {
+//                searchBar.setVisibility(View.GONE);
+//                searchBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
+//            } else {
+                searchBar.setVisibility(View.VISIBLE);
+                searchBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
+
+
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,11 +1,15 @@
 package com.hustler.quote.ui.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.transition.Explode;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,9 +39,12 @@ public class SplashActivity extends BaseActivity {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onFinish() {
-                startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                getWindow().setEnterTransition(new Explode());
+                Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this).toBundle());
             }
         };
         countDownTimer.start();
