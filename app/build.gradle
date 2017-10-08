@@ -30,5 +30,6 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
     compile 'com.google.code.gson:gson:2.6.2'
+
     testCompile 'junit:junit:4.12'
 }

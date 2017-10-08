@@ -8,6 +8,8 @@
     <string name="action_settings">Settings</string>
     <string name="no_quotes_available">No Quotes Available</string>
     <string name="search_quotes_by_author">Funny,gandhi..etc</string>
+    <string name="quotes_body_transistion">quotebodytransistion</string>
+    <string name="quotes_author_transistion">quoteauthortransistion</string>
 
     <!--SPLASH ACTIVITY-->
 

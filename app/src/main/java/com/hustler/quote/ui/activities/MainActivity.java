@@ -23,8 +23,9 @@ import android.widget.TextView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
+import com.hustler.quote.ui.superclasses.BaseActivity;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FrameLayout frameLayout;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setAnimation();
+            setExplodeAnimation();
         }
         setToolbar();
         ininView();
@@ -44,12 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void setAnimation() {
-        Explode explode = new Explode();
-        explode.setDuration(500);
-        getWindow().setEnterTransition(explode);
-    }
+
 
     private void ininView() {
         frameLayout = (FrameLayout) findViewById(R.id.main_fragment);
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            this.finish();
         }
     }
 

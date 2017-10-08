@@ -6,9 +6,15 @@
     <dimen name="padding1">16dp</dimen>
 
     <dimen name="font">12sp</dimen>
+    <dimen name="fontsmall">8sp</dimen>
+
     <dimen name="font1">16sp</dimen>
     <dimen name="font2">20sp</dimen>
+    <dimen name="font2_1">22sp</dimen>
     <dimen name="font3">25sp</dimen>
+    <dimen name="font3_5">30sp</dimen>
+    <dimen name="font3_8">33sp</dimen>
+    <dimen name="font4">35sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

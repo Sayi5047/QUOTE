@@ -5,11 +5,8 @@
     android:elevation="4dp"
     android:orientation="vertical"
     android:layout_margin="@dimen/elevation4"
-    android:transitionName="@string/quotes_author_transistion"
-
     >
     <LinearLayout
-        android:id="@+id/root_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,6 +15,7 @@
             android:id="@+id/main_quote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:text="Something"
@@ -25,8 +23,8 @@
             android:padding="@dimen/elevation8"
             android:layout_gravity="center"
             android:gravity="center"
+
             android:elevation="@dimen/elevation8"
-            android:transitionName="@string/quotes_body_transistion"
             />
         <TextView
             android:id="@+id/quote_author"
@@ -40,7 +38,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:elevation="@dimen/elevation4"
-
 
             />
         <TextView

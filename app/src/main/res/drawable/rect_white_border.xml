@@ -5,6 +5,10 @@
         android:color="@android:color/transparent"/>
     <stroke
         android:color="@android:color/white"
-        android:width="1dp"/>
-
+        android:width="6dp">
+    <gradient
+        android:startColor="@color/colorPrimary"
+        android:endColor="@color/colorPrimaryDark"
+        android:angle="135"/>
+</stroke>
 </shape>
