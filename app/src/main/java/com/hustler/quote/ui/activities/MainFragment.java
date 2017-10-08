@@ -60,6 +60,15 @@ public class MainFragment extends Fragment {
         quote_author.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
         quote_of_day.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
 
+        quote_of_day.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                getRandomQuotes();
+
+            }
+        });
+
         getRandomQuotes();
         return view;
     }

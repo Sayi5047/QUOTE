@@ -10,6 +10,8 @@
     <string name="search_quotes_by_author">Funny,gandhi..etc</string>
     <string name="quotes_body_transistion">quotebodytransistion</string>
     <string name="quotes_author_transistion">quoteauthortransistion</string>
+    <string name="Unable_to_save_share_image">Unable to share image</string>
+    <string name="image_saved">Congratulations,Image has been saved to sdcard/Pictures</string>
 
     <!--SPLASH ACTIVITY-->
 

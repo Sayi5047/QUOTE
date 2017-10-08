@@ -44,6 +44,7 @@
                     android:background="@drawable/rect_black_border"
                     android:gravity="center"
                     android:padding="5dp"
+                    android:textIsSelectable="true"
 
                     android:transitionName="@string/quotes_body_transistion"
                     android:textAlignment="center"
@@ -106,6 +107,7 @@
                     android:layout_weight="1" />
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_download"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
 
@@ -116,6 +118,7 @@
                     android:src="@drawable/ic_archive_black_24dp" />
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_edit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -124,6 +127,7 @@
                     android:src="@drawable/ic_format_shapes_black_24dp" />
 
                 <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_share"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
 
