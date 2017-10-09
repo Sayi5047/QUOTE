@@ -62,12 +62,13 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/quote_anim"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/elevation8"
                         android:layout_weight="1.3"
-                        android:src="@drawable/ic_launcher" />
+                        app:srcCompat="@drawable/ic_quote_animation" />
 
                     <TextView
                         android:id="@+id/tv_Quote_Author"
