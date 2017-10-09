@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,8 @@ public class MainFragment extends Fragment {
     RecyclerView rv;
     ProgressBar loader;
     MainAdapter adapter;
-    TextView quote_of_day, quote_author;
+    ImageView quote_of_day;
+    TextView quote_author;
     int selectedQuote;
 
     @Nullable
@@ -53,9 +55,9 @@ public class MainFragment extends Fragment {
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         loader = (ProgressBar) view.findViewById(R.id.loader);
-        quote_of_day = (TextView) view.findViewById((R.id.quote_of_day));
+        quote_of_day = (ImageView) view.findViewById((R.id.quote_of_day));
         quote_author = (TextView) view.findViewById(R.id.quote_of_day_author);
-        quote_of_day.setTypeface(App.getZingCursive(getActivity(), Constants.FONT_ZINGCURSIVE));
+//        quote_of_day.setTypeface(App.getZingCursive(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setTypeface(App.getZingCursive(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
         quote_of_day.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
@@ -63,13 +65,25 @@ public class MainFragment extends Fragment {
         quote_of_day.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                getRandomQuotes();
+                if(rv.getLayoutManager() instanceof  StaggeredGridLayoutManager){
+                    rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+                }
+                else if(rv.getLayoutManager() instanceof  GridLayoutManager){
+                    rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                }
+                else if(rv.getLayoutManager() instanceof LinearLayoutManager){
+                    rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                }
+
 
             }
-        });
 
+        });
         getRandomQuotes();
+
+
         return view;
     }
 
@@ -102,7 +116,7 @@ public class MainFragment extends Fragment {
                     }
                 }));
                 selectedQuote = new Random().nextInt(quotes.size() - 1) + 1;
-                quote_of_day.setText(quotes.get(selectedQuote).getBody());
+//                quote_of_day.setText(quotes.get(selectedQuote).getBody());
 //                adapter.updateQuotes(quotes);
 
                 quote_author.setText(quotes.get(selectedQuote).getAuthor());
@@ -118,4 +132,24 @@ public class MainFragment extends Fragment {
         });
     }
 
+//    public void setLayout(int i) {
+//        if(rv!=null){
+//            switch (i){
+//                case 1:
+//                    rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                    getRandomQuotes();
+//
+//                    break;
+//                case 2:
+//                    rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
+//                    getRandomQuotes();
+//
+//                    break;
+//                case 3: rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+//                    getRandomQuotes();
+//
+//                    break;
+//            }
+//        }
+//    }
 }

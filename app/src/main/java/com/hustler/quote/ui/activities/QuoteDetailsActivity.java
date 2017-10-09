@@ -96,7 +96,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private void getIntentData() {
 //        Bundle bundle=getIntent().getBundleExtra(Constants.BUNDLE_OBJECT);
         quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT);
-        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
         int length = quote.getBody().length();
         root.setBackgroundColor(quote.getColor());
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));

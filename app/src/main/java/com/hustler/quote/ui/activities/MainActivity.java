@@ -3,6 +3,7 @@ package com.hustler.quote.ui.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.transition.Explode;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,8 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+
+import java.util.Random;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -109,6 +112,10 @@ public class MainActivity extends BaseActivity
 
 
         }
+//        else if(id== R.id.action_layout){
+//            int i=new Random().nextInt(3);
+////            new MainFragment().setLayout(i);
+//        }
 
         return super.onOptionsItemSelected(item);
     }
