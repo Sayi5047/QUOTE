@@ -27,6 +27,28 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="@dimen/elevation8"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:id="@+id/image_saved_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Image hasbeen saved to your device"
+                    android:textAllCaps="true"
+                    android:textColor="@color/textColor"
+                    android:elevation="@dimen/elevation8"
+                    android:padding="25dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font3_8"
+                    android:background="#d35"
+                    android:layout_centerInParent="true"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
                 android:id="@+id/quote_layout"
                 android:layout_width="match_parent"
                 android:layout_height="445dp"

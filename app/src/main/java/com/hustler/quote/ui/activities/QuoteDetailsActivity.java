@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.activities;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,7 +40,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
     QuotesFromFC quote;
     LinearLayout root, quote_layout;
-    TextView tv_Quote_Body, tv_Quote_Author;
+    TextView tv_Quote_Body, tv_Quote_Author,image_saved_message;
     FloatingActionButton fab_save, fab_edit, fab_share;
     ImageView quote_anim;
     File savedFile;
@@ -62,6 +64,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         root = (LinearLayout) findViewById(R.id.root);
         tv_Quote_Author = (TextView) findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = (TextView) findViewById(R.id.tv_Quote_Body);
+        image_saved_message=(TextView) findViewById(R.id.image_saved_message);
+        image_saved_message.setVisibility(View.GONE);
         quote_layout = (LinearLayout) findViewById(R.id.quote_layout);
         quote_anim = (ImageView) findViewById(R.id.quote_anim);
         Drawable drawable = quote_anim.getDrawable();
@@ -200,6 +204,17 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void changeFont() {
         tv_Quote_Body.setTypeface(App.getZingCursive(this, Constants.FONT_NEVIS));
+//        int cx=image_saved_message.getWidth()/2;
+//        int cy=image_saved_message.getHeight()/2;
+//         float finalradius=((float) StrictMath.hypot(cx,cy));
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            Animator anim =
+//                    ViewAnimationUtils.createCircularReveal(image_saved_message, cx, cy, 0, finalradius);
+////            anim.
+//            anim.start();
+//        }
+
+        startActivity(new Intent(this,EditorActivity.class));
     }
 
     private void savetoDevice() {

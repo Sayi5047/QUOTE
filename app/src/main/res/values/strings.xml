@@ -13,6 +13,10 @@
     <string name="Unable_to_save_share_image">Unable to share image</string>
     <string name="image_saved">Congratulations,Image has been saved to sdcard/Pictures</string>
 
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
     <!--SPLASH ACTIVITY-->
 
 

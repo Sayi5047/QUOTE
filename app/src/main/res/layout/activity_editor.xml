@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hustler.quote.ui.activities.EditorActivity">
+
+    <LinearLayout
+        android:id="@+id/main_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/elevation4"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="@dimen/elevation4"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
+            android:elevation="@dimen/elevation4"
+            android:padding="@dimen/elevation8"
+            android:text="gshdgsdgshghsghgshsghsgshghdsghcbhdbchbdvcdsvcgvsdgcvgvdsgcvgdvsgcvgsdvgcvgsdvcgvsdgvcgsdvgcvgdvcgdvgcvsdgvcgdvsgcvdsgvcgdvgcvsgvdgvdgvsdgvgcdsvgcvdgsvcgdsvcgvdsgcvdsgvcgdsvcgdsvgh
+            c"
+            android:textAlignment="textEnd"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/elevation4">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+
+        <ImageView
+            android:id="@+id/editor_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:src="@drawable/ic_format_color_text_black_24dp" />
+
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:src="@drawable/ic_image_black_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secod_detail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_above="@id/bottom_layout"
+        android:background="@drawable/rect_black_border"
+        android:elevation="@dimen/elevation4"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/texto_editor_size"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:padding="@dimen/elevation4"
+            android:src="@drawable/ic_font_sizes" />
+
+        <ImageView
+            android:id="@+id/texto_editor_font"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_font" />
+
+        <ImageView
+            android:id="@+id/texto_editor_color"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:src="@drawable/ic_text_color" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/third_detail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@id/secod_detail"
+        android:elevation="@dimen/elevation4">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</RelativeLayout>
