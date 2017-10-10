@@ -214,7 +214,9 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //            anim.start();
 //        }
 
-        startActivity(new Intent(this,EditorActivity.class));
+        Intent intent=new Intent(this,EditorActivity.class);
+        intent.putExtra(Constants.INTENT_QUOTE_OBJECT,quote);
+        startActivity(intent);
     }
 
     private void savetoDevice() {
