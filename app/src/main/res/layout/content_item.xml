@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/elevation8"
+    android:orientation="horizontal">
+
+    <com.hustler.quote.ui.customviews.CustomView
+        android:id="@+id/content_color_item"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/elevation4"/>
+
+    <TextView
+        android:id="@+id/content_font_item"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/transparent_circle"
+        android:text="Aa"
+        android:layout_margin="@dimen/elevation4"
+        android:textColor="@drawable/alphawhite"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="center"/>
+
+</LinearLayout>

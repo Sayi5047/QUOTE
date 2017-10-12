@@ -276,4 +276,8 @@
         <item name="grey_1000w" type="color">#ffffff</item>
     </array>
 
+    <array name="allColors">
+
+    </array>
+
 </resources>

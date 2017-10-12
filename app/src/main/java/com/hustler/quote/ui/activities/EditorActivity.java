@@ -6,6 +6,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,9 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.adapters.ContentAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
+import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+
+import java.util.ArrayList;
 
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private LinearLayout mainImageLayout;
@@ -40,7 +47,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private BottomSheetBehavior bottomSheetBehavior;
     private NestedScrollView bottomsheet;
     CoordinatorLayout root;
+    RecyclerView colorbgrecyclerview;
     private boolean thirdDetailvisible;
+
+    ArrayList<String> colors;
+    String[] colorsto;
 
     /**
      * Find the Views in the layout<br />
@@ -55,7 +66,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        setToolbar(this);
         findViews();
         getIntentData();
+        convertColors();
         setViews();
+    }
+
+    private void convertColors() {
+        colorsto=getResources().getStringArray(R.array.allColors);
+        for(int i=0;i<=colorsto.length;i++){
+            colors.add(i,colorsto[i]);
+        }
+        Log.d("Colors Added -->","done");
+
     }
 
 
@@ -82,6 +103,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         tvQuoteAuthor = (TextView) findViewById(R.id.tv_Quote_Author);
 
         seekBar = (SeekBar) findViewById(R.id.seekbar_tv);
+
+        colorbgrecyclerview=(RecyclerView) findViewById(R.id.content_rv);
+
+        colorbgrecyclerview.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false));
+
+        ContentAdapter contentAdapter;
+        contentAdapter=new ContentAdapter(activity,colors);
+        colorbgrecyclerview.setAdapter(contentAdapter);
 
 
 //        bottomsheet = (NestedScrollView) findViewById(R.id.bottomsheet);

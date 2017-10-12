@@ -1,5 +1,7 @@
 package com.hustler.quote.ui.apiRequestLauncher;
 
+import android.graphics.Color;
+
 /**
  * Created by Sayi on 07-10-2017.
  */
@@ -19,4 +21,5 @@ public class Constants
 
     public static final String INTENT_QUOTE_OBJECT = "QUOTE_OBJECT_TRAVELLER_KEY";
     public static final String BUNDLE_OBJECT = "bundle_k";
+    public static final int DEFAULT_COLOR = Color.RED;
 }
