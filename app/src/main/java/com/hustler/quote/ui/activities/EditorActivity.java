@@ -50,7 +50,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     RecyclerView colorbgrecyclerview;
     private boolean thirdDetailvisible;
 
-    ArrayList<String> colors;
+    ArrayList<String> colors=new ArrayList<>();
     String[] colorsto;
 
     /**
@@ -64,15 +64,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 //        setToolbar(this);
+        convertColors();
+
         findViews();
         getIntentData();
-        convertColors();
         setViews();
     }
 
     private void convertColors() {
         colorsto=getResources().getStringArray(R.array.allColors);
-        for(int i=0;i<=colorsto.length;i++){
+        for(int i=0;i<colorsto.length;i++){
             colors.add(i,colorsto[i]);
         }
         Log.d("Colors Added -->","done");
@@ -109,7 +110,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         colorbgrecyclerview.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false));
 
         ContentAdapter contentAdapter;
-        contentAdapter=new ContentAdapter(activity,colors);
+        contentAdapter=new ContentAdapter(this, colors, new ContentAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int val) {
+
+                tvQuoteBody.setTextColor(val);
+                tvQuoteAuthor.setTextColor(val);
+            }
+        });
         colorbgrecyclerview.setAdapter(contentAdapter);
 
 

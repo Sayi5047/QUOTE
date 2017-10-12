@@ -33,4 +33,24 @@ public  class App extends Application{
 
         return Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname);
     }
+    /*
+    * method to get the array and its contents that are defined in the xml,we can retrieve array using <TypedArray>
+    *    params --  @activity -- calling activity
+    *               @name --  arrayname to be retrieved
+    *               @index -- position of the item to be retrieved
+    *               @defaultvalue -- Default value
+    *
+    *               get the defined arrayid with its defined name in xml
+    *               next get that total array into TypedArray
+    *               next get that items based on positions passed to this
+    *               */
+    public static int getArrayItem(Activity activity,String name,int index,int defaultval){
+        int arrayid;
+        arrayid = activity.getResources().getIdentifier(name,"array",activity.getApplicationContext().getPackageName());
+        TypedArray typedArray;
+        typedArray = activity.getResources().obtainTypedArray(arrayid);
+        int id=typedArray.getColor(index,defaultval);
+        return id;
+
+    }
 }

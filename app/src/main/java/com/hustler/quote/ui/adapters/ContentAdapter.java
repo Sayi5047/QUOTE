@@ -2,7 +2,9 @@ package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.customviews.CustomImageView;
 import com.hustler.quote.ui.customviews.CustomView;
+import com.hustler.quote.ui.superclasses.App;
 
 import java.util.ArrayList;
 
@@ -24,25 +27,38 @@ import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentViewholder> {
     Activity activity;
     ArrayList<String> items;
+    int color;
+    ArrayList<Integer> resolvedColorsList=new ArrayList<>();
 
     public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener onItemClickListener) {
         this.activity = activity;
         this.items = items;
         this.onItemClickListener = onItemClickListener;
+        getColorids();
     }
 
-    onItemClickListener onItemClickListener;
+    public onItemClickListener onItemClickListener;
 
     public ContentAdapter(Activity activity, ArrayList<String> items) {
         this.activity = activity;
         this.items = items;
+
+    }
+
+    private void getColorids() {
+        for(int i=0;i<items.size();i++){
+            resolvedColorsList.add(i,App.getArrayItem(activity,"allColors",i,Color.WHITE));
+            Log.d("Files Added -->",String.valueOf(resolvedColorsList.size()));
+
+        }
+        Log.d("Files Added -->",String.valueOf(resolvedColorsList.size()));
     }
 
     public ContentAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    interface onItemClickListener {
+    public interface onItemClickListener {
         void onItemClick(int val);
     }
 
@@ -54,8 +70,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     @Override
     public void onBindViewHolder(ContentAdapter.ContentViewholder holder, final int position) {
 
-//        TypedArray colors = activity.getResources().obtainTypedArray("");
-//            holder.customView.setBackgroundColor();
+//       int arrayId=activity.getResources().getIdentifier("allColors","array",activity.getApplicationContext().getPackageName());
+//        TypedArray typedArray=activity.getResources().obtainTypedArray(arrayId);
+//        holder.customView.setCircleColor(typedArray.getResourceId(position, Color.BLACK));
+//        color=App.getArrayItem(activity,"array",position,Color.WHITE);
+        holder.customView.setCircleColor(App.getArrayItem(activity,"allColors",position,Color.WHITE));
+        Log.d("Resolved color",resolvedColorsList.get(position).toString());
         if(this instanceof onItemClickListener)
         {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +104,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
         public ContentViewholder(View itemView) {
             super(itemView);
             customView = (CustomView) itemView.findViewById(R.id.content_color_item);
-            textView = (TextView) itemView.findViewById(R.id.content_color_item);
-            textView.setVisibility(View.GONE);
+//            textView = (TextView) itemView.findViewById(R.id.content_font_item);
+//            textView.setVisibility(View.GONE);
 
         }
     }
