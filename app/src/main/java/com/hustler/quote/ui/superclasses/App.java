@@ -50,6 +50,7 @@ public  class App extends Application{
         TypedArray typedArray;
         typedArray = activity.getResources().obtainTypedArray(arrayid);
         int id=typedArray.getColor(index,defaultval);
+        typedArray.recycle();
         return id;
 
     }

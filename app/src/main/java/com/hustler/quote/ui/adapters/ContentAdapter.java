@@ -28,16 +28,16 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     Activity activity;
     ArrayList<String> items;
     int color;
-    ArrayList<Integer> resolvedColorsList=new ArrayList<>();
+    ArrayList<Integer> resolvedColorsList = new ArrayList<>();
+    public onItemClickListener onItemClickListener;
 
-    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener onItemClickListener) {
+    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener listener) {
         this.activity = activity;
         this.items = items;
-        this.onItemClickListener = onItemClickListener;
+        onItemClickListener = listener;
         getColorids();
     }
 
-    public onItemClickListener onItemClickListener;
 
     public ContentAdapter(Activity activity, ArrayList<String> items) {
         this.activity = activity;
@@ -45,22 +45,24 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
     }
 
+    public interface onItemClickListener {
+        void onItemClick(int val);
+    }
+
+    /*Methos to get the store the id os the colors into an Arraylist*/
     private void getColorids() {
-        for(int i=0;i<items.size();i++){
-            resolvedColorsList.add(i,App.getArrayItem(activity,"allColors",i,Color.WHITE));
-            Log.d("Files Added -->",String.valueOf(resolvedColorsList.size()));
+        for (int i = 0; i < items.size(); i++) {
+            resolvedColorsList.add(i, App.getArrayItem(activity, "allColors", i, Color.WHITE));
+            Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
 
         }
-        Log.d("Files Added -->",String.valueOf(resolvedColorsList.size()));
+        Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
     }
 
     public ContentAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    public interface onItemClickListener {
-        void onItemClick(int val);
-    }
 
     @Override
     public ContentAdapter.ContentViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -74,14 +76,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 //        TypedArray typedArray=activity.getResources().obtainTypedArray(arrayId);
 //        holder.customView.setCircleColor(typedArray.getResourceId(position, Color.BLACK));
 //        color=App.getArrayItem(activity,"array",position,Color.WHITE);
-        holder.customView.setCircleColor(App.getArrayItem(activity,"allColors",position,Color.WHITE));
-        Log.d("Resolved color",resolvedColorsList.get(position).toString());
-        if(this instanceof onItemClickListener)
-        {
+        holder.customView.setBackgroundColor(resolvedColorsList.get(position));
+        Log.d("Resolved color", resolvedColorsList.get(position).toString());
+        if (onItemClickListener!=null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(position);
+                    onItemClickListener.onItemClick(resolvedColorsList.get(position));
                 }
             });
         }
@@ -98,12 +99,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     }
 
     public class ContentViewholder extends RecyclerView.ViewHolder {
-        CustomView customView;
+        View customView;
         TextView textView;
 
         public ContentViewholder(View itemView) {
             super(itemView);
-            customView = (CustomView) itemView.findViewById(R.id.content_color_item);
+            customView = (View) itemView.findViewById(R.id.content_color_item);
 //            textView = (TextView) itemView.findViewById(R.id.content_font_item);
 //            textView.setVisibility(View.GONE);
 
