@@ -523,5 +523,13 @@
     </array>
 
 
+    <string-array name="allfonts">
+        <item>fonts/nevis.ttf</item>
+        <item>fonts/sketch_dark.ttf</item>
+        <item>fonts/zingcursive.otf</item>
+        <item>fonts/zingsans.otf</item>
+    </string-array>
+
+
 
 </resources>

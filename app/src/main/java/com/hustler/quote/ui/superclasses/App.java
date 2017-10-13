@@ -44,12 +44,23 @@ public  class App extends Application{
     *               next get that total array into TypedArray
     *               next get that items based on positions passed to this
     *               */
-    public static int getArrayItem(Activity activity,String name,int index,int defaultval){
+    public static int getArrayItemColor(Activity activity,String name,int index,int defaultval){
         int arrayid;
         arrayid = activity.getResources().getIdentifier(name,"array",activity.getApplicationContext().getPackageName());
         TypedArray typedArray;
         typedArray = activity.getResources().obtainTypedArray(arrayid);
         int id=typedArray.getColor(index,defaultval);
+        typedArray.recycle();
+        return id;
+
+    }
+
+    public static String getArrayItemFont(Activity activity,String name,int index,int defaultval){
+        int arrayid;
+        arrayid = activity.getResources().getIdentifier(name,"array",activity.getApplicationContext().getPackageName());
+        TypedArray typedArray;
+        typedArray = activity.getResources().obtainTypedArray(arrayid);
+        String id=typedArray.getString(index);
         typedArray.recycle();
         return id;
 

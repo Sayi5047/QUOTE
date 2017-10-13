@@ -1,23 +1,17 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.customviews.CustomImageView;
-import com.hustler.quote.ui.customviews.CustomView;
 import com.hustler.quote.ui.superclasses.App;
 
 import java.util.ArrayList;
-
-import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 
 /**
  * Created by Sayi on 11-10-2017.
@@ -29,13 +23,31 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     ArrayList<String> items;
     int color;
     ArrayList<Integer> resolvedColorsList = new ArrayList<>();
+    ArrayList<String> resolvedFontList=new ArrayList<>();
     public onItemClickListener onItemClickListener;
+    boolean isFontAsked;
 
-    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener listener) {
+    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener listener,boolean isFont) {
         this.activity = activity;
         this.items = items;
         onItemClickListener = listener;
-        getColorids();
+        isFontAsked=isFont;
+        if(isFont){
+            getFontIds();
+        }
+        else {
+            getColorids();
+
+        }
+    }
+
+    private void getFontIds() {
+        for (int i = 0; i < items.size(); i++) {
+            resolvedColorsList.add(i, App.getArrayItemColor(activity, "allColors", i, Color.WHITE));
+            Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
+
+        }
+        Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
     }
 
 
@@ -46,17 +58,18 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     }
 
     public interface onItemClickListener {
-        void onItemClick(int val);
+        void onItemColorClick(int color);
+        void onItemFontClick(String font);
     }
 
     /*Methos to get the store the id os the colors into an Arraylist*/
     private void getColorids() {
         for (int i = 0; i < items.size(); i++) {
-            resolvedColorsList.add(i, App.getArrayItem(activity, "allColors", i, Color.WHITE));
-            Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
+            resolvedFontList.add(i, App.getArrayItemFont(activity, "allfonts", i, Color.WHITE));
+            Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
 
         }
-        Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
+        Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
     }
 
     public ContentAdapter(Activity activity) {
@@ -71,21 +84,38 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
     @Override
     public void onBindViewHolder(ContentAdapter.ContentViewholder holder, final int position) {
+            if(isFontAsked){
+                holder.colorsItem.setVisibility(View.GONE);
+                holder.fontItem.setTypeface(App.getZingCursive(activity,resolvedFontList.get(position)));
+                Log.d("Resolved color", resolvedFontList.get(position).toString());
+                if (onItemClickListener!=null) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onItemClickListener.onItemFontClick(resolvedFontList.get(position));
+                            onItemClickListener.onItemFontClick(null);
 
-//       int arrayId=activity.getResources().getIdentifier("allColors","array",activity.getApplicationContext().getPackageName());
-//        TypedArray typedArray=activity.getResources().obtainTypedArray(arrayId);
-//        holder.customView.setCircleColor(typedArray.getResourceId(position, Color.BLACK));
-//        color=App.getArrayItem(activity,"array",position,Color.WHITE);
-        holder.customView.setBackgroundColor(resolvedColorsList.get(position));
-        Log.d("Resolved color", resolvedColorsList.get(position).toString());
-        if (onItemClickListener!=null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(resolvedColorsList.get(position));
+                        }
+                    });
                 }
-            });
-        }
+            }else {
+                holder.fontItem.setVisibility(View.GONE);
+                holder.colorsItem.setBackgroundColor(resolvedColorsList.get(position));
+                Log.d("Resolved color", resolvedColorsList.get(position).toString());
+                if (onItemClickListener!=null) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onItemClickListener.onItemColorClick(resolvedColorsList.get(position));
+                            onItemClickListener.onItemFontClick(null);
+
+                        }
+                    });
+                }
+            }
+
+
+
     }
 
     @Override
@@ -99,14 +129,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     }
 
     public class ContentViewholder extends RecyclerView.ViewHolder {
-        View customView;
-        TextView textView;
+        View colorsItem;
+        TextView fontItem;
 
         public ContentViewholder(View itemView) {
             super(itemView);
-            customView = (View) itemView.findViewById(R.id.content_color_item);
-//            textView = (TextView) itemView.findViewById(R.id.content_font_item);
-//            textView.setVisibility(View.GONE);
+            colorsItem = (View) itemView.findViewById(R.id.content_color_item);
+            fontItem = (TextView) itemView.findViewById(R.id.content_font_item);
 
         }
     }

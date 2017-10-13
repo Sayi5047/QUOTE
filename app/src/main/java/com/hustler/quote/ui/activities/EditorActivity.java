@@ -1,15 +1,12 @@
 package com.hustler.quote.ui.activities;
 
-import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,10 +45,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private NestedScrollView bottomsheet;
     CoordinatorLayout root;
     RecyclerView colorbgrecyclerview;
+    ContentAdapter contentAdapter;
+
     private boolean thirdDetailvisible;
 
-    ArrayList<String> colors = new ArrayList<>();
-    String[] colorsto;
+    ArrayList<String> items = new ArrayList<>();
+    String[] itemsTo;
 
     /**
      * Find the Views in the layout<br />
@@ -64,7 +63,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 //        setToolbar(this);
-        convertColors();
+//        convertColors();
 
         findViews();
         getIntentData();
@@ -72,12 +71,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void convertColors() {
-        colorsto = getResources().getStringArray(R.array.allColors);
-        for (int i = 0; i < colorsto.length; i++) {
-            colors.add(i, colorsto[i]);
+        itemsTo = getResources().getStringArray(R.array.allColors);
+        for (int i = 0; i < itemsTo.length; i++) {
+            items.add(i, itemsTo[i]);
         }
         Log.d("Colors Added -->", "done");
 
+    }
+
+    private void convertFonts() {
+        itemsTo = getResources().getStringArray(R.array.allfonts);
+        for (int i = 0; i < itemsTo.length; i++) {
+            items.add(i, itemsTo[i]);
+        }
+        Log.d("Fonts Added -->", "done");
     }
 
 
@@ -106,19 +113,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         seekBar = (SeekBar) findViewById(R.id.seekbar_tv);
 
         colorbgrecyclerview = (RecyclerView) findViewById(R.id.content_rv);
-
         colorbgrecyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
-
-        ContentAdapter contentAdapter;
-        contentAdapter = new ContentAdapter(this, colors, new ContentAdapter.onItemClickListener() {
-            @Override
-            public void onItemClick(int val) {
-
-                tvQuoteBody.setTextColor(val);
-                tvQuoteAuthor.setTextColor(val);
-            }
-        });
-        colorbgrecyclerview.setAdapter(contentAdapter);
 
 
 //        bottomsheet = (NestedScrollView) findViewById(R.id.bottomsheet);
@@ -204,6 +199,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     bottomSheetBehavior.setPeekHeight(80);
+                    setFontTypeRecyclerview();
 
                 } else {
 
@@ -213,17 +209,21 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     }
                 }
             }
-            case R.id.texto_editor_size: {
-                if (thirdDetailvisible) {
-                    thirdDetail.setVisibility(View.GONE);
+            case R.id.texto_editor_color: {
+
+                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    bottomSheetBehavior.setPeekHeight(80);
+                    setFontColorRecyclerView();
 
                 } else {
-                    thirdDetail.setVisibility(View.VISIBLE);
-                    thirdDetailvisible = true;
-                    seekBar.setOnSeekBarChangeListener(this);
 
-
+                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+                        bottomSheetBehavior.setPeekHeight(0);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    }
                 }
+
 
             }
             case R.id.close_text_size: {
@@ -231,6 +231,42 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 thirdDetail.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void setFontColorRecyclerView() {
+        convertColors();
+        contentAdapter = new ContentAdapter(this, items, new ContentAdapter.onItemClickListener() {
+            @Override
+            public void onItemColorClick(int color) {
+                tvQuoteBody.setTextColor(color);
+                tvQuoteAuthor.setTextColor(color);
+            }
+
+            @Override
+            public void onItemFontClick(String font) {
+
+            }
+        }, false);
+        colorbgrecyclerview.setAdapter(contentAdapter);
+    }
+
+    private void setFontTypeRecyclerview() {
+        convertFonts();
+        contentAdapter = new ContentAdapter(this, items, new ContentAdapter.onItemClickListener() {
+            @Override
+            public void onItemColorClick(int color) {
+
+            }
+
+            @Override
+            public void onItemFontClick(String font) {
+
+                tvQuoteBody.setTypeface(App.getZingCursive(EditorActivity.this, font));
+                tvQuoteAuthor.setTypeface(App.getZingCursive(EditorActivity.this, font));
+            }
+
+        }, true);
+        colorbgrecyclerview.setAdapter(contentAdapter);
     }
 
     @Override

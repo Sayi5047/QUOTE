@@ -15,16 +15,15 @@
         android:layout_margin="@dimen/elevation4"
         android:background="@drawable/alphawhite"/>
 
-    <!--<TextView-->
-        <!--android:id="@+id/content_font_item"-->
-        <!--android:layout_width="48dp"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:background="@drawable/transparent_circle"-->
-        <!--android:text="Aa"-->
-        <!--android:layout_margin="@dimen/elevation4"-->
-        <!--android:textColor="@drawable/alphawhite"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:textAlignment="center"/>-->
+    <TextView
+        android:id="@+id/content_font_item"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="Aa"
+        android:background="@drawable/circledrawable"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"/>
 
 </LinearLayout>
