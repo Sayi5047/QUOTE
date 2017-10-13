@@ -234,7 +234,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setFontColorRecyclerView() {
-        convertColors();
+        convertFonts();
         contentAdapter = new ContentAdapter(this, items, new ContentAdapter.onItemClickListener() {
             @Override
             public void onItemColorClick(int color) {

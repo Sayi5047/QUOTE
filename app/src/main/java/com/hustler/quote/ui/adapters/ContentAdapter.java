@@ -23,19 +23,18 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     ArrayList<String> items;
     int color;
     ArrayList<Integer> resolvedColorsList = new ArrayList<>();
-    ArrayList<String> resolvedFontList=new ArrayList<>();
+    ArrayList<String> resolvedFontList = new ArrayList<>();
     public onItemClickListener onItemClickListener;
     boolean isFontAsked;
 
-    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener listener,boolean isFont) {
+    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener listener, boolean isFont) {
         this.activity = activity;
         this.items = items;
         onItemClickListener = listener;
-        isFontAsked=isFont;
-        if(isFont){
+        isFontAsked = isFont;
+        if (isFont) {
             getFontIds();
-        }
-        else {
+        } else {
             getColorids();
 
         }
@@ -43,13 +42,24 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
     private void getFontIds() {
         for (int i = 0; i < items.size(); i++) {
-            resolvedColorsList.add(i, App.getArrayItemColor(activity, "allColors", i, Color.WHITE));
+            resolvedFontList.add(i, App.getArrayItemFont(activity, "allfonts", i, Color.WHITE));
+
             Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
 
         }
         Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
     }
 
+    /*Methos to get the store the id os the colors into an Arraylist*/
+    private void getColorids() {
+        for (int i = 0; i < items.size(); i++) {
+            resolvedColorsList.add(i, App.getArrayItemColor(activity, "allColors", i, Color.WHITE));
+
+            Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
+
+        }
+        Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
+    }
 
     public ContentAdapter(Activity activity, ArrayList<String> items) {
         this.activity = activity;
@@ -59,18 +69,10 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
     public interface onItemClickListener {
         void onItemColorClick(int color);
+
         void onItemFontClick(String font);
     }
 
-    /*Methos to get the store the id os the colors into an Arraylist*/
-    private void getColorids() {
-        for (int i = 0; i < items.size(); i++) {
-            resolvedFontList.add(i, App.getArrayItemFont(activity, "allfonts", i, Color.WHITE));
-            Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
-
-        }
-        Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
-    }
 
     public ContentAdapter(Activity activity) {
         this.activity = activity;
@@ -84,36 +86,35 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
     @Override
     public void onBindViewHolder(ContentAdapter.ContentViewholder holder, final int position) {
-            if(isFontAsked){
-                holder.colorsItem.setVisibility(View.GONE);
-                holder.fontItem.setTypeface(App.getZingCursive(activity,resolvedFontList.get(position)));
-                Log.d("Resolved color", resolvedFontList.get(position).toString());
-                if (onItemClickListener!=null) {
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onItemClickListener.onItemFontClick(resolvedFontList.get(position));
-                            onItemClickListener.onItemFontClick(null);
+        if (isFontAsked) {
+            holder.colorsItem.setVisibility(View.GONE);
+            holder.fontItem.setTypeface(App.getZingCursive(activity, resolvedFontList.get(position)));
+            Log.d("Resolved color", resolvedFontList.get(position).toString());
+            if (onItemClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemFontClick(resolvedFontList.get(position));
+                        onItemClickListener.onItemFontClick(null);
 
-                        }
-                    });
-                }
-            }else {
-                holder.fontItem.setVisibility(View.GONE);
-                holder.colorsItem.setBackgroundColor(resolvedColorsList.get(position));
-                Log.d("Resolved color", resolvedColorsList.get(position).toString());
-                if (onItemClickListener!=null) {
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onItemClickListener.onItemColorClick(resolvedColorsList.get(position));
-                            onItemClickListener.onItemFontClick(null);
-
-                        }
-                    });
-                }
+                    }
+                });
             }
+        } else {
+            holder.fontItem.setVisibility(View.GONE);
+            holder.colorsItem.setBackgroundColor(resolvedColorsList.get(position));
+            Log.d("Resolved color", resolvedColorsList.get(position).toString());
+            if (onItemClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemColorClick(resolvedColorsList.get(position));
+                        onItemClickListener.onItemFontClick(null);
 
+                    }
+                });
+            }
+        }
 
 
     }
