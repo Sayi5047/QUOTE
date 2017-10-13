@@ -50,7 +50,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     RecyclerView colorbgrecyclerview;
     private boolean thirdDetailvisible;
 
-    ArrayList<String> colors=new ArrayList<>();
+    ArrayList<String> colors = new ArrayList<>();
     String[] colorsto;
 
     /**
@@ -72,11 +72,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void convertColors() {
-        colorsto=getResources().getStringArray(R.array.allColors);
-        for(int i=0;i<colorsto.length;i++){
-            colors.add(i,colorsto[i]);
+        colorsto = getResources().getStringArray(R.array.allColors);
+        for (int i = 0; i < colorsto.length; i++) {
+            colors.add(i, colorsto[i]);
         }
-        Log.d("Colors Added -->","done");
+        Log.d("Colors Added -->", "done");
 
     }
 
@@ -105,12 +105,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         seekBar = (SeekBar) findViewById(R.id.seekbar_tv);
 
-        colorbgrecyclerview=(RecyclerView) findViewById(R.id.content_rv);
+        colorbgrecyclerview = (RecyclerView) findViewById(R.id.content_rv);
 
-        colorbgrecyclerview.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false));
+        colorbgrecyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
         ContentAdapter contentAdapter;
-        contentAdapter=new ContentAdapter(this, colors, new ContentAdapter.onItemClickListener() {
+        contentAdapter = new ContentAdapter(this, colors, new ContentAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int val) {
 
@@ -130,7 +130,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_text_size.setOnClickListener(this);
 
         thirdDetail.setVisibility(View.VISIBLE);
-        thirdDetailvisible=false;
+        thirdDetailvisible = false;
 
         managingBottomsheet();
     }
@@ -190,7 +190,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
             }
             case R.id.background_image: {
-                
+
 //                if (thirdDetailvisible) {
 //                    thirdDetail.setVisibility(View.VISIBLE);
 //
@@ -219,7 +219,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                 } else {
                     thirdDetail.setVisibility(View.VISIBLE);
-                    thirdDetailvisible=true;
+                    thirdDetailvisible = true;
                     seekBar.setOnSeekBarChangeListener(this);
 
 
@@ -227,7 +227,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             case R.id.close_text_size: {
-                thirdDetailvisible=false;
+                thirdDetailvisible = false;
                 thirdDetail.setVisibility(View.GONE);
             }
         }
