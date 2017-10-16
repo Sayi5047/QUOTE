@@ -20,14 +20,14 @@ import java.util.ArrayList;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentViewholder> {
     Activity activity;
-    ArrayList<String> items;
+   String[] items;
     int color;
     ArrayList<Integer> resolvedColorsList = new ArrayList<>();
     ArrayList<String> resolvedFontList = new ArrayList<>();
     public onItemClickListener onItemClickListener;
     boolean isFontAsked;
 
-    public ContentAdapter(Activity activity, ArrayList<String> items, ContentAdapter.onItemClickListener listener, boolean isFont) {
+    public ContentAdapter(Activity activity, String[] items, ContentAdapter.onItemClickListener listener, boolean isFont) {
         this.activity = activity;
         this.items = items;
         onItemClickListener = listener;
@@ -41,18 +41,18 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     }
 
     private void getFontIds() {
-        for (int i = 0; i < items.size(); i++) {
-            resolvedFontList.add(i, App.getArrayItemFont(activity, "allfonts", i, Color.WHITE));
+        for (int i = 0; i <= items.length; i++) {
+            resolvedFontList.add(i, App.getArrayItemFont(activity, "allfonts", i));
 
-            Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
+            Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
 
         }
-        Log.d("Files Added -->", String.valueOf(resolvedColorsList.size()));
+        Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
     }
 
     /*Methos to get the store the id os the colors into an Arraylist*/
     private void getColorids() {
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.length; i++) {
             resolvedColorsList.add(i, App.getArrayItemColor(activity, "allColors", i, Color.WHITE));
 
             Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
@@ -61,7 +61,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
         Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
     }
 
-    public ContentAdapter(Activity activity, ArrayList<String> items) {
+    public ContentAdapter(Activity activity, String[] items) {
         this.activity = activity;
         this.items = items;
 
@@ -95,7 +95,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
                     @Override
                     public void onClick(View v) {
                         onItemClickListener.onItemFontClick(resolvedFontList.get(position));
-                        onItemClickListener.onItemFontClick(null);
 
                     }
                 });
@@ -109,7 +108,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
                     @Override
                     public void onClick(View v) {
                         onItemClickListener.onItemColorClick(resolvedColorsList.get(position));
-                        onItemClickListener.onItemFontClick(null);
 
                     }
                 });
@@ -122,10 +120,10 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     @Override
     public int getItemCount() {
 
-        if (items.size() <= 0) {
+        if (items.length <= 0) {
             return 0;
         } else {
-            return items.size();
+            return items.length;
         }
     }
 

@@ -55,7 +55,7 @@ public  class App extends Application{
 
     }
 
-    public static String getArrayItemFont(Activity activity,String name,int index,int defaultval){
+    public static String getArrayItemFont(Activity activity,String name,int index){
         int arrayid;
         arrayid = activity.getResources().getIdentifier(name,"array",activity.getApplicationContext().getPackageName());
         TypedArray typedArray;

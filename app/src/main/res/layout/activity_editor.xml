@@ -29,7 +29,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
-        android:id="@+id/secod_detail"
+        android:id="@+id/editor_font_module"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -47,7 +47,7 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/texto_editor_size"
+            android:id="@+id/Editor_text_module_Size"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -56,7 +56,7 @@
             android:src="@drawable/ic_font_sizes" />
 
         <ImageView
-            android:id="@+id/texto_editor_font"
+            android:id="@+id/Editor_text_module_font_color"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -65,7 +65,7 @@
             android:src="@drawable/ic_font" />
 
         <ImageView
-            android:id="@+id/texto_editor_color"
+            android:id="@+id/Editor_text_module_font_style_changer"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -74,14 +74,64 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/editor_background_module"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="top"
+
+        android:background="@android:color/black"
+        android:elevation="@dimen/elevation4"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_anchor="@id/bottomsheet"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/Editor_background_module_colored_backgrounds"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:padding="@dimen/elevation4"
+            android:src="@drawable/ic_font_sizes" />
+
+        <ImageView
+            android:id="@+id/Editor_background_module_gallery_backgrounds"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_font" />
+
+        <ImageView
+            android:id="@+id/Editor_background_module_picture_opacity_changer"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:src="@drawable/ic_text_color" />
+
+    </LinearLayout>
+
+
     <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/cr_ll"
+        android:id="@+id/Editor_lead_screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="125dp"
-        app:layout_anchor="@id/secod_detail">
+        app:layout_anchor="@id/editor_font_module">
         <LinearLayout
-            android:id="@+id/main_image_layout"
+            android:id="@+id/Editor_lead_screen_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/elevation4"
@@ -170,17 +220,18 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
-        android:id="@+id/third_detail"
+        android:id="@+id/fontsize_change_module"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:elevation="@dimen/elevation4"
         android:orientation="horizontal"
-        app:layout_anchor="@id/cr_ll"
-        app:layout_anchorGravity="bottom">
+        app:layout_anchor="@id/Editor_lead_screen"
+        app:layout_anchorGravity="bottom"
+        android:visibility="gone">
 
         <SeekBar
-            android:id="@+id/seekbar_tv"
+            android:id="@+id/fontChange_seekbar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5">
@@ -188,7 +239,7 @@
         </SeekBar>
 
         <ImageView
-            android:id="@+id/close_text_size"
+            android:id="@+id/font_change_close_button"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_gravity="center"
@@ -198,7 +249,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/bottom_layout"
+        android:id="@+id/top_editor_navigaotor_level1"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:background="@android:color/white">
@@ -209,7 +260,7 @@
             android:layout_weight="2" />
 
         <ImageView
-            android:id="@+id/editor_text"
+            android:id="@+id/font_style_changer_module"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -217,7 +268,7 @@
             android:src="@drawable/ic_format_color_text_black_24dp" />
 
         <ImageView
-            android:id="@+id/background_image"
+            android:id="@+id/font_background_chnager_module"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
