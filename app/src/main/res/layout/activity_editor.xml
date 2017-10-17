@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_cl"
@@ -86,8 +85,7 @@
         android:elevation="@dimen/elevation4"
         android:orientation="horizontal"
         android:visibility="gone"
-        app:layout_anchor="@id/bottomsheet"
-        >
+        app:layout_anchor="@id/bottomsheet">
 
         <ImageView
             android:layout_width="0dp"
@@ -102,7 +100,7 @@
             android:layout_gravity="center"
             android:layout_weight="3"
             android:padding="@dimen/elevation4"
-            android:src="@drawable/ic_font_sizes" />
+            android:src="@drawable/ic_colors_bg" />
 
         <ImageView
             android:id="@+id/Editor_background_module_gallery_backgrounds"
@@ -111,15 +109,15 @@
             android:layout_gravity="center"
             android:layout_weight="3"
             android:padding="@dimen/elevation8"
-            android:src="@drawable/ic_font" />
+            android:src="@drawable/ic_gallery_bg" />
 
         <ImageView
-            android:id="@+id/Editor_background_module_picture_opacity_changer"
+            android:id="@+id/Editor_background_module_picture_filter_changer"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:src="@drawable/ic_text_color" />
+            android:src="@drawable/ic_filters" />
 
     </LinearLayout>
 
@@ -130,10 +128,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="125dp"
         app:layout_anchor="@id/editor_font_module">
+
         <LinearLayout
             android:id="@+id/Editor_lead_screen_linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/elevation4"
             android:background="@color/colorPrimaryDark"
             android:elevation="@dimen/elevation4"
@@ -151,26 +150,35 @@
                 android:textSize="20sp"
                 android:visibility="gone" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/quote_layout"
                 android:layout_width="match_parent"
                 android:layout_height="440dp"
                 android:background="#f5f5f5"
                 android:elevation="@dimen/elevation4"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageView_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:drawable/screen_background_dark_transparent"/>
 
                 <TextView
                     android:id="@+id/tv_Quote_Body"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="385dp"
                     android:layout_gravity="center"
                     android:layout_weight="5"
                     android:background="@drawable/rect_black_border"
+                    android:elevation="@dimen/elevation4"
                     android:gravity="center"
                     android:padding="5dp"
                     android:textAlignment="center"
-
                     android:textColor="@color/textColor"
                     android:textIsSelectable="true"
 
@@ -182,9 +190,11 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_Quote_Body"
                     android:background="@drawable/rect_black_border"
+                    android:elevation="@dimen/elevation4"
+
                     android:orientation="vertical">
 
                     <ImageView
@@ -213,7 +223,7 @@
                 </LinearLayout>
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -226,9 +236,9 @@
         android:layout_gravity="bottom"
         android:elevation="@dimen/elevation4"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_anchor="@id/Editor_lead_screen"
-        app:layout_anchorGravity="bottom"
-        android:visibility="gone">
+        app:layout_anchorGravity="bottom">
 
         <SeekBar
             android:id="@+id/fontChange_seekbar"
