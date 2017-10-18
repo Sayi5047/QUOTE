@@ -262,19 +262,16 @@
         android:id="@+id/top_editor_navigaotor_level1"
         android:layout_width="match_parent"
         android:layout_height="42dp"
+        android:padding="1dp"
         android:background="@android:color/white">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2" />
 
         <ImageView
             android:id="@+id/font_style_changer_module"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:src="@drawable/ic_format_color_text_black_24dp" />
 
         <ImageView
@@ -282,15 +279,25 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:padding="1dp"
 
             android:src="@drawable/ic_image_black_24dp" />
-
-        <TextView
+        <ImageView
+            android:id="@+id/font_save_module"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:padding="1dp"
+            android:src="@drawable/ic_save_black_24dp"/>
+
+        <ImageView
+            android:id="@+id/font_share_module"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:padding="1dp"
+            android:src="@drawable/ic_share_accent_24dp"/>
 
     </LinearLayout>
 

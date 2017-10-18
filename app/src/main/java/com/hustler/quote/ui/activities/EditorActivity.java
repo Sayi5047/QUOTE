@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -12,10 +11,8 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 import android.support.v4.widget.NestedScrollView;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -34,11 +31,13 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
-    private static final int MY_PERMISSION_REQUEST_STORAGE = 1002;
+    private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY = 1002;
+    private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
 
     private LinearLayout leadScreen_layout;
     private LinearLayout level_1_editor_navigator;
@@ -48,7 +47,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private ImageView font_size_changer, background_color_changer;
     private ImageView font_color_changer, background_gallery_chooser;
     private ImageView close_text_size, background_opacity_changer;
-    private ImageView font_family_changer;
+    private ImageView font_family_changer, font_save_module, font_share_module;
     private LinearLayout level_1_1_1_editor_font_sizeChanger_seekbar_layout;
     private TextView quote_editor_body;
     private ImageView quoteAnim;
@@ -66,9 +65,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private boolean thirdDetailvisible;
 
+    public File savedFile;
+
     ArrayList<String> items = new ArrayList<>();
     String[] itemsTo;
     private ImageView imageView_background;
+    private int backpressCount=0;
 
     /**
      * Find the Views in the layout<br />
@@ -123,6 +125,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //      level 1 top bar buttons
         font_module = (ImageView) findViewById(R.id.font_style_changer_module);
         background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
+        font_save_module = (ImageView) findViewById(R.id.font_save_module);
+        font_share_module = (ImageView) findViewById(R.id.font_share_module);
 
 //        level 1.1 text font manipulator options
         font_size_changer = (ImageView) findViewById(R.id.Editor_text_module_Size);
@@ -165,6 +169,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_color_changer.setOnClickListener(this);
         background_gallery_chooser.setOnClickListener(this);
         background_opacity_changer.setOnClickListener(this);
+        font_save_module.setOnClickListener(this);
+        font_share_module.setOnClickListener(this);
 
 //        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
 //        thirdDetailvisible = false;
@@ -250,6 +256,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             break;
+            case R.id.font_save_module: {
+                if (isPermissionAvailable()) {
+
+                    savedFile=App.savetoDevice(quoteLayout);
+                } else {
+                    requestAppPermissions_to_save_to_gallery();
+                }
+
+            }
+            break;
+
+
+            case R.id.font_share_module: {
+
+            }
+            break;
+
 
 //            TEXT MODULE CASES
 
@@ -356,7 +379,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         ActivityCompat.requestPermissions(
                 this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE));
+                (MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY));
+    }  private void requestAppPermissions_to_save_to_gallery() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                (MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY));
     }
 
     private void setBackgroundColorRecyclerView() {
@@ -465,17 +493,32 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSION_REQUEST_STORAGE: {
+            case MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     launchGallery();
                 }
             }
+            break;
+            case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY:{
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    savedFile=App.savetoDevice(quoteLayout);
+                }
+            }
+            break;
         }
     }
 
     @Override
     public void onBackPressed() {
+        backpressCount++;
 
+        if(backpressCount>=2){
+            this.finish();
+        }
+        else {
+//            App.showToast(activity,"Press again to discard the image and exit");
+
+        }
     }
 }
 

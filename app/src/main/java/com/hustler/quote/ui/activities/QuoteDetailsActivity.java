@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static com.hustler.quote.ui.superclasses.App.savetoDevice;
 
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
@@ -144,7 +147,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void checkpermissions_and_proceed() {
         if (isPermissionAvailable()) {
-            savetoDevice();
+            savedFile=savetoDevice(quote_layout);
         } else {
             requestAppPermissions();
         }
@@ -172,7 +175,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         switch (requestCode) {
             case MY_PERMISSION_REQUEST_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savetoDevice();
+                    savedFile=savetoDevice(quote_layout);
                 }
             }
         }
@@ -187,7 +190,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         if (savedFile != null) {
             uri = Uri.fromFile(savedFile);
         } else {
-            savetoDevice();
+            savedFile=savetoDevice(quote_layout);
             if (savedFile != null) {
                 uri = Uri.fromFile(savedFile);
             } else {
@@ -219,39 +222,39 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-    private void savetoDevice() {
-
-
-        new Thread() {
-            @Override
-            public void run() {
-                Bitmap bitmap = quote_layout.getDrawingCache();
-//        quote_layout.setDrawingCacheEnabled(false);
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-
-                File file = new File(new StringBuilder().append(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES))
-                        .append(File.separator)
-                        .append(quote.getBody().substring(0, 10))
-                        .append(quote.getAuthor())
-                        .append(System.currentTimeMillis())
-                        .append(".jpeg")
-                        .toString());
-                savedFile = file;
-                Log.d("ImageLocation -->", file.toString());
-                try {
-                    file.createNewFile();
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    fileOutputStream.write(byteArrayOutputStream.toByteArray());
-                    fileOutputStream.close();
-//                    App.showToast(QuoteDetailsActivity.this,getString(R.string.image_saved));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
-
-    }
+//    private void savetoDevice(ViewGroup layout) {
+//
+//
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Bitmap bitmap = quote_layout.getDrawingCache();
+////        quote_layout.setDrawingCacheEnabled(false);
+//
+//                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//
+//                File file = new File(new StringBuilder().append(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES))
+//                        .append(File.separator)
+//                        .append(quote.getBody().substring(0, 10))
+//                        .append(quote.getAuthor())
+//                        .append(System.currentTimeMillis())
+//                        .append(".jpeg")
+//                        .toString());
+//                savedFile = file;
+//                Log.d("ImageLocation -->", file.toString());
+//                try {
+//                    file.createNewFile();
+//                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+//                    fileOutputStream.write(byteArrayOutputStream.toByteArray());
+//                    fileOutputStream.close();
+////                    App.showToast(QuoteDetailsActivity.this,getString(R.string.image_saved));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+//
+//
+//    }
 }
