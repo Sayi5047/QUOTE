@@ -49,7 +49,6 @@ public class MainActivity extends BaseActivity
     }
 
 
-
     private void ininView() {
         frameLayout = (FrameLayout) findViewById(R.id.main_fragment);
         searchBar = (EditText) findViewById(R.id.search_bar);
@@ -63,7 +62,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
 
         TextView tv_header = (TextView) toolbar.findViewById(R.id.header_name);
-        tv_header.setTypeface(App.getZingCursive(this, Constants.FONT_ZINGCURSIVE));
+        tv_header.setTypeface(App.getZingCursive(this, Constants.FONT_multicolore));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -107,8 +106,8 @@ public class MainActivity extends BaseActivity
 //                searchBar.setVisibility(View.GONE);
 //                searchBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
 //            } else {
-                searchBar.setVisibility(View.VISIBLE);
-                searchBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
+            searchBar.setVisibility(View.VISIBLE);
+            searchBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
 
 
         }

@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-
+android:visibility="gone"
                 android:src="@drawable/ic_filter_list_black_24dp"/>
         </LinearLayout>
 

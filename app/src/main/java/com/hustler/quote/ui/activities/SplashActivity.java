@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.*;
 
 
@@ -33,6 +34,7 @@ public class SplashActivity extends BaseActivity {
         iv=(ImageView) findViewById(R.id.iv_logo);
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slideup));
+        tv.setTypeface(App.getZingCursive(this, Constants.FONT_multicolore));
         CountDownTimer countDownTimer=new CountDownTimer(3000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
