@@ -13,6 +13,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.support.v8.renderscript.*;
 
 import com.hustler.quote.R;
 

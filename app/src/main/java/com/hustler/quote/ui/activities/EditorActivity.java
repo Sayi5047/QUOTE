@@ -4,15 +4,24 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
+import android.renderscript.Type;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,6 +40,7 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -46,7 +56,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout level_1_1_editor_font_size_manipulator;
     private ImageView font_size_changer, background_color_changer;
     private ImageView font_color_changer, background_gallery_chooser;
-    private ImageView close_text_size, background_opacity_changer;
+    private ImageView close_text_size, background_opacity_changer, background_module_blurred_changer, empty_image_to_be_blurred;
     private ImageView font_family_changer, font_save_module, font_share_module;
     private LinearLayout level_1_1_1_editor_font_sizeChanger_seekbar_layout;
     private TextView quote_editor_body;
@@ -70,7 +80,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     ArrayList<String> items = new ArrayList<>();
     String[] itemsTo;
     private ImageView imageView_background;
-    private int backpressCount=0;
+    private int backpressCount = 0;
+    //    Varaible to check for assigning the seekbar
+    private boolean isTextLayout_visible;
+    private Bitmap currentbitmap;
 
     /**
      * Find the Views in the layout<br />
@@ -136,7 +149,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        level 1.2 text background manipulator options
         background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
         background_gallery_chooser = (ImageView) findViewById(R.id.Editor_background_module_gallery_backgrounds);
+        background_module_blurred_changer = (ImageView) findViewById(R.id.Editor_background_module_blurred_backgrounds);
         background_opacity_changer = (ImageView) findViewById(R.id.Editor_background_module_picture_filter_changer);
+        empty_image_to_be_blurred = (ImageView) findViewById(R.id.empty_image_to_be_blurred);
 
 
 //        level 1.1.1 font_text_changer_layout
@@ -168,6 +183,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_text_size.setOnClickListener(this);
         background_color_changer.setOnClickListener(this);
         background_gallery_chooser.setOnClickListener(this);
+        background_module_blurred_changer.setOnClickListener(this);
         background_opacity_changer.setOnClickListener(this);
         font_save_module.setOnClickListener(this);
         font_share_module.setOnClickListener(this);
@@ -226,6 +242,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //            MAIN NAVIGATOR BUTTONG HANDLING
             case R.id.font_style_changer_module: {
+                isTextLayout_visible = true;
                 if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
                     level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
 
@@ -243,6 +260,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
 
             case R.id.font_background_chnager_module: {
+                isTextLayout_visible = true;
                 if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
                     level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
                     level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
@@ -259,7 +277,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.font_save_module: {
                 if (isPermissionAvailable()) {
 
-                    savedFile=App.savetoDevice(quoteLayout);
+                    savedFile = App.savetoDevice(quoteLayout);
                 } else {
                     requestAppPermissions_to_save_to_gallery();
                 }
@@ -361,6 +379,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             break;
+            case R.id.Editor_background_module_blurred_backgrounds: {
+                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
+                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+                } else {
+                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
+                    font_size_changing_seekbar.setOnSeekBarChangeListener(this);
+
+                }
+            }
+            break;
             case R.id.Editor_background_module_picture_filter_changer: {
 
             }
@@ -373,18 +401,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void launchGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
-    }
-
-    private void requestAppPermissions() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY));
-    }  private void requestAppPermissions_to_save_to_gallery() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY));
     }
 
     private void setBackgroundColorRecyclerView() {
@@ -405,7 +421,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         bottomlayout_recyclerview.setAdapter(contentAdapter);
     }
 
-
+    /*Recyclerview related methods*/
     private void setFontColorRecyclerView() {
         convertColors();
         contentAdapter = new ContentAdapter(this, itemsTo, new ContentAdapter.onItemClickListener() {
@@ -442,13 +458,64 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         bottomlayout_recyclerview.setAdapter(contentAdapter);
     }
 
+/*Blurring method*/
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public Bitmap create_blur(Bitmap src_Bitmap, float radius) {
+        /*Handle radius*/
+        if (radius < 0) {
+            radius = 0.1f;
+        } else if (radius > 25) {
+            radius = 25.0f;
+        }
+
+        /*Create a bitmap with the sousrce*/
+//        Bitmap bitmap = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
+        /*Create a renderscript object*/
+        RenderScript renderScript = RenderScript.create(this);
+
+        Allocation blurr_Input_Allocation = Allocation.createFromBitmap(renderScript, src_Bitmap);
+        Type type=blurr_Input_Allocation.getType();
+        Allocation blurr_Output_Allocation = Allocation.createTyped(renderScript, type );
+
+
+//        Create ScriptIntrensicBlur object (Hero of the story)
+
+        ScriptIntrinsicBlur intrinsicBlur = ScriptIntrinsicBlur.create(renderScript, blurr_Input_Allocation.getElement());
+
+        /* SET INPUT
+        * SET RADIUS
+        * SET FOR EACH PIXEL IN OUTPUT ALLOCATION
+        * COPY THE DATA TO BITMAP
+        * DESTORY IT
+        * RETURN IT*/
+        intrinsicBlur.setRadius(radius);
+        intrinsicBlur.setInput(blurr_Input_Allocation);
+        intrinsicBlur.forEach(blurr_Output_Allocation);
+//        Copy to bitmap
+//        destroy all to free memory
+        blurr_Output_Allocation.copyTo(src_Bitmap);
+        blurr_Input_Allocation.destroy();
+        intrinsicBlur.destroy();
+
+        return src_Bitmap;
+
+
+    }
+
+    /*Seekbar methods*/
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser) {
 //        Toast.makeText(getApplicationContext(), "seekbar progress: " + progress, Toast.LENGTH_SHORT).show();
         float size = (float) progress;
-        quote_editor_body.setTextSize(size);
+//        if (isTextLayout_visible) {
+//            quote_editor_body.setTextSize(size);
+//        } else {
+//        Glide.with(this).load(create_blur(currentbitmap, size)).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .into(imageView_background);
+
+//        }
     }
 
     @Override
@@ -460,8 +527,42 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 //        Toast.makeText(getApplicationContext(), "seekbar touch stopped!", Toast.LENGTH_SHORT).show();
+
+        float radius = (float)seekBar.getProgress();
+//        Converting the whatever bitmap(jpg or png) to png
+//        Because as i studied over time renderscript supporting only png
+//        currentbitmap = ((BitmapDrawable) imageView_background.getDrawable()).getBitmap();
+//        ByteArrayOutputStream stream=new ByteArrayOutputStream();
+//        currentbitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+        imageView_background.buildDrawingCache();
+        currentbitmap=imageView_background.getDrawingCache();
+
+        imageView_background.setImageBitmap( create_blur(currentbitmap, radius));
     }
 
+
+
+
+
+
+
+
+
+/*Permission related Methods*/
+
+    private void requestAppPermissions() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                (MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY));
+    }
+
+    private void requestAppPermissions_to_save_to_gallery() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                (MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY));
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -499,9 +600,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
             }
             break;
-            case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY:{
+            case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savedFile=App.savetoDevice(quoteLayout);
+                    savedFile = App.savetoDevice(quoteLayout);
                 }
             }
             break;
@@ -512,10 +613,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public void onBackPressed() {
         backpressCount++;
 
-        if(backpressCount>=2){
+        if (backpressCount >= 2) {
             this.finish();
-        }
-        else {
+        } else {
 //            App.showToast(activity,"Press again to discard the image and exit");
 
         }

@@ -84,14 +84,9 @@
         android:background="@android:color/black"
         android:elevation="@dimen/elevation4"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_anchor="@id/bottomsheet">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/Editor_background_module_colored_backgrounds"
@@ -108,8 +103,17 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="3"
-            android:padding="@dimen/elevation8"
+            android:padding="@dimen/elevation4"
             android:src="@drawable/ic_gallery_bg" />
+
+        <ImageView
+            android:id="@+id/Editor_background_module_blurred_backgrounds"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:padding="@dimen/elevation2"
+
+            android:src="@drawable/ic_blur_on_black_24dp" />
 
         <ImageView
             android:id="@+id/Editor_background_module_picture_filter_changer"
@@ -117,6 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:padding="@dimen/elevation2"
             android:src="@drawable/ic_filters" />
 
     </LinearLayout>
@@ -144,8 +149,7 @@
                 android:layout_height="440dp"
                 android:elevation="@dimen/elevation4"
                 android:padding="@dimen/elevation8"
-                android:text="gshdgsdgshghsghgshsghsgshghdsghcbhdbchbdvcdsvcgvsdgcvgvdsgcvgdvsgcvgsdvgcvgsdvcgvsdgvcgsdvgcvgdvcgdvgcvsdgvcgdvsgcvdsgvcgdvgcvsgvdgvdgvsdgvgcdsvgcvdgsvcgdsvcgvdsgcvdsgvcgdsvcgdsvgh
-            c"
+                tools:text="gshdgsdgshgvcgvdsgcvdsgvcgdsvcgdsvghc"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
                 android:visibility="gone" />
@@ -161,12 +165,13 @@
                 <ImageView
                     android:id="@+id/imageView_background"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent" />
+
                 <ImageView
+                    android:id="@+id/empty_image_to_be_blurred"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:drawable/screen_background_dark_transparent"/>
+                    android:background="@android:drawable/screen_background_dark_transparent" />
 
                 <TextView
                     android:id="@+id/tv_Quote_Body"
@@ -262,8 +267,8 @@
         android:id="@+id/top_editor_navigaotor_level1"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:padding="1dp"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:padding="1dp">
 
 
         <ImageView
@@ -283,13 +288,14 @@
             android:padding="1dp"
 
             android:src="@drawable/ic_image_black_24dp" />
+
         <ImageView
             android:id="@+id/font_save_module"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:padding="1dp"
-            android:src="@drawable/ic_save_black_24dp"/>
+            android:src="@drawable/ic_save_black_24dp" />
 
         <ImageView
             android:id="@+id/font_share_module"
@@ -297,7 +303,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:padding="1dp"
-            android:src="@drawable/ic_share_accent_24dp"/>
+            android:src="@drawable/ic_share_accent_24dp" />
 
     </LinearLayout>
 
