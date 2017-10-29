@@ -16,6 +16,9 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="Quotes">Quotes</string>
+    <string name="Facts">Facts</string>
+    <string name="Poems">Poems</string>
 
     <!--SPLASH ACTIVITY-->
 

@@ -43,6 +43,8 @@ import com.hustler.quote.ui.superclasses.BaseActivity;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.hustler.quote.ui.superclasses.App.savetoDevice;
+
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY = 1002;
@@ -285,6 +287,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (isPermissionAvailable()) {
 
                     savedFile = App.savetoDevice(quoteLayout);
+                    if(savedFile!=null){
+                        Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     requestAppPermissions_to_save_to_gallery();
                 }
@@ -294,6 +299,27 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
             case R.id.font_share_module: {
+
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
+                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
+                Uri uri = null;
+                if (savedFile != null) {
+                    uri = Uri.fromFile(savedFile);
+                } else {
+                    savedFile=savetoDevice(quoteLayout);
+                    if (savedFile != null) {
+                        uri = Uri.fromFile(savedFile);
+                    } else {
+                        App.showToast(this, getString(R.string.Unable_to_save_share_image));
+                        return;
+                    }
+                }
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.setType("image/jpeg");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(shareIntent, "send"));
 
             }
             break;
@@ -407,7 +433,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.Editor_background_module_picture_filter_changer: {
-
+                Toast.makeText(this, "Coming Soon...!", Toast.LENGTH_SHORT).show();
             }
             break;
 

@@ -41,17 +41,29 @@ public class SplashActivity extends BaseActivity {
 
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onFinish() {
-                getWindow().setEnterTransition(new Explode());
-                Intent intent=new Intent(SplashActivity.this,MainActivity.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this).toBundle());
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    gotoFirstMain();
+//                }
+                gotoSecondmain();
             }
         };
         countDownTimer.start();
 
 
 
+    }
+
+    private void gotoSecondmain() {
+        startActivity(new Intent(SplashActivity.this,SecondMainActivity.class));
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void gotoFirstMain() {
+        getWindow().setEnterTransition(new Explode());
+        Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this).toBundle());
     }
 }

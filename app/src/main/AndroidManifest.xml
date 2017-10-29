@@ -37,11 +37,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".ui.activities.EditorActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".ui.activities.EditorActivity"
             android:label=" "
-            ></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.activities.SecondMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
