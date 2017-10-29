@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.renderscript.Allocation;
-import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.renderscript.Type;
@@ -25,11 +23,13 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -40,7 +40,6 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -84,6 +83,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     //    Varaible to check for assigning the seekbar
     private boolean isTextLayout_visible;
     private Bitmap currentbitmap;
+    private boolean isImageLoaded=false;
 
     /**
      * Find the Views in the layout<br />
@@ -168,7 +168,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
         quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
         imageView_background = (ImageView) findViewById(R.id.imageView_background);
-
+//        imageView_background.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//
+//                return true;
+//
+//            }
+//        });
 
 
 
@@ -260,7 +267,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
 
             case R.id.font_background_chnager_module: {
-                isTextLayout_visible = true;
+                isTextLayout_visible = false;
                 if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
                     level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
                     level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
@@ -349,6 +356,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //            BACKGROUND MODULE CASES
             case R.id.Editor_background_module_colored_backgrounds: {
+                if(level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility()==View.VISIBLE){
+                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+                }
                 if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     bottomSheetBehavior.setPeekHeight(80);
@@ -380,13 +390,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.Editor_background_module_blurred_backgrounds: {
-                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-                } else {
-                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-                    font_size_changing_seekbar.setOnSeekBarChangeListener(this);
 
+                if(!isImageLoaded){
+                    Toast.makeText(this,"Please,select an image to apply blurr effect",Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
+                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+                    } else {
+                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
+                        font_size_changing_seekbar.setOnSeekBarChangeListener(this);
+
+                    }
+                }
+
             }
             break;
             case R.id.Editor_background_module_picture_filter_changer: {
@@ -408,6 +425,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         contentAdapter = new ContentAdapter(this, itemsTo, new ContentAdapter.onItemClickListener() {
             @Override
             public void onItemColorClick(int color) {
+                isImageLoaded=false;
+                if(imageView_background.getDrawingCache()!=null){
+                    currentbitmap=null;
+                    imageView_background.destroyDrawingCache();
+                }
                 imageView_background.setVisibility(View.GONE);
 
                 quoteLayout.setBackgroundColor(color);
@@ -475,8 +497,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         RenderScript renderScript = RenderScript.create(this);
 
         Allocation blurr_Input_Allocation = Allocation.createFromBitmap(renderScript, src_Bitmap);
-        Type type=blurr_Input_Allocation.getType();
-        Allocation blurr_Output_Allocation = Allocation.createTyped(renderScript, type );
+        Type type = blurr_Input_Allocation.getType();
+        Allocation blurr_Output_Allocation = Allocation.createTyped(renderScript, type);
 
 
 //        Create ScriptIntrensicBlur object (Hero of the story)
@@ -507,15 +529,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser) {
-//        Toast.makeText(getApplicationContext(), "seekbar progress: " + progress, Toast.LENGTH_SHORT).show();
-        float size = (float) progress;
-//        if (isTextLayout_visible) {
-//            quote_editor_body.setTextSize(size);
-//        } else {
-//        Glide.with(this).load(create_blur(currentbitmap, size)).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(imageView_background);
 
-//        }
     }
 
     @Override
@@ -526,18 +540,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-//        Toast.makeText(getApplicationContext(), "seekbar touch stopped!", Toast.LENGTH_SHORT).show();
+        float radius = (float) seekBar.getProgress();
+//        imageView_background.setDrawingCacheEnabled(true);
+        if(isTextLayout_visible){
+            quote_editor_body.setTextSize(radius);
+        }
+        else {
+            imageView_background.buildDrawingCache();
+            currentbitmap = imageView_background.getDrawingCache();
+            imageView_background.setImageBitmap(create_blur(currentbitmap, radius));
+        }
 
-        float radius = (float)seekBar.getProgress();
-//        Converting the whatever bitmap(jpg or png) to png
-//        Because as i studied over time renderscript supporting only png
-//        currentbitmap = ((BitmapDrawable) imageView_background.getDrawable()).getBitmap();
-//        ByteArrayOutputStream stream=new ByteArrayOutputStream();
-//        currentbitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
-        imageView_background.buildDrawingCache();
-        currentbitmap=imageView_background.getDrawingCache();
-
-        imageView_background.setImageBitmap( create_blur(currentbitmap, radius));
     }
 
 
@@ -576,7 +589,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             String picturepath = cursor.getString(coloumnIndex);
             cursor.close();
 //           imageView_background.setImageBitmap(BitmapFactory.decodeFile(picturepath));
+            if(imageView_background.getDrawingCache()!=null){
+                currentbitmap=null;
+                imageView_background.destroyDrawingCache();
+            }
             Glide.with(this).load(picturepath).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+            isImageLoaded=true;
 //            imageView_background.setImageResource(picturepath);
         }
     }
