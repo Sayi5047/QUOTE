@@ -218,7 +218,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void setViews() {
         if (quote != null) {
             int length = quote.getBody().length();
-            quoteLayout.setBackgroundColor(quote.getColor());
             root_layout.setBackgroundColor(getResources().getColor(R.color.bg));
 //            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
             if (length > 230) {
@@ -241,6 +240,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             quote_editor_body.setText(quote.getBody());
             quote_editor_author.setText(quote.getAuthor());
+            quote_editor_body.setTextColor(quote.getColor());
+            quote_editor_author.setTextColor(quote.getColor());
+            quote_editor_body.setTypeface(App.getZingCursive(this,Constants.FONT_Sans_Bold));
+            quote_editor_author.setTypeface(App.getZingCursive(this,Constants.FONT_Sans_Bold));
         }
     }
 
