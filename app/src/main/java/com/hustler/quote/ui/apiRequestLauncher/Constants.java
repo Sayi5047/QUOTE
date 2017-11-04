@@ -18,6 +18,7 @@ public class Constants
     public static final String FONT_ZINGCURSIVE="fonts/zingcursive.otf";
     public static final String FONT_ZINGSANS="fonts/zingsans.otf";
     public static final String FONT_multicolore="fonts/multicolore.otf";
+    public static final String FONT_Sans_Bold="fonts/sans_bold.ttf";
 
 
     public static final String INTENT_QUOTE_OBJECT = "QUOTE_OBJECT_TRAVELLER_KEY";

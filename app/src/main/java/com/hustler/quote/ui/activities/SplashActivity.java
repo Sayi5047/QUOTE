@@ -2,12 +2,9 @@ package com.hustler.quote.ui.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.transition.Explode;
 import android.view.animation.AnimationUtils;
@@ -56,7 +53,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void gotoSecondmain() {
-        startActivity(new Intent(SplashActivity.this,SecondMainActivity.class));
+        startActivity(new Intent(SplashActivity.this,HomeActivity.class));
 
     }
 

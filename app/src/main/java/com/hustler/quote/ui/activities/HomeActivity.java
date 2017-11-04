@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.superclasses.App;
 
-public class SecondMainActivity extends AppCompatActivity implements View.OnClickListener ,ViewPager.OnPageChangeListener{
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener ,ViewPager.OnPageChangeListener{
     private AppBarLayout appBar;
     private TextView headerName;
     private FloatingActionButton floatingActionButton;
@@ -44,6 +46,7 @@ public class SecondMainActivity extends AppCompatActivity implements View.OnClic
     private void findViews() {
         appBar = (AppBarLayout)findViewById( R.id.app_bar );
         headerName = (TextView)findViewById( R.id.header_name );
+        headerName.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
         floatingActionButton = (FloatingActionButton)findViewById( R.id.floatingActionButton );
         mainPager = (ViewPager)findViewById( R.id.main_pager );
         tab_layout = (TabLayout) findViewById( R.id.tab_layout );
@@ -115,7 +118,6 @@ public class SecondMainActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onPageSelected(int position) {
-
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +44,9 @@ import static com.hustler.quote.ui.superclasses.App.savetoDevice;
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
     QuotesFromFC quote;
-    LinearLayout root, quote_layout;
+    RelativeLayout root;
+    LinearLayout quote_layout;
+    LinearLayout quote_bottom;
     TextView tv_Quote_Body, tv_Quote_Author,image_saved_message;
     FloatingActionButton fab_save, fab_edit, fab_share;
     ImageView quote_anim;
@@ -64,12 +68,13 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
-        root = (LinearLayout) findViewById(R.id.root);
+        root = (RelativeLayout) findViewById(R.id.root);
         tv_Quote_Author = (TextView) findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = (TextView) findViewById(R.id.tv_Quote_Body);
         image_saved_message=(TextView) findViewById(R.id.image_saved_message);
         image_saved_message.setVisibility(View.GONE);
         quote_layout = (LinearLayout) findViewById(R.id.quote_layout);
+        quote_bottom=(LinearLayout) findViewById(R.id.quote_bottom);
         quote_anim = (ImageView) findViewById(R.id.quote_anim);
         Drawable drawable = quote_anim.getDrawable();
         if (drawable instanceof Animatable) {
@@ -106,6 +111,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
         int length = quote.getBody().length();
         root.setBackgroundColor(quote.getColor());
+        fab_share.setBackgroundColor(quote.getColor());
+        quote_bottom.setBackgroundColor(quote.getColor());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
+        }
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
         if (length > 230) {
             tv_Quote_Body.setTextSize(20.0f);

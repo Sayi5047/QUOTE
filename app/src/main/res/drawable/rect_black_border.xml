@@ -6,6 +6,9 @@
     <stroke
         android:color="@color/textColor"
         android:width="0.5dp"/>
+    <corners
+        android:bottomLeftRadius="@dimen/elevation16"
+        android:bottomRightRadius="@dimen/elevation16"/>
 
 
 </shape>
