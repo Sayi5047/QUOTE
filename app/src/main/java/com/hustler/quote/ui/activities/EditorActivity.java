@@ -43,7 +43,7 @@ import com.hustler.quote.ui.superclasses.BaseActivity;
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.hustler.quote.ui.superclasses.App.savetoDevice;
+import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
@@ -289,7 +289,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.font_save_module: {
                 if (isPermissionAvailable()) {
 
-                    savedFile = App.savetoDevice(quoteLayout);
+                    savedFile = savetoDevice(quoteLayout);
                     if(savedFile!=null){
                         Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
                     }
@@ -649,7 +649,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savedFile = App.savetoDevice(quoteLayout);
+                    savedFile = savetoDevice(quoteLayout);
                 }
             }
             break;

@@ -3,6 +3,8 @@ package com.hustler.quote.ui.activities;
 import android.Manifest;
 import android.animation.Animator;
 import android.app.Activity;
+import android.app.WallpaperManager;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -33,13 +36,14 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+import com.hustler.quote.ui.utils.FileUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static com.hustler.quote.ui.superclasses.App.savetoDevice;
+import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
@@ -48,10 +52,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     LinearLayout quote_layout;
     LinearLayout quote_bottom;
     TextView tv_Quote_Body, tv_Quote_Author,image_saved_message;
-    FloatingActionButton fab_save, fab_edit, fab_share;
+    FloatingActionButton fab_save, fab_edit, fab_share,fab_set_wall;
     ImageView quote_anim;
     File savedFile;
     int val = 1001;
+    private RelativeLayout wallpaper_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         image_saved_message=(TextView) findViewById(R.id.image_saved_message);
         image_saved_message.setVisibility(View.GONE);
         quote_layout = (LinearLayout) findViewById(R.id.quote_layout);
+        wallpaper_layout = (RelativeLayout) findViewById(R.id.wallpaper_layout);
         quote_bottom=(LinearLayout) findViewById(R.id.quote_bottom);
         quote_anim = (ImageView) findViewById(R.id.quote_anim);
         Drawable drawable = quote_anim.getDrawable();
@@ -87,10 +93,13 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         fab_edit = (FloatingActionButton) findViewById(R.id.fab_edit);
         fab_save = (FloatingActionButton) findViewById(R.id.fab_download);
         fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
+        fab_set_wall = (FloatingActionButton) findViewById(R.id.fab_set_wall);
 
         fab_edit.setOnClickListener(this);
         fab_save.setOnClickListener(this);
         fab_share.setOnClickListener(this);
+        fab_set_wall.setOnClickListener(this);
+
 
 //        For building the image
         quote_layout.setDrawingCacheEnabled(true);
@@ -152,6 +161,35 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             case R.id.fab_share:
                 share();
                 break;
+            case R.id.fab_set_wall:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    setWallPaer();
+                }
+                else {
+                    setWallPaerCompat();
+                }
+                break;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void setWallPaer() {
+        Intent intent =new Intent( WallpaperManager.getInstance(this).
+                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(this,new File(checkandRetrieveUri(wallpaper_layout).getPath()))));
+
+        startActivity(intent);
+
+    }
+
+    private void setWallPaerCompat() {
+        WallpaperManager wallpaperManager =WallpaperManager.getInstance(this);
+        try{
+
+            wallpaperManager.setBitmap(FileUtils.returnBitmap(quote_layout));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -196,23 +234,31 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
         shareIntent.putExtra(Intent.EXTRA_TITLE, "Title");
+        Uri uri = checkandRetrieveUri(quote_layout);
+        if(uri!=null){
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            shareIntent.setType("image/jpeg");
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(shareIntent, "send"));
+        }
+        else {
+            return;
+        }
+
+
+
+    }
+
+    private Uri checkandRetrieveUri(ViewGroup rootview) {
         Uri uri = null;
         if (savedFile != null) {
             uri = Uri.fromFile(savedFile);
-        } else {
-            savedFile=savetoDevice(quote_layout);
-            if (savedFile != null) {
-                uri = Uri.fromFile(savedFile);
-            } else {
-                App.showToast(this, getString(R.string.Unable_to_save_share_image));
-                return;
-            }
+        } else if(savedFile == null)
+        {
+            savedFile=savetoDevice(rootview);
+            uri = Uri.fromFile(savedFile);
         }
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        shareIntent.setType("image/jpeg");
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(shareIntent, "send"));
-
+        return uri;
     }
 
     private void changeFont() {

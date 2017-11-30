@@ -40,16 +40,6 @@ public class App extends Application {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
-//    public static void showAlertWithListener(Activity activity){
-//        AlertDialog.Builder alertDialog=new AlertDialog.Builder(activity);
-//        alertDialog.create();
-//        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        })
-//    }
 
     /*Method that returns the desired font typeface object*/
     public static Typeface getZingCursive(Activity activity, String fontname) {
@@ -91,44 +81,5 @@ public class App extends Application {
     }
 
     /*Metohd to get a snap of the given layout and its location*/
-    public static File savetoDevice(final ViewGroup layout) {
-        final File[] filetoReturn = new File[1];
-//        Bitmap bitmap = layout.getDrawingCache();
-        layout.buildDrawingCache(true);
-        Bitmap bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.RGB_565, false);
-        layout.destroyDrawingCache();
-//        layout.setDrawingCacheEnabled(false);
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-
-        File file = new File(new StringBuilder().append(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES))
-                .append(File.separator)
-                .append("QUOTES--")
-//                        .append(quote.getAuthor())
-                .append(System.currentTimeMillis())
-                .append(".jpeg")
-                .toString());
-        filetoReturn[0] = file;
-        Log.d("ImageLocation -->", file.toString());
-        try {
-            file.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(byteArrayOutputStream.toByteArray());
-            fileOutputStream.close();
-//                    App.showToast(QuoteDetailsActivity.this,getString(R.string.image_saved));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        new Thread() {
-//            @Override
-//            public void run() {
-//
-//
-//            }
-//        }.start();
-        return filetoReturn[0];
-
-    }
 
 }
