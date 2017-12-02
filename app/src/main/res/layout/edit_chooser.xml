@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--<TextView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1" />-->
+
+        <Button
+            android:id="@+id/Quotes"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginRight="85dp"
+            android:background="@mipmap/ic_launcher" />
+
+        <Button
+            android:id="@+id/meme"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+
+            android:background="@drawable/ic_image_black_24dp" />
+        <!--<TextView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"/>-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Quotes_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font2" />
+
+        <TextView
+            android:id="@+id/meme_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+
+            android:text="@string/meme"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font2" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/close"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+
+        android:layout_gravity="center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/ic_close_black_24dp" />
+
+
+</LinearLayout>
