@@ -24,6 +24,9 @@ import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.AnimUtils;
+import com.hustler.quote.ui.utils.TextUtils;
+
+import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
@@ -79,6 +82,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        DIALOG FOR EDITORS
         if (v == floatingActionButton) {
             Button quote, meme, close;
+            TextView quote_tv, meme_tv, close_tv,select_tv;
+
 
             // Handle clicks for floatingActionButton
             final Dialog dialog = new Dialog(this, R.style.MyAlertDialog);
@@ -89,6 +94,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             quote = (Button) dialog.findViewById(R.id.Quotes);
             meme = (Button) dialog.findViewById(R.id.meme);
             close = (Button) dialog.findViewById(R.id.close);
+
+            quote_tv = (TextView) dialog.findViewById(R.id.Quotes_tv);
+            meme_tv = (TextView) dialog.findViewById(R.id.meme_tv);
+            close_tv = (TextView) dialog.findViewById(R.id.close_tv);
+            select_tv = (TextView) dialog.findViewById(R.id.select_tv);
+
+            TextUtils.setFont(HomeActivity.this,quote_tv,Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this,meme_tv,Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this,close_tv,Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this,select_tv,Constants.FONT_Sans_Bold);
 
             dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override

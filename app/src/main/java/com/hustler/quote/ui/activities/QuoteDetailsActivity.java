@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -55,6 +56,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     FloatingActionButton fab_save, fab_edit, fab_share,fab_set_wall;
     ImageView quote_anim;
     File savedFile;
+    Window window;
     int val = 1001;
     private RelativeLayout wallpaper_layout;
 
@@ -111,6 +113,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setToolbar(Activity activity) {
         super.setToolbar(activity);
+        window = this.getWindow();
+        window .addFlags( WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -124,6 +130,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         quote_bottom.setBackgroundColor(quote.getColor());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
+            window.setStatusBarColor(quote.getColor());
         }
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
         if (length > 230) {

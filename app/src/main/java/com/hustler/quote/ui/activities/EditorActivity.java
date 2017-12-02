@@ -23,7 +23,8 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -50,6 +51,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
 
+
+    Window windowManager;
     private LinearLayout leadScreen_layout;
     private LinearLayout level_1_editor_navigator;
     private ImageView font_module;
@@ -70,7 +73,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private BottomSheetBehavior bottomSheetBehavior;
     private NestedScrollView bottomsheet;
-    CoordinatorLayout root_layout;
+    RelativeLayout root_layout;
     RecyclerView bottomlayout_recyclerview;
     ContentAdapter contentAdapter;
 
@@ -85,7 +88,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     //    Varaible to check for assigning the seekbar
     private boolean isTextLayout_visible;
     private Bitmap currentbitmap;
-    private boolean isImageLoaded=false;
+    private boolean isImageLoaded = false;
 
     /**
      * Find the Views in the layout<br />
@@ -127,7 +130,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void findViews() {
 //        All layouts
-        root_layout = (CoordinatorLayout) findViewById(R.id.root_cl);
+        root_layout = (RelativeLayout) findViewById(R.id.root_cl);
+        windowManager = this.getWindow();
+        windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         level_1_editor_navigator = (LinearLayout) findViewById(R.id.top_editor_navigaotor_level1);
         leadScreen_layout = (LinearLayout) findViewById(R.id.Editor_lead_screen_linearLayout);
@@ -145,8 +150,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //        level 1.1 text font manipulator options
         font_size_changer = (ImageView) findViewById(R.id.Editor_text_module_Size);
-        font_color_changer = (ImageView) findViewById(R.id.Editor_text_module_font_color);
-        font_family_changer = (ImageView) findViewById(R.id.Editor_text_module_font_style_changer);
+        font_color_changer = (ImageView) findViewById(R.id.Editor_text_module_save);
+        font_family_changer = (ImageView) findViewById(R.id.Editor_text_share);
 
 //        level 1.2 text background manipulator options
         background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
@@ -200,7 +205,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
 //        thirdDetailvisible = false;
 
-        managingBottomsheet();
+//        managingBottomsheet();
     }
 
     private void managingBottomsheet() {
@@ -242,8 +247,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             quote_editor_author.setText(quote.getAuthor());
             quote_editor_body.setTextColor(quote.getColor());
             quote_editor_author.setTextColor(quote.getColor());
-            quote_editor_body.setTypeface(App.getZingCursive(this,Constants.FONT_Sans_Bold));
-            quote_editor_author.setTypeface(App.getZingCursive(this,Constants.FONT_Sans_Bold));
+            quote_editor_body.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+            quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
         }
     }
 
@@ -290,7 +295,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (isPermissionAvailable()) {
 
                     savedFile = savetoDevice(quoteLayout);
-                    if(savedFile!=null){
+                    if (savedFile != null) {
                         Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -311,7 +316,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (savedFile != null) {
                     uri = Uri.fromFile(savedFile);
                 } else {
-                    savedFile=savetoDevice(quoteLayout);
+                    savedFile = savetoDevice(quoteLayout);
                     if (savedFile != null) {
                         uri = Uri.fromFile(savedFile);
                     } else {
@@ -341,7 +346,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
 
-            case R.id.Editor_text_module_font_color: {
+            case R.id.Editor_text_module_save: {
                 if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     bottomSheetBehavior.setPeekHeight(80);
@@ -358,7 +363,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
 
-            case R.id.Editor_text_module_font_style_changer: {
+            case R.id.Editor_text_share: {
 
                 if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -385,7 +390,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //            BACKGROUND MODULE CASES
             case R.id.Editor_background_module_colored_backgrounds: {
-                if(level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility()==View.VISIBLE){
+                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
                     level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
                 }
                 if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
@@ -420,10 +425,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case R.id.Editor_background_module_blurred_backgrounds: {
 
-                if(!isImageLoaded){
-                    Toast.makeText(this,"Please,select an image to apply blurr effect",Toast.LENGTH_SHORT).show();
-                }
-                else {
+                if (!isImageLoaded) {
+                    Toast.makeText(this, "Please,select an image to apply blurr effect", Toast.LENGTH_SHORT).show();
+                } else {
                     if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
                         level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
                     } else {
@@ -454,9 +458,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         contentAdapter = new ContentAdapter(this, itemsTo, new ContentAdapter.onItemClickListener() {
             @Override
             public void onItemColorClick(int color) {
-                isImageLoaded=false;
-                if(imageView_background.getDrawingCache()!=null){
-                    currentbitmap=null;
+                isImageLoaded = false;
+                if (imageView_background.getDrawingCache() != null) {
+                    currentbitmap = null;
                     imageView_background.destroyDrawingCache();
                 }
                 imageView_background.setVisibility(View.GONE);
@@ -571,10 +575,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public void onStopTrackingTouch(SeekBar seekBar) {
         float radius = (float) seekBar.getProgress();
 //        imageView_background.setDrawingCacheEnabled(true);
-        if(isTextLayout_visible){
+        if (isTextLayout_visible) {
             quote_editor_body.setTextSize(radius);
-        }
-        else {
+        } else {
             imageView_background.buildDrawingCache();
             currentbitmap = imageView_background.getDrawingCache();
             imageView_background.setImageBitmap(create_blur(currentbitmap, radius));
@@ -618,12 +621,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             String picturepath = cursor.getString(coloumnIndex);
             cursor.close();
 //           imageView_background.setImageBitmap(BitmapFactory.decodeFile(picturepath));
-            if(imageView_background.getDrawingCache()!=null){
-                currentbitmap=null;
+            if (imageView_background.getDrawingCache() != null) {
+                currentbitmap = null;
                 imageView_background.destroyDrawingCache();
             }
             Glide.with(this).load(picturepath).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
-            isImageLoaded=true;
+            isImageLoaded = true;
 //            imageView_background.setImageResource(picturepath);
         }
     }
