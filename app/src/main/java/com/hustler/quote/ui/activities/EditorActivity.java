@@ -16,7 +16,6 @@ import android.renderscript.Type;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -40,6 +39,7 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+import com.hustler.quote.ui.utils.ToastSnackDialogUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,39 +53,33 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
     Window windowManager;
-    private LinearLayout leadScreen_layout;
-    private LinearLayout level_1_editor_navigator;
-    private ImageView font_module;
-    private ImageView background_image_module;
-    private LinearLayout level_1_1_editor_font_size_manipulator;
-    private ImageView font_size_changer, background_color_changer;
-    private ImageView font_color_changer, background_gallery_chooser;
-    private ImageView close_text_size, background_opacity_changer, background_module_blurred_changer, empty_image_to_be_blurred;
-    private ImageView font_family_changer, font_save_module, font_share_module;
-    private LinearLayout level_1_1_1_editor_font_sizeChanger_seekbar_layout;
-    private TextView quote_editor_body;
-    private ImageView quoteAnim;
-    private TextView quote_editor_author;
+    private LinearLayout Editor_lead_screen_linearLayout,
+            level_1_editor_navigator,
+            level_1_1_editor_font_size_manipulator,
+            level_1_1_1_editor_font_sizeChanger_seekbar_layout,
+            root_layout;
+    private ImageView font_module,
+            background_image_module,
+            empty_image_to_be_blurred,
+            font_size_changer,
+            save_picture,
+            close_text_size,
+            font_family_changer, font_save_module, font_share_module, quoteAnim, imageView_background;
+    private TextView quote_editor_body,
+            quote_editor_author;
     private QuotesFromFC quote;
     private RelativeLayout quoteLayout;
-    private LinearLayout level_1_2_editor_background_manipulator;
     private SeekBar font_size_changing_seekbar;
 
     private BottomSheetBehavior bottomSheetBehavior;
     private NestedScrollView bottomsheet;
-    RelativeLayout root_layout;
     RecyclerView bottomlayout_recyclerview;
+
     ContentAdapter contentAdapter;
-
-    private boolean thirdDetailvisible;
-
     public File savedFile;
-
     ArrayList<String> items = new ArrayList<>();
     String[] itemsTo;
-    private ImageView imageView_background;
     private int backpressCount = 0;
-    //    Varaible to check for assigning the seekbar
     private boolean isTextLayout_visible;
     private Bitmap currentbitmap;
     private boolean isImageLoaded = false;
@@ -130,14 +124,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void findViews() {
 //        All layouts
-        root_layout = (RelativeLayout) findViewById(R.id.root_cl);
+        root_layout = (LinearLayout) findViewById(R.id.root_cl);
         windowManager = this.getWindow();
         windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         level_1_editor_navigator = (LinearLayout) findViewById(R.id.top_editor_navigaotor_level1);
-        leadScreen_layout = (LinearLayout) findViewById(R.id.Editor_lead_screen_linearLayout);
+        Editor_lead_screen_linearLayout = (LinearLayout) findViewById(R.id.Editor_lead_screen_linearLayout);
         level_1_1_editor_font_size_manipulator = (LinearLayout) findViewById(R.id.editor_font_module);
-        level_1_2_editor_background_manipulator = (LinearLayout) findViewById(R.id.editor_background_module);
+//        level_1_2_editor_background_manipulator = (LinearLayout) findViewById(R.id.editor_background_module);/**/
         level_1_1_1_editor_font_sizeChanger_seekbar_layout = (LinearLayout) findViewById(R.id.fontsize_change_module);
 
         quoteLayout = (RelativeLayout) findViewById(R.id.quote_layout);
@@ -150,14 +144,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //        level 1.1 text font manipulator options
         font_size_changer = (ImageView) findViewById(R.id.Editor_text_module_Size);
-        font_color_changer = (ImageView) findViewById(R.id.Editor_text_module_save);
+        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
         font_family_changer = (ImageView) findViewById(R.id.Editor_text_share);
 
 //        level 1.2 text background manipulator options
-        background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
-        background_gallery_chooser = (ImageView) findViewById(R.id.Editor_background_module_gallery_backgrounds);
-        background_module_blurred_changer = (ImageView) findViewById(R.id.Editor_background_module_blurred_backgrounds);
+    /*    background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
         background_opacity_changer = (ImageView) findViewById(R.id.Editor_background_module_picture_filter_changer);
+        background_gallery_chooser = (ImageView) findViewById(R.id.Editor_background_module_gallery_backgrounds);
+        background_module_blurred_changer = (ImageView) findViewById(R.id.Editor_background_module_blurred_backgrounds);*/
         empty_image_to_be_blurred = (ImageView) findViewById(R.id.empty_image_to_be_blurred);
 
 
@@ -193,12 +187,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         font_size_changer.setOnClickListener(this);
         font_family_changer.setOnClickListener(this);
-        font_color_changer.setOnClickListener(this);
+        save_picture.setOnClickListener(this);
         close_text_size.setOnClickListener(this);
-        background_color_changer.setOnClickListener(this);
-        background_gallery_chooser.setOnClickListener(this);
-        background_module_blurred_changer.setOnClickListener(this);
-        background_opacity_changer.setOnClickListener(this);
+//        background_color_changer.setOnClickListener(this);
+//        background_gallery_chooser.setOnClickListener(this);
+//        background_module_blurred_changer.setOnClickListener(this);
+//        background_opacity_changer.setOnClickListener(this);
         font_save_module.setOnClickListener(this);
         font_share_module.setOnClickListener(this);
 
@@ -259,35 +253,35 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //            MAIN NAVIGATOR BUTTONG HANDLING
             case R.id.font_style_changer_module: {
-                isTextLayout_visible = true;
-                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
-                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
-
-
-                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
-                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
-                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-
-
-                } else {
-                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-
-                }
+//                isTextLayout_visible = true;
+//                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
+//                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
+//
+//
+////                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
+////                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
+////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
+////
+////
+////                } else {
+//                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
+//
+//                }
             }
             break;
 
             case R.id.font_background_chnager_module: {
-                isTextLayout_visible = false;
-                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
-                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
-                    level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
-
-                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
-                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
-                } else {
-                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-
-                }
+//                isTextLayout_visible = false;
+//                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
+//                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
+//                    level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
+//
+//                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
+//                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
+//                } else {
+//                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
+//
+//                }
 
             }
             break;
@@ -336,57 +330,35 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //            TEXT MODULE CASES
 
             case R.id.Editor_text_module_Size: {
-                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-                } else {
-                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-                    font_size_changing_seekbar.setOnSeekBarChangeListener(this);
-
-                }
+//                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
+//                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+//                } else {
+//                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
+//                    font_size_changing_seekbar.setOnSeekBarChangeListener(this);
+//
+//                }
             }
             break;
 
             case R.id.Editor_text_module_save: {
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    bottomSheetBehavior.setPeekHeight(80);
-                    setFontColorRecyclerView();
 
-                } else {
-
-                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
-                        bottomSheetBehavior.setPeekHeight(0);
-                        bottomlayout_recyclerview.setAdapter(null);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    }
-                }
             }
             break;
 
             case R.id.Editor_text_share: {
 
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    bottomSheetBehavior.setPeekHeight(80);
-                    setFontTypeRecyclerview();
-
-                } else {
-
-                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
-                        bottomSheetBehavior.setPeekHeight(0);
-                        bottomlayout_recyclerview.setAdapter(null);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    }
-                }
+                ToastSnackDialogUtils.show_ShortToast(this, getString(R.string.coming_soon));
 
 
             }
             break;
             case R.id.font_change_close_button: {
 //                thirdDetailvisible = false;
-                level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+//                level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+                super.onBackPressed();
             }
             break;
+/*
 
 //            BACKGROUND MODULE CASES
             case R.id.Editor_background_module_colored_backgrounds: {
@@ -443,6 +415,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 Toast.makeText(this, "Coming Soon...!", Toast.LENGTH_SHORT).show();
             }
             break;
+*/
 
 
         }
