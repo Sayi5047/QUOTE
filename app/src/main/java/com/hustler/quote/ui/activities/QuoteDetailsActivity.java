@@ -1,28 +1,22 @@
 package com.hustler.quote.ui.activities;
 
 import android.Manifest;
-import android.animation.Animator;
 import android.app.Activity;
 import android.app.WallpaperManager;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -39,10 +32,7 @@ import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.FileUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
@@ -52,8 +42,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     RelativeLayout root;
     LinearLayout quote_layout;
     LinearLayout quote_bottom;
-    TextView tv_Quote_Body, tv_Quote_Author,image_saved_message;
-    FloatingActionButton fab_save, fab_edit, fab_share,fab_set_wall;
+    TextView tv_Quote_Body, tv_Quote_Author, image_saved_message;
+    FloatingActionButton fab_save, fab_edit, fab_share, fab_set_wall;
     ImageView quote_anim;
     File savedFile;
     Window window;
@@ -78,11 +68,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         root = (RelativeLayout) findViewById(R.id.root);
         tv_Quote_Author = (TextView) findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = (TextView) findViewById(R.id.tv_Quote_Body);
-        image_saved_message=(TextView) findViewById(R.id.image_saved_message);
-        image_saved_message.setVisibility(View.GONE);
+
         quote_layout = (LinearLayout) findViewById(R.id.quote_layout);
         wallpaper_layout = (RelativeLayout) findViewById(R.id.wallpaper_layout);
-        quote_bottom=(LinearLayout) findViewById(R.id.quote_bottom);
+        quote_bottom = (LinearLayout) findViewById(R.id.quote_bottom);
         quote_anim = (ImageView) findViewById(R.id.quote_anim);
         Drawable drawable = quote_anim.getDrawable();
         if (drawable instanceof Animatable) {
@@ -114,7 +103,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     public void setToolbar(Activity activity) {
         super.setToolbar(activity);
         window = this.getWindow();
-        window .addFlags( WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -171,8 +160,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             case R.id.fab_set_wall:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     setWallPaer();
-                }
-                else {
+                } else {
                     setWallPaerCompat();
                 }
                 break;
@@ -181,28 +169,26 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void setWallPaer() {
-        Intent intent =new Intent( WallpaperManager.getInstance(this).
-                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(this,new File(checkandRetrieveUri(wallpaper_layout).getPath()))));
+        Intent intent = new Intent(WallpaperManager.getInstance(this).
+                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(this, new File(checkandRetrieveUri(wallpaper_layout).getPath()))));
 
         startActivity(intent);
 
     }
 
     private void setWallPaerCompat() {
-        WallpaperManager wallpaperManager =WallpaperManager.getInstance(this);
-        try{
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
+        try {
 
             wallpaperManager.setBitmap(FileUtils.returnBitmap(quote_layout));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void checkpermissions_and_proceed() {
         if (isPermissionAvailable()) {
-            savedFile=savetoDevice(quote_layout);
+            savedFile = savetoDevice(quote_layout);
         } else {
             requestAppPermissions();
         }
@@ -221,7 +207,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private void requestAppPermissions() {
         ActivityCompat.requestPermissions(
                 this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 (MY_PERMISSION_REQUEST_STORAGE));
     }
 
@@ -230,7 +216,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         switch (requestCode) {
             case MY_PERMISSION_REQUEST_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savedFile=savetoDevice(quote_layout);
+                    savedFile = savetoDevice(quote_layout);
                 }
             }
         }
@@ -242,16 +228,14 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
         shareIntent.putExtra(Intent.EXTRA_TITLE, "Title");
         Uri uri = checkandRetrieveUri(quote_layout);
-        if(uri!=null){
+        if (uri != null) {
             shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
             shareIntent.setType("image/jpeg");
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(shareIntent, "send"));
-        }
-        else {
+        } else {
             return;
         }
-
 
 
     }
@@ -260,9 +244,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         Uri uri = null;
         if (savedFile != null) {
             uri = Uri.fromFile(savedFile);
-        } else if(savedFile == null)
-        {
-            savedFile=savetoDevice(rootview);
+        } else if (savedFile == null) {
+            savedFile = savetoDevice(rootview);
             uri = Uri.fromFile(savedFile);
         }
         return uri;
@@ -280,8 +263,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //            anim.start();
 //        }
 
-        Intent intent=new Intent(this,EditorActivity.class);
-        intent.putExtra(Constants.INTENT_QUOTE_OBJECT,quote);
+        Intent intent = new Intent(this, EditorActivity.class);
+        intent.putExtra(Constants.INTENT_QUOTE_OBJECT, quote);
         startActivity(intent);
     }
 
