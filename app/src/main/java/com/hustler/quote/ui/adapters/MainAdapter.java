@@ -66,7 +66,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         holder.itemView.setBackgroundColor(color);
         final QuotesFromFC quote = dataFromNet.get(position);
         quote.setColor(color);
-        holder.itemView.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slideup));
         String genre;
         if (quote.getTags().size() <= 0) {
             genre = "anonymous";

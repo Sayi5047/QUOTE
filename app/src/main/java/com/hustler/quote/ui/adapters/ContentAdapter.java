@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.superclasses.App;
+import com.hustler.quote.ui.utils.TextUtils;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
     private void getFontIds() {
         for (int i = 0; i <= items.length; i++) {
-            resolvedFontList.add(i, App.getArrayItemFont(activity, "allfonts", i));
+            resolvedFontList.add(i, TextUtils.getArrayItem_of_String(activity, "allfonts", i));
 
             Log.d("Files Added -->", String.valueOf(resolvedFontList.size()));
 

@@ -115,6 +115,8 @@ public class MainFragment extends Fragment {
 
                     }
                 }));
+                rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
+
                 selectedQuote = new Random().nextInt(quotes.size() - 1) + 1;
 //                quote_of_day.setText(quotes.get(selectedQuote).getBody());
 //                adapter.updateQuotes(quotes);

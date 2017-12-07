@@ -7,7 +7,7 @@
         android:width="512dp"
         android:height="512dp" />
     <stroke
-        android:color="@color/textColor"
-        android:width="@dimen/elevation4"/>
+        android:color="@color/colorPrimaryDark"
+        android:width="@dimen/elevation2"/>
 
 </shape>

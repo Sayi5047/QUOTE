@@ -69,16 +69,7 @@ public class App extends Application {
 
     }
 
-    public static String getArrayItemFont(Activity activity, String name, int index) {
-        int arrayid;
-        arrayid = activity.getResources().getIdentifier(name, "array", activity.getApplicationContext().getPackageName());
-        TypedArray typedArray;
-        typedArray = activity.getResources().obtainTypedArray(arrayid);
-        String id = typedArray.getString(index);
-        typedArray.recycle();
-        return id;
 
-    }
 
     /*Metohd to get a snap of the given layout and its location*/
 

@@ -24,6 +24,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,10 +36,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ContentAdapter;
+import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.ToastSnackDialogUtils;
 
 import java.io.File;
@@ -53,29 +56,38 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
     Window windowManager;
-    private LinearLayout Editor_lead_screen_linearLayout,
-            level_1_editor_navigator,
-            level_1_1_editor_font_size_manipulator,
-            level_1_1_1_editor_font_sizeChanger_seekbar_layout,
-            root_layout;
-    private ImageView font_module,
-            background_image_module,
-            empty_image_to_be_blurred,
-            font_size_changer,
-            save_picture,
-            close_text_size,
-            font_family_changer, font_save_module, font_share_module, quoteAnim, imageView_background;
-    private TextView quote_editor_body,
-            quote_editor_author;
+
+    private LinearLayout Editor_lead_screen_linearLayout;
+    private LinearLayout level_1_editor_navigator;
+    private LinearLayout level_1_1_editor_font_size_manipulator;
+    private LinearLayout level_1_1_1_editor_font_sizeChanger_seekbar_layout;
+    private LinearLayout root_layout;
+
+    private ImageView font_module;
+    private ImageView background_image_module;
+    private ImageView empty_image_to_be_blurred;
+    private ImageView font_size_changer;
+    private ImageView save_picture;
+    private ImageView close_text_size;
+    private ImageView font_family_changer;
+    private ImageView font_save_module;
+    private ImageView font_share_module;
+    private ImageView quoteAnim;
+    private ImageView imageView_background;
+
+    private TextView quote_editor_body;
+    private TextView quote_editor_author;
+    private TextView text_layout;
+    private TextView background_layout;
+
     private QuotesFromFC quote;
     private RelativeLayout quoteLayout;
     private SeekBar font_size_changing_seekbar;
-
     private BottomSheetBehavior bottomSheetBehavior;
     private NestedScrollView bottomsheet;
-    RecyclerView bottomlayout_recyclerview;
-
+    RecyclerView features_recyclerview;
     ContentAdapter contentAdapter;
+    Features_adapter features_adapter;
     public File savedFile;
     ArrayList<String> items = new ArrayList<>();
     String[] itemsTo;
@@ -121,16 +133,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        Log.d("Fonts Added -->", "done");
     }
 
+    private void convertFeatures(String[] valueArray) {
+        itemsTo = valueArray;
+    }
+
 
     private void findViews() {
 //        All layouts
-        root_layout = (LinearLayout) findViewById(R.id.root_cl);
+        root_layout = (LinearLayout) findViewById(R.id.root_Lo);
         windowManager = this.getWindow();
         windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         level_1_editor_navigator = (LinearLayout) findViewById(R.id.top_editor_navigaotor_level1);
-        Editor_lead_screen_linearLayout = (LinearLayout) findViewById(R.id.Editor_lead_screen_linearLayout);
-        level_1_1_editor_font_size_manipulator = (LinearLayout) findViewById(R.id.editor_font_module);
+        Editor_lead_screen_linearLayout = (LinearLayout) findViewById(R.id.Main_editor_arena);
+        level_1_1_editor_font_size_manipulator = (LinearLayout) findViewById(R.id.top_save_and_share_bar);
 //        level_1_2_editor_background_manipulator = (LinearLayout) findViewById(R.id.editor_background_module);/**/
         level_1_1_1_editor_font_sizeChanger_seekbar_layout = (LinearLayout) findViewById(R.id.fontsize_change_module);
 
@@ -139,13 +155,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //      level 1 top bar buttons
         font_module = (ImageView) findViewById(R.id.font_style_changer_module);
         background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
-        font_save_module = (ImageView) findViewById(R.id.font_save_module);
+        font_save_module = (ImageView) findViewById(R.id.save_work_button);
         font_share_module = (ImageView) findViewById(R.id.font_share_module);
 
 //        level 1.1 text font manipulator options
-        font_size_changer = (ImageView) findViewById(R.id.Editor_text_module_Size);
-        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
-        font_family_changer = (ImageView) findViewById(R.id.Editor_text_share);
+        font_size_changer = (ImageView) findViewById(R.id.spacer_in_top);
+//        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
+        font_family_changer = (ImageView) findViewById(R.id.share_work_button);
 
 //        level 1.2 text background manipulator options
     /*    background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
@@ -156,19 +172,24 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
 //        level 1.1.1 font_text_changer_layout
-        font_size_changing_seekbar = (SeekBar) findViewById(R.id.fontChange_seekbar);
-        close_text_size = (ImageView) findViewById(R.id.font_change_close_button);
+        font_size_changing_seekbar = (SeekBar) findViewById(R.id.progress_slider_bar);
+        close_text_size = (ImageView) findViewById(R.id.close_editor_button);
 
 //        level 1.1.2 font color chooser
         /*this recyclerview will be keep on reused in different lavels */
-        bottomlayout_recyclerview = (RecyclerView) findViewById(R.id.content_rv);
-        bottomlayout_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
+        features_recyclerview = (RecyclerView) findViewById(R.id.content_rv);
+        features_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
 //      main editor text layout
         quoteAnim = (ImageView) findViewById(R.id.quote_anim);
         quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
         quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
         imageView_background = (ImageView) findViewById(R.id.imageView_background);
+
+
+        text_layout = (TextView) findViewById(R.id.text_field);
+        background_layout = (TextView) findViewById(R.id.background_and_Image_field);
+
 //        imageView_background.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 //            @Override
 //            public boolean onPreDraw() {
@@ -184,10 +205,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 /*setting on click listners */
         font_module.setOnClickListener(this);
         background_image_module.setOnClickListener(this);
+        text_layout.setOnClickListener(this);
+        background_layout.setOnClickListener(this);
 
         font_size_changer.setOnClickListener(this);
         font_family_changer.setOnClickListener(this);
-        save_picture.setOnClickListener(this);
+//        save_picture.setOnClickListener(this);
         close_text_size.setOnClickListener(this);
 //        background_color_changer.setOnClickListener(this);
 //        background_gallery_chooser.setOnClickListener(this);
@@ -251,6 +274,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
 
+            case R.id.text_field: {
+//                setBackgroundColorRecyclerView();
+                setText_Features_rv();
+            }
+            break;
+            case R.id.background_and_Image_field: {
+                setBackground_features_rv();
+            }
+            break;
+
+
 //            MAIN NAVIGATOR BUTTONG HANDLING
             case R.id.font_style_changer_module: {
 //                isTextLayout_visible = true;
@@ -285,7 +319,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             break;
-            case R.id.font_save_module: {
+            case R.id.save_work_button: {
                 if (isPermissionAvailable()) {
 
                     savedFile = savetoDevice(quoteLayout);
@@ -329,7 +363,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //            TEXT MODULE CASES
 
-            case R.id.Editor_text_module_Size: {
+            case R.id.spacer_in_top: {
 //                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
 //                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
 //                } else {
@@ -340,19 +374,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
 
-            case R.id.Editor_text_module_save: {
+//            case R.id.Editor_text_module_save: {
+//
+//            }
+//            break;
 
-            }
-            break;
-
-            case R.id.Editor_text_share: {
+            case R.id.share_work_button: {
 
                 ToastSnackDialogUtils.show_ShortToast(this, getString(R.string.coming_soon));
 
 
             }
             break;
-            case R.id.font_change_close_button: {
+            case R.id.close_editor_button: {
 //                thirdDetailvisible = false;
 //                level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
                 super.onBackPressed();
@@ -375,7 +409,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                     if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
                         bottomSheetBehavior.setPeekHeight(0);
-                        bottomlayout_recyclerview.setAdapter(null);
+                        features_recyclerview.setAdapter(null);
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     }
                 }
@@ -421,6 +455,50 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void setBackground_features_rv() {
+        text_layout.setTextColor(getResources().getColor(R.color.black_overlay));
+        background_layout.setTextColor(getResources().getColor(android.R.color.black));
+        background_layout.setTextSize(16.0f);
+        text_layout.setTextSize(12.0f);
+        features_recyclerview.setAdapter(null);
+        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this,R.anim.slidedown));
+
+        convertFeatures(getResources().getStringArray(R.array.Background_features));
+        features_adapter = new Features_adapter(this, "Text_features", itemsTo, new Features_adapter.OnFeature_ItemClickListner() {
+            @Override
+            public void onItemClick(String clickedItem) {
+                ToastSnackDialogUtils.show_ShortToast(EditorActivity.this, clickedItem);
+            }
+        });
+
+        features_recyclerview.setAdapter(features_adapter);
+        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this,R.anim.slideup));
+
+    }
+
+    private void setText_Features_rv() {
+        text_layout.setTextSize(16.0f);
+        background_layout.setTextSize(12.0f);
+
+        background_layout.setTextColor(getResources().getColor(R.color.black_overlay));
+        text_layout.setTextColor(getResources().getColor(android.R.color.black));
+        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this,R.anim.slidedown));
+        convertFeatures(getResources().getStringArray(R.array.Background_features));
+        features_recyclerview.setAdapter(null);
+
+
+        features_adapter = new Features_adapter(this, "Background_features", itemsTo, new Features_adapter.OnFeature_ItemClickListner() {
+            @Override
+            public void onItemClick(String clickedItem) {
+                ToastSnackDialogUtils.show_ShortToast(EditorActivity.this, clickedItem);
+            }
+        });
+
+        features_recyclerview.setAdapter(features_adapter);
+        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this,R.anim.slideup));
+
+    }
+
     private void launchGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
@@ -446,7 +524,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
         }, false);
-        bottomlayout_recyclerview.setAdapter(contentAdapter);
+        features_recyclerview.setAdapter(contentAdapter);
     }
 
     /*Recyclerview related methods*/
@@ -464,7 +542,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
         }, false);
-        bottomlayout_recyclerview.setAdapter(contentAdapter);
+        features_recyclerview.setAdapter(contentAdapter);
     }
 
     private void setFontTypeRecyclerview() {
@@ -483,7 +561,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
 
         }, true);
-        bottomlayout_recyclerview.setAdapter(contentAdapter);
+        features_recyclerview.setAdapter(contentAdapter);
     }
 
 /*Blurring method*/

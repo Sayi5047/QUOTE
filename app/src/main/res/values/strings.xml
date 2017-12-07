@@ -29,5 +29,29 @@
 
     <!--SPLASH ACTIVITY-->
 
+    <string-array name="Text_features">
+        <item>Add Text</item>
+        <item>Resize Text</item>
+        <item>Rotate Text</item>
+        <item>Letter Space</item>
+        <item>Align Text</item>
+        <item>Color Text</item>
+        <item>Line Space</item>
+        <item>Frame Width</item>
+        <item>Punch Text</item>
+    </string-array>
+    <string-array name="Background_features">
+        <item>Add Image</item>
+        <item>Add Emoji</item>
+        <item>Blurr Image</item>
+        <item>Black filter</item>
+        <item>White filter</item>
+        <item>Vigenette</item>
+        <item>Add Signature</item>
+        <!--<item>Line Space</item>-->
+        <!--<item>Frame Width</item>-->
+        <!--<item>Punch Text</item>-->
+    </string-array>
+
 
 </resources>
