@@ -26,6 +26,7 @@
     <string name="Text">Text</string>
     <string name="done">Done</string>
     <string name="coming_soon">Coming Soon.</string>
+    <string name="enter_text">Enter your text below</string>
 
     <!--SPLASH ACTIVITY-->
 

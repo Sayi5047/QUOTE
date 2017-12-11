@@ -1,18 +1,15 @@
 package com.hustler.quote.ui.adapters;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.utils.TextUtils;
-import com.hustler.quote.ui.utils.ToastSnackDialogUtils;
 
 import java.util.ArrayList;
 
@@ -23,22 +20,22 @@ import java.util.ArrayList;
 public class Features_adapter extends RecyclerView.Adapter<Features_adapter.FeaturesViewholder> {
     Activity activity;
     OnFeature_ItemClickListner listner;
-    String[] itemsfromActivity;
+    int itemsfromActivity_Count;
     String arrayName;
     ArrayList<String> itemstobe_used = new ArrayList<>();
     String current_item = null;
 
 
-    public Features_adapter(Activity activity, String arrayName, String[] itemsfromActivity, OnFeature_ItemClickListner listner) {
+    public Features_adapter(Activity activity, String arrayName, int itemsfromActivity, OnFeature_ItemClickListner listner) {
         this.activity = activity;
-        this.itemsfromActivity = itemsfromActivity;
+        this.itemsfromActivity_Count = itemsfromActivity;
         this.listner = listner;
         this.arrayName = arrayName;
         prepare_text_features();
     }
 
     private void prepare_text_features() {
-        for (int i = 0; i < itemsfromActivity.length; i++) {
+        for (int i = 0; i < itemsfromActivity_Count; i++) {
             itemstobe_used.add(i, TextUtils.getArrayItem_of_String(activity, arrayName, i));
         }
     }
@@ -53,7 +50,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
         holder.feature_item.setText(itemstobe_used.get(position));
         current_item = itemstobe_used.get(position);
 //        ToastSnackDialogUtils.show_ShortToast(activity,"TOAST 1"+position+"");
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.feature_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listner.onItemClick(itemstobe_used.get(position));
@@ -106,11 +103,11 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     }
 
     public class FeaturesViewholder extends RecyclerView.ViewHolder {
-        TextView feature_item;
+        Button feature_item;
 
         public FeaturesViewholder(View itemView) {
             super(itemView);
-            feature_item = (TextView) itemView.findViewById(R.id.feature_item);
+            feature_item = (Button) itemView.findViewById(R.id.feature_item);
             TextUtils.setFont(activity, feature_item, Constants.FONT_Sans_Bold);
         }
     }

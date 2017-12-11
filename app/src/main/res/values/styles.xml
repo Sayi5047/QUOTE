@@ -39,7 +39,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorAccent</item>
     </style>
-    <style name="EditTextDialog" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="EditTextDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
