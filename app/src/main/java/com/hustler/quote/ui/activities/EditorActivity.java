@@ -836,10 +836,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         RelativeLayout.LayoutParams view_Parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         selectedtextID = v;
         v.setPadding(16, 16, 16, 16);
-        v.setBackground(getResources().getDrawable(R.drawable.tv_bg));
-        previousView = v;
         if (previousView != null) {
             previousView.setBackground(null);
+            previousView = v;
+            selectedtextID.setBackground(getResources().getDrawable(R.drawable.tv_bg));
+
+        }
+        else {
+            previousView=v;
+            selectedtextID.setBackground(getResources().getDrawable(R.drawable.tv_bg));
+
         }
         switch (event.getAction()) {
 
