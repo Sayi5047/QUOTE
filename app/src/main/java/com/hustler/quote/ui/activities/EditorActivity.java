@@ -51,7 +51,7 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.TextUtils;
-import com.hustler.quote.ui.utils.ToastSnackDialogUtils;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,32 +70,41 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout level_1_editor_navigator;
     private LinearLayout level_1_1_editor_font_size_manipulator;
     private LinearLayout level_1_1_1_editor_font_sizeChanger_seekbar_layout;
+    private ImageView empty_image_to_be_blurred;
+    private ImageView save_picture;
+    private ImageView quoteAnim;
+    private NestedScrollView bottomsheet;
+    private boolean isTextLayout_visible;
+    private boolean isImageLoaded = false;
+
+
     private LinearLayout root_layout;
 
     private ImageView font_module;
     private ImageView background_image_module;
-    private ImageView empty_image_to_be_blurred;
     private ImageView font_size_changer;
-    private ImageView save_picture;
     private ImageView close_text_size;
     private ImageView font_family_changer;
-    private ImageView font_save_module;
-    private ImageView font_share_module;
-    private ImageView quoteAnim;
+    private ImageView save_work_button;
+    private ImageView share_work_button;
+    private ImageView delete_view_button;
     private ImageView imageView_background;
 
     private TextView quote_editor_body;
     private TextView quote_editor_author;
     private TextView text_layout;
     private TextView background_layout;
+    private TextView close_layout;
+    private TextView done_layout;
 
     private QuotesFromFC quote;
     private RelativeLayout quoteLayout;
     private RelativeLayout quote_layout;
+    private LinearLayout text_and_bg_layout;
+    private LinearLayout close_and_done_layout;
 
-    private SeekBar font_size_changing_seekbar;
+    private SeekBar seekBar;
     private BottomSheetBehavior bottomSheetBehavior;
-    private NestedScrollView bottomsheet;
 
     RecyclerView features_recyclerview;
     ContentAdapter contentAdapter;
@@ -108,8 +117,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
     private int backpressCount = 0;
-    private boolean isTextLayout_visible;
-    private boolean isImageLoaded = false;
+
     private String newly_Added_Text;
 
     //    Varaible to give ids to  newly added items
@@ -119,8 +127,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     int prevX, prevY;
 
     //    VIEWS FOR CURRENTLY SELECTED AND PREVIOUS
-    View selectedtextID;
-    View previousView;
+    View selectedView;
+    View previousSelcted_View;
+    View previousstate;
+    private String currentfeature;
 
     ScaleGestureDetector scaleGestureDetector;
 
@@ -135,6 +145,142 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         getIntentData();
         setViews();
     }
+
+    private void findViews() {
+//        All layouts
+        root_layout = (LinearLayout) findViewById(R.id.root_Lo);
+        windowManager = this.getWindow();
+        windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        level_1_editor_navigator = (LinearLayout) findViewById(R.id.top_editor_navigaotor_level1);
+        Editor_lead_screen_linearLayout = (LinearLayout) findViewById(R.id.Main_editor_arena);
+        level_1_1_editor_font_size_manipulator = (LinearLayout) findViewById(R.id.top_save_and_share_bar);
+//        level_1_2_editor_background_manipulator = (LinearLayout) findViewById(R.id.editor_background_module);/**/
+        level_1_1_1_editor_font_sizeChanger_seekbar_layout = (LinearLayout) findViewById(R.id.fontsize_change_module);
+
+        quoteLayout = (RelativeLayout) findViewById(R.id.quote_layout);
+        text_and_bg_layout = (LinearLayout) findViewById(R.id.text_and_background_layout);
+        close_and_done_layout = (LinearLayout) findViewById(R.id.close_and_done_layout);
+
+//      level 1 top bar buttons
+        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
+        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
+        save_work_button = (ImageView) findViewById(R.id.save_work_button);
+        share_work_button = (ImageView) findViewById(R.id.font_share_module);
+        delete_view_button = (ImageView) findViewById(R.id.delete_view_button);
+
+//        level 1.1 text font manipulator options
+        font_size_changer = (ImageView) findViewById(R.id.spacer_in_top);
+//        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
+        font_family_changer = (ImageView) findViewById(R.id.share_work_button);
+
+//        level 1.2 text background manipulator options
+    /*    background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
+        background_opacity_changer = (ImageView) findViewById(R.id.Editor_background_module_picture_filter_changer);
+        background_gallery_chooser = (ImageView) findViewById(R.id.Editor_background_module_gallery_backgrounds);
+        background_module_blurred_changer = (ImageView) findViewById(R.id.Editor_background_module_blurred_backgrounds);*/
+        empty_image_to_be_blurred = (ImageView) findViewById(R.id.empty_image_to_be_blurred);
+
+
+//        level 1.1.1 font_text_changer_layout
+        seekBar = (SeekBar) findViewById(R.id.progress_slider_bar);
+        close_text_size = (ImageView) findViewById(R.id.close_editor_button);
+
+//        level 1.1.2 font color chooser
+        /*this recyclerview will be keep on reused in different lavels */
+        features_recyclerview = (RecyclerView) findViewById(R.id.content_rv);
+        features_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
+
+//      main editor text layout
+        quoteAnim = (ImageView) findViewById(R.id.quote_anim);
+        quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
+        quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
+        imageView_background = (ImageView) findViewById(R.id.imageView_background);
+
+
+        text_layout = (TextView) findViewById(R.id.text_field);
+        background_layout = (TextView) findViewById(R.id.background_and_Image_field);
+        close_layout = (TextView) findViewById(R.id.close_tv);
+        done_layout = (TextView) findViewById(R.id.done_tv);
+        quote_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
+        scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
+
+
+//        imageView_background.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//
+//                return true;
+//
+//            }
+//        });
+
+
+
+
+/*setting on click listners */
+        font_module.setOnClickListener(this);
+        background_image_module.setOnClickListener(this);
+        text_layout.setOnClickListener(this);
+        background_layout.setOnClickListener(this);
+        seekBar.setOnSeekBarChangeListener(this);
+        font_size_changer.setOnClickListener(this);
+        font_family_changer.setOnClickListener(this);
+//        save_picture.setOnClickListener(this);
+        close_text_size.setOnClickListener(this);
+//        background_color_changer.setOnClickListener(this);
+//        background_gallery_chooser.setOnClickListener(this);
+//        background_module_blurred_changer.setOnClickListener(this);
+//        background_opacity_changer.setOnClickListener(this);
+        save_work_button.setOnClickListener(this);
+        share_work_button.setOnClickListener(this);
+        delete_view_button.setOnClickListener(this);
+        close_layout.setOnClickListener(this);
+        done_layout.setOnClickListener(this);
+
+
+//        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
+//        thirdDetailvisible = false;
+
+//        managingBottomsheet();
+
+        setText_Features_rv();
+    }
+
+    private void setViews() {
+        if (quote != null) {
+            int length = quote.getBody().length();
+            root_layout.setBackground(getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
+//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
+            if (length > 230) {
+                quote_editor_body.setTextSize(20.0f);
+            } else if (length < 230 && length > 150) {
+                quote_editor_body.setTextSize(25.0f);
+
+            } else if (length > 100 && length < 150) {
+                quote_editor_body.setTextSize(30.0f);
+
+            } else if (length > 50 && length < 100) {
+                quote_editor_body.setTextSize(35.0f);
+
+            } else if (length > 2 && length < 50) {
+                quote_editor_body.setTextSize(40.0f);
+
+            } else {
+                quote_editor_body.setTextSize(45.0f);
+
+            }
+            quote_editor_body.setText(quote.getBody());
+            quote_editor_author.setText(quote.getAuthor());
+            quote_editor_body.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+            quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+        }
+    }
+
+    private void getIntentData() {
+        quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT);
+    }
+
 
     private void convertColors() {
 //        items=null;
@@ -159,99 +305,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         itemsTo = valueArray;
     }
 
-
-    private void findViews() {
-//        All layouts
-        root_layout = (LinearLayout) findViewById(R.id.root_Lo);
-        windowManager = this.getWindow();
-        windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        level_1_editor_navigator = (LinearLayout) findViewById(R.id.top_editor_navigaotor_level1);
-        Editor_lead_screen_linearLayout = (LinearLayout) findViewById(R.id.Main_editor_arena);
-        level_1_1_editor_font_size_manipulator = (LinearLayout) findViewById(R.id.top_save_and_share_bar);
-//        level_1_2_editor_background_manipulator = (LinearLayout) findViewById(R.id.editor_background_module);/**/
-        level_1_1_1_editor_font_sizeChanger_seekbar_layout = (LinearLayout) findViewById(R.id.fontsize_change_module);
-
-        quoteLayout = (RelativeLayout) findViewById(R.id.quote_layout);
-
-//      level 1 top bar buttons
-        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
-        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
-        font_save_module = (ImageView) findViewById(R.id.save_work_button);
-        font_share_module = (ImageView) findViewById(R.id.font_share_module);
-
-//        level 1.1 text font manipulator options
-        font_size_changer = (ImageView) findViewById(R.id.spacer_in_top);
-//        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
-        font_family_changer = (ImageView) findViewById(R.id.share_work_button);
-
-//        level 1.2 text background manipulator options
-    /*    background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
-        background_opacity_changer = (ImageView) findViewById(R.id.Editor_background_module_picture_filter_changer);
-        background_gallery_chooser = (ImageView) findViewById(R.id.Editor_background_module_gallery_backgrounds);
-        background_module_blurred_changer = (ImageView) findViewById(R.id.Editor_background_module_blurred_backgrounds);*/
-        empty_image_to_be_blurred = (ImageView) findViewById(R.id.empty_image_to_be_blurred);
-
-
-//        level 1.1.1 font_text_changer_layout
-        font_size_changing_seekbar = (SeekBar) findViewById(R.id.progress_slider_bar);
-        close_text_size = (ImageView) findViewById(R.id.close_editor_button);
-
-//        level 1.1.2 font color chooser
-        /*this recyclerview will be keep on reused in different lavels */
-        features_recyclerview = (RecyclerView) findViewById(R.id.content_rv);
-        features_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
-
-//      main editor text layout
-        quoteAnim = (ImageView) findViewById(R.id.quote_anim);
-        quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
-        quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
-        imageView_background = (ImageView) findViewById(R.id.imageView_background);
-
-
-        text_layout = (TextView) findViewById(R.id.text_field);
-        background_layout = (TextView) findViewById(R.id.background_and_Image_field);
-        quote_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
-        scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
-
-//        imageView_background.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean onPreDraw() {
-//
-//                return true;
-//
-//            }
-//        });
-
-
-
-
-/*setting on click listners */
-        font_module.setOnClickListener(this);
-        background_image_module.setOnClickListener(this);
-        text_layout.setOnClickListener(this);
-        background_layout.setOnClickListener(this);
-
-        font_size_changer.setOnClickListener(this);
-        font_family_changer.setOnClickListener(this);
-//        save_picture.setOnClickListener(this);
-        close_text_size.setOnClickListener(this);
-//        background_color_changer.setOnClickListener(this);
-//        background_gallery_chooser.setOnClickListener(this);
-//        background_module_blurred_changer.setOnClickListener(this);
-//        background_opacity_changer.setOnClickListener(this);
-        font_save_module.setOnClickListener(this);
-        font_share_module.setOnClickListener(this);
-        quote_layout.setOnClickListener(this);
-
-//        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-//        thirdDetailvisible = false;
-
-//        managingBottomsheet();
-
-        setText_Features_rv();
-    }
-
     private void managingBottomsheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomsheet));
         bottomSheetBehavior.setPeekHeight(0);
@@ -259,55 +312,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-
-    private void getIntentData() {
-        quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT);
-    }
-
-    private void setViews() {
-        if (quote != null) {
-            int length = quote.getBody().length();
-            root_layout.setBackgroundColor(getResources().getColor(R.color.bg));
-//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
-            if (length > 230) {
-                quote_editor_body.setTextSize(20.0f);
-            } else if (length < 230 && length > 150) {
-                quote_editor_body.setTextSize(25.0f);
-
-            } else if (length > 100 && length < 150) {
-                quote_editor_body.setTextSize(30.0f);
-
-            } else if (length > 50 && length < 100) {
-                quote_editor_body.setTextSize(35.0f);
-
-            } else if (length > 2 && length < 50) {
-                quote_editor_body.setTextSize(40.0f);
-
-            } else {
-                quote_editor_body.setTextSize(45.0f);
-
-            }
-            quote_editor_body.setText(quote.getBody());
-            quote_editor_author.setText(quote.getAuthor());
-            quote_editor_body.setTextColor(quote.getColor());
-            quote_editor_author.setTextColor(quote.getColor());
-            quote_editor_body.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
-            quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
-        }
-    }
-
+    /*TOUCH LISTNER*/
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
         return true;
     }
 
+    /*CLICK LISTNERS*/
+    //LEVEL 1
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.text_field: {
-//                setBackgroundColorRecyclerView();
                 setText_Features_rv();
             }
             break;
@@ -315,41 +332,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 setBackground_features_rv();
             }
             break;
+            case R.id.close_tv: {
+                close_and_done_layout.setVisibility(View.GONE);
+                text_and_bg_layout.setVisibility(View.VISIBLE);
+                features_recyclerview.setVisibility(View.VISIBLE);
+                seekBar.setProgress(0);
+                seekBar.setVisibility(View.GONE);
+                handle_close_Feature();
 
 
-
-//            MAIN NAVIGATOR BUTTONG HANDLING
-            case R.id.font_style_changer_module: {
-//                isTextLayout_visible = true;
-//                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
-//                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
-//
-//
-////                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
-////                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
-////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-////
-////
-////                } else {
-//                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-//
-//                }
             }
             break;
-
-            case R.id.font_background_chnager_module: {
-//                isTextLayout_visible = false;
-//                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
-//                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
-//                    level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
-//
-//                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
-//                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
-//                } else {
-//                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-//
-//                }
-
+            case R.id.done_tv: {
+                close_and_done_layout.setVisibility(View.GONE);
+                text_and_bg_layout.setVisibility(View.VISIBLE);
+                features_recyclerview.setVisibility(View.VISIBLE);
+                seekBar.setProgress(0);
+                seekBar.setVisibility(View.GONE);
             }
             break;
             case R.id.save_work_button: {
@@ -365,10 +364,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             break;
-
-
             case R.id.font_share_module: {
-
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
@@ -392,102 +388,135 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             break;
+            case R.id.delete_view_button: {
 
+                if (selectedView != null) {
+                    Toast_Snack_Dialog_Utils.createDialog(this,
+                            getString(R.string.are_you_sure),
+                            getString(R.string.this_will_delete),
+                            getString(R.string.cancel),
+                            getString(R.string.delete),
+                            new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+                                @Override
+                                public void onPositiveselection() {
+                                    quote_layout.removeView(selectedView);
+                                    selectedView = null;
+                                }
 
-//            TEXT MODULE CASES
+                                @Override
+                                public void onNegativeSelection() {
 
-            case R.id.spacer_in_top: {
-//                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-//                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-//                } else {
-//                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-//                    font_size_changing_seekbar.setOnSeekBarChangeListener(this);
-//
-//                }
+                                }
+                            });
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text_to_delete));
+                }
             }
             break;
-
-//            case R.id.Editor_text_module_save: {
-//
-//            }
-//            break;
-
             case R.id.share_work_button: {
-
-                ToastSnackDialogUtils.show_ShortToast(this, getString(R.string.coming_soon));
-
-
+                Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.coming_soon));
             }
             break;
             case R.id.close_editor_button: {
-//                thirdDetailvisible = false;
-//                level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
                 super.onBackPressed();
             }
             break;
-/*
-
-//            BACKGROUND MODULE CASES
-            case R.id.Editor_background_module_colored_backgrounds: {
-                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-                }
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    bottomSheetBehavior.setPeekHeight(80);
-                    setBackgroundColorRecyclerView();
-
-
-                } else {
-
-                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
-                        bottomSheetBehavior.setPeekHeight(0);
-                        features_recyclerview.setAdapter(null);
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    }
-                }
-            }
-            break;
-
-            case R.id.Editor_background_module_gallery_backgrounds: {
-                imageView_background.setVisibility(View.VISIBLE);
-
-                if (isPermissionAvailable()) {
-
-                    launchGallery();
-                } else {
-                    requestAppPermissions();
-                }
-
-
-            }
-            break;
-            case R.id.Editor_background_module_blurred_backgrounds: {
-
-                if (!isImageLoaded) {
-                    Toast.makeText(this, "Please,select an image to apply blurr effect", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-                    } else {
-                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-                        font_size_changing_seekbar.setOnSeekBarChangeListener(this);
-
-                    }
-                }
-
-            }
-            break;
-            case R.id.Editor_background_module_picture_filter_changer: {
-                Toast.makeText(this, "Coming Soon...!", Toast.LENGTH_SHORT).show();
-            }
-            break;
-*/
-
-
+//
+////            MAIN NAVIGATOR BUTTONG HANDLING
+//            case R.id.font_style_changer_module: {
+////                isTextLayout_visible = true;
+////                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
+////                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
+////
+////
+//////                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
+//////                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
+//////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
+//////
+//////
+//////                } else {
+////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
+////
+////                }
+//            }
+//            break;
+//
+//            case R.id.font_background_chnager_module: {
+////                isTextLayout_visible = false;
+////                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
+////                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
+////                    level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
+////
+////                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
+////                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
+////                } else {
+////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
+////
+////                }
+//
+//            }
+//            break;
+////            BACKGROUND MODULE CASES
+//            case R.id.Editor_background_module_colored_backgrounds: {
+//                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
+//                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+//                }
+//                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+//                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//                    bottomSheetBehavior.setPeekHeight(80);
+//                    setBackgroundColorRecyclerView();
+//
+//
+//                } else {
+//
+//                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+//                        bottomSheetBehavior.setPeekHeight(0);
+//                        features_recyclerview.setAdapter(null);
+//                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//                    }
+//                }
+//            }
+//            break;
+//
+//            case R.id.Editor_background_module_gallery_backgrounds: {
+//                imageView_background.setVisibility(View.VISIBLE);
+//
+//                if (isPermissionAvailable()) {
+//
+//                    launchGallery();
+//                } else {
+//                    requestAppPermissions();
+//                }
+//
+//
+//            }
+//            break;
+//            case R.id.Editor_background_module_blurred_backgrounds: {
+//
+//                if (!isImageLoaded) {
+//                    Toast.makeText(this, "Please,select an image to apply blurr effect", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
+//                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
+//                    } else {
+//                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
+//                        seekBar.setOnSeekBarChangeListener(this);
+//
+//                    }
+//                }
+//
+//            }
+//            break;
+//            case R.id.Editor_background_module_picture_filter_changer: {
+//                Toast.makeText(this, "Coming Soon...!", Toast.LENGTH_SHORT).show();
+//            }
+//            break;
+//*/
         }
     }
 
+
+    /*COLONY BACKGROUND*/
     private void setBackground_features_rv() {
         text_layout.setTextColor(getResources().getColor(R.color.black_overlay));
         background_layout.setTextColor(getResources().getColor(android.R.color.black));
@@ -500,7 +529,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         features_adapter = new Features_adapter(this, "Background_features", getResources().getStringArray(R.array.Background_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
             public void onItemClick(String clickedItem) {
-                ToastSnackDialogUtils.show_ShortToast(EditorActivity.this, clickedItem);
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
                 enable_Selected_Background_Features(clickedItem, getResources().getStringArray(R.array.Background_features));
 
             }
@@ -511,7 +540,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-
+    /*COLONY TEXT*/
     private void setText_Features_rv() {
         text_layout.setTextSize(16.0f);
         background_layout.setTextSize(12.0f);
@@ -526,7 +555,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         features_adapter = new Features_adapter(this, "Text_features", getResources().getStringArray(R.array.Text_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
             public void onItemClick(String clickedItem) {
-                ToastSnackDialogUtils.show_ShortToast(EditorActivity.this, clickedItem);
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
                 enable_Selected_Text_Feature(clickedItem, getResources().getStringArray(R.array.Text_features));
             }
         });
@@ -536,62 +565,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    // LEVEL 2
     private void enable_Selected_Text_Feature(String feature, String[] array) {
         if (feature.equalsIgnoreCase(array[0])) {
-            final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
-            dialog.setContentView(View.inflate(this, R.layout.addtext, null));
-            TextView header;
-            final EditText addingText;
-            Button close, done;
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-
-
-            header = (TextView) dialog.findViewById(R.id.tv_header);
-            addingText = (EditText) dialog.findViewById(R.id.et_text);
-            close = (Button) dialog.findViewById(R.id.bt_close);
-            done = (Button) dialog.findViewById(R.id.bt_done);
-
-            TextUtils.setFont(this, header, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(this, addingText, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(this, close, Constants.FONT_NEVIS);
-            TextUtils.setFont(this, done, Constants.FONT_NEVIS);
-
-            done.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addedTextIds++;
-                    newly_Added_Text = addingText.getText().toString();
-                    final TextView textView = new TextView(EditorActivity.this);
-                    textView.setTextSize(16.0f);
-                    textView.setTextColor(getResources().getColor(R.color.textColor));
-                    textView.setMaxWidth(quote_layout.getWidth());
-                    TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
-                    textView.setText(newly_Added_Text);
-                    textView.setId(addedTextIds);
-                    textView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ToastSnackDialogUtils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
-                        }
-                    });
-                    textView.setOnTouchListener(EditorActivity.this);
-                    quote_layout.addView(textView);
-                    dialog.dismiss();
-                }
-            });
-
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.setCancelable(true);
-            dialog.show();
-
+            addText(array);
         } else if (feature.equalsIgnoreCase(array[1])) {
-
+            resizeText(array);
         } else if (feature.equalsIgnoreCase(array[2])) {
 
         } else if (feature.equalsIgnoreCase(array[3])) {
@@ -608,6 +587,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         }
     }
+
 
     private void enable_Selected_Background_Features(String clickedItem, String[] stringArray) {
 
@@ -727,30 +707,115 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser) {
-
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-//        Toast.makeText(getApplicationContext(), "seekbar touch started!", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        float radius = (float) seekBar.getProgress();
-//        imageView_background.setDrawingCacheEnabled(true);
-        if (isTextLayout_visible) {
-            quote_editor_body.setTextSize(radius);
-        } else {
-            imageView_background.buildDrawingCache();
-            currentbitmap = imageView_background.getDrawingCache();
-            imageView_background.setImageBitmap(create_blur(currentbitmap, radius));
+        handle_seekbar_value(seekBar);
+    }
+
+    private void handle_close_Feature() {
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[1])) {
+            TextView current_text_view = (TextView) selectedView;
+//            TextView prev_text_view = (TextView) previousstate;
+            current_text_view.setTextSize(25);
         }
+    }
+
+    private void handle_seekbar_value(SeekBar seekBar) {
+        float radius = (float) seekBar.getProgress();
+        TextView selected_textView = (TextView) selectedView;
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[1]) && radius > 0) {
+            selected_textView.setTextSize(radius);
+        }
+        ////        imageView_background.setDrawingCacheEnabled(true);
+//        if (isTextLayout_visible) {
+//            quote_editor_body.setTextSize(radius);
+//        } else {
+//            imageView_background.buildDrawingCache();
+//            currentbitmap = imageView_background.getDrawingCache();
+//            imageView_background.setImageBitmap(create_blur(currentbitmap, radius));
+//        }
 
     }
 
 
+//    FEATURES
+
+    private void addText(String[] array) {
+        currentfeature = array[0];
+        final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
+        dialog.setContentView(View.inflate(this, R.layout.addtext, null));
+        TextView header;
+        final EditText addingText;
+        Button close, done;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+
+
+        header = (TextView) dialog.findViewById(R.id.tv_header);
+        addingText = (EditText) dialog.findViewById(R.id.et_text);
+        close = (Button) dialog.findViewById(R.id.bt_close);
+        done = (Button) dialog.findViewById(R.id.bt_done);
+
+        TextUtils.setFont(this, header, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, addingText, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addedTextIds++;
+                newly_Added_Text = addingText.getText().toString();
+                final TextView textView = new TextView(EditorActivity.this);
+                textView.setTextSize(16.0f);
+                textView.setTextColor(getResources().getColor(R.color.textColor));
+                textView.setMaxWidth(quote_layout.getWidth());
+                TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
+                textView.setText(newly_Added_Text);
+                textView.setId(addedTextIds);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
+                    }
+                });
+                textView.setOnTouchListener(EditorActivity.this);
+                quote_layout.addView(textView);
+                dialog.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
+    private void resizeText(String[] array) {
+         /*RESIZE*/
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            features_recyclerview.setVisibility(View.GONE);
+            seekBar.setVisibility(View.VISIBLE);
+            text_and_bg_layout.setVisibility(View.GONE);
+            close_and_done_layout.setVisibility(View.VISIBLE);
+            previousstate = selectedView;
+            currentfeature = array[1];
+
+
+        }
+    }
 
 
 
@@ -840,16 +905,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         RelativeLayout.LayoutParams view_Parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
-        selectedtextID = v;
+        selectedView = v;
         v.setPadding(16, 16, 16, 16);
-        if (previousView != null) {
-            previousView.setBackground(null);
-            previousView = v;
-            selectedtextID.setBackground(getResources().getDrawable(R.drawable.tv_bg));
+        if (previousSelcted_View != null) {
+            previousSelcted_View.setBackground(null);
+            previousSelcted_View = v;
+            selectedView.setBackground(getResources().getDrawable(R.drawable.tv_bg));
 
         } else {
-            previousView = v;
-            selectedtextID.setBackground(getResources().getDrawable(R.drawable.tv_bg));
+            previousSelcted_View = v;
+            selectedView.setBackground(getResources().getDrawable(R.drawable.tv_bg));
 
         }
         switch (event.getAction()) {
@@ -887,8 +952,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            if(selectedtextID!=null){
-                TextView selected = (TextView) selectedtextID;
+            if (selectedView != null) {
+                TextView selected = (TextView) selectedView;
 
                 float size = selected.getTextSize();
                 Log.d("TextSizeStart", String.valueOf(size));

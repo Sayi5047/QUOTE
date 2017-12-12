@@ -49,7 +49,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     public void onBindViewHolder(final FeaturesViewholder holder, final int position) {
         holder.feature_item.setText(itemstobe_used.get(position));
         current_item = itemstobe_used.get(position);
-//        ToastSnackDialogUtils.show_ShortToast(activity,"TOAST 1"+position+"");
+//        Toast_Snack_Dialog_Utils.show_ShortToast(activity,"TOAST 1"+position+"");
         holder.feature_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

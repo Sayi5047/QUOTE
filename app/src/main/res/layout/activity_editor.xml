@@ -5,7 +5,7 @@
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/textColor"
     android:orientation="vertical"
     tools:context="com.hustler.quote.ui.activities.EditorActivity">
 
@@ -34,9 +34,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:padding="@dimen/elevation4"
             android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/delete_view_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@drawable/ic_delete_black_24dp" />
 
         <ImageView
             android:id="@+id/save_work_button"
@@ -69,14 +77,14 @@
             android:id="@+id/arena_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true">
 
             <RelativeLayout
                 android:id="@+id/quote_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f5f5f5"
+                android:background="@color/colorPrimaryDark"
                 android:elevation="@dimen/elevation4"
                 android:gravity="center">
                 <!--COLORED FILTER-->
@@ -90,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:drawable/screen_background_light_transparent"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
                 <!--QUOTE BODY-->
 
                 <!--QUOTE_AUTHOR_PART-->
@@ -107,8 +115,8 @@
                         android:id="@+id/tv_Quote_Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_centerInParent="true"
+                        android:layout_gravity="center"
                         android:gravity="center"
                         android:padding="5dp"
                         android:textColor="@color/textColor"
@@ -118,28 +126,28 @@
                         tools:text="Great Power Comes with Great Responsibilities" />
 
 
-
                     <TextView
                         android:id="@+id/tv_Quote_Author"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
                         android:layout_gravity="center"
                         android:gravity="top"
                         android:paddingTop="@dimen/elevation8"
+
                         android:textAlignment="center"
 
                         android:textColor="@color/textColor"
-
                         android:textSize="@dimen/font2"
-                        tools:text="Spiderman"
-                        android:layout_alignParentBottom="true"/>
+                        tools:text="Spiderman" />
+
                     <ImageView
                         android:id="@+id/quote_anim"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:layout_centerHorizontal="true"
                         android:layout_above="@id/tv_Quote_Author"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
                         android:layout_marginTop="@dimen/elevation8"
                         app:srcCompat="@drawable/ic_quote_animation" />
                 </RelativeLayout>
@@ -202,7 +210,7 @@
             android:visibility="gone">
 
             <TextView
-
+                android:id="@+id/close_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -214,7 +222,7 @@
                 android:textStyle="bold" />
 
             <TextView
-
+                android:id="@+id/done_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -240,6 +248,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/text_and_background_layout"
+            android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
