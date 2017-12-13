@@ -184,6 +184,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //        level 1.1.1 font_text_changer_layout
         seekBar = (SeekBar) findViewById(R.id.progress_slider_bar);
+  seekBar.setContentDescription("Slide to Rotate");
         close_text_size = (ImageView) findViewById(R.id.close_editor_button);
 
 //        level 1.1.2 font color chooser
@@ -336,7 +337,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 close_and_done_layout.setVisibility(View.GONE);
                 text_and_bg_layout.setVisibility(View.VISIBLE);
                 features_recyclerview.setVisibility(View.VISIBLE);
-                seekBar.setProgress(0);
+                seekBar.setProgress(180);
                 seekBar.setVisibility(View.GONE);
                 handle_close_Feature();
 
@@ -347,7 +348,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 close_and_done_layout.setVisibility(View.GONE);
                 text_and_bg_layout.setVisibility(View.VISIBLE);
                 features_recyclerview.setVisibility(View.VISIBLE);
-                seekBar.setProgress(0);
                 seekBar.setVisibility(View.GONE);
             }
             break;
@@ -399,6 +399,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                             new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
                                 @Override
                                 public void onPositiveselection() {
+                                    close_and_done_layout.setVisibility(View.GONE);
+                                    text_and_bg_layout.setVisibility(View.VISIBLE);
+                                    features_recyclerview.setVisibility(View.VISIBLE);
+                                    seekBar.setProgress(180);
+                                    seekBar.setVisibility(View.GONE);
                                     quote_layout.removeView(selectedView);
                                     selectedView = null;
                                 }
@@ -555,7 +560,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         features_adapter = new Features_adapter(this, "Text_features", getResources().getStringArray(R.array.Text_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
             public void onItemClick(String clickedItem) {
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
+//                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
                 enable_Selected_Text_Feature(clickedItem, getResources().getStringArray(R.array.Text_features));
             }
         });
@@ -568,14 +573,21 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     // LEVEL 2
     private void enable_Selected_Text_Feature(String feature, String[] array) {
         if (feature.equalsIgnoreCase(array[0])) {
-            addText(array);
+            add_and_EditText(array, false);
         } else if (feature.equalsIgnoreCase(array[1])) {
-            resizeText(array);
+            if (selectedView == null) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+            } else {
+                add_and_EditText(array, true);
+            }
         } else if (feature.equalsIgnoreCase(array[2])) {
+            resizeText(array);
 
         } else if (feature.equalsIgnoreCase(array[3])) {
+            rotateText(array);
 
         } else if (feature.equalsIgnoreCase(array[4])) {
+            spaceText(array);
 
         } else if (feature.equalsIgnoreCase(array[5])) {
 
@@ -584,6 +596,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[7])) {
 
         } else if (feature.equalsIgnoreCase(array[8])) {
+
+        } else if (feature.equalsIgnoreCase(array[9])) {
 
         }
     }
@@ -707,6 +721,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress,
                                   boolean fromUser) {
+        handle_seekbar_value(seekBar);
+
     }
 
     @Override
@@ -715,22 +731,44 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        handle_seekbar_value(seekBar);
     }
 
     private void handle_close_Feature() {
-        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[1])) {
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2])) {
             TextView current_text_view = (TextView) selectedView;
 //            TextView prev_text_view = (TextView) previousstate;
             current_text_view.setTextSize(25);
+        } if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3])) {
+            TextView current_text_view = (TextView) selectedView;
+//            TextView prev_text_view = (TextView) previousstate;
+            current_text_view.setRotation(0);
+        } if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4])) {
+            TextView current_text_view = (TextView) selectedView;
+//            TextView prev_text_view = (TextView) previousstate;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                current_text_view.setLetterSpacing(0);
+            }
         }
     }
 
-    private void handle_seekbar_value(SeekBar seekBar) {
+    private void  handle_seekbar_value(SeekBar seekBar) {
         float radius = (float) seekBar.getProgress();
         TextView selected_textView = (TextView) selectedView;
-        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[1]) && radius > 0) {
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
+// TODO: 13/12/2017 implement a new seekbar
             selected_textView.setTextSize(radius);
+        }
+        else if(currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0){
+                float degree = radius-180;
+            selected_textView.setRotation(degree);
+        }else if(currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0){
+                float degree =radius/300;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                selected_textView.setLetterSpacing(degree);
+            }
+            else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(this,getString(R.string.sorry));
+            }
         }
         ////        imageView_background.setDrawingCacheEnabled(true);
 //        if (isTextLayout_visible) {
@@ -746,7 +784,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //    FEATURES
 
-    private void addText(String[] array) {
+    private void add_and_EditText(String[] array, final boolean isEdit) {
         currentfeature = array[0];
         final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
         dialog.setContentView(View.inflate(this, R.layout.addtext, null));
@@ -762,6 +800,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close = (Button) dialog.findViewById(R.id.bt_close);
         done = (Button) dialog.findViewById(R.id.bt_done);
 
+
+        if (isEdit) {
+            addingText.setText(((TextView) selectedView).getText());
+        }
         TextUtils.setFont(this, header, Constants.FONT_Sans_Bold);
         TextUtils.setFont(this, addingText, Constants.FONT_Sans_Bold);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
@@ -770,23 +812,28 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addedTextIds++;
-                newly_Added_Text = addingText.getText().toString();
-                final TextView textView = new TextView(EditorActivity.this);
-                textView.setTextSize(16.0f);
-                textView.setTextColor(getResources().getColor(R.color.textColor));
-                textView.setMaxWidth(quote_layout.getWidth());
-                TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
-                textView.setText(newly_Added_Text);
-                textView.setId(addedTextIds);
-                textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
-                    }
-                });
-                textView.setOnTouchListener(EditorActivity.this);
-                quote_layout.addView(textView);
+                if (isEdit) {
+                    ((TextView) selectedView).setText(addingText.getText());
+                } else {
+                    addedTextIds++;
+                    newly_Added_Text = addingText.getText().toString();
+                    final TextView textView = new TextView(EditorActivity.this);
+                    textView.setTextSize(16.0f);
+                    textView.setTextColor(getResources().getColor(R.color.textColor));
+                    textView.setMaxWidth(quote_layout.getWidth());
+                    TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
+                    textView.setText(newly_Added_Text);
+                    textView.setId(addedTextIds);
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
+                        }
+                    });
+                    textView.setOnTouchListener(EditorActivity.this);
+                    quote_layout.addView(textView);
+                }
+
                 dialog.dismiss();
             }
         });
@@ -801,6 +848,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.show();
     }
 
+
+
     private void resizeText(String[] array) {
          /*RESIZE*/
         if (selectedView == null) {
@@ -811,7 +860,37 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             text_and_bg_layout.setVisibility(View.GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
-            currentfeature = array[1];
+            currentfeature = array[2];
+
+
+        }
+    }
+    private void rotateText(String[] array) {
+         /*RESIZE*/
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            features_recyclerview.setVisibility(View.GONE);
+            seekBar.setVisibility(View.VISIBLE);
+            text_and_bg_layout.setVisibility(View.GONE);
+            close_and_done_layout.setVisibility(View.VISIBLE);
+            previousstate = selectedView;
+            currentfeature = array[3];
+
+
+        }
+    }
+    private void spaceText(String[] array) {
+         /*RESIZE*/
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            features_recyclerview.setVisibility(View.GONE);
+            seekBar.setVisibility(View.VISIBLE);
+            text_and_bg_layout.setVisibility(View.GONE);
+            close_and_done_layout.setVisibility(View.VISIBLE);
+            previousstate = selectedView;
+            currentfeature = array[4];
 
 
         }

@@ -248,11 +248,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/text_and_background_layout"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
             android:padding="15dp"
+            android:max="360"
+            android:contentDescription="@string/action_settings"
+            android:progress="180"
             android:visibility="gone" />
 
     </RelativeLayout>

@@ -33,11 +33,13 @@
     <string name="this_will_delete">Are you sure want to delete the selected view</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="sorry">Sorry,this feature is not available for your device</string>
 
     <!--SPLASH ACTIVITY-->
 
     <string-array name="Text_features">
         <item>Add Text</item>
+        <item>Edit Text</item>
         <item>Resize Text</item>
         <item>Rotate Text</item>
         <item>Letter Space</item>

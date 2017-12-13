@@ -169,6 +169,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void setWallPaer() {
+        // TODO: 13/12/2017 ask permissions
         Intent intent = new Intent(WallpaperManager.getInstance(this).
                 getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(this, new File(checkandRetrieveUri(wallpaper_layout).getPath()))));
 
