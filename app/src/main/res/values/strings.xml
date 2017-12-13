@@ -29,7 +29,7 @@
     <string name="enter_text">Enter your text below</string>
     <string name="please_select_text">Please, select any text layer to apply features</string>
     <string name="please_select_text_to_delete">Please, select any text layer to delete</string>
-    <string name="are_you_sure">Alert</string>
+    <string name="are_you_sure">Alert </string>
     <string name="this_will_delete">Are you sure want to delete the selected view</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
