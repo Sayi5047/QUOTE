@@ -34,6 +34,11 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="sorry">Sorry,this feature is not available for your device</string>
+    <string name="align">Align text</string>
+    <string name="start">Start</string>
+    <string name="center">Center</string>
+    <string name="end">End</string>
+    <string name="please_enter">Please, Enter something to add</string>
 
     <!--SPLASH ACTIVITY-->
 

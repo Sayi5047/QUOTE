@@ -184,7 +184,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //        level 1.1.1 font_text_changer_layout
         seekBar = (SeekBar) findViewById(R.id.progress_slider_bar);
-  seekBar.setContentDescription("Slide to Rotate");
+        seekBar.setContentDescription("Slide to Rotate");
         close_text_size = (ImageView) findViewById(R.id.close_editor_button);
 
 //        level 1.1.2 font color chooser
@@ -590,10 +590,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             spaceText(array);
 
         } else if (feature.equalsIgnoreCase(array[5])) {
+            // TODO: 14/12/2017 do it at end of text area
+//            alignText(array);
 
         } else if (feature.equalsIgnoreCase(array[6])) {
-
+//            colorText
         } else if (feature.equalsIgnoreCase(array[7])) {
+            spaceLine(array);
 
         } else if (feature.equalsIgnoreCase(array[8])) {
 
@@ -734,41 +737,44 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void handle_close_Feature() {
+        TextView current_text_view = (TextView) selectedView;
+
         if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2])) {
-            TextView current_text_view = (TextView) selectedView;
-//            TextView prev_text_view = (TextView) previousstate;
             current_text_view.setTextSize(25);
-        } if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3])) {
-            TextView current_text_view = (TextView) selectedView;
-//            TextView prev_text_view = (TextView) previousstate;
+        }
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3])) {
             current_text_view.setRotation(0);
-        } if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4])) {
-            TextView current_text_view = (TextView) selectedView;
-//            TextView prev_text_view = (TextView) previousstate;
+        }
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4])) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 current_text_view.setLetterSpacing(0);
             }
         }
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7])) {
+            current_text_view.setLineSpacing(15,1.0f);
+
+        }
     }
 
-    private void  handle_seekbar_value(SeekBar seekBar) {
+    private void handle_seekbar_value(SeekBar seekBar) {
         float radius = (float) seekBar.getProgress();
         TextView selected_textView = (TextView) selectedView;
         if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
 // TODO: 13/12/2017 implement a new seekbar
             selected_textView.setTextSize(radius);
-        }
-        else if(currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0){
-                float degree = radius-180;
+        } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
+            float degree = radius - 180;
             selected_textView.setRotation(degree);
-        }else if(currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0){
-                float degree =radius/300;
+        } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
+            float degree = radius / 300;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 selected_textView.setLetterSpacing(degree);
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
             }
-            else {
-                Toast_Snack_Dialog_Utils.show_ShortToast(this,getString(R.string.sorry));
-            }
+        } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
+            float degrer = radius / 100;
+            selected_textView.setLineSpacing(15,degrer);
         }
         ////        imageView_background.setDrawingCacheEnabled(true);
 //        if (isTextLayout_visible) {
@@ -786,19 +792,24 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void add_and_EditText(String[] array, final boolean isEdit) {
         currentfeature = array[0];
+        final int[] alignment = new int[1];
         final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
         dialog.setContentView(View.inflate(this, R.layout.addtext, null));
-        TextView header;
+        final TextView header, align_text;
         final EditText addingText;
-        Button close, done;
+        Button close, done, start, center, end;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
 
         header = (TextView) dialog.findViewById(R.id.tv_header);
+        align_text = (TextView) dialog.findViewById(R.id.tv_align_text);
         addingText = (EditText) dialog.findViewById(R.id.et_text);
         close = (Button) dialog.findViewById(R.id.bt_close);
         done = (Button) dialog.findViewById(R.id.bt_done);
+        start = (Button) dialog.findViewById(R.id.bt_start);
+        center = (Button) dialog.findViewById(R.id.bt_center);
+        end = (Button) dialog.findViewById(R.id.bt_end);
 
 
         if (isEdit) {
@@ -806,32 +817,68 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
         TextUtils.setFont(this, header, Constants.FONT_Sans_Bold);
         TextUtils.setFont(this, addingText, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, align_text, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, start, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, center, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, end, Constants.FONT_Sans_Bold);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
         TextUtils.setFont(this, done, Constants.FONT_NEVIS);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alignment[0] = 1;
+                addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            }
+        });
+        center.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alignment[0] = 2;
+                addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
+            }
+        });
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alignment[0] = 3;
+                addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+
+            }
+        });
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isEdit) {
+                    set_text_alignment(alignment[0], ((TextView) selectedView));
                     ((TextView) selectedView).setText(addingText.getText());
                 } else {
                     addedTextIds++;
                     newly_Added_Text = addingText.getText().toString();
-                    final TextView textView = new TextView(EditorActivity.this);
-                    textView.setTextSize(16.0f);
-                    textView.setTextColor(getResources().getColor(R.color.textColor));
-                    textView.setMaxWidth(quote_layout.getWidth());
-                    TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
-                    textView.setText(newly_Added_Text);
-                    textView.setId(addedTextIds);
-                    textView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
-                        }
-                    });
-                    textView.setOnTouchListener(EditorActivity.this);
-                    quote_layout.addView(textView);
+                    if (newly_Added_Text.length() <= 0) {
+                        addingText.setError(getString(R.string.please_enter));
+                    } else {
+                        final TextView textView = new TextView(EditorActivity.this);
+                        textView.setTextSize(16.0f);
+                        textView.setTextColor(getResources().getColor(R.color.textColor));
+                        textView.setMaxWidth(quote_layout.getWidth());
+                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
+                        textView.setText(newly_Added_Text);
+                        textView.setId(addedTextIds);
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
+                            }
+                        });
+                        set_text_alignment(alignment[0], textView);
+
+
+                        textView.setOnTouchListener(EditorActivity.this);
+                        quote_layout.addView(textView);
+                    }
+
+
                 }
 
                 dialog.dismiss();
@@ -848,8 +895,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.show();
     }
 
-
-
     private void resizeText(String[] array) {
          /*RESIZE*/
         if (selectedView == null) {
@@ -865,6 +910,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         }
     }
+
     private void rotateText(String[] array) {
          /*RESIZE*/
         if (selectedView == null) {
@@ -880,6 +926,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         }
     }
+
     private void spaceText(String[] array) {
          /*RESIZE*/
         if (selectedView == null) {
@@ -896,12 +943,52 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void spaceLine(String[] array) {
+         /*RESIZE*/
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            features_recyclerview.setVisibility(View.GONE);
+            seekBar.setVisibility(View.VISIBLE);
+            text_and_bg_layout.setVisibility(View.GONE);
+            close_and_done_layout.setVisibility(View.VISIBLE);
+            previousstate = selectedView;
+            currentfeature = array[7];
 
 
+        }
+    }
+
+    private void alignText(String[] array) {
+        TextView selectedTextView = (TextView) selectedView;
+        RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) selectedTextView.getLayoutParams());
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            currentfeature = array[5];
+
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+            selectedTextView.setLayoutParams(params);
+            selectedTextView.setOnTouchListener(this);
+        }
+    }
 
 
+    public void set_text_alignment(int position, TextView textView) {
+        switch (position) {
+            case 1:
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                break;
+            case 2:
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                break;
+            case 3:
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                break;
+        }
 
-
+    }
 /*Permission related Methods*/
 
     private void requestAppPermissions() {
