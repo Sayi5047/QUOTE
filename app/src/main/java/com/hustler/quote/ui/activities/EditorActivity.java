@@ -22,6 +22,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,6 +45,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.ContentAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -591,18 +593,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         } else if (feature.equalsIgnoreCase(array[5])) {
             // TODO: 14/12/2017 do it at end of text area
-//            alignText(array);
+            colorText(array);
 
         } else if (feature.equalsIgnoreCase(array[6])) {
-//            colorText
-        } else if (feature.equalsIgnoreCase(array[7])) {
             spaceLine(array);
 
+        } else if (feature.equalsIgnoreCase(array[7])) {
+            adjustFrameWidth(array);
+
         } else if (feature.equalsIgnoreCase(array[8])) {
-
-        } else if (feature.equalsIgnoreCase(array[9])) {
-
         }
+//        } else if (feature.equalsIgnoreCase(array[9])) {
+//
+//        }
     }
 
 
@@ -750,8 +753,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 current_text_view.setLetterSpacing(0);
             }
         }
+        if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6])) {
+            current_text_view.setLineSpacing(15, 1.0f);
+
+        }
         if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7])) {
-            current_text_view.setLineSpacing(15,1.0f);
+            current_text_view.setPadding(16, 16, 16, 16);
 
         }
     }
@@ -760,7 +767,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         float radius = (float) seekBar.getProgress();
         TextView selected_textView = (TextView) selectedView;
         if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
-// TODO: 13/12/2017 implement a new seekbar
+// TODO: 13/12/21617 implement a new seekbar
             selected_textView.setTextSize(radius);
         } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
             float degree = radius - 180;
@@ -772,9 +779,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             } else {
                 Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
             }
-        } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
+        } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
             float degrer = radius / 100;
-            selected_textView.setLineSpacing(15,degrer);
+            selected_textView.setLineSpacing(15, degrer);
+        } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
+            int degrer = (int) radius;
+            Log.d("PADDIG DEGEREE", degrer + "");
+            selected_textView.setPadding(degrer, 0, degrer, 0);
         }
         ////        imageView_background.setDrawingCacheEnabled(true);
 //        if (isTextLayout_visible) {
@@ -953,24 +964,125 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             text_and_bg_layout.setVisibility(View.GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
+            currentfeature = array[6];
+
+
+        }
+    }
+
+    private void adjustFrameWidth(String[] array) {
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            features_recyclerview.setVisibility(View.GONE);
+            seekBar.setVisibility(View.VISIBLE);
+            text_and_bg_layout.setVisibility(View.GONE);
+            close_and_done_layout.setVisibility(View.VISIBLE);
+            previousstate = selectedView;
             currentfeature = array[7];
 
 
         }
     }
 
-    private void alignText(String[] array) {
-        TextView selectedTextView = (TextView) selectedView;
-        RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) selectedTextView.getLayoutParams());
+    private void colorText(String[] array) {
+        final TextView selectedTextView = (TextView) selectedView;
+//        RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) selectedTextView.getLayoutParams());
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
             currentfeature = array[5];
+            final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
+            dialog.setContentView(R.layout.colors_dialog_layout);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
-            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            final boolean[] isShadowApplied = new boolean[1];
+            final TextView head_tv, demo_tv;
+            RecyclerView colors_rv;
+            Button close, choose, shadow;
+            ColorsAdapter colorsAdapter;
+            final int[] choosen_color = new int[1];
 
-            selectedTextView.setLayoutParams(params);
-            selectedTextView.setOnTouchListener(this);
+
+            head_tv = (TextView) dialog.findViewById(R.id.color_text);
+            demo_tv = (TextView) dialog.findViewById(R.id._demo_color_text);
+            colors_rv = (RecyclerView) dialog.findViewById(R.id.colors_rv);
+            close = (Button) dialog.findViewById(R.id.bt_color_close);
+            choose = (Button) dialog.findViewById(R.id.bt_color_choose);
+            shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
+
+            TextUtils.setFont(this, head_tv, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(this, close, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(this, choose, Constants.FONT_Sans_Bold);
+
+            colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
+
+            colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
+                @Override
+                public void onColorClick(int color) {
+                    choosen_color[0] = color;
+                    demo_tv.setTextColor(color);
+
+                }
+            });
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isShadowApplied[0] = false;
+
+                    dialog.dismiss();
+                }
+            });
+            choose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (choosen_color.length < 0) {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.select_colors_apply));
+                    } else {
+                        if(isShadowApplied[0])
+                        {
+                            selectedTextView.setTextColor(choosen_color[0]);
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && selectedTextView.getShadowRadius()<=0) {
+
+                                TextUtils.applyTextShadow(selectedTextView, 2, 1, 1, getColor(android.R.color.black));
+
+                            } else if(selectedTextView.getShadowRadius()<=0) {
+                                TextUtils.applyTextShadow(selectedTextView, 2, 1, 1, getResources().getColor(android.R.color.black));
+
+                            }
+                            else {
+
+                            }
+                        }
+                        else {
+                            selectedTextView.setTextColor(choosen_color[0]);
+
+                        }
+
+                        dialog.dismiss();
+                    }
+
+                }
+            });
+            shadow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isShadowApplied[0] = true;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                        TextUtils.applyTextShadow(demo_tv, 2, 1, 1, getColor(android.R.color.black));
+
+                    } else {
+                        TextUtils.applyTextShadow(demo_tv, 2, 1, 1, getResources().getColor(android.R.color.black));
+
+                    }
+                }
+            });
+            dialog.setCancelable(false);
+            colors_rv.setAdapter(colorsAdapter);
+            dialog.show();
         }
     }
 
@@ -1072,7 +1184,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public boolean onTouch(View v, MotionEvent event) {
         RelativeLayout.LayoutParams view_Parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         selectedView = v;
-        v.setPadding(16, 16, 16, 16);
+//        v.setPadding(16, 16, 16, 16);
         if (previousSelcted_View != null) {
             previousSelcted_View.setBackground(null);
             previousSelcted_View = v;

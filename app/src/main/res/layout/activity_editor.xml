@@ -217,7 +217,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/close"
-                android:textColor="@color/textColor"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />
 
@@ -227,6 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/textColor"
                 android:text="@string/done"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />

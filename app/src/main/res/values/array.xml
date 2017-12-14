@@ -520,6 +520,275 @@
         <item name="brown_500" type="color">#efebe9</item>
         <item name="grey_500" type="color">#fafafa</item>
         <item name="blue_grey_500" type="color">#eceff1</item>
+
+
+
+
+        <item name="Black" type="color">#FF000000</item>
+        <item name="Black_overlay" type="color">#66000000</item>
+
+        <item name="Black_transparent_black_hex_1" type="color">#11000000</item>
+        <item name="Black_transparent_black_hex_10" type="color">#aa000000</item>
+        <item name="Black_transparent_black_hex_11" type="color">#bb000000</item>
+        <item name="Black_transparent_black_hex_12" type="color">#cc000000</item>
+        <item name="Black_transparent_black_hex_13" type="color">#dd000000</item>
+        <item name="Black_transparent_black_hex_14" type="color">#ee000000</item>
+        <item name="Black_transparent_black_hex_15" type="color">#ff000000</item>
+        <item name="Black_transparent_black_hex_2" type="color">#22000000</item>
+        <item name="Black_transparent_black_hex_3" type="color">#33000000</item>
+        <item name="Black_transparent_black_hex_4" type="color">#44000000</item>
+        <item name="Black_transparent_black_hex_5" type="color">#55000000</item>
+        <item name="Black_transparent_black_hex_6" type="color">#66000000</item>
+        <item name="Black_transparent_black_hex_7" type="color">#77000000</item>
+        <item name="Black_transparent_black_hex_8" type="color">#88000000</item>
+        <item name="Black_transparent_black_hex_9" type="color">#99000000</item>
+
+        <item name="Black_transparent_black_percent_10" type="color">#1A000000</item>
+        <item name="Black_transparent_black_percent_15" type="color">#26000000</item>
+        <item name="Black_transparent_black_percent_20" type="color">#33000000</item>
+        <item name="Black_transparent_black_percent_25" type="color">#40000000</item>
+        <item name="Black_transparent_black_percent_30" type="color">#4D000000</item>
+        <item name="Black_transparent_black_percent_35" type="color">#59000000</item>
+        <item name="Black_transparent_black_percent_40" type="color">#66000000</item>
+        <item name="Black_transparent_black_percent_45" type="color">#73000000</item>
+        <item name="Black_transparent_black_percent_5" type="color">#0D000000</item>
+        <item name="Black_transparent_black_percent_50" type="color">#80000000</item>
+        <item name="Black_transparent_black_percent_55" type="color">#8C000000</item>
+        <item name="Black_transparent_black_percent_60" type="color">#99000000</item>
+        <item name="Black_transparent_black_percent_65" type="color">#A6000000</item>
+        <item name="Black_transparent_black_percent_70" type="color">#B3000000</item>
+        <item name="Black_transparent_black_percent_75" type="color">#BF000000</item>
+        <item name="Black_transparent_black_percent_80" type="color">#CC000000</item>
+        <item name="Black_transparent_black_percent_85" type="color">#D9000000</item>
+        <item name="Black_transparent_black_percent_90" type="color">#E6000000</item>
+        <item name="Black_transparent_black_percent_95" type="color">#F2000000</item>
+
+        <item name="BlanchedAlmond" type="color">#FFEBCD</item>
+        <item name="Blue_AliceBlue" type="color">#F0F8FF</item>
+        <item name="Blue_Aqua" type="color">#00FFFF</item>
+        <item name="Blue_Aquamarine" type="color">#7FFFD4</item>
+        <item name="Blue" type="color">#0000FF</item>
+        <item name="Blue_BlueNavy" type="color">#000080</item>
+        <item name="Blue_BlueViolet" type="color">#8A2BE2</item>
+        <item name="Blue_CadetBlue" type="color">#5F9EA0</item>
+        <item name="Blue_CornflowerBlue" type="color">#6495ED</item>
+        <item name="Blue_DarkBlue" type="color">#00008B</item>
+        <item name="Blue_DarkSlateBlue" type="color">#483D8B</item>
+        <item name="Blue_DeepSkyBlue" type="color">#00BFFF</item>
+        <item name="Blue_DodgerBlue" type="color">#1E90FF</item>
+        <item name="Blue_Lavender" type="color">#E6E6FA</item>
+        <item name="Blue_LavenderBlush" type="color">#FFF0F5</item>
+        <item name="Blue_LightBlue" type="color">#ADD8E6</item>
+        <item name="Blue_LightSkyBlue" type="color">#87CEFA</item>
+        <item name="Blue_LightSteelBlue" type="color">#B0C4DE</item>
+        <item name="Blue_MediumBlue" type="color">#0000CD</item>
+        <item name="Blue_MediumSlateBlue" type="color">#7B68EE</item>
+        <item name="Blue_MidnightBlue" type="color">#191970</item>
+        <item name="Blue_Navy" type="color">#000080</item>
+        <item name="Blue_PowderBlue" type="color">#B0E0E6</item>
+        <item name="Blue_RoyalBlue" type="color">#4169E1</item>
+        <item name="Blue_SkyBlue" type="color">#87CEEB</item>
+        <item name="Blue_SlateBlue" type="color">#6A5ACD</item>
+        <item name="Blue_SteelBlue" type="color">#4682B4</item>
+
+        <item name="Brown" type="color">#A52A2A</item>
+        <item name="Brown_BurlyWood" type="color">#DEB887</item>
+        <item name="Brown_Chocolate" type="color">#D2691E</item>
+        <item name="Brown_DarkKhaki" type="color">#BDB76B</item>
+        <item name="Brown_RosyBrown" type="color">#BC8F8F</item>
+        <item name="Brown_SandyBrown" type="color">#F4A460</item>
+
+        <item name="Chartreuse" type="color">#7FFF00</item>
+        <item name="Coral" type="color">#FF7F50</item>
+        <item name="Cornsilk" type="color">#FFF8DC</item>
+        <item name="Cyan" type="color">#00FFFF</item>
+        <item name="DarkMagenta" type="color">#8B008B</item>
+        <item name="DarkOrchid" type="color">#9932CC</item>
+        <item name="DarkSalmon" type="color">#E9967A</item>
+        <item name="DarkTurquoise" type="color">#00CED1</item>
+        <item name="DarkViolet" type="color">#9400D3</item>
+        <item name="Fuchsia" type="color">#FF00FF</item>
+        <item name="Gainsboro" type="color">#DCDCDC</item>
+
+        <item name="Gray_DarkGray1" type="color">#A9A9A9</item>
+        <item name="Gray_DarkGray" type="color">#2F4F4F</item>
+        <item name="Gray_DimGray" type="color">#696969</item>
+        <item name="Gray_LightGray" type="color">#D3D3D3</item>
+        <item name="Gray_LightSlateGray" type="color">#778899</item>
+        <item name="Gray_SlateGray" type="color">#708090</item>
+
+        <item name="Green" type="color">#008000</item>
+        <item name="Green_DarkGreen" type="color">#006400</item>
+        <item name="Green_DarkOliveGreen" type="color">#556B2F</item>
+        <item name="Green_DarkSeaGreen" type="color">#8FBC8F</item>
+        <item name="Green_ForestGreen" type="color">#228B22</item>
+        <item name="Green_GreenYellow" type="color">#ADFF2F</item>
+        <item name="Green_LawnGreen" type="color">#7CFC00</item>
+        <item name="Green_LightGreen" type="color">#90EE90</item>
+        <item name="Green_LightSeaGreen" type="color">#20B2AA</item>
+        <item name="Green_LimeGreen" type="color">#32CD32</item>
+        <item name="Green_MediumSeaGreen" type="color">#3CB371</item>
+        <item name="Green_MediumSpringGreen" type="color">#00FA9A</item>
+        <item name="Green_PaleGreen" type="color">#98FB98</item>
+        <item name="Green_SeaGreen" type="color">#2E8B57</item>
+        <item name="Green_SpringGreen" type="color">#00FF7F</item>
+        <item name="Green_YellowGreen" type="color">#9ACD32</item>
+
+        <item name="Indigo" type="color">#4B0082</item>
+        <item name="Khaki" type="color">#F0E68C</item>
+        <item name="LemonChiffon" type="color">#FFFACD</item>
+        <item name="LightCoral" type="color">#F08080</item>
+        <item name="LightGoldenrodYellow" type="color">#FAFAD2</item>
+        <item name="LightSalmon" type="color">#FFA07A</item>
+        <item name="Lime" type="color">#00FF00</item>
+        <item name="Linen" type="color">#FAF0E6</item>
+        <item name="Magenta" type="color">#FF00FF</item>
+        <item name="Maroon" type="color">#800000</item>
+        <item name="MediumAquamarine" type="color">#66CDAA</item>
+        <item name="MediumOrchid" type="color">#BA55D3</item>
+        <item name="MediumPurple" type="color">#9370DB</item>
+        <item name="MediumTurquoise" type="color">#48D1CC</item>
+        <item name="MintCream" type="color">#F5FFFA</item>
+        <item name="Moccasin" type="color">#FFE4B5</item>
+        <item name="OldLace" type="color">#FDF5E6</item>
+        <item name="Olive" type="color">#808000</item>
+        <item name="OliveDrab" type="color">#6B8E23</item>
+
+        <item name="Orange" type="color">#FFA500</item>
+        <item name="Orange_DarkOrange" type="color">#FF8C00</item>
+        <item name="Orchid" type="color">#DA70D6</item>
+        <item name="PaleTurquoise" type="color">#AFEEEE</item>
+        <item name="PapayaWhip" type="color">#FFEFD5</item>
+        <item name="PeachPuff" type="color">#FFDAB9</item>
+        <item name="Peru" type="color">#CD853F</item>
+
+        <item name="Pink" type="color">#FFC0CB</item>
+        <item name="Pink_DeepPink" type="color">#FF1493</item>
+        <item name="Pink_HotPink" type="color">#FF69B4</item>
+        <item name="Pink_LightPink" type="color">#FFB6C1</item>
+
+        <item name="Plum" type="color">#DDA0DD</item>
+        <item name="Purple" type="color">#800080</item>
+
+        <item name="Red" type="color">#FF0000</item>
+        <item name="Red_Crimson" type="color">#DC143C</item>
+        <item name="Red_DarkCyan" type="color">#008B8B</item>
+        <item name="Red_DarkRed" type="color">#8B0000</item>
+        <item name="Red_FireBrick" type="color">#B22222</item>
+        <item name="Red_IndianRed" type="color">#CD5C5C</item>
+        <item name="Red_LightCyan" type="color">#E0FFFF</item>
+        <item name="Red_MediumVioletRed" type="color">#C71585</item>
+        <item name="Red_MistyRose" type="color">#FFE4E1</item>
+        <item name="Red_OrangeRed" type="color">#FF4500</item>
+        <item name="Red_PaleVioletRed" type="color">#DB7093</item>
+        <item name="Red_Tomato" type="color">#FF6347</item>
+
+        <item name="SaddleBrown" type="color">#8B4513</item>
+        <item name="Salmon" type="color">#FA8072</item>
+        <item name="Seashell" type="color">#FFF5EE</item>
+        <item name="Sienna" type="color">#A0522D</item>
+        <item name="Silver" type="color">#C0C0C0</item>
+        <item name="Tan" type="color">#D2B48C</item>
+        <item name="Thistle" type="color">#D8BFD8</item>
+        <item name="Turquoise" type="color">#40E0D0</item>
+        <item name="Violet" type="color">#EE82EE</item>
+
+        <item name="White_AntiqueWhite" type="color">#FAEBD7</item>
+        <item name="White_Azure" type="color">#F0FFFF</item>
+        <item name="White_Beige" type="color">#F5F5DC</item>
+        <item name="White_Bisque" type="color">#FFE4C4</item>
+        <item name="White_FloralWhite" type="color">#FFFAF0</item>
+        <item name="White_GhostWhite" type="color">#F8F8FF</item>
+        <item name="White_Honeydew" type="color">#F0FFF0</item>
+        <item name="White_Ivory" type="color">#FFFFF0</item>
+        <item name="White_NavajoWhite" type="color">#FFDEAD</item>
+        <item name="White_Snow" type="color">#FFFAFA</item>
+        <item name="White_Teal" type="color">#008080</item>
+
+        <item name="White_transparent_white_hex_1" type="color">#11ffffff</item>
+        <item name="White_transparent_white_hex_10" type="color">#aaffffff</item>
+        <item name="White_transparent_white_hex_11" type="color">#bbffffff</item>
+        <item name="White_transparent_white_hex_12" type="color">#ccffffff</item>
+        <item name="White_transparent_white_hex_13" type="color">#ddffffff</item>
+        <item name="White_transparent_white_hex_14" type="color">#eeffffff</item>
+        <item name="White_transparent_white_hex_15" type="color">#ffffffff</item>
+        <item name="White_transparent_white_hex_2" type="color">#22ffffff</item>
+        <item name="White_transparent_white_hex_3" type="color">#33ffffff</item>
+        <item name="White_transparent_white_hex_4" type="color">#44ffffff</item>
+        <item name="White_transparent_white_hex_5" type="color">#55ffffff</item>
+        <item name="White_transparent_white_hex_6" type="color">#66ffffff</item>
+        <item name="White_transparent_white_hex_7" type="color">#77ffffff</item>
+        <item name="White_transparent_white_hex_8" type="color">#88ffffff</item>
+        <item name="White_transparent_white_hex_9" type="color">#99ffffff</item>
+
+        <item name="White_transparent_white_percent_10" type="color">#1Affffff</item>
+        <item name="White_transparent_white_percent_15" type="color">#26ffffff</item>
+        <item name="White_transparent_white_percent_20" type="color">#33ffffff</item>
+        <item name="White_transparent_white_percent_25" type="color">#40ffffff</item>
+        <item name="White_transparent_white_percent_30" type="color">#4Dffffff</item>
+        <item name="White_transparent_white_percent_35" type="color">#59ffffff</item>
+        <item name="White_transparent_white_percent_40" type="color">#66ffffff</item>
+        <item name="White_transparent_white_percent_45" type="color">#73ffffff</item>
+        <item name="White_transparent_white_percent_5" type="color">#0Dffffff</item>
+        <item name="White_transparent_white_percent_50" type="color">#80ffffff</item>
+        <item name="White_transparent_white_percent_55" type="color">#8Cffffff</item>
+        <item name="White_transparent_white_percent_60" type="color">#99ffffff</item>
+        <item name="White_transparent_white_percent_65" type="color">#A6ffffff</item>
+        <item name="White_transparent_white_percent_70" type="color">#B3ffffff</item>
+        <item name="White_transparent_white_percent_75" type="color">#BFffffff</item>
+        <item name="White_transparent_white_percent_80" type="color">#CCffffff</item>
+        <item name="White_transparent_white_percent_85" type="color">#D9ffffff</item>
+        <item name="White_transparent_white_percent_90" type="color">#E6ffffff</item>
+        <item name="White_transparent_white_percent_95" type="color">#F2ffffff</item>
+
+        <item name="White_Wheat" type="color">#F5DEB3</item>
+        <item name="White_White" type="color">#FFFFFF</item>
+        <item name="White_WhiteSmoke" type="color">#F5F5F5</item>
+
+        <item name="Yellow" type="color">#FFFF00</item>
+        <item name="Yellow_DarkGoldenrod" type="color">#B8860B</item>
+        <item name="Yellow_Gold" type="color">#FFD700</item>
+        <item name="Yellow_GoldenRod" type="color">#DAA520</item>
+        <item name="Yellow_LightYellow" type="color">#FFFFE0</item>
+        <item name="Yellow_PaleGoldenrod" type="color">#EEE8AA</item>
+     
+
+        <item name="Gunmetal" type="color">#2C3539</item>
+        <item name="Midnight" type="color">#2B1B17</item>
+        <item name="Charcoal" type="color">#34282C</item>
+        <item name="DarkSlateGrey" type="color">#25383C</item>
+        <item name="Oil" type="color">#3B3131</item>
+        <item name="BlackCat" type="color">#413839</item>
+        <item name="BlackEel" type="color">#463E3F</item>
+        <item name="BlackCow" type="color">#4C4646</item>
+        <item name="GrayWolf" type="color">#504A4B</item>
+        <item name="VampireGray" type="color">#565051</item>
+        <item name="GrayDolphin" type="color">#5C5858</item>
+        <item name="CarbonGray" type="color">#625D5D</item>
+        <item name="AshGray" type="color">#666362</item>
+        <item name="CloudyGray" type="color">#6D6968</item>
+        <item name="SmokeyGray" type="color">#726E6D</item>
+        <item name="Gray" type="color">#736F6E</item>
+        <item name="Granite" type="color">#837E7C</item>
+        <item name="BattleshipGray" type="color">#848482</item>
+        <item name="GrayCloud" type="color">#B6B6B4</item>
+        <item name="GrayGoose" type="color">#D1D0CE</item>
+        <item name="Platinum" type="color">#E5E4E2</item>
+        <item name="MetallicSilver" type="color">#BCC6CC</item>
+        <item name="BlueGray" type="color">#98AFC7</item>
+        <item name="LightSlateGray" type="color">#6D7B8D</item>
+        <item name="SlateGray" type="color">#657383</item>
+        <item name="JetGray" type="color">#616D7E</item>
+        <item name="MistBlue" type="color">#646D7E</item>
+        <item name="MarbleBlue" type="color">#566D7E</item>
+        <item name="SteelBlue" type="color">#4863A0</item>
+        <item name="BlueJay" type="color">#2B547E</item>
+        <item name="DarkSlateBlue" type="color">#2B3856</item>
+        <item name="MidnightBlue" type="color">#151B54</item>
+        <item name="NavyBlue" type="color">#000080</item>
+        <item name="BlueWhale" type="color">#342D7E</item>
+        <item name="LapisBlue" type="color">#15317E</item>
+        <item name="EarthBlue" type="color">#0000A0</item>
     </array>
 
 

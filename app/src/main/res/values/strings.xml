@@ -39,6 +39,10 @@
     <string name="center">Center</string>
     <string name="end">End</string>
     <string name="please_enter">Please, Enter something to add</string>
+    <string name="choose_color">Choose color to apply</string>
+    <string name="choose">Apply</string>
+    <string name="select_colors_apply">Select any color to apply</string>
+    <string name="apply_shadow">Apply shadow to text</string>
 
     <!--SPLASH ACTIVITY-->
 
@@ -48,11 +52,11 @@
         <item>Resize Text</item>
         <item>Rotate Text</item>
         <item>Letter Space</item>
-        <item>Align Text</item>
+        <!--<item>Align Text</item>-->
         <item>Color Text</item>
         <item>Line Space</item>
         <item>Frame Width</item>
-        <item>Punch Text</item>
+        <item>Change Font</item>
     </string-array>
     <string-array name="Background_features">
         <item>Add Image</item>

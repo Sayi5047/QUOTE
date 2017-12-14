@@ -26,5 +26,9 @@ public class TextUtils {
 
     }
 
+    public static void applyTextShadow(TextView tv,float raduis,int x,int y,int color){
+        tv.setShadowLayer(raduis,x,y,color);
+    }
+
 
 }
