@@ -1,175 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical">
-       <TextView
-           android:id="@+id/tv_head"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/colorAccent"
-           android:padding="@dimen/standardPadding"
-           android:text="@string/shadow"
-           android:textAlignment="center"
-           android:textColor="@android:color/white"
-           android:textSize="@dimen/font3"
-           android:textStyle="italic" />
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/smallPadding"
-           android:text="@string/app_name"
-           android:textAlignment="center"
-           android:textColor="@color/textColor"
-           android:textSize="@dimen/font3"
-           android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/standardPadding"
+            android:text="@string/shadow"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font3"
+            android:textStyle="italic" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/smallPadding">
+        <TextView
+            android:id="@+id/demo_shadow_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font3"
+            android:textStyle="bold" />
 
-           <android.support.v7.widget.AppCompatSeekBar
-               android:id="@+id/opacity_seekbar"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:max="100"
-               android:padding="@dimen/smallPadding"
-               android:progress="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
 
-           <TextView
-               android:id="@+id/tv_opacity"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:layout_weight="4"
-               android:text="@string/opacity" />
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/opacity_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
 
-       </LinearLayout>
+            <TextView
+                android:id="@+id/tv_opacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/opacity" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/smallPadding">
+        </LinearLayout>
 
-           <android.support.v7.widget.AppCompatSeekBar
-               android:id="@+id/shadow_radius_seekbar"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:max="50"
-               android:padding="@dimen/smallPadding"
-               android:progress="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
 
-           <TextView
-               android:id="@+id/tv_shadow_radius"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:layout_weight="4"
-               android:text="@string/radius" />
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/shadow_radius_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
 
-       </LinearLayout>
+            <TextView
+                android:id="@+id/tv_shadow_radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/radius" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/smallPadding">
+        </LinearLayout>
 
-           <android.support.v7.widget.AppCompatSeekBar
-               android:id="@+id/pos_x_seekbar"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:max="50"
-               android:padding="@dimen/smallPadding"
-               android:progress="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
 
-           <TextView
-               android:id="@+id/tv_x_pos"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:layout_weight="4"
-               android:text="@string/x_pos" />
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/pos_x_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
 
-       </LinearLayout>
+            <TextView
+                android:id="@+id/tv_x_pos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/x_pos" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/smallPadding">
+        </LinearLayout>
 
-           <android.support.v7.widget.AppCompatSeekBar
-               android:id="@+id/pos_y_seekbar"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:max="50"
-               android:padding="@dimen/smallPadding"
-               android:progress="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
 
-           <TextView
-               android:id="@+id/tv_y_pos"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:layout_weight="4"
-               android:text="@string/y_pos" />
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/pos_y_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
 
-       </LinearLayout>
+            <TextView
+                android:id="@+id/tv_y_pos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/y_pos" />
 
-       <TextView
-           android:id="@+id/tv_shadow_color"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/smallPadding"
-           android:text="@string/shadow_color"
-           android:layout_margin="@dimen/standardMargin"
-           android:textStyle="italic"
-           android:textAlignment="center"
-           android:background="@color/colorAccent"
-           android:textColor="@android:color/white"/>
+        </LinearLayout>
 
-       <android.support.v7.widget.RecyclerView
-           android:id="@+id/rv_shadow_color"
-           android:layout_width="match_parent"
-           android:layout_height="75dp"
-           android:padding="@dimen/smallPadding"
-           android:layout_margin="@dimen/standardMargin">
+        <TextView
+            android:id="@+id/tv_shadow_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standardMargin"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/smallPadding"
+            android:text="@string/shadow_color"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="italic" />
 
-       </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_shadow_color"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="@dimen/standardMargin"
+            android:padding="@dimen/smallPadding">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           android:padding="@dimen/standardPadding">
-           <Button
-               android:id="@+id/bt_shadow_close"
-               android:layout_width="match_parent"
-               android:layout_height="35dp"
-               android:layout_weight="1"
-               android:layout_margin="@dimen/smallPadding"
-               android:background="@drawable/rounded_rect"
-               android:text="@string/close"
-               android:textColor="@color/textColor"/>
-           <Button
-               android:id="@+id/bt_shadow_apply"
-               android:layout_width="match_parent"
-               android:layout_height="35dp"
-               android:layout_weight="1"
-               android:layout_margin="@dimen/standardMargin"
-               android:background="@drawable/rounded_rect"
-               android:text="@string/apply"
-               android:textColor="@color/textColor"/>
-       </LinearLayout>
-   </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/standardPadding">
+
+            <Button
+                android:id="@+id/bt_shadow_close"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/smallPadding"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/close"
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_shadow_apply"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/standardMargin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/apply"
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>
