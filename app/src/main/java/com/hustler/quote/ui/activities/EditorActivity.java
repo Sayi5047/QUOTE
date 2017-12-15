@@ -52,6 +52,7 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+import com.hustler.quote.ui.textFeatures.TextFeatures;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -602,10 +603,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             adjustFrameWidth(array);
 
         } else if (feature.equalsIgnoreCase(array[8])) {
+            shadowText(array);
+        } else if (feature.equalsIgnoreCase(array[9])) {
+
         }
-//        } else if (feature.equalsIgnoreCase(array[9])) {
-//
-//        }
     }
 
 
@@ -1040,23 +1041,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (choosen_color.length < 0) {
                         Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.select_colors_apply));
                     } else {
-                        if(isShadowApplied[0])
-                        {
+                        if (isShadowApplied[0]) {
                             selectedTextView.setTextColor(choosen_color[0]);
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && selectedTextView.getShadowRadius()<=0) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && selectedTextView.getShadowRadius() <= 0) {
 
                                 TextUtils.applyTextShadow(selectedTextView, 2, 1, 1, getColor(android.R.color.black));
 
-                            } else if(selectedTextView.getShadowRadius()<=0) {
+                            } else if (selectedTextView.getShadowRadius() <= 0) {
                                 TextUtils.applyTextShadow(selectedTextView, 2, 1, 1, getResources().getColor(android.R.color.black));
 
-                            }
-                            else {
+                            } else {
 
                             }
-                        }
-                        else {
+                        } else {
                             selectedTextView.setTextColor(choosen_color[0]);
 
                         }
@@ -1086,6 +1084,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void shadowText(String[] array) {
+        final TextView selectedTextView = (TextView) selectedView;
+
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            previousstate = selectedView;
+            currentfeature = array[8];
+            TextFeatures.apply_Text_Shadow(EditorActivity.this,selectedTextView);
+
+
+        }
+    }
 
     public void set_text_alignment(int position, TextView textView) {
         switch (position) {

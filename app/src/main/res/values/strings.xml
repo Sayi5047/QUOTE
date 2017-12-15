@@ -43,6 +43,13 @@
     <string name="choose">Apply</string>
     <string name="select_colors_apply">Select any color to apply</string>
     <string name="apply_shadow">Apply shadow to text</string>
+    <string name="shadow">Shadow Text</string>
+    <string name="opacity">Opacity</string>
+    <string name="radius">Shadow radius</string>
+    <string name="x_pos">Shadow X distance</string>
+    <string name="y_pos">Shadow Y distance</string>
+    <string name="shadow_color">Shadow color</string>
+    <string name="apply">Apply</string>
 
     <!--SPLASH ACTIVITY-->
 
@@ -56,6 +63,7 @@
         <item>Color Text</item>
         <item>Line Space</item>
         <item>Frame Width</item>
+        <item>Shadow Text</item>
         <item>Change Font</item>
     </string-array>
     <string-array name="Background_features">
