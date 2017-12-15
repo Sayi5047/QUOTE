@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/tv"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rect"
+        android:text="@string/app_name"
+        android:elevation="4dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="@dimen/font1"
+        />
+
+</LinearLayout>

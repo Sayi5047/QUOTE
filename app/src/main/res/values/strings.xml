@@ -50,6 +50,13 @@
     <string name="y_pos">Shadow Y distance</string>
     <string name="shadow_color">Shadow color</string>
     <string name="apply">Apply</string>
+    <string name="local_fonts">Local fonts</string>
+    <string name="symbol_fonts">Symbol fonts</string>
+    <string name="downloaded_fonts">Your fonts</string>
+    <string name="app_fonts">Local fonts</string>
+    <string name="download_fonts">Downloaded fonts</string>
+    <string name="symbolic_fonts">Symbol fonts</string>
+    <string name="select_font">Select any font style to apply.</string>
 
     <!--SPLASH ACTIVITY-->
 
@@ -66,6 +73,7 @@
         <item>Shadow Text</item>
         <item>Change Font</item>
     </string-array>
+
     <string-array name="Background_features">
         <item>Add Image</item>
         <item>Add Emoji</item>

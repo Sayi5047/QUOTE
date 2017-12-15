@@ -606,9 +606,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[8])) {
             shadowText(array);
         } else if (feature.equalsIgnoreCase(array[9])) {
-
+            applyFont(array);
         }
     }
+
+
 
 
     private void enable_Selected_Background_Features(String clickedItem, String[] stringArray) {
@@ -1065,6 +1067,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+
+    private void applyFont(String[] array) {
+        final TextView selectedTextView = (TextView) selectedView;
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            previousstate = selectedView;
+            currentfeature = array[9];
+            TextFeatures.apply_font(EditorActivity.this, selectedTextView);
+
+
+        }
+    }
+
     public void set_text_alignment(int position, TextView textView) {
         switch (position) {
             case 1:
@@ -1079,6 +1095,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
 
     }
+
+
+
+
 /*Permission related Methods*/
 
     private void requestAppPermissions() {

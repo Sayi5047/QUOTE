@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_demo_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/smallPadding"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font2"
+            android:textStyle="italic">
+
+        </TextView>
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_app_fonts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/smallPadding"
+                android:text="@string/app_fonts"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font2"
+                android:textStyle="italic">
+
+            </TextView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_app_font"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_margin="@dimen/smallPadding">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/root2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_symbol_fonts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/smallPadding"
+                android:text="@string/symbolic_fonts"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font2"
+                android:textStyle="italic">
+
+            </TextView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_symbol_font"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_margin="@dimen/smallPadding">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/root3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_downloaded_fonts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/smallPadding"
+                android:text="@string/download_fonts"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font2"
+                android:textStyle="italic">
+
+            </TextView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_downloaded_font"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/smallPadding"
+                android:layout_height="75dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/smallPadding">
+
+            <Button
+                android:id="@+id/bt_shadow_close"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/smallPadding"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/close"
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_shadow_apply"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/standardMargin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/apply"
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

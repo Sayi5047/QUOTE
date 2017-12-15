@@ -2,8 +2,11 @@ package com.hustler.quote.ui.textFeatures;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Environment;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +17,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
+import com.hustler.quote.ui.adapters.DownloadedFontAdapter;
+import com.hustler.quote.ui.adapters.LocalFontAdapter;
+import com.hustler.quote.ui.adapters.SymbolFontAdapter;
+import com.hustler.quote.ui.pojo.FontSelected;
 import com.hustler.quote.ui.utils.TextUtils;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
+
+import java.io.File;
 
 /**
  * Created by anvaya5 on 15/12/2017.
@@ -49,8 +60,8 @@ public class TextFeatures {
         root = (LinearLayout) dialog.findViewById(R.id.root);
         /*VARIABLES FOR SHADOW*/
         final float[] radius = {checkFornull(selectedTextView.getShadowRadius(), 2)};
-        final float[] x = { checkFornull(selectedTextView.getShadowDx(), 1)};
-        final float[] y = { checkFornull(selectedTextView.getShadowDy(), 1)};
+        final float[] x = {checkFornull(selectedTextView.getShadowDx(), 1)};
+        final float[] y = {checkFornull(selectedTextView.getShadowDy(), 1)};
         final int[] shadow_color = {(int) checkFornull((float) selectedTextView.getShadowColor(), activity.getResources().getColor(R.color.black_overlay))};
         final float[] opacity = {checkFornull(selectedTextView.getAlpha(), 1.0f)};
 
@@ -77,20 +88,20 @@ public class TextFeatures {
 
         /*Applying font to all TextViews and Edittexts*/
         TextUtils.findText_and_applyTypeface(root, activity);
-        if(selectedTextView.getShadowRadius()>0){
+        if (selectedTextView.getShadowRadius() > 0) {
             TextUtils.applyTextShadow(demoShadowText, radius[0], x[0], y[0], shadow_color[0]);
         }
-        opacitySeekbar.setProgress((int)radius[0]);
-        shadowRadiusSeekbar.setProgress((int)radius[0]);
-        posXSeekbar.setProgress((int)x[0]);
-        posYSeekbar.setProgress((int)y[0]);
+        opacitySeekbar.setProgress((int) radius[0]);
+        shadowRadiusSeekbar.setProgress((int) radius[0]);
+        posXSeekbar.setProgress((int) x[0]);
+        posYSeekbar.setProgress((int) y[0]);
 
         /*SEEKBAR LISTNERS*/
         opacitySeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 /*alpha applies between 0 to 1*/
-                opacity[0] =  (progress * 0.1f);
+                opacity[0] = (progress * 0.1f);
                 demoShadowText.setAlpha(opacity[0]);
             }
 
@@ -107,7 +118,7 @@ public class TextFeatures {
         shadowRadiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                 radius[0] = progress;
+                radius[0] = progress;
                 TextUtils.applyTextShadow(demoShadowText, progress, x[0], y[0], shadow_color[0]);
 
             }
@@ -125,7 +136,7 @@ public class TextFeatures {
         posXSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                 x[0] = progress;
+                x[0] = progress;
                 TextUtils.applyTextShadow(demoShadowText, radius[0], progress, y[0], shadow_color[0]);
 
             }
@@ -143,7 +154,7 @@ public class TextFeatures {
         posYSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                 y[0] = progress;
+                y[0] = progress;
                 TextUtils.applyTextShadow(demoShadowText, radius[0], x[0], progress, shadow_color[0]);
 
             }
@@ -210,4 +221,161 @@ public class TextFeatures {
         }
     }
 
+    //  METHOD TO APLLY FONT
+    public static FontSelected apply_font(final EditorActivity editorActivity, final TextView selectedTextView) {
+        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.apply_font_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+
+        LinearLayout root;
+        TextView tvAppFonts;
+        final TextView demoText;
+        RecyclerView rvAppFont;
+        LinearLayout root2;
+        TextView tvSymbolFonts;
+        RecyclerView rvSymbolFont;
+        LinearLayout root3;
+        TextView tvDownloadedFonts;
+        RecyclerView rvDownloadedFont;
+        Button btShadowClose;
+        Button btShadowApply;
+        LocalFontAdapter localFontAdapter1;
+        SymbolFontAdapter symbolFontAdapter;
+        DownloadedFontAdapter downloadedFontAdapter;
+        final Boolean[] isDownloaded = new Boolean[1];
+        final FontSelected fontSelected = new FontSelected();
+
+        final String[] selected_type_face = new String[1];
+
+
+        root = (LinearLayout) dialog.findViewById(R.id.root);
+        root2 = (LinearLayout) dialog.findViewById(R.id.root2);
+        root3 = (LinearLayout) dialog.findViewById(R.id.root3);
+
+        tvAppFonts = (TextView) dialog.findViewById(R.id.tv_app_fonts);
+        demoText = (TextView) dialog.findViewById(R.id.tv_demo_text);
+        tvSymbolFonts = (TextView) dialog.findViewById(R.id.tv_symbol_fonts);
+        tvDownloadedFonts = (TextView) dialog.findViewById(R.id.tv_downloaded_fonts);
+
+        rvDownloadedFont = (RecyclerView) dialog.findViewById(R.id.rv_downloaded_font);
+        rvAppFont = (RecyclerView) dialog.findViewById(R.id.rv_app_font);
+        rvSymbolFont = (RecyclerView) dialog.findViewById(R.id.rv_symbol_font);
+
+        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
+
+        btShadowClose.setOnClickListener(editorActivity);
+        btShadowApply.setOnClickListener(editorActivity);
+        TextUtils.findText_and_applyTypeface(root, editorActivity);
+
+        rvAppFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
+        rvSymbolFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
+        rvDownloadedFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
+
+        localFontAdapter1 = new LocalFontAdapter(false, editorActivity, getLocalFonts(editorActivity), new LocalFontAdapter.onFontClickListner() {
+            @Override
+            public void onFontClicked(String font, boolean isDownloadFont) {
+                selected_type_face[0] = font;
+                isDownloaded[0] = isDownloadFont;
+                TextUtils.setFont(editorActivity, demoText, selected_type_face[0]);
+                fontSelected.setFontname_path(selected_type_face[0]);
+                fontSelected.setDownloaded(isDownloaded[0]);
+            }
+        });
+        symbolFontAdapter = new SymbolFontAdapter(false, editorActivity, getSymbolFonts(editorActivity), new SymbolFontAdapter.onFontClickListner() {
+            @Override
+            public void onFontClicked(String font, boolean isDownloadFont) {
+                selected_type_face[0] = font;
+                isDownloaded[0] = isDownloadFont;
+                TextUtils.setFont(editorActivity, demoText, selected_type_face[0]);
+                fontSelected.setFontname_path(selected_type_face[0]);
+                fontSelected.setDownloaded(isDownloaded[0]);
+
+            }
+        });
+        downloadedFontAdapter = new DownloadedFontAdapter(true, editorActivity, getDownloadedFonts(editorActivity), new DownloadedFontAdapter.onFontClickListner() {
+            @Override
+            public void onFontClicked(String font, boolean isDownloadFont) {
+                selected_type_face[0] = font;
+                isDownloaded[0] = isDownloadFont;
+                demoText.setTypeface(Typeface.createFromFile(selected_type_face[0]));
+                fontSelected.setFontname_path(selected_type_face[0]);
+                fontSelected.setDownloaded(isDownloaded[0]);
+            }
+        });
+
+        rvAppFont.setAdapter(localFontAdapter1);
+        rvSymbolFont.setAdapter(symbolFontAdapter);
+        rvDownloadedFont.setAdapter(downloadedFontAdapter);
+
+        btShadowApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (selected_type_face[0] == null) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_font));
+                } else {
+                    if (isDownloaded[0]) {
+                        selectedTextView.setTypeface(Typeface.createFromFile(selected_type_face[0]));
+                    } else {
+                        TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
+                    }
+                }
+                dialog.dismiss();
+
+
+            }
+
+
+        });
+
+
+        btShadowClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
+        return fontSelected;
+
+    }
+
+    private static String[] getDownloadedFonts(Activity activity) {
+        File file;
+        String[] FilePathStrings = new String[0];
+        String[] FileNameStrings = new String[0];
+        File[] listFile;
+        file = new File(Environment.getExternalStorageDirectory() + File.separator + "Fonts");
+        file.mkdir();
+        if (file.isDirectory()) {
+            listFile = file.listFiles();
+            // Create a String array for FilePathStrings
+            FilePathStrings = new String[listFile.length];
+            // Create a String array for FileNameStrings
+            FileNameStrings = new String[listFile.length];
+
+            for (int i = 0; i < listFile.length; i++) {
+                // Get the path of the image file
+                FilePathStrings[i] = listFile[i].getAbsolutePath();
+                // Get the name image file
+                FileNameStrings[i] = listFile[i].getName();
+            }
+        }
+        return FilePathStrings;
+
+    }
+
+    private static String[] getSymbolFonts(Activity activity) {
+        String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);
+        return localFonts;
+    }
+
+    private static String[] getLocalFonts(Activity activity) {
+        String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);
+        return localFonts;
+    }
 }
