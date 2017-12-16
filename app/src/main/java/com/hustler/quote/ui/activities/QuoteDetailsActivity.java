@@ -111,7 +111,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void getIntentData() {
 //        Bundle bundle=getIntent().getBundleExtra(Constants.BUNDLE_OBJECT);
-        quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT);
+        quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
         int length = quote.getBody().length();
         root.setBackgroundColor(quote.getColor());
@@ -265,7 +265,9 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //        }
 
         Intent intent = new Intent(this, EditorActivity.class);
-        intent.putExtra(Constants.INTENT_QUOTE_OBJECT, quote);
+
+        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+        intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, true);
         startActivity(intent);
     }
 

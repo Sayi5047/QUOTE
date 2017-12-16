@@ -57,6 +57,7 @@
     <string name="download_fonts">Downloaded fonts</string>
     <string name="symbolic_fonts">Symbol fonts</string>
     <string name="select_font">Select any font style to apply.</string>
+    <string name="clear">Clear selection</string>
 
     <!--SPLASH ACTIVITY-->
 

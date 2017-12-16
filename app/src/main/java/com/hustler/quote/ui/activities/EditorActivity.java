@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -28,6 +27,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -103,11 +103,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private QuotesFromFC quote;
     private RelativeLayout quoteLayout;
-    private RelativeLayout quote_layout;
+    private RelativeLayout core_editor_layout;
     private LinearLayout text_and_bg_layout;
     private LinearLayout close_and_done_layout;
 
     private SeekBar seekBar;
+    private Button clear_button;
     private BottomSheetBehavior bottomSheetBehavior;
 
     RecyclerView features_recyclerview;
@@ -137,6 +138,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private String currentfeature;
 
     ScaleGestureDetector scaleGestureDetector;
+    private boolean isFromEdit_Activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,8 +200,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //      main editor text layout
         quoteAnim = (ImageView) findViewById(R.id.quote_anim);
-        quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
-        quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
+//        quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
+//        quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
         imageView_background = (ImageView) findViewById(R.id.imageView_background);
 
 
@@ -207,7 +209,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_layout = (TextView) findViewById(R.id.background_and_Image_field);
         close_layout = (TextView) findViewById(R.id.close_tv);
         done_layout = (TextView) findViewById(R.id.done_tv);
-        quote_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
+        core_editor_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
+        clear_button = (Button) findViewById(R.id.bt_clear);
+
+
         scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
 
 
@@ -242,6 +247,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         delete_view_button.setOnClickListener(this);
         close_layout.setOnClickListener(this);
         done_layout.setOnClickListener(this);
+        clear_button.setOnClickListener(this);
 
 
 //        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
@@ -253,37 +259,79 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setViews() {
-        if (quote != null) {
-            int length = quote.getBody().length();
-            root_layout.setBackground(getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
+        if (isFromEdit_Activity) {
+            quote_editor_body = new TextView(this);
+            quote_editor_author = new TextView(this);
+            quote_editor_body.setId(addedTextIds);
+            addedTextIds++;
+            quote_editor_author.setId(addedTextIds);
+            addedTextIds++;
+
+
+            if (quote != null) {
+                int length = quote.getBody().length();
+                root_layout.setBackground(getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
 //            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
-            if (length > 230) {
-                quote_editor_body.setTextSize(20.0f);
-            } else if (length < 230 && length > 150) {
-                quote_editor_body.setTextSize(25.0f);
+                if (length > 230) {
+                    quote_editor_body.setTextSize(20.0f);
+                } else if (length < 230 && length > 150) {
+                    quote_editor_body.setTextSize(25.0f);
 
-            } else if (length > 100 && length < 150) {
-                quote_editor_body.setTextSize(30.0f);
+                } else if (length > 100 && length < 150) {
+                    quote_editor_body.setTextSize(30.0f);
 
-            } else if (length > 50 && length < 100) {
-                quote_editor_body.setTextSize(35.0f);
+                } else if (length > 50 && length < 100) {
+                    quote_editor_body.setTextSize(35.0f);
 
-            } else if (length > 2 && length < 50) {
-                quote_editor_body.setTextSize(40.0f);
+                } else if (length > 2 && length < 50) {
+                    quote_editor_body.setTextSize(40.0f);
 
-            } else {
-                quote_editor_body.setTextSize(45.0f);
+                } else {
+                    quote_editor_body.setTextSize(45.0f);
 
+                }
+
+                quote_editor_body.setText(quote.getBody());
+                quote_editor_author.setText(quote.getAuthor());
+                quote_editor_body.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+                quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+
+                quote_editor_body.setMaxWidth(1050);
+                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                quote_editor_body.setGravity(Gravity.CENTER);
+                quote_editor_author.setMaxWidth(1050);
+                quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                quote_editor_author.setGravity(Gravity.CENTER);
+
+                quoteLayout.addView(quote_editor_body);
+                quoteLayout.addView(quote_editor_author);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) quote_editor_body.getLayoutParams();
+
+                params.addRule(RelativeLayout.CENTER_VERTICAL);
+                RelativeLayout.LayoutParams paramsbottom = (RelativeLayout.LayoutParams) quote_editor_author.getLayoutParams();
+
+                paramsbottom.addRule(RelativeLayout.ALIGN_BOTTOM);
+
+                quote_editor_body.setLayoutParams(params);
+                quote_editor_author.setLayoutParams(paramsbottom);
+
+
+                quote_editor_author.setOnTouchListener(this);
+                quote_editor_body.setOnTouchListener(this);
             }
-            quote_editor_body.setText(quote.getBody());
-            quote_editor_author.setText(quote.getAuthor());
-            quote_editor_body.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
-            quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+
+
         }
     }
 
     private void getIntentData() {
-        quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT);
+        if ((Boolean) getIntent().getBooleanExtra(Constants.INTENT_IS_FROM_EDIT_KEY, false)) {
+            isFromEdit_Activity = true;
+            quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
+
+        } else {
+            isFromEdit_Activity = false;
+        }
     }
 
 
@@ -329,6 +377,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.bt_clear: {
+                if (selectedView == null) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text_to_delete));
+                } else {
+                    selectedView.setBackground(null);
+                    previousSelcted_View = null;
+                    selectedView = null;
+                    clear_button.setVisibility(View.GONE);
+                }
+            }
             case R.id.text_field: {
                 setText_Features_rv();
             }
@@ -408,7 +466,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                                     features_recyclerview.setVisibility(View.VISIBLE);
                                     seekBar.setProgress(180);
                                     seekBar.setVisibility(View.GONE);
-                                    quote_layout.removeView(selectedView);
+                                    core_editor_layout.removeView(selectedView);
                                     selectedView = null;
                                 }
 
@@ -611,8 +669,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-
-
     private void enable_Selected_Background_Features(String clickedItem, String[] stringArray) {
 
     }
@@ -772,12 +828,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextView selected_textView = (TextView) selectedView;
         if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
 // TODO: 13/12/21617 implement a new seekbar
-            selected_textView.setTextSize(radius);
+            float size = radius / 6;
+            selected_textView.setTextSize(size);
         } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
             float degree = radius - 180;
             selected_textView.setRotation(degree);
         } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
-            float degree = radius / 300;
+            float degree = radius / 500;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 selected_textView.setLetterSpacing(degree);
             } else {
@@ -803,8 +860,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-//    FEATURES
-
+    //    FEATURES
+// THIS MEHOD CAN't be moved outside becuase it has lot of dependies in this page.
     private void add_and_EditText(String[] array, final boolean isEdit) {
         currentfeature = array[0];
         final int[] alignment = new int[1];
@@ -815,7 +872,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         Button close, done, start, center, end;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-
+        dialog.setCancelable(false);
 
         header = (TextView) dialog.findViewById(R.id.tv_header);
         align_text = (TextView) dialog.findViewById(R.id.tv_align_text);
@@ -838,6 +895,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, end, Constants.FONT_Sans_Bold);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
         TextUtils.setFont(this, done, Constants.FONT_NEVIS);
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -876,7 +934,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         final TextView textView = new TextView(EditorActivity.this);
                         textView.setTextSize(16.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
-                        textView.setMaxWidth(quote_layout.getWidth());
+                        textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
                         textView.setText(newly_Added_Text);
                         textView.setId(addedTextIds);
@@ -890,7 +948,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
                         textView.setOnTouchListener(EditorActivity.this);
-                        quote_layout.addView(textView);
+                        core_editor_layout.addView(textView);
                     }
 
 
@@ -1182,13 +1240,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public boolean onTouch(View v, MotionEvent event) {
         RelativeLayout.LayoutParams view_Parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         selectedView = v;
+
 //        v.setPadding(16, 16, 16, 16);
         if (previousSelcted_View != null) {
             previousSelcted_View.setBackground(null);
             previousSelcted_View = v;
+            clear_button.setVisibility(View.VISIBLE);
             selectedView.setBackground(getResources().getDrawable(R.drawable.tv_bg));
 
         } else {
+            clear_button.setVisibility(View.VISIBLE);
             previousSelcted_View = v;
             selectedView.setBackground(getResources().getDrawable(R.drawable.tv_bg));
 

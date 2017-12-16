@@ -85,8 +85,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimaryDark"
-                android:elevation="@dimen/elevation4"
                 android:gravity="center">
+
+                <Button
+                    android:id="@+id/bt_clear"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_margin="@dimen/fontsmall"
+                    android:alpha="0.5"
+                    android:background="@drawable/rounded_rect"
+                    android:elevation="4dp"
+                    android:text="@string/clear"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="8dp"
+                    android:visibility="gone" />
                 <!--COLORED FILTER-->
                 <ImageView
                     android:id="@+id/imageView_background"
@@ -106,23 +120,17 @@
                     android:id="@+id/arena_text_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:elevation="@dimen/elevation4"
-                    android:gravity="bottom"
-
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_Quote_Body"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         android:padding="5dp"
+                        android:textAlignment="center"
                         android:textColor="@color/textColor"
-
                         android:textSize="@dimen/font3_5"
-                        android:transitionName="@string/quotes_body_transistion"
+                        android:visibility="gone"
                         tools:text="Great Power Comes with Great Responsibilities" />
 
 
@@ -134,11 +142,12 @@
                         android:layout_gravity="center"
                         android:gravity="top"
                         android:paddingTop="@dimen/elevation8"
-
                         android:textAlignment="center"
 
                         android:textColor="@color/textColor"
+
                         android:textSize="@dimen/font2"
+                        android:visibility="gone"
                         tools:text="Spiderman" />
 
                     <ImageView
@@ -149,6 +158,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/elevation8"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/ic_quote_animation" />
                 </RelativeLayout>
 
@@ -227,8 +237,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/textColor"
                 android:text="@string/done"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />
 
@@ -249,13 +259,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/text_and_background_layout"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentTop="true"
-            android:padding="15dp"
-            android:max="360"
             android:contentDescription="@string/action_settings"
+            android:max="360"
+            android:padding="15dp"
             android:progress="180"
             android:visibility="gone" />
 

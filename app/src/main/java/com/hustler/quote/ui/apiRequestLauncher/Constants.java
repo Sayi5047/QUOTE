@@ -21,7 +21,8 @@ public class Constants
     public static final String FONT_Sans_Bold="fonts/sans_bold.ttf";
 
 
-    public static final String INTENT_QUOTE_OBJECT = "QUOTE_OBJECT_TRAVELLER_KEY";
+    public static final String INTENT_QUOTE_OBJECT_KEY = "QUOTE_OBJECT_TRAVELLER_KEY";
     public static final String BUNDLE_OBJECT = "bundle_k";
     public static final int DEFAULT_COLOR = Color.RED;
+    public static String INTENT_IS_FROM_EDIT_KEY ="is_From_Edit_Activity_intent_key";
 }

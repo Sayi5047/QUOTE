@@ -1,14 +1,11 @@
 package com.hustler.quote.ui.activities;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -101,7 +98,7 @@ public class MainFragment extends Fragment {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getActivity().getWindow().setEnterTransition(new Explode());
                             Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT, quotesFromFC);
+                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
                             ActivityOptionsCompat options = ActivityOptionsCompat.
                                     makeSceneTransitionAnimation(getActivity(),
                                             view,
@@ -109,7 +106,7 @@ public class MainFragment extends Fragment {
                             startActivity(intent, options.toBundle());
                         } else {
                             Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT, quotesFromFC);
+                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
                             startActivity(intent);
                         }
 

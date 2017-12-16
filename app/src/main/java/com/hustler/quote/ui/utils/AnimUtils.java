@@ -30,7 +30,7 @@ public class AnimUtils {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 Animator animator = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, endradius);
                 view.setVisibility(View.VISIBLE);
-                animator.setDuration(700);
+                animator.setDuration(500);
                 animator.start();
             } else {
             }
@@ -45,7 +45,7 @@ public class AnimUtils {
                         view.setVisibility(View.INVISIBLE);
                     }
                 });
-                animator.setDuration(700);
+                animator.setDuration(500);
                 animator.start();
             } else {
 

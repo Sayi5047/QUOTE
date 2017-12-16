@@ -34,6 +34,9 @@ import java.io.File;
 
 public class TextFeatures {
 
+
+
+
     public static void apply_Text_Shadow(final Activity activity, final TextView selectedTextView) {
 
         final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,8 +26,6 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.TextUtils;
-
-import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
@@ -86,7 +85,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 
             // Handle clicks for floatingActionButton
-            final Dialog dialog = new Dialog(this, R.style.MyAlertDialog);
+            final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
             final View view = View.inflate(this, R.layout.edit_chooser, null);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(view);
@@ -128,6 +127,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     // TODO: 02-12-2017 implement to go quotes editor
+                    dialog.dismiss();
+                    Intent intent = new Intent(HomeActivity.this,EditorActivity.class);
+                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY,false);
+                    startActivity(intent);
                 }
             });
 
