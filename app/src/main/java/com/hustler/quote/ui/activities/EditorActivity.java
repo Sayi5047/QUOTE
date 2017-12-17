@@ -178,7 +178,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        level 1.1 text font manipulator options
         font_size_changer = (ImageView) findViewById(R.id.spacer_in_top);
 //        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
-        font_family_changer = (ImageView) findViewById(R.id.share_work_button);
 
 //        level 1.2 text background manipulator options
     /*    background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
@@ -235,7 +234,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_layout.setOnClickListener(this);
         seekBar.setOnSeekBarChangeListener(this);
         font_size_changer.setOnClickListener(this);
-        font_family_changer.setOnClickListener(this);
+//        font_family_changer.setOnClickListener(this);
 //        save_picture.setOnClickListener(this);
         close_text_size.setOnClickListener(this);
 //        background_color_changer.setOnClickListener(this);
@@ -480,10 +479,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
             }
             break;
-            case R.id.share_work_button: {
-                Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.coming_soon));
-            }
-            break;
+//            case R.id.share_work_button: {
+//                Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.coming_soon));
+//            }
+//            break;
             case R.id.close_editor_button: {
                 super.onBackPressed();
             }
@@ -844,9 +843,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             float degrer = radius / 100;
             selected_textView.setLineSpacing(15, degrer);
         } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
-            int degrer = (int) radius;
+            int degrer = (int) radius*3;
             Log.d("PADDIG DEGEREE", degrer + "");
-            selected_textView.setPadding(degrer, 0, degrer, 0);
+            selected_textView.setMaxWidth(degrer);
         }
         ////        imageView_background.setDrawingCacheEnabled(true);
 //        if (isTextLayout_visible) {

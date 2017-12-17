@@ -55,7 +55,7 @@
             android:src="@drawable/ic_save_black_24dp" />
 
         <ImageView
-            android:id="@+id/share_work_button"
+            android:id="@+id/font_share_module"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -306,7 +306,6 @@
             android:src="@drawable/ic_save_black_24dp" />
 
         <ImageView
-            android:id="@+id/font_share_module"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"

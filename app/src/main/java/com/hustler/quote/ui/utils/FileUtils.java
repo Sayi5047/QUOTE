@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.hustler.quote.ui.pojo.UserWorkImages;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,14 +33,19 @@ public class FileUtils {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        File file1;
+        File file;
 
-        File file = new File(new StringBuilder().append(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES))
-                .append(File.separator)
-                .append("QUOTES--")
-//                        .append(quote.getAuthor())
-                .append(System.currentTimeMillis())
-                .append(".jpeg")
-                .toString());
+        file1 = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
+        if (file1.isDirectory()) {
+            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
+                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
+        } else {
+            file1.mkdir();
+            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
+                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
+        }
+
         filetoReturn[0] = file;
         Log.d("ImageLocation -->", file.toString());
         try {
@@ -59,6 +66,17 @@ public class FileUtils {
 //        }.start();
         return filetoReturn[0];
 
+//        file = new File(new StringBuilder().append(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+File.separator+"QUOTZY")
+
+//                file. new StringBuilder()
+//                .append(File.separator)
+//                .append("QUOTES--")
+//                        .append(quote.getAuthor())
+//                .append(System.currentTimeMillis())
+//                .append(".jpeg")
+//                .toString());
+
+
     }
 
     public static Bitmap returnBitmap(final ViewGroup layout) {
@@ -69,7 +87,8 @@ public class FileUtils {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         return bitmap;
     }
-// METHOSD TOOK FROM INTERNET
+
+    // METHOSD TOOK FROM INTERNET
     public static Uri getImageContentUri(Context context, File imageFile) {
         String filePath = imageFile.getAbsolutePath();
         Cursor cursor = context.getContentResolver().query(
@@ -96,5 +115,29 @@ public class FileUtils {
             }
         }
     }
+
+    public static UserWorkImages getImagesFromSdCard() {
+        File file;
+        String[] imagePaths;
+        String[] imageNames;
+        File[] files;
+
+        file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
+        file.mkdir();
+        if (file.isDirectory()) {
+            files = file.listFiles();
+            imageNames = new String[files.length];
+            imagePaths = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                imageNames[i] = files[i].getName();
+                imagePaths[i] = files[i].getAbsolutePath();
+            }
+            return new UserWorkImages(imagePaths, imageNames);
+        } else {
+            return null;
+        }
+
+    }
+
 
 }

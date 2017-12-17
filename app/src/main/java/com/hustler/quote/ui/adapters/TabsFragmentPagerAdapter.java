@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.MainFragment;
+import com.hustler.quote.ui.fragments.UserWorkFragment;
 
 /**
  * Created by Sayi on 29-10-2017.
@@ -28,7 +29,7 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
             }break; case 1:{
                returning_fragment= new MainFragment();
             }break; case 2:{
-               returning_fragment= new MainFragment();
+               returning_fragment= new UserWorkFragment();
             }break;
         }
         return returning_fragment;
