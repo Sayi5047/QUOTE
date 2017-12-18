@@ -20,7 +20,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +53,7 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
+import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -64,8 +64,9 @@ import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
-    private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY = 1002;
+    private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
+    private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS = 1004;
 
 
     Window windowManager;
@@ -150,6 +151,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         findViews();
         getIntentData();
         setViews();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+
+        } else {
+            requestAppPermissions();
+        }
     }
 
     private void findViews() {
@@ -298,6 +309,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_body.setMaxWidth(1050);
                 quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 quote_editor_body.setGravity(Gravity.CENTER);
+                quote_editor_body.setY(quoteLayout.getHeight() / 2);
                 quote_editor_author.setMaxWidth(1050);
                 quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 quote_editor_author.setGravity(Gravity.CENTER);
@@ -413,7 +425,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.save_work_button: {
-                if (isPermissionAvailable()) {
+                if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
 
                     savedFile = savetoDevice(quoteLayout);
                     if (savedFile != null) {
@@ -843,7 +855,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             float degrer = radius / 100;
             selected_textView.setLineSpacing(15, degrer);
         } else if (currentfeature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
-            int degrer = (int) radius*3;
+            int degrer = (int) radius * 3;
             Log.d("PADDIG DEGEREE", degrer + "");
             selected_textView.setMaxWidth(degrer);
         }
@@ -931,11 +943,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         addingText.setError(getString(R.string.please_enter));
                     } else {
                         final TextView textView = new TextView(EditorActivity.this);
-                        textView.setTextSize(16.0f);
+                        textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
                         textView.setText(newly_Added_Text);
+                        textView.setX(core_editor_layout.getWidth() / 2);
+                        textView.setY(core_editor_layout.getHeight() / 2);
                         textView.setId(addedTextIds);
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -1127,12 +1141,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void applyFont(String[] array) {
         final TextView selectedTextView = (TextView) selectedView;
+
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            previousstate = selectedView;
-            currentfeature = array[9];
-            TextFeatures.apply_font(EditorActivity.this, selectedTextView);
+            if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+                previousstate = selectedView;
+                currentfeature = array[9];
+                TextFeatures.apply_font(EditorActivity.this, selectedTextView);
+            } else {
+                requestAppPermissions_for_fonts();
+            }
 
 
         }
@@ -1162,7 +1181,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         ActivityCompat.requestPermissions(
                 this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY));
+                (MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART));
     }
 
     private void requestAppPermissions_to_save_to_gallery() {
@@ -1170,6 +1189,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 (MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY));
+    }
+
+    private void requestAppPermissions_for_fonts() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                (MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS));
     }
 
     @Override
@@ -1194,22 +1220,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private boolean isPermissionAvailable() {
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                &&
-                (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSION_REQUEST_STORAGE_FOR_GALLERY: {
+            case MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    launchGallery();
+//                    launchGallery();
                 }
             }
             break;
@@ -1219,6 +1236,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
             }
             break;
+            case MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.permissin_granted));
+                }
+            }
+            break;
+
         }
     }
 

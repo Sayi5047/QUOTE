@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -31,6 +30,7 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.FileUtils;
+import com.hustler.quote.ui.utils.PermissionUtils;
 
 import java.io.File;
 
@@ -38,6 +38,7 @@ import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
+    private static final int MY_PERMISSION_REQUEST_STORAGE_WALLPAPER = 1003;
     QuotesFromFC quote;
     RelativeLayout root;
     LinearLayout quote_layout;
@@ -49,6 +50,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     Window window;
     int val = 1001;
     private RelativeLayout wallpaper_layout;
+    private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,15 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //        }
         getIntentData();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (PermissionUtils.isPermissionAvailable(QuoteDetailsActivity.this)) {
+        } else {
+            requestFirstAppPermissions();
+        }
     }
 
     private void initView() {
@@ -158,18 +169,22 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                 share();
                 break;
             case R.id.fab_set_wall:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    setWallPaer();
+                if (PermissionUtils.isPermissionAvailable(QuoteDetailsActivity.this)) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        setWallPaer();
+                    } else {
+                        setWallPaerCompat();
+                    }
                 } else {
-                    setWallPaerCompat();
+                    requestFirstAppPermissions_Wall();
                 }
+
                 break;
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void setWallPaer() {
-        // TODO: 13/12/2017 ask permissions
+    public void setWallPaer() {
         Intent intent = new Intent(WallpaperManager.getInstance(this).
                 getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(this, new File(checkandRetrieveUri(wallpaper_layout).getPath()))));
 
@@ -188,28 +203,33 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void checkpermissions_and_proceed() {
-        if (isPermissionAvailable()) {
+        if (PermissionUtils.isPermissionAvailable(QuoteDetailsActivity.this)) {
             savedFile = savetoDevice(quote_layout);
         } else {
             requestAppPermissions();
         }
     }
 
-    private boolean isPermissionAvailable() {
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                &&
-                (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     private void requestAppPermissions() {
         ActivityCompat.requestPermissions(
                 this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 (MY_PERMISSION_REQUEST_STORAGE));
+    }
+
+    private void requestFirstAppPermissions() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                (MY_PERMISSION_REQUEST_STORAGE_FIRST));
+    }
+
+    private void requestFirstAppPermissions_Wall() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                (MY_PERMISSION_REQUEST_STORAGE_WALLPAPER));
     }
 
     @Override
@@ -220,6 +240,23 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     savedFile = savetoDevice(quote_layout);
                 }
             }
+            break;
+            case MY_PERMISSION_REQUEST_STORAGE_FIRST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                }
+            }
+            break;
+            case MY_PERMISSION_REQUEST_STORAGE_WALLPAPER: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        setWallPaer();
+                    } else {
+                        setWallPaerCompat();
+                    }
+                }
+            }
+
+
         }
     }
 

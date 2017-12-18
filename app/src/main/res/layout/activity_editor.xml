@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@id/top_save_and_share_bar"
-        android:layout_weight="6"
+        android:layout_weight="8"
         android:orientation="vertical">
 
 
@@ -84,7 +84,7 @@
                 android:id="@+id/quote_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark"
+                android:background="@android:color/white"
                 android:gravity="center">
 
                 <Button
@@ -181,6 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
+            android:background="@drawable/rect_black_border"
             android:padding="4dp">
 
             <TextView
@@ -190,7 +191,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/elevation8"
+                android:padding="@dimen/elevation4"
                 android:text="@string/Text"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/font1"
@@ -202,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/elevation8"
+                android:padding="@dimen/elevation4"
 
                 android:text="@string/background"
                 android:textSize="@dimen/font1"
@@ -216,6 +217,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
+            android:background="@drawable/rect_black_border"
             android:padding="4dp"
             android:visibility="gone">
 
@@ -249,7 +251,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/text_and_background_layout"
-            android:layout_marginBottom="14dp"
             android:layout_marginStart="4dp" />
 
         <!--LEVEL 2 SLIDER-->
@@ -275,6 +276,7 @@
         android:id="@+id/top_editor_navigaotor_level1"
         android:layout_width="match_parent"
         android:layout_height="42dp"
+
         android:background="@android:color/transparent"
         android:padding="4dp"
         android:visibility="gone">

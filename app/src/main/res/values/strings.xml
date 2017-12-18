@@ -58,6 +58,12 @@
     <string name="symbolic_fonts">Symbol fonts</string>
     <string name="select_font">Select any font style to apply.</string>
     <string name="clear">Clear selection</string>
+    <string name="permission_comulsory">Permission is mandatory for editing pictures.</string>
+    <string name="permission_">Please,give permission to use features.</string>
+    <string name="operation_failed">Operation failed</string>
+    <string name="permissin_granted">Permission granted now you can use the feature.</string>
+    <string name="no_work">No work done yet</string>
+    <string name="no_permission">Storage permission not granted. Click to grant.</string>
 
     <!--SPLASH ACTIVITY-->
 
