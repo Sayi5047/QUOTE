@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -50,6 +51,8 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     private LinearLayout noPermissionView;
     private TextView imageText;
     private TextView message;
+    UserWorkAdapter userWorkAdapter;
+
 
     @Nullable
     @Override
@@ -87,12 +90,12 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
             noPermissionView.setVisibility(View.VISIBLE);
             message.setText(getActivity().getString(R.string.no_work));
         }
-        rv.setAdapter(new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
+        userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
             @Override
-            public void onImageClickListneer(String imageName, String imagepath) {
+            public void onImageClickListneer(Palette.Swatch swatch,int position, String imageName, String imagepath) {
                 try {
                     android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
-                    buildDialog(rv, exifInterface, imageName, imagepath);
+                    buildDialog(swatch,userWorkImages.getImagesPaths().length,position,userWorkAdapter, rv, exifInterface, imageName, imagepath);
                     Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
                     Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
                     Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
@@ -100,15 +103,17 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                     ;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
                 }
             }
-        }));
+        });
+        rv.setAdapter(userWorkAdapter);
     }
 
-    private void buildDialog(final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
-        final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog);
+    private void buildDialog(final Palette.Swatch swatch,final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
+        final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.user_work_show_item);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
         RelativeLayout rootLayout;
@@ -140,14 +145,22 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         metaFileLocation = (TextView) dialog.findViewById(R.id.meta_data_location_tv);
         metaImageSize = (TextView) dialog.findViewById(R.id.meta_data_size_tv);
 
+        header.setBackgroundColor(swatch.getRgb());
+
         TextUtils.findText_and_applyTypeface(rootLayout, getActivity());
+        TextUtils.findText_and_applycolor(rootLayout,getActivity(),swatch);
+//        TextUtils.findText_and_applyamim_slideup(rootLayout,getActivity());
 
         header.setText(imageName);
+        header.setTextColor(getActivity().getResources().getColor(android.R.color.white));
 
         Glide.with(getActivity()).load(imagepath).asBitmap().fitCenter().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivWork);
 
         metaDataDateTv.setText(exifInterface.getAttribute(android.support.media.ExifInterface.TAG_DATETIME));
-        metaDataResolutionTv.setText(getActivity().getString(R.string.Resolution, exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_WIDTH, 0)));
+        metaDataResolutionTv.setText(getActivity().getString(
+                        R.string.Resolution,
+                        exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_WIDTH, 0),
+                        exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_LENGTH, 0)));
         metaFileLocation.setText(getActivity().getString(R.string.Path, imagepath));
         metaImageSize.setText(getActivity().getString(R.string.size, new File(imagepath).length() / 1024));
         fabDelete.setOnClickListener(new View.OnClickListener() {
@@ -163,17 +176,19 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                                 @Override
                                 public void onPositiveselection() {
                                     File file = new File(imagepath);
-                                    if (file.isDirectory()) {
-                                        file.delete();
-                                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.deleted));
-                                        rv.invalidate();
-                                        dialog.dismiss();
+                                    file.delete();
+                                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.deleted));
+                                    rv.setAdapter(null);
+                                    setRecyclerview();
+//                                    rv.invalidate();
+//                                    userWorkAdapter.updateData(position);
+////                                    rv.removeViewAt(position);
+//                                    userWorkAdapter.notifyItemRemoved(position);
+//                                    userWorkAdapter.notifyItemRangeChanged(position,userWorkImages.getImagesPaths().length);
+//                                    userWorkAdapter.notifyDataSetChanged();
+                                    dialog.dismiss();
 
-                                    } else {
-                                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.unable));
-                                        dialog.dismiss();
 
-                                    }
                                 }
 
                                 @Override

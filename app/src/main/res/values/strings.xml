@@ -66,11 +66,12 @@
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
     <string name="set_wallpaer">Wallpaper</string>
     <string name="share">Share</string>
-    <string name="Resolution">Image Resolution: %1$d </string>
+    <string name="Resolution">Image Resolution: %1$d x %2$d</string>
     <string name="Path">File location : %1$s</string>
     <string name="size">Size : %1$d kb</string>
     <string name="unable">Unable to delete</string>
     <string name="deleted">Image has been deleted</string>
+    <string name="image_unavailable">Image not available</string>
 
     <!--SPLASH ACTIVITY-->
 

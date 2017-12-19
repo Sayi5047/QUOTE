@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    >
 
     <LinearLayout
         android:id="@+id/data_view"

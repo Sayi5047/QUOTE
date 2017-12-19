@@ -3,11 +3,15 @@ package com.hustler.quote.ui.utils;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 
 /**
@@ -50,6 +54,43 @@ public class TextUtils {
                 setEdit_Font(activity, ((EditText) view), Constants.FONT_Sans_Bold);
             } else {
 
+            }
+        }
+    }
+
+    public static void findText_and_applycolor(ViewGroup viewGroup, Activity activity, Palette.Swatch swatch) {
+        int childcount = viewGroup.getChildCount();
+        for (int i = 0; i < childcount; i++) {
+            View view = viewGroup.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                findText_and_applycolor((ViewGroup) view, activity, swatch);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setTextColor(swatch.getRgb());
+            }
+//            }else if (view instanceof ImageView) {
+//                ((ImageView) view).setBackgroundColor(swatch.getRgb());
+//            }
+        }
+    }
+
+    public static void findText_and_applyamim_slideup(ViewGroup viewGroup, Activity activity) {
+        int childcount = viewGroup.getChildCount();
+        for (int i = 0; i < childcount; i++) {
+            View view = viewGroup.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                findText_and_applyamim_slideup((ViewGroup) view, activity);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slideup));
+            }
+        }
+    } public static void findText_and_applyamim_slidedown(ViewGroup viewGroup, Activity activity) {
+        int childcount = viewGroup.getChildCount();
+        for (int i = 0; i < childcount; i++) {
+            View view = viewGroup.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                findText_and_applyamim_slideup((ViewGroup) view, activity);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slidedown));
             }
         }
     }

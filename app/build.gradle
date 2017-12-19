@@ -35,6 +35,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:exifinterface:25.3.1'
+    compile 'com.android.support:palette-v7:25.3.1'
     compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:support-v4:25.3.1'

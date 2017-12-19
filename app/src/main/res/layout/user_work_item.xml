@@ -6,7 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="2dp"
-    app:cardCornerRadius="@dimen/elevation4">
+    app:cardCornerRadius="@dimen/elevation4"
+    android:clipToPadding="true"
+    android:id="@+id/root_cl">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +21,7 @@
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:elevation="4dp" />
+             />
 
         <TextView
             android:id="@+id/user_work_name_tv"
@@ -27,7 +29,8 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:textSize="@dimen/font2"
+            android:textSize="@dimen/font1"
+            android:elevation="4dp"
             android:padding="4dp"
             tools:text="work" />
     </LinearLayout>

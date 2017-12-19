@@ -70,7 +70,7 @@ public class FileUtils {
         }
         try {
             ExifInterface exifInterface = new ExifInterface(filetoReturn[0].getAbsolutePath());
-            exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION,filetoReturn[0].getName());
+            exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, filetoReturn[0].getName());
             exifInterface.setAttribute(ExifInterface.TAG_DATETIME, DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2));
         } catch (IOException io) {
             io.printStackTrace();
@@ -191,17 +191,13 @@ public class FileUtils {
     public static Uri getImageContentUri(Context context, File imageFile) {
         try {
             String filePath = imageFile.getAbsolutePath();
+
             Cursor cursor = context.getContentResolver().query(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{
-                            MediaStore.Images.Media._ID},
-                    MediaStore.Images.Media.DATA + "=? ",
-                    new String[]{filePath},
-                    null);
+                    new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=? ", new String[]{filePath}, null);
 
             if (cursor != null && cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor
-                        .getColumnIndex(MediaStore.MediaColumns._ID));
+                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
                 Uri baseUri = Uri.parse("content://media/external/images/media");
                 return Uri.withAppendedPath(baseUri, "" + id);
             } else {
@@ -249,10 +245,10 @@ public class FileUtils {
 
     }
 
-    public static  void setwallpaper(Activity activity,String imagepath){
+    public static void setwallpaper(Activity activity, String imagepath) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Intent intent = new Intent(WallpaperManager.getInstance(activity).
-                    getCropAndSetWallpaperIntent(new Uri.Builder().path(imagepath).build()));
+                    getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
 
             activity.startActivity(intent);
         } else {
@@ -266,18 +262,18 @@ public class FileUtils {
         }
     }
 
-    public static void shareImage(Activity activity,String imagePath){
+    public static void shareImage(Activity activity, String imagePath) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_SUBJECT,imagePath);
-        intent.putExtra(Intent.EXTRA_TITLE,imagePath);
-        if(imagePath!=null){
-            intent.putExtra(Intent.EXTRA_STREAM,imagePath);
-            intent.putExtra(Intent.EXTRA_MIME_TYPES,"jpeg");
+        intent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
+        intent.putExtra(Intent.EXTRA_TITLE, imagePath);
+        if (imagePath != null) {
+            intent.putExtra(Intent.EXTRA_STREAM, imagePath);
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, "jpeg");
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             activity.startActivity(Intent.createChooser(intent, "send"));
-        }else {
-            Toast_Snack_Dialog_Utils.show_ShortToast(activity,activity.getString(R.string.Unable_to_save_share_image));
+        } else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
         }
     }
 }
