@@ -3,25 +3,37 @@ package com.hustler.quote.ui.fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.UserWorkAdapter;
 import com.hustler.quote.ui.pojo.UserWorkImages;
-import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
+import com.hustler.quote.ui.utils.TextUtils;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Sayi on 17-12-2017.
@@ -70,7 +82,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     private void setRecyclerview() {
         userWorkImages = FileUtils.getImagesFromSdCard();
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        if(userWorkImages==null){
+        if (userWorkImages == null) {
             dataView.setVisibility(View.GONE);
             noPermissionView.setVisibility(View.VISIBLE);
             message.setText(getActivity().getString(R.string.no_work));
@@ -78,15 +90,122 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         rv.setAdapter(new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
             @Override
             public void onImageClickListneer(String imageName, String imagepath) {
-                App.showToast(getActivity(), imageName + "  " + imagepath);
-                buildDialog();
+                try {
+                    android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
+                    buildDialog(rv, exifInterface, imageName, imagepath);
+                    Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
+                    Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
+                    Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
+                    Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
+                    ;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }));
     }
 
-    private void buildDialog() {
-        Dialog dialog = new Dialog(getActivity(),R.style.EditTextDialog);
+    private void buildDialog(final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
+        final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog);
         dialog.setContentView(R.layout.user_work_show_item);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        RelativeLayout rootLayout;
+        TextView header;
+        ImageView closeIv;
+        ImageView ivWork;
+        FloatingActionButton fabDelete;
+        FloatingActionButton fabWallpaper;
+        FloatingActionButton fabShare;
+        TextView tvDelete;
+        TextView tvWallpaper;
+        TextView tvShare;
+        TextView metaDataDateTv;
+        TextView metaDataResolutionTv;
+        TextView metaFileLocation, metaImageSize;
+
+        rootLayout = (RelativeLayout) dialog.findViewById(R.id.root_layout);
+        header = (TextView) dialog.findViewById(R.id.header);
+        closeIv = (ImageView) dialog.findViewById(R.id.close_iv);
+        ivWork = (ImageView) dialog.findViewById(R.id.iv_work);
+        fabDelete = (FloatingActionButton) dialog.findViewById(R.id.fab_delete);
+        fabWallpaper = (FloatingActionButton) dialog.findViewById(R.id.fab_wallpaper);
+        fabShare = (FloatingActionButton) dialog.findViewById(R.id.fab_share);
+        tvDelete = (TextView) dialog.findViewById(R.id.tv_delete);
+        tvWallpaper = (TextView) dialog.findViewById(R.id.tv_wallpaper);
+        tvShare = (TextView) dialog.findViewById(R.id.tv_share);
+        metaDataDateTv = (TextView) dialog.findViewById(R.id.meta_data_date_tv);
+        metaDataResolutionTv = (TextView) dialog.findViewById(R.id.meta_data_resolution_tv);
+        metaFileLocation = (TextView) dialog.findViewById(R.id.meta_data_location_tv);
+        metaImageSize = (TextView) dialog.findViewById(R.id.meta_data_size_tv);
+
+        TextUtils.findText_and_applyTypeface(rootLayout, getActivity());
+
+        header.setText(imageName);
+
+        Glide.with(getActivity()).load(imagepath).asBitmap().fitCenter().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivWork);
+
+        metaDataDateTv.setText(exifInterface.getAttribute(android.support.media.ExifInterface.TAG_DATETIME));
+        metaDataResolutionTv.setText(getActivity().getString(R.string.Resolution, exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_WIDTH, 0)));
+        metaFileLocation.setText(getActivity().getString(R.string.Path, imagepath));
+        metaImageSize.setText(getActivity().getString(R.string.size, new File(imagepath).length() / 1024));
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imagepath != null) {
+                    Toast_Snack_Dialog_Utils.createDialog(getActivity(),
+                            getString(R.string.are_you_sure),
+                            getString(R.string.this_will_delete),
+                            getString(R.string.cancel),
+                            getString(R.string.delete),
+                            new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+                                @Override
+                                public void onPositiveselection() {
+                                    File file = new File(imagepath);
+                                    if (file.isDirectory()) {
+                                        file.delete();
+                                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.deleted));
+                                        rv.invalidate();
+                                        dialog.dismiss();
+
+                                    } else {
+                                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.unable));
+                                        dialog.dismiss();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onNegativeSelection() {
+
+                                }
+                            });
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.unable));
+                }
+            }
+        });
+        fabWallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FileUtils.setwallpaper(getActivity(), imagepath);
+            }
+        });
+        fabShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FileUtils.shareImage(getActivity(), imagepath);
+            }
+        });
+        closeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     @Override
@@ -109,8 +228,8 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.message:{
+        switch (v.getId()) {
+            case R.id.message: {
                 checkPermission_and_proceed();
             }
         }

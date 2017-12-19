@@ -1,19 +1,21 @@
 package com.hustler.quote.ui.utils;
 
 import android.app.Activity;
+import android.app.WallpaperManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.media.ExifInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.pojo.UserWorkImages;
@@ -42,43 +44,48 @@ public class FileUtils {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
-        File file1;
-        File file;
+        File directoryChecker;
+        File savingFile;
 
-        file1 = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
-        if (file1.isDirectory()) {
-            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
-                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
+        directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
+        if (directoryChecker.isDirectory()) {
+            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
+                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpeg");
         } else {
-            file1.mkdir();
-            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
-                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
+            directoryChecker.mkdir();
+            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
+                    File.separator + "QUOTES--" + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2) + ".jpeg");
         }
 
-        filetoReturn[0] = file;
-        Log.d("ImageLocation -->", file.toString());
+        filetoReturn[0] = savingFile;
+        Log.d("ImageLocation -->", savingFile.toString());
         try {
-            file.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            savingFile.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(savingFile);
             fileOutputStream.write(byteArrayOutputStream.toByteArray());
             fileOutputStream.close();
 //                    App.showToast(QuoteDetailsctivity.this,getString(R.string.image_saved));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            ExifInterface exifInterface = new ExifInterface(filetoReturn[0].getAbsolutePath());
+            exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION,filetoReturn[0].getName());
+            exifInterface.setAttribute(ExifInterface.TAG_DATETIME, DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2));
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
 
         return filetoReturn[0];
-
-
 
 
     }
 
     public static File savetoDeviceCustom(final ViewGroup layout) {
         final File[] filetoReturn = new File[1];
-        Bitmap scaledBitmap=null;
-        BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inJustDecodeBounds=true;
+        Bitmap scaledBitmap = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
         layout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         layout.buildDrawingCache(true);
@@ -90,9 +97,9 @@ public class FileUtils {
         float maxHeight = 816.0f;
         float maxWidth = 612.0f;
         float imgRatio = actualWidth / actualHeight;
-        float maxRatio=maxWidth/maxHeight;
+        float maxRatio = maxWidth / maxHeight;
 
-        if(actualHeight>maxHeight || actualWidth>maxWidth){
+        if (actualHeight > maxHeight || actualWidth > maxWidth) {
 
             if (imgRatio < maxRatio) {
                 imgRatio = maxHeight / actualHeight;
@@ -111,7 +118,7 @@ public class FileUtils {
         options.inSampleSize = calculateInSampleSize(options, actualWidth, actualHeight);
         options.inJustDecodeBounds = false;
         options.inTempStorage = new byte[16 * 1024];
-        scaledBitmap =Bitmap.createBitmap(actualWidth,actualHeight,Bitmap.Config.ARGB_8888);
+        scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888);
 
 //        Bitmap bitmap = layout.getDrawingCache();
         layout.destroyDrawingCache();
@@ -148,8 +155,6 @@ public class FileUtils {
         return filetoReturn[0];
 
 
-
-
     }
 
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -184,7 +189,7 @@ public class FileUtils {
 
     // METHOSD TOOK FROM INTERNET
     public static Uri getImageContentUri(Context context, File imageFile) {
-        try{
+        try {
             String filePath = imageFile.getAbsolutePath();
             Cursor cursor = context.getContentResolver().query(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -209,11 +214,11 @@ public class FileUtils {
                     return null;
                 }
             }
-        }catch (Exception ie){
-            if(ie instanceof SecurityException){
-                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context,context.getString(R.string.permission_comulsory));
-            }else {
-                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context,context.getString(R.string.operation_failed));
+        } catch (Exception ie) {
+            if (ie instanceof SecurityException) {
+                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.permission_comulsory));
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.operation_failed));
 
             }
             return null;
@@ -244,5 +249,35 @@ public class FileUtils {
 
     }
 
+    public static  void setwallpaper(Activity activity,String imagepath){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Intent intent = new Intent(WallpaperManager.getInstance(activity).
+                    getCropAndSetWallpaperIntent(new Uri.Builder().path(imagepath).build()));
 
+            activity.startActivity(intent);
+        } else {
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(activity);
+            try {
+                Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+                wallpaperManager.setBitmap((bitmap));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void shareImage(Activity activity,String imagePath){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_SUBJECT,imagePath);
+        intent.putExtra(Intent.EXTRA_TITLE,imagePath);
+        if(imagePath!=null){
+            intent.putExtra(Intent.EXTRA_STREAM,imagePath);
+            intent.putExtra(Intent.EXTRA_MIME_TYPES,"jpeg");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            activity.startActivity(Intent.createChooser(intent, "send"));
+        }else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(activity,activity.getString(R.string.Unable_to_save_share_image));
+        }
+    }
 }

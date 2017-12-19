@@ -51,7 +51,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
             @Override
             public void onClick(View v) {
                 if(onImageClickListner!=null){
-                    onImageClickListner.onImageClickListneer(paths[position],imageNames[position]);
+                    onImageClickListner.onImageClickListneer(imageNames[position],paths[position]);
                 }
             }
         });

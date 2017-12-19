@@ -10,7 +10,7 @@
     <string name="search_quotes_by_author">Funny,gandhi..etc</string>
     <string name="quotes_body_transistion">quotebodytransistion</string>
     <string name="quotes_author_transistion">quoteauthortransistion</string>
-    <string name="Unable_to_save_share_image">Unable to share image</string>
+    <string name="Unable_to_save_share_image">Error in sharing item</string>
     <string name="image_saved">Congratulations,Image has been saved to sdcard/Pictures</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
@@ -30,7 +30,7 @@
     <string name="please_select_text">Please, select any text layer to apply features</string>
     <string name="please_select_text_to_delete">Please, select any text layer to delete</string>
     <string name="are_you_sure">Alert </string>
-    <string name="this_will_delete">Are you sure want to delete the selected view</string>
+    <string name="this_will_delete">Are you sure want to delete the selected item permenantly</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="sorry">Sorry,this feature is not available for your device</string>
@@ -66,6 +66,11 @@
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
     <string name="set_wallpaer">Wallpaper</string>
     <string name="share">Share</string>
+    <string name="Resolution">Image Resolution: %1$d </string>
+    <string name="Path">File location : %1$s</string>
+    <string name="size">Size : %1$d kb</string>
+    <string name="unable">Unable to delete</string>
+    <string name="deleted">Image has been deleted</string>
 
     <!--SPLASH ACTIVITY-->
 

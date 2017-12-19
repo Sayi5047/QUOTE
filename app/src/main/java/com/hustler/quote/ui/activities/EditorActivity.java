@@ -1246,6 +1246,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+
+
+
     @Override
     public void onBackPressed() {
         backpressCount++;
