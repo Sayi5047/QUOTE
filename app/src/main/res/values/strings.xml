@@ -64,6 +64,8 @@
     <string name="permissin_granted">Permission granted now you can use the feature.</string>
     <string name="no_work">No work done yet</string>
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
+    <string name="set_wallpaer">Wallpaper</string>
+    <string name="share">Share</string>
 
     <!--SPLASH ACTIVITY-->
 

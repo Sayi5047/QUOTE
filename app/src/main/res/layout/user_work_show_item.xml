@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            tool:text="some_text" />
+
+        <ImageView
+            android:id="@+id/close_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_close_white" />
+
+        <ImageView
+            android:id="@+id/iv_work"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_below="@id/header"
+            android:background="@color/black_overlay" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/iv_work"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@android:color/white"
+                android:src="@drawable/ic_delete_black_24dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_wallpaper"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@id/fab_delete"
+                android:layout_below="@id/iv_work"
+                android:backgroundTint="@android:color/white"
+                android:src="@drawable/ic_menu_gallery" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_share"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/fab_delete"
+                android:layout_below="@id/iv_work"
+                android:backgroundTint="@android:color/white"
+                android:src="@drawable/ic_share_accent_24dp" />
+
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fab_delete"
+                android:layout_centerHorizontal="true"
+                android:text="@string/delete"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_wallpaper"
+                android:layout_width="68dp"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fab_wallpaper"
+                android:layout_below="@id/fab_wallpaper"
+                android:layout_marginStart="-10dp"
+                android:text="@string/set_wallpaer"
+                android:textAlignment="center"
+                android:textColor="@color/textColor" />
+
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/fab_share"
+                android:layout_below="@+id/fab_share"
+
+                android:text="@string/share"
+                android:textAlignment="center"
+                android:textColor="@color/textColor" />
+
+        <TextView
+            android:id="@+id/meta_data_date_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_delete"
+            android:textColor="@color/textColor"
+            />
+
+
+    </RelativeLayout>
+
+
+</ScrollView>

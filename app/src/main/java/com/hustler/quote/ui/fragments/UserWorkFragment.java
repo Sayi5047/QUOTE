@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.fragments;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -78,8 +79,14 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
             @Override
             public void onImageClickListneer(String imageName, String imagepath) {
                 App.showToast(getActivity(), imageName + "  " + imagepath);
+                buildDialog();
             }
         }));
+    }
+
+    private void buildDialog() {
+        Dialog dialog = new Dialog(getActivity(),R.style.EditTextDialog);
+        dialog.setContentView(R.layout.user_work_show_item);
     }
 
     @Override
