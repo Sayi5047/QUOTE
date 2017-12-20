@@ -72,6 +72,9 @@
     <string name="unable">Unable to delete</string>
     <string name="deleted">Image has been deleted</string>
     <string name="image_unavailable">Image not available</string>
+    <string name="categories">Category</string>
+    <string name="Fav">Fav</string>
+    <string name="Work">Works</string>
 
     <!--SPLASH ACTIVITY-->
 

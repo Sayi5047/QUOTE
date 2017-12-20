@@ -30,6 +30,8 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
     String[] paths;
     String[] imageNames;
     OnImageClickListner onImageClickListner;
+    Palette.Swatch swatch;
+
 
     ArrayList<String> pathsList = new ArrayList<>();
     ArrayList<String> namespathsList = new ArrayList<>();
@@ -67,7 +69,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
     }
 
     public interface OnImageClickListner {
-        void onImageClickListneer(Palette.Swatch swatch,int position, String imageName, String imagepath);
+        void onImageClickListneer(Palette.Swatch swatch, int position, String imageName, String imagepath);
     }
 
     @Override
@@ -79,35 +81,35 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
     public void onBindViewHolder(UserWorkViewHolder holder, final int position) {
         final Palette.Swatch swarch_from_color;
         Glide.with(activity).load(paths[position]).asBitmap().crossFade().fitCenter().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.iv);
-        swarch_from_color = updateBgColors(holder, position);
-        holder.tv.setText(imageNames[position].subSequence(0,10));
+        updateBgColors(holder, position);
+        holder.tv.setText(imageNames[position].subSequence(0, 10));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onImageClickListner != null) {
-                    onImageClickListner.onImageClickListneer(swatches.get(position),position, namespathsList.get(position), pathsList.get(position));
+                    onImageClickListner.onImageClickListneer(swatches.get(position), position, namespathsList.get(position), pathsList.get(position));
                 }
             }
         });
     }
 
     private Palette.Swatch updateBgColors(final UserWorkViewHolder holder, final int position) {
-        final Palette.Swatch[] swatch = new Palette.Swatch[1];
+        swatch = new Palette.Swatch(0, 0);
 
         Palette.from(BitmapFactory.decodeFile(pathsList.get(position))).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                swatch[0] = palette.getVibrantSwatch();
-                if (swatch[0] == null) {
-                    swatch[0] = palette.getDominantSwatch();
+                swatch = palette.getVibrantSwatch();
+                if (swatch == null) {
+                    swatch = palette.getDominantSwatch();
                 }
-                    holder.tv.setBackgroundColor(swatch[0].getRgb());
-                    holder.iv.setBackgroundColor(swatch[0].getRgb());
-                swatches.add(position,swatch[0]);
+                holder.tv.setBackgroundColor(swatch.getRgb());
+                holder.iv.setBackgroundColor(swatch.getRgb());
             }
 
         });
-        return swatch[0];
+        swatches.add(position, swatch);
+        return swatch;
     }
 
     @Override

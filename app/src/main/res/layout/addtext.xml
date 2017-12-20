@@ -5,7 +5,8 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    >
 
     <TextView
         android:id="@+id/tv_header"
@@ -16,7 +17,8 @@
         android:gravity="center"
         android:text="@string/enter_text"
         android:textColor="@color/colorAccent"
-        android:textSize="@dimen/font3_8" />
+        android:textSize="@dimen/font3_8"
+        />
 
     <EditText
         android:id="@+id/et_text"
@@ -48,7 +50,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/start"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/bt_center"
@@ -59,7 +61,7 @@
             android:background="@drawable/rounded_rect"
             android:text="@string/center"
 
-            android:textColor="@color/textColor" />
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/bt_end"
@@ -69,7 +71,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/end"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
     <LinearLayout
@@ -83,9 +85,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/rounded_rect"
+
             android:text="@string/close"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/bt_done"
@@ -93,9 +96,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/rounded_rect"
             android:text="@string/done"
 
-            android:textColor="@color/textColor" />
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 </LinearLayout>

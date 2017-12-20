@@ -1,22 +1,19 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Color;
+import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
+import com.hustler.quote.ui.utils.TextUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -51,7 +48,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public interface OnItemClicListener {
-        void onItemClickHappened(QuotesFromFC quotesFromFC,View view);
+        void onItemClickHappened(QuotesFromFC quotesFromFC, View view);
     }
 
     @Override
@@ -62,7 +59,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(final MainViewHolder holder, int position) {
-        int color=getMatColor("100");
+        int color = TextUtils.getMainMatColor("mdcolor_300", activity);
         holder.itemView.setBackgroundColor(color);
         final QuotesFromFC quote = dataFromNet.get(position);
         quote.setColor(color);
@@ -83,7 +80,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             @Override
             public void onClick(View v) {
                 if (itemTouchHelper != null) {
-                    itemTouchHelper.onItemClickHappened(quote,v);
+                    itemTouchHelper.onItemClickHappened(quote, v);
                 }
             }
         });
@@ -92,18 +89,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
 
-    public int getMatColor(String typeColor) {
-        int returnColor = Color.BLACK;
-        int arrayId = activity.getResources().getIdentifier("mdcolor_" + typeColor, "array", activity.getApplicationContext().getPackageName());
-
-        if (arrayId != 0) {
-            TypedArray colors = activity.getResources().obtainTypedArray(arrayId);
-            int index = (int) (Math.random() * colors.length());
-            returnColor = colors.getColor(index, Color.BLACK);
-            colors.recycle();
-        }
-        return returnColor;
-    }
+//    public int getMatColor(String typeColor) {
+//        int returnColor = Color.BLACK;
+//        int arrayId = activity.getResources().getIdentifier("allColors", "array", activity.getApplicationContext().getPackageName());
+//
+//        if (arrayId != 0) {
+//            TypedArray colors = activity.getResources().obtainTypedArray(arrayId);
+//            int index = (int) (Math.random() * colors.length());
+//            returnColor = colors.getColor(index, Color.BLACK);
+//            colors.recycle();
+//        }
+//        return returnColor;
+//    }
 
     @Override
     public int getItemCount() {
@@ -123,10 +120,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     public class MainViewHolder extends RecyclerView.ViewHolder {
         TextView tv, tv2, tv3;
         LinearLayout rootView;
+        CardView cardView;
 
         public MainViewHolder(View itemView) {
             super(itemView);
-            rootView=(LinearLayout) itemView.findViewById(R.id.root_ll);
+            rootView = (LinearLayout) itemView.findViewById(R.id.root_ll);
+            cardView = (CardView) itemView.findViewById(R.id.iv_quote_card_root);
+
+            cardView.setClipToPadding(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                cardView.setClipToOutline(true);
+            }
             tv = (TextView) itemView.findViewById(R.id.main_quote);
             tv2 = (TextView) itemView.findViewById(R.id.quote_author);
             tv3 = (TextView) itemView.findViewById(R.id.quote_genre_end);

@@ -5,11 +5,13 @@ import android.animation.ArgbEvaluator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +32,7 @@ import com.hustler.quote.ui.utils.TextUtils;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
     private TextView headerName;
-    private Button floatingActionButton;
+    private FloatingActionButton floatingActionButton;
     private ViewPager mainPager;
     private TabLayout tab_layout;
     Window window;
@@ -54,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        colors = new int[]{getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.textColor)};
+        colors = new int[]{getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.primary_dark),getResources().getColor(R.color.textColor)};
 
     }
 
@@ -63,13 +65,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         appBar = (AppBarLayout) findViewById(R.id.app_bar);
         headerName = (TextView) findViewById(R.id.header_name);
         headerName.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
-        floatingActionButton = (Button) findViewById(R.id.floatingActionButton);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         mainPager = (ViewPager) findViewById(R.id.main_pager);
         tab_layout = (TabLayout) findViewById(R.id.tab_layout);
         rootView = (CoordinatorLayout) findViewById(R.id.root);
         tab_layout.setupWithViewPager(mainPager);
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
-        mainPager.setCurrentItem(0);
+        mainPager.setCurrentItem(1);
         mainPager.setOnPageChangeListener(this);
         floatingActionButton.setOnClickListener(this);
 
@@ -161,7 +163,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         appBar.setBackgroundColor(getHEaderColor(position, positionOffset));
         mainPager.setBackgroundColor(getHEaderColor(position, positionOffset));
         tab_layout.setBackgroundColor(getHEaderColor(position, positionOffset));
-        floatingActionButton.setBackgroundColor(getHEaderColor(position, positionOffset));
+        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getHEaderColor(position, positionOffset));
         }

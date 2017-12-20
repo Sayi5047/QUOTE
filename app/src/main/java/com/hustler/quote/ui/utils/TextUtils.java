@@ -2,6 +2,7 @@ package com.hustler.quote.ui.utils;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.graphics.Palette;
 import android.view.View;
@@ -94,5 +95,29 @@ public class TextUtils {
             }
         }
     }
+    public static int getMatColor(Activity activity) {
+        int returnColor = Color.BLACK;
+        int arrayId = activity.getResources().getIdentifier("mdcolor_300", "array", activity.getApplicationContext().getPackageName());
 
+        if (arrayId != 0) {
+            TypedArray colors = activity.getResources().obtainTypedArray(arrayId);
+            int index = (int) (Math.random() * colors.length());
+            returnColor = colors.getColor(index, Color.BLACK);
+            colors.recycle();
+        }
+        return returnColor;
+    }
+
+    public static int getMainMatColor(String arrayname,Activity activity) {
+        int returnColor = Color.BLACK;
+        int arrayId = activity.getResources().getIdentifier("allColors", "array", activity.getApplicationContext().getPackageName());
+
+        if (arrayId != 0) {
+            TypedArray colors = activity.getResources().obtainTypedArray(arrayId);
+            int index = (int) (Math.random() * colors.length());
+            returnColor = colors.getColor(index, Color.BLACK);
+            colors.recycle();
+        }
+        return returnColor;
+    }
 }

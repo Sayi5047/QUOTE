@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.MainFragment;
+import com.hustler.quote.ui.fragments.CategoriesFragment;
+import com.hustler.quote.ui.fragments.UserFavuritesFragment;
 import com.hustler.quote.ui.fragments.UserWorkFragment;
 
 /**
@@ -15,47 +17,63 @@ import com.hustler.quote.ui.fragments.UserWorkFragment;
 
 public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
     Context context;
-    public TabsFragmentPagerAdapter(Context mContext,FragmentManager fm) {
+
+    public TabsFragmentPagerAdapter(Context mContext, FragmentManager fm) {
         super(fm);
-        context=mContext;
+        context = mContext;
     }
 
     @Override
     public Fragment getItem(int position) {
         Fragment returning_fragment = null;
-        switch (position){
-            case 0:{
-               returning_fragment= new MainFragment();
-            }break; case 1:{
-               returning_fragment= new MainFragment();
-            }break; case 2:{
-               returning_fragment= new UserWorkFragment();
-            }break;
+        switch (position) {
+            case 0: {
+                returning_fragment = new CategoriesFragment();
+            }
+            break;
+            case 1: {
+                returning_fragment = new MainFragment();
+            }
+            break;
+            case 2: {
+                returning_fragment = new UserFavuritesFragment();
+            }
+            break;
+            case 3: {
+                returning_fragment = new UserWorkFragment();
+            }
+            break;
         }
         return returning_fragment;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         CharSequence fagemnt_Name = null;
-        switch (position){
-            case 0:{
-                fagemnt_Name= context.getString(R.string.Quotes);
-            }break; case 1:{
-                fagemnt_Name= context.getString(R.string.Facts);
-            }break; case 2:{
-                fagemnt_Name= context.getString(R.string.Poems);
-            }break;
+        switch (position) {
+            case 0: {
+                fagemnt_Name = context.getString(R.string.categories);
+            } break;
+            case 1: {
+                fagemnt_Name = context.getString(R.string.Quotes);
+            }
+            break;
+            case 2: {
+                fagemnt_Name = context.getString(R.string.Fav);
+            }
+            break;
+            case 3: {
+                fagemnt_Name = context.getString(R.string.Work);
+            }
+            break;
         }
         return fagemnt_Name;
     }
-
-
 
 
 }

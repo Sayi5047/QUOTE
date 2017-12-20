@@ -1,69 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/iv_quote_card_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipToPadding="true"
     android:elevation="4dp"
     android:orientation="vertical"
-    android:layout_margin="@dimen/elevation4"
     android:transitionName="@string/quotes_author_transistion"
     app:cardCornerRadius="@dimen/elevation16"
-    app:cardUseCompatPadding="true"
+
+android:layout_margin="4dp"
 
     >
+
     <LinearLayout
         android:id="@+id/root_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/main_quote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="@dimen/elevation8"
+            android:gravity="center"
+            android:padding="@dimen/elevation8"
+            android:text="Something"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:text="Something"
             android:textSize="@dimen/font2"
-            android:padding="@dimen/elevation8"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:elevation="@dimen/elevation8"
-            android:transitionName="@string/quotes_body_transistion"
-            />
+            android:transitionName="@string/quotes_body_transistion" />
+
         <TextView
             android:id="@+id/quote_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="@dimen/elevation4"
+            android:gravity="center"
+            android:padding="@dimen/elevation4"
+            android:text="Something"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            android:text="Something"
             android:textSize="@dimen/font2"
-            android:padding="@dimen/elevation4"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:elevation="@dimen/elevation4"
 
 
             />
+
         <TextView
             android:id="@+id/quote_genre_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:textAlignment="center"
-            android:textColor="@color/textColor"
-            android:text="Something"
-            android:textSize="@dimen/font"
-            android:padding="@dimen/elevation4"
             android:layout_gravity="start"
-            android:gravity="start"
+            android:layout_margin="@dimen/elevation4"
             android:background="@android:drawable/screen_background_light_transparent"
-
             android:elevation="@dimen/elevation4"
-            android:layout_margin="@dimen/elevation4"/>
-    </LinearLayout>
+            android:gravity="start"
+            android:padding="@dimen/elevation4"
+            android:text="Something"
+            android:textAlignment="center"
 
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font" />
+    </LinearLayout>
 
 
 </android.support.v7.widget.CardView>

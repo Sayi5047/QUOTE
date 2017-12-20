@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F4F4f4</color>
-    <color name="colorPrimaryDark">#Dcd0c0</color>
-    <color name="colorAccent">#ce4646</color>
-    <color name="textColor">#373737</color>
-
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#0097A7</color>
+    <color name="colorAccent">#009688</color>
+    <color name="textColor">#212121</color>
+    <color name="colorPrimary1">#dcd0c0</color>
     <color name="black_overlay">#66000000</color>
     <color name="bg">#F5F5F5</color>
+    <color name="red_100">#80deea</color>
+    <color name="primary">#009688</color>
+    <color name="primary_dark">#607D8B</color>
+    <color name="primary_light">#B2DFDB</color>
+    <color name="accent">#FFC107</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+</resources><!--<color name="colorPrimary">#F4F4f4</color>--><!--<color name="colorPrimaryDark">#Dcd0c0</color>--><!--<color name="colorAccent">#78909c</color>--><!--<color name="textColor">#373737</color>-->
 
-</resources>
+    <!--<color name="black_overlay">#66000000</color>--><!--<color name="bg">#F5F5F5</color>--><!--<item name="red_100" type="color">#80deea</item>-->
+

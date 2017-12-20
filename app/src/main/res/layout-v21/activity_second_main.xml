@@ -43,22 +43,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:tabTextColor="@android:color/white">
+            app:tabIndicatorColor="@android:color/white"
+            app:tabTextColor="@color/colorPrimary1"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabIndicatorHeight="4dp"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
+            >
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
-
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_gravity="top|left"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
+        android:src="@drawable/ic_mode_edit_black_24dp"
         android:layout_marginRight="25dp"
-        android:background="@drawable/circledrawable"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />
     <ImageView
@@ -70,6 +76,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="38dp"
         android:elevation="4dp"
+        android:visibility="gone"
         android:src="@drawable/ic_mode_edit_black_24dp"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />

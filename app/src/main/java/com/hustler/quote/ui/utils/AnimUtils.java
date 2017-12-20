@@ -3,6 +3,7 @@ package com.hustler.quote.ui.utils;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import com.hustler.quote.R;
 
 public class AnimUtils {
 
-    public static void revealCircular(Button floatingActionButton,final DialogInterface dialog, View dialog_layout, boolean isDialog_Starting) {
+    public static void revealCircular(FloatingActionButton floatingActionButton, final DialogInterface dialog, View dialog_layout, boolean isDialog_Starting) {
 
         final View view = (View) dialog_layout.findViewById(R.id.dialog);
         int width = view.getWidth();
