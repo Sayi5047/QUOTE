@@ -35,7 +35,6 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
 
     ArrayList<String> pathsList = new ArrayList<>();
     ArrayList<String> namespathsList = new ArrayList<>();
-    ArrayList<Palette.Swatch> swatches = new ArrayList<>();
 
     public UserWorkAdapter(Activity activity, String[] paths, String[] imageNames, OnImageClickListner onImageClickListner) {
         this.activity = activity;
@@ -69,7 +68,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
     }
 
     public interface OnImageClickListner {
-        void onImageClickListneer(Palette.Swatch swatch, int position, String imageName, String imagepath);
+        void onImageClickListneer( int position, String imageName, String imagepath);
     }
 
     @Override
@@ -79,7 +78,6 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
 
     @Override
     public void onBindViewHolder(UserWorkViewHolder holder, final int position) {
-        final Palette.Swatch swarch_from_color;
         Glide.with(activity).load(paths[position]).asBitmap().crossFade().fitCenter().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.iv);
         updateBgColors(holder, position);
         holder.tv.setText(imageNames[position].subSequence(0, 10));
@@ -87,7 +85,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
             @Override
             public void onClick(View v) {
                 if (onImageClickListner != null) {
-                    onImageClickListner.onImageClickListneer(swatches.get(position), position, namespathsList.get(position), pathsList.get(position));
+                    onImageClickListner.onImageClickListneer( position, namespathsList.get(position), pathsList.get(position));
                 }
             }
         });
@@ -105,10 +103,10 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
                 }
                 holder.tv.setBackgroundColor(swatch.getRgb());
                 holder.iv.setBackgroundColor(swatch.getRgb());
+
             }
 
         });
-        swatches.add(position, swatch);
         return swatch;
     }
 

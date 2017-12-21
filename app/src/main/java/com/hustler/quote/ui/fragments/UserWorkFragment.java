@@ -3,6 +3,7 @@ package com.hustler.quote.ui.fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
@@ -35,6 +36,7 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Sayi on 17-12-2017.
@@ -92,10 +94,10 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         }
         userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
             @Override
-            public void onImageClickListneer(Palette.Swatch swatch,int position, String imageName, String imagepath) {
+            public void onImageClickListneer(int position, String imageName, String imagepath) {
                 try {
                     android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
-                    buildDialog(swatch,userWorkImages.getImagesPaths().length,position,userWorkAdapter, rv, exifInterface, imageName, imagepath);
+                    buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
                     Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
                     Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
                     Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
@@ -110,14 +112,14 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         rv.setAdapter(userWorkAdapter);
     }
 
-    private void buildDialog(final Palette.Swatch swatch,final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
+    private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
         final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.user_work_show_item);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
-        RelativeLayout rootLayout;
-        TextView header;
+        final RelativeLayout rootLayout;
+        final TextView header;
         ImageView closeIv;
         ImageView ivWork;
         FloatingActionButton fabDelete;
@@ -129,6 +131,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         TextView metaDataDateTv;
         TextView metaDataResolutionTv;
         TextView metaFileLocation, metaImageSize;
+        final ArrayList<Palette.Swatch> swatches = new ArrayList<>();
 
         rootLayout = (RelativeLayout) dialog.findViewById(R.id.root_layout);
         header = (TextView) dialog.findViewById(R.id.header);
@@ -145,22 +148,34 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         metaFileLocation = (TextView) dialog.findViewById(R.id.meta_data_location_tv);
         metaImageSize = (TextView) dialog.findViewById(R.id.meta_data_size_tv);
 
-        header.setBackgroundColor(swatch.getRgb());
 
         TextUtils.findText_and_applyTypeface(rootLayout, getActivity());
-        TextUtils.findText_and_applycolor(rootLayout,getActivity(),swatch);
 //        TextUtils.findText_and_applyamim_slideup(rootLayout,getActivity());
 
         header.setText(imageName);
-        header.setTextColor(getActivity().getResources().getColor(android.R.color.white));
 
         Glide.with(getActivity()).load(imagepath).asBitmap().fitCenter().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivWork);
 
+        Palette.from(BitmapFactory.decodeFile(imagepath)).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                swatches.add(0, palette.getVibrantSwatch());
+                if (swatches.get(0) == null) {
+                    swatches.set(0, palette.getDominantSwatch());
+                }
+                TextUtils.findText_and_applycolor(rootLayout, getActivity(), swatches.get(0));
+                header.setBackgroundColor(swatches.get(0).getRgb());
+                header.setTextColor(getActivity().getResources().getColor(android.R.color.white));
+
+            }
+        });
+
+
         metaDataDateTv.setText(exifInterface.getAttribute(android.support.media.ExifInterface.TAG_DATETIME));
         metaDataResolutionTv.setText(getActivity().getString(
-                        R.string.Resolution,
-                        exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_WIDTH, 0),
-                        exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_LENGTH, 0)));
+                R.string.Resolution,
+                exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_WIDTH, 0),
+                exifInterface.getAttributeInt(android.support.media.ExifInterface.TAG_IMAGE_LENGTH, 0)));
         metaFileLocation.setText(getActivity().getString(R.string.Path, imagepath));
         metaImageSize.setText(getActivity().getString(R.string.size, new File(imagepath).length() / 1024));
         fabDelete.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.utils.ImageProcessingUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 
 import java.util.ArrayList;
@@ -79,6 +81,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         gradientDrawable.setGradientRadius(135);
         gradientDrawable.setCornerRadius(0f);
         holder.imageView.setBackground(gradientDrawable);
+//        holder.imageView.layout(0,0,100,100);
+//
+//        holder.imageView.setDrawingCacheEnabled(true);
+//        holder.imageView.buildDrawingCache();
+//        Bitmap bitmap=holder.imageView.getDrawingCache();
+//        Bitmap finalbitmap =ImageProcessingUtils.create_blur(bitmap,5.0f,activity);
+//        holder.imageView.setImageBitmap(finalbitmap);
     }
 
     @Override

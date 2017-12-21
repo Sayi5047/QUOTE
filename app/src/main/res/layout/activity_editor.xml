@@ -5,7 +5,7 @@
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/textColor"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.hustler.quote.ui.activities.EditorActivity">
 
@@ -108,11 +108,10 @@
                     android:layout_height="match_parent" />
                 <!--BLURR-->
                 <ImageView
-                    android:id="@+id/empty_image_to_be_blurred"
+                    android:id="@+id/iv_light_effect"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:drawable/screen_background_light_transparent"
-                    android:visibility="gone" />
+                    />
                 <!--QUOTE BODY-->
 
                 <!--QUOTE_AUTHOR_PART-->
