@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
+import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.ImageProcessingUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -710,12 +712,124 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             current_Bg_feature = bgfeaturesArray[4];
             applyWhiteFilter();
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
-
+            current_Bg_feature = bgfeaturesArray[5];
+            selected_picture = null;
+            bringGradients();
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
 
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
 
         }
+    }
+
+    private void bringGradients() {
+        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.gradient_bg_layout);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+
+        RelativeLayout relativeLayout;
+        TextView headerTv;
+        final ImageView demoGradient;
+        final ImageView demoColor1;
+        final ImageView demoColor2;
+        final TextView demoColor1Tv;
+        final TextView demoColor2Tv;
+        final RecyclerView colorsRecycler;
+        final Button preview;
+        Button btCancel;
+        Button btApply;
+        final ColorsAdapter colorsAdapter;
+        final ColorsAdapter colorsAdapter2;
+        final GradientDrawable[] output_drawable = new GradientDrawable[1];
+
+        final int[] firstColor = {0};
+        final int[] secondColor = {0};
+        final int[] selected_color = {0};
+        final boolean[] bothColorsChoosen = {false};
+
+        relativeLayout = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
+        headerTv = (TextView) dialog.findViewById(R.id.header_tv);
+        demoGradient = (ImageView) dialog.findViewById(R.id.demo_gradient);
+        demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
+        demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
+        demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
+        demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
+        colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
+        preview = (Button) dialog.findViewById(R.id.preview);
+        btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
+        btApply = (Button) dialog.findViewById(R.id.bt_apply);
+        colorsRecycler.setVisibility(View.GONE);
+        preview.setVisibility(View.GONE);
+
+        colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
+        colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                firstColor[0] = color;
+                demoColor1.setBackgroundColor(color);
+                demoColor1Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+            }
+        });
+        colorsAdapter2 = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                secondColor[0] = color;
+                demoColor2.setBackgroundColor(color);
+                demoColor2Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+        demoColor1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter);
+            }
+        });
+
+        demoColor2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter2);
+            }
+        });
+
+        preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
+                demoGradient.setImageDrawable(output_drawable[0]);
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                imageView_background.setImageDrawable(null);
+                imageView_background.setBackground(output_drawable[0]);
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
     }
 
 

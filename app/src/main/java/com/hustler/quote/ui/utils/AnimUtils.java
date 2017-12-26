@@ -2,7 +2,10 @@ package com.hustler.quote.ui.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -55,4 +58,14 @@ public class AnimUtils {
         }
     }
 
+    public static GradientDrawable createDrawable(int color1, int color2, Activity activity){
+        int defaultcolor=activity.getResources().getColor(android.R.color.transparent);
+        color1=color1==0?defaultcolor:color1;
+        color2=color1==0?defaultcolor:color2;
+        int[] colors = {color1, color2};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
+        gradientDrawable.setGradientRadius(135);
+        gradientDrawable.setCornerRadius(0f);
+        return gradientDrawable;
+    }
 }

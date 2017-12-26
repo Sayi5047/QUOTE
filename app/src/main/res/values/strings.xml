@@ -76,6 +76,8 @@
     <string name="Fav">Fav</string>
     <string name="Work">Works</string>
     <string name="please_select_image">Please add any image as background to apply blurr feature.</string>
+    <string name="Gradient">Gradients</string>
+    <string name="preview">Preview Gradient</string>
 
     <!--SPLASH ACTIVITY-->
 
@@ -94,14 +96,14 @@
     </string-array>
 
     <string-array name="Background_features">
-        <item>Background Image</item>
-        <item>Background color</item>
-        <item>Blurr Image</item>
+        <item>Bg image</item>
+        <item>Bg color</item>
+        <item>Blurr</item>
         <item>Black filter</item>
         <item>White filter</item>
-        <item>Gradients</item>
+        <item>Gradient Bg</item>
         <item>Vigenette</item>
-        <item>Add Emoji</item>
+        <!--<item>Add Emoji</item>-->
         <item>Add Signature</item>
         <!--<item>Line Space</item>-->
         <!--<item>Frame Width</item>-->
