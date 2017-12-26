@@ -263,17 +263,21 @@ public class FileUtils {
     }
 
     public static void shareImage(Activity activity, String imagePath) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
-        intent.putExtra(Intent.EXTRA_TITLE, imagePath);
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
+        shareIntent.putExtra(Intent.EXTRA_TITLE, imagePath);
         if (imagePath != null) {
-            intent.putExtra(Intent.EXTRA_STREAM, imagePath);
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, "jpeg");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            activity.startActivity(Intent.createChooser(intent, "send"));
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
+            shareIntent.setType("image/jpeg");
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            activity.startActivity(Intent.createChooser(shareIntent, "send"));
         } else {
             Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
         }
+
+
+
+
     }
 }

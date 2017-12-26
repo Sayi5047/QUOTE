@@ -2,6 +2,7 @@ package com.hustler.quote.ui.fragments;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,9 +16,12 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -117,7 +121,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         dialog.setContentView(R.layout.user_work_show_item);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
+//        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE);
         final RelativeLayout rootLayout;
         final TextView header;
         ImageView closeIv;
@@ -234,7 +238,16 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                 dialog.dismiss();
             }
         });
-        dialog.setCancelable(false);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode==KeyEvent.KEYCODE_BACK){
+                    dialog.dismiss();
+                }
+                return true;
+            }
+        });
+        dialog.setCancelable(true);
         dialog.show();
     }
 

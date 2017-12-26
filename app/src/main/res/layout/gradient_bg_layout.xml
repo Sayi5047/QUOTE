@@ -17,12 +17,19 @@
         android:textSize="@dimen/font2"
         android:textStyle="bold" />
 
-    <ImageView
+    <TextView
         android:id="@+id/demo_gradient"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/header_tv"
-        android:layout_margin="4dp" />
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rect"
+        android:text="@string/Quotes"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/textColor"
+        android:textStyle="italic"
+        android:textSize="@dimen/font3"/>
 
     <ImageView
         android:id="@+id/demo_color_1"
@@ -49,7 +56,7 @@
         android:layout_below="@id/demo_gradient"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/demo_color_1"
-        android:text="color1"
+        android:text="@string/select_to_apply"
         android:textAlignment="center"
         android:textColor="@color/black_overlay"
         android:textSize="@dimen/font2" />
@@ -61,9 +68,8 @@
         android:layout_below="@id/demo_color_1"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/demo_color_2"
-        android:text="color2"
+        android:text="@string/select_to_apply"
         android:textAlignment="center"
-
         android:textColor="@color/black_overlay"
         android:textSize="@dimen/font2" />
 
@@ -80,6 +86,7 @@
         android:layout_below="@id/colors_recycler"
         android:layout_centerHorizontal="true"
         android:layout_margin="4dp"
+        android:padding="@dimen/padding1"
         android:background="@drawable/rounded_rect"
         android:text="@string/preview"
         android:textAllCaps="false" />

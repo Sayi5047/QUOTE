@@ -4,5 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/black_overlay">
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"/>
 
 </LinearLayout>

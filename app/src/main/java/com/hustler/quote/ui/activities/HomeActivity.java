@@ -5,7 +5,6 @@ import android.animation.ArgbEvaluator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.TextUtils;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        colors = new int[]{getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.primary_dark),getResources().getColor(R.color.textColor)};
+        colors = new int[]{getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.primary_dark), getResources().getColor(R.color.textColor)};
 
     }
 
@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        DIALOG FOR EDITORS
         if (v == floatingActionButton) {
             Button quote, meme, close;
-            TextView quote_tv, meme_tv, close_tv,select_tv;
+            TextView quote_tv, meme_tv, close_tv, select_tv;
 
 
             // Handle clicks for floatingActionButton
@@ -101,10 +101,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             close_tv = (TextView) dialog.findViewById(R.id.close_tv);
             select_tv = (TextView) dialog.findViewById(R.id.select_tv);
 
-            TextUtils.setFont(HomeActivity.this,quote_tv,Constants.FONT_Sans_Bold);
-            TextUtils.setFont(HomeActivity.this,meme_tv,Constants.FONT_Sans_Bold);
-            TextUtils.setFont(HomeActivity.this,close_tv,Constants.FONT_Sans_Bold);
-            TextUtils.setFont(HomeActivity.this,select_tv,Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_Sans_Bold);
 
             dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
@@ -130,8 +130,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View v) {
                     // TODO: 02-12-2017 implement to go quotes editor
                     dialog.dismiss();
-                    Intent intent = new Intent(HomeActivity.this,EditorActivity.class);
-                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY,false);
+                    Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
+                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, false);
                     startActivity(intent);
                 }
             });
@@ -227,4 +227,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast_Snack_Dialog_Utils.createDialog(HomeActivity.this, getString(R.string.warning), getString(R.string.are_you_sure_close), getString(R.string.cancel), getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+            @Override
+            public void onPositiveselection() {
+                finishAffinity();
+                System.exit(0);
+            }
+
+            @Override
+            public void onNegativeSelection() {
+                return;
+            }
+        });
+//        super.onBackPressed();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            this.finishAndRemoveTask();
+//        }
+//        else {
+//            this.finishAffinity();
+//        }
+//        System.exit(0);
+    }
 }

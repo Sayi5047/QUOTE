@@ -442,8 +442,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.font_share_module: {
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
-                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
+//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
+//                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
                 Uri uri = null;
                 if (savedFile != null) {
                     uri = Uri.fromFile(savedFile);
@@ -610,7 +610,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         features_adapter = new Features_adapter(this, "Background_features", getResources().getStringArray(R.array.Background_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
             public void onItemClick(String clickedItem) {
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
+//                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
                 enable_Selected_Background_Features(clickedItem, getResources().getStringArray(R.array.Background_features));
 
             }
@@ -730,7 +730,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         RelativeLayout relativeLayout;
         TextView headerTv;
-        final ImageView demoGradient;
+        final TextView demoGradient;
         final ImageView demoColor1;
         final ImageView demoColor2;
         final TextView demoColor1Tv;
@@ -750,7 +750,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         relativeLayout = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
         headerTv = (TextView) dialog.findViewById(R.id.header_tv);
-        demoGradient = (ImageView) dialog.findViewById(R.id.demo_gradient);
+        demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
         demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
         demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
         demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
@@ -810,7 +810,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
-                demoGradient.setImageDrawable(output_drawable[0]);
+                demoGradient.setBackground(output_drawable[0]);
             }
         });
         btCancel.setOnClickListener(new View.OnClickListener() {
@@ -824,6 +824,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View v) {
                 dialog.dismiss();
                 imageView_background.setImageDrawable(null);
+                if(output_drawable[0]==null){
+                    output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
+                }
                 imageView_background.setBackground(output_drawable[0]);
             }
         });

@@ -21,6 +21,7 @@
     <string name="Poems">Poems</string>
     <string name="meme">Meme</string>
     <string name="close">Close</string>
+    <string name="warning">Warning</string>
     <string name="select_what">Choose what you want to create</string>
     <string name="background">Background</string>
     <string name="Text">Text</string>
@@ -78,6 +79,8 @@
     <string name="please_select_image">Please add any image as background to apply blurr feature.</string>
     <string name="Gradient">Gradients</string>
     <string name="preview">Preview Gradient</string>
+    <string name="select_to_apply">Select any color to use or change</string>
+    <string name="are_you_sure_close">Do you want to close the app?</string>
 
     <!--SPLASH ACTIVITY-->
 
@@ -102,9 +105,9 @@
         <item>Black filter</item>
         <item>White filter</item>
         <item>Gradient Bg</item>
-        <item>Vigenette</item>
+        <!--<item>Vigenette</item>-->
         <!--<item>Add Emoji</item>-->
-        <item>Add Signature</item>
+        <!--<item>Add Signature</item>-->
         <!--<item>Line Space</item>-->
         <!--<item>Frame Width</item>-->
         <!--<item>Punch Text</item>-->
