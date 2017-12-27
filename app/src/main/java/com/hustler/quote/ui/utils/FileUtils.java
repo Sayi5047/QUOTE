@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.WallpaperManager;
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -16,8 +19,15 @@ import android.support.media.ExifInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
 
 import java.io.ByteArrayOutputStream;
@@ -31,53 +41,134 @@ import java.io.IOException;
 
 public class FileUtils {
 
-    public static File savetoDevice(final ViewGroup layout) {
+    public interface onSaveComplete {
+        public void onImageSaveListner(File file);
+    }
+
+    public static void savetoDevice(final ViewGroup layout, final Activity activity, final onSaveComplete listneer) {
+        final String[] name = {null};
+        final String[] format = {null};
         final File[] filetoReturn = new File[1];
+        final String[] projectname = new String[1];
+
+
+        final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
+        dialog.setContentView(View.inflate(activity, R.layout.save_image_layout, null));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.setCancelable(false);
+
+        TextView headTv;
+        final EditText etProjectName;
+        final RadioGroup rdGroup;
+        final RadioButton rbJpeg;
+        final RadioButton rbPng;
+        LinearLayout btLlLayout;
+        LinearLayout root;
+        Button btClose, btSave;
+
+
+        headTv = (TextView) dialog.findViewById(R.id.head_tv);
+        etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
+        rdGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
+        rbJpeg = (RadioButton) dialog.findViewById(R.id.rb_jpeg);
+        rbPng = (RadioButton) dialog.findViewById(R.id.rb_png);
+        btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
+        root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
+        btClose = (Button) dialog.findViewById(R.id.bt_close);
+        btSave = (Button) dialog.findViewById(R.id.bt_save);
+
+        TextUtils.findText_and_applyTypeface(root, activity);
+
+        btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rbJpeg.getId() == rdGroup.getCheckedRadioButtonId()) {
+                    format[0] = Constants.JPEG;
+
+                } else if (rbPng.getId() == rdGroup.getCheckedRadioButtonId()) {
+                    format[0] = Constants.PNG;
+                }
+                if (etProjectName.getText().length() <= 0 || etProjectName.getText() == null) {
+                    etProjectName.setError(activity.getString(R.string.please_enter_project_name));
+                } else {
+                    name[0] = etProjectName.getText().toString();
+                    if (name[0] == null) {
+                        projectname[0] = "QUOTES--" + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2);
+                    } else {
+                        projectname[0] = name[0];
+                    }
 //        Bitmap bitmap = layout.getDrawingCache();
 
 
-        layout.buildDrawingCache(true);
-        Bitmap bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
-        layout.destroyDrawingCache();
+                    layout.buildDrawingCache(true);
+                    Bitmap bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+                    layout.destroyDrawingCache();
 //        layout.setDrawingCacheEnabled(false);
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    if (format[0].equalsIgnoreCase(Constants.JPEG)) {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    } else {
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    }
 
-        File directoryChecker;
-        File savingFile;
+                    File directoryChecker;
+                    File savingFile;
 
-        directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
-        if (directoryChecker.isDirectory()) {
-            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
-                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpeg");
-        } else {
-            directoryChecker.mkdir();
-            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
-                    File.separator + "QUOTES--" + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2) + ".jpeg");
-        }
+                    directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy));
+                    if (format[0].equalsIgnoreCase(Constants.JPEG)) {
+                        if (directoryChecker.isDirectory()) {
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                                    File.separator + projectname[0] + ".jpg");
+                        } else {
+                            directoryChecker.mkdir();
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                                    File.separator + projectname[0] + ".jpg");
+                        }
 
-        filetoReturn[0] = savingFile;
-        Log.d("ImageLocation -->", savingFile.toString());
-        try {
-            savingFile.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(savingFile);
-            fileOutputStream.write(byteArrayOutputStream.toByteArray());
-            fileOutputStream.close();
+                    } else {
+                        if (directoryChecker.isDirectory()) {
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                                    File.separator + projectname[0] + ".png");
+                        } else {
+                            directoryChecker.mkdir();
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                                    File.separator + projectname[0] + ".png");
+                        }
+
+                    }
+
+                    filetoReturn[0] = savingFile;
+                    Log.d("ImageLocation -->", savingFile.toString());
+                    try {
+                        savingFile.createNewFile();
+                        FileOutputStream fileOutputStream = new FileOutputStream(savingFile);
+                        fileOutputStream.write(byteArrayOutputStream.toByteArray());
+                        fileOutputStream.close();
 //                    App.showToast(QuoteDetailsctivity.this,getString(R.string.image_saved));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            ExifInterface exifInterface = new ExifInterface(filetoReturn[0].getAbsolutePath());
-            exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, filetoReturn[0].getName());
-            exifInterface.setAttribute(ExifInterface.TAG_DATETIME, DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2));
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-
-        return filetoReturn[0];
-
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        ExifInterface exifInterface = new ExifInterface(filetoReturn[0].getAbsolutePath());
+                        exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, filetoReturn[0].getName());
+                        exifInterface.setAttribute(ExifInterface.TAG_DATETIME, DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2));
+                    } catch (IOException io) {
+                        io.printStackTrace();
+                    }
+                    listneer.onImageSaveListner(filetoReturn[0]);
+                    dialog.dismiss();
+                }
+            }
+        });
+        btClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
 
     }
 
@@ -275,8 +366,6 @@ public class FileUtils {
         } else {
             Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
         }
-
-
 
 
     }

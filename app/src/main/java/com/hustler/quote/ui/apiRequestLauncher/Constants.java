@@ -25,6 +25,8 @@ public class Constants {
     public static final int DEFAULT_COLOR = Color.RED;
     public static final String TEXT = "Text_Module";
     public static final String BG = "Bg_Module";
+    public static final String JPEG = "JPEG";
+    public static final String PNG = "PNG";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
     public static final String CATEGORIES_STRING = "Age\n" + "Alone\n" +

@@ -81,6 +81,12 @@
     <string name="preview">Preview Gradient</string>
     <string name="select_to_apply">Select any color to use or change</string>
     <string name="are_you_sure_close">Do you want to close the app?</string>
+    <string name="jpg">JPG</string>
+    <string name="png">PNG</string>
+    <string name="Quotzy">Quotzy</string>
+    <string name="project">Save Project</string>
+    <string name="save">Save</string>
+    <string name="please_enter_project_name">Enter Project name to save</string>
 
     <!--SPLASH ACTIVITY-->
 

@@ -50,6 +50,7 @@ import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
 import com.hustler.quote.ui.utils.AnimUtils;
+import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.ImageProcessingUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -313,6 +314,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_body.setGravity(Gravity.CENTER);
                 quote_editor_body.setY(quoteLayout.getHeight() / 2);
                 quote_editor_author.setMaxWidth(1050);
+                quote_editor_author.setX(quoteLayout.getWidth() / 2);
                 quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 quote_editor_author.setGravity(Gravity.CENTER);
 
@@ -320,7 +322,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quoteLayout.addView(quote_editor_author);
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) quote_editor_body.getLayoutParams();
 
-                params.addRule(RelativeLayout.CENTER_VERTICAL);
+//                params.addRule(RelativeLayout.CENTER_VERTICAL);
                 RelativeLayout.LayoutParams paramsbottom = (RelativeLayout.LayoutParams) quote_editor_author.getLayoutParams();
 
                 paramsbottom.addRule(RelativeLayout.ALIGN_BOTTOM);
@@ -347,35 +349,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
-    private void convertColors() {
-//        items=null;
-        itemsTo = getResources().getStringArray(R.array.allColors);
-//        for (int i = 0; i < itemsTo.length; i++) {
-//            items.add(i, itemsTo[i]);
-//        }
-//        Log.d("Colors Added -->", "done");
-
-    }
-
-    private void convertFonts() {
-//        items=null;
-        itemsTo = getResources().getStringArray(R.array.allfonts);
-//        for (int i = 0; i < itemsTo.length; i++) {
-//            items.add(i, itemsTo[i]);
-//        }
-//        Log.d("Fonts Added -->", "done");
-    }
-
     private void convertFeatures(String[] valueArray) {
         itemsTo = valueArray;
-    }
-
-    private void managingBottomsheet() {
-        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomsheet));
-        bottomSheetBehavior.setPeekHeight(0);
-        bottomSheetBehavior.setHideable(true);
-
     }
 
     /*TOUCH LISTNER*/
@@ -429,7 +404,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.save_work_button: {
                 if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
 
-                    savedFile = savetoDevice(quoteLayout);
+                    savetoDevice(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
+                        @Override
+                        public void onImageSaveListner(File file) {
+                            savedFile = file;
+                        }
+                    });
                     if (savedFile != null) {
                         Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
                     }
@@ -448,23 +428,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (savedFile != null) {
                     uri = Uri.fromFile(savedFile);
                 } else {
-                    savedFile = savetoDevice(quoteLayout);
-                    if (savedFile != null) {
-                        uri = Uri.fromFile(savedFile);
-                    } else {
-                        App.showToast(this, getString(R.string.Unable_to_save_share_image));
-                        return;
-                    }
+                    savetoDevice(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
+                        @Override
+                        public void onImageSaveListner(File file) {
+                            savedFile = file;
+                        }
+                    });
                 }
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 shareIntent.setType("image/jpeg");
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(Intent.createChooser(shareIntent, "send"));
-
             }
             break;
             case R.id.delete_view_button: {
-
                 if (selectedView != null) {
                     Toast_Snack_Dialog_Utils.createDialog(this,
                             getString(R.string.are_you_sure),
@@ -493,105 +470,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
             }
             break;
-//            case R.id.share_work_button: {
-//                Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.coming_soon));
-//            }
-//            break;
             case R.id.close_editor_button: {
                 super.onBackPressed();
             }
             break;
-//
-////            MAIN NAVIGATOR BUTTONG HANDLING
-//            case R.id.font_style_changer_module: {
-////                isTextLayout_visible = true;
-////                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
-////                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
-////
-////
-//////                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
-//////                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
-//////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-//////
-//////
-//////                } else {
-////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-////
-////                }
-//            }
-//            break;
-//
-//            case R.id.font_background_chnager_module: {
-////                isTextLayout_visible = false;
-////                if (level_1_1_editor_font_size_manipulator.getVisibility() == View.VISIBLE) {
-////                    level_1_1_editor_font_size_manipulator.setVisibility(View.GONE);
-////                    level_1_2_editor_background_manipulator.setVisibility(View.VISIBLE);
-////
-////                } else if (level_1_2_editor_background_manipulator.getVisibility() == View.VISIBLE) {
-////                    level_1_2_editor_background_manipulator.setVisibility(View.GONE);
-////                } else {
-////                    level_1_1_editor_font_size_manipulator.setVisibility(View.VISIBLE);
-////
-////                }
-//
-//            }
-//            break;
-////            BACKGROUND MODULE CASES
-//            case R.id.Editor_background_module_colored_backgrounds: {
-//                if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-//                    level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-//                }
-//                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-//                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//                    bottomSheetBehavior.setPeekHeight(80);
-//                    setBackgroundColorRecyclerView();
-//
-//
-//                } else {
-//
-//                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
-//                        bottomSheetBehavior.setPeekHeight(0);
-//                        features_recyclerview.setAdapter(null);
-//                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//                    }
-//                }
-//            }
-//            break;
-//
-//            case R.id.Editor_background_module_gallery_backgrounds: {
-//                imageView_background.setVisibility(View.VISIBLE);
-//
-//                if (isPermissionAvailable()) {
-//
-//                    launchGallery();
-//                } else {
-//                    requestAppPermissions();
-//                }
-//
-//
-//            }
-//            break;
-//            case R.id.Editor_background_module_blurred_backgrounds: {
-//
-//                if (!isImageLoaded) {
-//                    Toast.makeText(this, "Please,select an image to apply blurr effect", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    if (level_1_1_1_editor_font_sizeChanger_seekbar_layout.getVisibility() == View.VISIBLE) {
-//                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.GONE);
-//                    } else {
-//                        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-//                        seekBar.setOnSeekBarChangeListener(this);
-//
-//                    }
-//                }
-//
-//            }
-//            break;
-//            case R.id.Editor_background_module_picture_filter_changer: {
-//                Toast.makeText(this, "Coming Soon...!", Toast.LENGTH_SHORT).show();
-//            }
-//            break;
-//*/
         }
     }
 
@@ -824,7 +706,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View v) {
                 dialog.dismiss();
                 imageView_background.setImageDrawable(null);
-                if(output_drawable[0]==null){
+                if (output_drawable[0] == null) {
                     output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
                 }
                 imageView_background.setBackground(output_drawable[0]);
@@ -863,69 +745,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
-
-    private void setBackgroundColorRecyclerView() {
-        convertColors();
-        contentAdapter = new ContentAdapter(this, itemsTo, new ContentAdapter.onItemClickListener() {
-            @Override
-            public void onItemColorClick(int color) {
-                isImageLoaded = false;
-                if (imageView_background.getDrawingCache() != null) {
-                    currentbitmap = null;
-                    imageView_background.destroyDrawingCache();
-                }
-                imageView_background.setVisibility(View.GONE);
-
-                quoteLayout.setBackgroundColor(color);
-            }
-
-            @Override
-            public void onItemFontClick(String font) {
-
-            }
-        }, false);
-        features_recyclerview.setAdapter(contentAdapter);
-    }
-
-    /*Recyclerview related methods*/
-    private void setFontColorRecyclerView() {
-        convertColors();
-        contentAdapter = new ContentAdapter(this, itemsTo, new ContentAdapter.onItemClickListener() {
-            @Override
-            public void onItemColorClick(int color) {
-                quote_editor_body.setTextColor(color);
-                quote_editor_author.setTextColor(color);
-            }
-
-            @Override
-            public void onItemFontClick(String font) {
-
-            }
-        }, false);
-        features_recyclerview.setAdapter(contentAdapter);
-    }
-
-    private void setFontTypeRecyclerview() {
-        convertFonts();
-        contentAdapter = new ContentAdapter(this, itemsTo, new ContentAdapter.onItemClickListener() {
-            @Override
-            public void onItemColorClick(int color) {
-
-            }
-
-            @Override
-            public void onItemFontClick(String font) {
-
-                quote_editor_body.setTypeface(App.getZingCursive(EditorActivity.this, font));
-                quote_editor_author.setTypeface(App.getZingCursive(EditorActivity.this, font));
-            }
-
-        }, true);
-        features_recyclerview.setAdapter(contentAdapter);
-    }
-
-/*Blurring method*/
-
 
     /*Seekbar methods*/
     @Override
@@ -1136,7 +955,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
                         textView.setText(newly_Added_Text);
                         textView.setX(core_editor_layout.getWidth() / 2);
-                        textView.setY(core_editor_layout.getHeight() / 2);
+//                        textView.setY(core_editor_layout.getHeight() / 2);
                         textView.setId(addedTextIds);
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -1487,7 +1306,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savedFile = savetoDevice(quoteLayout);
+                    savetoDevice(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
+                        @Override
+                        public void onImageSaveListner(File file) {
+                            savedFile = file;
+                        }
+                    });
                 }
             }
             break;

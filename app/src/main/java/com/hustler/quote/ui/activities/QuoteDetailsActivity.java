@@ -31,6 +31,7 @@ import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
+import com.hustler.quote.ui.utils.TextUtils;
 
 import java.io.File;
 
@@ -75,6 +76,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    interface OnImageSaveListner {
+        void onImageSaved(Uri uri);
+    }
+
     private void initView() {
         root = (RelativeLayout) findViewById(R.id.root);
         tv_Quote_Author = (TextView) findViewById(R.id.tv_Quote_Author);
@@ -89,8 +94,9 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             ((Animatable) drawable).start();
         }
 
-        tv_Quote_Author.setTypeface(App.getZingCursive(QuoteDetailsActivity.this, Constants.FONT_ZINGCURSIVE));
-        tv_Quote_Body.setTypeface(App.getZingCursive(QuoteDetailsActivity.this, Constants.FONT_ZINGSANS));
+//        tv_Quote_Author.setTypeface(App.getZingCursive(QuoteDetailsActivity.this, Constants.FONT_ZINGCURSIVE));
+//        tv_Quote_Body.setTypeface(App.getZingCursive(QuoteDetailsActivity.this, Constants.FONT_ZINGSANS));
+        TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
 
         fab_edit = (FloatingActionButton) findViewById(R.id.fab_edit);
         fab_save = (FloatingActionButton) findViewById(R.id.fab_download);
@@ -104,10 +110,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
 //        For building the image
-        quote_layout.setDrawingCacheEnabled(true);
-        quote_layout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        quote_layout.layout(0, 0, quote_layout.getMeasuredWidth(), quote_layout.getMeasuredHeight());
-        quote_layout.buildDrawingCache(true);
+//        quote_layout.setDrawingCacheEnabled(true);
+//        quote_layout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+//        quote_layout.layout(0, 0, quote_layout.getMeasuredWidth(), quote_layout.getMeasuredHeight());
+//        quote_layout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+//        quote_layout.buildDrawingCache(true);
     }
 
     @Override
@@ -163,7 +170,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                 checkpermissions_and_proceed();
                 break;
             case R.id.fab_edit:
-                changeFont();
+                edit();
                 break;
             case R.id.fab_share:
                 share();
@@ -185,10 +192,18 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setWallPaer() {
-        Intent intent = new Intent(WallpaperManager.getInstance(this).
-                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(this, new File(checkandRetrieveUri(wallpaper_layout).getPath()))));
+        checkandRetrieveUri(quote_layout, new OnImageSaveListner() {
+            @Override
+            public void onImageSaved(Uri uri) {
 
-        startActivity(intent);
+                File file = new File(uri.getPath());
+                Intent intent = new Intent(WallpaperManager.
+                        getInstance(QuoteDetailsActivity.this).
+                        getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(QuoteDetailsActivity.this, file)));
+
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -204,7 +219,12 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void checkpermissions_and_proceed() {
         if (PermissionUtils.isPermissionAvailable(QuoteDetailsActivity.this)) {
-            savedFile = savetoDevice(quote_layout);
+            savetoDevice(quote_layout, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
+                @Override
+                public void onImageSaveListner(File file) {
+                    savedFile = file;
+                }
+            });
         } else {
             requestAppPermissions();
         }
@@ -237,7 +257,12 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         switch (requestCode) {
             case MY_PERMISSION_REQUEST_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savedFile = savetoDevice(quote_layout);
+                    savetoDevice(quote_layout, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
+                        @Override
+                        public void onImageSaveListner(File file) {
+                            savedFile = file;
+                        }
+                    });
                 }
             }
             break;
@@ -261,35 +286,49 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void share() {
-        Intent shareIntent = new Intent();
+        final Uri[] uri = new Uri[1];
+        final Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
         shareIntent.putExtra(Intent.EXTRA_TITLE, "Title");
-        Uri uri = checkandRetrieveUri(quote_layout);
-        if (uri != null) {
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            shareIntent.setType("image/jpeg");
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.setType("image/jpeg");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        if (savedFile == null) {
+            checkandRetrieveUri(quote_layout, new OnImageSaveListner() {
+                @Override
+                public void onImageSaved(Uri val) {
+                    uri[0] = val;
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri[0]);
+                    startActivity(Intent.createChooser(shareIntent, "send"));
+                }
+            });
+
+        } else if (savedFile != null) {
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(savedFile.getPath())));
             startActivity(Intent.createChooser(shareIntent, "send"));
-        } else {
-            return;
         }
-
-
     }
 
-    private Uri checkandRetrieveUri(ViewGroup rootview) {
-        Uri uri = null;
+    private Uri checkandRetrieveUri(ViewGroup rootview, final OnImageSaveListner OnImageSaveListner) {
+        final Uri[] uri = {null};
         if (savedFile != null) {
-            uri = Uri.fromFile(savedFile);
+            uri[0] = Uri.fromFile(savedFile);
         } else if (savedFile == null) {
-            savedFile = savetoDevice(rootview);
-            uri = Uri.fromFile(savedFile);
+            savetoDevice(rootview, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
+                @Override
+                public void onImageSaveListner(File file) {
+                    savedFile = file;
+                    uri[0] = Uri.fromFile(savedFile);
+                    OnImageSaveListner.onImageSaved(uri[0]);
+
+                }
+            });
         }
-        return uri;
+        return uri[0];
     }
 
-    private void changeFont() {
+    private void edit() {
         tv_Quote_Body.setTypeface(App.getZingCursive(this, Constants.FONT_NEVIS));
 //        int cx=image_saved_message.getWidth()/2;
 //        int cy=image_saved_message.getHeight()/2;
