@@ -14,6 +14,7 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.networkhandler.MySingleton;
 import com.hustler.quote.ui.pojo.RandomQuotes;
 import com.hustler.quote.ui.superclasses.App;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import org.json.JSONObject;
 
@@ -58,7 +59,7 @@ public class Restutility {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         listener.onError(activity.getResources().getString(R.string.no_quotes_available));
-                        App.showToast(activity,error.getMessage());
+                        Toast_Snack_Dialog_Utils.show_ShortToast(activity,error.getMessage());
                     }
                 });
         MySingleton.addJsonObjRequest(activity, jsonObjectRequest);

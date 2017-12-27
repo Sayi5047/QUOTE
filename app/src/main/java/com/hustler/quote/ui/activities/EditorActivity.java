@@ -243,8 +243,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                 quote_editor_body.setText(quote.getBody());
                 quote_editor_author.setText(quote.getAuthor());
-                quote_editor_body.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
-                quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
 
                 quote_editor_body.setMaxWidth(1050);
                 quote_editor_author.setMaxWidth(1050);

@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class QuotesDbHelper extends SQLiteOpenHelper {
-    long id = 100;
+    long id ;
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "quotescollection.db";
@@ -69,7 +69,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         List<Quote> allQuotes = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        String select_query = "SELECT * FROM" + Contract.Quotes.TABLE_NAME;
+        String select_query = "SELECT * FROM " + Contract.Quotes.TABLE_NAME;
         Cursor cursor = sqLiteDatabase.rawQuery(select_query, null);
 
         while (cursor.moveToNext()) {

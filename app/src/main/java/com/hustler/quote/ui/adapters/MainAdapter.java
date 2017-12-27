@@ -72,9 +72,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         holder.tv.setText(quote.getBody());
         holder.tv2.setText(quote.getAuthor());
         holder.tv3.setText(genre);
-        holder.tv.setTypeface(App.getZingCursive(activity, Constants.FONT_ZINGSANS));
-        holder.tv2.setTypeface(App.getZingCursive(activity, Constants.FONT_ZINGCURSIVE));
-        holder.tv3.setTypeface(App.getZingCursive(activity, Constants.FONT_NEVIS));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +131,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             tv = (TextView) itemView.findViewById(R.id.main_quote);
             tv2 = (TextView) itemView.findViewById(R.id.quote_author);
             tv3 = (TextView) itemView.findViewById(R.id.quote_genre_end);
+            tv.setTypeface(App.getZingCursive(activity, Constants.FONT_ZINGSANS));
+            tv2.setTypeface(App.getZingCursive(activity, Constants.FONT_ZINGCURSIVE));
+            tv3.setTypeface(App.getZingCursive(activity, Constants.FONT_NEVIS));
 
         }
 

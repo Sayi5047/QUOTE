@@ -126,7 +126,6 @@ public class MainFragment extends Fragment {
             @Override
             public void onError(String message) {
                 loader.setVisibility(View.GONE);
-                App.showToast(getActivity(), getString(R.string.no_quotes_available));
             }
         });
     }

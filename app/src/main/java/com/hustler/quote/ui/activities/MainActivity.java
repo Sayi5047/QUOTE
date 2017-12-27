@@ -42,8 +42,8 @@ public class MainActivity extends BaseActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setExplodeAnimation();
         }
-        setToolbar();
-        ininView();
+//        setToolbar();
+//        ininView();
 
 
     }

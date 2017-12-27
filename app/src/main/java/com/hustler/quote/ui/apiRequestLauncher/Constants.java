@@ -27,6 +27,7 @@ public class Constants {
     public static final String BG = "Bg_Module";
     public static final String JPEG = "JPEG";
     public static final String PNG = "PNG";
+    public static final String IS_DB_LOADED_PREFERENCE = "is_db_loaded_key";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
     public static final String CATEGORIES_STRING = "Age\n" + "Alone\n" +

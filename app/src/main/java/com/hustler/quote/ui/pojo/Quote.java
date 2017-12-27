@@ -11,8 +11,7 @@ public class Quote {
     String quote_category;
     String quote_language;
 
-    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language) {
-        this.id = id;
+    public Quote( String quote_body, String quote_author, String quote_category, String quote_language) {
         this.quote_body = quote_body;
         this.quote_author = quote_author;
         this.quote_category = quote_category;

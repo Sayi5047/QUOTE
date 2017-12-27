@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="quote_bodies">
+        <item>Dont spur a willing horse</item>
+        <item>Men are more accountable for their motives, than for anything else; and primarily, morality consists in the motives, that is in the affections.</item>
+        <item>Aerodynamically, the bumble bee shouldnt be able to fly, but the bumble bee doesnt know it so it goes on flying anyway.</item>
+        <item>God made man to go by motives, and he will not go without them, any more than a boat without steam or a balloon without gas.</item>
+        <item>You cannot raise a man up by calling him down.</item>
+        <item>There are two levers for moving men -- interest and fear. </item>
+        <item>Striving for excellence motivates you; striving for perfection is demoralizing. </item>
+        <item>Life takes on meaning when you become motivated, set goals and charge after them in an unstoppable manner. </item>
+    </string-array>
+
+    <string-array name="quote_authors">
+        <item>Proverb</item>
+        <item>Archibald Alexander</item>
+        <item>Mary Kay Ash</item>
+        <item>Henry Ward Beecher</item>
+        <item>William J. H. Boetcker</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Harriet Braiker</item>
+        <item>Les Brown</item>
+
+    </string-array>
+
+    <string-array name="quote_categories">
+        <item>Proverb</item>
+        <item>Motivational</item>
+        <item>Motivational</item>
+        <item>Motivational</item>
+        <item>Motivational</item>
+        <item>Motivational</item>
+        <item>Motivational</item>
+        <item>Motivational</item>
+
+    </string-array>
+
+    <string-array name="quote_languages">
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+
+    </string-array>
+</resources>

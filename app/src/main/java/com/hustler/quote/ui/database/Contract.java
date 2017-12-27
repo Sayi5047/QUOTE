@@ -9,7 +9,6 @@ import android.provider.BaseColumns;
 public class Contract implements BaseColumns {
     private Contract() {
     }
-
     public static class Quotes implements BaseColumns {
         public static final String TABLE_NAME = "quotes";
         public static final String COLUMN_ID = "idInt";
@@ -21,7 +20,7 @@ public class Contract implements BaseColumns {
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         _ID + " INTEGER PRIMARY KEY," +
-                        COLUMN_ID + " LONG UNIQUE," +
+                        COLUMN_ID + " LONG," +
                         QUOTE_BODY + " STRING," +
                         QUOTE_AUTHOR + " STRING," +
                         QUOTE_CATEGORY + " STRING," +
@@ -32,6 +31,4 @@ public class Contract implements BaseColumns {
 
 
     }
-
-
 }
