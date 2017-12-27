@@ -84,6 +84,25 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return allQuotes;
     }
+    public List<Quote> getAllQuotesLimited() {
+        List<Quote> allQuotes = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String select_query = "SELECT * FROM " + Contract.Quotes.TABLE_NAME;
+        Cursor cursor = sqLiteDatabase.rawQuery(select_query, null);
+
+        while (cursor.moveToPosition(5)) {
+            Quote quote = new Quote();
+            quote.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.Quotes.COLUMN_ID)));
+            quote.setQuote_body(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_BODY)));
+            quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
+            quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
+            quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            allQuotes.add(quote);
+        }
+        cursor.close();
+        return allQuotes;
+    }
 
     public void deleteAllQuotes() {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -95,9 +114,19 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     public List<Quote> getQuotesByCategory(String category) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
+        String[] pprojection=new String[]{
+                (Contract.Quotes.COLUMN_ID),
+                (Contract.Quotes.QUOTE_BODY),
+                (Contract.Quotes.QUOTE_AUTHOR),
+                (Contract.Quotes.QUOTE_CATEGORY),
+                (Contract.Quotes.QUOTE_LANGUAGE),
+        };
 
-        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
-        Cursor cursor = database.rawQuery(select_by_category, null);
+//        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
+        Cursor cursor=database.query(Contract.Quotes.TABLE_NAME ,pprojection," quote_category = ?",new String[]{
+                category
+        },null,null,null,null);
+//        Cursor cursor = database.rawQuery(select_by_category, null);
 
         while (cursor.moveToNext()) {
             Quote quote = new Quote();
@@ -116,9 +145,21 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     public List<Quote> getQuotesByAuthor(String author_Name) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
+//
+//        String select_by_author = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_AUTHOR + " = " + author_Name;
+//        Cursor cursor = database.rawQuery(select_by_author, null);
+        String[] projection=new String[]{
+                (Contract.Quotes.COLUMN_ID),
+                (Contract.Quotes.QUOTE_BODY),
+                (Contract.Quotes.QUOTE_AUTHOR),
+                (Contract.Quotes.QUOTE_CATEGORY),
+                (Contract.Quotes.QUOTE_LANGUAGE),
+        };
 
-        String select_by_author = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_AUTHOR + " = " + author_Name;
-        Cursor cursor = database.rawQuery(select_by_author, null);
+//        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
+        Cursor cursor=database.query(Contract.Quotes.TABLE_NAME ,projection," quote_author = ?",new String[]{
+                author_Name
+        },null,null,null,null);
 
         while (cursor.moveToNext()) {
             Quote quote = new Quote();
@@ -138,9 +179,19 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
 
-        String select_by_language = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_LANGUAGE + " = " + language_name;
-        Cursor cursor = database.rawQuery(select_by_language, null);
+//        String select_by_language = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_LANGUAGE + " = " + language_name;
+//        Cursor cursor = database.rawQuery(select_by_language, null);
+        String[] pprojection=new String[]{
+                (Contract.Quotes.COLUMN_ID),
+                (Contract.Quotes.QUOTE_BODY),
+                (Contract.Quotes.QUOTE_AUTHOR),
+                (Contract.Quotes.QUOTE_CATEGORY),
+                (Contract.Quotes.QUOTE_LANGUAGE),
+        };
 
+        Cursor cursor=database.query(Contract.Quotes.TABLE_NAME ,pprojection," quote_language = ?",new String[]{
+                language_name
+        },null,null,null,null);
         while (cursor.moveToNext()) {
             Quote quote = new Quote();
             quote.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.Quotes.COLUMN_ID)));
