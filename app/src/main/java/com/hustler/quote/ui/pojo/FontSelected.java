@@ -7,7 +7,6 @@ package com.hustler.quote.ui.pojo;
 public class FontSelected {
 
 
-
     public boolean isDownloaded() {
         return isDownloaded;
     }

@@ -14,13 +14,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -42,7 +39,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
-import com.hustler.quote.ui.adapters.ContentAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
@@ -57,7 +53,6 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
@@ -70,26 +65,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
     Window windowManager;
-
-    private LinearLayout Editor_lead_screen_linearLayout;
-    private LinearLayout level_1_editor_navigator;
-    private LinearLayout level_1_1_editor_font_size_manipulator;
-    private LinearLayout level_1_1_1_editor_font_sizeChanger_seekbar_layout;
     private ImageView light_effect_filter_IV;
-    private ImageView save_picture;
-    private ImageView quoteAnim;
-    private NestedScrollView bottomsheet;
-    private boolean isTextLayout_visible;
-    private boolean isImageLoaded = false;
-
-
     private LinearLayout root_layout;
 
     private ImageView font_module;
     private ImageView background_image_module;
     private ImageView font_size_changer;
     private ImageView close_text_size;
-    private ImageView font_family_changer;
     private ImageView save_work_button;
     private ImageView share_work_button;
     private ImageView delete_view_button;
@@ -110,16 +92,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private SeekBar seekBar;
     private Button clear_button;
-    private BottomSheetBehavior bottomSheetBehavior;
 
     RecyclerView features_recyclerview;
-    ContentAdapter contentAdapter;
     Features_adapter features_adapter;
 
     public File savedFile;
-    ArrayList<String> items = new ArrayList<>();
     String[] itemsTo;
-    private Bitmap currentbitmap;
 
 
     private int backpressCount = 0;
@@ -148,9 +126,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-//        setToolbar(this);
-//        convertColors();
-
         findViews();
         getIntentData();
         setViews();
@@ -172,11 +147,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         windowManager = this.getWindow();
         windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        level_1_editor_navigator = (LinearLayout) findViewById(R.id.top_editor_navigaotor_level1);
-        Editor_lead_screen_linearLayout = (LinearLayout) findViewById(R.id.Main_editor_arena);
-        level_1_1_editor_font_size_manipulator = (LinearLayout) findViewById(R.id.top_save_and_share_bar);
-//        level_1_2_editor_background_manipulator = (LinearLayout) findViewById(R.id.editor_background_module);/**/
-        level_1_1_1_editor_font_sizeChanger_seekbar_layout = (LinearLayout) findViewById(R.id.fontsize_change_module);
 
         quoteLayout = (RelativeLayout) findViewById(R.id.quote_layout);
         text_and_bg_layout = (LinearLayout) findViewById(R.id.text_and_background_layout);
@@ -189,32 +159,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         share_work_button = (ImageView) findViewById(R.id.font_share_module);
         delete_view_button = (ImageView) findViewById(R.id.delete_view_button);
 
-//        level 1.1 text font manipulator options
         font_size_changer = (ImageView) findViewById(R.id.spacer_in_top);
-//        save_picture = (ImageView) findViewById(R.id.Editor_text_module_save);
-
-//        level 1.2 text background manipulator options
-    /*    background_color_changer = (ImageView) findViewById(R.id.Editor_background_module_colored_backgrounds);
-        background_opacity_changer = (ImageView) findViewById(R.id.Editor_background_module_picture_filter_changer);
-        background_gallery_chooser = (ImageView) findViewById(R.id.Editor_background_module_gallery_backgrounds);
-        background_module_blurred_changer = (ImageView) findViewById(R.id.Editor_background_module_blurred_backgrounds);*/
         light_effect_filter_IV = (ImageView) findViewById(R.id.iv_light_effect);
 
 
-//        level 1.1.1 font_text_changer_layout
         seekBar = (SeekBar) findViewById(R.id.progress_slider_bar);
         seekBar.setContentDescription("Slide to Rotate");
         close_text_size = (ImageView) findViewById(R.id.close_editor_button);
 
-//        level 1.1.2 font color chooser
-        /*this recyclerview will be keep on reused in different lavels */
         features_recyclerview = (RecyclerView) findViewById(R.id.content_rv);
         features_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
-//      main editor text layout
-        quoteAnim = (ImageView) findViewById(R.id.quote_anim);
-//        quote_editor_body = (TextView) findViewById(R.id.tv_Quote_Body);
-//        quote_editor_author = (TextView) findViewById(R.id.tv_Quote_Author);
         imageView_background = (ImageView) findViewById(R.id.imageView_background);
 
 
@@ -229,14 +184,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
 
 
-//        imageView_background.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean onPreDraw() {
-//
-//                return true;
-//
-//            }
-//        });
+
 
 
 
@@ -248,13 +196,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_layout.setOnClickListener(this);
         seekBar.setOnSeekBarChangeListener(this);
         font_size_changer.setOnClickListener(this);
-//        font_family_changer.setOnClickListener(this);
-//        save_picture.setOnClickListener(this);
         close_text_size.setOnClickListener(this);
-//        background_color_changer.setOnClickListener(this);
-//        background_gallery_chooser.setOnClickListener(this);
-//        background_module_blurred_changer.setOnClickListener(this);
-//        background_opacity_changer.setOnClickListener(this);
         save_work_button.setOnClickListener(this);
         share_work_button.setOnClickListener(this);
         delete_view_button.setOnClickListener(this);
@@ -262,11 +204,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         done_layout.setOnClickListener(this);
         clear_button.setOnClickListener(this);
 
-
-//        level_1_1_1_editor_font_sizeChanger_seekbar_layout.setVisibility(View.VISIBLE);
-//        thirdDetailvisible = false;
-
-//        managingBottomsheet();
 
         setText_Features_rv();
     }
@@ -310,27 +247,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_author.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
 
                 quote_editor_body.setMaxWidth(1050);
-                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                quote_editor_body.setGravity(Gravity.CENTER);
-                quote_editor_body.setY(quoteLayout.getHeight() / 2);
                 quote_editor_author.setMaxWidth(1050);
-                quote_editor_author.setX(quoteLayout.getWidth() / 2);
+
+                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                quote_editor_body.setGravity(Gravity.CENTER);
                 quote_editor_author.setGravity(Gravity.CENTER);
+
+                quote_editor_body.setY(core_editor_layout.getHeight() / 2);
+                quote_editor_author.setX(core_editor_layout.getWidth() / 2);
 
                 quoteLayout.addView(quote_editor_body);
                 quoteLayout.addView(quote_editor_author);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) quote_editor_body.getLayoutParams();
-
-//                params.addRule(RelativeLayout.CENTER_VERTICAL);
-                RelativeLayout.LayoutParams paramsbottom = (RelativeLayout.LayoutParams) quote_editor_author.getLayoutParams();
-
-                paramsbottom.addRule(RelativeLayout.ALIGN_BOTTOM);
-
-                quote_editor_body.setLayoutParams(params);
-                quote_editor_author.setLayoutParams(paramsbottom);
-
-
                 quote_editor_author.setOnTouchListener(this);
                 quote_editor_body.setOnTouchListener(this);
             }
@@ -420,26 +349,28 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.font_share_module: {
-                Intent shareIntent = new Intent();
+                final Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.setType("image/jpeg");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
 //                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
                 Uri uri = null;
                 if (savedFile != null) {
                     uri = Uri.fromFile(savedFile);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                    startActivity(Intent.createChooser(shareIntent, "send"));
                 } else {
                     savetoDevice(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                            startActivity(Intent.createChooser(shareIntent, "send"));
                         }
                     });
                 }
-                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareIntent.setType("image/jpeg");
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                startActivity(Intent.createChooser(shareIntent, "send"));
-            }
+               }
             break;
             case R.id.delete_view_button: {
                 if (selectedView != null) {
@@ -476,7 +407,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
         }
     }
-
 
     /*COLONY BACKGROUND*/
     private void setBackground_features_rv() {
@@ -565,7 +495,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
     private void enable_Selected_Background_Features(String clickedItem, String[] bgfeaturesArray) {
         if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
             current_Bg_feature = bgfeaturesArray[0];
@@ -604,152 +533,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void bringGradients() {
-        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
-        dialog.setContentView(R.layout.gradient_bg_layout);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-
-        RelativeLayout relativeLayout;
-        TextView headerTv;
-        final TextView demoGradient;
-        final ImageView demoColor1;
-        final ImageView demoColor2;
-        final TextView demoColor1Tv;
-        final TextView demoColor2Tv;
-        final RecyclerView colorsRecycler;
-        final Button preview;
-        Button btCancel;
-        Button btApply;
-        final ColorsAdapter colorsAdapter;
-        final ColorsAdapter colorsAdapter2;
-        final GradientDrawable[] output_drawable = new GradientDrawable[1];
-
-        final int[] firstColor = {0};
-        final int[] secondColor = {0};
-        final int[] selected_color = {0};
-        final boolean[] bothColorsChoosen = {false};
-
-        relativeLayout = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
-        headerTv = (TextView) dialog.findViewById(R.id.header_tv);
-        demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
-        demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
-        demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
-        demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
-        demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
-        colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
-        preview = (Button) dialog.findViewById(R.id.preview);
-        btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
-        btApply = (Button) dialog.findViewById(R.id.bt_apply);
-        colorsRecycler.setVisibility(View.GONE);
-        preview.setVisibility(View.GONE);
-
-        colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
-        colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
-            @Override
-            public void onColorClick(int color) {
-                firstColor[0] = color;
-                demoColor1.setBackgroundColor(color);
-                demoColor1Tv.setTextColor(color);
-                preview.setVisibility(View.VISIBLE);
-
-            }
-        });
-        colorsAdapter2 = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
-            @Override
-            public void onColorClick(int color) {
-                secondColor[0] = color;
-                demoColor2.setBackgroundColor(color);
-                demoColor2Tv.setTextColor(color);
-                preview.setVisibility(View.VISIBLE);
-
-
-            }
-        });
-
-        demoColor1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorsRecycler.setVisibility(View.VISIBLE);
-                colorsRecycler.setAdapter(null);
-                selected_color[0] = 0;
-                colorsRecycler.setAdapter(colorsAdapter);
-            }
-        });
-
-        demoColor2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorsRecycler.setVisibility(View.VISIBLE);
-                colorsRecycler.setAdapter(null);
-                selected_color[0] = 0;
-                colorsRecycler.setAdapter(colorsAdapter2);
-            }
-        });
-
-        preview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
-                demoGradient.setBackground(output_drawable[0]);
-            }
-        });
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        btApply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                imageView_background.setImageDrawable(null);
-                if (output_drawable[0] == null) {
-                    output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
-                }
-                imageView_background.setBackground(output_drawable[0]);
-            }
-        });
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-
-    }
-
-
-    private void blurrImage(String[] bgfeaturesArray) {
-        features_recyclerview.setVisibility(View.GONE);
-        seekBar.setVisibility(View.VISIBLE);
-        text_and_bg_layout.setVisibility(View.GONE);
-        close_and_done_layout.setVisibility(View.VISIBLE);
-    }
-
-    private void applyBlackFilter() {
-        light_effect_filter_IV.setBackground(EditorActivity.this.getResources().getDrawable(android.R.drawable.screen_background_dark_transparent));
-        features_recyclerview.setVisibility(View.GONE);
-        seekBar.setVisibility(View.VISIBLE);
-        text_and_bg_layout.setVisibility(View.GONE);
-        close_and_done_layout.setVisibility(View.VISIBLE);
-    }
-
-    private void applyWhiteFilter() {
-        light_effect_filter_IV.setBackground(EditorActivity.this.getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
-        features_recyclerview.setVisibility(View.GONE);
-        seekBar.setVisibility(View.VISIBLE);
-        text_and_bg_layout.setVisibility(View.GONE);
-        close_and_done_layout.setVisibility(View.VISIBLE);
-    }
-
-    private void launchGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, RESULT_LOAD_IMAGE);
-    }
-
     /*Seekbar methods*/
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress,
-                                  boolean fromUser) {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         handle_seekbar_value(seekBar);
 
     }
@@ -800,6 +586,35 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void handle_seekbar_value(SeekBar seekBar) {
+        float radius = (float) seekBar.getProgress();
+        if (current_module.equalsIgnoreCase(Constants.TEXT)) {
+            TextView selected_textView = (TextView) selectedView;
+            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
+                float size = radius / 4;
+                selected_textView.setTextSize(size);
+            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
+                float degree = radius - 180;
+                selected_textView.setRotation(degree);
+            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
+                float degree = radius / 500;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    selected_textView.setLetterSpacing(degree);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
+                }
+            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
+                float degrer = radius / 100;
+                selected_textView.setLineSpacing(15, degrer);
+            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
+                int degrer = (int) radius * 3;
+//                Log.d("PADDIG DEGEREE", degrer + "");
+                selected_textView.setMaxWidth(degrer);
+            }
+        }
+    }
+
+
     private void handle_close_Feature() {
         if (current_module.equalsIgnoreCase(Constants.TEXT)) {
             TextView current_text_view = (TextView) selectedView;
@@ -834,45 +649,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 light_effect_filter_IV.setBackground(null);
             }
         }
-
-    }
-
-    private void handle_seekbar_value(SeekBar seekBar) {
-        float radius = (float) seekBar.getProgress();
-        if (current_module.equalsIgnoreCase(Constants.TEXT)) {
-            TextView selected_textView = (TextView) selectedView;
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
-// TODO: 13/12/21617 implement a new seekbar
-                float size = radius / 6;
-                selected_textView.setTextSize(size);
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
-                float degree = radius - 180;
-                selected_textView.setRotation(degree);
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
-                float degree = radius / 500;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    selected_textView.setLetterSpacing(degree);
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
-                }
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
-                float degrer = radius / 100;
-                selected_textView.setLineSpacing(15, degrer);
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
-                int degrer = (int) radius * 3;
-                Log.d("PADDIG DEGEREE", degrer + "");
-                selected_textView.setMaxWidth(degrer);
-            }
-        }
-
-        ////        imageView_background.setDrawingCacheEnabled(true);
-//        if (isTextLayout_visible) {
-//            quote_editor_body.setTextSize(radius);
-//        } else {
-//            imageView_background.buildDrawingCache();
-//            currentbitmap = imageView_background.getDrawingCache();
-//            imageView_background.setImageBitmap(create_blur(currentbitmap, radius));
-//        }
 
     }
 
@@ -954,7 +730,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
                         textView.setText(newly_Added_Text);
-                        textView.setX(core_editor_layout.getWidth() / 2);
+                        textView.setX(core_editor_layout.getWidth() / 2 - 250);
 //                        textView.setY(core_editor_layout.getHeight() / 2);
                         textView.setId(addedTextIds);
                         textView.setOnClickListener(new View.OnClickListener() {
@@ -1144,7 +920,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
     private void applyFont(String[] array) {
         final TextView selectedTextView = (TextView) selectedView;
 
@@ -1178,7 +953,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-
+    // BG FEATURES
     private void colorbg(String[] array) {
 //        RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) selectedTextView.getLayoutParams());
 
@@ -1241,6 +1016,144 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    private void bringGradients() {
+        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.gradient_bg_layout);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+
+        RelativeLayout relativeLayout;
+        TextView headerTv;
+        final TextView demoGradient;
+        final ImageView demoColor1;
+        final ImageView demoColor2;
+        final TextView demoColor1Tv;
+        final TextView demoColor2Tv;
+        final RecyclerView colorsRecycler;
+        final Button preview;
+        Button btCancel;
+        Button btApply;
+        final ColorsAdapter colorsAdapter;
+        final ColorsAdapter colorsAdapter2;
+        final GradientDrawable[] output_drawable = new GradientDrawable[1];
+
+        final int[] firstColor = {0};
+        final int[] secondColor = {0};
+        final int[] selected_color = {0};
+
+        relativeLayout = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
+        demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
+        demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
+        demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
+        demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
+        demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
+        colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
+        preview = (Button) dialog.findViewById(R.id.preview);
+        btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
+        btApply = (Button) dialog.findViewById(R.id.bt_apply);
+        colorsRecycler.setVisibility(View.GONE);
+        preview.setVisibility(View.GONE);
+
+        colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
+        colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                firstColor[0] = color;
+                demoColor1.setBackgroundColor(color);
+                demoColor1Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+            }
+        });
+        colorsAdapter2 = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                secondColor[0] = color;
+                demoColor2.setBackgroundColor(color);
+                demoColor2Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+        demoColor1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter);
+            }
+        });
+
+        demoColor2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter2);
+            }
+        });
+
+        preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
+                demoGradient.setBackground(output_drawable[0]);
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                imageView_background.setImageDrawable(null);
+                if (output_drawable[0] == null) {
+                    output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
+                }
+                imageView_background.setBackground(output_drawable[0]);
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+    }
+
+    private void blurrImage(String[] bgfeaturesArray) {
+        features_recyclerview.setVisibility(View.GONE);
+        seekBar.setVisibility(View.VISIBLE);
+        text_and_bg_layout.setVisibility(View.GONE);
+        close_and_done_layout.setVisibility(View.VISIBLE);
+    }
+
+    private void applyBlackFilter() {
+        light_effect_filter_IV.setBackground(EditorActivity.this.getResources().getDrawable(android.R.drawable.screen_background_dark_transparent));
+        features_recyclerview.setVisibility(View.GONE);
+        seekBar.setVisibility(View.VISIBLE);
+        text_and_bg_layout.setVisibility(View.GONE);
+        close_and_done_layout.setVisibility(View.VISIBLE);
+    }
+
+    private void applyWhiteFilter() {
+        light_effect_filter_IV.setBackground(EditorActivity.this.getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
+        features_recyclerview.setVisibility(View.GONE);
+        seekBar.setVisibility(View.VISIBLE);
+        text_and_bg_layout.setVisibility(View.GONE);
+        close_and_done_layout.setVisibility(View.VISIBLE);
+    }
+
+    private void launchGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, RESULT_LOAD_IMAGE);
+    }
 
 /*Permission related Methods*/
 
@@ -1285,16 +1198,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             cursor.close();
 //           imageView_background.setImageBitmap(BitmapFactory.decodeFile(picturepath));
             if (imageView_background.getDrawingCache() != null) {
-                currentbitmap = null;
                 imageView_background.destroyDrawingCache();
             }
             selected_picture = picturepath;
             Glide.with(this).load(picturepath).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
-            isImageLoaded = true;
 //            imageView_background.setImageResource(picturepath);
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -1324,14 +1234,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case MY_PERMISSION_REQUEST_Launch_gallery: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     launchGallery();
-
                 }
             }
             break;
-
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -1350,7 +1257,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public boolean onTouch(View v, MotionEvent event) {
         RelativeLayout.LayoutParams view_Parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         selectedView = v;
-
 //        v.setPadding(16, 16, 16, 16);
         if (previousSelcted_View != null) {
             previousSelcted_View.setBackground(null);
@@ -1390,10 +1296,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 v.setLayoutParams(view_Parameters);
                 return true;
             }
-
         }
         return false;
-
     }
 
     public class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
@@ -1401,30 +1305,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         public boolean onScale(ScaleGestureDetector detector) {
             if (selectedView != null) {
                 TextView selected = (TextView) selectedView;
-
                 float size = selected.getTextSize();
-                Log.d("TextSizeStart", String.valueOf(size));
-
                 float factor = detector.getScaleFactor();
-                Log.d("Factor", String.valueOf(factor));
-
-
                 float product = size * factor;
-                Log.d("TextSize", String.valueOf(product));
                 selected.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
-//            textView.setRotation(product);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                selected.setLetterSpacing(product);
-//            }
-
-                size = selected.getTextSize();
-                Log.d("TextSizeEnd", String.valueOf(size));
                 return true;
             }
             return false;
         }
     }
 }
-
-
-

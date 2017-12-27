@@ -78,9 +78,9 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
 
     @Override
     public void onBindViewHolder(UserWorkViewHolder holder, final int position) {
-        Glide.with(activity).load(paths[position]).asBitmap().crossFade().fitCenter().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.iv);
+        Glide.with(activity).load(paths[position]).asBitmap().fitCenter().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.iv);
         updateBgColors(holder, position);
-        holder.tv.setText(imageNames[position].subSequence(0, 10));
+        holder.tv.setText(imageNames[position]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,8 +101,14 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
                 if (swatch == null) {
                     swatch = palette.getDominantSwatch();
                 }
-                holder.tv.setBackgroundColor(swatch.getRgb());
-                holder.iv.setBackgroundColor(swatch.getRgb());
+                try
+                {
+                    holder.tv.setBackgroundColor(swatch.getRgb());
+                    holder.iv.setBackgroundColor(swatch.getRgb());
+
+                 }catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
 

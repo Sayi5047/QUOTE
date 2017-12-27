@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -33,6 +34,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.UserWorkAdapter;
 import com.hustler.quote.ui.pojo.UserWorkImages;
+import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -113,7 +115,9 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                 }
             }
         });
+
         rv.setAdapter(userWorkAdapter);
+        rv.setAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.slideup));
     }
 
     private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
