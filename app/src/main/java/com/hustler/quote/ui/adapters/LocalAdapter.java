@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.Quote;
-import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.TextUtils;
 
@@ -25,10 +24,21 @@ import java.util.ArrayList;
 public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewholder> {
     Activity activity;
     ArrayList<Quote> dataFromNet;
+    OnQuoteClickListener onQuoteClickListener;
 
-    public LocalAdapter(Activity activity,ArrayList<Quote> dataFromNet) {
+    public LocalAdapter(Activity activity, ArrayList<Quote> dataFromNet, OnQuoteClickListener onQuoteClickListener) {
         this.activity = activity;
-        this.dataFromNet=dataFromNet;
+        this.dataFromNet = dataFromNet;
+        this.onQuoteClickListener = onQuoteClickListener;
+    }
+
+    public LocalAdapter(Activity activity, ArrayList<Quote> dataFromNet) {
+        this.activity = activity;
+        this.dataFromNet = dataFromNet;
+    }
+
+    public interface OnQuoteClickListener {
+        void onQuoteClicked(int position, int color, Quote quote, View view);
     }
 
     @Override
@@ -37,18 +47,26 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     }
 
     @Override
-    public void onBindViewHolder(LocalViewholder holder, int position) {
-        int color = TextUtils.getMainMatColor("mdcolor_300", activity);
+    public void onBindViewHolder(LocalViewholder holder, final int position) {
+        final int color = TextUtils.getMainMatColor("mdcolor_100", activity);
         holder.itemView.setBackgroundColor(color);
         final Quote quote = dataFromNet.get(position);
+        quote.setColor(color);
         String genre;
 
-            genre = quote.getQuote_category();
+        genre = quote.getQuote_category();
 
         holder.tv.setText(quote.getQuote_body());
         holder.tv2.setText(quote.getQuote_author());
         holder.tv3.setText(genre);
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onQuoteClickListener != null) {
+                    onQuoteClickListener.onQuoteClicked(position, color, quote, v);
+                }
+            }
+        });
 
 
     }

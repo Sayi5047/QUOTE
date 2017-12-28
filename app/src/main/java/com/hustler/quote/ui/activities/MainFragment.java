@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.Explode;
+import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.MainAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.QuotesApiResponceListener;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
+import com.hustler.quote.ui.database.QuotesDbHelper;
+import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -62,24 +66,44 @@ public class MainFragment extends Fragment {
         quote_of_day.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rv.getLayoutManager() instanceof  StaggeredGridLayoutManager){
-                    rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                if (rv.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+                    rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-                }
-                else if(rv.getLayoutManager() instanceof  GridLayoutManager){
+                } else if (rv.getLayoutManager() instanceof GridLayoutManager) {
                     rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                }
-                else if(rv.getLayoutManager() instanceof LinearLayoutManager){
-                    rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                } else if (rv.getLayoutManager() instanceof LinearLayoutManager) {
+                    rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                 }
 
 
             }
 
         });
-        getRandomQuotes();
-
+//        getRandomQuotes();
+        rv.setAdapter(new LocalAdapter(
+                getActivity(),
+                (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes(),
+                new LocalAdapter.OnQuoteClickListener() {
+                    @Override
+                    public void onQuoteClicked(int position, int color, Quote quote, View view1) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                            getActivity().getWindow().setEnterTransition(new Slide());
+//                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+//                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+//                            ActivityOptionsCompat options = ActivityOptionsCompat.
+//                                    makeSceneTransitionAnimation(getActivity(),
+//                                            view1,
+//                                            getString(R.string.quotes_author_transistion));
+//                            startActivity(intent, options.toBundle());
+//                        } else {
+                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                            startActivity(intent);
+//                        }
+                    }
+                }));
+        loader.setVisibility(View.GONE);
 
         return view;
     }
@@ -90,13 +114,11 @@ public class MainFragment extends Fragment {
             @Override
             @Nullable
             public void onSuccess(List<QuotesFromFC> quotes) {
-                loader.setVisibility(View.GONE);
                 rv.setAdapter(new MainAdapter(getActivity(), quotes, new MainAdapter.OnItemClicListener() {
                     @Override
                     public void onItemClickHappened(QuotesFromFC quotesFromFC, View view) {
-                        Toast.makeText(getActivity(), quotesFromFC.getAuthor(), Toast.LENGTH_SHORT).show();
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().getWindow().setEnterTransition(new Explode());
+                            getActivity().getWindow().setEnterTransition(new Slide());
                             Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                             intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
                             ActivityOptionsCompat options = ActivityOptionsCompat.

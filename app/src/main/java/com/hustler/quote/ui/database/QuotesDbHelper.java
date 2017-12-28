@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.hustler.quote.ui.pojo.Quote;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +86,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             allQuotes.add(quote);
         }
         cursor.close();
+        sqLiteDatabase.close();
         return allQuotes;
     }
 
@@ -128,11 +130,12 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
                 (Contract.Quotes.QUOTE_IS_LIKED),
         };
 
-//        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
-        Cursor cursor = database.query(Contract.Quotes.TABLE_NAME, pprojection, " quote_category = ?", new String[]{
-                category
-        }, null, null, null, null);
-//        Cursor cursor = database.rawQuery(select_by_category, null);
+        Cursor cursor = database.
+                query(Contract.Quotes.TABLE_NAME,
+                        pprojection,
+                        " quote_category = ?",
+                        new String[]{category},
+                        null, null, null, null);
 
         while (cursor.moveToNext()) {
             Quote quote = new Quote();
@@ -144,6 +147,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             categorised_Quotes.add(quote);
         }
         cursor.close();
+        database.close();
         return categorised_Quotes;
 
     }
@@ -164,7 +168,6 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
         };
 
-//        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
         Cursor cursor = database.query(Contract.Quotes.TABLE_NAME, projection, " quote_author = ?", new String[]{
                 author_Name
         }, null, null, null, null);
@@ -179,6 +182,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             categorised_Quotes.add(quote);
         }
         cursor.close();
+        database.close();
         return categorised_Quotes;
 
     }
@@ -211,6 +215,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             categorised_Quotes.add(quote);
         }
         cursor.close();
+        database.close();
         return categorised_Quotes;
 
     }
@@ -247,6 +252,32 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
                 );
         database.close();
         return rowsAffected;
+    }
+
+    /*METHOD TO GET ALL FAVOURITE QUOTES OF USER*/
+    public List<Quote> getAllFav_Quotes() {
+        AbstractList<Quote> favourite_Quotes = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.
+                query(
+                        Contract.Quotes.TABLE_NAME,
+                        null,
+                        " quote_is_liked =?",
+                        new String[]{String.valueOf(1)}
+                        , null, null, null, null);
+        while (cursor.moveToNext()) {
+            Quote quote = new Quote();
+            quote.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.Quotes.COLUMN_ID)));
+            quote.setQuote_body(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_BODY)));
+            quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
+            quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
+            quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            favourite_Quotes.add(quote);
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+        return favourite_Quotes;
     }
 }
 

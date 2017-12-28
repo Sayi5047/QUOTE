@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
@@ -40,7 +41,7 @@ import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_WALLPAPER = 1003;
-    QuotesFromFC quote;
+    Quote quote;
     RelativeLayout root;
     LinearLayout quote_layout;
     LinearLayout quote_bottom;
@@ -55,7 +56,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
         setToolbar(this);
@@ -129,9 +130,9 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void getIntentData() {
 //        Bundle bundle=getIntent().getBundleExtra(Constants.BUNDLE_OBJECT);
-        quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
+        quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
-        int length = quote.getBody().length();
+        int length = quote.getQuote_body().length();
         root.setBackgroundColor(quote.getColor());
         fab_share.setBackgroundColor(quote.getColor());
         quote_bottom.setBackgroundColor(quote.getColor());
@@ -158,8 +159,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             tv_Quote_Body.setTextSize(45.0f);
 
         }
-        tv_Quote_Body.setText(quote.getBody());
-        tv_Quote_Author.setText(quote.getAuthor());
+        tv_Quote_Body.setText(quote.getQuote_body());
+        tv_Quote_Author.setText(quote.getQuote_author());
 
     }
 

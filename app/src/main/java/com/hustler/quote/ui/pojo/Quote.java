@@ -1,17 +1,38 @@
 package com.hustler.quote.ui.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by anvaya5 on 27/12/2017.
  */
 
-public class Quote {
+public class Quote implements Serializable {
     long id;
     String quote_body;
     String quote_author;
     String quote_category;
     String quote_language;
 
-    public Quote( String quote_body, String quote_author, String quote_category, String quote_language) {
+    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, int color) {
+        this.id = id;
+        this.quote_body = quote_body;
+        this.quote_author = quote_author;
+        this.quote_category = quote_category;
+        this.quote_language = quote_language;
+        this.color = color;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    int color;
+
+    public Quote(String quote_body, String quote_author, String quote_category, String quote_language) {
         this.quote_body = quote_body;
         this.quote_author = quote_author;
         this.quote_category = quote_category;

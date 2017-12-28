@@ -163,7 +163,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         appBar.setBackgroundColor(getHEaderColor(position, positionOffset));
         mainPager.setBackgroundColor(getHEaderColor(position, positionOffset));
         tab_layout.setBackgroundColor(getHEaderColor(position, positionOffset));
-        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
+//        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getHEaderColor(position, positionOffset));
         }

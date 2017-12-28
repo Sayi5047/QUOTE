@@ -30,7 +30,7 @@ public class Contract implements BaseColumns {
         ;
 
         public static final String SQL_DELETE_TABLE =
-                "DROP TABLE IF EXISTS" + TABLE_NAME;
+                "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
     }

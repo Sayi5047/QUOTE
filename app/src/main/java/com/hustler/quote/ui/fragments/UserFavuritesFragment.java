@@ -38,7 +38,7 @@ public class UserFavuritesFragment extends Fragment {
         Glide.with(getActivity()).load(Uri.parse("http://drive.google.com/uc?export=view&id=1-xt_qFGV_IsKJ7ZH2iJ7OL9a3WQB0ERs")).
         centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(new LocalAdapter(getActivity(),(ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes()));
+        recyclerView.setAdapter(new LocalAdapter(getActivity(),(ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes()));
         return view;
     }
 }
