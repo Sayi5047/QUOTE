@@ -73,7 +73,12 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         imageText = (TextView) view.findViewById(R.id.image_text);
         message = (TextView) view.findViewById(R.id.message);
         loader.setVisibility(View.GONE);
-        checkPermission_and_proceed();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                checkPermission_and_proceed();
+            }
+        }).run();
         return view;
     }
 

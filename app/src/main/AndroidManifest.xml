@@ -31,7 +31,7 @@
         <activity
             android:name=".ui.activities.QuoteDetailsActivity"
             android:label=" "
-            android:parentActivityName=".ui.activities.MainActivity"
+            android:parentActivityName=".ui.activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.FullscreenActivity"
@@ -45,6 +45,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -78,7 +78,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
 
     @Override
     public void onBindViewHolder(UserWorkViewHolder holder, final int position) {
-        Glide.with(activity).load(paths[position]).asBitmap().fitCenter().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.iv);
+        Glide.with(activity).load(paths[position]).asBitmap().fitCenter().thumbnail(1.0f).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.iv);
         updateBgColors(holder, position);
         holder.tv.setText(imageNames[position]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

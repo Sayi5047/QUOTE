@@ -10,9 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.transition.Explode;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,9 +86,18 @@ public class MainFragment extends Fragment {
     }
 
     private void setAdapter(RecyclerView rv) {
+        final ArrayList<Quote>[] quotes = new ArrayList[]{new ArrayList<>()};
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                quotes[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes();
+
+            }
+        }).run();
+
         rv.setAdapter(new LocalAdapter(
                 getActivity(),
-                (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes(),
+                quotes[0],
                 new LocalAdapter.OnQuoteClickListener() {
                     @Override
                     public void onQuoteClicked(int position, int color, Quote quote, View view1) {
@@ -158,15 +165,43 @@ public class MainFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("MainAdapter","ON RESUME");
-        rv.setAdapter(null);
-        setAdapter(rv);
-
-    }
-
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        Log.d("MainAdapter","ON RESUME");
+//        rv.setAdapter(null);
+//        setAdapter(rv);
+//
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        Log.d("MainAdapter","ON DETACH");
+//
+//    }
+//
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        Log.d("MainAdapter","ON Attach");
+//
+//    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Log.d("MainAdapter","ON Start");
+//        rv.setAdapter(null);
+//        setAdapter(rv);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        Log.d("MainAdapter","ON STOP");
+//
+//    }
     //    public void setLayout(int i) {
 //        if(rv!=null){
 //            switch (i){

@@ -41,9 +41,10 @@
         android:includeFontPadding="true"
         android:layout_below="@id/iv_logo"
         android:textAlignment="center"
+
         android:textSize="35dp"
         android:layout_gravity="end"
-        android:gravity="end"
+        android:gravity="center"
 
         android:textColor="@color/black_overlay" />
 

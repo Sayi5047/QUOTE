@@ -39,14 +39,21 @@ public class UserFavuritesFragment extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.iv);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv);
         Glide.with(getActivity()).load(Uri.parse("http://drive.google.com/uc?export=view&id=1-xt_qFGV_IsKJ7ZH2iJ7OL9a3WQB0ERs")).
-        centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+                centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         setAdapter(recyclerView);
         return view;
     }
 
     private void setAdapter(RecyclerView recyclerView) {
-        recyclerView.setAdapter(new LocalAdapter(getActivity(), (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes(), new LocalAdapter.OnQuoteClickListener() {
+        final ArrayList<Quote>[] arrayLists = new ArrayList[]{new ArrayList<>()};
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                arrayLists[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes();
+            }
+        }).run();
+        recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
             public void onQuoteClicked(int position, int color, Quote quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);

@@ -379,7 +379,12 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-//    private void savetoDevice(ViewGroup layout) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    //    private void savetoDevice(ViewGroup layout) {
 //
 //
 //        new Thread() {
