@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -165,10 +166,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         tv_Quote_Author.setText(quote.getQuote_author());
         if (quote.getIsLiked() == 1) {
             IS_LIKED_FLAG = true;
-            fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
+            fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
         } else {
             IS_LIKED_FLAG = false;
-            fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+            fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
 
         }
     }
@@ -211,12 +212,14 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void removeFavourite() {
         new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
-        fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+        IS_LIKED_FLAG=false;
     }
 
     private void addFavourite() {
         new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
-        fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
+        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+        IS_LIKED_FLAG=true;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

@@ -50,22 +50,39 @@ android:layout_margin="4dp"
 
             />
 
-        <TextView
-            android:id="@+id/quote_genre_end"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            android:layout_gravity="start"
-            android:layout_margin="@dimen/elevation4"
-            android:background="@android:drawable/screen_background_light_transparent"
-            android:elevation="@dimen/elevation4"
-            android:gravity="start"
-            android:padding="@dimen/elevation4"
-            android:text="Something"
-            android:textAlignment="center"
+            <TextView
+                android:id="@+id/quote_genre_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/font" />
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/elevation4"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:elevation="@dimen/elevation4"
+                android:gravity="start"
+                android:padding="@dimen/elevation4"
+                android:text="Something"
+                android:textAlignment="center"
+
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/font" />
+
+            <ImageView
+                android:id="@+id/fav_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_favorite_black_24dp" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
 

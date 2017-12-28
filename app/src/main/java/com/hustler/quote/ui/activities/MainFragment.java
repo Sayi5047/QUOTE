@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.Explode;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,12 @@ public class MainFragment extends Fragment {
 
         });
 //        getRandomQuotes();
+        setAdapter(rv);
+
+        return view;
+    }
+
+    private void setAdapter(RecyclerView rv) {
         rv.setAdapter(new LocalAdapter(
                 getActivity(),
                 (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes(),
@@ -97,15 +104,14 @@ public class MainFragment extends Fragment {
 //                                            getString(R.string.quotes_author_transistion));
 //                            startActivity(intent, options.toBundle());
 //                        } else {
-                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                            startActivity(intent);
+                        Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                        startActivity(intent);
 //                        }
                     }
                 }));
         loader.setVisibility(View.GONE);
 
-        return view;
     }
 
     private void getRandomQuotes() {
@@ -152,7 +158,16 @@ public class MainFragment extends Fragment {
         });
     }
 
-//    public void setLayout(int i) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("MainAdapter","ON RESUME");
+        rv.setAdapter(null);
+        setAdapter(rv);
+
+    }
+
+    //    public void setLayout(int i) {
 //        if(rv!=null){
 //            switch (i){
 //                case 1:

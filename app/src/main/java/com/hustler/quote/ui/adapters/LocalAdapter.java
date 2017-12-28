@@ -6,6 +6,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -67,8 +68,8 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
                 }
             }
         });
-
-
+        int visibility = quote.getIsLiked() == 1 ? View.VISIBLE : View.GONE;
+        holder.imageView.setVisibility(visibility);
     }
 
     @Override
@@ -83,6 +84,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 
     public class LocalViewholder extends RecyclerView.ViewHolder {
         TextView tv, tv2, tv3;
+        ImageView imageView;
         LinearLayout rootView;
         CardView cardView;
 
@@ -90,6 +92,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             super(itemView);
             rootView = (LinearLayout) itemView.findViewById(R.id.root_ll);
             cardView = (CardView) itemView.findViewById(R.id.iv_quote_card_root);
+            imageView = (ImageView) itemView.findViewById(R.id.fav_iv);
 
             cardView.setClipToPadding(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

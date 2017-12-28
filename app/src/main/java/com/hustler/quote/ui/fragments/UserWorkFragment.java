@@ -281,4 +281,11 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rv.setAdapter(null);
+        checkPermission_and_proceed();
+    }
 }

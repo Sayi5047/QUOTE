@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,8 +43,6 @@ import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.Quote;
-import com.hustler.quote.ui.pojo.QuotesFromFC;
-import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
 import com.hustler.quote.ui.utils.AnimUtils;
@@ -221,7 +220,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             if (quote != null) {
                 int length = quote.getQuote_body().length();
-                root_layout.setBackground(getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
+                root_layout.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_light_transparent));
 //            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
                 if (length > 230) {
                     quote_editor_body.setTextSize(20.0f);
@@ -369,7 +368,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         }
                     });
                 }
-               }
+            }
             break;
             case R.id.delete_view_button: {
                 if (selectedView != null) {
@@ -1134,7 +1133,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void applyBlackFilter() {
-        light_effect_filter_IV.setBackground(EditorActivity.this.getResources().getDrawable(android.R.drawable.screen_background_dark_transparent));
+        light_effect_filter_IV.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_dark_transparent));
         features_recyclerview.setVisibility(View.GONE);
         seekBar.setVisibility(View.VISIBLE);
         text_and_bg_layout.setVisibility(View.GONE);
@@ -1142,7 +1141,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void applyWhiteFilter() {
-        light_effect_filter_IV.setBackground(EditorActivity.this.getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
+        light_effect_filter_IV.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_light_transparent));
         features_recyclerview.setVisibility(View.GONE);
         seekBar.setVisibility(View.VISIBLE);
         text_and_bg_layout.setVisibility(View.GONE);
@@ -1261,12 +1260,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             previousSelcted_View.setBackground(null);
             previousSelcted_View = v;
             clear_button.setVisibility(View.VISIBLE);
-            selectedView.setBackground(getResources().getDrawable(R.drawable.tv_bg));
+            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
 
         } else {
             clear_button.setVisibility(View.VISIBLE);
             previousSelcted_View = v;
-            selectedView.setBackground(getResources().getDrawable(R.drawable.tv_bg));
+            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
 
         }
         switch (event.getAction()) {

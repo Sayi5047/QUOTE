@@ -1,5 +1,6 @@
 package com.hustler.quote.ui.fragments;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.adapters.LocalAdapter;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 
@@ -38,7 +41,26 @@ public class UserFavuritesFragment extends Fragment {
         Glide.with(getActivity()).load(Uri.parse("http://drive.google.com/uc?export=view&id=1-xt_qFGV_IsKJ7ZH2iJ7OL9a3WQB0ERs")).
         centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(new LocalAdapter(getActivity(),(ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes()));
+        setAdapter(recyclerView);
         return view;
+    }
+
+    private void setAdapter(RecyclerView recyclerView) {
+        recyclerView.setAdapter(new LocalAdapter(getActivity(), (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes(), new LocalAdapter.OnQuoteClickListener() {
+            @Override
+            public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                startActivity(intent);
+            }
+        }));
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setAdapter(null);
+        setAdapter(recyclerView);
     }
 }

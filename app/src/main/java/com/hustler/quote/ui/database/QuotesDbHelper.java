@@ -83,6 +83,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
             quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
             quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
             allQuotes.add(quote);
         }
         cursor.close();
@@ -104,6 +105,8 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
             quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
             quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+
             allQuotes.add(quote);
         }
         cursor.close();
@@ -144,6 +147,8 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
             quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
             quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+
             categorised_Quotes.add(quote);
         }
         cursor.close();
@@ -179,6 +184,8 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
             quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
             quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+
             categorised_Quotes.add(quote);
         }
         cursor.close();
@@ -212,6 +219,8 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
             quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
             quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+
             categorised_Quotes.add(quote);
         }
         cursor.close();
@@ -273,6 +282,8 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
             quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
             quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
             quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+
             favourite_Quotes.add(quote);
         }
         cursor.close();
