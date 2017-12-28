@@ -41,6 +41,7 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
@@ -84,7 +85,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private TextView close_layout;
     private TextView done_layout;
 
-    private QuotesFromFC quote;
+    private Quote quote;
     private RelativeLayout quoteLayout;
     private RelativeLayout core_editor_layout;
     private LinearLayout text_and_bg_layout;
@@ -219,7 +220,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
             if (quote != null) {
-                int length = quote.getBody().length();
+                int length = quote.getQuote_body().length();
                 root_layout.setBackground(getResources().getDrawable(android.R.drawable.screen_background_light_transparent));
 //            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
                 if (length > 230) {
@@ -241,8 +242,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                 }
 
-                quote_editor_body.setText(quote.getBody());
-                quote_editor_author.setText(quote.getAuthor());
+                quote_editor_body.setText(quote.getQuote_body());
+                quote_editor_author.setText(quote.getQuote_author());
 
                 quote_editor_body.setMaxWidth(1050);
                 quote_editor_author.setMaxWidth(1050);
@@ -269,7 +270,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void getIntentData() {
         if ((Boolean) getIntent().getBooleanExtra(Constants.INTENT_IS_FROM_EDIT_KEY, false)) {
             isFromEdit_Activity = true;
-            quote = (QuotesFromFC) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
+            quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 
         } else {
             isFromEdit_Activity = false;

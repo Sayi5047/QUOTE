@@ -26,8 +26,8 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
-import com.hustler.quote.ui.pojo.QuotesFromFC;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.FileUtils;
@@ -46,11 +46,12 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     LinearLayout quote_layout;
     LinearLayout quote_bottom;
     TextView tv_Quote_Body, tv_Quote_Author, image_saved_message;
-    FloatingActionButton fab_save, fab_edit, fab_share, fab_set_wall;
+    FloatingActionButton fab_save, fab_edit, fab_share, fab_set_wall, fab_set_like;
     ImageView quote_anim;
     File savedFile;
     Window window;
     int val = 1001;
+    boolean IS_LIKED_FLAG;
     private RelativeLayout wallpaper_layout;
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
 
@@ -103,12 +104,13 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         fab_save = (FloatingActionButton) findViewById(R.id.fab_download);
         fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
         fab_set_wall = (FloatingActionButton) findViewById(R.id.fab_set_wall);
+        fab_set_like = (FloatingActionButton) findViewById(R.id.fab_set_like);
 
         fab_edit.setOnClickListener(this);
         fab_save.setOnClickListener(this);
         fab_share.setOnClickListener(this);
         fab_set_wall.setOnClickListener(this);
-
+        fab_set_like.setOnClickListener(this);
 
 //        For building the image
 //        quote_layout.setDrawingCacheEnabled(true);
@@ -161,12 +163,28 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         }
         tv_Quote_Body.setText(quote.getQuote_body());
         tv_Quote_Author.setText(quote.getQuote_author());
+        if (quote.getIsLiked() == 1) {
+            IS_LIKED_FLAG = true;
+            fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
+        } else {
+            IS_LIKED_FLAG = false;
+            fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
 
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.fab_set_like: {
+                if (IS_LIKED_FLAG) {
+                    removeFavourite();
+                } else {
+                    addFavourite();
+
+                }
+            }
+            break;
             case R.id.fab_download:
                 checkpermissions_and_proceed();
                 break;
@@ -189,6 +207,16 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
                 break;
         }
+    }
+
+    private void removeFavourite() {
+        new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
+        fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+    }
+
+    private void addFavourite() {
+        new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
+        fab_set_like.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

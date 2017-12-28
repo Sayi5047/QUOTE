@@ -42,12 +42,12 @@ public class SplashActivity extends BaseActivity {
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this,R.anim.slideup));
         tv.setTypeface(App.getZingCursive(this, Constants.FONT_multicolore));
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
-//        if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
-//            gotoSecondmain();
-//        } else {
+        if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
+            gotoSecondmain();
+        } else {
             load_from_Arrays();
             load_to_database();
-//        }
+        }
         CountDownTimer countDownTimer=new CountDownTimer(3000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {

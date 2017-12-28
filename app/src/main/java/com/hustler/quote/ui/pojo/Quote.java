@@ -32,6 +32,26 @@ public class Quote implements Serializable {
 
     int color;
 
+    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, int color, int isLiked) {
+        this.id = id;
+        this.quote_body = quote_body;
+        this.quote_author = quote_author;
+        this.quote_category = quote_category;
+        this.quote_language = quote_language;
+        this.color = color;
+        this.isLiked = isLiked;
+    }
+
+    public int getIsLiked() {
+        return isLiked;
+    }
+
+    public void setIsLiked(int isLiked) {
+        this.isLiked = isLiked;
+    }
+
+    int isLiked;
+
     public Quote(String quote_body, String quote_author, String quote_category, String quote_language) {
         this.quote_body = quote_body;
         this.quote_author = quote_author;

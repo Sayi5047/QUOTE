@@ -62,7 +62,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         contentValues.put(Contract.Quotes.QUOTE_AUTHOR, quote.getQuote_author());
         contentValues.put(Contract.Quotes.QUOTE_CATEGORY, quote.getQuote_category());
         contentValues.put(Contract.Quotes.QUOTE_LANGUAGE, quote.getQuote_language());
-        contentValues.put(Contract.Quotes.QUOTE_IS_LIKED, 1);
+        contentValues.put(Contract.Quotes.QUOTE_IS_LIKED, 0);
 
         sqLiteDatabase.insert(Contract.Quotes.TABLE_NAME, null, contentValues);
         sqLiteDatabase.close();

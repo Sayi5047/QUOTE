@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include layout="@layout/app_bar_transparent" />
@@ -22,9 +22,9 @@
         <RelativeLayout
             android:id="@+id/wallpaper_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="3"
+            android:layout_weight="6"
             android:elevation="@dimen/elevation4"
             android:orientation="vertical">
 
@@ -34,8 +34,9 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:elevation="@dimen/elevation4"
-                app:cardCornerRadius="16dp"
                 android:transitionName="@string/quotes_author_transistion"
+                app:cardCornerRadius="16dp"
+
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -66,17 +67,17 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="#f5f5f5"
-                    android:baselineAligned="false"
                     android:elevation="@dimen/elevation4"
+
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_Quote_Body"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:padding="5dp"
                         android:textAlignment="center"
@@ -93,7 +94,6 @@
                         android:id="@+id/quote_bottom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
                         android:layout_gravity="bottom"
                         android:background="@drawable/rect_black_border"
                         android:gravity="bottom"
@@ -132,74 +132,69 @@
         <LinearLayout
             android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:elevation="4dp"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-           >
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_set_like"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-               >
+                android:layout_weight="1"
+                app:fabSize="normal"
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_set_wall"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_border_black_24dp"
+                app:backgroundTint="@android:color/white" />
 
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="3"
-                    android:src="@drawable/ic_crop_original_black_24dp"
-                    app:backgroundTint="@android:color/white" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_set_wall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:fabSize="normal"
+                android:layout_marginLeft="8dp"
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_download"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_crop_original_black_24dp"
+                app:backgroundTint="@android:color/white" />
 
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="3"
-                    android:padding="15dp"
-                    android:src="@drawable/ic_archive_black_24dp"
-                    app:backgroundTint="@android:color/white" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_download"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:fabSize="normal"
+                android:layout_marginLeft="8dp"
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="3"
+                android:layout_weight="1"
+                android:src="@drawable/ic_archive_black_24dp"
+                app:backgroundTint="@android:color/white" />
 
-                    android:src="@drawable/ic_format_shapes_black_24dp"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_format_shapes_black_24dp"
+                app:fabSize="normal"
+                android:layout_marginLeft="8dp"
 
-                    app:backgroundTint="@android:color/white" />
+                app:backgroundTint="@android:color/white" />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_share"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="3"
-                    android:src="@drawable/ic_share_black_24dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                app:fabSize="normal"
+                android:src="@drawable/ic_share_black_24dp"
 
-                    app:backgroundTint="@android:color/white" />
-
-            </LinearLayout>
-
+                app:backgroundTint="@android:color/white" />
 
         </LinearLayout>
+
 
     </LinearLayout>
 
