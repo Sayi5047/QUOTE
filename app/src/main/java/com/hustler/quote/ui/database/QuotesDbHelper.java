@@ -17,9 +17,9 @@ import java.util.List;
  */
 
 public class QuotesDbHelper extends SQLiteOpenHelper {
-    long id ;
+    long id;
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "quotescollection.db";
 
     public QuotesDbHelper(Context context) {
@@ -50,6 +50,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         super.onDowngrade(db, oldVersion, newVersion);
     }
 
+    /*ADD QUOTE ONE BY ONE*/
     public void addQuote(Quote quote) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -60,11 +61,13 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         contentValues.put(Contract.Quotes.QUOTE_AUTHOR, quote.getQuote_author());
         contentValues.put(Contract.Quotes.QUOTE_CATEGORY, quote.getQuote_category());
         contentValues.put(Contract.Quotes.QUOTE_LANGUAGE, quote.getQuote_language());
+        contentValues.put(Contract.Quotes.QUOTE_IS_LIKED, 1);
 
         sqLiteDatabase.insert(Contract.Quotes.TABLE_NAME, null, contentValues);
         sqLiteDatabase.close();
     }
 
+    /*GETTING ALL QUOTES AT ONCE*/
     public List<Quote> getAllQuotes() {
         List<Quote> allQuotes = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -84,6 +87,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return allQuotes;
     }
+
     public List<Quote> getAllQuotesLimited() {
         List<Quote> allQuotes = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -104,28 +108,30 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         return allQuotes;
     }
 
+    /*DELETING ALL QUOTES AT ONCE*/
     public void deleteAllQuotes() {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(Contract.Quotes.TABLE_NAME, null, null);
         database.close();
     }
 
-
+    /*GETTER METHODS FOR SEARCH QURIES*/
     public List<Quote> getQuotesByCategory(String category) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
-        String[] pprojection=new String[]{
+        String[] pprojection = new String[]{
                 (Contract.Quotes.COLUMN_ID),
                 (Contract.Quotes.QUOTE_BODY),
                 (Contract.Quotes.QUOTE_AUTHOR),
                 (Contract.Quotes.QUOTE_CATEGORY),
                 (Contract.Quotes.QUOTE_LANGUAGE),
+                (Contract.Quotes.QUOTE_IS_LIKED),
         };
 
 //        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
-        Cursor cursor=database.query(Contract.Quotes.TABLE_NAME ,pprojection," quote_category = ?",new String[]{
+        Cursor cursor = database.query(Contract.Quotes.TABLE_NAME, pprojection, " quote_category = ?", new String[]{
                 category
-        },null,null,null,null);
+        }, null, null, null, null);
 //        Cursor cursor = database.rawQuery(select_by_category, null);
 
         while (cursor.moveToNext()) {
@@ -148,18 +154,20 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 //
 //        String select_by_author = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_AUTHOR + " = " + author_Name;
 //        Cursor cursor = database.rawQuery(select_by_author, null);
-        String[] projection=new String[]{
+        String[] projection = new String[]{
                 (Contract.Quotes.COLUMN_ID),
                 (Contract.Quotes.QUOTE_BODY),
                 (Contract.Quotes.QUOTE_AUTHOR),
                 (Contract.Quotes.QUOTE_CATEGORY),
                 (Contract.Quotes.QUOTE_LANGUAGE),
+                (Contract.Quotes.QUOTE_IS_LIKED),
+
         };
 
 //        String select_by_category = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_CATEGORY + " = " + category;
-        Cursor cursor=database.query(Contract.Quotes.TABLE_NAME ,projection," quote_author = ?",new String[]{
+        Cursor cursor = database.query(Contract.Quotes.TABLE_NAME, projection, " quote_author = ?", new String[]{
                 author_Name
-        },null,null,null,null);
+        }, null, null, null, null);
 
         while (cursor.moveToNext()) {
             Quote quote = new Quote();
@@ -181,17 +189,18 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
 //        String select_by_language = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_LANGUAGE + " = " + language_name;
 //        Cursor cursor = database.rawQuery(select_by_language, null);
-        String[] pprojection=new String[]{
+        String[] pprojection = new String[]{
                 (Contract.Quotes.COLUMN_ID),
                 (Contract.Quotes.QUOTE_BODY),
                 (Contract.Quotes.QUOTE_AUTHOR),
                 (Contract.Quotes.QUOTE_CATEGORY),
                 (Contract.Quotes.QUOTE_LANGUAGE),
+                (Contract.Quotes.QUOTE_IS_LIKED),
         };
 
-        Cursor cursor=database.query(Contract.Quotes.TABLE_NAME ,pprojection," quote_language = ?",new String[]{
+        Cursor cursor = database.query(Contract.Quotes.TABLE_NAME, pprojection, " quote_language = ?", new String[]{
                 language_name
-        },null,null,null,null);
+        }, null, null, null, null);
         while (cursor.moveToNext()) {
             Quote quote = new Quote();
             quote.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.Quotes.COLUMN_ID)));
@@ -204,6 +213,40 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return categorised_Quotes;
 
+    }
+
+
+    /*LIKE AND LIKE OPERATIONS*/
+    public int addToFavourites(Quote quote) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Contract.Quotes.QUOTE_IS_LIKED, 1);
+        int rows_Affected = database.
+                update(
+                        Contract.Quotes.TABLE_NAME,
+                        contentValues,
+                        Contract.Quotes.QUOTE_BODY + " =?",
+                        new String[]{quote.getQuote_body()}
+                );
+        database.close();
+        return rows_Affected;
+    }
+
+    public int removeFromFavorites(Quote quote) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Contract.Quotes.QUOTE_IS_LIKED, 0);
+
+        int rowsAffected = database.
+                update(
+                        Contract.Quotes.TABLE_NAME,
+                        contentValues,
+                        Contract.Quotes.QUOTE_BODY + " =?",
+                        new String[]{quote.getQuote_body()}
+                );
+        database.close();
+        return rowsAffected;
     }
 }
 
