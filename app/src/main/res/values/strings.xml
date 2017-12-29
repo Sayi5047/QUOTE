@@ -87,6 +87,7 @@
     <string name="project">Save Project</string>
     <string name="save">Save</string>
     <string name="please_enter_project_name">Enter Project name to save</string>
+    <string name="Category_Name">Category</string>
 
     <!--SPLASH ACTIVITY-->
 

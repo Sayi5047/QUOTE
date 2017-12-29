@@ -6,7 +6,8 @@
     android:layout_margin="4dp"
     android:clipToPadding="true"
     android:elevation="4dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:id="@id/root_ll"

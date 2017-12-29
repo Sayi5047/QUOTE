@@ -5,6 +5,7 @@ import android.animation.ArgbEvaluator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -56,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        colors = new int[]{getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.primary_dark), getResources().getColor(R.color.textColor)};
+        colors = new int[]{ContextCompat.getColor(getApplicationContext(),R.color.colorPrimaryDark), ContextCompat.getColor(getApplicationContext(),R.color.colorAccent), ContextCompat.getColor(getApplicationContext(),R.color.primary_dark), ContextCompat.getColor(getApplicationContext(),R.color.textColor)};
 
     }
 
@@ -87,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 
             // Handle clicks for floatingActionButton
-            final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
+            final Dialog dialog = new Dialog(this, R.style.EditTextDialog_scaled);
             final View view = View.inflate(this, R.layout.edit_chooser, null);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(view);
@@ -109,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
-                    AnimUtils.revealCircular(floatingActionButton, dialog, view, true);
+//                    AnimUtils.revealCircular(floatingActionButton, dialog, view, true);
                 }
             });
 
@@ -117,7 +119,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                     if (keyCode == event.KEYCODE_BACK) {
-                        AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
+                        dialog.dismiss();
+//                        AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
                         return true;
                     }
                     return false;
@@ -145,13 +148,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
+                    dialog.dismiss();
+//                    AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
 
                 }
             });
             view.setBackgroundColor(getResources().getColor(android.R.color.white));
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().getAttributes().windowAnimations=R.style.EditTextDialog_scaled;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this,android.R.color.white));
+            }
             dialog.show();
         }
     }

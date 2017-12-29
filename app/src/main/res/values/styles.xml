@@ -50,6 +50,11 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
         <item name="android:windowExitAnimation">@anim/slidedown</item>
+    </style> <style name="EditTextDialog_scaled" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowEnterAnimation">@anim/scaleup</item>
+        <item name="android:windowExitAnimation">@anim/scale_down</item>
     </style>
 
 </resources>
