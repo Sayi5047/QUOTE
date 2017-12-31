@@ -88,6 +88,7 @@
     <string name="save">Save</string>
     <string name="please_enter_project_name">Enter Project name to save</string>
     <string name="Category_Name">Category</string>
+    <string name="wallpaper_description">Some Demo Description</string>
 
     <!--SPLASH ACTIVITY-->
 

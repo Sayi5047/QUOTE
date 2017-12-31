@@ -47,6 +47,21 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        
+        <service android:name="MyWallpaperService"
+            android:enabled="true"
+            android:label="My Wallpaper"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/mywallpaper" >
+            </meta-data>
+            </service>
     </application>
 
 </manifest>
