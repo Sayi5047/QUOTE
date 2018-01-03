@@ -93,7 +93,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void gotoSecondmain() {
-        startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+        startActivity(new Intent(SplashActivity.this, LanderActivty.class));
 
     }
 
