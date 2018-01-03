@@ -1,5 +1,7 @@
 package com.hustler.quote.ui.fragments;
 
+import android.app.WallpaperManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
+import com.hustler.quote.ui.livewallpaper.MyWallpaperService;
 import com.hustler.quote.ui.pojo.Quote;
 
 import java.util.ArrayList;
@@ -56,8 +59,13 @@ public class UserFavuritesFragment extends Fragment {
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
             public void onQuoteClicked(int position, int color, Quote quote, View view) {
-                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+//                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+//                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+//                startActivity(intent);
+                Intent intent = new Intent(
+                        WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                        new ComponentName(getActivity(), MyWallpaperService.class));
                 startActivity(intent);
             }
         }));
