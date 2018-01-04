@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.customviews.ParrallaxPageTransformer;
 
 /**
  * Created by Sayi on 03-01-2018.
@@ -27,6 +29,7 @@ public class LanderActivty extends BaseActivity {
     RelativeLayout relativeLayout;
     AnimationDrawable animationDrawable;
     Button button;
+    ParrallaxPageTransformer parrallaxPageTransformer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,13 +37,16 @@ public class LanderActivty extends BaseActivity {
         setContentView(R.layout.lander_activity_layout);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         relativeLayout = (RelativeLayout) findViewById(R.id.root_layout);
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
+
         button = (Button) findViewById(R.id.bt_launch);
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(2000);
+
         viewPager.setAdapter(new landerAdapter(getSupportFragmentManager(), LanderActivty.this));
 
-        viewPager.setPageTransformer(true, new ZoomoutPageTransformer());
+        parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card);
+        parrallaxPageTransformer.setBorder(20);
+//        parrallaxPageTransformer.setSpeed(0.2f);
+
+        viewPager.setPageTransformer(false, parrallaxPageTransformer);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -69,46 +75,6 @@ public class LanderActivty extends BaseActivity {
         });
     }
 
-
-    private class ZoomoutPageTransformer implements ViewPager.PageTransformer {
-        private static final float MIN_SCALE = 0.85f;
-        private static final float MIN_ALPHA = 0.5f;
-
-        public void transformPage(View view, float position) {
-            int pageWidth = view.getWidth();
-            int pageHeight = view.getHeight();
-
-            if (position < -1) { // [-Infinity,-1)
-                // This page is way off-screen to the left.
-                view.setAlpha(0);
-
-            } else if (position <= 1) { // [-1,1]
-                // Modify the default slide transition to shrink the page as well
-                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
-                float vertMargin = pageHeight * (1 - scaleFactor) / 2;
-                float horzMargin = pageWidth * (1 - scaleFactor) / 2;
-                if (position < 0) {
-                    view.setTranslationX(horzMargin - vertMargin / 2);
-                } else {
-                    view.setTranslationX(-horzMargin + vertMargin / 2);
-                }
-
-                // Scale the page down (between MIN_SCALE and 1)
-                view.setScaleX(scaleFactor);
-                view.setScaleY(scaleFactor);
-
-//                // Fade the page relative to its size.
-//                view.setAlpha(MIN_ALPHA +
-//                        (scaleFactor - MIN_SCALE) /
-//                                (1 - MIN_SCALE) * (1 - MIN_ALPHA));
-
-            } else { // (1,+Infinity]
-                // This page is way off-screen to the right.
-                view.setAlpha(0);
-            }
-        }
-
-    }
 
     private class landerAdapter extends FragmentStatePagerAdapter {
         android.support.v4.app.FragmentManager fragmentManager;
@@ -172,10 +138,15 @@ public class LanderActivty extends BaseActivity {
         String title;
         String desciption;
         int imageresource;
+        ImageView image;
+        AnimationDrawable animationDrawable;
+        LinearLayout linearLayout;
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater,
+                                 @Nullable ViewGroup container,
+                                 @Nullable Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
             View view = inflater.inflate(R.layout.onboard_layout, container, false);
             if (imageresource != 0) {
@@ -187,7 +158,41 @@ public class LanderActivty extends BaseActivity {
             if (desciption != null && !desciption.equals("")) {
                 ((TextView) view.findViewById(R.id.on_board_descriptiom)).setText(desciption);
             }
+            image = (ImageView) view.findViewById(R.id.card);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linear_bg_layout);
 
+            animationDrawable = (AnimationDrawable) linearLayout.getBackground();
+            animationDrawable.setEnterFadeDuration(2000);
+            animationDrawable.setExitFadeDuration(2000);
+
+//            image.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Matrix matrix = new Matrix();
+//                    matrix.reset();
+//
+//                    float wv = image.getWidth();
+//                    float hv = image.getHeight();
+//
+//                    float wi = image.getDrawable().getIntrinsicWidth();
+//                    float hi = image.getDrawable().getIntrinsicHeight();
+//
+//                    float width = wv;
+//                    float height = hv;
+//
+//                    if (wi / wv > hi / hv) {
+//                        matrix.setScale(hv / hi, hv / hi);
+//                        width = wi * hv / hi;
+//                    } else {
+//                        matrix.setScale(wv / wi, wv / wi);
+//                        height = hi * wv / wi;
+//                    }
+//
+//                    matrix.preTranslate((wv - width) / 2, (hv - height) / 2);
+//                    image.setScaleType(ImageView.ScaleType.MATRIX);
+//                    image.setImageMatrix(matrix);
+//                }
+//            });
             return view;
         }
     }
