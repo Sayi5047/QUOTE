@@ -74,6 +74,8 @@
         <item name="cyan_300" type="color">#4dd0e1</item>
         <item name="teal_300" type="color">#4db6ac</item>
         <item name="green_300" type="color">#42bd41</item>
+
+
         <item name="light_green_300" type="color">#aed581</item>
         <item name="lime_300" type="color">#dce775</item>
         <item name="yellow_300" type="color">#fff176</item>

@@ -80,7 +80,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             categories_rv = (RecyclerView) dialog.findViewById(R.id.rv_category_list);
             close_button = (Button) dialog.findViewById(R.id.bt_close);
 
-            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_Google_sans_regular);
             catgory_name.setText(category + " ( " + quoteslist.size() + " )");
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {

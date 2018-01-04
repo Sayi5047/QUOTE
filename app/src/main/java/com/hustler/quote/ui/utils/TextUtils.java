@@ -8,8 +8,8 @@ import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
@@ -50,11 +50,11 @@ public class TextUtils {
             if (view instanceof ViewGroup) {
                 findText_and_applyTypeface((ViewGroup) view, activity);
             } else if (view instanceof TextView) {
-                setFont(activity, ((TextView) view), Constants.FONT_Sans_Bold);
+                setFont(activity, ((TextView) view), Constants.FONT_Google_sans_regular);
             } else if (view instanceof EditText) {
-                setEdit_Font(activity, ((EditText) view), Constants.FONT_Sans_Bold);
-            } else {
-
+                setEdit_Font(activity, ((EditText) view), Constants.FONT_Google_sans_regular);
+            } else if (view instanceof Button) {
+                setFont(activity, ((TextView) view), Constants.FONT_Google_sans_regular);
             }
         }
     }
@@ -84,7 +84,9 @@ public class TextUtils {
                 ((TextView) view).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slideup));
             }
         }
-    } public static void findText_and_applyamim_slidedown(ViewGroup viewGroup, Activity activity) {
+    }
+
+    public static void findText_and_applyamim_slidedown(ViewGroup viewGroup, Activity activity) {
         int childcount = viewGroup.getChildCount();
         for (int i = 0; i < childcount; i++) {
             View view = viewGroup.getChildAt(i);
@@ -95,6 +97,7 @@ public class TextUtils {
             }
         }
     }
+
     public static int getMatColor(Activity activity) {
         int returnColor = Color.BLACK;
         int arrayId = activity.getResources().getIdentifier("mdcolor_300", "array", activity.getApplicationContext().getPackageName());
@@ -108,9 +111,9 @@ public class TextUtils {
         return returnColor;
     }
 
-    public static int getMainMatColor(String arrayname,Activity activity) {
+    public static int getMainMatColor(String arrayname, Activity activity) {
         int returnColor = Color.BLACK;
-        int arrayId = activity.getResources().getIdentifier("allColors", "array", activity.getApplicationContext().getPackageName());
+        int arrayId = activity.getResources().getIdentifier(arrayname, "array", activity.getApplicationContext().getPackageName());
 
         if (arrayId != 0) {
             TypedArray colors = activity.getResources().obtainTypedArray(arrayId);

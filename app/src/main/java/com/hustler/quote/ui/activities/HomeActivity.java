@@ -1,7 +1,6 @@
 package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
-import android.animation.ArgbEvaluator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     int cx, cy;
     float finalRadius;
     int currentcolor;
+    int[] colors;
 
     private TabsFragmentPagerAdapter pagerAdapter;
 
@@ -57,14 +58,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        colors = new int[]{ContextCompat.getColor(HomeActivity.this, R.color.colorPrimaryDark), ContextCompat.getColor(HomeActivity.this, R.color.colorAccent), ContextCompat.getColor(HomeActivity.this, R.color.primary_dark), ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setAnimation(appBar);
+        setAnimation(floatingActionButton);
+        setAnimation(mainPager);
+        setAnimation(tab_layout);
+    }
 
     private void findViews() {
         appBar = (AppBarLayout) findViewById(R.id.app_bar);
         headerName = (TextView) findViewById(R.id.header_name);
-        headerName.setTypeface(App.getZingCursive(this, Constants.FONT_Sans_Bold));
+        headerName.setTypeface(App.applyFont(this, Constants.FONT_Google_sans_regular));
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         mainPager = (ViewPager) findViewById(R.id.main_pager);
         tab_layout = (TabLayout) findViewById(R.id.tab_layout);
@@ -75,6 +85,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mainPager.setOnPageChangeListener(this);
         floatingActionButton.setOnClickListener(this);
 
+
+
+    }
+
+    private void setAnimation(View view) {
+        view.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slideup));
     }
 
 
@@ -101,10 +117,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             close_tv = (TextView) dialog.findViewById(R.id.close_tv);
             select_tv = (TextView) dialog.findViewById(R.id.select_tv);
 
-            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_Google_sans_regular);
 
             dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
@@ -165,12 +181,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     /*VIEW PAGER METHODS*/
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        appBar.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
-        mainPager.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
-        tab_layout.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
+        appBar.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+        mainPager.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+        tab_layout.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
 //        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
+            window.setStatusBarColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
         }
 
 

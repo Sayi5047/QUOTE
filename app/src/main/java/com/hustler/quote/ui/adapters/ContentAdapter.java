@@ -89,7 +89,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     public void onBindViewHolder(ContentAdapter.ContentViewholder holder, final int position) {
         if (isFontAsked) {
             holder.colorsItem.setVisibility(View.GONE);
-            holder.fontItem.setTypeface(App.getZingCursive(activity, resolvedFontList.get(position)));
+            holder.fontItem.setTypeface(App.applyFont(activity, resolvedFontList.get(position)));
             Log.d("Resolved color", resolvedFontList.get(position).toString());
             if (onItemClickListener != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -678,12 +678,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (isEdit) {
             addingText.setText(((TextView) selectedView).getText());
         }
-        TextUtils.setFont(this, header, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, addingText, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, align_text, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, start, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, center, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, end, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, start, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, center, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, end, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
         TextUtils.setFont(this, done, Constants.FONT_NEVIS);
 
@@ -726,7 +726,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
-                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Sans_Bold);
+                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Google_sans_regular);
                         textView.setText(newly_Added_Text);
                         textView.setX(core_editor_layout.getWidth() / 2 - 250);
 //                        textView.setY(core_editor_layout.getHeight() / 2);
@@ -867,9 +867,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             choose = (Button) dialog.findViewById(R.id.bt_color_choose);
             shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
 
-            TextUtils.setFont(this, head_tv, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(this, close, Constants.FONT_Sans_Bold);
-            TextUtils.setFont(this, choose, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(this, head_tv, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(this, close, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(this, choose, Constants.FONT_Google_sans_regular);
 
             colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
@@ -975,9 +975,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         choose = (Button) dialog.findViewById(R.id.bt_color_choose);
         shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
 
-        TextUtils.setFont(this, head_tv, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, close, Constants.FONT_Sans_Bold);
-        TextUtils.setFont(this, choose, Constants.FONT_Sans_Bold);
+        TextUtils.setFont(this, head_tv, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, close, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, choose, Constants.FONT_Google_sans_regular);
 
         colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 

@@ -108,7 +108,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
         public FeaturesViewholder(View itemView) {
             super(itemView);
             feature_item = (Button) itemView.findViewById(R.id.feature_item);
-            TextUtils.setFont(activity, feature_item, Constants.FONT_Sans_Bold);
+            TextUtils.setFont(activity, feature_item, Constants.FONT_Google_sans_regular);
         }
     }
 }

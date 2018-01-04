@@ -35,31 +35,19 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         tv = (TextView) findViewById(R.id.tv_splash_name);
         iv = (ImageView) findViewById(R.id.iv_logo);
+
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
-        tv.setTypeface(App.getZingCursive(this, Constants.FONT_multicolore));
+        tv.setTypeface(App.applyFont(this, Constants.FONT_multicolore));
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
         if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
-            gotoSecondmain();
+            setCounter_and_launch();
         } else {
             load_from_Arrays();
             load_to_database();
         }
-        CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
 
-            }
-
-            @Override
-            public void onFinish() {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    gotoFirstMain();
-//                }
-//                gotoSecondmain();
-            }
-        };
-        countDownTimer.start();
     }
 
     private void load_to_database() {
@@ -72,7 +60,7 @@ public class SplashActivity extends BaseActivity {
             editor.putBoolean(Constants.IS_DB_LOADED_PREFERENCE, true);
             editor.apply();
         }
-        gotoSecondmain();
+       setCounter_and_launch();
     }
 
     private void load_from_Arrays() {
@@ -93,8 +81,32 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void gotoSecondmain() {
-        startActivity(new Intent(SplashActivity.this, LanderActivty.class));
+        if (sharedPreferences.getBoolean(Constants.IS_USER_SAW_INRODUCTION, false)) {
+            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
 
+        } else {
+            startActivity(new Intent(SplashActivity.this, LanderActivty.class));
+
+        }
+
+    }
+
+    private void setCounter_and_launch() {
+        CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    gotoFirstMain();
+//                }
+                gotoSecondmain();
+            }
+        };
+        countDownTimer.start();
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

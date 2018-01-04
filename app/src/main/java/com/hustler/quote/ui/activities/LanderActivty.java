@@ -2,22 +2,28 @@ package com.hustler.quote.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.customviews.ParrallaxPageTransformer;
 import com.hustler.quote.ui.utils.ColorUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -30,35 +36,77 @@ public class LanderActivty extends BaseActivity {
     ViewPager viewPager;
     RelativeLayout relativeLayout;
     AnimationDrawable animationDrawable;
-    Button button;
+    RelativeLayout relativeLayout1;
     ParrallaxPageTransformer parrallaxPageTransformer;
+    Button skip, bt_next, bt_launch;
+    int[] colors;
+    int[] colors2;
+    public static int currentcolor = Color.WHITE;
+    public static int currentcolor2 = Color.WHITE;
+    SharedPreferences sharedPreferences;
+    public static float rotation;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lander_activity_layout);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         relativeLayout = (RelativeLayout) findViewById(R.id.root_layout);
+        colors = new int[]{ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
+                ContextCompat.getColor(LanderActivty.this, R.color.green_300),
+                ContextCompat.getColor(LanderActivty.this, R.color.orange_300),
+                ContextCompat.getColor(LanderActivty.this, R.color.pink_400),
+                ContextCompat.getColor(LanderActivty.this, R.color.purple_400),};
+        colors2 = new int[]{
+                ContextCompat.getColor(LanderActivty.this, android.R.color.white),
+                ContextCompat.getColor(LanderActivty.this, R.color.orange_300),
+                ContextCompat.getColor(LanderActivty.this, R.color.pink_400),
+                ContextCompat.getColor(LanderActivty.this, R.color.purple_400),
+                ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
 
-        button = (Button) findViewById(R.id.bt_launch);
-
+        };
+        relativeLayout1 = (RelativeLayout) findViewById(R.id.bt_launch_layout);
+        skip = (Button) findViewById(R.id.bt_skip);
+        bt_next = (Button) findViewById(R.id.bt_next);
+        bt_launch = (Button) findViewById(R.id.bt_launch_button);
+        TextUtils.findText_and_applyTypeface(relativeLayout1, LanderActivty.this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         viewPager.setAdapter(new landerAdapter(getSupportFragmentManager(), LanderActivty.this));
-
-        parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card, R.id.on_board_image, R.id.on_board_title,R.id.on_board_image_circle, R.id.on_board_descriptiom);
-        parrallaxPageTransformer.setBorder(2);
+//relativeLayout1.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.geometry_2));
+        parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card, R.id.on_board_image, R.id.on_board_title, R.id.on_board_image_circle, R.id.on_board_descriptiom);
+//        parrallaxPageTransformer.setBorder(2);
 //        parrallaxPageTransformer.setSpeed(0.2f);
 
         viewPager.setPageTransformer(false, parrallaxPageTransformer);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                viewPager.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,LanderActivty.this));
+                currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, LanderActivty.this);
+                currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, LanderActivty.this);
+                rotation = positionOffset;
+                viewPager.setBackgroundColor(currentcolor);
+//                bt_next.setBackgroundColor(currentcolor);
+//                skip.setBackgroundColor(currentcolor);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(Constants.COLOUR_KEY, currentcolor2);
+                editor.apply();
+
             }
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3) {
-//                    button.setVisibility(View.VISIBLE);
+                if (position == 4) {
+                    bt_next.setVisibility(View.GONE);
+                    bt_launch.setVisibility(View.VISIBLE);
+                    skip.setText(getString(R.string.Previous));
+
+                } else {
+                    bt_launch.setVisibility(View.GONE);
+                    bt_next.setVisibility(View.VISIBLE);
+                    skip.setText(getString(R.string.Skip));
+
                 }
             }
 
@@ -68,13 +116,41 @@ public class LanderActivty extends BaseActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        bt_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int currentItem = viewPager.getCurrentItem();
+                viewPager.setCurrentItem(currentItem + 1, true);
+
+            }
+        });
+        bt_launch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateSharedPreferences();
                 startActivity(new Intent(LanderActivty.this, HomeActivity.class));
 
             }
         });
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewPager.getCurrentItem() == 4) {
+                    viewPager.setCurrentItem(0, true);
+                } else {
+                    updateSharedPreferences();
+                    startActivity(new Intent(LanderActivty.this, HomeActivity.class));
+
+                }
+
+            }
+        });
+    }
+
+    private void updateSharedPreferences() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Constants.IS_USER_SAW_INRODUCTION, true);
+        editor.commit();
     }
 
 
@@ -82,7 +158,7 @@ public class LanderActivty extends BaseActivity {
         android.support.v4.app.FragmentManager fragmentManager;
         Context context;
         String[] titles;
-        int[] images = {R.drawable.ic_archive_black_24dp, R.drawable.ic_share_accent_24dp, R.drawable.ic_mode_edit_black_24dp, R.drawable.ic_archive_black_24dp};
+        int[] images = {R.mipmap.ic_launcher, R.drawable.ic_collection, R.drawable.ic_canvas, R.drawable.ic_font_size, R.drawable.ic_infinite};
 
         String[] descriptions;
 
@@ -90,13 +166,13 @@ public class LanderActivty extends BaseActivity {
             super(fm);
             this.fragmentManager = fragmentManager;
             this.context = context;
-            titles = context.getResources().getStringArray(R.array.Text_features);
-            descriptions = context.getResources().getStringArray(R.array.Background_features);
+            titles = context.getResources().getStringArray(R.array.lander_titles);
+            descriptions = context.getResources().getStringArray(R.array.lander_descriptions);
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
 
         @Override
@@ -136,13 +212,15 @@ public class LanderActivty extends BaseActivity {
         }
     }
 
-    public static class OnBoardFragment extends Fragment {
+    public static class OnBoardFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         String title;
         String desciption;
         int imageresource;
         RelativeLayout image;
         AnimationDrawable animationDrawable;
         RelativeLayout linearLayout;
+        public ImageView imageView;
+        SharedPreferences sharedPreferences;
 
         @Nullable
         @Override
@@ -161,9 +239,13 @@ public class LanderActivty extends BaseActivity {
                 ((TextView) view.findViewById(R.id.on_board_descriptiom)).setText(desciption);
             }
             image = (RelativeLayout) view.findViewById(R.id.card);
+            imageView = (ImageView) view.findViewById(R.id.on_board_image_circle);
             linearLayout = (RelativeLayout) view.findViewById(R.id.linear_bg_layout);
             TextUtils.findText_and_applyTypeface(linearLayout, getActivity());
             animationDrawable = (AnimationDrawable) linearLayout.getBackground();
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+//            imageView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.scaleup));
 //            animationDrawable.setEnterFadeDuration(2000);
 //            animationDrawable.setExitFadeDuration(2000);
 
@@ -196,6 +278,27 @@ public class LanderActivty extends BaseActivity {
 //                }
 //            });
             return view;
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if (key.equals(Constants.COLOUR_KEY)) {
+                imageView.getDrawable().setColorFilter(sharedPreferences.getInt(Constants.COLOUR_KEY, Color.WHITE), PorterDuff.Mode.SRC_IN);
+            }
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+            sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
         }
     }
 }

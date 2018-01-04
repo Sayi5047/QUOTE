@@ -1,7 +1,6 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
-import com.hustler.quote.ui.utils.ImageProcessingUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     OnCategoryClickListener categoryClickListener;
 
 
-    public CategoriesAdapter(Activity activity,  OnCategoryClickListener categoryClickListener) {
+    public CategoriesAdapter(Activity activity, OnCategoryClickListener categoryClickListener) {
         this.activity = activity;
         this.categoryClickListener = categoryClickListener;
         convertvals();
@@ -92,10 +90,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public int getItemCount() {
-        if(categoryArrayList.size()<=0){
+        if (categoryArrayList.size() <= 0) {
             return 0;
-        }
-        else {
+        } else {
             return categoryArrayList.size();
         }
     }
@@ -109,7 +106,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.bt_category);
             imageView = (ImageView) itemView.findViewById(R.id.back_image);
-
+            TextUtils.setFont(activity, textView, Constants.FONT_Google_sans_regular);
         }
     }
 }

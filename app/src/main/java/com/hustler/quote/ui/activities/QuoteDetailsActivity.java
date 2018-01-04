@@ -97,8 +97,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             ((Animatable) drawable).start();
         }
 
-//        tv_Quote_Author.setTypeface(App.getZingCursive(QuoteDetailsActivity.this, Constants.FONT_ZINGCURSIVE));
-//        tv_Quote_Body.setTypeface(App.getZingCursive(QuoteDetailsActivity.this, Constants.FONT_ZINGSANS));
+//        tv_Quote_Author.setTypeface(App.applyFont(QuoteDetailsActivity.this, Constants.FONT_ZINGCURSIVE));
+//        tv_Quote_Body.setTypeface(App.applyFont(QuoteDetailsActivity.this, Constants.FONT_ZINGSANS));
         TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
 
         fab_edit = (FloatingActionButton) findViewById(R.id.fab_edit);
@@ -361,7 +361,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void edit() {
-        tv_Quote_Body.setTypeface(App.getZingCursive(this, Constants.FONT_NEVIS));
+        tv_Quote_Body.setTypeface(App.applyFont(this, Constants.FONT_NEVIS));
 //        int cx=image_saved_message.getWidth()/2;
 //        int cy=image_saved_message.getHeight()/2;
 //         float finalradius=((float) StrictMath.hypot(cx,cy));

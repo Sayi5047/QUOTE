@@ -90,6 +90,8 @@
     <string name="Category_Name">Category</string>
     <string name="wallpaper_description">Some Demo Description</string>
     <string name="Launch">Launch</string>
+    <string name="Skip">Skip</string>
+    <string name="Previous">Previous</string>
 
     <!--SPLASH ACTIVITY-->
 
@@ -120,6 +122,21 @@
         <!--<item>Line Space</item>-->
         <!--<item>Frame Width</item>-->
         <!--<item>Punch Text</item>-->
+    </string-array>
+
+    <string-array name="lander_titles">
+        <item>Welcome</item>
+        <item>Be Inspired</item>
+        <item>Start Editing</item>
+        <item>Lots of Customisation</item>
+        <item>Whats unique?</item>
+    </string-array>
+    <string-array name="lander_descriptions">
+        <item>Welcome to the Quotzy.The best ever android text editor with material design.</item>
+        <item>Always,be inspired with the quotes of greatest minds and share it to others</item>
+        <item>Make wallpapers from your fav quotes or your own talks for personal and official work</item>
+        <item>Add your own fonts to make endless possibilities to your creativity,Explore editor to see all super powers </item>
+        <item>Make wallpapers with ur desired font and add agradient background and much more</item>
     </string-array>
 
 

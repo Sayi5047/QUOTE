@@ -57,8 +57,8 @@ public class MainFragment extends Fragment {
         loader = (ProgressBar) view.findViewById(R.id.loader);
         quote_of_day = (ImageView) view.findViewById((R.id.quote_of_day));
         quote_author = (TextView) view.findViewById(R.id.quote_of_day_author);
-//        quote_of_day.setTypeface(App.getZingCursive(getActivity(), Constants.FONT_ZINGCURSIVE));
-        quote_author.setTypeface(App.getZingCursive(getActivity(), Constants.FONT_ZINGCURSIVE));
+//        quote_of_day.setTypeface(App.applyFont(getActivity(), Constants.FONT_ZINGCURSIVE));
+        quote_author.setTypeface(App.applyFont(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
         quote_of_day.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
 

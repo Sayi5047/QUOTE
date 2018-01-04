@@ -3,14 +3,10 @@ package com.hustler.quote.ui.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.SearchView;
-import android.transition.Explode;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +21,6 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
-
-import java.util.Random;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,7 +56,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
 
         TextView tv_header = (TextView) toolbar.findViewById(R.id.header_name);
-        tv_header.setTypeface(App.getZingCursive(this, Constants.FONT_multicolore));
+        tv_header.setTypeface(App.applyFont(this, Constants.FONT_multicolore));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -95,7 +89,7 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Home/Up relativeLayout1, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

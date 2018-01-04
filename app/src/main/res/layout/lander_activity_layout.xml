@@ -13,16 +13,50 @@
 
     </android.support.v4.view.ViewPager>
 
-    <Button
-        android:id="@+id/bt_launch"
+
+    <RelativeLayout
+        android:id="@+id/bt_launch_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/smallPadding"
-        android:layout_weight="0.2"
-        android:background="@android:color/white"
-        android:elevation="@dimen/elevation4"
-        android:text="@string/Launch"
-        android:visibility="gone"
-        android:textColor="@android:color/black" />
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/bt_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/smallPadding"
+            android:background="@drawable/rect_white_border"
+
+            android:elevation="@dimen/elevation4"
+            android:text="@string/Skip"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/bt_launch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/smallPadding"
+            android:background="@drawable/rect_white_border"
+            android:elevation="@dimen/elevation4"
+            android:text="@string/Launch"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/smallPadding"
+            android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
+
+            android:elevation="@dimen/elevation4"
+            android:textColor="@android:color/white"
+
+            android:textSize="14sp" />
+    </RelativeLayout>
 </RelativeLayout>

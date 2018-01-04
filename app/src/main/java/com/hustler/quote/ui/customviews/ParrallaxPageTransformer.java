@@ -39,7 +39,7 @@ public class ParrallaxPageTransformer implements ViewPager.PageTransformer {
                 parralexView.setTranslationX(-(position * width * speed));
                 parralexView2.setTranslationX((position * width * speed * 4));
                 parralexView3.setTranslationX((position * width * speed) * 3);
-                parralexView4.setTranslationX((position * width * speed) * 2);
+                parralexView4.setTranslationX((position * width * speed) * 6);
                 parralexView5.setTranslationX((position * width * speed) * 1);
                 float sc = ((float) page.getWidth() - border) / page.getWidth();
                 if (position == 0) {

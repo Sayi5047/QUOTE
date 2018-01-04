@@ -37,7 +37,7 @@ public class App extends Application {
 
 
     /*Method that returns the desired font typeface object*/
-    public static Typeface getZingCursive(Activity activity, String fontname) {
+    public static Typeface applyFont(Activity activity, String fontname) {
 
         return Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname);
     }
