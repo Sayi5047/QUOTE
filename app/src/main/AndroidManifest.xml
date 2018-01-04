@@ -51,7 +51,7 @@
         <activity
             android:name=".ui.activities.LanderActivty"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/NoStatusBar" />
 
         <service
             android:name=".ui.livewallpaper.MyWallpaperService"

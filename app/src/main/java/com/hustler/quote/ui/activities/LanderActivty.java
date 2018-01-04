@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.customviews.ParrallaxPageTransformer;
+import com.hustler.quote.ui.utils.ColorUtils;
+import com.hustler.quote.ui.utils.TextUtils;
 
 /**
  * Created by Sayi on 03-01-2018.
@@ -42,21 +44,21 @@ public class LanderActivty extends BaseActivity {
 
         viewPager.setAdapter(new landerAdapter(getSupportFragmentManager(), LanderActivty.this));
 
-        parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card);
-        parrallaxPageTransformer.setBorder(20);
+        parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card, R.id.on_board_image, R.id.on_board_title,R.id.on_board_image_circle, R.id.on_board_descriptiom);
+        parrallaxPageTransformer.setBorder(2);
 //        parrallaxPageTransformer.setSpeed(0.2f);
 
         viewPager.setPageTransformer(false, parrallaxPageTransformer);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                viewPager.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,LanderActivty.this));
             }
 
             @Override
             public void onPageSelected(int position) {
                 if (position == 3) {
-                    button.setVisibility(View.VISIBLE);
+//                    button.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -105,7 +107,7 @@ public class LanderActivty extends BaseActivity {
         private Fragment getOnBoardFragment(int position) {
             OnBoardFragment onBoardFragment = new OnBoardFragment();
             onBoardFragment.title = titles[position];
-//            onBoardFragment.imageresource = images[position];
+            onBoardFragment.imageresource = images[position];
             onBoardFragment.desciption = descriptions[position];
             return onBoardFragment;
         }
@@ -138,9 +140,9 @@ public class LanderActivty extends BaseActivity {
         String title;
         String desciption;
         int imageresource;
-        ImageView image;
+        RelativeLayout image;
         AnimationDrawable animationDrawable;
-        LinearLayout linearLayout;
+        RelativeLayout linearLayout;
 
         @Nullable
         @Override
@@ -158,12 +160,12 @@ public class LanderActivty extends BaseActivity {
             if (desciption != null && !desciption.equals("")) {
                 ((TextView) view.findViewById(R.id.on_board_descriptiom)).setText(desciption);
             }
-            image = (ImageView) view.findViewById(R.id.card);
-            linearLayout = (LinearLayout) view.findViewById(R.id.linear_bg_layout);
-
+            image = (RelativeLayout) view.findViewById(R.id.card);
+            linearLayout = (RelativeLayout) view.findViewById(R.id.linear_bg_layout);
+            TextUtils.findText_and_applyTypeface(linearLayout, getActivity());
             animationDrawable = (AnimationDrawable) linearLayout.getBackground();
-            animationDrawable.setEnterFadeDuration(2000);
-            animationDrawable.setExitFadeDuration(2000);
+//            animationDrawable.setEnterFadeDuration(2000);
+//            animationDrawable.setExitFadeDuration(2000);
 
 //            image.post(new Runnable() {
 //                @Override

@@ -27,7 +27,7 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
-import com.hustler.quote.ui.utils.AnimUtils;
+import com.hustler.quote.ui.utils.ColorUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     CoordinatorLayout rootView;
     int cx, cy;
     float finalRadius;
-    int[] colors;
     int currentcolor;
 
     private TabsFragmentPagerAdapter pagerAdapter;
@@ -58,7 +57,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        colors = new int[]{ContextCompat.getColor(getApplicationContext(),R.color.colorPrimaryDark), ContextCompat.getColor(getApplicationContext(),R.color.colorAccent), ContextCompat.getColor(getApplicationContext(),R.color.primary_dark), ContextCompat.getColor(getApplicationContext(),R.color.textColor)};
 
     }
 
@@ -155,9 +153,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             });
             view.setBackgroundColor(getResources().getColor(android.R.color.white));
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.getWindow().getAttributes().windowAnimations=R.style.EditTextDialog_scaled;
+            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_scaled;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this,android.R.color.white));
+                dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, android.R.color.white));
             }
             dialog.show();
         }
@@ -167,12 +165,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     /*VIEW PAGER METHODS*/
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        appBar.setBackgroundColor(getHEaderColor(position, positionOffset));
-        mainPager.setBackgroundColor(getHEaderColor(position, positionOffset));
-        tab_layout.setBackgroundColor(getHEaderColor(position, positionOffset));
+        appBar.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
+        mainPager.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
+        tab_layout.setBackgroundColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
 //        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getHEaderColor(position, positionOffset));
+            window.setStatusBarColor(ColorUtils.getHEaderColor(position, positionOffset,HomeActivity.this));
         }
 
 
@@ -223,16 +221,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private int getHEaderColor(int position, float positionOffset) {
-        if (position == colors.length - 1) {
-            return colors[position];
-        } else {
-            int start = colors[position];
-            int end = colors[position + 1];
-            int color = (int) new ArgbEvaluator().evaluate(positionOffset, start, end);
-            return color;
-        }
-    }
 
     @Override
     public void onBackPressed() {

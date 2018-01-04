@@ -13,6 +13,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="NoStatusBar" parent="AppTheme.NoActionBar"></style>
+
     <style name="AppTheme.NoActionBar.coldscreen" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/coldscreen</item>
     </style>
@@ -39,18 +41,22 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorAccent</item>
     </style>
+
     <style name="EditTextDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
         <item name="android:windowExitAnimation">@anim/slidedown</item>
     </style>
- <style name="EditTextDialog_non_floater" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+    <style name="EditTextDialog_non_floater" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
         <item name="android:windowExitAnimation">@anim/slidedown</item>
-    </style> <style name="EditTextDialog_scaled" parent="Theme.AppCompat.Light.Dialog.Alert">
+    </style>
+
+    <style name="EditTextDialog_scaled" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/scaleup</item>

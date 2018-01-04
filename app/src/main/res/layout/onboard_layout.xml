@@ -1,53 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:orientation="vertical"
-        app:cardCornerRadius="@dimen/elevation16"
-        android:clipToPadding="true">
+        android:background="@android:color/transparent"
+        android:clipToPadding="true"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/card"
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:alpha="0.1"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
             android:src="@drawable/einstein_laughing" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linear_bg_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:background="@drawable/animation_list"
-            android:gravity="bottom"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:padding="16dp">
 
-            >
+            <!--android:background="@drawable/animation_list"-->
+
+            <ImageView
+                android:id="@+id/on_board_image_circle"
+
+                android:layout_width="480dp"
+                android:layout_height="360dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/circledrawable" />
 
             <ImageView
                 android:id="@+id/on_board_image"
+
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:padding="16dp" />
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:padding="16dp"
+                android:src="@drawable/ic_delete_black_24dp" />
+
 
             <TextView
                 android:id="@+id/on_board_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/on_board_image_circle"
                 android:gravity="center"
                 android:text="Welcome to Pika"
+                android:layout_marginTop="-20dp"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
@@ -57,16 +73,16 @@
                 android:id="@+id/on_board_descriptiom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/on_board_image_circle"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-
                 android:text="Welcome to the world of offers and opporunity to have a hassel free consumer experience."
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
 </LinearLayout>
