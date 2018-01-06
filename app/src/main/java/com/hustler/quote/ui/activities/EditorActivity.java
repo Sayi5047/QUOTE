@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +23,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -56,6 +62,7 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 
+import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
@@ -307,7 +314,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     selectedView.setBackground(null);
                     previousSelcted_View = null;
                     selectedView = null;
-                    clear_button.setVisibility(View.GONE);
+                    clear_button.setVisibility(GONE);
                 }
             }
             case R.id.text_field: {
@@ -319,21 +326,21 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.close_tv: {
-                close_and_done_layout.setVisibility(View.GONE);
+                close_and_done_layout.setVisibility(GONE);
                 text_and_bg_layout.setVisibility(View.VISIBLE);
                 features_recyclerview.setVisibility(View.VISIBLE);
                 seekBar.setProgress(180);
-                seekBar.setVisibility(View.GONE);
+                seekBar.setVisibility(GONE);
                 handle_close_Feature();
 
 
             }
             break;
             case R.id.done_tv: {
-                close_and_done_layout.setVisibility(View.GONE);
+                close_and_done_layout.setVisibility(GONE);
                 text_and_bg_layout.setVisibility(View.VISIBLE);
                 features_recyclerview.setVisibility(View.VISIBLE);
-                seekBar.setVisibility(View.GONE);
+                seekBar.setVisibility(GONE);
             }
             break;
             case R.id.save_work_button: {
@@ -388,11 +395,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                             new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
                                 @Override
                                 public void onPositiveselection() {
-                                    close_and_done_layout.setVisibility(View.GONE);
+                                    close_and_done_layout.setVisibility(GONE);
                                     text_and_bg_layout.setVisibility(View.VISIBLE);
                                     features_recyclerview.setVisibility(View.VISIBLE);
                                     seekBar.setProgress(180);
-                                    seekBar.setVisibility(View.GONE);
+                                    seekBar.setVisibility(GONE);
                                     core_editor_layout.removeView(selectedView);
                                     selectedView = null;
                                 }
@@ -759,12 +766,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Google_sans_regular);
-                        if (spannableString != null) {
-                            textView.setText(spannableString);
-                        } else {
-                            textView.setText(newly_Added_Text);
 
-                        }
+                        textView.setText(newly_Added_Text);
+
                         textView.setX(core_editor_layout.getWidth() / 2 - 250);
 //                        textView.setY(core_editor_layout.getHeight() / 2);
                         textView.setId(addedTextIds);
@@ -805,7 +809,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setContentView(View.inflate(this, R.layout.edittext_dialog, null));
         final TextView header, align_text;
         final EditText addingText;
-        final Button close, done, start, center, end, add_bg;
+        final RecyclerView recyclerView;
+        final Button close, done, start, center, end, previewText, bold, underline, italic, strikethrough, highlight, colorText;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
@@ -818,8 +823,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         start = (Button) dialog.findViewById(R.id.bt_start);
         center = (Button) dialog.findViewById(R.id.bt_center);
         end = (Button) dialog.findViewById(R.id.bt_end);
-        add_bg = (Button) dialog.findViewById(R.id.bt_add_bg);
+        previewText = (Button) dialog.findViewById(R.id.bt_add_bg);
+        recyclerView = (RecyclerView) dialog.findViewById(R.id.color_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false));
 
+        bold = (Button) dialog.findViewById(R.id.bt_bold);
+        underline = (Button) dialog.findViewById(R.id.bt_underline);
+        italic = (Button) dialog.findViewById(R.id.bt_italic);
+        strikethrough = (Button) dialog.findViewById(R.id.bt_strikethrough);
+        highlight = (Button) dialog.findViewById(R.id.bt_highlight);
+        colorText = (Button) dialog.findViewById(R.id.bt_colored);
+
+//        spannableString = new SpannableString(addingText.getText().toString());
 
         if (isEdit) {
             addingText.setText(((TextView) selectedView).getText());
@@ -830,14 +845,21 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, start, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, center, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, end, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, add_bg, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, bold, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, underline, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, italic, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, strikethrough, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, highlight, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, colorText, Constants.FONT_Google_sans_regular);
 
+        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, previewText, Constants.FONT_Google_sans_regular);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alignment[0] = 1;
+                recyclerView.setVisibility(GONE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                 } else {
@@ -849,6 +871,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 alignment[0] = 2;
+                recyclerView.setVisibility(GONE);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 } else {
@@ -861,6 +885,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 alignment[0] = 3;
+                recyclerView.setVisibility(GONE);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
                 } else {
@@ -870,17 +896,81 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        add_bg.setOnClickListener(new View.OnClickListener() {
+        bold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.LTGRAY);
-                spannableString = new SpannableString(addingText.getText().toString());
-                spannableString.setSpan(backgroundColorSpan, 0, addingText.getText().toString().length(), 0);
-                addingText.setText("");
-                addingText.setText(spannableString);
+                recyclerView.setVisibility(GONE);
+
+                setSpan(new StyleSpan(Typeface.BOLD), addingText);
+
+
+            }
+
+
+        });
+        underline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(GONE);
+                setSpan(new UnderlineSpan(), addingText);
             }
         });
+        italic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(GONE);
+                setSpan(new StyleSpan(Typeface.ITALIC), addingText);
+
+            }
+        });
+        strikethrough.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(GONE);
+                setSpan(new StrikethroughSpan(), addingText);
+            }
+        });
+        highlight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(View.VISIBLE);
+                final int[] selectedColor = new int[1];
+                recyclerView.setAdapter(new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
+                    @Override
+                    public void onColorClick(int color) {
+                        selectedColor[0] = color;
+                        setSpan(new BackgroundColorSpan(selectedColor[0]), addingText);
+                    }
+                }));
+            }
+        });
+
+        colorText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(View.VISIBLE);
+                final int[] selectedColor = new int[1];
+                recyclerView.setAdapter(new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
+                    @Override
+                    public void onColorClick(int color) {
+                        selectedColor[0] = color;
+                        setSpan(new ForegroundColorSpan(selectedColor[0]), addingText);
+                    }
+                }));
+            }
+        });
+
+//        previewText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.LTGRAY);
+//                spannableString.setSpan(backgroundColorSpan, 0, addingText.getText().toString().length(), 0);
+//                addingText.setText("");
+//                addingText.setText(spannableString);
+//            }
+//        });
         done.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View v) {
                 if (isEdit) {
@@ -936,14 +1026,31 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.show();
     }
 
+    public void setSpan(Object styleSpan, EditText addingText) {
+        if (spannableString == null) {
+            spannableString = new SpannableString(addingText.getText().toString());
+            spannableString.setSpan(styleSpan, 0, addingText.getText().toString().length(), 0);
+            setSpannableText(addingText, spannableString);
+        } else {
+            spannableString.setSpan(styleSpan, 0, addingText.getText().toString().length(), 0);
+            setSpannableText(addingText, spannableString);
+        }
+    }
+
+    private void setSpannableText(EditText addingText, SpannableString spannableString) {
+
+        addingText.setText("");
+        addingText.setText(spannableString);
+    }
+
     private void resizeText(String[] array) {
          /*RESIZE*/
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(View.GONE);
+            features_recyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
-            text_and_bg_layout.setVisibility(View.GONE);
+            text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
             current_Text_feature = array[2];
@@ -957,9 +1064,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(View.GONE);
+            features_recyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
-            text_and_bg_layout.setVisibility(View.GONE);
+            text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
             current_Text_feature = array[3];
@@ -973,9 +1080,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(View.GONE);
+            features_recyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
-            text_and_bg_layout.setVisibility(View.GONE);
+            text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
             current_Text_feature = array[4];
@@ -989,9 +1096,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(View.GONE);
+            features_recyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
-            text_and_bg_layout.setVisibility(View.GONE);
+            text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
             current_Text_feature = array[6];
@@ -1004,9 +1111,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(View.GONE);
+            features_recyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
-            text_and_bg_layout.setVisibility(View.GONE);
+            text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
             previousstate = selectedView;
             current_Text_feature = array[7];
@@ -1111,6 +1218,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void set_text_alignment(int position, TextView textView) {
         switch (position) {
             case 1:
@@ -1224,8 +1332,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         preview = (Button) dialog.findViewById(R.id.preview);
         btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
         btApply = (Button) dialog.findViewById(R.id.bt_apply);
-        colorsRecycler.setVisibility(View.GONE);
-        preview.setVisibility(View.GONE);
+        colorsRecycler.setVisibility(GONE);
+        preview.setVisibility(GONE);
 
         colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
         TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
@@ -1301,25 +1409,25 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void blurrImage(String[] bgfeaturesArray) {
-        features_recyclerview.setVisibility(View.GONE);
+        features_recyclerview.setVisibility(GONE);
         seekBar.setVisibility(View.VISIBLE);
-        text_and_bg_layout.setVisibility(View.GONE);
+        text_and_bg_layout.setVisibility(GONE);
         close_and_done_layout.setVisibility(View.VISIBLE);
     }
 
     private void applyBlackFilter() {
         light_effect_filter_IV.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_dark_transparent));
-        features_recyclerview.setVisibility(View.GONE);
+        features_recyclerview.setVisibility(GONE);
         seekBar.setVisibility(View.VISIBLE);
-        text_and_bg_layout.setVisibility(View.GONE);
+        text_and_bg_layout.setVisibility(GONE);
         close_and_done_layout.setVisibility(View.VISIBLE);
     }
 
     private void applyWhiteFilter() {
         light_effect_filter_IV.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_light_transparent));
-        features_recyclerview.setVisibility(View.GONE);
+        features_recyclerview.setVisibility(GONE);
         seekBar.setVisibility(View.VISIBLE);
-        text_and_bg_layout.setVisibility(View.GONE);
+        text_and_bg_layout.setVisibility(GONE);
         close_and_done_layout.setVisibility(View.VISIBLE);
     }
 
@@ -1435,19 +1543,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             previousSelcted_View.setBackground(null);
             previousSelcted_View = v;
             clear_button.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                selectedView.setForeground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
-            }else {
-                selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
 
-            }
+            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+
 
         } else {
             clear_button.setVisibility(View.VISIBLE);
             previousSelcted_View = v;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                selectedView.setForeground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
-            }
+            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+
 
         }
         switch (event.getAction()) {

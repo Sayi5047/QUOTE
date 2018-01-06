@@ -93,6 +93,14 @@
     <string name="Skip">Skip</string>
     <string name="Previous">Previous</string>
     <string name="backgroundColor">Background color</string>
+    <string name="bold">Bold</string>
+    <string name="underline">Underline</string>
+    <string name="italic">Italic</string>
+    <string name="color">Color</string>
+    <string name="highlight">highlight</string>
+    <string name="strike">Strike through</string>
+    <string name="edit_text">Edit Text</string>
+    <string name="format">Format Text</string>
 
     <!--SPLASH ACTIVITY-->
 

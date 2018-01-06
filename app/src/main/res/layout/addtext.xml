@@ -11,7 +11,6 @@
         android:id="@+id/tv_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=""
         android:gravity="center"
         android:text="@string/enter_text"
         android:textColor="@android:color/white"
@@ -27,7 +26,6 @@
         android:id="@+id/et_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=""
         android:padding="16dp"
         android:background="@drawable/rounded_rect"/>
 
@@ -82,6 +80,7 @@
         android:layout_height="30dp"
         android:layout_margin="@dimen/fab_margin"
         android:layout_weight="1"
+        android:visibility="gone"
         android:background="@drawable/rounded_rect"
         android:text="@string/backgroundColor"
         android:textColor="@color/colorAccent" />
