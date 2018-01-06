@@ -19,6 +19,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -117,6 +119,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private String current_Text_feature;
     private String current_Bg_feature;
     private String current_module;
+    SpannableString spannableString;
 
     ScaleGestureDetector scaleGestureDetector;
     private boolean isFromEdit_Activity;
@@ -247,8 +250,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_body.setMaxWidth(1050);
                 quote_editor_author.setMaxWidth(1050);
 
-                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
 
                 quote_editor_body.setGravity(Gravity.CENTER);
                 quote_editor_author.setGravity(Gravity.CENTER);
@@ -460,12 +468,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     // LEVEL 2
     private void enable_Selected_Text_Feature(String feature, String[] array) {
         if (feature.equalsIgnoreCase(array[0])) {
-            add_and_EditText(array, false);
+            addText(array, false);
         } else if (feature.equalsIgnoreCase(array[1])) {
             if (selectedView == null) {
                 Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
             } else {
-                add_and_EditText(array, true);
+                editText(array, true);
             }
         } else if (feature.equalsIgnoreCase(array[2])) {
             resizeText(array);
@@ -574,7 +582,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         radius = Math.round(seekBar.getProgress() / 15);
                     }
                     float blurr_progress = seekBar.getProgress() <= 0 ? 0.1f : radius;
-                    Bitmap newblurredImage = ImageProcessingUtils.create_blur(bitmap, blurr_progress, EditorActivity.this);
+                    Bitmap newblurredImage = null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        newblurredImage = ImageProcessingUtils.create_blur(bitmap, blurr_progress, EditorActivity.this);
+                    } else {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                    }
                     imageView_background.setImageBitmap(newblurredImage);
                 }
             } else if ((current_Bg_feature.equalsIgnoreCase(featuresLocalArray[3]) || current_Bg_feature.equalsIgnoreCase(featuresLocalArray[4])) && seekBar.getProgress() >= 0) {
@@ -653,14 +666,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     //    FEATURES
 // THIS MEHOD CAN't be moved outside becuase it has lot of dependies in this page.
-    private void add_and_EditText(String[] array, final boolean isEdit) {
+    private void addText(String[] array, final boolean isEdit) {
         current_Text_feature = array[0];
         final int[] alignment = new int[1];
         final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
         dialog.setContentView(View.inflate(this, R.layout.addtext, null));
         final TextView header, align_text;
         final EditText addingText;
-        Button close, done, start, center, end;
+        final Button close, done, start, center, end, add_bg;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
@@ -673,11 +686,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         start = (Button) dialog.findViewById(R.id.bt_start);
         center = (Button) dialog.findViewById(R.id.bt_center);
         end = (Button) dialog.findViewById(R.id.bt_end);
+        add_bg = (Button) dialog.findViewById(R.id.bt_add_bg);
 
-
-        if (isEdit) {
-            addingText.setText(((TextView) selectedView).getText());
-        }
         TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
@@ -686,28 +696,50 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, end, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
         TextUtils.setFont(this, done, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, add_bg, Constants.FONT_NEVIS);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alignment[0] = 1;
-                addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
             }
         });
         center.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alignment[0] = 2;
-                addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
             }
         });
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alignment[0] = 3;
-                addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
+            }
+        });
 
+        add_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.LTGRAY);
+                spannableString = new SpannableString(addingText.getText().toString());
+                spannableString.setSpan(backgroundColorSpan, 0, addingText.getText().toString().length(), 0);
+                addingText.setText("");
+                addingText.setText(spannableString);
             }
         });
         done.setOnClickListener(new View.OnClickListener() {
@@ -727,7 +759,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Google_sans_regular);
-                        textView.setText(newly_Added_Text);
+                        if (spannableString != null) {
+                            textView.setText(spannableString);
+                        } else {
+                            textView.setText(newly_Added_Text);
+
+                        }
                         textView.setX(core_editor_layout.getWidth() / 2 - 250);
 //                        textView.setY(core_editor_layout.getHeight() / 2);
                         textView.setId(addedTextIds);
@@ -739,7 +776,145 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         });
                         set_text_alignment(alignment[0], textView);
 
+                        textView.setPadding(16, 16, 16, 16);
+                        textView.setOnTouchListener(EditorActivity.this);
+                        core_editor_layout.addView(textView);
+                    }
 
+
+                }
+
+                dialog.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
+    private void editText(String[] array, final boolean isEdit) {
+        current_Text_feature = array[0];
+        final int[] alignment = new int[1];
+        final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
+        dialog.setContentView(View.inflate(this, R.layout.edittext_dialog, null));
+        final TextView header, align_text;
+        final EditText addingText;
+        final Button close, done, start, center, end, add_bg;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.setCancelable(false);
+
+        header = (TextView) dialog.findViewById(R.id.tv_header);
+        align_text = (TextView) dialog.findViewById(R.id.tv_align_text);
+        addingText = (EditText) dialog.findViewById(R.id.et_text);
+        close = (Button) dialog.findViewById(R.id.bt_close);
+        done = (Button) dialog.findViewById(R.id.bt_done);
+        start = (Button) dialog.findViewById(R.id.bt_start);
+        center = (Button) dialog.findViewById(R.id.bt_center);
+        end = (Button) dialog.findViewById(R.id.bt_end);
+        add_bg = (Button) dialog.findViewById(R.id.bt_add_bg);
+
+
+        if (isEdit) {
+            addingText.setText(((TextView) selectedView).getText());
+        }
+        TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, start, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, center, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, end, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, add_bg, Constants.FONT_NEVIS);
+
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alignment[0] = 1;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
+            }
+        });
+        center.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alignment[0] = 2;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
+
+            }
+        });
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alignment[0] = 3;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                }
+
+            }
+        });
+
+        add_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BackgroundColorSpan backgroundColorSpan = new BackgroundColorSpan(Color.LTGRAY);
+                spannableString = new SpannableString(addingText.getText().toString());
+                spannableString.setSpan(backgroundColorSpan, 0, addingText.getText().toString().length(), 0);
+                addingText.setText("");
+                addingText.setText(spannableString);
+            }
+        });
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEdit) {
+                    set_text_alignment(alignment[0], ((TextView) selectedView));
+                    ((TextView) selectedView).setText(addingText.getText());
+                } else {
+                    addedTextIds++;
+                    newly_Added_Text = addingText.getText().toString();
+                    if (newly_Added_Text.length() <= 0) {
+                        addingText.setError(getString(R.string.please_enter));
+                    } else {
+                        final TextView textView = new TextView(EditorActivity.this);
+                        textView.setTextSize(20.0f);
+                        textView.setTextColor(getResources().getColor(R.color.textColor));
+                        textView.setMaxWidth(core_editor_layout.getWidth());
+                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Google_sans_regular);
+                        if (spannableString != null) {
+                            textView.setText(spannableString);
+                        } else {
+                            textView.setText(newly_Added_Text);
+
+                        }
+                        textView.setX(core_editor_layout.getWidth() / 2 - 250);
+//                        textView.setY(core_editor_layout.getHeight() / 2);
+                        textView.setId(addedTextIds);
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
+                            }
+                        });
+                        set_text_alignment(alignment[0], textView);
+
+                        textView.setPadding(16, 16, 16, 16);
                         textView.setOnTouchListener(EditorActivity.this);
                         core_editor_layout.addView(textView);
                     }
@@ -1260,12 +1435,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             previousSelcted_View.setBackground(null);
             previousSelcted_View = v;
             clear_button.setVisibility(View.VISIBLE);
-            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                selectedView.setForeground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+            }else {
+                selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+
+            }
 
         } else {
             clear_button.setVisibility(View.VISIBLE);
             previousSelcted_View = v;
-            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                selectedView.setForeground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+            }
 
         }
         switch (event.getAction()) {
