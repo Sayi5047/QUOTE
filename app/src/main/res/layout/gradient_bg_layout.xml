@@ -24,12 +24,12 @@
         android:layout_below="@id/header_tv"
         android:layout_margin="4dp"
         android:background="@drawable/rounded_rect"
+        android:gravity="center"
         android:text="@string/Quotes"
         android:textAlignment="center"
-        android:gravity="center"
         android:textColor="@color/textColor"
-        android:textStyle="italic"
-        android:textSize="@dimen/font3"/>
+        android:textSize="@dimen/font3"
+        android:textStyle="italic" />
 
     <ImageView
         android:id="@+id/demo_color_1"
@@ -86,17 +86,29 @@
         android:layout_below="@id/colors_recycler"
         android:layout_centerHorizontal="true"
         android:layout_margin="4dp"
-        android:padding="@dimen/padding1"
         android:background="@drawable/rounded_rect"
+        android:padding="@dimen/padding1"
         android:text="@string/preview"
         android:textAllCaps="false" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/preview"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/bannerAdId"
+        ads:layout_anchorGravity="bottom">
+
+    </com.google.android.gms.ads.AdView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/preview"
+        android:layout_below="@id/adView"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="4dp">
 
         <Button
             android:id="@+id/bt_cancel"

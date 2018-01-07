@@ -2,7 +2,6 @@ package com.hustler.quote.ui.textFeatures;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
@@ -23,6 +23,7 @@ import com.hustler.quote.ui.adapters.DownloadedFontAdapter;
 import com.hustler.quote.ui.adapters.LocalFontAdapter;
 import com.hustler.quote.ui.adapters.SymbolFontAdapter;
 import com.hustler.quote.ui.pojo.FontSelected;
+import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -35,15 +36,13 @@ import java.io.File;
 public class TextFeatures {
 
 
-
-
     public static void apply_Text_Shadow(final Activity activity, final TextView selectedTextView) {
 
         final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.shadow_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
+        AdView adView;
         TextView tvHead;
         final TextView demoShadowText;
         AppCompatSeekBar opacitySeekbar;
@@ -75,12 +74,12 @@ public class TextFeatures {
         tvXPos = (TextView) dialog.findViewById(R.id.tv_x_pos);
         tvYPos = (TextView) dialog.findViewById(R.id.tv_y_pos);
         tvShadowColor = (TextView) dialog.findViewById(R.id.tv_shadow_color);
-
+        adView = (AdView) dialog.findViewById(R.id.adView);
         opacitySeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.opacity_seekbar);
         shadowRadiusSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.shadow_radius_seekbar);
         posXSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_x_seekbar);
         posYSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_y_seekbar);
-
+        AdUtils.loadBannerAd(adView,activity);
         rvShadowColor = (RecyclerView) dialog.findViewById(R.id.rv_shadow_color);
         rvShadowColor.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
@@ -230,7 +229,7 @@ public class TextFeatures {
         dialog.setContentView(R.layout.apply_font_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
+        AdView adView;
 
         LinearLayout root;
         TextView tvAppFonts;
@@ -261,7 +260,8 @@ public class TextFeatures {
         demoText = (TextView) dialog.findViewById(R.id.tv_demo_text);
         tvSymbolFonts = (TextView) dialog.findViewById(R.id.tv_symbol_fonts);
         tvDownloadedFonts = (TextView) dialog.findViewById(R.id.tv_downloaded_fonts);
-
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView,editorActivity);
         rvDownloadedFont = (RecyclerView) dialog.findViewById(R.id.rv_downloaded_font);
         rvAppFont = (RecyclerView) dialog.findViewById(R.id.rv_app_font);
         rvSymbolFont = (RecyclerView) dialog.findViewById(R.id.rv_symbol_font);

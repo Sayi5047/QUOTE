@@ -118,7 +118,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         fab_set_wall.setOnClickListener(this);
         fab_set_like.setOnClickListener(this);
 
-        AdUtils.loadBannerAd(mAdView);
+        AdUtils.loadBannerAd(mAdView,QuoteDetailsActivity.this);
 //        For building the image
 //        quote_layout.setDrawingCacheEnabled(true);
 //        quote_layout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));

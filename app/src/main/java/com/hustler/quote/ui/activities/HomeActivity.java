@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -56,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
+        MobileAds.initialize(HomeActivity.this,Constants.ADS_APP_ID);
+
         findViews();
         cx = appBar.getWidth() / 2;
         cy = appBar.getHeight() / 2;
@@ -96,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadAds() {
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("A5B1E467FD401973F9F69AD2CCC13C30").build();
         mAdView.loadAd(adRequest);
         mAdView.setAdListener(new AdListener()
         {

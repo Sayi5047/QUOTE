@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_demo_text"
             android:layout_width="match_parent"
@@ -21,6 +22,7 @@
             android:textStyle="italic">
 
         </TextView>
+
         <LinearLayout
             android:id="@+id/root"
             android:layout_width="match_parent"
@@ -104,8 +106,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_downloaded_font"
                 android:layout_width="match_parent"
-                android:layout_margin="@dimen/smallPadding"
-                android:layout_height="75dp">
+                android:layout_height="75dp"
+                android:layout_margin="@dimen/smallPadding">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -138,6 +140,18 @@
                 android:textColor="@color/textColor" />
         </LinearLayout>
 
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/bannerAdId"
+            ads:layout_anchorGravity="bottom">
+
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
 </ScrollView>

@@ -157,10 +157,10 @@ public class Constants {
 
 
     public static final String COLOUR_KEY = "colour_key";
-//ORIGINAL
-    public static final String ADS_APP_ID ="ca-app-pub-6594544657945805~7199397048";
+    //ORIGINAL
+    public static final String ADS_APP_ID = "ca-app-pub-6594544657945805~7199397048";
 
-//    DUPE
+    //    DUPE
     public static final String TEST_SMART_BANNER_AD = "ca-app-pub-3940256099942544/6300978111";
     public static final String TEST_INTERSTITIAL_AD = "ca-app-pub-3940256099942544/1033173712";
     public static final String TEST_REWARDED_AD = "ca-app-pub-3940256099942544/5224354917";
