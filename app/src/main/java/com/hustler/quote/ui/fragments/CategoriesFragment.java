@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.adapters.CategoriesAdapter;
@@ -69,8 +71,10 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         }
 
         TextView catgory_name;
+        AdView adView;
         Button close_button;
         ArrayList<Quote> quoteslist = new ArrayList<>();
+
         quoteslist = (ArrayList<Quote>) new QuotesDbHelper(getContext()).getQuotesByCategory(category);
         if (quoteslist.size() <= 0) {
             dialog.dismiss();
@@ -79,7 +83,9 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             catgory_name = (TextView) dialog.findViewById(R.id.tv_category_name);
             categories_rv = (RecyclerView) dialog.findViewById(R.id.rv_category_list);
             close_button = (Button) dialog.findViewById(R.id.bt_close);
-
+            adView=(AdView) dialog.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
             TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_Google_sans_regular);
             catgory_name.setText(category + " ( " + quoteslist.size() + " )");
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));

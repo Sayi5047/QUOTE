@@ -134,8 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
 
             <android.support.design.widget.FloatingActionButton
@@ -143,59 +142,71 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:fabSize="normal"
-
                 android:src="@drawable/ic_favorite_border_black_24dp"
-                app:backgroundTint="@android:color/white" />
+
+                app:backgroundTint="@android:color/white"
+                app:fabSize="normal" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_set_wall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:fabSize="normal"
                 android:layout_marginLeft="8dp"
-
                 android:layout_weight="1"
+
                 android:src="@drawable/ic_crop_original_black_24dp"
-                app:backgroundTint="@android:color/white" />
+                app:backgroundTint="@android:color/white"
+                app:fabSize="normal" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_download"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:fabSize="normal"
                 android:layout_marginLeft="8dp"
-
                 android:layout_weight="1"
+
                 android:src="@drawable/ic_archive_black_24dp"
-                app:backgroundTint="@android:color/white" />
+                app:backgroundTint="@android:color/white"
+                app:fabSize="normal" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_format_shapes_black_24dp"
-                app:fabSize="normal"
-                android:layout_marginLeft="8dp"
+                app:backgroundTint="@android:color/white"
 
-                app:backgroundTint="@android:color/white" />
+                app:fabSize="normal" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_share"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_weight="1"
                 android:layout_marginLeft="8dp"
-                app:fabSize="normal"
+                android:layout_weight="1"
                 android:src="@drawable/ic_share_black_24dp"
+                app:backgroundTint="@android:color/white"
 
-                app:backgroundTint="@android:color/white" />
+                app:fabSize="normal" />
 
         </LinearLayout>
 
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.8"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/bannerAdId"
+            ads:layout_anchorGravity="bottom">
 
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
 

@@ -25,12 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
+import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -55,6 +57,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     boolean IS_LIKED_FLAG;
     private RelativeLayout wallpaper_layout;
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
         setToolbar(this);
+
         initView();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            setExplodeAnimation();
@@ -85,6 +89,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         root = (RelativeLayout) findViewById(R.id.root);
+        mAdView = (AdView) findViewById(R.id.adView);
         tv_Quote_Author = (TextView) findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = (TextView) findViewById(R.id.tv_Quote_Body);
 
@@ -113,6 +118,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         fab_set_wall.setOnClickListener(this);
         fab_set_like.setOnClickListener(this);
 
+        AdUtils.loadBannerAd(mAdView);
 //        For building the image
 //        quote_layout.setDrawingCacheEnabled(true);
 //        quote_layout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
@@ -213,13 +219,13 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private void removeFavourite() {
         new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
         fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
-        IS_LIKED_FLAG=false;
+        IS_LIKED_FLAG = false;
     }
 
     private void addFavourite() {
         new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
         fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
-        IS_LIKED_FLAG=true;
+        IS_LIKED_FLAG = true;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

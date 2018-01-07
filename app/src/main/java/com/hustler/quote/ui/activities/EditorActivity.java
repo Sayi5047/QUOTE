@@ -46,6 +46,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
@@ -53,6 +54,7 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
+import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.ImageProcessingUtils;
@@ -92,6 +94,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private TextView background_layout;
     private TextView close_layout;
     private TextView done_layout;
+    private TextView mark_quotzy;
 
     private Quote quote;
     private RelativeLayout quoteLayout;
@@ -127,7 +130,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private String current_Bg_feature;
     private String current_module;
     SpannableString spannableString;
-
+        private AdView mAdView;
     ScaleGestureDetector scaleGestureDetector;
     private boolean isFromEdit_Activity;
     private String selected_picture;
@@ -187,6 +190,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_layout = (TextView) findViewById(R.id.background_and_Image_field);
         close_layout = (TextView) findViewById(R.id.close_tv);
         done_layout = (TextView) findViewById(R.id.done_tv);
+        mark_quotzy = (TextView) findViewById(R.id.mark_quotzy_tv);
         core_editor_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
         clear_button = (Button) findViewById(R.id.bt_clear);
 
@@ -350,10 +354,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
+                            Toast.makeText(EditorActivity.this, "File Saved", Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     if (savedFile != null) {
-                        Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditorActivity.this, "File Already Saved", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     requestAppPermissions_to_save_to_gallery();
@@ -505,6 +511,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             shadowText(array);
         } else if (feature.equalsIgnoreCase(array[9])) {
             applyFont(array);
+        } else if(feature.equalsIgnoreCase(array[10])) {
+//            symbolFont(array);
         }
     }
 
@@ -680,6 +688,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setContentView(View.inflate(this, R.layout.addtext, null));
         final TextView header, align_text;
         final EditText addingText;
+        AdView adView;
         final Button close, done, start, center, end, add_bg;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
@@ -695,6 +704,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         end = (Button) dialog.findViewById(R.id.bt_end);
         add_bg = (Button) dialog.findViewById(R.id.bt_add_bg);
 
+        adView=(AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView);
         TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
@@ -836,9 +847,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 //        spannableString = new SpannableString(addingText.getText().toString());
 
-        if (isEdit) {
-            addingText.setText(((TextView) selectedView).getText());
-        }
+        addingText.setText(((TextView) selectedView).getText());
         TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
@@ -1027,14 +1036,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void setSpan(Object styleSpan, EditText addingText) {
-        if (spannableString == null) {
-            spannableString = new SpannableString(addingText.getText().toString());
-            spannableString.setSpan(styleSpan, 0, addingText.getText().toString().length(), 0);
-            setSpannableText(addingText, spannableString);
-        } else {
-            spannableString.setSpan(styleSpan, 0, addingText.getText().toString().length(), 0);
-            setSpannableText(addingText, spannableString);
-        }
+        spannableString = new SpannableString(addingText.getText().toString());
+        spannableString.setSpan(styleSpan, 0, addingText.getText().toString().length(), 0);
+        setSpannableText(addingText, spannableString);
+
     }
 
     private void setSpannableText(EditText addingText, SpannableString spannableString) {
@@ -1216,6 +1221,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
         }
+    }
+
+    private void symbolFont(String[] array){
+//        final TextView selectedTextView = (TextView) selectedView;
+//        if (selectedView == null) {
+//            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+//        } else {
+//            if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+//                previousstate = selectedView;
+//                current_Text_feature = array[10];
+//                TextFeatures.getSymbolFonts(EditorActivity.this, selectedTextView);
+//            } else {
+//                requestAppPermissions_for_fonts();
+//            }
+
+
+//        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

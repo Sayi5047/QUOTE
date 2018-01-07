@@ -23,6 +23,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -45,6 +48,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     int currentcolor;
     int[] colors;
 
+
+    private AdView mAdView;
     private TabsFragmentPagerAdapter pagerAdapter;
 
     @Override
@@ -80,17 +85,57 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tab_layout = (TabLayout) findViewById(R.id.tab_layout);
         rootView = (CoordinatorLayout) findViewById(R.id.root);
         tab_layout.setupWithViewPager(mainPager);
+        mAdView = (AdView) findViewById(R.id.adView);
+        loadAds();
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
         mainPager.setCurrentItem(1);
         mainPager.setOnPageChangeListener(this);
         floatingActionButton.setOnClickListener(this);
 
 
+    }
 
+    private void loadAds() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"AD LOADED");
+            }
+
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"AD CLICKED");
+            }
+
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"AD CLOSED");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"Ad Failed TO Load");
+            }
+
+            @Override
+            public void onAdImpression() {
+                super.onAdImpression();
+                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"Ad IMPRESSION");
+
+            }
+
+        });
     }
 
     private void setAnimation(View view) {
-        view.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slideup));
+        view.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
     }
 
 

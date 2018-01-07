@@ -26,6 +26,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
@@ -50,8 +52,7 @@ public class FileUtils {
         final String[] format = {null};
         final File[] filetoReturn = new File[1];
         final String[] projectname = new String[1];
-
-
+        AdView adView;
         final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
         dialog.setContentView(View.inflate(activity, R.layout.save_image_layout, null));
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
@@ -77,7 +78,8 @@ public class FileUtils {
         root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
         btClose = (Button) dialog.findViewById(R.id.bt_close);
         btSave = (Button) dialog.findViewById(R.id.bt_save);
-
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView);
         TextUtils.findText_and_applyTypeface(root, activity);
 
         btSave.setOnClickListener(new View.OnClickListener() {

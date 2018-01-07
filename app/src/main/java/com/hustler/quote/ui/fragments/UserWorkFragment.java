@@ -20,8 +20,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,10 +29,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.UserWorkAdapter;
 import com.hustler.quote.ui.pojo.UserWorkImages;
-import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -122,7 +121,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         });
 
         rv.setAdapter(userWorkAdapter);
-        rv.setAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.slideup));
+        rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
     }
 
     private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
@@ -135,6 +134,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         final TextView header;
         ImageView closeIv;
         ImageView ivWork;
+        AdView adView1, adView2;
         FloatingActionButton fabDelete;
         FloatingActionButton fabWallpaper;
         FloatingActionButton fabShare;
@@ -161,6 +161,12 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         metaFileLocation = (TextView) dialog.findViewById(R.id.meta_data_location_tv);
         metaImageSize = (TextView) dialog.findViewById(R.id.meta_data_size_tv);
 
+        adView1 = (AdView) dialog.findViewById(R.id.adView);
+        adView2 = (AdView) dialog.findViewById(R.id.adView2);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView1.loadAd(adRequest);
+        adView2.loadAd(adRequest);
 
         TextUtils.findText_and_applyTypeface(rootLayout, getActivity());
 //        TextUtils.findText_and_applyamim_slideup(rootLayout,getActivity());
@@ -250,7 +256,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if(keyCode==KeyEvent.KEYCODE_BACK){
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
                     dialog.dismiss();
                 }
                 return true;

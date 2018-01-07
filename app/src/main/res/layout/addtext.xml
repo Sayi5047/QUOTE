@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="350dp"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/enter_text"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font3"
         android:layout_gravity="center"
-        android:textAlignment="center"
-        android:padding="16dp"
-        android:background="@color/colorAccent"
         android:layout_marginBottom="4dp"
-        />
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/enter_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font3" />
 
     <EditText
         android:id="@+id/et_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@drawable/rounded_rect"/>
+        android:background="@drawable/rounded_rect"
+        android:padding="16dp" />
 
     <TextView
         android:id="@+id/tv_align_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/align"
         android:layout_marginTop="8dp"
+        android:text="@string/align"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/font1" />
 
@@ -74,16 +73,18 @@
             android:text="@string/end"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
+
     <Button
         android:id="@+id/bt_add_bg"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="@dimen/fab_margin"
         android:layout_weight="1"
-        android:visibility="gone"
         android:background="@drawable/rounded_rect"
         android:text="@string/backgroundColor"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,4 +112,17 @@
 
             android:textColor="@color/colorAccent" />
     </LinearLayout>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/bannerAdId"
+        ads:layout_anchorGravity="bottom">
+
+    </com.google.android.gms.ads.AdView>
 </LinearLayout>

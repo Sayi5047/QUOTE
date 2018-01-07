@@ -101,9 +101,10 @@
     <string name="strike">Strike through</string>
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
-
+    <string name="made_with_quotzy">Made with Quotzy</string>
+    <string name="bannerAdId">ca-app-pub-3940256099942544/6300978111</string>
     <!--SPLASH ACTIVITY-->
-
+    <!--ca-app-pub-6594544657945805/6177125262-->
     <string-array name="Text_features">
         <item>Add Text</item>
         <item>Edit Text</item>
@@ -116,6 +117,7 @@
         <item>Frame Width</item>
         <item>Shadow Text</item>
         <item>Change Font</item>
+        <item>Symbol Fonts</item>
     </string-array>
 
     <string-array name="Background_features">

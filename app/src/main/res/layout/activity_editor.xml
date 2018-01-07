@@ -110,8 +110,7 @@
                 <ImageView
                     android:id="@+id/iv_light_effect"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent" />
                 <!--QUOTE BODY-->
 
                 <!--QUOTE_AUTHOR_PART-->
@@ -157,10 +156,20 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/elevation8"
-                        android:visibility="gone"
-                        />
+                        android:visibility="gone" />
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/mark_quotzy_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="4dp"
+                    android:alpha="0.6"
+                    android:background="@android:color/background_light"
+                    android:text="@string/made_with_quotzy"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColor" />
 
             </RelativeLayout>
 
@@ -179,8 +188,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
             android:background="@drawable/rect_black_border"
+            android:orientation="horizontal"
             android:padding="4dp">
 
             <TextView
@@ -215,8 +224,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
             android:background="@drawable/rect_black_border"
+            android:orientation="horizontal"
             android:padding="4dp"
             android:visibility="gone">
 

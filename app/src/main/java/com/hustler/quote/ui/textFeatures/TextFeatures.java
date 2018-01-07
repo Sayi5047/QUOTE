@@ -347,6 +347,13 @@ public class TextFeatures {
 
     }
 
+//    METHOD TO GET SYMBOL FONTS
+
+//    public static FontSelected getSymbolFonts(final EditorActivity editorActivity,final TextView selectedTextView){
+//        Dialog dialog=new Dialog(editorActivity,R.style.EditTextDialog);
+//        dialog.setContentView(R.layout.activity_symbol_fonts);
+//    }
+
     private static String[] getDownloadedFonts(Activity activity) {
         File file;
         String[] FilePathStrings = new String[0];
