@@ -178,6 +178,7 @@ public class FileUtils {
 
     }
 
+    // Will implement once I reach more than 1000 users.
     public static void savetoDeviceWithAds(final ViewGroup layout, final Activity activity, final onSaveComplete listneer) {
         final String[] name = {null};
         final String[] format = {null};
@@ -246,6 +247,7 @@ public class FileUtils {
             @Override
             public void onRewarded(RewardItem rewardItem) {
                 Toast.makeText(activity, "onRewarded! currency: " + rewardItem.getType() + "  amount: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+                layout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
             }
 
             @Override
@@ -270,7 +272,7 @@ public class FileUtils {
             @Override
             public void onClick(View v) {
 //                if(mRewardedVideoAd.isLoaded()){
-                    mRewardedVideoAd.show();
+                mRewardedVideoAd.show();
 
             }
         });
@@ -478,7 +480,7 @@ public class FileUtils {
         return bitmap;
     }
 
-    // METHOSD TOOK FROM INTERNET
+    // METHOD TOOK FROM INTERNET
     public static Uri getImageContentUri(Context context, File imageFile) {
         try {
             String filePath = imageFile.getAbsolutePath();

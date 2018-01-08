@@ -351,7 +351,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.save_work_button: {
                 if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
 
-                    savetoDeviceWithAds(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
+                    savetoDevice(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
