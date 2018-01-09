@@ -66,7 +66,6 @@ import java.io.File;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
-import static com.hustler.quote.ui.utils.FileUtils.savetoDeviceWithAds;
 
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
@@ -521,6 +520,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
             current_Bg_feature = bgfeaturesArray[0];
             if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+                // TODO: 09/01/2018 implement dialog for choosing image fit type
                 launchGallery();
             } else {
                 requestAppPermissions_for_launch_gallery();
@@ -706,7 +706,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         add_bg = (Button) dialog.findViewById(R.id.bt_add_bg);
 
         adView = (AdView) dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView,EditorActivity.this);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
@@ -841,7 +841,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         recyclerView = (RecyclerView) dialog.findViewById(R.id.color_rv);
         adView = (AdView) dialog.findViewById(R.id.adView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false));
-        AdUtils.loadBannerAd(adView,activity);
+        AdUtils.loadBannerAd(adView, activity);
         bold = (Button) dialog.findViewById(R.id.bt_bold);
         underline = (Button) dialog.findViewById(R.id.bt_underline);
         italic = (Button) dialog.findViewById(R.id.bt_italic);
@@ -1162,7 +1162,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             TextUtils.setFont(this, head_tv, Constants.FONT_Google_sans_regular);
             TextUtils.setFont(this, close, Constants.FONT_Google_sans_regular);
             TextUtils.setFont(this, choose, Constants.FONT_Google_sans_regular);
-            AdUtils.loadBannerAd(adView,EditorActivity.this);
+            AdUtils.loadBannerAd(adView, EditorActivity.this);
             colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
             colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
@@ -1228,21 +1228,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void symbolFont(String[] array) {
-//        final TextView selectedTextView = (TextView) selectedView;
-//        if (selectedView == null) {
-//            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
-//        } else {
-//            if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
-//                previousstate = selectedView;
-//                current_Text_feature = array[10];
-//                TextFeatures.getSymbolFonts(EditorActivity.this, selectedTextView);
-//            } else {
-//                requestAppPermissions_for_fonts();
-//            }
-
-
-//        }
+    private void gradienteText(String[] array) {
+        final TextView selectedTextView = (TextView) selectedView;
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            previousstate = selectedView;
+            current_Text_feature = array[10];
+            TextFeatures.setGradients(EditorActivity.this, selectedTextView);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -1288,7 +1282,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, head_tv, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, close, Constants.FONT_Google_sans_regular);
         TextUtils.setFont(this, choose, Constants.FONT_Google_sans_regular);
-        AdUtils.loadBannerAd(adView,EditorActivity.this);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
         colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
         colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
@@ -1362,7 +1356,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         adView = (AdView) dialog.findViewById(R.id.adView);
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
-        AdUtils.loadBannerAd(adView,EditorActivity.this);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
         colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
         TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
         colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
@@ -1479,6 +1473,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void launchGallery() {
+//        final ImageView selectedTextView = (ImageView) selectedView;
+//        if (selectedView == null) {
+//            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+//        } else {
+//            previousstate = selectedView;
+//        }
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
@@ -1529,7 +1529,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 imageView_background.destroyDrawingCache();
             }
             selected_picture = picturepath;
-            Glide.with(this).load(picturepath).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+            Glide.with(this).load(picturepath).asBitmap().crossFade().into(imageView_background);
+//            ImageView imageView = new ImageView(EditorActivity.this);
+//            imageView.setImageURI(fileurl);
+//            imageView.setOnTouchListener(this);
+////            imageView.setMaxWidth(600);
+////            imageView.setMaxHeight(600);
+//            core_editor_layout.addView(imageView);
 //            imageView_background.setImageResource(picturepath);
         }
     }
@@ -1635,11 +1641,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             if (selectedView != null) {
-                TextView selected = (TextView) selectedView;
-                float size = selected.getTextSize();
-                float factor = detector.getScaleFactor();
-                float product = size * factor;
-                selected.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
+                View selected = (View) selectedView;
+                if (selected instanceof TextView) {
+                    TextView selectedText = ((TextView) selected);
+                    float size = selectedText.getTextSize();
+                    float factor = detector.getScaleFactor();
+                    float product = size * factor;
+                    selectedText.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
+                }
+
                 return true;
             }
             return false;

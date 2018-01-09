@@ -107,6 +107,9 @@
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>
+    <string name="gradient">Gradient Text</string>
+    <string name="Linear">Linear</string>
+    <string name="radial">Radial</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
@@ -121,7 +124,8 @@
         <item>Frame Width</item>
         <item>Shadow Text</item>
         <item>Change Font</item>
-        <item>Symbol Fonts</item>
+        <item>Gradient Text</item>
+        <item>Text Frames</item>
     </string-array>
 
     <string-array name="Background_features">

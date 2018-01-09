@@ -1,128 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="@string/enter_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font3" />
-
-    <EditText
-        android:id="@+id/et_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rect"
-        android:padding="16dp" />
-
-    <TextView
-        android:id="@+id/tv_align_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/align"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/font1" />
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_start"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/start"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/bt_center"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/center"
-
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/bt_end"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/end"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/bt_add_bg"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_weight="1"
-        android:background="@drawable/rounded_rect"
-        android:text="@string/backgroundColor"
-        android:textColor="@color/colorAccent"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bt_close"
+        <TextView
+            android:id="@+id/tv_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/enter_text"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font3" />
 
-            android:text="@string/close"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/bt_done"
+        <EditText
+            android:id="@+id/et_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_rect"
+            android:padding="16dp"
+            android:layout_margin="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_align_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/align"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/font1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_start"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/start"
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/bt_center"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/center"
+
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/bt_end"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/end"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_add_bg"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_margin="@dimen/fab_margin"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
-            android:text="@string/done"
+            android:text="@string/backgroundColor"
+            android:textColor="@color/colorAccent"
+            android:visibility="gone" />
 
-            android:textColor="@color/colorAccent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+
+                android:text="@string/close"
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/bt_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/done"
+
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/bannerAdId"
+            ads:layout_anchorGravity="bottom">
+
+        </com.google.android.gms.ads.AdView>
+
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/bannerAdId"
-        ads:layout_anchorGravity="bottom">
-
-    </com.google.android.gms.ads.AdView>
-</LinearLayout>
+</ScrollView>

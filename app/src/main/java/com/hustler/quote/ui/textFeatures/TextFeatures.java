@@ -388,4 +388,9 @@ public class TextFeatures {
         String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);
         return localFonts;
     }
+
+    public static void setGradients(EditorActivity editorActivity, TextView selectedTextView) {
+        Dialog dialog=new Dialog(editorActivity,R.style.EditTextDialog);
+        dialog.setContentView(R.layout.geadient_text_layout);
+    }
 }
