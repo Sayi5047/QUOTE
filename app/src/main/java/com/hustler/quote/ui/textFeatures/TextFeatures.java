@@ -2,6 +2,8 @@ package com.hustler.quote.ui.textFeatures;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.RadialGradient;
@@ -531,6 +533,7 @@ public class TextFeatures {
                     LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors, position, Shader.TileMode.MIRROR);
                     shader_gradient[0] = lin_grad;
                     gradientPreviewText.getPaint().setShader(null);
+                    Bitmap bitmap= BitmapFactory.decodeResource(editorActivity.getResources(),AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity))
 
                     ((TextView)dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
                     gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
