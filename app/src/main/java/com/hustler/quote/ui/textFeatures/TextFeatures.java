@@ -3,15 +3,22 @@ package com.hustler.quote.ui.textFeatures;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Environment;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,10 +31,13 @@ import com.hustler.quote.ui.adapters.LocalFontAdapter;
 import com.hustler.quote.ui.adapters.SymbolFontAdapter;
 import com.hustler.quote.ui.pojo.FontSelected;
 import com.hustler.quote.ui.utils.AdUtils;
+import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
+
+import static android.view.View.GONE;
 
 /**
  * Created by anvaya5 on 15/12/2017.
@@ -79,7 +89,7 @@ public class TextFeatures {
         shadowRadiusSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.shadow_radius_seekbar);
         posXSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_x_seekbar);
         posYSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_y_seekbar);
-        AdUtils.loadBannerAd(adView,activity);
+        AdUtils.loadBannerAd(adView, activity);
         rvShadowColor = (RecyclerView) dialog.findViewById(R.id.rv_shadow_color);
         rvShadowColor.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
@@ -261,7 +271,7 @@ public class TextFeatures {
         tvSymbolFonts = (TextView) dialog.findViewById(R.id.tv_symbol_fonts);
         tvDownloadedFonts = (TextView) dialog.findViewById(R.id.tv_downloaded_fonts);
         adView = (AdView) dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView,editorActivity);
+        AdUtils.loadBannerAd(adView, editorActivity);
         rvDownloadedFont = (RecyclerView) dialog.findViewById(R.id.rv_downloaded_font);
         rvAppFont = (RecyclerView) dialog.findViewById(R.id.rv_app_font);
         rvSymbolFont = (RecyclerView) dialog.findViewById(R.id.rv_symbol_font);
@@ -389,8 +399,170 @@ public class TextFeatures {
         return localFonts;
     }
 
-    public static void setGradients(EditorActivity editorActivity, TextView selectedTextView) {
-        Dialog dialog=new Dialog(editorActivity,R.style.EditTextDialog);
+    public static void setGradients(final EditorActivity editorActivity, final TextView selectedTextView) {
+        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.geadient_text_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.setCancelable(false);
+
+        AdView adView;
+        LinearLayout root;
+        final TextView gradientText;
+        final TextView gradientPreviewText;
+        TextView gradientTypeText;
+        final RadioGroup rdGroup;
+        final RadioButton rbJpeg;
+        RadioButton rbPng;
+        final Button preview;
+        Button btCancel;
+        Button btApply;
+        final TextView demoGradient;
+        final ImageView demoColor1;
+        final ImageView demoColor2;
+        final TextView demoColor1Tv;
+        final TextView demoColor2Tv;
+        final RecyclerView colorsRecycler;
+        final ColorsAdapter colorsAdapter;
+        final ColorsAdapter colorsAdapter2;
+        final GradientDrawable[] output_drawable = new GradientDrawable[1];
+        final Shader[] shader_gradient = new Shader[1];
+        final int[] firstColor = {0};
+        final int[] secondColor = {0};
+        final int[] selected_color = {0};
+        final int[] colors;
+
+        root = (LinearLayout) dialog.findViewById(R.id.root);
+        gradientText = (TextView) dialog.findViewById(R.id.gradient_text);
+        gradientPreviewText = (TextView) dialog.findViewById(R.id.gradient_preview_text);
+        gradientTypeText = (TextView) dialog.findViewById(R.id.gradient_type_text);
+        rdGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
+        rbJpeg = (RadioButton) dialog.findViewById(R.id.rb_jpeg);
+        rbPng = (RadioButton) dialog.findViewById(R.id.rb_png);
+        preview = (Button) dialog.findViewById(R.id.preview);
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
+        btApply = (Button) dialog.findViewById(R.id.bt_apply);
+        demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
+        demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
+        demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
+        demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
+        demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
+        colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
+        AdUtils.loadBannerAd(adView, editorActivity);
+        dialog.setCancelable(false);
+        colorsRecycler.setVisibility(GONE);
+        preview.setVisibility(GONE);
+
+        int[] colors2 = {Color.RED,Color.YELLOW};
+        float[] position = {0, 1};
+        LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors2, position, Shader.TileMode.MIRROR);
+        shader_gradient[0] = lin_grad;
+       gradientPreviewText.getPaint().setShader(shader_gradient[0]);
+
+        colorsRecycler.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
+        colorsAdapter = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                firstColor[0] = color;
+                demoColor1.setBackgroundColor(color);
+                demoColor1Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+            }
+        });
+        colorsAdapter2 = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                secondColor[0] = color;
+                demoColor2.setBackgroundColor(color);
+                demoColor2Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+        demoColor1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter);
+            }
+        });
+
+        demoColor2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter2);
+            }
+        });
+        demoColor1Tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter);
+            }
+        });
+
+        demoColor2Tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter2);
+            }
+        });
+
+        preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rdGroup.getCheckedRadioButtonId() == rbJpeg.getId()) {
+                    int[] colors = {Color.RED,Color.YELLOW};
+                    float[] position = {0, 1};
+                    LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors, position, Shader.TileMode.MIRROR);
+                    shader_gradient[0] = lin_grad;
+                    gradientPreviewText.getPaint().setShader(null);
+
+                    ((TextView)dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
+                    gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
+
+                } else {
+                    int[] colors = {firstColor[0], secondColor[0]};
+                    RadialGradient lin_grad = new RadialGradient(0, 3, 5, colors[0], colors[1], Shader.TileMode.REPEAT);
+                    shader_gradient[0] = lin_grad;
+                    ((TextView)dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
+                    gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
+
+                }
+            }
+        });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shader_gradient[0] != null) {
+                    selectedTextView.getPaint().setShader(shader_gradient[0]);
+                    dialog.dismiss();
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.selecte_gradient_to_apply));
+                }
+            }
+        });
+
+        dialog.show();
     }
 }

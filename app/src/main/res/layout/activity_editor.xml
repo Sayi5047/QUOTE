@@ -70,14 +70,13 @@
         android:layout_height="0dp"
         android:layout_below="@id/top_save_and_share_bar"
         android:layout_weight="8"
-        android:background="@android:color/transparent"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/quote_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@android:color/white"
             android:gravity="center">
 
             <Button
@@ -111,6 +110,7 @@
                 android:id="@+id/arena_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <TextView

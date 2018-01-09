@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/root">
 
     <TextView
         android:id="@+id/gradient_text"
@@ -14,41 +15,162 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/font2" />
+
     <TextView
         android:id="@+id/gradient_preview_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="16dp"
         android:text="@string/gradient"
         android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:padding="16dp"
         android:textSize="@dimen/font3"
-        android:textStyle="bold"/>
+         />
+
+    <TextView
+        android:id="@+id/gradient_type_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="@string/type_gra"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font1" />
+
     <RadioGroup
         android:id="@+id/rd_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:textAlignment="center"
-        >
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:textAlignment="center">
+
         <RadioButton
             android:id="@+id/rb_jpeg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="@string/Linear"
-            android:textColor="@color/colorAccent"
-            android:checked="true"/>
+            android:textColor="@color/colorAccent" />
+
         <RadioButton
             android:id="@+id/rb_png"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/radial"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
     </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/demo_color_1"
+            android:layout_width="65dp"
+            android:layout_height="45dp"
+            android:layout_margin="4dp"
+            android:background="@color/black_overlay"
+            android:elevation="4dp" />
+
+        <ImageView
+            android:id="@+id/demo_color_2"
+            android:layout_width="65dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/demo_color_1"
+            android:layout_margin="4dp"
+            android:background="@color/black_overlay"
+            android:elevation="4dp" />
+
+        <TextView
+            android:id="@+id/demo_color_1_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/demo_color_1"
+            android:text="@string/select_to_apply"
+            android:textAlignment="center"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/font2" />
+
+        <TextView
+            android:id="@+id/demo_color_2_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/demo_color_1"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/demo_color_2"
+            android:text="@string/select_to_apply"
+            android:textAlignment="center"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/font2" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/colors_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/demo_color_2" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/colors_recycler"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_rect"
+        android:padding="@dimen/padding1"
+        android:text="@string/previewGra"
+        android:textAllCaps="false" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/preview"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/bannerAdId"
+        ads:layout_anchorGravity="bottom">
+
+    </com.google.android.gms.ads.AdView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/adView"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <Button
+            android:id="@+id/bt_cancel"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_rect"
+            android:text="@string/cancel"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_apply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/preview"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_rect"
+            android:text="@string/apply"
+            android:textAllCaps="false" />
+    </LinearLayout>
 
 </LinearLayout>

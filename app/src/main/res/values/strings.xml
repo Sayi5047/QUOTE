@@ -110,6 +110,15 @@
     <string name="gradient">Gradient Text</string>
     <string name="Linear">Linear</string>
     <string name="radial">Radial</string>
+    <string name="Fit">ImageFittype</string>
+    <string name="LaunchGa">Launch Gallery</string>
+    <string name="CenterCrop">CenterCrop</string>
+    <string name="FitC">FitCenter</string>
+    <string name="None">None</string>
+    <string name="Select_how_to_fit">Please, selecte image fitype before apply image as background.</string>
+    <string name="type_gra">Gradient Type</string>
+    <string name="previewGra">Preview Gradient text</string>
+    <string name="selecte_gradient_to_apply">Select the gradient style to applt it.</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

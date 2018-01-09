@@ -39,6 +39,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -105,6 +107,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private SeekBar seekBar;
     private Button clear_button;
 
+    private int imagefittype;
     RecyclerView features_recyclerview;
     Features_adapter features_adapter;
 
@@ -512,7 +515,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[9])) {
             applyFont(array);
         } else if (feature.equalsIgnoreCase(array[10])) {
-//            symbolFont(array);
+            gradienteText(array);
         }
     }
 
@@ -520,8 +523,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
             current_Bg_feature = bgfeaturesArray[0];
             if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
-                // TODO: 09/01/2018 implement dialog for choosing image fit type
-                launchGallery();
+                handle_gallery_dialog(EditorActivity.this);
             } else {
                 requestAppPermissions_for_launch_gallery();
             }
@@ -553,6 +555,47 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
 
         }
+    }
+
+    private void handle_gallery_dialog(EditorActivity editorActivity) {
+
+        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.image_fit_type_layout_dialog);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.setCancelable(false);
+
+        AdView adView;
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        LinearLayout root;
+        final RadioGroup radioGroup;
+        final RadioButton crop, fit, none;
+        Button launch;
+        root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
+        radioGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
+        none = (RadioButton) dialog.findViewById(R.id.rb_none);
+        crop = (RadioButton) dialog.findViewById(R.id.rb_centerCrop);
+        fit = (RadioButton) dialog.findViewById(R.id.rb_fitcenter);
+        launch = (Button) dialog.findViewById(R.id.bt_save);
+        TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
+        launch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (crop.getId() == radioGroup.getCheckedRadioButtonId()) {
+                    imagefittype = 1;
+                } else if (fit.getId() == radioGroup.getCheckedRadioButtonId()) {
+                    imagefittype = 2;
+                } else {
+                    imagefittype = 3;
+                }
+                launchGallery();
+                dialog.cancel();
+
+            }
+        });
+        dialog.show();
+
     }
 
     /*Seekbar methods*/
@@ -1529,7 +1572,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 imageView_background.destroyDrawingCache();
             }
             selected_picture = picturepath;
-            Glide.with(this).load(picturepath).asBitmap().crossFade().into(imageView_background);
+            if (imagefittype == 3) {
+                Glide.with(this).load(picturepath).asBitmap().crossFade().into(imageView_background);
+
+            } else if (imagefittype == 2) {
+                Glide.with(this).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
+
+            } else {
+                Glide.with(this).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
+
+            }
 //            ImageView imageView = new ImageView(EditorActivity.this);
 //            imageView.setImageURI(fileurl);
 //            imageView.setOnTouchListener(this);
@@ -1567,7 +1619,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case MY_PERMISSION_REQUEST_Launch_gallery: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    launchGallery();
+                    handle_gallery_dialog(EditorActivity.this);
                 }
             }
             break;
