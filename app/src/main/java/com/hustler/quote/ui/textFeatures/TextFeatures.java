@@ -532,8 +532,10 @@ public class TextFeatures {
                     float[] position = {0, 1};
                     LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors, position, Shader.TileMode.MIRROR);
                     shader_gradient[0] = lin_grad;
+                    gradientPreviewText.setText(null);
+                    gradientPreviewText.setText("SOMETHING");
                     gradientPreviewText.getPaint().setShader(null);
-                    Bitmap bitmap= BitmapFactory.decodeResource(editorActivity.getResources(),AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
+//                    Bitmap bitmap= BitmapFactory.decodeResource(editorActivity.getResources(), AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
 
                     ((TextView)dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
                     gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
