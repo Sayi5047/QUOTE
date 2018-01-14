@@ -101,40 +101,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void loadAds() {
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("A5B1E467FD401973F9F69AD2CCC13C30").build();
         mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener()
-        {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"AD LOADED");
-            }
 
-            @Override
-            public void onAdClicked() {
-                super.onAdClicked();
-                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"AD CLICKED");
-            }
-
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"AD CLOSED");
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"Ad Failed TO Load");
-            }
-
-            @Override
-            public void onAdImpression() {
-                super.onAdImpression();
-                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,"Ad IMPRESSION");
-
-            }
-
-        });
     }
 
     private void setAnimation(View view) {

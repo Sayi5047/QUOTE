@@ -126,7 +126,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
     private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
         final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
-        dialog.setContentView(R.layout.user_work_show_item);
+        dialog.setContentView(View.inflate(getActivity().getApplicationContext(),R.layout.user_work_show_item,null));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 //        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE);

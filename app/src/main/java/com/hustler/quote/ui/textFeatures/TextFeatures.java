@@ -2,8 +2,6 @@ package com.hustler.quote.ui.textFeatures;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.RadialGradient;
@@ -456,11 +454,11 @@ public class TextFeatures {
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
 
-        int[] colors2 = {Color.RED,Color.YELLOW};
+        int[] colors2 = {Color.RED, Color.YELLOW};
         float[] position = {0, 1};
         LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors2, position, Shader.TileMode.MIRROR);
         shader_gradient[0] = lin_grad;
-       gradientPreviewText.getPaint().setShader(shader_gradient[0]);
+        gradientPreviewText.getPaint().setShader(shader_gradient[0]);
 
         colorsRecycler.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
         colorsAdapter = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
@@ -528,7 +526,7 @@ public class TextFeatures {
             @Override
             public void onClick(View v) {
                 if (rdGroup.getCheckedRadioButtonId() == rbJpeg.getId()) {
-                    int[] colors = {Color.RED,Color.YELLOW};
+                    int[] colors = {firstColor[0], secondColor[0]};
                     float[] position = {0, 1};
                     LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors, position, Shader.TileMode.MIRROR);
                     shader_gradient[0] = lin_grad;
@@ -537,14 +535,14 @@ public class TextFeatures {
                     gradientPreviewText.getPaint().setShader(null);
 //                    Bitmap bitmap= BitmapFactory.decodeResource(editorActivity.getResources(), AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
 
-                    ((TextView)dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
+                    ((TextView) dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
                     gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
 
                 } else {
                     int[] colors = {firstColor[0], secondColor[0]};
                     RadialGradient lin_grad = new RadialGradient(0, 3, 5, colors[0], colors[1], Shader.TileMode.REPEAT);
                     shader_gradient[0] = lin_grad;
-                    ((TextView)dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
+                    ((TextView) dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
                     gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
 
                 }
@@ -563,7 +561,7 @@ public class TextFeatures {
                     selectedTextView.getPaint().setShader(shader_gradient[0]);
                     dialog.dismiss();
                 } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.selecte_gradient_to_apply));
+                    Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_to_apply));
                 }
             }
         });
