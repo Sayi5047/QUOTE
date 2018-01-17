@@ -9,11 +9,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.networkhandler.MySingleton;
+import com.hustler.quote.ui.pojo.ImagesResponse;
 import com.hustler.quote.ui.pojo.RandomQuotes;
-import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import org.json.JSONObject;
@@ -59,9 +58,30 @@ public class Restutility {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         listener.onError(activity.getResources().getString(R.string.no_quotes_available));
-                        Toast_Snack_Dialog_Utils.show_ShortToast(activity,error.getMessage());
+                        Toast_Snack_Dialog_Utils.show_ShortToast(activity, error.getMessage());
                     }
                 });
         MySingleton.addJsonObjRequest(activity, jsonObjectRequest);
+    }
+
+    public void getRandomImages(final Context context, final ImagesApiResponceListner listner,final String request) {
+        JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ImagesResponse imagesResponse = new Gson().fromJson(response.toString(), ImagesResponse.class);
+                        if (imagesResponse.hits.size() > 0) {
+                            listner.onSuccess(imagesResponse.hits);
+                        } else {
+                            listner.onError(context.getString(R.string.no_images));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listner.onError(error.getMessage());
+            }
+        });
+        MySingleton.addJsonObjRequest(context, jsonObject);
     }
 }

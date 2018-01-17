@@ -8,9 +8,11 @@ import android.graphics.Color;
 
 public class Constants {
     public static final String API_TOKEN = "Token token=28e954724c62237845fec852bc2b15c7";
+    public static final String API_IMAGES_TOKEN = "7732312-2d2304a57655fc65d52bde5f1";
     public static final String API_FAVQ_RANDOM_QUOTES = "https://favqs.com/api/quotes/";
     public static final String API_FAVQ_FILTER_QUOTES = "https://favqs.com/api/quotes/?filter=";
     public static final String API_FAVQ_FLTER_QUOTES = "https://favqs.com/api/quotes/:";
+    public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key="+API_IMAGES_TOKEN;
 
     public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_SKETCHDARK = "fonts/sketch_dark.ttf";

@@ -2,6 +2,7 @@ package com.hustler.quote.ui.activities;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -29,6 +30,7 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -39,9 +41,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +56,11 @@ import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
+import com.hustler.quote.ui.adapters.ImagesAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.apiRequestLauncher.ImagesApiResponceListner;
+import com.hustler.quote.ui.apiRequestLauncher.Restutility;
+import com.hustler.quote.ui.pojo.ImagesFromPixaBay;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
@@ -65,6 +73,8 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
@@ -548,13 +558,113 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             applyWhiteFilter();
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
             current_Bg_feature = bgfeaturesArray[5];
-            selected_picture = null;
+//            selected_picture = null;
             bringGradients();
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
-
+            current_Bg_feature = bgfeaturesArray[6];
+//            selected_picture = null;
+            seachImages();
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
 
         }
+    }
+
+    private void seachImages() {
+        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog_non_floater);
+        dialog.setContentView(R.layout.search_images);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.setCancelable(false);
+
+        AdView adView;
+        adView = (AdView) dialog.findViewById(R.id.adView);
+
+
+        RelativeLayout scrool;
+        RelativeLayout root;
+        TextView searchHeader;
+        LinearLayout searchBoxView;
+        final EditText searchBox;
+        ImageView searchButton;
+        final ProgressBar progressBar;
+        final RecyclerView imagesRecycler;
+        TextView diclaimer;
+        ImagesAdapter imagesAdapter;
+
+
+        scrool = (RelativeLayout) dialog.findViewById(R.id.scrool);
+        root = (RelativeLayout) dialog.findViewById(R.id.root);
+        searchHeader = (TextView) dialog.findViewById(R.id.search_header);
+        searchBoxView = (LinearLayout) dialog.findViewById(R.id.search_Box_view);
+        searchBox = (EditText) dialog.findViewById(R.id.search_box);
+        searchButton = (ImageView) dialog.findViewById(R.id.search_button);
+        progressBar = (ProgressBar) dialog.findViewById(R.id.progress_bar);
+        imagesRecycler = (RecyclerView) dialog.findViewById(R.id.images_recycler);
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        diclaimer = (TextView) dialog.findViewById(R.id.diclaimer);
+        getRandomImages(null, imagesRecycler, progressBar,dialog);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchBox.getText() == null) {
+                    searchBox.setError(getString(R.string.please_enter));
+                } else {
+                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar,dialog);
+                }
+            }
+        });
+
+        TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                    dialog.dismiss();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+
+    public void getRandomImages(String word, final RecyclerView recyclerView, final ProgressBar progressBar,final Dialog dialog) {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setAdapter(null);
+        recyclerView.setVisibility(GONE);
+        recyclerView.setLayoutManager(new GridLayoutManager(EditorActivity.this, 2));
+
+        String request;
+        if (word == null) {
+            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&per_page=150"+"&order=popular";
+        } else {
+            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150"+"&order=popular";
+
+        }
+        new Restutility(activity).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
+            @Override
+            public void onSuccess(List<ImagesFromPixaBay> images) {
+                progressBar.setVisibility(GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setAdapter(new ImagesAdapter(EditorActivity.this, (ArrayList<ImagesFromPixaBay>) images, new ImagesAdapter.ImagesOnClickListner() {
+                    @Override
+                    public void onImageClicked(String previreLink, String Biglink) {
+                        selected_picture = Biglink;
+                        imageView_background.setBackground(null);
+                        Glide.with(EditorActivity.this).load(Biglink).asBitmap().centerCrop().into(imageView_background);
+                        dialog.dismiss();
+                    }
+                }));
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, message);
+            }
+        }, request);
     }
 
     private void handle_gallery_dialog(EditorActivity editorActivity) {
@@ -1484,6 +1594,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (output_drawable[0] == null) {
                     output_drawable[0] = AnimUtils.createDrawable(firstColor[0], secondColor[0], EditorActivity.this);
                 }
+                selected_picture = null;
                 imageView_background.setBackground(output_drawable[0]);
             }
         });

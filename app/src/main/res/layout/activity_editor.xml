@@ -76,33 +76,21 @@
             android:id="@+id/quote_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
             android:gravity="center">
 
-            <Button
-                android:id="@+id/bt_clear"
-                android:layout_width="80dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/fontsmall"
-                android:alpha="0.5"
-                android:background="@drawable/rounded_rect"
-                android:elevation="4dp"
-                android:text="@string/clear"
-                android:textColor="@color/colorAccent"
-                android:textSize="8dp"
-                android:visibility="gone" />
+
             <!--COLORED FILTER-->
             <ImageView
                 android:id="@+id/imageView_background"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:elevation="4dp"/>
             <!--BLURR-->
             <ImageView
                 android:id="@+id/iv_light_effect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:elevation="4dp"/>
             <!--QUOTE BODY-->
 
             <!--QUOTE_AUTHOR_PART-->
@@ -110,8 +98,8 @@
                 android:id="@+id/arena_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:elevation="4dp">
 
                 <TextView
                     android:id="@+id/tv_Quote_Body"
@@ -124,7 +112,20 @@
                     android:visibility="gone"
                     tools:text="Great Power Comes with Great Responsibilities" />
 
-
+                <Button
+                    android:id="@+id/bt_clear"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_margin="@dimen/fontsmall"
+                    android:alpha="0.5"
+                    android:background="@drawable/rounded_rect"
+                    android:elevation="8dp"
+                    android:text="@string/clear"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="8dp"
+                    android:visibility="gone" />
                 <TextView
                     android:id="@+id/tv_Quote_Author"
                     android:layout_width="match_parent"
@@ -157,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:elevation="4dp"
                 android:layout_marginBottom="4dp"
                 android:alpha="0.6"
                 android:background="@android:color/background_light"

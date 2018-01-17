@@ -119,6 +119,10 @@
     <string name="type_gra">Gradient Type</string>
     <string name="previewGra">Preview Gradient text</string>
     <string name="selecte_gradient_to_apply">Select the gradient style to applt it.</string>
+    <string name="no_images">Sorry,No images are available</string>
+    <string name="Image_search">Image Search</string>
+    <string name="credits">Images are powered by www.pixabay.com</string>
+    <string name="enter_search">Nature,pets,Romantic etc..</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
@@ -144,6 +148,7 @@
         <item>Black filter</item>
         <item>White filter</item>
         <item>Gradient Bg</item>
+        <item>Search Bg</item>
         <!--<item>Vigenette</item>-->
         <!--<item>Add Emoji</item>-->
         <!--<item>Add Signature</item>-->
