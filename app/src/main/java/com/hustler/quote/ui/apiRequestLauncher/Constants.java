@@ -33,6 +33,7 @@ public class Constants {
     public static final String PNG = "PNG";
     public static final String IS_DB_LOADED_PREFERENCE = "is_db_loaded_key";
     public static final String IS_USER_SAW_INRODUCTION = "is_user_saw_intro_key";
+    public static final String SAHRED_PREFS_DEVICE_HEIGHT_KEY = "shared_prefs_device_height";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
     public static final String CATEGORIES_STRING = "Age\n" + "Alone\n" +

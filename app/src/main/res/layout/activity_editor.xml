@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-
     android:orientation="vertical"
     tools:context="com.hustler.quote.ui.activities.EditorActivity">
 
@@ -13,7 +12,7 @@
     <LinearLayout
         android:id="@+id/top_save_and_share_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
         android:layout_weight="0.5"
@@ -63,117 +62,123 @@
             android:src="@drawable/ic_menu_share" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/Main_editor_arena"
+<RelativeLayout
+    android:id="@+id/quote_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/top_save_and_share_bar"
+    android:layout_gravity="center"
+    android:layout_marginBottom="115dp"
+    android:gravity="center"
+    >
+    <RelativeLayout
+        android:id="@+id/quote_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/top_save_and_share_bar"
+        android:layout_height="wrap_content"
+
         android:layout_weight="8"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/quote_layout"
+
+        <!--COLORED FILTER-->
+        <ImageView
+            android:id="@+id/imageView_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
 
+            android:elevation="4dp" />
+        <!--BLURR-->
+        <ImageView
+            android:id="@+id/iv_light_effect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="4dp" />
+        <!--QUOTE BODY-->
 
-            <!--COLORED FILTER-->
-            <ImageView
-                android:id="@+id/imageView_background"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="4dp"/>
-            <!--BLURR-->
-            <ImageView
-                android:id="@+id/iv_light_effect"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="4dp"/>
-            <!--QUOTE BODY-->
-
-            <!--QUOTE_AUTHOR_PART-->
-            <RelativeLayout
-                android:id="@+id/arena_text_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:elevation="4dp">
-
-                <TextView
-                    android:id="@+id/tv_Quote_Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/font3_5"
-                    android:visibility="gone"
-                    tools:text="Great Power Comes with Great Responsibilities" />
-
-                <Button
-                    android:id="@+id/bt_clear"
-                    android:layout_width="80dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="end"
-                    android:layout_margin="@dimen/fontsmall"
-                    android:alpha="0.5"
-                    android:background="@drawable/rounded_rect"
-                    android:elevation="8dp"
-                    android:text="@string/clear"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="8dp"
-                    android:visibility="gone" />
-                <TextView
-                    android:id="@+id/tv_Quote_Author"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="center"
-                    android:gravity="top"
-                    android:paddingTop="@dimen/elevation8"
-                    android:textAlignment="center"
-
-                    android:textColor="@color/textColor"
-
-                    android:textSize="@dimen/font2"
-                    android:visibility="gone"
-                    tools:text="Spiderman" />
-
-                <ImageView
-                    android:id="@+id/quote_anim"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_above="@id/tv_Quote_Author"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/elevation8"
-                    android:visibility="gone" />
-            </RelativeLayout>
+        <!--QUOTE_AUTHOR_PART-->
+        <RelativeLayout
+            android:id="@+id/arena_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="4dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/mark_quotzy_tv"
+                android:id="@+id/tv_Quote_Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/font3_5"
+                android:visibility="gone"
+                tools:text="Great Power Comes with Great Responsibilities" />
+
+            <Button
+                android:id="@+id/bt_clear"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/fontsmall"
+                android:alpha="0.5"
+                android:background="@drawable/rounded_rect"
+                android:elevation="8dp"
+                android:text="@string/clear"
+                android:textColor="@color/colorAccent"
+                android:textSize="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_Quote_Author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:elevation="4dp"
-                android:layout_marginBottom="4dp"
-                android:alpha="0.6"
-                android:background="@android:color/background_light"
-                android:text="@string/made_with_quotzy"
+                android:layout_gravity="center"
+                android:gravity="top"
+                android:paddingTop="@dimen/elevation8"
                 android:textAlignment="center"
-                android:textColor="@color/textColor" />
 
+                android:textColor="@color/textColor"
+
+                android:textSize="@dimen/font2"
+                android:visibility="gone"
+                tools:text="Spiderman" />
+
+            <ImageView
+                android:id="@+id/quote_anim"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@id/tv_Quote_Author"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/elevation8"
+                android:visibility="gone" />
         </RelativeLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/mark_quotzy_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"
+            android:alpha="0.6"
+            android:background="@android:color/background_light"
+            android:elevation="4dp"
+            android:text="@string/made_with_quotzy"
+            android:textAlignment="center"
+            android:textColor="@color/textColor" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/Main_editor_arena"
-        android:layout_weight="2">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/quote_parent"
+        android:layout_marginTop="-105dp"
+        >
 
         <LinearLayout
             android:id="@+id/text_and_background_layout"
@@ -182,7 +187,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/rect_black_border"
             android:orientation="horizontal"
-            android:padding="4dp">
+           >
 
             <TextView
                 android:id="@+id/text_field"
@@ -218,7 +223,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/rect_black_border"
             android:orientation="horizontal"
-            android:padding="4dp"
+            android:padding="6dp"
             android:visibility="gone">
 
             <TextView
@@ -249,9 +254,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/content_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@id/text_and_background_layout"
-            android:layout_marginStart="4dp" />
+
+            />
 
         <!--LEVEL 2 SLIDER-->
 
@@ -271,75 +277,75 @@
             android:visibility="gone" />
 
     </RelativeLayout>
-    <!--UN USED-->
-    <LinearLayout
-        android:id="@+id/top_editor_navigaotor_level1"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
+    <!--&lt;!&ndash;UN USED&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:id="@+id/top_editor_navigaotor_level1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="42dp"-->
 
-        android:background="@android:color/transparent"
-        android:padding="4dp"
-        android:visibility="gone">
-
-
-        <ImageView
-            android:id="@+id/font_style_changer_module"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:src="@drawable/ic_format_color_text_black_24dp" />
-
-        <ImageView
-            android:id="@+id/font_background_chnager_module"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:padding="1dp"
-
-            android:src="@drawable/ic_image_black_24dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:padding="1dp"
-            android:src="@drawable/ic_save_black_24dp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:padding="1dp"
-            android:src="@drawable/ic_share_accent_24dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/fontsize_change_module"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone"
-
-        >
+    <!--android:background="@android:color/transparent"-->
+    <!--android:padding="4dp"-->
+    <!--android:visibility="gone">-->
 
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_done_black_24dp"
-            android:visibility="gone" />
+    <!--<ImageView-->
+    <!--android:id="@+id/font_style_changer_module"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="2"-->
+    <!--android:src="@drawable/ic_format_color_text_black_24dp" />-->
 
-    </LinearLayout>
-    <!--UN USED-->
+    <!--<ImageView-->
+    <!--android:id="@+id/font_background_chnager_module"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="2"-->
+    <!--android:padding="1dp"-->
+
+    <!--android:src="@drawable/ic_image_black_24dp" />-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="2"-->
+    <!--android:padding="1dp"-->
+    <!--android:src="@drawable/ic_save_black_24dp" />-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="2"-->
+    <!--android:padding="1dp"-->
+    <!--android:src="@drawable/ic_share_accent_24dp" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/fontsize_change_module"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:visibility="gone"-->
+
+    <!--&gt;-->
 
 
-</LinearLayout><!--DUMPING ZONE-->
+    <!--<ImageView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="1"-->
+    <!--android:src="@drawable/ic_done_black_24dp"-->
+    <!--android:visibility="gone" />-->
+
+    <!--</LinearLayout>-->
+    <!--&lt;!&ndash;UN USED&ndash;&gt;-->
+
+
+</RelativeLayout><!--DUMPING ZONE-->
 
     <!--<android.support.v4.widget.NestedScrollView--><!--android:id="@+id/bottomsheet"--><!--android:layout_width="match_parent"--><!--android:layout_height="80dp"--><!--android:background="@color/textColor"--><!--android:clipToPadding="true"--><!--android:orientation="vertical"--><!--android:visibility="gone"--><!--app:layout_behavior="@string/bottom_sheet_behavior">-->
 

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -24,13 +23,16 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     String arrayName;
     ArrayList<String> itemstobe_used = new ArrayList<>();
     String current_item = null;
+    boolean isText;
 
 
-    public Features_adapter(Activity activity, String arrayName, int itemsfromActivity, OnFeature_ItemClickListner listner) {
+    public Features_adapter(Activity activity, String arrayName, int itemsfromActivity, OnFeature_ItemClickListner listner, boolean isText) {
         this.activity = activity;
         this.itemsfromActivity_Count = itemsfromActivity;
         this.listner = listner;
         this.arrayName = arrayName;
+        this.isText = isText;
+
         prepare_text_features();
     }
 
@@ -42,7 +44,13 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
 
     @Override
     public FeaturesViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new FeaturesViewholder(activity.getLayoutInflater().inflate((R.layout.features_item), parent, false));
+        if (isText) {
+            return new FeaturesViewholder(activity.getLayoutInflater().inflate((R.layout.features_item), parent, false));
+
+        } else {
+            return new FeaturesViewholder(activity.getLayoutInflater().inflate((R.layout.feature_item_2), parent, false));
+
+        }
     }
 
     @Override

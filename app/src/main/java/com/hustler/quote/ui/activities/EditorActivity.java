@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -28,6 +30,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -89,10 +92,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     Window windowManager;
     private ImageView light_effect_filter_IV;
-    private LinearLayout root_layout;
+    private RelativeLayout root_layout;
 
-    private ImageView font_module;
-    private ImageView background_image_module;
+    //    private ImageView font_module;
+//    private ImageView background_image_module;
     private ImageView font_size_changer;
     private ImageView close_text_size;
     private ImageView save_work_button;
@@ -147,6 +150,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     ScaleGestureDetector scaleGestureDetector;
     private boolean isFromEdit_Activity;
     private String selected_picture;
+    //    private LinearLayout main_editor_layout;
+    public int deviceHeight;
+    private boolean isHeightMeasured = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +162,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         findViews();
         getIntentData();
         setViews();
+
     }
 
     @Override
@@ -169,18 +177,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void findViews() {
 //        All layouts
-        root_layout = (LinearLayout) findViewById(R.id.root_Lo);
+        root_layout = (RelativeLayout) findViewById(R.id.root_Lo);
         windowManager = this.getWindow();
         windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
         quoteLayout = (RelativeLayout) findViewById(R.id.quote_layout);
         text_and_bg_layout = (LinearLayout) findViewById(R.id.text_and_background_layout);
+//        main_editor_layout = (LinearLayout) findViewById(R.id.Main_editor_arena);
         close_and_done_layout = (LinearLayout) findViewById(R.id.close_and_done_layout);
 
 //      level 1 top bar buttons
-        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
-        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
+//        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
+//        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
         save_work_button = (ImageView) findViewById(R.id.save_work_button);
         share_work_button = (ImageView) findViewById(R.id.font_share_module);
         delete_view_button = (ImageView) findViewById(R.id.delete_view_button);
@@ -207,18 +216,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         core_editor_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
         clear_button = (Button) findViewById(R.id.bt_clear);
 
-
         scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
-
-
-
-
-
-
-
 /*setting on click listners */
-        font_module.setOnClickListener(this);
-        background_image_module.setOnClickListener(this);
+//        font_module.setOnClickListener(this);
+//        background_image_module.setOnClickListener(this);
         text_layout.setOnClickListener(this);
         background_layout.setOnClickListener(this);
         seekBar.setOnSeekBarChangeListener(this);
@@ -233,6 +234,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
         setText_Features_rv();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (isHeightMeasured) {
+            return;
+        } else {
+
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).edit();
+            editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
+            editor.commit();
+            isHeightMeasured = true;
+        }
     }
 
     private void setViews() {
@@ -444,21 +458,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void setBackground_features_rv() {
         current_module = Constants.BG;
         text_layout.setTextColor(getResources().getColor(R.color.black_overlay));
-        background_layout.setTextColor(getResources().getColor(android.R.color.black));
+        background_layout.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
         background_layout.setTextSize(16.0f);
         text_layout.setTextSize(12.0f);
         features_recyclerview.setAdapter(null);
         features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
 
         convertFeatures(getResources().getStringArray(R.array.Background_features));
-        features_adapter = new Features_adapter(this, "Background_features", getResources().getStringArray(R.array.Background_features).length, new Features_adapter.OnFeature_ItemClickListner() {
-            @Override
-            public void onItemClick(String clickedItem) {
+        features_adapter = new Features_adapter(this, "Background_features",
+                getResources().getStringArray(R.array.Background_features).length,
+                new Features_adapter.OnFeature_ItemClickListner() {
+                    @Override
+                    public void onItemClick(String clickedItem) {
 //                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
-                enable_Selected_Background_Features(clickedItem, getResources().getStringArray(R.array.Background_features));
+                        enable_Selected_Background_Features(clickedItem, getResources().getStringArray(R.array.Background_features));
 
-            }
-        });
+                    }
+                }, false);
 
         features_recyclerview.setAdapter(features_adapter);
         features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
@@ -472,7 +488,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_layout.setTextSize(12.0f);
 
         background_layout.setTextColor(getResources().getColor(R.color.black_overlay));
-        text_layout.setTextColor(getResources().getColor(android.R.color.black));
+        text_layout.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
         features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
         convertFeatures(getResources().getStringArray(R.array.Background_features));
         features_recyclerview.setAdapter(null);
@@ -484,7 +501,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
                 enable_Selected_Text_Feature(clickedItem, getResources().getStringArray(R.array.Text_features));
             }
-        });
+        }, true);
 
         features_recyclerview.setAdapter(features_adapter);
         features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
@@ -527,14 +544,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[10])) {
             gradienteText(array);
         } else if (feature.equalsIgnoreCase(array[11])) {
-            setCanvasSize(array);
+            setCanvasSize(array, PreferenceManager
+                    .getDefaultSharedPreferences(EditorActivity.this)
+                    .getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
         }
     }
 
-    private void setCanvasSize(String[] array) {
-        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog_non_floater);
+    private void setCanvasSize(String[] array, final int deviceHeight) {
+        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.canvas_size_dialog_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         dialog.setCancelable(false);
         LinearLayout root;
@@ -547,11 +566,121 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         sizesRv = (RecyclerView) dialog.findViewById(R.id.sizes_rv);
         AdView adView;
         adView = (AdView) dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView,EditorActivity.this);
-        TextUtils.findText_and_applyTypeface(root,EditorActivity.this);
-        sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this,2));
-        sizesRv.setAdapter(new SizesAdapter(EditorActivity.this,new OnSizeClickListner));
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
+        sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this, 3));
+        ArrayList<Integer> myImageList = new ArrayList<>();
+        myImageList.add(R.drawable.ic_1_1);
+        myImageList.add(R.drawable.ic_2_3);
+        myImageList.add(R.drawable.ic_3_2);
+        myImageList.add(R.drawable.ic_3_4);
+        myImageList.add(R.drawable.ic_4_3);
+        myImageList.add(R.drawable.ic_9_16);
+        myImageList.add(R.drawable.ic_16_9);
+        myImageList.add(R.drawable.ic_original);
 
+        sizesRv.setAdapter(new SizesAdapter(EditorActivity.this, myImageList, new SizesAdapter.OnSizeClickListner() {
+            @Override
+            public void onSizeClicked(int position) {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int deviceWidth;
+
+                deviceWidth = displayMetrics.widthPixels;
+                int totalval = 2 * deviceWidth;
+
+                switch (position) {
+                    case 0: {
+//                        SIZE 1:1
+                        setLayout(deviceWidth, deviceWidth, dialog);
+                    }
+                    break;
+                    case 1: {
+                        int singlepart = Math.round(totalval / 5);
+                        int new_Width = 2 * singlepart > deviceWidth ? deviceWidth : 2 * singlepart;
+                        int new_Height = 3 * singlepart > deviceHeight ? deviceHeight : 3 * singlepart;
+                        setLayout(new_Width, new_Height, dialog);
+
+
+                    }
+                    break;
+                    case 2: {
+                        int singlepart = Math.round(totalval / 5);
+                        int new_Width = 3 * singlepart > deviceWidth ? deviceWidth : 3 * singlepart;
+                        int new_Height = 2 * singlepart > deviceHeight ? deviceHeight : 2 * singlepart;
+                        setLayout(new_Width, new_Height, dialog);
+                    }
+                    break;
+                    case 3: {
+                        int singlepart = Math.round(totalval / 7);
+                        int new_Width = 3 * singlepart > deviceWidth ? deviceWidth : 3 * singlepart;
+                        int new_Height = 4 * singlepart > deviceHeight ? deviceHeight : 4 * singlepart;
+                        setLayout(new_Width, new_Height, dialog);
+                    }
+                    break;
+                    case 4: {
+                        int singlepart = Math.round(totalval / 7);
+                        int new_Width = 4 * singlepart > deviceWidth ? deviceWidth : 4 * singlepart;
+                        int new_Height = 3 * singlepart > deviceHeight ? deviceHeight : 3 * singlepart;
+                        setLayout(new_Width, new_Height, dialog);
+                    }
+                    break;
+                    case 5: {
+                        int singlepart = Math.round(totalval / 25);
+                        int new_Width = 9 * singlepart > deviceWidth ? deviceWidth : 9 * singlepart;
+                        int new_Height = 16 * singlepart > deviceHeight ? deviceHeight : 16 * singlepart;
+                        setLayout(new_Width, new_Height, dialog);
+                    }
+                    break;
+                    case 6: {
+                        int singlepart = Math.round(totalval / 25);
+                        int new_Width = 16 * singlepart > deviceWidth ? deviceWidth : 16 * singlepart;
+                        int new_Height = 9 * singlepart > deviceHeight ? deviceHeight : 9 * singlepart;
+                        setLayout(new_Width, new_Height, dialog);
+                    }
+                    break;
+                    case 7: {
+//                        int singlepart = Math.round(totalval / 25);
+//                        int new_Width = 16 * singlepart > deviceWidth ? deviceWidth : 16 * singlepart;
+//                        int new_Height = 9 * singlepart > deviceHeight ? deviceHeight : 9 * singlepart;
+                        setLayout(deviceWidth, deviceHeight, dialog);
+                    }
+                    break;
+                    default: {
+
+                    }
+                    break;
+                }
+            }
+        }));
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                    dialog.dismiss();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        dialog.show();
+        dialog.setCancelable(false);
+
+
+    }
+
+    private void setLayout(int deviceWidth, int deviceHeight, Dialog dialog) {
+        RelativeLayout.LayoutParams relativeLayout;
+        relativeLayout = new RelativeLayout.LayoutParams(deviceWidth, deviceHeight);
+        relativeLayout.addRule(RelativeLayout.CENTER_IN_PARENT);
+        relativeLayout.setMargins(0, 125, 0, 105);
+        quoteLayout.setLayoutParams(relativeLayout);
+        quoteLayout.setGravity(Gravity.CENTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            quoteLayout.setElevation(4f);
+        }
+        dialog.dismiss();
     }
 
     private void enable_Selected_Background_Features(String clickedItem, String[] bgfeaturesArray) {

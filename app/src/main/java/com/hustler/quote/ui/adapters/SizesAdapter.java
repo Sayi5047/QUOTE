@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.EditorActivity;
 
@@ -29,18 +30,21 @@ public class SizesAdapter extends RecyclerView.Adapter<SizesAdapter.SizeViewHold
 
     @Override
     public SizeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SizeViewHolder(editorActivity.getLayoutInflater().inflate(R.layout.size_image, parent));
+        return new SizeViewHolder(editorActivity.getLayoutInflater().inflate(R.layout.size_image, parent,false));
 
     }
 
     @Override
     public void onBindViewHolder(SizeViewHolder holder, final int position) {
         holder.imageView.setImageDrawable(ContextCompat.getDrawable(editorActivity,imagesList.get(position)));
+//        Glide.with(editorActivity).load(ContextCompat.getDrawable(editorActivity,imagesList.get(position))).asBitmap().into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(onSizeClickListner==null){
+                }else {
                     onSizeClickListner.onSizeClicked(position);
+
                 }
             }
         });

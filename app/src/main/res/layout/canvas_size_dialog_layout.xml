@@ -27,7 +27,6 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/preview"
         android:layout_gravity="bottom"
         ads:adSize="BANNER"
         ads:adUnitId="@string/bannerAdId"
