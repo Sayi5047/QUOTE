@@ -45,7 +45,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +56,7 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.adapters.ImagesAdapter;
+import com.hustler.quote.ui.adapters.SizesAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.ImagesApiResponceListner;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
@@ -526,7 +526,32 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             applyFont(array);
         } else if (feature.equalsIgnoreCase(array[10])) {
             gradienteText(array);
+        } else if (feature.equalsIgnoreCase(array[11])) {
+            setCanvasSize(array);
         }
+    }
+
+    private void setCanvasSize(String[] array) {
+        final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog_non_floater);
+        dialog.setContentView(R.layout.canvas_size_dialog_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.setCancelable(false);
+        LinearLayout root;
+        TextView canvasSizeHeader;
+        RecyclerView sizesRv;
+
+
+        root = (LinearLayout) dialog.findViewById(R.id.root);
+        canvasSizeHeader = (TextView) dialog.findViewById(R.id.canvas_size_header);
+        sizesRv = (RecyclerView) dialog.findViewById(R.id.sizes_rv);
+        AdView adView;
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView,EditorActivity.this);
+        TextUtils.findText_and_applyTypeface(root,EditorActivity.this);
+        sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this,2));
+        sizesRv.setAdapter(new SizesAdapter(EditorActivity.this,new OnSizeClickListner));
+
     }
 
     private void enable_Selected_Background_Features(String clickedItem, String[] bgfeaturesArray) {
@@ -602,14 +627,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         imagesRecycler = (RecyclerView) dialog.findViewById(R.id.images_recycler);
         adView = (AdView) dialog.findViewById(R.id.adView);
         diclaimer = (TextView) dialog.findViewById(R.id.diclaimer);
-        getRandomImages(null, imagesRecycler, progressBar,dialog);
+        getRandomImages(null, imagesRecycler, progressBar, dialog);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (searchBox.getText() == null) {
                     searchBox.setError(getString(R.string.please_enter));
                 } else {
-                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar,dialog);
+                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar, dialog);
                 }
             }
         });
@@ -631,7 +656,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         });
     }
 
-    public void getRandomImages(String word, final RecyclerView recyclerView, final ProgressBar progressBar,final Dialog dialog) {
+    public void getRandomImages(String word, final RecyclerView recyclerView, final ProgressBar progressBar, final Dialog dialog) {
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(null);
         recyclerView.setVisibility(GONE);
@@ -639,9 +664,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         String request;
         if (word == null) {
-            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&per_page=150"+"&order=popular";
+            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&per_page=150" + "&order=popular";
         } else {
-            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150"+"&order=popular";
+            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150" + "&order=popular";
 
         }
         new Restutility(activity).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
