@@ -7,19 +7,26 @@
     android:background="?android:attr/selectableItemBackground"
     >
 
-    <Button
+    <ImageView
         android:id="@+id/feature_item"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_margin="@dimen/elevation8"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:background="@drawable/circular_button"
         android:gravity="center"
         android:elevation="@dimen/elevation4"
-        android:layout_marginStart="@dimen/elevation4"
-        android:layout_marginLeft="@dimen/elevation4"
-        android:padding="@dimen/elevation4"
-        android:textColor="@color/textColor"
-        android:textSize="12sp"
-        tools:text="Blurr text" />
-
+        android:layout_marginLeft="@dimen/elevation16"
+        android:padding="@dimen/elevation16"
+        android:src="@drawable/ic_text_color"
+       />
+<TextView
+    android:id="@+id/feature_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:elevation="@dimen/elevation4"
+    android:layout_marginLeft="@dimen/elevation16"
+    android:padding="@dimen/elevation4"
+    android:textColor="@color/textColor"
+    android:textSize="12sp"
+    tools:text="Blurr text"/>
 </LinearLayout>

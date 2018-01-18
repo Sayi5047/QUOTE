@@ -63,7 +63,7 @@
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:src="@drawable/ic_mode_edit_white_24dp"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />
 
@@ -76,7 +76,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="38dp"
         android:elevation="4dp"
-        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:src="@drawable/ic_mode_edit_white_24dp"
         android:visibility="gone"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />

@@ -1,10 +1,13 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -22,6 +25,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     int itemsfromActivity_Count;
     String arrayName;
     ArrayList<String> itemstobe_used = new ArrayList<>();
+    ArrayList<Drawable> itemstobe_used_images = new ArrayList<>();
     String current_item = null;
     boolean isText;
 
@@ -34,6 +38,38 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
         this.isText = isText;
 
         prepare_text_features();
+        addImages();
+    }
+
+    private void addImages() {
+        if (isText) {
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_text_format_black_24dp));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_edit_black));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_font_sizes));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_rotate_right_black_24dp));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_spacing));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_text_color));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_format_line_spacing_black_24dp));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_full_width));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_shadow));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_font_bt));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_gradient));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_canvas_size));
+
+        } else {
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_menu_gallery));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_colors_bg));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_blur_on_black_24dp));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_filter_b_and_w_black_24dp));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_filter_white));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_gradient));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_search_black_24dp));
+
+        }
+    }
+
+    private Drawable getDrawable(int drawable) {
+        return ContextCompat.getDrawable(activity, drawable);
     }
 
     private void prepare_text_features() {
@@ -55,10 +91,11 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
 
     @Override
     public void onBindViewHolder(final FeaturesViewholder holder, final int position) {
-        holder.feature_item.setText(itemstobe_used.get(position));
+        holder.feature_name.setText(itemstobe_used.get(position));
+        holder.feature_item.setImageDrawable(itemstobe_used_images.get(position));
         current_item = itemstobe_used.get(position);
 //        Toast_Snack_Dialog_Utils.show_ShortToast(activity,"TOAST 1"+position+"");
-        holder.feature_item.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listner.onItemClick(itemstobe_used.get(position));
@@ -111,12 +148,14 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     }
 
     public class FeaturesViewholder extends RecyclerView.ViewHolder {
-        Button feature_item;
+        ImageView feature_item;
+        TextView feature_name;
 
         public FeaturesViewholder(View itemView) {
             super(itemView);
-            feature_item = (Button) itemView.findViewById(R.id.feature_item);
-            TextUtils.setFont(activity, feature_item, Constants.FONT_Google_sans_regular);
+            feature_item = (ImageView) itemView.findViewById(R.id.feature_item);
+            feature_name = (TextView) itemView.findViewById(R.id.feature_name);
+            TextUtils.setFont(activity, feature_name, Constants.FONT_Google_sans_regular);
         }
     }
 }
