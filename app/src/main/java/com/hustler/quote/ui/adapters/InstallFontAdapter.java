@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.textFeatures.TextFeatures;
 
 import java.io.File;
 import java.util.List;
@@ -19,12 +20,14 @@ import java.util.List;
 public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.FontViewHolder> {
     Activity activity;
     List<String> zipContents;
+    String[] fontPAths;
     String fontsUnZipPath;
 
     public InstallFontAdapter(Activity activity, List<String> zipContents, String fontsUnZipPath) {
         this.activity = activity;
         this.zipContents = zipContents;
         this.fontsUnZipPath = fontsUnZipPath;
+        fontPAths = TextFeatures.getDownloadedFonts(activity, new File(fontsUnZipPath));
     }
 
 
@@ -36,7 +39,7 @@ public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.
     @Override
     public void onBindViewHolder(FontViewHolder holder, int position) {
         holder.textView.setText(zipContents.get(position));
-//        holder.textView.setTypeface(Typeface.createFromFile(fontsUnZipPath + File.separator+ zipContents.get(position)));
+        holder.textView.setTypeface(Typeface.createFromFile(fontPAths[position]));
     }
 
     @Override

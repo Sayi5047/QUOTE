@@ -43,6 +43,7 @@ import com.hustler.quote.ui.pojo.UserWorkImages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 /**
  * Created by Sayi on 30-11-2017.
@@ -90,60 +92,159 @@ public class FileUtils {
                 }
             }
 
-                final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
-                dialog.setContentView(View.inflate(activity, R.layout.install_fonts_layout, null));
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-                dialog.setCancelable(false);
-                TextView headTv;
-                final EditText etProjectName;
-                LinearLayout btLlLayout;
-                RecyclerView recyclerView;
-                LinearLayout root = null;
-                Button btClose, btInstall;
-                AdView adView = null;
-                recyclerView = (RecyclerView) dialog.findViewById(R.id.font_recycler);
-                headTv = (TextView) dialog.findViewById(R.id.head_tv);
-                etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
-                btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
-                root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
-                btClose = (Button) dialog.findViewById(R.id.bt_close);
-                btInstall = (Button) dialog.findViewById(R.id.bt_save);
-                adView = (AdView) dialog.findViewById(R.id.adView);
-                AdUtils.loadBannerAd(adView, activity);
+            String targetLocationPath = Environment.getExternalStorageDirectory() + File.separator + "Fonts";
+            String tempTargetLocationPath = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Temp);
 
-                recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-                recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, fontsUnZipPath));
-                dialog.show();
-                btInstall.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast_Snack_Dialog_Utils.show_ShortToast(activity, "NEED TO IMPLEMENT");
-                    }
-                });
-                btClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            File targetLocationFile = null;
+            File tempTargetLocationFile = null;
+            targetLocationFile = new File(targetLocationPath);
+            tempTargetLocationFile = new File(tempTargetLocationPath);
+            if (tempTargetLocationFile.isDirectory()) {
+                doUnZIP(sourcezipLocation, tempTargetLocationPath);
+
+            } else {
+                tempTargetLocationFile.mkdirs();
+                doUnZIP(sourcezipLocation, tempTargetLocationPath);
+            }
+
+            final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
+            dialog.setContentView(View.inflate(activity, R.layout.install_fonts_layout, null));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+            dialog.setCancelable(false);
+            TextView headTv;
+            final EditText etProjectName;
+            LinearLayout btLlLayout;
+            RecyclerView recyclerView;
+            LinearLayout root = null;
+            Button btClose, btInstall;
+            AdView adView = null;
+            recyclerView = (RecyclerView) dialog.findViewById(R.id.font_recycler);
+            headTv = (TextView) dialog.findViewById(R.id.head_tv);
+            etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
+            btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
+            root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
+            btClose = (Button) dialog.findViewById(R.id.bt_close);
+            btInstall = (Button) dialog.findViewById(R.id.bt_save);
+            adView = (AdView) dialog.findViewById(R.id.adView);
+            AdUtils.loadBannerAd(adView, activity);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+            recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, tempTargetLocationPath));
+            dialog.show();
+            btInstall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(activity, "NEED TO IMPLEMENT");
+                }
+            });
+            btClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
                         dialog.dismiss();
+                        return true;
+                    } else {
+                        return false;
                     }
-                });
-                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                    @Override
-                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                        if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
-                            dialog.dismiss();
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                });
+                }
+            });
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
+    }
+
+    private static void doUnZIP(final File sourcezipLocation, final String tempTargetLocationPath) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(sourcezipLocation);
+                    ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
+                    String folderName = null;
+
+                    ZipEntry zipEntry = null;
+                    Boolean IS_FOLDER_CREATED = false;
+                    while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+//                    ZipEntry entry=zipInputStream.getNextEntry()
+                        String newFolder = tempTargetLocationPath + File.separator + zipEntry.getName().substring(0, zipEntry.getName().length() - 4);
+                        File Op = new File(newFolder);
+                        IS_FOLDER_CREATED = true;
+                        if (IS_FOLDER_CREATED) {
+
+                        } else {
+                            folderName = zipEntry.getName();
+
+                        }
+                        if (Op.isDirectory()) {
+                            FileOutputStream fileOutputStream = new FileOutputStream(new File(newFolder, folderName));
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            byte[] buffer = new byte[2048];
+                            int count;
+                            while ((count = zipInputStream.read(buffer)) != -1) {
+                                byteArrayOutputStream.write(buffer, 0, count);
+                                byte[] bytes = byteArrayOutputStream.toByteArray();
+                                fileOutputStream.write(bytes);
+                                byteArrayOutputStream.reset();
+                            }
+                            zipInputStream.closeEntry();
+                            fileOutputStream.close();
+                        } else {
+                            Op.mkdirs();
+                            FileOutputStream fileOutputStream = new FileOutputStream(new File(newFolder, folderName));
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            byte[] buffer = new byte[2048];
+                            int count;
+                            while ((count = zipInputStream.read(buffer)) != -1) {
+                                byteArrayOutputStream.write(buffer, 0, count);
+                                byte[] bytes = byteArrayOutputStream.toByteArray();
+                                fileOutputStream.write(bytes);
+                                byteArrayOutputStream.reset();
+                            }
+                            zipInputStream.closeEntry();
+                            fileOutputStream.close();
+                        }
+//                        if (zipEntry.isDirectory()) {
+//
+//                        } else {
+//                            new File(tempTargetLocationPath + File.pathSeparator + zipEntry.getName()).mkdir();
+//                            FileOutputStream fileOutputStream = new FileOutputStream(tempTargetLocationPath + File.pathSeparator + zipEntry.getName());
+//                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                            byte[] buffer = new byte[2048];
+//                            int count;
+//                            File file = new File(tempTargetLocationPath + File.pathSeparator + zipEntry.getName());
+//                            file.mkdir();
+//                            while ((count = zipInputStream.read(buffer)) != -1) {
+//                                byteArrayOutputStream.write(buffer, 0, count);
+//                                byte[] bytes = byteArrayOutputStream.toByteArray();
+//                                fileOutputStream.write(bytes);
+//                                byteArrayOutputStream.reset();
+//                            }
+//                            zipInputStream.closeEntry();
+//                            fileOutputStream.close();
+//                        }
+
+
+//                        for (int c = zipInputStream.read(); c != -1; c = zipInputStream.read()) {
+//                            fileOutputStream.write(c);
+//                        }
+                    }
+                    zipInputStream.close();
+                } catch (IOException ie) {
+                    ie.printStackTrace();
+                }
+
+            }
+        }).run();
     }
 
     public interface onSaveComplete {

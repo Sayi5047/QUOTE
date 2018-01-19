@@ -309,7 +309,8 @@ public class TextFeatures {
 
             }
         });
-        downloadedFontAdapter = new DownloadedFontAdapter(true, editorActivity, getDownloadedFonts(editorActivity), new DownloadedFontAdapter.onFontClickListner() {
+        downloadedFontAdapter = new DownloadedFontAdapter(true, editorActivity, getDownloadedFonts(editorActivity,
+                new File(Environment.getExternalStorageDirectory() + File.separator + "Fonts")), new DownloadedFontAdapter.onFontClickListner() {
             @Override
             public void onFontClicked(String font, boolean isDownloadFont) {
                 selected_type_face[0] = font;
@@ -365,12 +366,10 @@ public class TextFeatures {
 //        dialog.setContentView(R.layout.activity_symbol_fonts);
 //    }
 
-    private static String[] getDownloadedFonts(Activity activity) {
-        File file;
+    public static String[] getDownloadedFonts(Activity activity, File file) {
         String[] FilePathStrings = new String[0];
         String[] FileNameStrings = new String[0];
         File[] listFile, listFile0, listFile1;
-        file = new File(Environment.getExternalStorageDirectory() + File.separator + "Fonts");
         file.mkdir();
 //        GET TTF FILES AND COLLECT IN LIST1
         if (file.isDirectory()) {

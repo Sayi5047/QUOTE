@@ -126,6 +126,8 @@
     <string name="canvas_size">Canvas Size</string>
     <string name="install_fonts">Install all fonts</string>
     <string name="dont_forget">Dont forget to read the font Licenses in your downloaded folder</string>
+    <string name="Fonts">Fonts</string>
+    <string name="Temp">TempFonts</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
