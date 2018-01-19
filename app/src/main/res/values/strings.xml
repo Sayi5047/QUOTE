@@ -124,6 +124,8 @@
     <string name="credits">Images are powered by www.pixabay.com</string>
     <string name="enter_search">Nature,pets,Romantic etc..</string>
     <string name="canvas_size">Canvas Size</string>
+    <string name="install_fonts">Install all fonts</string>
+    <string name="dont_forget">Dont forget to read the font Licenses in your downloaded folder</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.WallpaperManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,7 +17,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.media.ExifInterface;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,6 +37,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.adapters.InstallFontAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
 
@@ -40,12 +45,106 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * Created by Sayi on 30-11-2017.
  */
 
 public class FileUtils {
+
+    public static void unzipandSave(File file, final Activity activity) {
+        int Buffer = 2048;
+        File sourcezipLocation = file;
+        File destinationUnZipLocation;
+        List<String> zipContents = new ArrayList<>();
+        String fontsUnZipPath = sourcezipLocation.getAbsolutePath();
+        try {
+            Log.d("ZIP Path", Environment.getExternalStorageDirectory() + sourcezipLocation.getAbsolutePath());
+            Log.d("ZIP Path", sourcezipLocation.getAbsolutePath());
+            ZipFile zipToRead = new ZipFile(sourcezipLocation.getAbsolutePath());
+
+            Enumeration zipEntries = zipToRead.entries();
+            while (zipEntries.hasMoreElements()) {
+                ZipEntry entry = (ZipEntry) zipEntries.nextElement();
+                String currentEntry = entry.getName();
+
+                Toast_Snack_Dialog_Utils.show_ShortToast(activity, currentEntry);
+                Log.d("ZIP LOCATIONS", currentEntry);
+                if (currentEntry.endsWith(".ttf")) {
+                    zipContents.add(currentEntry);
+                } else if (currentEntry.endsWith(".otf")) {
+                    zipContents.add(currentEntry);
+
+                } else if (currentEntry.endsWith(".TTF")) {
+                    zipContents.add(currentEntry);
+
+                } else if (currentEntry.endsWith(".OTF")) {
+                    zipContents.add(currentEntry);
+
+                } else {
+                }
+            }
+
+                final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
+                dialog.setContentView(View.inflate(activity, R.layout.install_fonts_layout, null));
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+                dialog.setCancelable(false);
+                TextView headTv;
+                final EditText etProjectName;
+                LinearLayout btLlLayout;
+                RecyclerView recyclerView;
+                LinearLayout root = null;
+                Button btClose, btInstall;
+                AdView adView = null;
+                recyclerView = (RecyclerView) dialog.findViewById(R.id.font_recycler);
+                headTv = (TextView) dialog.findViewById(R.id.head_tv);
+                etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
+                btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
+                root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
+                btClose = (Button) dialog.findViewById(R.id.bt_close);
+                btInstall = (Button) dialog.findViewById(R.id.bt_save);
+                adView = (AdView) dialog.findViewById(R.id.adView);
+                AdUtils.loadBannerAd(adView, activity);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+                recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, fontsUnZipPath));
+                dialog.show();
+                btInstall.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(activity, "NEED TO IMPLEMENT");
+                    }
+                });
+                btClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                            dialog.dismiss();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     public interface onSaveComplete {
         public void onImageSaveListner(File file);
@@ -175,7 +274,17 @@ public class FileUtils {
             }
         });
         dialog.show();
-
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                    dialog.dismiss();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
     }
 
     // Will implement once I reach more than 1000 users.

@@ -36,6 +36,7 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 import static android.view.View.GONE;
 
@@ -368,11 +369,44 @@ public class TextFeatures {
         File file;
         String[] FilePathStrings = new String[0];
         String[] FileNameStrings = new String[0];
-        File[] listFile;
+        File[] listFile, listFile0, listFile1;
         file = new File(Environment.getExternalStorageDirectory() + File.separator + "Fonts");
         file.mkdir();
+//        GET TTF FILES AND COLLECT IN LIST1
         if (file.isDirectory()) {
-            listFile = file.listFiles();
+            listFile = file.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    if (name.endsWith(".ttf")) {
+                        return true;
+                    } else if (name.endsWith(".otf")) {
+                        return true;
+                    } else if (name.endsWith(".TTF")) {
+                        return true;
+                    } else if (name.endsWith(".OTF")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+
+//            GET OTF FILES AND COLLECT IN LIST 2
+//            if (file.isDirectory()) {
+//                listFile1 = file.listFiles(new FilenameFilter() {
+//                    @Override
+//                    public boolean accept(File dir, String name) {
+//                        return name.endsWith(".otf");
+//                    }
+//                });
+////                CONVERT THEM TO ARRAYLIST TO MERGE BOTH
+//                List list = new ArrayList(Arrays.asList(listFile0));
+//                listFile = new File[list.size()];
+//                list.addAll(Arrays.asList(listFile1));
+////                GET THEM BACK FILE ARRAYS
+//                for (int i = 0; i < list.size(); i++) {
+//                    listFile[i] = (File) list.get(i);
+//                }
             // Create a String array for FilePathStrings
             FilePathStrings = new String[listFile.length];
             // Create a String array for FileNameStrings
@@ -388,6 +422,7 @@ public class TextFeatures {
         return FilePathStrings;
 
     }
+
 
     private static String[] getSymbolFonts(Activity activity) {
         String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);

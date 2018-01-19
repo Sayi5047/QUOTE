@@ -31,6 +31,7 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -319,6 +320,29 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         } else {
             isFromEdit_Activity = false;
+            Intent intent = getIntent();
+            File file;
+            String path = null;
+
+            String action = intent.getAction();
+            if (action == Intent.ACTION_VIEW) {
+                path = intent.getData().getPath();
+                Log.d("ACTION_VIEW", path);
+
+            } else if (action == Intent.ACTION_SEND) {
+                Bundle bundle = intent.getExtras();
+                Uri uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
+                path = uri.getPath();
+                Log.d("ACTION_SEND", path);
+            }
+            try {
+                file = new File(path);
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
+                FileUtils.unzipandSave(file, EditorActivity.this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
