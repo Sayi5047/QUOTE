@@ -27,7 +27,7 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
     }
 
     public interface onFontClickListner {
-        void onFontClicked(String fontName_Path, boolean isDownlodedFonts);
+        void onFontClicked(String fontName_Path, int isDownlodedFonts);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
             @Override
             public void onClick(View v) {
                 if (onFontClickListner != null) {
-                    onFontClickListner.onFontClicked(items[position], false);
+                    onFontClickListner.onFontClicked(items[position], 1);
                 }
             }
         });

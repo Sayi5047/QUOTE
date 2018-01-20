@@ -7,11 +7,11 @@ package com.hustler.quote.ui.pojo;
 public class FontSelected {
 
 
-    public boolean isDownloaded() {
+    public int isDownloaded() {
         return isDownloaded;
     }
 
-    public void setDownloaded(boolean downloaded) {
+    public void setDownloaded(int downloaded) {
         isDownloaded = downloaded;
     }
 
@@ -23,6 +23,6 @@ public class FontSelected {
         this.fontname_path = fontname_path;
     }
 
-    boolean isDownloaded;
+    int isDownloaded;
     String fontname_path;
 }

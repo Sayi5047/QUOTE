@@ -335,24 +335,24 @@ public class FileUtils {
                     File directoryChecker;
                     File savingFile;
 
-                    directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy));
+                    directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images));
                     if (format[0].equalsIgnoreCase(Constants.JPEG)) {
                         if (directoryChecker.isDirectory()) {
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
                                     File.separator + projectname[0] + ".jpg");
                         } else {
-                            directoryChecker.mkdir();
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                            directoryChecker.mkdirs();
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
                                     File.separator + projectname[0] + ".jpg");
                         }
 
                     } else {
                         if (directoryChecker.isDirectory()) {
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
                                     File.separator + projectname[0] + ".png");
                         } else {
                             directoryChecker.mkdir();
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
                                     File.separator + projectname[0] + ".png");
                         }
 
@@ -738,13 +738,13 @@ public class FileUtils {
 
     }
 
-    public static UserWorkImages getImagesFromSdCard() {
+    public static UserWorkImages getImagesFromSdCard(Activity activity) {
         File file;
         String[] imagePaths;
         String[] imageNames;
         File[] files;
 
-        file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
+        file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" + File.separator + activity.getString(R.string.images));
         file.mkdir();
         if (file.isDirectory()) {
             files = file.listFiles();
@@ -756,6 +756,7 @@ public class FileUtils {
             }
             return new UserWorkImages(imagePaths, imageNames);
         } else {
+            file.mkdirs();
             return null;
         }
 

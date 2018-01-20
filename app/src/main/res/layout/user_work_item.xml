@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="2dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="@dimen/elevation4"
     android:clipToPadding="true"
     android:id="@+id/root_cl">
@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/user_work_iv"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
              />

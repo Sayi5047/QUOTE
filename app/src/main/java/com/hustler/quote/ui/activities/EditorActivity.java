@@ -285,9 +285,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                 quote_editor_body.setText(quote.getQuote_body());
                 quote_editor_author.setText(quote.getQuote_author());
-
-                quote_editor_body.setMaxWidth(1050);
-                quote_editor_author.setMaxWidth(1050);
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                quote_editor_body.setMaxWidth(displayMetrics.widthPixels);
+                quote_editor_author.setMaxWidth(displayMetrics.widthPixels);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -303,8 +304,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_body.setY(core_editor_layout.getHeight() / 2);
                 quote_editor_author.setX(core_editor_layout.getWidth() / 2);
 
-                quoteLayout.addView(quote_editor_body);
-                quoteLayout.addView(quote_editor_author);
+                core_editor_layout.addView(quote_editor_body);
+                core_editor_layout.addView(quote_editor_author);
                 quote_editor_author.setOnTouchListener(this);
                 quote_editor_body.setOnTouchListener(this);
             }

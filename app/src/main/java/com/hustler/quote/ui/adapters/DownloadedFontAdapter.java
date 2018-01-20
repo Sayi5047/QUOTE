@@ -1,13 +1,13 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.utils.TextUtils;
 
 /**
  * Created by anvaya5 on 15/12/2017.
@@ -27,7 +27,7 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
     }
 
     public interface onFontClickListner {
-        void onFontClicked(String fontName_Path, boolean isDownlodedFonts);
+        void onFontClicked(String fontName_Path, int isDownlodedFonts);
     }
 
     @Override
@@ -39,12 +39,12 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
 
     @Override
     public void onBindViewHolder(DownloadedFontAdapter.FontItemViewHolder holder, final int position) {
-        TextUtils.setFont(activity, holder.tv, items[position]);
+        holder.tv.setTypeface(Typeface.createFromFile(items[position]));
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onFontClickListner != null) {
-                    onFontClickListner.onFontClicked(items[position], false);
+                    onFontClickListner.onFontClicked(items[position], 2);
                 }
             }
         });

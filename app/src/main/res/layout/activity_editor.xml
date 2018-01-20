@@ -76,8 +76,8 @@
             android:id="@+id/quote_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_weight="8"
+            android:background="@android:color/white"
             android:orientation="vertical">
 
 
@@ -185,17 +185,17 @@
             android:id="@+id/content_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"/>
-            <!--android:layout_above="@id/text_and_background_layout"-->
+            android:layout_weight="2" />
+        <!--android:layout_above="@id/text_and_background_layout"-->
 
-            />
+        />
 
         <LinearLayout
             android:id="@+id/text_and_background_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.7"
             android:layout_alignParentBottom="true"
+            android:layout_weight="0.7"
             android:orientation="horizontal">
 
             <TextView
@@ -215,9 +215,9 @@
                 android:id="@+id/background_and_Image_field"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_gravity="center"
                 android:padding="@dimen/elevation4"
 
                 android:text="@string/background"
@@ -230,8 +230,8 @@
             android:id="@+id/close_and_done_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_alignParentBottom="true"
+            android:layout_weight="1"
             android:background="@drawable/rect_black_border"
             android:orientation="horizontal"
             android:padding="6dp"

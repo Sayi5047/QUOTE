@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -19,7 +18,7 @@
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font2"
+            android:textSize="@dimen/font4"
             android:textStyle="italic">
 
         </TextView>
@@ -28,6 +27,7 @@
             android:id="@+id/root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_demo_text"
             android:orientation="vertical">
 
             <TextView
@@ -58,6 +58,7 @@
             android:id="@+id/root2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/root"
             android:orientation="vertical">
 
             <TextView
@@ -88,6 +89,7 @@
             android:id="@+id/root3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/root2"
             android:orientation="vertical">
 
             <TextView
@@ -103,6 +105,7 @@
                 android:textStyle="italic">
 
             </TextView>
+
             <LinearLayout
                 android:id="@+id/search_Box_view"
                 android:layout_width="match_parent"
@@ -140,45 +143,55 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/smallPadding">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/bt_shadow_close"
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_margin="@dimen/smallPadding"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_rect"
-                android:text="@string/close"
-                android:textColor="@color/textColor" />
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
 
-            <Button
-                android:id="@+id/bt_shadow_apply"
+                ads:adUnitId="@string/bannerAdId">
+
+            </com.google.android.gms.ads.AdView>
+            <LinearLayout
+                android:id="@+id/buttons"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_margin="@dimen/standardMargin"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_rect"
-                android:text="@string/apply"
-                android:textColor="@color/textColor" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/smallPadding">
+
+                <Button
+                    android:id="@+id/bt_shadow_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="@dimen/smallPadding"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_rect"
+                    android:text="@string/close"
+                    android:textColor="@color/textColor" />
+
+                <Button
+                    android:id="@+id/bt_shadow_apply"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="@dimen/standardMargin"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_rect"
+                    android:text="@string/apply"
+                    android:textColor="@color/textColor" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/bannerAdId"
-            ads:layout_anchorGravity="bottom">
-
-        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
 </ScrollView>

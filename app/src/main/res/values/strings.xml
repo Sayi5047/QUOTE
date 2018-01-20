@@ -133,6 +133,9 @@
     <string name="congratulations">Congratulations!!</string>
     <string name="installing_Fonts">Installing Fonts</string>
     <string name="invalid_family_name">Font file unavailable</string>
+    <string name="font_not_downloaded">Font download failed</string>
+    <string name="internet_required">Internet required to download the fonts from server</string>
+    <string name="images">Images</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

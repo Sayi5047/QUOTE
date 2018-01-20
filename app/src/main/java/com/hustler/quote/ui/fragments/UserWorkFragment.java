@@ -95,7 +95,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
 
     private void setRecyclerview() {
-        userWorkImages = FileUtils.getImagesFromSdCard();
+        userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         if (userWorkImages == null) {
             dataView.setVisibility(View.GONE);

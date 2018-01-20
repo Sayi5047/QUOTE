@@ -10,12 +10,16 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v4.util.ArraySet;
 import android.support.v7.widget.AppCompatSeekBar;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -31,13 +35,14 @@ import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
+import com.hustler.quote.ui.adapters.DownloadedFontAdapter;
 import com.hustler.quote.ui.adapters.GoogleFontsAdapter;
 import com.hustler.quote.ui.adapters.LocalFontAdapter;
-import com.hustler.quote.ui.adapters.DownloadedFontAdapter;
 import com.hustler.quote.ui.pojo.FontSelected;
 import com.hustler.quote.ui.pojo.QueryBuilder;
 import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.AnimUtils;
+import com.hustler.quote.ui.utils.InternetUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -53,6 +58,10 @@ import static android.view.View.GONE;
 
 public class TextFeatures {
 
+
+    private static Handler mHandler = null;
+    static Typeface downloadedTypeface = null;
+    public static final String[] selected_type_face = new String[1];
 
     public static void apply_Text_Shadow(final Activity activity, final TextView selectedTextView) {
 
@@ -243,9 +252,9 @@ public class TextFeatures {
 
     //  METHOD TO APLLY FONT
     public static FontSelected apply_font(final EditorActivity editorActivity, final TextView selectedTextView) {
-        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
+        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.apply_font_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         AdView adView;
 
@@ -255,10 +264,10 @@ public class TextFeatures {
         RecyclerView rvAppFont;
         LinearLayout root2;
         TextView tvSymbolFonts;
-        RecyclerView rvSymbolFont;
+        RecyclerView rvDownloadedFont;
         LinearLayout root3;
         TextView tvDownloadedFonts;
-        RecyclerView rvDownloadedFont;
+        RecyclerView rvGoogleFont;
         Button btShadowClose;
         final AutoCompleteTextView searchBox;
         Button btShadowApply;
@@ -267,10 +276,9 @@ public class TextFeatures {
         LocalFontAdapter localFontAdapter1;
         DownloadedFontAdapter downloadedFontAdapter;
         GoogleFontsAdapter googleFontsAdapter;
-        final Boolean[] isDownloaded = new Boolean[1];
+        final int[] isDownloaded = new int[3];
         final FontSelected fontSelected = new FontSelected();
 
-        final String[] selected_type_face = new String[1];
 
 
         root = (LinearLayout) dialog.findViewById(R.id.root);
@@ -283,9 +291,9 @@ public class TextFeatures {
         tvDownloadedFonts = (TextView) dialog.findViewById(R.id.tv_downloaded_fonts);
         adView = (AdView) dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, editorActivity);
-        rvDownloadedFont = (RecyclerView) dialog.findViewById(R.id.rv_downloaded_font);
+        rvGoogleFont = (RecyclerView) dialog.findViewById(R.id.rv_downloaded_font);
         rvAppFont = (RecyclerView) dialog.findViewById(R.id.rv_app_font);
-        rvSymbolFont = (RecyclerView) dialog.findViewById(R.id.rv_symbol_font);
+        rvDownloadedFont = (RecyclerView) dialog.findViewById(R.id.rv_symbol_font);
 
         btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
         btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
@@ -302,8 +310,11 @@ public class TextFeatures {
             public void onClick(View v) {
                 String familyName = searchBox.getText().toString();
                 if (checkFamilyValid(familyName) == true) {
-                    requestDownload(familyName,selectedTextView,demoText);
-                    searchButton.setEnabled(false);
+                    if (InternetUtils.isConnectedtoNet(editorActivity) == true) {
+                        requestDownload(editorActivity, familyName, selectedTextView, demoText);
+                    } else {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.internet_required));
+                    }
                 } else {
                     searchBox.setError(editorActivity.getString(R.string.invalid_family_name));
                     return;
@@ -321,12 +332,12 @@ public class TextFeatures {
         TextUtils.findText_and_applyTypeface(root, editorActivity);
 
         rvAppFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
-        rvSymbolFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
         rvDownloadedFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
+        rvGoogleFont.setLayoutManager(new LinearLayoutManager(editorActivity,LinearLayoutManager.HORIZONTAL,false));
 
         localFontAdapter1 = new LocalFontAdapter(false, editorActivity, getLocalFonts(editorActivity), new LocalFontAdapter.onFontClickListner() {
             @Override
-            public void onFontClicked(String font, boolean isDownloadFont) {
+            public void onFontClicked(String font, int isDownloadFont) {
                 selected_type_face[0] = font;
                 isDownloaded[0] = isDownloadFont;
                 TextUtils.setFont(editorActivity, demoText, selected_type_face[0]);
@@ -339,31 +350,35 @@ public class TextFeatures {
         downloadedFontAdapter = new DownloadedFontAdapter(false, editorActivity, getDownloadedFonts(editorActivity,
                 new File(finalLOcation)), new DownloadedFontAdapter.onFontClickListner() {
             @Override
-            public void onFontClicked(String font, boolean isDownloadFont) {
+            public void onFontClicked(String font, int isDownloadFont) {
                 selected_type_face[0] = font;
-                isDownloaded[0] = isDownloadFont;
-                TextUtils.setFont(editorActivity, demoText, selected_type_face[0]);
+                isDownloaded[1] = isDownloadFont;
+                demoText.setTypeface(Typeface.createFromFile(font));
                 fontSelected.setFontname_path(selected_type_face[0]);
-                fontSelected.setDownloaded(isDownloaded[0]);
+                fontSelected.setDownloaded(isDownloaded[1]);
 
             }
         });
 
         String[] familyNames = editorActivity.getResources().getStringArray(R.array.family_names);
-        googleFontsAdapter = new GoogleFontsAdapter(true, editorActivity,familyNames , new GoogleFontsAdapter.onFontClickListner() {
+        googleFontsAdapter = new GoogleFontsAdapter(true, editorActivity, familyNames, new GoogleFontsAdapter.onFontClickListner() {
             @Override
-            public void onFontClicked(String font, boolean isDownloadFont) {
+            public void onFontClicked(String font, int isDownloadFont) {
                 selected_type_face[0] = font;
-                isDownloaded[0] = isDownloadFont;
-                demoText.setTypeface(Typeface.createFromFile(selected_type_face[0]));
+                isDownloaded[2] = isDownloadFont;
+                if (InternetUtils.isConnectedtoNet(editorActivity) == true) {
+                    requestDownload(editorActivity, font, selectedTextView, demoText);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.internet_required));
+                }
                 fontSelected.setFontname_path(selected_type_face[0]);
-                fontSelected.setDownloaded(isDownloaded[0]);
+                fontSelected.setDownloaded(isDownloaded[2]);
             }
         });
 
         rvAppFont.setAdapter(localFontAdapter1);
-        rvSymbolFont.setAdapter(downloadedFontAdapter);
-        rvDownloadedFont.setAdapter(googleFontsAdapter);
+        rvDownloadedFont.setAdapter(downloadedFontAdapter);
+        rvGoogleFont.setAdapter(googleFontsAdapter);
 
         btShadowApply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -372,10 +387,19 @@ public class TextFeatures {
                 if (selected_type_face[0] == null) {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_font));
                 } else {
-                    if (isDownloaded[0]) {
-                        selectedTextView.setTypeface(Typeface.createFromFile(selected_type_face[0]));
-                    } else {
+                    if (isDownloaded[0] == 1) {
                         TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
+
+                    } else if (isDownloaded[1] == 2) {
+                        selectedTextView.setTypeface(Typeface.createFromFile(selected_type_face[0]));
+
+                    } else {
+                        if (downloadedTypeface != null) {
+
+                            selectedTextView.setTypeface(downloadedTypeface);
+                        } else {
+                            Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.font_not_downloaded));
+                        }
                     }
                 }
                 dialog.dismiss();
@@ -399,7 +423,9 @@ public class TextFeatures {
 
     }
 
-    private static void requestDownload(String familyName, TextView selectedTextView, final TextView demoText) {
+    private static void requestDownload(Activity activity, String familyName, TextView selectedTextView, final TextView demoText) {
+
+
         QueryBuilder queryBuilder = new QueryBuilder(familyName)
                 .withWidth(25)
                 .withWeight(500)
@@ -413,7 +439,7 @@ public class TextFeatures {
                 "com.google.android.gms",
                 query,
                 R.array.com_google_android_gms_fonts_certs);
-        FontsContractCompat.FontRequestCallback callback=new FontsContractCompat.FontRequestCallback(){
+        FontsContractCompat.FontRequestCallback callback = new FontsContractCompat.FontRequestCallback() {
             @Override
             public void onTypefaceRequestFailed(int reason) {
                 super.onTypefaceRequestFailed(reason);
@@ -422,30 +448,26 @@ public class TextFeatures {
             @Override
             public void onTypefaceRetrieved(Typeface typeface) {
                 demoText.setTypeface(typeface);
+                downloadedTypeface = typeface;
 
 
             }
 
         };
+        FontsContractCompat
+                .requestFont(activity, request, callback,
+                        getHandlerThreadHandler());
     }
 
-    public static String apply_font_pager(final EditorActivity editorActivity, final TextView selectedTextView) {
-//        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
-//        dialog.setContentView(R.layout.apply_font_layout);
-//        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-//        AdView mAdView;
-//
-//         ViewPager mainPager;
-//         TabLayout tab_layout;
-//        mainPager = (ViewPager) dialog.findViewById(R.id.main_pager);
-//        tab_layout = (TabLayout) dialog.findViewById(R.id.tab_layout);
-//        tab_layout.setupWithViewPager(mainPager);
-//        mAdView = (AdView) dialog.findViewById(R.id.adView);
-//        AdUtils.loadBannerAd(mAdView,editorActivity);
-//        mainPager.setAdapter(new TabsFragmentPagerAdapter(editorActivity, editorActivitygetSupportFragmentManager()));
-//        mainPager.setCurrentItem(1);
+    private static Handler getHandlerThreadHandler() {
+        if (mHandler == null) {
+            HandlerThread handlerThread = new HandlerThread("fonts");
+            handlerThread.start();
+            mHandler = new Handler(handlerThread.getLooper());
+        }
+        return mHandler;
     }
+
 
 //    METHOD TO GET SYMBOL FONTS
 
