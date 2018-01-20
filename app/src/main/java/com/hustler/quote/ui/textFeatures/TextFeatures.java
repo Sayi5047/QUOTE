@@ -309,8 +309,10 @@ public class TextFeatures {
 
             }
         });
+        final String finalLOcation = Environment.getExternalStorageDirectory() + File.separator + editorActivity.getString(R.string.Quotzy) + File.separator + editorActivity.getString(R.string.Fonts);
+
         downloadedFontAdapter = new DownloadedFontAdapter(true, editorActivity, getDownloadedFonts(editorActivity,
-                new File(Environment.getExternalStorageDirectory() + File.separator + "Fonts")), new DownloadedFontAdapter.onFontClickListner() {
+                new File(finalLOcation)), new DownloadedFontAdapter.onFontClickListner() {
             @Override
             public void onFontClicked(String font, boolean isDownloadFont) {
                 selected_type_face[0] = font;

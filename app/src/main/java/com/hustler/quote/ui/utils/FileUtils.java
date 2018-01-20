@@ -2,11 +2,13 @@ package com.hustler.quote.ui.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.media.ExifInterface;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +43,7 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.InstallFontAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
+import com.hustler.quote.ui.textFeatures.TextFeatures;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -58,12 +62,13 @@ import java.util.zip.ZipInputStream;
  */
 
 public class FileUtils {
+    static String folderName = null;
 
     public static void unzipandSave(File file, final Activity activity) {
         int Buffer = 2048;
         File sourcezipLocation = file;
         File destinationUnZipLocation;
-        List<String> zipContents = new ArrayList<>();
+        final List<String> zipContents = new ArrayList<>();
         String fontsUnZipPath = sourcezipLocation.getAbsolutePath();
         try {
             Log.d("ZIP Path", Environment.getExternalStorageDirectory() + sourcezipLocation.getAbsolutePath());
@@ -75,7 +80,7 @@ public class FileUtils {
                 ZipEntry entry = (ZipEntry) zipEntries.nextElement();
                 String currentEntry = entry.getName();
 
-                Toast_Snack_Dialog_Utils.show_ShortToast(activity, currentEntry);
+//                Toast_Snack_Dialog_Utils.show_ShortToast(activity, currentEntry);
                 Log.d("ZIP LOCATIONS", currentEntry);
                 if (currentEntry.endsWith(".ttf")) {
                     zipContents.add(currentEntry);
@@ -94,17 +99,18 @@ public class FileUtils {
 
             String targetLocationPath = Environment.getExternalStorageDirectory() + File.separator + "Fonts";
             String tempTargetLocationPath = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Temp);
+            final String temporarly_Saved_fonts_Path;
 
             File targetLocationFile = null;
             File tempTargetLocationFile = null;
             targetLocationFile = new File(targetLocationPath);
             tempTargetLocationFile = new File(tempTargetLocationPath);
             if (tempTargetLocationFile.isDirectory()) {
-                doUnZIP(sourcezipLocation, tempTargetLocationPath);
+                temporarly_Saved_fonts_Path = doUnZIP(activity, sourcezipLocation, tempTargetLocationPath);
 
             } else {
                 tempTargetLocationFile.mkdirs();
-                doUnZIP(sourcezipLocation, tempTargetLocationPath);
+                temporarly_Saved_fonts_Path = doUnZIP(activity, sourcezipLocation, tempTargetLocationPath);
             }
 
             final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
@@ -130,12 +136,36 @@ public class FileUtils {
             AdUtils.loadBannerAd(adView, activity);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-            recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, tempTargetLocationPath));
+            final String finalLOcation = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.Fonts);
+
+            final String[] source_font_paths_list = TextFeatures.getDownloadedFonts(activity, new File(temporarly_Saved_fonts_Path));
+
+            recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, temporarly_Saved_fonts_Path, finalLOcation, source_font_paths_list));
             dialog.show();
             btInstall.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(activity, "NEED TO IMPLEMENT");
+                    ProgressDialog dialog1 = new ProgressDialog(activity);
+                    dialog1.setTitle(activity.getString(R.string.installing_Fonts));
+                    dialog1.show();
+                    for (int i = 0; i < zipContents.size(); i++) {
+                        new File(source_font_paths_list[i]).renameTo(new File(finalLOcation + File.separator + zipContents.get(i)));
+                    }
+                    dialog1.cancel();
+                    Toast_Snack_Dialog_Utils.createDialog(activity,
+                            activity.getString(R.string.congratulations),
+                            activity.getString(R.string.font_installed)
+                            , null, activity.getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+                                @Override
+                                public void onPositiveselection() {
+                                }
+
+                                @Override
+                                public void onNegativeSelection() {
+
+                                }
+                            });
+                    dialog.dismiss();
                 }
             });
             btClose.setOnClickListener(new View.OnClickListener() {
@@ -163,88 +193,71 @@ public class FileUtils {
 
     }
 
-    private static void doUnZIP(final File sourcezipLocation, final String tempTargetLocationPath) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    FileInputStream fileInputStream = new FileInputStream(sourcezipLocation);
-                    ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
-                    String folderName = null;
+    private static String doUnZIP(final Activity activity, final File sourcezipLocation, final String tempTargetLocationPath) {
 
-                    ZipEntry zipEntry = null;
-                    Boolean IS_FOLDER_CREATED = false;
-                    while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-//                    ZipEntry entry=zipInputStream.getNextEntry()
-                        String newFolder = tempTargetLocationPath + File.separator + zipEntry.getName().substring(0, zipEntry.getName().length() - 4);
-                        File Op = new File(newFolder);
-                        IS_FOLDER_CREATED = true;
-                        if (IS_FOLDER_CREATED) {
-
-                        } else {
-                            folderName = zipEntry.getName();
-
-                        }
-                        if (Op.isDirectory()) {
-                            FileOutputStream fileOutputStream = new FileOutputStream(new File(newFolder, folderName));
-                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            byte[] buffer = new byte[2048];
-                            int count;
-                            while ((count = zipInputStream.read(buffer)) != -1) {
-                                byteArrayOutputStream.write(buffer, 0, count);
-                                byte[] bytes = byteArrayOutputStream.toByteArray();
-                                fileOutputStream.write(bytes);
-                                byteArrayOutputStream.reset();
-                            }
-                            zipInputStream.closeEntry();
-                            fileOutputStream.close();
-                        } else {
-                            Op.mkdirs();
-                            FileOutputStream fileOutputStream = new FileOutputStream(new File(newFolder, folderName));
-                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            byte[] buffer = new byte[2048];
-                            int count;
-                            while ((count = zipInputStream.read(buffer)) != -1) {
-                                byteArrayOutputStream.write(buffer, 0, count);
-                                byte[] bytes = byteArrayOutputStream.toByteArray();
-                                fileOutputStream.write(bytes);
-                                byteArrayOutputStream.reset();
-                            }
-                            zipInputStream.closeEntry();
-                            fileOutputStream.close();
-                        }
-//                        if (zipEntry.isDirectory()) {
+        try {
+//            TEMPORARY FILES
+            FileInputStream fileInputStreamtemp = new FileInputStream(sourcezipLocation);
+            ZipInputStream zipInputStreamtemp = new ZipInputStream(fileInputStreamtemp);
 //
-//                        } else {
-//                            new File(tempTargetLocationPath + File.pathSeparator + zipEntry.getName()).mkdir();
-//                            FileOutputStream fileOutputStream = new FileOutputStream(tempTargetLocationPath + File.pathSeparator + zipEntry.getName());
-//                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//                            byte[] buffer = new byte[2048];
-//                            int count;
-//                            File file = new File(tempTargetLocationPath + File.pathSeparator + zipEntry.getName());
-//                            file.mkdir();
-//                            while ((count = zipInputStream.read(buffer)) != -1) {
-//                                byteArrayOutputStream.write(buffer, 0, count);
-//                                byte[] bytes = byteArrayOutputStream.toByteArray();
-//                                fileOutputStream.write(bytes);
-//                                byteArrayOutputStream.reset();
-//                            }
-//                            zipInputStream.closeEntry();
-//                            fileOutputStream.close();
-//                        }
+            ZipEntry zipEntry = null;
+// TO CREATE A SINGLE FOLDER WITH FOLDER NAME
+            String firstZipEntryName = zipInputStreamtemp.getNextEntry().getName();
+            zipInputStreamtemp.closeEntry();
 
 
-//                        for (int c = zipInputStream.read(); c != -1; c = zipInputStream.read()) {
-//                            fileOutputStream.write(c);
-//                        }
-                    }
-                    zipInputStream.close();
-                } catch (IOException ie) {
-                    ie.printStackTrace();
+            Log.e("ZIP ENTRY NAME", firstZipEntryName);
+
+            String newFolder = tempTargetLocationPath + File.separator + firstZipEntryName.substring(0, firstZipEntryName.length() - 4);
+            File tragetUnzippingFolder = new File(newFolder);
+            if (tragetUnzippingFolder.isDirectory() == true) {
+
+            } else {
+                tragetUnzippingFolder.mkdirs();
+            }
+
+            FileInputStream fileInputStream = new FileInputStream(sourcezipLocation);
+            ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
+
+            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+                File newFile = new File(newFolder + File.separator + zipEntry.getName());
+                Log.e(" New File ", newFile.getAbsolutePath());
+                FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[2048];
+                int count;
+                while ((count = zipInputStream.read(buffer)) != -1) {
+                    byteArrayOutputStream.write(buffer, 0, count);
+                    byte[] bytes = byteArrayOutputStream.toByteArray();
+                    fileOutputStream.write(bytes);
+                    byteArrayOutputStream.reset();
                 }
+                zipInputStream.closeEntry();
+                fileOutputStream.close();
 
             }
-        }).run();
+
+
+            zipInputStream.close();
+            zipInputStreamtemp.close();
+            return newFolder;
+        } catch (IOException ie) {
+            ie.printStackTrace();
+            Log.e("EXCEPTION CAUGHT", ie.getMessage());
+            return null;
+        }
+
+
+    }
+
+    private static void saveToShared(String folderName, Activity activity) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(activity).edit();
+        editor.putString(Constants.TEMP_FILE_NAME_KEY, folderName);
+        editor.commit();
+    }
+
+    private static String getSavedShared(Activity activity) {
+        return PreferenceManager.getDefaultSharedPreferences(activity).getString(Constants.TEMP_FILE_NAME_KEY, null);
     }
 
     public interface onSaveComplete {

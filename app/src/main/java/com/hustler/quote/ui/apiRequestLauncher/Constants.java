@@ -167,4 +167,7 @@ public class Constants {
     public static final String TEST_SMART_BANNER_AD = "ca-app-pub-3940256099942544/6300978111";
     public static final String TEST_INTERSTITIAL_AD = "ca-app-pub-3940256099942544/1033173712";
     public static final String TEST_REWARDED_AD = "ca-app-pub-3940256099942544/5224354917";
+    public static String TEMP_FILE_NAME_KEY="File_temporary_name_key";
+    public static String FONTS_LOCATION="File_temporary_name_key";
+    public static String FONTS_TEMP_LOCATIONS="File_temporary_name_key";
 }
