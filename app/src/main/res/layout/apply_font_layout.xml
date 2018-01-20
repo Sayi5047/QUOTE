@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -102,6 +103,32 @@
                 android:textStyle="italic">
 
             </TextView>
+            <LinearLayout
+                android:id="@+id/search_Box_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/search_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rounded_rect"
+                    android:hint="@string/enter_search"
+                    android:padding="16dp"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/search_button"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_search_black_24dp"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_downloaded_font"

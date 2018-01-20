@@ -12,7 +12,7 @@ public class Constants {
     public static final String API_FAVQ_RANDOM_QUOTES = "https://favqs.com/api/quotes/";
     public static final String API_FAVQ_FILTER_QUOTES = "https://favqs.com/api/quotes/?filter=";
     public static final String API_FAVQ_FLTER_QUOTES = "https://favqs.com/api/quotes/:";
-    public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key="+API_IMAGES_TOKEN;
+    public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
 
     public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_SKETCHDARK = "fonts/sketch_dark.ttf";
@@ -167,7 +167,19 @@ public class Constants {
     public static final String TEST_SMART_BANNER_AD = "ca-app-pub-3940256099942544/6300978111";
     public static final String TEST_INTERSTITIAL_AD = "ca-app-pub-3940256099942544/1033173712";
     public static final String TEST_REWARDED_AD = "ca-app-pub-3940256099942544/5224354917";
-    public static String TEMP_FILE_NAME_KEY="File_temporary_name_key";
-    public static String FONTS_LOCATION="File_temporary_name_key";
-    public static String FONTS_TEMP_LOCATIONS="File_temporary_name_key";
+    public static String TEMP_FILE_NAME_KEY = "File_temporary_name_key";
+    public static String FONTS_LOCATION = "File_temporary_name_key";
+    public static String FONTS_TEMP_LOCATIONS = "File_temporary_name_key";
+
+    public static final int WIDTH_DEFAULT = 100;
+    public static final int WIDTH_MAX = 1000;
+    public static final int WIDTH_MIN = 0;
+
+    public static final int WEIGHT_DEFAULT = 400;
+    public static final int WEIGHT_MAX = 1000;
+    public static final int WEIGHT_MIN = 0;
+
+    public static final float ITALIC_DEFAULT = 0f;
+    public static final float ITALIC_MAX = 1f;
+    public static final float ITALIC_MIN = 0f;
 }

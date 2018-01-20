@@ -132,6 +132,7 @@
     <string name="font_installed">Congratulations, Font installed Start using it</string>
     <string name="congratulations">Congratulations!!</string>
     <string name="installing_Fonts">Installing Fonts</string>
+    <string name="invalid_family_name">Font file unavailable</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

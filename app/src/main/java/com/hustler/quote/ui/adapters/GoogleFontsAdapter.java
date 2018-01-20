@@ -7,19 +7,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.utils.TextUtils;
 
 /**
  * Created by anvaya5 on 15/12/2017.
  */
 
-public class SymbolFontAdapter extends RecyclerView.Adapter<SymbolFontAdapter.FontItemViewHolder> {
+public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.FontItemViewHolder> {
     Activity activity;
     String[] items;
     onFontClickListner onFontClickListner;
     boolean isDownlodedFonts;
 
-    public SymbolFontAdapter(Boolean isDownlodedFonts, Activity activity, String[] items, onFontClickListner onFontClickListner) {
+    public GoogleFontsAdapter(Boolean isDownlodedFonts, Activity activity, String[] items, GoogleFontsAdapter.onFontClickListner onFontClickListner) {
         this.activity = activity;
         this.items = items;
         this.onFontClickListner = onFontClickListner;
@@ -31,20 +30,22 @@ public class SymbolFontAdapter extends RecyclerView.Adapter<SymbolFontAdapter.Fo
     }
 
     @Override
-    public SymbolFontAdapter.FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new SymbolFontAdapter.FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
+    public GoogleFontsAdapter.FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new GoogleFontsAdapter.FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
 
     }
 
 
     @Override
-    public void onBindViewHolder(SymbolFontAdapter.FontItemViewHolder holder, final int position) {
-        TextUtils.setFont(activity, holder.tv, items[position]);
+    public void onBindViewHolder(GoogleFontsAdapter.FontItemViewHolder holder, final int position) {
+
+//        holder.tv.setTypeface(Typeface.createFromFile(items[position]));
+        holder.tv.setText(items[position]);
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onFontClickListner != null) {
-                    onFontClickListner.onFontClicked(items[position], false);
+                    onFontClickListner.onFontClicked(items[position], true);
                 }
             }
         });
