@@ -23,6 +23,7 @@ import android.support.v4.util.ArraySet;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -864,7 +865,7 @@ public class TextFeatures {
         lightingStrngthSeekbar.setProgress(0);
         highlightsSeekbar.setProgress(0);
         blurrRadius.setProgress(0);
-
+        selectedVfx[0] = 0;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -901,28 +902,32 @@ public class TextFeatures {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 /*alpha applies between 0 to 1*/
-                opacity[0] = (progress * 0.1f);
+                opacity[0] = (0f);
                 opacity[2] = (progress * 0.2f > 1.0f ? 1.0f : progress * 0.2f);
-                if (selectedVfx[0] == 1) {
+                if (selectedVfx[0] == 0) {
                     opacity[1] = 1;
                     applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
-                } else if (selectedVfx[0] == 2) {
+                    Log.e("EMBOSS VALUES",opacity[0]+File.separator+opacity[1]+File.separator+opacity[2]+File.separator+radius[0]+File.separator+x[0]+File.separator+y[0]);
+//                    applyFilter(demoShadowText, new float[] { 0f, 1f, 0.5f }, 0.8f, 3f, 3f);
+                } else if (selectedVfx[0] == 1) {
                     opacity[1] = -1;
                     applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
-                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 3) {
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 2) {
+                    opacity[0] = progress == 0.0f ? 1.0f : progress;
                     applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.NORMAL, progress);
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 3) {
+                    opacity[0] = progress;
+                    opacity[0] = progress == 0.0f ? 1.0f : progress;
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.SOLID, progress);
+
                 } else if (selectedVfx[0] > 2 && selectedVfx[0] == 4) {
                     opacity[0] = progress;
-                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.SOLID, progress);
+                    opacity[0] = progress == 0.0f ? 1.0f : progress;
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.INNER, progress);
 
                 } else if (selectedVfx[0] > 2 && selectedVfx[0] == 5) {
                     opacity[0] = progress;
-
-                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.INNER, progress);
-
-                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 6) {
-                    opacity[0] = progress;
-
+                    opacity[0] = progress == 0.0f ? 1.0f : progress;
                     applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.OUTER, progress);
 
                 }
@@ -1039,22 +1044,25 @@ public class TextFeatures {
             @Override
             public void onClick(View v) {
 
-                if (selectedVfx[0] == 1) {
+                if (selectedVfx[0] == 0) {
                     opacity[1] = 1;
-                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
-                } else if (selectedVfx[0] == 2) {
+                    applyFilter(selectedTextView, opacity, radius[0], x[0], y[0]);
+//                    applyFilter(selectedTextView, new float[] { 0f, 1f, 0.5f }, 0.8f, 3f, 3f);
+
+                } else if (selectedVfx[0] == 1) {
                     opacity[1] = -1;
-                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                    applyFilter(selectedTextView, opacity, radius[0], x[0], y[0]);
+//                    applyFilter(selectedTextView, new float[] { 0f, -1f, 0.5f }, 0.8f, 15f, 1f);
+                } else if (selectedVfx[0] >= 2 && selectedVfx[0] == 2) {
+                    applyBlurrFilter(selectedTextView, BlurMaskFilter.Blur.NORMAL, opacity[0]);
                 } else if (selectedVfx[0] > 2 && selectedVfx[0] == 3) {
-                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.NORMAL, opacity[0]);
+                    applyBlurrFilter(selectedTextView, BlurMaskFilter.Blur.SOLID, opacity[0]);
+
                 } else if (selectedVfx[0] > 2 && selectedVfx[0] == 4) {
-                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.SOLID, opacity[0]);
+                    applyBlurrFilter(selectedTextView, BlurMaskFilter.Blur.INNER, opacity[0]);
 
                 } else if (selectedVfx[0] > 2 && selectedVfx[0] == 5) {
-                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.INNER, opacity[0]);
-
-                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 6) {
-                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.OUTER, opacity[0]);
+                    applyBlurrFilter(selectedTextView, BlurMaskFilter.Blur.OUTER, opacity[0]);
 
                 }
                 dialog.dismiss();
@@ -1078,7 +1086,7 @@ public class TextFeatures {
         if (Build.VERSION.SDK_INT >= 11) {
             textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        float radius = textView.getTextSize() / val<0?0:textView.getTextSize()/val;
+        float radius = textView.getTextSize() / val < 0 ? 0 : textView.getTextSize() / val;
         BlurMaskFilter filter = new BlurMaskFilter(radius, style);
         textView.getPaint().setMaskFilter(filter);
     }

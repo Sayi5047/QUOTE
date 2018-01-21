@@ -17,6 +17,7 @@
     <dimen name="font3_5">30sp</dimen>
     <dimen name="font3_8">33sp</dimen>
     <dimen name="font4">35sp</dimen>
+    <dimen name="font5">45sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
