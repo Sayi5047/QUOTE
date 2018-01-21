@@ -55,6 +55,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
             itemstobe_used_images.add(getDrawable(R.drawable.ic_font_bt));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_gradient));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_canvas_size));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_canvas_size));
 
         } else {
             itemstobe_used_images.add(getDrawable(R.drawable.ic_menu_gallery));

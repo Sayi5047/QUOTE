@@ -2,17 +2,15 @@ package com.hustler.quote.ui.textFeatures;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.EmbossMaskFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
@@ -26,6 +24,7 @@ import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -34,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
@@ -800,5 +800,286 @@ public class TextFeatures {
         });
 
         dialog.show();
+    }
+
+    public static void setVfx(EditorActivity editorActivity, final TextView selectedTextView) {
+        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.vfx_text_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        AdView adView;
+        TextView tvHead;
+        final TextView demoShadowText;
+        AppCompatSeekBar lightingDirectionSeekBar;
+        TextView lighting_direction_tv;
+        final AppCompatSeekBar lightingStrngthSeekbar;
+        final TextView lighting_strngth_tv;
+        final AppCompatSeekBar highlightsSeekbar;
+        final TextView highlights_tv;
+        final AppCompatSeekBar blurrRadius;
+        final TextView blurr_radius_tv;
+        TextView tvShadowColor;
+        RecyclerView rvShadowColor;
+        Button btShadowClose;
+        Button btShadowApply;
+        final Spinner spinner;
+        LinearLayout root;
+        final int[] selectedVfx = new int[1];
+
+        root = (LinearLayout) dialog.findViewById(R.id.root);
+        /*VARIABLES FOR SHADOW*/
+        final float[] radius = new float[1];
+        final float[] x = new float[1];
+        final float[] y = new float[1];
+        final int[] shadow_color = new int[1];
+        final float[] opacity = new float[3];
+
+        tvHead = (TextView) dialog.findViewById(R.id.tv_head);
+        demoShadowText = (TextView) dialog.findViewById(R.id.demo_shadow_text);
+        lighting_direction_tv = (TextView) dialog.findViewById(R.id.tv_opacity);
+        lighting_strngth_tv = (TextView) dialog.findViewById(R.id.tv_shadow_radius);
+        highlights_tv = (TextView) dialog.findViewById(R.id.tv_x_pos);
+        blurr_radius_tv = (TextView) dialog.findViewById(R.id.tv_y_pos);
+        tvShadowColor = (TextView) dialog.findViewById(R.id.tv_shadow_color);
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        lightingDirectionSeekBar = (AppCompatSeekBar) dialog.findViewById(R.id.opacity_seekbar);
+        lightingStrngthSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.shadow_radius_seekbar);
+        highlightsSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_x_seekbar);
+        blurrRadius = (AppCompatSeekBar) dialog.findViewById(R.id.pos_y_seekbar);
+        spinner = (Spinner) dialog.findViewById(R.id.fx_spinner);
+        AdUtils.loadBannerAd(adView, editorActivity);
+        rvShadowColor = (RecyclerView) dialog.findViewById(R.id.rv_shadow_color);
+        rvShadowColor.setVisibility(GONE);
+        rvShadowColor.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
+
+
+        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
+        demoShadowText.setTextColor(selectedTextView.getTextColors());
+
+        /*Applying font to all TextViews and Edittexts*/
+        TextUtils.findText_and_applyTypeface(root, editorActivity);
+        lightingDirectionSeekBar.setProgress(0);
+        lightingStrngthSeekbar.setProgress(0);
+        highlightsSeekbar.setProgress(0);
+        blurrRadius.setProgress(0);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position >= 2) {
+                    lighting_strngth_tv.setVisibility(GONE);
+                    highlights_tv.setVisibility(GONE);
+                    blurr_radius_tv.setVisibility(GONE);
+                    lightingStrngthSeekbar.setVisibility(GONE);
+                    highlightsSeekbar.setVisibility(GONE);
+                    blurrRadius.setVisibility(GONE);
+                } else {
+
+                    lighting_strngth_tv.setVisibility(View.VISIBLE);
+                    highlights_tv.setVisibility(View.VISIBLE);
+                    blurr_radius_tv.setVisibility(View.VISIBLE);
+                    lightingStrngthSeekbar.setVisibility(View.VISIBLE);
+                    highlightsSeekbar.setVisibility(View.VISIBLE);
+                    blurrRadius.setVisibility(View.VISIBLE);
+                }
+
+                selectedVfx[0] = position;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinner.setSelection(0);
+            }
+        });
+
+        /*SEEKBAR LISTNERS*/
+        lightingDirectionSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                /*alpha applies between 0 to 1*/
+                opacity[0] = (progress * 0.1f);
+                opacity[2] = (progress * 0.2f > 1.0f ? 1.0f : progress * 0.2f);
+                if (selectedVfx[0] == 1) {
+                    opacity[1] = 1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] == 2) {
+                    opacity[1] = -1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 3) {
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.NORMAL, progress);
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 4) {
+                    opacity[0] = progress;
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.SOLID, progress);
+
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 5) {
+                    opacity[0] = progress;
+
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.INNER, progress);
+
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 6) {
+                    opacity[0] = progress;
+
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.OUTER, progress);
+
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        lightingStrngthSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                radius[0] = progress;
+                if (selectedVfx[0] == 1) {
+                    opacity[1] = 1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] == 2) {
+                    opacity[1] = -1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        highlightsSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                x[0] = progress;
+                if (selectedVfx[0] == 1) {
+                    opacity[1] = 1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] == 2) {
+                    opacity[1] = -1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        blurrRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                y[0] = progress;
+
+                if (selectedVfx[0] == 1) {
+                    opacity[1] = 1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] == 2) {
+                    opacity[1] = -1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+//        /*SETTING COLOR OF RECYCLERVIEW*/
+//        ColorsAdapter colorsAdapter = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
+//            @Override
+//            public void onColorClick(int color) {
+//                shadow_color[0] = color;
+//                TextUtils.applyTextShadow(demoShadowText, radius[0], x[0], y[0], shadow_color[0]);
+//
+//            }
+//        });
+//
+//        rvShadowColor.setAdapter(colorsAdapter);
+        /*BUTTON LISTNERS*/
+        btShadowClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int radius = 0;
+                final int x = 0;
+                final int y = 0;
+                final int[] shadow_color = {0};
+                final float[] opacity = {0};
+                dialog.dismiss();
+            }
+        });
+        btShadowApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (selectedVfx[0] == 1) {
+                    opacity[1] = 1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] == 2) {
+                    opacity[1] = -1;
+                    applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 3) {
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.NORMAL, opacity[0]);
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 4) {
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.SOLID, opacity[0]);
+
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 5) {
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.INNER, opacity[0]);
+
+                } else if (selectedVfx[0] > 2 && selectedVfx[0] == 6) {
+                    applyBlurrFilter(demoShadowText, BlurMaskFilter.Blur.OUTER, opacity[0]);
+
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public static void applyFilter(TextView textView, float[] direction, float ambient, float specular, float blurRadius) {
+        if (Build.VERSION.SDK_INT >= 11) {
+            textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+        EmbossMaskFilter filter = new EmbossMaskFilter(
+                direction, ambient, specular, blurRadius);
+        textView.getPaint().setMaskFilter(filter);
+    }
+
+    public static void applyBlurrFilter(
+            TextView textView, BlurMaskFilter.Blur style, float val) {
+        if (Build.VERSION.SDK_INT >= 11) {
+            textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+        float radius = textView.getTextSize() / val<0?0:textView.getTextSize()/val;
+        BlurMaskFilter filter = new BlurMaskFilter(radius, style);
+        textView.getPaint().setMaskFilter(filter);
     }
 }

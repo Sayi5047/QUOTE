@@ -572,8 +572,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             setCanvasSize(array, PreferenceManager
                     .getDefaultSharedPreferences(EditorActivity.this)
                     .getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
+        } else if (feature.equalsIgnoreCase(array[12])) {
+            textFx(array);
         }
     }
+
 
     private void setCanvasSize(String[] array, final int deviceHeight) {
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
@@ -1571,6 +1574,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             TextFeatures.setGradients(EditorActivity.this, selectedTextView);
         }
     }
+
+
+    private void textFx(String[] array) {
+        final TextView selectedTextView = (TextView) selectedView;
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            previousstate = selectedView;
+            current_Text_feature = array[12];
+            TextFeatures.setVfx(EditorActivity.this, selectedTextView);
+        }
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void set_text_alignment(int position, TextView textView) {

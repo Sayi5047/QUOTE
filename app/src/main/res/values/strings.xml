@@ -136,6 +136,10 @@
     <string name="font_not_downloaded">Font download failed</string>
     <string name="internet_required">Internet required to download the fonts from server</string>
     <string name="images">Images</string>
+    <string name="VFX">VFX</string>
+    <string name="light_Direction">Source light direction</string>
+    <string name="light">Light</string>
+    <string name="blurr_radius">Blurr radius</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
@@ -144,7 +148,6 @@
         <item>Resize Text</item>
         <item>Rotate Text</item>
         <item>Letter Space</item>
-        <!--<item>Align Text</item>-->
         <item>Color Text</item>
         <item>Line Space</item>
         <item>Frame Width</item>
@@ -152,6 +155,8 @@
         <item>Change Font</item>
         <item>Gradient Text</item>
         <item>Canvas Size</item>
+        <item>Visual Fx</item>
+
     </string-array>
 
     <string-array name="Background_features">
@@ -183,6 +188,15 @@
         <item>Make wallpapers from your fav quotes or your own talks for personal and official work</item>
         <item>Add your own fonts to make endless possibilities to your creativity,Explore editor to see all super powers </item>
         <item>Make wallpapers with ur desired font and add agradient background and much more</item>
+    </string-array>
+
+    <string-array name="fx_list">
+        <item>Emboss</item>
+        <item>Deboss</item>
+        <item>Blurr</item>
+        <item>Solid</item>
+        <item>Inner Glow</item>
+        <item>Outer Glow</item>
     </string-array>
 
 

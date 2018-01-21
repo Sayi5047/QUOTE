@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/standardPadding"
+            android:text="@string/VFX"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font3"
+            android:textStyle="italic" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/fx_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/fx_list"
+            android:padding="16dp">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+        <TextView
+            android:id="@+id/demo_shadow_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font3"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/opacity_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tv_opacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/light_Direction" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/shadow_radius_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="1"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tv_shadow_radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/light" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/pos_x_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tv_x_pos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/highlight" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/smallPadding">
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/pos_y_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="10"
+                android:padding="@dimen/smallPadding"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/tv_y_pos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:text="@string/blurr_radius" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_shadow_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standardMargin"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/smallPadding"
+            android:text="@string/shadow_color"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="italic" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_shadow_color"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="@dimen/standardMargin"
+            android:padding="@dimen/smallPadding">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/bannerAdId"
+            ads:layout_anchorGravity="bottom">
+
+        </com.google.android.gms.ads.AdView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/standardPadding">
+
+            <Button
+                android:id="@+id/bt_shadow_close"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/smallPadding"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/close"
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_shadow_apply"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="@dimen/standardMargin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/apply"
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
