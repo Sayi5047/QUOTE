@@ -2,24 +2,29 @@ package com.hustler.quote.ui.textFeatures;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v4.util.ArraySet;
 import android.support.v7.widget.AppCompatSeekBar;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -280,7 +285,6 @@ public class TextFeatures {
         final FontSelected fontSelected = new FontSelected();
 
 
-
         root = (LinearLayout) dialog.findViewById(R.id.root);
         root2 = (LinearLayout) dialog.findViewById(R.id.root2);
         root3 = (LinearLayout) dialog.findViewById(R.id.root3);
@@ -333,7 +337,7 @@ public class TextFeatures {
 
         rvAppFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
         rvDownloadedFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
-        rvGoogleFont.setLayoutManager(new LinearLayoutManager(editorActivity,LinearLayoutManager.HORIZONTAL,false));
+        rvGoogleFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
 
         localFontAdapter1 = new LocalFontAdapter(false, editorActivity, getLocalFonts(editorActivity), new LocalFontAdapter.onFontClickListner() {
             @Override
@@ -564,17 +568,21 @@ public class TextFeatures {
         final TextView demoGradient;
         final ImageView demoColor1;
         final ImageView demoColor2;
+        final ImageView demoColor5;
+        final ImageView demoColor4;
+        final ImageView demoColor3;
+
         final TextView demoColor1Tv;
         final TextView demoColor2Tv;
         final RecyclerView colorsRecycler;
         final ColorsAdapter colorsAdapter;
-        final ColorsAdapter colorsAdapter2;
+        final ColorsAdapter colorsAdapter2, colorsAdapter3, colorsAdapter4, colorsAdapter5;
         final GradientDrawable[] output_drawable = new GradientDrawable[1];
         final Shader[] shader_gradient = new Shader[1];
         final int[] firstColor = {0};
         final int[] secondColor = {0};
         final int[] selected_color = {0};
-        final int[] colors;
+        final int[] colors = new int[5];
 
         root = (LinearLayout) dialog.findViewById(R.id.root);
         gradientText = (TextView) dialog.findViewById(R.id.gradient_text);
@@ -590,6 +598,11 @@ public class TextFeatures {
         demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
         demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
         demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
+        demoColor3 = (ImageView) dialog.findViewById(R.id.demo_color_3);
+
+        demoColor4 = (ImageView) dialog.findViewById(R.id.demo_color_4);
+
+        demoColor5 = (ImageView) dialog.findViewById(R.id.demo_color_5);
         demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
         demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
         colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
@@ -608,8 +621,9 @@ public class TextFeatures {
         colorsAdapter = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
             @Override
             public void onColorClick(int color) {
-                firstColor[0] = color;
+                colors[0] = color;
                 demoColor1.setBackgroundColor(color);
+                demoColor1.setImageDrawable(null);
                 demoColor1Tv.setTextColor(color);
                 preview.setVisibility(View.VISIBLE);
 
@@ -618,9 +632,43 @@ public class TextFeatures {
         colorsAdapter2 = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
             @Override
             public void onColorClick(int color) {
-                secondColor[0] = color;
+                colors[1] = color;
                 demoColor2.setBackgroundColor(color);
+                demoColor2.setImageDrawable(null);
                 demoColor2Tv.setTextColor(color);
+                preview.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+        colorsAdapter3 = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                colors[2] = color;
+                demoColor3.setBackgroundColor(color);
+                demoColor3.setImageDrawable(null);
+                preview.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+        colorsAdapter4 = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                colors[3] = color;
+                demoColor4.setBackgroundColor(color);
+                demoColor4.setImageDrawable(null);
+                preview.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+        colorsAdapter5 = new ColorsAdapter(editorActivity, new ColorsAdapter.OnColorClickListener() {
+            @Override
+            public void onColorClick(int color) {
+                colors[4] = color;
+                demoColor5.setBackgroundColor(color);
+                demoColor5.setImageDrawable(null);
                 preview.setVisibility(View.VISIBLE);
 
 
@@ -646,6 +694,35 @@ public class TextFeatures {
                 colorsRecycler.setAdapter(colorsAdapter2);
             }
         });
+        demoColor3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter3);
+            }
+        });
+        demoColor4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter4);
+            }
+        });
+        demoColor5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorsRecycler.setVisibility(View.VISIBLE);
+                colorsRecycler.setAdapter(null);
+                selected_color[0] = 0;
+                colorsRecycler.setAdapter(colorsAdapter5);
+            }
+        });
+
+
         demoColor1Tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -670,9 +747,11 @@ public class TextFeatures {
             @Override
             public void onClick(View v) {
                 if (rdGroup.getCheckedRadioButtonId() == rbJpeg.getId()) {
-                    int[] colors = {firstColor[0], secondColor[0]};
                     float[] position = {0, 1};
-                    LinearGradient lin_grad = new LinearGradient(0, 0, 0, 50, colors, position, Shader.TileMode.MIRROR);
+                    LinearGradient lin_grad = new LinearGradient(0, 0, 0, selectedTextView.getWidth(), colors, null, Shader.TileMode.MIRROR);
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(90);
+                    lin_grad.setLocalMatrix(matrix);
                     shader_gradient[0] = lin_grad;
                     gradientPreviewText.setText(null);
                     gradientPreviewText.setText("SOMETHING");
@@ -680,12 +759,15 @@ public class TextFeatures {
 //                    Bitmap bitmap= BitmapFactory.decodeResource(editorActivity.getResources(), AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
 
                     ((TextView) dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
-                    gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
+                    gradientText.setBackground(AnimUtils.createDrawable(colors[0], colors[1], editorActivity));
 
                 } else {
-                    int[] colors = {firstColor[0], secondColor[0]};
                     RadialGradient lin_grad = new RadialGradient(0, 3, 5, colors[0], colors[1], Shader.TileMode.REPEAT);
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(90);
+                    lin_grad.setLocalMatrix(matrix);
                     shader_gradient[0] = lin_grad;
+                    gradientPreviewText.getPaint().setShader(null);
                     ((TextView) dialog.findViewById(R.id.gradient_preview_text)).getPaint().setShader(shader_gradient[0]);
                     gradientText.setBackground(AnimUtils.createDrawable(firstColor[0], secondColor[0], editorActivity));
 
@@ -702,6 +784,13 @@ public class TextFeatures {
             @Override
             public void onClick(View v) {
                 if (shader_gradient[0] != null) {
+                    selectedTextView.setBackground(null);
+                    selectedTextView.setBackground(ContextCompat.getDrawable(editorActivity.getApplicationContext(), R.drawable.tv_bg));
+
+//                    Bitmap bitmap= BitmapFactory.decodeResource(editorActivity.getResources(),R.drawable.ic_cat_test);
+//
+//                    Shader shader=new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+
                     selectedTextView.getPaint().setShader(shader_gradient[0]);
                     dialog.dismiss();
                 } else {

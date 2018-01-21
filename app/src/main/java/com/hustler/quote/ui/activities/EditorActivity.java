@@ -1518,6 +1518,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.select_colors_apply));
                     } else {
                         dialog.dismiss();
+                        selectedTextView.getPaint().setShader(null);
                         selectedTextView.setTextColor(choosen_color[0]);
                     }
 
