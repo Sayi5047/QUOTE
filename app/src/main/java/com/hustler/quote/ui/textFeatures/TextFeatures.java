@@ -4,9 +4,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.ComposePathEffect;
+import android.graphics.CornerPathEffect;
+import android.graphics.DashPathEffect;
 import android.graphics.EmbossMaskFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
+import android.graphics.Path;
+import android.graphics.PathDashPathEffect;
+import android.graphics.PathEffect;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
@@ -21,8 +27,10 @@ import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v4.util.ArraySet;
 import android.support.v7.widget.AppCompatSeekBar;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +47,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.CustomSpan.HollowSpan;
 import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.DownloadedFontAdapter;
@@ -54,6 +63,7 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static android.view.View.GONE;
@@ -907,7 +917,7 @@ public class TextFeatures {
                 if (selectedVfx[0] == 0) {
                     opacity[1] = 1;
                     applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
-                    Log.e("EMBOSS VALUES",opacity[0]+File.separator+opacity[1]+File.separator+opacity[2]+File.separator+radius[0]+File.separator+x[0]+File.separator+y[0]);
+                    Log.e("EMBOSS VALUES", opacity[0] + File.separator + opacity[1] + File.separator + opacity[2] + File.separator + radius[0] + File.separator + x[0] + File.separator + y[0]);
 //                    applyFilter(demoShadowText, new float[] { 0f, 1f, 0.5f }, 0.8f, 3f, 3f);
                 } else if (selectedVfx[0] == 1) {
                     opacity[1] = -1;
@@ -1090,4 +1100,128 @@ public class TextFeatures {
         BlurMaskFilter filter = new BlurMaskFilter(radius, style);
         textView.getPaint().setMaskFilter(filter);
     }
+
+    public static void setHollowText(final EditorActivity editorActivity, final TextView selectedTextView) {
+        final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.hollow_text_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.show();
+        dialog.setCancelable(false);
+        TextView tvHead;
+        AppCompatSpinner fxSpinner;
+        final TextView demoShadowText;
+        AppCompatSeekBar opacitySeekbar;
+        TextView tvOpacity;
+        Button btShadowClose;
+        Button btShadowApply;
+        AdView adView;
+        LinearLayout root;
+
+
+        final ArrayList<PathEffect> pathEffects = new ArrayList<>();
+        pathEffects.add(null);
+        final int[] selectedOption = new int[1];
+        tvHead = (TextView) dialog.findViewById(R.id.tv_head);
+        root = (LinearLayout) dialog.findViewById(R.id.root);
+        fxSpinner = (AppCompatSpinner) dialog.findViewById(R.id.fx_spinner);
+        demoShadowText = (TextView) dialog.findViewById(R.id.demo_shadow_text);
+        opacitySeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.opacity_seekbar);
+        tvOpacity = (TextView) dialog.findViewById(R.id.tv_opacity);
+        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView, editorActivity);
+        TextUtils.findText_and_applyTypeface(root, editorActivity);
+        pathEffects.add(getDashPathEffect(6));
+        pathEffects.add(getCornerDashPathEffect(6));
+        pathEffects.add(getTrianglePathEffect(6));
+        final int[] position = new int[1];
+        int strokeWidth = 5;
+        final HollowSpan hollowSpan = new HollowSpan(strokeWidth);
+        final SpannableString spannableString = new SpannableString(demoShadowText.getText().toString());
+        spannableString.setSpan(hollowSpan, 0, demoShadowText.getText().length(), 0);
+
+        final SpannableString
+                spannableString_Selected = new SpannableString(selectedTextView.getText().toString());
+        spannableString_Selected.setSpan(hollowSpan, 0, selectedTextView.getText().length(), 0);
+
+        fxSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                position[0] = i;
+                hollowSpan.setPathEffect(pathEffects.get(i));
+                demoShadowText.setText(spannableString, TextView.BufferType.SPANNABLE);
+//                switch (i) {
+//                    case 0: {
+//
+//                    }
+//                    break;
+//                    case 1: {
+//
+//                    }
+//                    break;
+//                    case 2: {
+//
+//                    }
+//                    break;
+//                    case 3: {
+//
+//                    }
+//                    break;
+//                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                position[0] = 0;
+            }
+        });
+
+
+        btShadowClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        btShadowApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hollowSpan.setPathEffect(pathEffects.get(position[0]));
+                selectedTextView.setText(spannableString_Selected, TextView.BufferType.SPANNABLE);
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    public static PathEffect getDashPathEffect(int strokeWidth) {
+        return new DashPathEffect(new float[]{strokeWidth * 3, strokeWidth}, 0);
+    }
+
+    public static PathEffect getCornerDashPathEffect(int strokeWidth) {
+        PathEffect dash = getDashPathEffect(strokeWidth);
+        PathEffect corner = new CornerPathEffect(strokeWidth);
+        return new ComposePathEffect(dash, corner);
+    }
+
+    public static PathEffect getTrianglePathEffect(int strokeWidth) {
+        return new PathDashPathEffect(
+                getTriangle(strokeWidth),
+                strokeWidth,
+                0.0f,
+                PathDashPathEffect.Style.ROTATE);
+    }
+
+    public static Path getTriangle(float size) {
+        Path path = new Path();
+        float half = size / 2;
+        path.moveTo(-half, -half);
+        path.lineTo(half, -half);
+        path.lineTo(0, half);
+        path.close();
+        return path;
+    }
+
 }

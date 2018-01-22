@@ -27,4 +27,5 @@
     <dimen name="standardPadding">16dp</dimen>
     <dimen name="smallPadding">8dp</dimen>
     <dimen name="standardMargin">8dp</dimen>
+    <dimen name="dashed_text_stroke_width">8dp</dimen>
 </resources>

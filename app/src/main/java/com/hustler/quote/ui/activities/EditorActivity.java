@@ -574,8 +574,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     .getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
         } else if (feature.equalsIgnoreCase(array[12])) {
             textFx(array);
+        }else if (feature.equalsIgnoreCase(array[13])) {
+//            hollowText(array);
         }
     }
+
 
 
     private void setCanvasSize(String[] array, final int deviceHeight) {
@@ -1587,7 +1590,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
+    private void hollowText(String[] array) {
+        final TextView selectedTextView = (TextView) selectedView;
+        if (selectedView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            previousstate = selectedView;
+            current_Text_feature = array[13];
+            TextFeatures.setHollowText(EditorActivity.this, selectedTextView);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void set_text_alignment(int position, TextView textView) {

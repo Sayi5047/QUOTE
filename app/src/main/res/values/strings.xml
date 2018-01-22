@@ -140,6 +140,8 @@
     <string name="light_Direction">Source light direction</string>
     <string name="light">Light</string>
     <string name="blurr_radius">Blurr radius</string>
+    <string name="Hollow">Hollow Text</string>
+    <string name="dash_width">Dash Width</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
@@ -156,6 +158,7 @@
         <item>Gradient Text</item>
         <item>Canvas Size</item>
         <item>Visual Fx</item>
+        <!--<item>Hollow Text</item>-->
 
     </string-array>
 
@@ -197,6 +200,13 @@
         <item>Solid</item>
         <item>Inner Glow</item>
         <item>Outer Glow</item>
+    </string-array>
+    <string-array name="hollow_fx_list">
+        <item>Solid</item>
+        <item>Dash</item>
+        <item>Rounded Dash</item>
+        <item>Triangle</item>
+        <item>Custom</item>
     </string-array>
 
 
