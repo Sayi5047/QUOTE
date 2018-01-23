@@ -9,7 +9,7 @@
         android:id="@+id/root_widget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/screen_background_dark_transparent"
+        android:background="@drawable/animation_list"
         android:orientation="vertical">
 
         <TextView
@@ -21,7 +21,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font4"
-            tools:text="dsadsadsadadada" />
+            android:text="dsadsadsadadada" />
 
         <TextView
             android:id="@+id/quote_author"
@@ -32,7 +32,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font2"
-            tools:text="dsadsadsadadada" />
+            android:text="dsadsadsadadada" />
 
         <LinearLayout
             android:layout_width="match_parent"
