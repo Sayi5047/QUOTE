@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.QuoteStrings.QuoteCategories;
+import com.hustler.quote.ui.QuoteStrings.QuotesAuthorsClass;
+import com.hustler.quote.ui.QuoteStrings.QuotesClass;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
@@ -28,6 +31,9 @@ public class SplashActivity extends BaseActivity {
     ImageView iv;
     ArrayList<Quote> quotesFromdb = new ArrayList<>();
     SharedPreferences sharedPreferences;
+    String[] bodies;
+    String[] authors;
+    String[] categories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,23 +66,31 @@ public class SplashActivity extends BaseActivity {
             editor.putBoolean(Constants.IS_DB_LOADED_PREFERENCE, true);
             editor.apply();
         }
-       setCounter_and_launch();
+        setCounter_and_launch();
     }
 
     private void load_from_Arrays() {
-        final String[] bodies = getResources().getStringArray(R.array.quote_bodies);
-        final String[] authors = getResources().getStringArray(R.array.quote_authors);
-        final String[] categories = getResources().getStringArray(R.array.quote_categories);
+
+        bodies= QuotesClass.AGE_QUOTES.split("/n");
+        authors= QuotesAuthorsClass.AGE_AUTHORS.split("/n");
+        categories= QuoteCategories.QUOTE_CATEGORY_AGE.split("/n");
+//        final String[] bodies = getResources().getStringArray(R.array.quote_bodies);
+//        final String[] authors = getResources().getStringArray(R.array.quote_authors);
+//        final String[] categories = getResources().getStringArray(R.array.quote_categories);
         final String[] languages = getResources().getStringArray(R.array.quote_languages);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < bodies.length; i++) {
-                    Quote quote = new Quote(bodies[i], authors[i], categories[i], languages[i]);
+                    Quote quote = new Quote(bodies[i], authors[i], categories[i], languages[0]);
                     quotesFromdb.add(i, quote);
                 }
             }
         }).run();
+
+    }
+
+    private void convertQuotes() {
 
     }
 
