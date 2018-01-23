@@ -86,7 +86,7 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_gravity="center"-->
                 <!--android:layout_weight="4"-->
-                <!--android:text="@string/light" />-->
+                <!--android:quotes="@string/light" />-->
 
         <!--</LinearLayout>-->
 
@@ -110,7 +110,7 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_gravity="center"-->
                 <!--android:layout_weight="4"-->
-                <!--android:text="@string/highlight" />-->
+                <!--android:quotes="@string/highlight" />-->
 
         <!--</LinearLayout>-->
 
@@ -134,7 +134,7 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_gravity="center"-->
                 <!--android:layout_weight="4"-->
-                <!--android:text="@string/blurr_radius" />-->
+                <!--android:quotes="@string/blurr_radius" />-->
 
         <!--</LinearLayout>-->
 
@@ -145,7 +145,7 @@
             <!--android:layout_margin="@dimen/standardMargin"-->
             <!--android:background="@color/colorAccent"-->
             <!--android:padding="@dimen/smallPadding"-->
-            <!--android:text="@string/shadow_color"-->
+            <!--android:quotes="@string/shadow_color"-->
             <!--android:textAlignment="center"-->
             <!--android:textColor="@android:color/white"-->
             <!--android:textStyle="italic" />-->

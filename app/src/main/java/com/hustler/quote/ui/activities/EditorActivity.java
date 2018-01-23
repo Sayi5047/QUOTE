@@ -553,7 +553,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             spaceText(array);
 
         } else if (feature.equalsIgnoreCase(array[5])) {
-            // TODO: 14/12/2017 do it at end of text area
+            // TODO: 14/12/2017 do it at end of quotes area
             colorText(array);
 
         } else if (feature.equalsIgnoreCase(array[6])) {
