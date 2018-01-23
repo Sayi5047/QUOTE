@@ -5,8 +5,8 @@ package com.hustler.quote.ui.QuoteStrings;
  */
 
 public class QuoteCategories {
-    public static final String QUOTE_CATEGORY_AGE = "Age\n" +
-            "Age\n" +
+
+    public static final String QUOTE_CATEGORY_AGE =
             "Age\n" +
             "Age\n" +
             "Age\n" +

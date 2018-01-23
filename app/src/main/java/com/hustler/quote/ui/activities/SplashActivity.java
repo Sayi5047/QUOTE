@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class SplashActivity extends BaseActivity {
     TextView tv;
     ImageView iv;
-    ArrayList<Quote> quotesFromdb = new ArrayList<>();
+    Quote[] quotesFromdb;
     SharedPreferences sharedPreferences;
     String[] bodies;
     String[] authors;
@@ -57,11 +57,15 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void load_to_database() {
-        if (quotesFromdb != null) {
-            for (int i = 0; i < quotesFromdb.size(); i++) {
-                new QuotesDbHelper(SplashActivity.this).addQuote(quotesFromdb.get(i));
+        ArrayList<Quote> quotes = new ArrayList<>();
+        for (int i = 0; i < quotesFromdb.length; i++) {
+            quotes.add(i, quotesFromdb[i]);
+        }
+        if (quotes != null) {
+            for (int i = 0; i < quotes.size(); i++) {
+                new QuotesDbHelper(SplashActivity.this).addQuote(quotes.get(i));
             }
-            Log.d("Quotes list length", quotesFromdb.size() + "");
+            Log.d("Quotes list length", quotes.size() + "");
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Constants.IS_DB_LOADED_PREFERENCE, true);
             editor.apply();
@@ -71,19 +75,40 @@ public class SplashActivity extends BaseActivity {
 
     private void load_from_Arrays() {
 
-        bodies= QuotesClass.AGE_QUOTES.split("/n");
-        authors= QuotesAuthorsClass.AGE_AUTHORS.split("/n");
-        categories= QuoteCategories.QUOTE_CATEGORY_AGE.split("/n");
+        bodies = QuotesClass.AGE_QUOTES.split("\n");
+        authors = QuotesAuthorsClass.AGE_AUTHORS.split("\n");
+        categories = QuoteCategories.QUOTE_CATEGORY_AGE.split("\n");
+        for (String body : bodies) {
+            Log.d("VALUES", body);
+
+        }
+        for (String body : authors) {
+            Log.d("authors", body);
+
+        }
+        for (String body : categories) {
+            Log.d("categories", body);
+
+        }
+
+
+
+        Log.d("BODIES LENGTH",String.valueOf(bodies.length));
+        Log.d("AUTHORS LENGTH",String.valueOf(authors.length));
+        Log.d("Categories LENGTH",String.valueOf(categories.length));
+
 //        final String[] bodies = getResources().getStringArray(R.array.quote_bodies);
 //        final String[] authors = getResources().getStringArray(R.array.quote_authors);
 //        final String[] categories = getResources().getStringArray(R.array.quote_categories);
         final String[] languages = getResources().getStringArray(R.array.quote_languages);
+        quotesFromdb=new Quote[bodies.length];
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < bodies.length; i++) {
+                    Log.d("ADDED ELEMNT",String.valueOf(i));
                     Quote quote = new Quote(bodies[i], authors[i], categories[i], languages[0]);
-                    quotesFromdb.add(i, quote);
+                    quotesFromdb[i]=quote;
                 }
             }
         }).run();

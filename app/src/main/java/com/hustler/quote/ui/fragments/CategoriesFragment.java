@@ -56,7 +56,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             @Override
             public void onCategoryClicked(String category, int position) {
 //                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(),category+" "+position);
-                bringupQuotes("Motivational");
+                bringupQuotes(category);
             }
         }));
     }

@@ -6,9 +6,8 @@ package com.hustler.quote.ui.QuoteStrings;
 
 public class QuotesAuthorsClass {
 
-    public final static String AGE_AUTHORS = "Ausonius\n" +
-            "Jeanne Moreau\n" +
-            "Satchel Paige\n" +
+    public final static String AGE_AUTHORS =
+            "Ausonius\n" +
             "Amy Tan\n" +
             "Leo Howard\n" +
             "Luis Bunuel\n" +
