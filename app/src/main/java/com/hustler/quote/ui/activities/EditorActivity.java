@@ -21,9 +21,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
@@ -83,7 +85,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 
-public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
+public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener,View.OnLongClickListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
@@ -1132,6 +1134,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         set_text_alignment(alignment[0], textView);
 
                         textView.setPadding(16, 16, 16, 16);
+                        textView.setLongClickable(true);
+                       textView.setOnLongClickListener(EditorActivity.this);
                         textView.setOnTouchListener(EditorActivity.this);
                         core_editor_layout.addView(textView);
                     }
@@ -1357,7 +1361,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                         textView.setPadding(16, 16, 16, 16);
                         textView.setOnTouchListener(EditorActivity.this);
+                        textView.setOnLongClickListener(EditorActivity.this);
+                        textView.setLongClickable(true);
+
                         core_editor_layout.addView(textView);
+
+
+
                     }
 
 
@@ -1997,7 +2007,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 view_Parameters.rightMargin = -2 * v.getWidth();
                 v.setLayoutParams(view_Parameters);
 
-                return true;
+                return false;
             }
             case MotionEvent.ACTION_UP: {
                 view_Parameters.topMargin += (int) event.getRawY() - prevY;
@@ -2007,6 +2017,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+        v.bringToFront();
+        core_editor_layout.forceLayout();
+        core_editor_layout.invalidate();
+
+        SparseArrayCompat<TextView> sparseArrayCompat=new SparseArrayCompat<TextView>();
+        sparseArrayCompat.put(v.getId(),(TextView) v);
+        Log.d("SPARSE ARRAY",String.valueOf(sparseArrayCompat.get(v.getId())));
+        return true;
+
     }
 
     public class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
