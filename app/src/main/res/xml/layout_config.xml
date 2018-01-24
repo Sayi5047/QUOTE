@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:summary="@string/layout_changes"
+        android:title="@string/layout">
+        <ListPreference
+            android:dialogTitle="@string/layout"
+            android:entries="@array/layout_styles"
+            android:entryValues="@array/layout_styles_vals"
+            android:key="@string/widget_shared_prefs_layout_size_key"
+            android:summary="@string/Widget_layout"
+            android:title="@string/Widget_layout">
+
+        </ListPreference>
+        <CheckBoxPreference
+            android:key="@string/widget_shared_prefs_show_author_key"
+            android:title="@string/show_author_name" />
+        <ListPreference
+            android:dialogTitle="@string/quotes_to_load"
+            android:entries="@array/Quotes_from_widget"
+            android:entryValues="@array/Quotes_from_widget_vals"
+            android:key="@string/widget_shared_prefs_quotes_resource_key"
+            android:summary="@string/Selecte_where_to_lo"
+            android:title="@string/Load_quotes" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/apperance"
+        android:title="@string/apperance">
+        <CheckBoxPreference
+            android:key="@string/widget_shared_prefs_show_quotes_mark_key"
+            android:title="@string/show_quotes_mark" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/background">
+        <Preference
+            android:icon="@drawable/ic_colors_bg"
+            android:key="@string/widget_shared_prefs_background_key"
+            android:summary="@string/choose_color"
+            android:title="@string/backgroundColor"></Preference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/Text">
+        <Preference
+            android:icon="@drawable/ic_format_color_text_black_24dp"
+            android:key="@string/widget_shared_prefs_text_key"
+            android:summary="@string/choose_color"
+            android:title="@string/color"></Preference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/Update">
+        <Preference
+            android:icon="@drawable/ic_refresh_black_24dp"
+            android:key="@string/widget_shared_prefs_update_key"
+            android:summary="@string/choose_color"
+            android:title="@string/widget_update"></Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

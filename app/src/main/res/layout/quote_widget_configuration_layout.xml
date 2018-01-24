@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,10 +24,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="16dp"
+                android:text="dsadsadsadadada"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font4"
-                android:text="dsadsadsadadada" />
+                android:textSize="@dimen/font4" />
 
             <TextView
                 android:id="@+id/quote_author"
@@ -36,10 +35,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="16dp"
+                android:text="dsadsadsadadada"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:text="dsadsadsadadada" />
+                android:textSize="@dimen/font2" />
 
             <LinearLayout
                 android:id="@+id/bt_layout"
@@ -65,30 +64,44 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/color_changer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/colorAccent"
-        android:text="change Color"
-        android:textColor="@android:color/white" />
 
-    <Button
-        android:id="@+id/Size_changer"
+    <LinearLayout
+        android:id="@+id/nav_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/colorAccent"
-        android:text="change Color"
-        android:textColor="@android:color/white" />
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/add_widget"
+        <Button
+            android:id="@+id/bt_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_rect"
+
+            android:text="@string/close"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/bt_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_rect"
+            android:text="@string/done"
+
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/widget_preference_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/colorAccent"
-        android:text="change Color"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_above="@id/nav_layout"
+        android:layout_below="@id/main_widget_layout">
+
+
+    </android.support.v4.view.ViewPager>
+</RelativeLayout>
