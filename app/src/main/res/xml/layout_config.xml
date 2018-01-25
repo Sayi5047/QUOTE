@@ -8,9 +8,9 @@
             android:entries="@array/layout_styles"
             android:entryValues="@array/layout_styles_vals"
             android:key="@string/widget_shared_prefs_layout_size_key"
+            android:shouldDisableView="true"
             android:summary="@string/Widget_layout"
-            android:title="@string/Widget_layout"
-            android:shouldDisableView="true">
+            android:title="@string/Widget_layout">
 
         </ListPreference>
         <CheckBoxPreference
@@ -37,23 +37,29 @@
             android:icon="@drawable/ic_colors_bg"
             android:key="@string/widget_shared_prefs_background_key"
             android:summary="@string/choose_color"
-            android:title="@string/backgroundColor"></CheckBoxPreference>
+            android:title="@string/backgroundColor">
+
+        </CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/Text">
         <CheckBoxPreference
             android:icon="@drawable/ic_format_color_text_black_24dp"
             android:key="@string/widget_shared_prefs_text_key"
-            android:summary="@string/choose_color"
-            android:title="@string/color"
             android:selectable="true"
-            android:iconSpaceReserved="true"></CheckBoxPreference>
+            android:summary="@string/choose_color"
+            android:title="@string/color">
+
+        </CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/Update">
-        <CheckBoxPreference
+        <ListPreference
+            android:entries="@array/Quotes_update_widget"
+            android:entryValues="@array/Quotes_update_vals"
             android:icon="@drawable/ic_refresh_black_24dp"
             android:key="@string/widget_shared_prefs_update_key"
-            android:summary="@string/choose_color"
-            android:title="@string/widget_update"></CheckBoxPreference>
+            android:summary="@string/choose_time_gap"
+            android:title="@string/widget_update"/>
+
 
     </PreferenceCategory>
 </PreferenceScreen>

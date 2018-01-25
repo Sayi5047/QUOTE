@@ -128,13 +128,19 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
             intent_edit.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, (quote));
             PendingIntent pendingIntent_edit = PendingIntent.getActivity(this, 0, intent_edit, 0);
             remoteViews.setOnClickPendingIntent(R.id.root_widget, pendingIntent_edit);
+            remoteViews.setTextViewText(R.id.quote_body, quote.getQuote_body());
+            remoteViews.setTextViewText(R.id.quote_author, quote.getQuote_author());
             appWidgetManager.updateAppWidget(mAppWidgetId, remoteViews);
             Intent intent = new Intent(QuoteWidgetConfigurationActivity.this, RandomQuoteUpdateService.class);
 
             if (service == null) {
                 service = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             }
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), 1000, service);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
+                    SystemClock.elapsedRealtime(),
+                    Long.parseLong(sharedPreferences.getString(getString(R.string.widget_shared_prefs_update_key), "6000")),
+                    service);
+            Log.d("FREQUENCY", getString(R.string.widget_shared_prefs_quotes_resource_key));
             Intent resultValue = new Intent();
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
             setResult(RESULT_OK, resultValue);
@@ -186,10 +192,8 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
             Log.d("Layout Key", String.valueOf(val));
             if (val == true) {
                 quoteBody.setText(" \"SAYI MANOJ SUGAVASI IS A GOOD BOY\"");
-                remoteViews.setTextViewText(R.id.quote_body, "\"SAYI MANOJ SUGAVASI IS A GOOD BOY\"");
             } else {
                 quoteBody.setText("SAYI MANOJ SUGAVASI IS A GOOD BOY");
-                remoteViews.setTextViewText(R.id.quote_body, "SAYI MANOJ SUGAVASI IS A GOOD BOY");
             }
 
         } else if (key.equals(getString(R.string.widget_shared_prefs_text_key))) {
@@ -210,16 +214,7 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
 
                 });
                 colorPicker.show();
-            } else {
-
             }
-        } else if (key.equals(getString(R.string.widget_shared_prefs_update_key))) {
-            Log.d("Layout Key", String.valueOf(sharedPreferences.getBoolean(key, true)));
-
-
-        } else if (key.equals(getString(R.string.widget_shared_prefs_quotes_resource_key))) {
-
-
         }
     }
 

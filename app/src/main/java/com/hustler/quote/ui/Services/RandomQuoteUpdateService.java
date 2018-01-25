@@ -36,11 +36,14 @@ public class RandomQuoteUpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (quotesList == null) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if(sharedPreferences.getString(getApplicationContext().getString(R.string.widget_shared_prefs_quotes_resource_key),null).equalsIgnoreCase("Favourite")){
+            quotesList=new QuotesDbHelper(getApplicationContext()).getAllFav_Quotes();
+        } else
+        if (quotesList == null ||sharedPreferences.getString(getApplicationContext().getString(R.string.widget_shared_prefs_quotes_resource_key),null).equalsIgnoreCase("Random" )) {
             quotesList = new QuotesDbHelper(getApplicationContext()).getAllQuotes();
             Log.e("DB CALLED", "FIRST TIME");
-        } else {
-
         }
 //        ArrayList<String> quotes = new ArrayList<>();
 //        ArrayList<String> quotesAuthors = new ArrayList<>();
@@ -49,7 +52,6 @@ public class RandomQuoteUpdateService extends Service {
 //            quotesAuthors.add(quotesList.get(0).getQuote_author());
 //        }
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         Random random = new Random();
         int randomINt = random.nextInt(quotesList.size());

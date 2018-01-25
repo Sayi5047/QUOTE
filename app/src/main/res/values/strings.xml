@@ -149,7 +149,7 @@
     <string name="layout_changes">Configure how widget looks</string>
     <string name="layout">Layout</string>
     <string name="Widget_layout">Widget layout</string>
-    <string name="show_author_name">Show Author Name</string>
+    <string name="show_author_name">Hide Author Name</string>
     <string name="widget_shared_prefs_show_author_key">Show_author_shared_prefs_key</string>
     <string name="widget_shared_prefs_layout_size_key">shared_prefs_layout_size_key</string>
     <string name="quotes_to_load">Show Quotes from</string>
@@ -164,6 +164,7 @@
     <string name="Update">Update Quotes</string>
     <string name="widget_update">Widget Update Frequency</string>
     <string name="widget_shared_prefs_update_key">shared_prefs_widget_quote_update_frequency_key</string>
+    <string name="choose_time_gap">Choose quote update frequency</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
