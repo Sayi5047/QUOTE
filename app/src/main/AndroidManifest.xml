@@ -81,6 +81,7 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/mywallpaper"></meta-data>
         </service>
+        <service android:name=".ui.Services.RandomQuoteUpdateService"/>
 
         <receiver android:name=".ui.Widgets.EditWidgetProvider">
             <intent-filter>

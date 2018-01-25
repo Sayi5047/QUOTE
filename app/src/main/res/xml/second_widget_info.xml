@@ -4,13 +4,13 @@
     android:configure="com.hustler.quote.ui.Widgets.QuoteWidgetConfigurationActivity"
     android:initialKeyguardLayout="@layout/quote_widget_layout"
     android:initialLayout="@layout/quote_widget_layout"
-    android:minHeight="80dp"
+    android:minHeight="100dp"
     android:minResizeHeight="24dp"
     android:minResizeWidth="24dp"
-    android:minWidth="120dp"
+    android:minWidth="400dp"
     android:previewImage="@mipmap/ic_launcher"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="0"
+    android:updatePeriodMillis="1000"
     android:widgetCategory="home_screen"
     tools:targetApi="jelly_bean_mr1">
 

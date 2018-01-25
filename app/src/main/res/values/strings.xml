@@ -157,7 +157,7 @@
     <string name="Load_quotes">Load Quotes</string>
     <string name="Selecte_where_to_lo">Select the Quotes source</string>
     <string name="apperance">Widget appearance</string>
-    <string name="widget_shared_prefs_show_quotes_mark_key">widget _shared_prefs_show_quote_key</string>
+    <string name="widget_shared_prefs_show_quotes_mark_key">widget_shared_prefs_show_quote_key</string>
     <string name="show_quotes_mark">Show Quotes Mark</string>
     <string name="widget_shared_prefs_background_key">Widget_background_color_key</string>
     <string name="widget_shared_prefs_text_key">shared_prefs_text_color_key</string>

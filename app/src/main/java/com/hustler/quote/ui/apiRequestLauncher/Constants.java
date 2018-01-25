@@ -182,4 +182,5 @@ public class Constants {
     public static final float ITALIC_DEFAULT = 0f;
     public static final float ITALIC_MAX = 1f;
     public static final float ITALIC_MIN = 0f;
+    public static String Widget_current_object="WIDGET_CURRENT_OBJECT";
 }

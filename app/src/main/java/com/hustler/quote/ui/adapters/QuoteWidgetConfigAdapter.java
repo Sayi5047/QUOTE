@@ -1,10 +1,10 @@
 package com.hustler.quote.ui.adapters;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.MainFragment;
@@ -35,21 +35,21 @@ public class QuoteWidgetConfigAdapter extends FragmentPagerAdapter {
                 returning_fragment = new widget_layout_config_fragment();
             }
             break;
-            case 1: {
-                returning_fragment = new Look_and_feel_config_fragment();
-            }
-            break;
-            case 2: {
-                returning_fragment = new Advanced_config_fragment();
-            }
-            break;
+//            case 1: {
+//                returning_fragment = new Look_and_feel_config_fragment();
+//            }
+//            break;
+//            case 2: {
+//                returning_fragment = new Advanced_config_fragment();
+//            }
+//            break;
         }
         return returning_fragment;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 1;
     }
 
     @Nullable
@@ -60,14 +60,7 @@ public class QuoteWidgetConfigAdapter extends FragmentPagerAdapter {
             case 0: {
                 fagemnt_Name = context.getString(R.string.Layout);
             } break;
-            case 1: {
-                fagemnt_Name = context.getString(R.string.Look_and_feel);
-            }
-            break;
-            case 2: {
-                fagemnt_Name = context.getString(R.string.Advanced);
-            }
-            break;
+
 
         }
         return fagemnt_Name;

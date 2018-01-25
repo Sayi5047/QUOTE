@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<include layout="@xml/layout_config"/>
     <LinearLayout
         android:id="@+id/main_widget_layout"
         android:layout_width="match_parent"

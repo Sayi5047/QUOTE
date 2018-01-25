@@ -9,7 +9,8 @@
             android:entryValues="@array/layout_styles_vals"
             android:key="@string/widget_shared_prefs_layout_size_key"
             android:summary="@string/Widget_layout"
-            android:title="@string/Widget_layout">
+            android:title="@string/Widget_layout"
+            android:shouldDisableView="true">
 
         </ListPreference>
         <CheckBoxPreference
@@ -32,24 +33,27 @@
 
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/background">
-        <Preference
+        <CheckBoxPreference
             android:icon="@drawable/ic_colors_bg"
             android:key="@string/widget_shared_prefs_background_key"
             android:summary="@string/choose_color"
-            android:title="@string/backgroundColor"></Preference>
+            android:title="@string/backgroundColor"></CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/Text">
-        <Preference
+        <CheckBoxPreference
             android:icon="@drawable/ic_format_color_text_black_24dp"
             android:key="@string/widget_shared_prefs_text_key"
             android:summary="@string/choose_color"
-            android:title="@string/color"></Preference>
+            android:title="@string/color"
+            android:selectable="true"
+            android:iconSpaceReserved="true"></CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/Update">
-        <Preference
+        <CheckBoxPreference
             android:icon="@drawable/ic_refresh_black_24dp"
             android:key="@string/widget_shared_prefs_update_key"
             android:summary="@string/choose_color"
-            android:title="@string/widget_update"></Preference>
+            android:title="@string/widget_update"></CheckBoxPreference>
+
     </PreferenceCategory>
 </PreferenceScreen>

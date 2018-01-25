@@ -1093,21 +1093,21 @@
         <item>fonts/multicolore.otf</item>
     </string-array>
 
-    <string-array name="layout_styles">
+    <string-array name="layout_styles_vals">
         <item>Resizable</item>
         <item>Horizontal</item>
         <item>Vertical</item>
     </string-array>
-    <string-array name="layout_styles_vals">
+    <string-array name="layout_styles">
         <item>Resizable Widget</item>
         <item>Horizontal Widget</item>
         <item>Vertical Widget</item>
     </string-array>
-    <string-array name="Quotes_from_widget">
+    <string-array name="Quotes_from_widget_vals">
         <item>Random</item>
         <item>Favourite</item>
     </string-array>
-    <string-array name="Quotes_from_widget_vals">
+    <string-array name="Quotes_from_widget">
         <item>Load Random Quots</item>
         <item>Load your favourite quote</item>
     </string-array>
