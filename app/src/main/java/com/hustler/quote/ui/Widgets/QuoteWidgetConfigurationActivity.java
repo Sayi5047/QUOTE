@@ -3,6 +3,7 @@ package com.hustler.quote.ui.Widgets;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.QuoteWidgetConfigAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.Quote;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
@@ -61,6 +63,9 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
     AlarmManager alarmManager;
     SharedPreferences sharedPreferences;
     PendingIntent service;
+
+    public QuoteWidgetConfigurationActivity() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,31 +126,39 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
 //            animationDrawable.setExitFadeDuration(4000);
 //            animationDrawable.start();
 
+            startServices();
 
-            Intent intent_edit = new Intent(this, EditorActivity.class);
-            intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, true);
-            Quote quote = new Gson().fromJson(sharedPreferences.getString(Constants.Widget_current_object, null), Quote.class);
-            intent_edit.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, (quote));
-            PendingIntent pendingIntent_edit = PendingIntent.getActivity(this, 0, intent_edit, 0);
-            remoteViews.setOnClickPendingIntent(R.id.root_widget, pendingIntent_edit);
-            remoteViews.setTextViewText(R.id.quote_body, quote.getQuote_body());
-            remoteViews.setTextViewText(R.id.quote_author, quote.getQuote_author());
-            appWidgetManager.updateAppWidget(mAppWidgetId, remoteViews);
-            Intent intent = new Intent(QuoteWidgetConfigurationActivity.this, RandomQuoteUpdateService.class);
-
-            if (service == null) {
-                service = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            }
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
-                    SystemClock.elapsedRealtime(),
-                    Long.parseLong(sharedPreferences.getString(getString(R.string.widget_shared_prefs_update_key), "6000")),
-                    service);
-            Log.d("FREQUENCY", getString(R.string.widget_shared_prefs_quotes_resource_key));
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
         }
+    }
+
+    private void startServices() {
+        Intent intent_edit = new Intent(this, EditorActivity.class);
+        intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, true);
+        Quote quote = new Gson().fromJson(sharedPreferences.getString(Constants.Widget_current_object, null), Quote.class);
+        intent_edit.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, (quote));
+
+        PendingIntent pendingIntent_edit = PendingIntent.getActivity(this, 0, intent_edit, 0);
+
+        remoteViews.setOnClickPendingIntent(R.id.root_widget, pendingIntent_edit);
+        remoteViews.setTextViewText(R.id.quote_body, quote.getQuote_body());
+        remoteViews.setTextViewText(R.id.quote_author, quote.getQuote_author());
+
+        appWidgetManager.updateAppWidget(mAppWidgetId, remoteViews);
+
+        Intent intent = new Intent(QuoteWidgetConfigurationActivity.this, RandomQuoteUpdateService.class);
+
+        if (service == null) {
+            service = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime(),
+                Long.parseLong(sharedPreferences.getString(getString(R.string.widget_shared_prefs_update_key), "6000")),
+                service);
+        Log.d("FREQUENCY", getString(R.string.widget_shared_prefs_quotes_resource_key));
+        Intent resultValue = new Intent();
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+        setResult(RESULT_OK, resultValue);
+        finish();
     }
 
     @Override
@@ -217,7 +230,24 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
             }
         }
     }
+    public class Bootreciever extends BroadcastReceiver {
+        public Bootreciever() {
+        }
 
+        @Override
+
+        public void onReceive(Context context, Intent intent) {
+        Toast_Snack_Dialog_Utils.show_ShortToast(QuoteWidgetConfigurationActivity.this, "DEVICE SUCCESSFULLY BOOTED");
+
+            if(sharedPreferences.getBoolean(context.getString(R.string.widget_added_key),false)==true){
+                Log.d("PREFERNCE LOADED",String.valueOf(sharedPreferences.getBoolean(context.getString(R.string.widget_added_key),false)));
+                startServices();
+            }
+            else {
+
+            }
+        }
+    }
     @Override
     protected void onStart() {
         super.onStart();

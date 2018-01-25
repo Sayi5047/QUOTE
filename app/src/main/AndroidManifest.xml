@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -81,7 +82,7 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/mywallpaper"></meta-data>
         </service>
-        <service android:name=".ui.Services.RandomQuoteUpdateService"/>
+        <service android:name=".ui.Services.RandomQuoteUpdateService" />
 
         <receiver android:name=".ui.Widgets.EditWidgetProvider">
             <intent-filter>
@@ -96,15 +97,21 @@
         </receiver>
         <receiver android:name=".ui.Widgets.EditWidgetProvider2">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/second_widget_info"/>
+                android:resource="@xml/second_widget_info" />
         </receiver>
+        <receiver android:name=".ui.Widgets.QuoteWidgetConfigurationActivity$Bootreciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".ui.Widgets.QuoteWidgetConfigurationActivity">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
     </application>

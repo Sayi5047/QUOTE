@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="16dp"
-                android:text="dsadsadsadadada"
+                android:text="Loading"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/font4" />
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="16dp"
-                android:text="dsadsadsadadada"
+                android:text="Please,Wait"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/font2" />

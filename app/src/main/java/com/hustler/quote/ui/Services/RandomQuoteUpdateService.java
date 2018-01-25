@@ -37,14 +37,18 @@ public class RandomQuoteUpdateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (sharedPreferences.getString(getApplicationContext().getString(R.string.widget_shared_prefs_quotes_resource_key), null).equalsIgnoreCase("Favourite")) {
+                    quotesList = new QuotesDbHelper(getApplicationContext()).getAllFav_Quotes();
+                } else if (quotesList == null || sharedPreferences.getString(getApplicationContext().getString(R.string.widget_shared_prefs_quotes_resource_key), null).equalsIgnoreCase("Random")) {
+                    quotesList = new QuotesDbHelper(getApplicationContext()).getAllQuotes();
+                    Log.e("DB CALLED", "FIRST TIME");
+                }
+            }
+        }).run();
 
-        if(sharedPreferences.getString(getApplicationContext().getString(R.string.widget_shared_prefs_quotes_resource_key),null).equalsIgnoreCase("Favourite")){
-            quotesList=new QuotesDbHelper(getApplicationContext()).getAllFav_Quotes();
-        } else
-        if (quotesList == null ||sharedPreferences.getString(getApplicationContext().getString(R.string.widget_shared_prefs_quotes_resource_key),null).equalsIgnoreCase("Random" )) {
-            quotesList = new QuotesDbHelper(getApplicationContext()).getAllQuotes();
-            Log.e("DB CALLED", "FIRST TIME");
-        }
 //        ArrayList<String> quotes = new ArrayList<>();
 //        ArrayList<String> quotesAuthors = new ArrayList<>();
 //        for (int i = 0; i < quotesList.size(); i++) {
@@ -54,7 +58,7 @@ public class RandomQuoteUpdateService extends Service {
 
 
         Random random = new Random();
-        int randomINt = random.nextInt(quotesList.size());
+        int randomINt = random.nextInt(quotesList.size())+0;
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.quote_widget_layout);
         remoteViews.setTextViewText(R.id.quote_body, quotesList.get(randomINt).getQuote_body());
         remoteViews.setTextViewText(R.id.quote_author, quotesList.get(randomINt).getQuote_author());
