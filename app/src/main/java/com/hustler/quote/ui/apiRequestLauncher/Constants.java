@@ -9,10 +9,16 @@ import android.graphics.Color;
 public class Constants {
     public static final String API_TOKEN = "Token token=28e954724c62237845fec852bc2b15c7";
     public static final String API_IMAGES_TOKEN = "7732312-2d2304a57655fc65d52bde5f1";
+    public static final String UNSPLASH_APP_ID = "52c825a0d098b74e51389bf4d6e1e94c5b37f1a8232918b576f69cb2931c806c";
+    public static final String UNSPLASH_CLIENT_ID = "1f3500dc54aacab31fab3b357f463479adcfd856fbcb559f37e0e755f46da7e6";
+
+
     public static final String API_FAVQ_RANDOM_QUOTES = "https://favqs.com/api/quotes/";
     public static final String API_FAVQ_FILTER_QUOTES = "https://favqs.com/api/quotes/?filter=";
     public static final String API_FAVQ_FLTER_QUOTES = "https://favqs.com/api/quotes/:";
+
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
+    public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos/?client_id=" + UNSPLASH_CLIENT_ID+"&per_page=20";
 
     public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_SKETCHDARK = "fonts/sketch_dark.ttf";
@@ -171,6 +177,7 @@ public class Constants {
     public static String FONTS_LOCATION = "File_temporary_name_key";
     public static String FONTS_TEMP_LOCATIONS = "File_temporary_name_key";
 
+
     public static final int WIDTH_DEFAULT = 100;
     public static final int WIDTH_MAX = 1000;
     public static final int WIDTH_MIN = 0;
@@ -182,5 +189,9 @@ public class Constants {
     public static final float ITALIC_DEFAULT = 0f;
     public static final float ITALIC_MAX = 1f;
     public static final float ITALIC_MIN = 0f;
-    public static String Widget_current_object="WIDGET_CURRENT_OBJECT";
+    public static String Widget_current_object = "WIDGET_CURRENT_OBJECT";
+
+
+//    UNSPLASH IDS
+
 }

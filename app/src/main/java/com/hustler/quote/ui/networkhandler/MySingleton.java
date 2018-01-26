@@ -8,6 +8,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -55,6 +56,13 @@ public class MySingleton {
     }
 
     public static void addJsonObjRequest(Context context, JsonObjectRequest jsObjRequest) {
+        jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 10,
+                VOLLEY_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleton.getInstance(context.getApplicationContext()).getRequestQueue().add(jsObjRequest);
+
+    }public static void addJsonArrayObjRequest(Context context, JsonArrayRequest jsObjRequest) {
         jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 10,
                 VOLLEY_MAX_RETRIES,

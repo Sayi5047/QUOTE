@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import com.hustler.quote.ui.apiRequestLauncher.Restutility;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.QuotesFromFC;
+import com.hustler.quote.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
+import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.superclasses.App;
 
 import java.util.ArrayList;
@@ -79,7 +82,7 @@ public class MainFragment extends Fragment {
             }
 
         });
-//        getRandomQuotes();
+        getRandomQuotes();
         setAdapter(rv);
 
         return view;
@@ -123,46 +126,61 @@ public class MainFragment extends Fragment {
 
     private void getRandomQuotes() {
 
-        new Restutility(getActivity()).getRandomQuotes(getActivity(), new QuotesApiResponceListener() {
+//        new Restutility(getActivity()).getRandomQuotes(getActivity(), new QuotesApiResponceListener() {
+//            @Override
+//            @Nullable
+//            public void onSuccess(List<QuotesFromFC> quotes) {
+//                rv.setAdapter(new MainAdapter(getActivity(), quotes, new MainAdapter.OnItemClicListener() {
+//                    @Override
+//                    public void onItemClickHappened(QuotesFromFC quotesFromFC, View view) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                            getActivity().getWindow().setEnterTransition(new Slide());
+//                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+//                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
+//                            ActivityOptionsCompat options = ActivityOptionsCompat.
+//                                    makeSceneTransitionAnimation(getActivity(),
+//                                            view,
+//                                            getString(R.string.quotes_author_transistion));
+//                            startActivity(intent, options.toBundle());
+//                        } else {
+//                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+//                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
+//                            startActivity(intent);
+//                        }
+//
+//                    }
+//                }));
+//                rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
+//
+//                selectedQuote = new Random().nextInt(quotes.size() - 1) + 1;
+////                quote_of_day.setText(quotes.get(selectedQuote).getBody());
+////                adapter.updateQuotes(quotes);
+//
+//                quote_author.setText(quotes.get(selectedQuote).getAuthor());
+//
+//
+//            }
+//
+//            @Override
+//            public void onError(String message) {
+//                loader.setVisibility(View.GONE);
+//            }
+//        });
+
+
+        String request=Constants.API_GET_IMAGES_FROM_UNSPLASH;
+        new Restutility(getActivity()).getUnsplashRandomImages(getActivity(), new ImagesFromUnsplashResponse() {
             @Override
-            @Nullable
-            public void onSuccess(List<QuotesFromFC> quotes) {
-                rv.setAdapter(new MainAdapter(getActivity(), quotes, new MainAdapter.OnItemClicListener() {
-                    @Override
-                    public void onItemClickHappened(QuotesFromFC quotesFromFC, View view) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().getWindow().setEnterTransition(new Slide());
-                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
-                            ActivityOptionsCompat options = ActivityOptionsCompat.
-                                    makeSceneTransitionAnimation(getActivity(),
-                                            view,
-                                            getString(R.string.quotes_author_transistion));
-                            startActivity(intent, options.toBundle());
-                        } else {
-                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
-                            startActivity(intent);
-                        }
-
-                    }
-                }));
-                rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
-
-                selectedQuote = new Random().nextInt(quotes.size() - 1) + 1;
-//                quote_of_day.setText(quotes.get(selectedQuote).getBody());
-//                adapter.updateQuotes(quotes);
-
-                quote_author.setText(quotes.get(selectedQuote).getAuthor());
-
-
+            public void onSuccess(Unsplash_Image[] unsplash_images) {
+                Log.e("VALUE FROM UNSPLASH",String.valueOf(unsplash_images.length));
             }
 
             @Override
-            public void onError(String message) {
-                loader.setVisibility(View.GONE);
+            public void onError(String error) {
+                Log.e("ERROR FROM UNSPLASH",error);
+
             }
-        });
+        },request);
     }
 
 //    @Override

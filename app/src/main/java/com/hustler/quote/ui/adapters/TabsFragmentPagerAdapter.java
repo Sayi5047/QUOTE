@@ -10,6 +10,7 @@ import com.hustler.quote.ui.activities.MainFragment;
 import com.hustler.quote.ui.fragments.CategoriesFragment;
 import com.hustler.quote.ui.fragments.UserFavuritesFragment;
 import com.hustler.quote.ui.fragments.UserWorkFragment;
+import com.hustler.quote.ui.fragments.WallpaperFragment;
 
 /**
  * Created by Sayi on 29-10-2017.
@@ -43,13 +44,17 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
                 returning_fragment = new UserWorkFragment();
             }
             break;
+            case 4: {
+                returning_fragment = new WallpaperFragment();
+            }
+            break;
         }
         return returning_fragment;
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -58,7 +63,8 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0: {
                 fagemnt_Name = context.getString(R.string.categories);
-            } break;
+            }
+            break;
             case 1: {
                 fagemnt_Name = context.getString(R.string.Quotes);
             }
@@ -69,6 +75,10 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
             break;
             case 3: {
                 fagemnt_Name = context.getString(R.string.Work);
+            }
+            break;
+            case 4: {
+                fagemnt_Name = context.getString(R.string.Wallpaper);
             }
             break;
         }

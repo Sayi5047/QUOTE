@@ -7,33 +7,25 @@ package com.hustler.quote.ui.pojo.unspalsh;
 public class Unsplash_Image {
     private String[] current_user_collections;
 
-    private Urls urls;
-
-    private String width;
-
-    private Links links;
-
     private String id;
+    private String created_at;
 
     private String updated_at;
+    private String width;
 
     private String height;
 
     private String color;
 
     private String description;
-
-    private String likes;
-
-    private String created_at;
-
     private String[] categories;
-
+    private Urls urls;
+    private Links links;
+    private String liked_by_user;
     private String sponsored;
-
+    private String likes;
     private User user;
 
-    private String liked_by_user;
 
     public String[] getCurrent_user_collections() {
         return current_user_collections;
