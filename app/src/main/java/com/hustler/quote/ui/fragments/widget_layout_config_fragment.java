@@ -15,6 +15,6 @@ public class widget_layout_config_fragment extends PreferenceFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.layout_config);
+        addPreferencesFromResource(R.xml.wiget_preferences);
     }
 }
