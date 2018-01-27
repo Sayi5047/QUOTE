@@ -167,6 +167,9 @@
     <string name="choose_time_gap">Choose quote update frequency</string>
     <string name="widget_added_key">shared_prefs_is_widget_added_key</string>
     <string name="Wallpaper">Wallpaper</string>
+    <string name="Listener">Deaf listener found</string>
+    <string name="Failed">Failed,Please Try Again</string>
+    <string name="Currently_no_wallpaper">Currently no wallpapers available</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

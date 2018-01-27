@@ -1,10 +1,12 @@
 package com.hustler.quote.ui.pojo.unspalsh;
 
+import java.io.Serializable;
+
 /**
  * Created by Sayi on 26-01-2018.
  */
 
-public class Links {
+public class Links implements Serializable {
     private String download_location;
 
     private String download;

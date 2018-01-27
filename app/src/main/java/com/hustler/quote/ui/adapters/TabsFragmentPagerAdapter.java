@@ -37,17 +37,18 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
             }
             break;
             case 2: {
-                returning_fragment = new UserFavuritesFragment();
-            }
-            break;
-            case 3: {
-                returning_fragment = new UserWorkFragment();
-            }
-            break;
-            case 4: {
                 returning_fragment = new WallpaperFragment();
             }
             break;
+            case 3: {
+                returning_fragment = new UserFavuritesFragment();
+            }
+            break;
+            case 4: {
+                returning_fragment = new UserWorkFragment();
+            }
+            break;
+
         }
         return returning_fragment;
     }
@@ -70,17 +71,18 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
             }
             break;
             case 2: {
-                fagemnt_Name = context.getString(R.string.Fav);
-            }
-            break;
-            case 3: {
-                fagemnt_Name = context.getString(R.string.Work);
-            }
-            break;
-            case 4: {
                 fagemnt_Name = context.getString(R.string.Wallpaper);
             }
             break;
+            case 3: {
+                fagemnt_Name = context.getString(R.string.Fav);
+            }
+            break;
+            case 4: {
+                fagemnt_Name = context.getString(R.string.Work);
+            }
+            break;
+
         }
         return fagemnt_Name;
     }

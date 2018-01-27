@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/wallpaper_preview"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:src="@drawable/geometry_2"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:id="@+id/layer"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:background="@drawable/bwgradient" />
+    <ImageView
+        android:id="@+id/photographer_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/circledrawable"
+        android:layout_margin="4dp"/>
+    <TextView
+        android:id="@+id/photographer_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        tools:text="Sayi Manoj Sugavasi"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:textColor="@android:color/white"
+        android:layout_toEndOf="@id/photographer_image"/>
+</RelativeLayout>

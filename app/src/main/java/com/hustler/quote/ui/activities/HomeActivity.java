@@ -23,7 +23,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -57,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
-        MobileAds.initialize(HomeActivity.this,Constants.ADS_APP_ID);
+        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
 
         findViews();
         cx = appBar.getWidth() / 2;
@@ -66,7 +65,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        colors = new int[]{ContextCompat.getColor(HomeActivity.this, R.color.colorPrimaryDark), ContextCompat.getColor(HomeActivity.this, R.color.colorAccent), ContextCompat.getColor(HomeActivity.this, R.color.primary_dark), ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
+        colors = new int[]{
+                ContextCompat.getColor(HomeActivity.this, R.color.pink_400),
+                ContextCompat.getColor(HomeActivity.this, R.color.colorAccent),
+                ContextCompat.getColor(HomeActivity.this, R.color.green_300),
+                ContextCompat.getColor(HomeActivity.this, R.color.orange_300),
+                ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
     }
 

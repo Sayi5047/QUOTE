@@ -1,10 +1,12 @@
 package com.hustler.quote.ui.pojo.unspalsh;
 
+import java.io.Serializable;
+
 /**
  * Created by Sayi on 26-01-2018.
  */
 
-public class Profile_image {
+public class Profile_image implements Serializable {
     private String small;
 
     private String large;

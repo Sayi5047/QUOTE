@@ -190,6 +190,8 @@ public class Constants {
     public static final float ITALIC_MAX = 1f;
     public static final float ITALIC_MIN = 0f;
     public static String Widget_current_object = "WIDGET_CURRENT_OBJECT";
+    public static String Pager_position="PAGER_POSITION_KEY";
+    public static String PAGER_LIST_WALL_OBKHECTS="PAGER_LIST_OBJECTS_KEY";
 
 
 //    UNSPLASH IDS

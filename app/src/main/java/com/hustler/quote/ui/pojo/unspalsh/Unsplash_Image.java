@@ -1,10 +1,12 @@
 package com.hustler.quote.ui.pojo.unspalsh;
 
+import java.io.Serializable;
+
 /**
  * Created by Sayi on 26-01-2018.
  */
 
-public class Unsplash_Image {
+public class Unsplash_Image implements Serializable {
     private String[] current_user_collections;
 
     private String id;

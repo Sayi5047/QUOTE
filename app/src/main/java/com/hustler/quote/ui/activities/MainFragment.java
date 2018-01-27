@@ -82,7 +82,6 @@ public class MainFragment extends Fragment {
             }
 
         });
-        getRandomQuotes();
         setAdapter(rv);
 
         return view;
@@ -168,19 +167,7 @@ public class MainFragment extends Fragment {
 //        });
 
 
-        String request=Constants.API_GET_IMAGES_FROM_UNSPLASH;
-        new Restutility(getActivity()).getUnsplashRandomImages(getActivity(), new ImagesFromUnsplashResponse() {
-            @Override
-            public void onSuccess(Unsplash_Image[] unsplash_images) {
-                Log.e("VALUE FROM UNSPLASH",String.valueOf(unsplash_images.length));
-            }
 
-            @Override
-            public void onError(String error) {
-                Log.e("ERROR FROM UNSPLASH",error);
-
-            }
-        },request);
     }
 
 //    @Override

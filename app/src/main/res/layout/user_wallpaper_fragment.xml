@@ -3,19 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center">
 
     <LinearLayout
         android:id="@+id/data_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <ProgressBar
             android:id="@+id/loader"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_rv"
