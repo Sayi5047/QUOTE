@@ -65,7 +65,6 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
 
     private void setRecyclerview() {
-        userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         getRandomIMages();
 

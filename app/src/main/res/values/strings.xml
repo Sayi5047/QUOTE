@@ -170,6 +170,9 @@
     <string name="Listener">Deaf listener found</string>
     <string name="Failed">Failed,Please Try Again</string>
     <string name="Currently_no_wallpaper">Currently no wallpapers available</string>
+    <string name="regular">Regular</string>
+    <string name="UHD">U-HD</string>
+    <string name="HD">HD</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

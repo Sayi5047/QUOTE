@@ -13,11 +13,9 @@ import com.google.gson.Gson;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.networkhandler.MySingleton;
 import com.hustler.quote.ui.pojo.ImagesResponse;
-import com.hustler.quote.ui.pojo.RandomQuotes;
 import com.hustler.quote.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
 import com.hustler.quote.ui.pojo.unspalsh.UnsplashImageResponse;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
-import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,19 +90,19 @@ public class Restutility {
     }
 
 
-    public  void getUnsplashRandomImages(final Context context, final ImagesFromUnsplashResponse listener, final String request) {
+    public void getUnsplashRandomImages(final Context context, final ImagesFromUnsplashResponse listener, final String request) {
         logtheRequest(request);
         JsonArrayRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
-                imagesFromUnsplashResponse.Value=new Unsplash_Image[response.length()];
-                Log.d("RESPONSE LENGTGH",String.valueOf(response.length()));
-                for(int i=0;i<response.length();i++){
+                imagesFromUnsplashResponse.Value = new Unsplash_Image[response.length()];
+                Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                for (int i = 0; i < response.length(); i++) {
                     try {
-                        Unsplash_Image unspalshImage=new Gson().fromJson(response.get(i).toString(),Unsplash_Image.class);
-                        imagesFromUnsplashResponse.Value[i]=unspalshImage;
-                        Log.d("JSON ARRAY NAME",unspalshImage.getWidth());
+                        Unsplash_Image unspalshImage = new Gson().fromJson(response.get(i).toString(), Unsplash_Image.class);
+                        imagesFromUnsplashResponse.Value[i] = unspalshImage;
+                        Log.d("JSON ARRAY NAME", unspalshImage.getWidth());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -115,7 +113,7 @@ public class Restutility {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR LENGTGH",error.getMessage());
+                Log.d("ERROR LENGTGH", error.getMessage());
 
                 listener.onError(error.getMessage());
 
@@ -123,4 +121,6 @@ public class Restutility {
         });
         MySingleton.addJsonArrayObjRequest(context, request1);
     }
+
+
 }

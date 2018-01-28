@@ -192,6 +192,8 @@ public class Constants {
     public static String Widget_current_object = "WIDGET_CURRENT_OBJECT";
     public static String Pager_position="PAGER_POSITION_KEY";
     public static String PAGER_LIST_WALL_OBKHECTS="PAGER_LIST_OBJECTS_KEY";
+    public static String Shared_prefs_image_resol_key="Shared_prefs_image_res_key";
+    public static String ImageUrl_to_download="IMAGE_TO_DOWNLOAD_KEY";
 
 
 //    UNSPLASH IDS
