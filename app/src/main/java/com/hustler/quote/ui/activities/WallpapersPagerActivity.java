@@ -10,14 +10,19 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Services.DownloadImageService;
 import com.hustler.quote.ui.adapters.WallpaperSliderAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.customviews.WallpaperPageTransformer;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
+import com.hustler.quote.ui.utils.InternetUtils;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 /**
  * Created by Sayi on 27-01-2018.
@@ -36,6 +41,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     private FloatingActionButton fabDownload;
     private FloatingActionButton fabEdit;
     private FloatingActionButton fabShare;
+    ImageView profile_image;
+    TextView profile_name, profile_desc;
     Window window;
 
     @Override
@@ -66,6 +73,9 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         fabDownload = (FloatingActionButton) findViewById(R.id.fab_download);
         fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
         fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
+        profile_image = (ImageView) findViewById(R.id.profile_image);
+        profile_name = (TextView) findViewById(R.id.profile_name);
+        profile_desc = (TextView) findViewById(R.id.image_desciption);
 
         fabSetLike.setOnClickListener(this);
         fabSetWall.setOnClickListener(this);
@@ -73,11 +83,36 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         fabEdit.setOnClickListener(this);
         fabShare.setOnClickListener(this);
         pageTransformer = new WallpaperPageTransformer(R.id.wallpaper_image);
-        pageTransformer.setBorder(4);
+        pageTransformer.setBorder(16);
         imageViewer.setPageTransformer(false, pageTransformer);
         imageViewer.setAdapter(new WallpaperSliderAdapter(getSupportFragmentManager(), unsplash_images, WallpapersPagerActivity.this));
-        imageViewer.setCurrentItem(position);
+        imageViewer.setCurrentItem(position, true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            profile_image.setClipToOutline(true);
+            fabShare.setClipToOutline(true);
+
+        }
+        profile_name.setText(unsplash_images[position].getUser().getFirst_name());
+        profile_desc.setText(unsplash_images[position].getUser().getPortfolio_url());
+        Glide.with(WallpapersPagerActivity.this).load(unsplash_images[position].getUser().getProfile_image().getMedium()).centerCrop().into(profile_image);
+        imageViewer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                WallpapersPagerActivity.this.position = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
 
     @Override
     public void onClick(View v) {
@@ -86,12 +121,22 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         } else if (v == fabSetWall) {
             // Handle clicks for fabSetWall
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                setWallPaer();
+                if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
+                    setWallPaer();
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
+                }
             } else {
 //                setWallPaerCompat();
             }
         } else if (v == fabDownload) {
             // Handle clicks for fabDownload
+            if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
+                downloadImage();
+
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
+            }
         } else if (v == fabEdit) {
             // Handle clicks for fabEdit
         } else if (v == fabShare) {
@@ -99,10 +144,20 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         }
     }
 
+    private void downloadImage() {
+        Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
+        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images[position].getUrls().getRaw());
+        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images[position].getId());
+        intent.putExtra(Constants.is_to_setWallpaper_fromActivity, false);
+        startService(intent);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setWallPaer() {
         Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
         intent.putExtra(Constants.ImageUrl_to_download, unsplash_images[position].getUrls().getRaw());
+        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images[position].getId());
+        intent.putExtra(Constants.is_to_setWallpaper_fromActivity, true);
         startService(intent);
 //        Intent intent = new Intent(WallpaperManager.
 //                getInstance(getApplicationContext()).

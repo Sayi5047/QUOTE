@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ public class PaperFragment extends Fragment {
     ImageView imageView;
     Unsplash_Image textView;
     RadioGroup radioGroup;
+    RadioButton rd1, rd2, rd3;
     SharedPreferences sharedPreferences;
 
     public static PaperFragment newInstance(Unsplash_Image textView) {
@@ -57,8 +59,14 @@ public class PaperFragment extends Fragment {
         View view = inflater.inflate(R.layout.wallpaer_fragment_layout, container, false);
         imageView = (ImageView) view.findViewById(R.id.wallpaper_image);
         radioGroup = (RadioGroup) view.findViewById(R.id.rd_group);
+        rd1 = (RadioButton) view.findViewById(R.id.rb_regular);
+        rd2 = (RadioButton) view.findViewById(R.id.rb_hd);
+        rd3 = (RadioButton) view.findViewById(R.id.rb_uhd);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             radioGroup.setClipToOutline(true);
+            rd1.setClipToOutline(true);
+            rd2.setClipToOutline(true);
+            rd3.setClipToOutline(true);
         }
         radioGroup.setClipToPadding(true);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());

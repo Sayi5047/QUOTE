@@ -173,6 +173,7 @@
     <string name="regular">Regular</string>
     <string name="UHD">U-HD</string>
     <string name="HD">HD</string>
+    <string name="need_internet_hd">Internet is required to download Hd image</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

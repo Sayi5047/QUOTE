@@ -1,28 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
-    android:background="@android:color/black">
+    android:background="@drawable/bwgradient"
+    android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/image_viewer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
+
+    <RelativeLayout
+        android:id="@+id/profile_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttons_layout"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/circledrawable" />
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font2"
+            tools:text="Sayi Manoj Sugavasi" />
+
+        <TextView
+            android:id="@+id/image_desciption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_image"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font1"
+            tools:text="Sayi Manoj Sugavasi" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:padding="15dp"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
 
         >
 
@@ -35,7 +76,7 @@
             android:layout_weight="1"
             android:src="@drawable/ic_favorite_border_black_24dp"
             app:backgroundTint="@android:color/white"
-            app:fabSize="normal" />
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_set_wall"
@@ -47,7 +88,7 @@
 
             android:src="@drawable/ic_crop_original_black_24dp"
             app:backgroundTint="@android:color/white"
-            app:fabSize="normal" />
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_download"
@@ -59,7 +100,7 @@
 
             android:src="@drawable/ic_archive_black_24dp"
             app:backgroundTint="@android:color/white"
-            app:fabSize="normal" />
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_edit"
@@ -71,7 +112,7 @@
             android:src="@drawable/ic_format_shapes_black_24dp"
             app:backgroundTint="@android:color/white"
 
-            app:fabSize="normal" />
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_share"
@@ -81,10 +122,10 @@
 
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_share_black_24dp"
+            android:src="@drawable/ic_info_black_24dp"
             app:backgroundTint="@android:color/white"
 
-            app:fabSize="normal" />
+            />
 
     </LinearLayout>
 

@@ -1,12 +1,15 @@
 package com.hustler.quote.ui.Services;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.IBinder;
@@ -17,6 +20,8 @@ import android.util.Log;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.utils.FileUtils;
+import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,7 +44,10 @@ public class DownloadImageService extends Service {
     int id = 1;
     int counter = 0;
     String mUrl_To_Download;
+    String mFileName;
+    boolean is_from_activity;
     AsyncTask<String, String, Void> mDownload_Async_Task;
+    File downloading_File;
 
 
     @Nullable
@@ -52,7 +60,8 @@ public class DownloadImageService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String url = null;
         url = intent.getStringExtra(Constants.ImageUrl_to_download);
-
+        mFileName = intent.getStringExtra(Constants.Image_Name_to_save_key);
+        is_from_activity = intent.getBooleanExtra(Constants.is_to_setWallpaper_fromActivity, false);
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotification_Builder = new NotificationCompat.Builder(this);
         mNotification_Builder.setContentTitle("Downloading images...").setContentText("Download in progress").setSmallIcon(R.drawable.ic_launcher);
@@ -69,7 +78,7 @@ public class DownloadImageService extends Service {
         String packageName = getPackageName();
         if (enabledNotifications == null || enabledNotifications.contains(packageName)) {
             Intent intent1 = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-            startActivity(intent);
+            startActivity(intent1);
         }
         mNotification_Reciever = new NotifcationReciever();
         IntentFilter filter = new IntentFilter();
@@ -114,24 +123,53 @@ public class DownloadImageService extends Service {
         }
 
         @Override
-        protected Void doInBackground(String... params) {
-            downloadImageToSd_Card(params[0], "IMAGES" + counter + ".jpg");
+        protected Void doInBackground(final String... params) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    downloadImageToSd_Card(params[0], mFileName + ".jpg");
+
+                }
+            }).run();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            mNotification_Builder.setContentTitle("Done.");
-            mNotification_Builder.setContentText("Download complete").setProgress(0, 0, false);
+            mNotification_Builder.setContentTitle("Completed");
+            mNotification_Builder.setContentText("Images Downloaded to sd card").setProgress(0, 0, false);
             // Removes the progress bar
 
             mNotificationManager.notify(id, mNotification_Builder.build());
+            if (is_from_activity == false) {
+            } else {
+                if (downloading_File != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                        Intent intent = new Intent(WallpaperManager.getInstance(getApplicationContext()).
+                                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(getApplicationContext(), downloading_File)));
+                        startActivity(intent);
+                    } else {
+                        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+                        try {
+                            wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.e("WALLPAPEREXCEPTION", "WALLPAPER NOT FOUND");
+                        }
+                    }
+
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast((Activity) getApplicationContext(), "Failed to set wallpaper");
+                }
+            }
+
+
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
             mNotification_Builder.setContentTitle("Downloading");
-            mNotification_Builder.setContentText("Downloaded" + values[0]).setProgress(0, Integer.valueOf(values[0]), false);
+            mNotification_Builder.setContentText("Downloaded" + values[0]).setProgress(100, Integer.valueOf(values[0]), false);
             // Removes the progress bar
 
             mNotificationManager.notify(id, mNotification_Builder.build());
@@ -148,13 +186,13 @@ public class DownloadImageService extends Service {
             URL url = new URL(param);
 //                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
             String SdCard = Environment.getExternalStorageDirectory().toString();
-            File tibe_Downloaded_Directory = new File(SdCard, "IMAGEDOWNLOAD");
+            File tibe_Downloaded_Directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
             if (tibe_Downloaded_Directory.exists() == false) {
-                tibe_Downloaded_Directory.mkdir();
+                tibe_Downloaded_Directory.mkdirs();
             }
             String fileName = s;
 //                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE
-            File downloading_File = new File(tibe_Downloaded_Directory, fileName);
+            downloading_File = new File(tibe_Downloaded_Directory + File.separator + fileName);
             if (downloading_File.exists()) {
                 downloading_File.delete();
             }
@@ -164,14 +202,20 @@ public class DownloadImageService extends Service {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.connect();
+                int length = httpURLConnection.getContentLength();
+
 //                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
                 inputStream = httpURLConnection.getInputStream();
                 fileOutputStream = new FileOutputStream(downloading_File);
 //                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
                 byte[] buffer = new byte[2048];
                 int bufferLength = 0;
+                int manoj = 0;
                 while ((bufferLength = inputStream.read(buffer)) > 0) {
+
                     fileOutputStream.write(buffer, 0, bufferLength);
+                    manoj++;
+
                 }
                 inputStream.close();
                 fileOutputStream.close();
