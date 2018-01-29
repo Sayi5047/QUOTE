@@ -48,6 +48,7 @@ public class DownloadImageService extends Service {
     boolean is_from_activity;
     AsyncTask<String, String, Void> mDownload_Async_Task;
     File downloading_File;
+    ImageDownloader imageDownloader;
 
 
     @Nullable
@@ -70,7 +71,7 @@ public class DownloadImageService extends Service {
         mNotificationManager.notify(id, mNotification_Builder.build());
         mNotification_Builder.setAutoCancel(true);
 
-        ImageDownloader imageDownloader = new ImageDownloader();
+        imageDownloader = new ImageDownloader();
         imageDownloader.execute(url);
 
         ContentResolver contentResolver = getContentResolver();
@@ -78,6 +79,7 @@ public class DownloadImageService extends Service {
         String packageName = getPackageName();
         if (enabledNotifications == null || enabledNotifications.contains(packageName)) {
             Intent intent1 = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent1);
         }
         mNotification_Reciever = new NotifcationReciever();
@@ -110,7 +112,7 @@ public class DownloadImageService extends Service {
 
     private void killAllNotifs() {
         // TODO: 28-01-2018 DESTROY DOWNLOADING TASK
-        mDownload_Async_Task.cancel(true);
+        imageDownloader.cancel(true);
         mNotificationManager.cancelAll();
     }
 
@@ -147,6 +149,7 @@ public class DownloadImageService extends Service {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                         Intent intent = new Intent(WallpaperManager.getInstance(getApplicationContext()).
                                 getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(getApplicationContext(), downloading_File)));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     } else {
                         WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
