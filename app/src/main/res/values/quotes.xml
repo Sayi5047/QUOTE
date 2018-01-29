@@ -9,6 +9,32 @@
         <item>There are two levers for moving men -- interest and fear. </item>
         <item>Striving for excellence motivates you; striving for perfection is demoralizing. </item>
         <item>Life takes on meaning when you become motivated, set goals and charge after them in an unstoppable manner. </item>
+        <!--ALONE -->
+
+        <item>Hasty climbers have sudden falls. </item>
+        <item>We are told never to cross a bridge until we come to it, but this world is owned by men who have crossed bridges in their imagination far ahead of the crowd. </item>
+        <item>When ambition ends, happiness begins. </item>
+        <item>Children, you must remember something. A man without ambition is dead. A man with ambition but no love is dead. A man with ambition and love for his blessings here on earth is ever so alive. </item>
+        <item>Very few people are ambitious in the sense of having a specific image of what they want to achieve. Most peoples sights are only toward the next run, the next increment of money. </item>
+        <item>Ambition -- it is the last infirmity of noble minds. </item>
+        <item>All ambitions are lawful except those that climb upward on the miseries or credulities of mankind. </item>
+        <item>Ambition. An overmastering desire to be vilified by enemies while living and made ridiculous by friends when dead. </item>
+        <item>No bird soars too high if he soars with his own wings. </item>
+        <item>Great ambition is the passion of a great character. Those endowed with it may perform very good or very bad acts. All depends on the principals which direct them. </item>
+        <item>Shoot for the moon. Even if you miss, youll land among the stars. </item>
+        <item>What I aspired to be and was not, comforts me. </item>
+        <item>Tis not what man does which exalts him, but what man Would do! </item>
+        <item>Ambition is not what man does... but what man would do. </item>
+        <item>There are only two ways of getting on in the world: by ones own industry, or by the stupidity of others. </item>
+        <item>The slave has but one master, the ambitious man has as many as there are persons whose aid may contribute to the advancement of his fortunes. </item>
+        <item>Ambition can creep as well as soar. </item>
+        <item>Like dogs in a wheel, birds in a cage, or squirrels in a chain, ambitious men still climb and climb, with great labor, and incessant anxiety, but never reach the top. </item>
+        <item>He who surpasses or subdues mankind, must look down on the hate of those below. </item>
+        <item>As falls the dew on quenchless sands, blood only serves to wash ambitions hands. </item>
+        <item>The men who succeed are the efficient few. They are the few who have the ambition and will power to develop themselves. </item>
+        <item>It is commonly supposed that the art of pleasing is a wonderful aid in the pursuit of fortune; but the art of being bored is infinitely more successful. </item>
+        <item>Big results require big ambitions. </item>
+        <item>When you are aspiring to the highest place, it is honorable to reach the second or even the third rank. </item>
     </string-array>
 
     <string-array name="quote_authors">
@@ -21,6 +47,33 @@
         <item>Harriet Braiker</item>
         <item>Les Brown</item>
 
+        <!--ALONE-->
+
+        <item>Italian Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Pearl Bailey</item>
+        <item>Judith M. Bardwick</item>
+        <item>James Barrie</item>
+        <item>Henry Ward Beecher</item>
+        <item>Ambrose Bierce</item>
+        <item>William Blake</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Les Brown</item>
+        <item>Robert Browning</item>
+        <item>Robert Browning</item>
+        <item>Robert Browning</item>
+        <item>Jean De La Bruyere</item>
+        <item>Jean De La Bruyere</item>
+        <item>Edmund Burke</item>
+        <item>Robert Burton</item>
+        <item>Lord (George Gordon) Byron</item>
+        <item>Lord (George Gordon) Byron</item>
+        <item>Herbert N. Casson</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>James Champy</item>
+        <item>Marcus Tullius Cicero</item>
+
     </string-array>
 
     <string-array name="quote_categories">
@@ -32,7 +85,31 @@
         <item>Motivational</item>
         <item>Motivational</item>
         <item>Motivational</item>
-
+        <!--ALONE-->
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
+        <item>Alone</item>
     </string-array>
 
     <string-array name="quote_languages">
@@ -44,6 +121,30 @@
         <item>English</item>
         <item>English</item>
         <item>English</item>
-
+        <!--ALONE-->
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
+        <item>English</item>
     </string-array>
 </resources>
