@@ -56,6 +56,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
@@ -150,11 +153,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     SpannableString spannableString;
     private AdView mAdView;
     ScaleGestureDetector scaleGestureDetector;
-    private boolean isFromEdit_Activity;
+    private int isFromEdit_Activity;
     private String selected_picture;
     //    private LinearLayout main_editor_layout;
     public int deviceHeight;
     private boolean isHeightMeasured = false;
+    private String geust_image;
 
 
     @Override
@@ -252,7 +256,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setViews() {
-        if (isFromEdit_Activity) {
+        if (isFromEdit_Activity == 0) {
             quote_editor_body = new TextView(this);
             quote_editor_author = new TextView(this);
             quote_editor_body.setId(addedTextIds);
@@ -310,42 +314,73 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_author.setOnTouchListener(this);
                 quote_editor_body.setOnTouchListener(this);
             }
+        } else if (isFromEdit_Activity == 2) {
+            if (geust_image == null) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
+            } else {
+                imageView_background.setBackground(null);
+                final ProgressBar progressBar = new ProgressBar(EditorActivity.this);
+                progressBar.setVisibility(View.VISIBLE);
+                Glide.with(EditorActivity.this).load(geust_image).listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        progressBar.setVisibility(GONE);
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
+                        return false;
+                    }
 
-
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(GONE);
+                        return false;
+                    }
+                }).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+            }
         }
     }
 
     private void getIntentData() {
-        if ((Boolean) getIntent().getBooleanExtra(Constants.INTENT_IS_FROM_EDIT_KEY, false)) {
-            isFromEdit_Activity = true;
-            quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
-
-        } else {
-            isFromEdit_Activity = false;
-            Intent intent = getIntent();
-            File file;
-            String path = null;
-
-            String action = intent.getAction();
-            if (action == Intent.ACTION_VIEW) {
-                path = intent.getData().getPath();
-                Log.d("ACTION_VIEW", path);
-
-            } else if (action == Intent.ACTION_SEND) {
-                Bundle bundle = intent.getExtras();
-                Uri uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
-                path = uri.getPath();
-                Log.d("ACTION_SEND", path);
+        int value = (Integer) getIntent().getIntExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
+        switch (value) {
+            case 0: {
+                isFromEdit_Activity = 0;
+                quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
             }
-            try {
-                file = new File(path);
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
-                FileUtils.unzipandSave(file, EditorActivity.this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            break;
+            case 1: {
+                isFromEdit_Activity = 1;
+                Intent intent = getIntent();
+                File file;
+                String path = null;
 
+                String action = intent.getAction();
+                if (action == Intent.ACTION_VIEW) {
+                    path = intent.getData().getPath();
+                    Log.d("ACTION_VIEW", path);
+
+                } else if (action == Intent.ACTION_SEND) {
+                    Bundle bundle = intent.getExtras();
+                    Uri uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
+                    path = uri.getPath();
+                    Log.d("ACTION_SEND", path);
+                }
+                try {
+                    file = new File(path);
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
+                    FileUtils.unzipandSave(file, EditorActivity.this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            break;
+            case 2: {
+                isFromEdit_Activity = 2;
+                geust_image = getIntent().getStringExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY);
+
+            }
+            break;
         }
+
     }
 
     private void convertFeatures(String[] valueArray) {

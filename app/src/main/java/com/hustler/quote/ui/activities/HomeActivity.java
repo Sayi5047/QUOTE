@@ -167,7 +167,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     // TODO: 02-12-2017 implement to go quotes editor
                     dialog.dismiss();
                     Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
-                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, false);
+                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
                     startActivity(intent);
                 }
             });

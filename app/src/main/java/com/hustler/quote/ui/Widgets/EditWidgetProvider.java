@@ -30,7 +30,7 @@ public class EditWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.editor_widget_layout);
         Intent intent_edit = new Intent(context, EditorActivity.class);
         Intent intent_home = new Intent(context, HomeActivity.class);
-        intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, false);
+        intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
         PendingIntent pendingIntent_edit = PendingIntent.getActivity(context, 0, intent_edit, 0);
         PendingIntent pendingIntent_home = PendingIntent.getActivity(context, 0, intent_home, 0);
         remoteView.setOnClickPendingIntent(R.id.edit_widget, pendingIntent_edit);

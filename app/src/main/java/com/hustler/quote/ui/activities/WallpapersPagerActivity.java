@@ -3,7 +3,6 @@ package com.hustler.quote.ui.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -119,26 +118,23 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         if (v == fabSetLike) {
             // Handle clicks for fabSetLike
         } else if (v == fabSetWall) {
-            // Handle clicks for fabSetWall
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
-                    setWallPaer();
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
-                }
+            if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
+                setWallPaer();
             } else {
-//                setWallPaerCompat();
+                Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
             }
+
         } else if (v == fabDownload) {
-            // Handle clicks for fabDownload
             if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
                 downloadImage();
-
             } else {
                 Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
             }
         } else if (v == fabEdit) {
-            // Handle clicks for fabEdit
+            Intent intent = new Intent(WallpapersPagerActivity.this, EditorActivity.class);
+            intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 2);
+            intent.putExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY, unsplash_images[position].getUrls().getRegular());
+            startActivity(intent);
         } else if (v == fabShare) {
             // Handle clicks for fabShare
         }
@@ -152,7 +148,6 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         startService(intent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setWallPaer() {
         Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
         intent.putExtra(Constants.ImageUrl_to_download, unsplash_images[position].getUrls().getRaw());
@@ -166,11 +161,5 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 //        startActivity(intent);
     }
 
-    private void setWallPaerCompat() {
-        try {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

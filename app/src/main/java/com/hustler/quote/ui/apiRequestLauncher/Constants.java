@@ -41,6 +41,7 @@ public class Constants {
     public static final String IS_USER_SAW_INRODUCTION = "is_user_saw_intro_key";
     public static final String SAHRED_PREFS_DEVICE_HEIGHT_KEY = "shared_prefs_device_height";
     public static final String APPFOLDER ="Quotzy" ;
+    public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
     public static final String CATEGORIES_STRING = "Age\n" + "Alone\n" +
