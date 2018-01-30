@@ -89,7 +89,8 @@
         <item>The only legitimate artists in England are the architects. </item>
         <item>Architecture is to make us know and remember who we are. </item>
 
-        <!--ART--><item>Art is permitted to survive only if it renounces the right to be different, and integrates itself into the omnipotent realm of the profane. </item>
+        <!--ART-->
+        <item>Art is permitted to survive only if it renounces the right to be different, and integrates itself into the omnipotent realm of the profane. </item>
         <item> Art is an experience, not the formulation of a problem. </item>
         <item> Artists are, above all, men who want to become inhuman. </item>
         <item> Without poets, without artists, men would soon weary of nature s monotony. The sublime idea men have of the universe would collapse with dizzying speed. The order which we find in nature, and which is only an effect of art, would at once vanish. Everything would break up in chaos. There would be no seasons, no civilization, no thought, no humanity; even life would give way, and the impotent void would reign everywhere. </item>
@@ -114,7 +115,7 @@
         <item> Any artist should be grateful for a na?ve grace which puts him beyond the need to reason elaborately. </item>
         <item> The greater the decrease in the social significance of an art form, the sharper the distinction between criticism and enjoyment by the public. The conventional is uncritically enjoyed, and the truly new is criticized with aversion. </item>
         <item> The strange power of art is sometimes it can show that what people have in common is more urgent than what differentiates them. It seems to me it s something that theatre can do, but it s rare; it s very rare. </item>
-    <!--ATTITUDE-->
+        <!--ATTITUDE-->
 
         <item>Do not judge by appearances; a rich heart may be under a poor coat.</item>
         <item> Good nature is more agreeable in conversation than wit and gives a certain air to the countenance which is more amiable than beauty. </item>
@@ -255,7 +256,7 @@
         <item>You cannot climb the ladder of success dressed in the costume of failure. </item>
         <item>Positive thinking will let you do everything better than negative thinking will. </item>
 
-<!--BEAUTY-->
+        <!--BEAUTY-->
         <item>A poor beauty finds more lovers than husbands. </item>
         <item>Beauty, unaccompanied by virtue, is as a flower without perfume. </item>
         <item>The loveliest faces are to be seen by moonlight, when one sees half with the eye and half with the fancy. </item>
@@ -282,7 +283,6 @@
         <item>The idea that happiness could have a share in beauty would be too much of a good thing. </item>
         <item>Beauty is in the heart of the beholder. </item>
     </string-array>
-
 
 
 </resources>
