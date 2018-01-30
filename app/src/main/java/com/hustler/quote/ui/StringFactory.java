@@ -7,78 +7,56 @@ import java.util.ArrayList;
  */
 
 public class StringFactory {
-    public static String ALONE = "Hasty climbers have sudden falls. \n" +
-            "Italian Proverb\n" +
-
-            "We are told never to cross a bridge until we come to it, but this world is owned by men who have 'crossed bridges' in their imagination far ahead of the crowd. \n" +
-            "Anon.\n" +
-
-            "When ambition ends, happiness begins. \n" +
+    public static String ALONE = "A poor beauty finds more lovers than husbands. \n" +
+            "English Proverb\n" +
+            "Beauty, unaccompanied by virtue, is as a flower without perfume. \n" +
             "Proverb\n" +
-
-            "Children, you must remember something. A man without ambition is dead. A man with ambition but no love is dead. A man with ambition and love for his blessings here on earth is ever so alive. \n" +
-            "Pearl Bailey\n" +
-
-
-            "Very few people are ambitious in the sense of having a specific image of what they want to achieve. Most people's sights are only toward the next run, the next increment of money. \n" +
-            "Judith M. Bardwick\n" +
-
-            "Ambition -- it is the last infirmity of noble minds. \n" +
-            "James Barrie\n" +
-
-            "All ambitions are lawful except those that climb upward on the miseries or credulities of mankind. \n" +
-            "Henry Ward Beecher\n" +
-
-            "Ambition. An overmastering desire to be vilified by enemies while living and made ridiculous by friends when dead. \n" +
-            "Ambrose Bierce\n" +
-
-            "No bird soars too high if he soars with his own wings. \n" +
-            "William Blake\n" +
-
-            "Great ambition is the passion of a great character. Those endowed with it may perform very good or very bad acts. All depends on the principals which direct them. \n" +
-            "Napoleon Bonaparte\n" +
-
-            "Shoot for the moon. Even if you miss, you'll land among the stars. \n" +
-            "Les Brown\n" +
-
-            "What I aspired to be and was not, comforts me. \n" +
-            "Robert Browning\n" +
-
-            "'Tis not what man does which exalts him, but what man Would do! \n" +
-            "Robert Browning\n" +
-
-            "Ambition is not what man does... but what man would do. \n" +
-            "Robert Browning\n" +
-
-            "There are only two ways of getting on in the world: by one's own industry, or by the stupidity of others. \n" +
-            "Jean De La Bruyere\n" +
-
-            "The slave has but one master, the ambitious man has as many as there are persons whose aid may contribute to the advancement of his fortunes. \n" +
-            "Jean De La Bruyere\n" +
-
-            "Ambition can creep as well as soar. \n" +
-            "Edmund Burke\n" +
-
-            "Like dogs in a wheel, birds in a cage, or squirrels in a chain, ambitious men still climb and climb, with great labor, and incessant anxiety, but never reach the top. \n" +
-            "Robert Burton\n" +
-
-            "He who surpasses or subdues mankind, must look down on the hate of those below. \n" +
-            "Lord (George Gordon) Byron\n" +
-
-            "As falls the dew on quenchless sands, blood only serves to wash ambition's hands. \n" +
-            "Lord (George Gordon) Byron\n" +
-
-            "The men who succeed are the efficient few. They are the few who have the ambition and will power to develop themselves. \n" +
-            "Herbert N. Casson\n" +
-
-            "It is commonly supposed that the art of pleasing is a wonderful aid in the pursuit of fortune; but the art of being bored is infinitely more successful. \n" +
-            "Sebastian Roch Nicolas Chamfort\n" +
-
-            "Big results require big ambitions. \n" +
-            "James Champy\n" +
-
-            "When you are aspiring to the highest place, it is honorable to reach the second or even the third rank. \n" +
-            "Marcus Tullius Cicero";
+            "The loveliest faces are to be seen by moonlight, when one sees half with the eye and half with the fancy. \n" +
+            "Proverb\n" +
+            "Beauty is a good letter of introduction. \n" +
+            "Proverb\n" +
+            "There is nothing that makes its way more directly to the soul than beauty. \n" +
+            "Joseph Addison\n" +
+            "Let there be nothing within thee that is not very beautiful and very gentle, and there will be nothing without thee that is not beautiful and softened by the spell of thy presence. \n" +
+            "James Allen\n" +
+            "....Then he felt quite ashamed, and hid his head under his wing; for he did not know what to do, he was so happy, and yet not at all proud. He had been persecuted and despised for his ugliness, and now he heard them say he was the most beautiful of all the birds. Even the elder-tree bent down its bows into the water before him, and the sun shone warm and bright. He would never became vain or conceited, and would always remembered how it felt to be despised and teased, and he was very sorry for all the creatures who are so treated merely because they are different from those around them. Then he rustled his feathers, curved his slender neck, and cried joyfully, from the depths of his heart, \n" +
+            "Hans Christian Andersen\n" +
+            "What ever beauty may be, it has for its basis order, and for its essence unity. \n" +
+            "Father Andre\n" +
+            "Beauty is one of the rare things that do not lead to doubt of God. \n" +
+            "Jean Anouilh\n" +
+            "Things are beautiful if you love them. \n" +
+            "Jean Anouilh\n" +
+            "Beauty is one of the rare things that do not lead to doubt of God. \n" +
+            "Jean Anouilh\n" +
+            "Personal beauty is a greater recommendation than any letter of reference. \n" +
+            "Aristotle\n" +
+            "Beauty depends on size as well as symmetry. No very small animal can be beautiful, for looking at it takes so small a portion of time that the impression of it will be confused. Nor can any very large one, for a whole view of it cannot be had at once, and so there will be no unity and completeness. \n" +
+            "Aristotle\n" +
+            "Strange that the vanity which accompanies beauty --excusable, perhaps, when there is such great beauty, or at any rate understandable --should persist after the beauty was gone. \n" +
+            "Mary Arnim\n" +
+            "The best part of beauty is that which no picture can express. \n" +
+            "Francis Bacon\n" +
+            "There is no excellent beauty that hath not some strangeness in the proportion. \n" +
+            "Francis Bacon\n" +
+            "Beauty is but the sensible image of the Infinite. Like truth and justice it lives within us; like virtue and the moral law it is a companion of the soul. \n" +
+            "George Bancroft\n" +
+            "Beauty itself is but the sensible image of the infinite. \n" +
+            "George Bancroft\n" +
+            "Im not ugly, but my beauty is a total creation. \n" +
+            "Tyra Banks\n" +
+            "Beauty is desired in order that it may be befouled; not for its own sake, but for the joy brought by the certainty of profaning it. \n" +
+            "Georges Bataille\n" +
+            "All forms of beauty, like all possible phenomena, contain an element of the eternal and an element of the transitory -- of the absolute and of the particular. Absolute and eternal beauty does not exist, or rather it is only an abstraction creamed from the general surface of different beauties. The particular element in each manifestation comes from the emotions: and just as we have our own particular emotions, so we have our own beauty. \n" +
+            "Charles Baudelaire\n" +
+            "There are as many kinds of beauty as there are habitual ways of seeking happiness. \n" +
+            "Charles Baudelaire\n" +
+            "The loveliest face in all the world will not please you if you see it suddenly eye to eye, at a distance of half an inch from your own. \n" +
+            "Max Beerbohm\n" +
+            "The idea that happiness could have a share in beauty would be too much of a good thing. \n" +
+            "Walter Benjamin\n" +
+            "Beauty is in the heart of the beholder. \n" +
+            "Al Bernstein";
     static String[] vals;
     static ArrayList<String> quotes = new ArrayList<>();
     static ArrayList<String> authors = new ArrayList<>();
@@ -102,7 +80,7 @@ public class StringFactory {
 
         }
         for (int i = 0; i < quotes.size(); i++) {
-            System.out.println("<item>" + "Alone" + "</item>");
+            System.out.println("<item>" + "Beauty" + "</item>");
 
         }
         for (int i = 0; i < authors.size(); i++) {

@@ -45,11 +45,9 @@ public class Constants {
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
     public static final String CATEGORIES_STRING = "Age\n" + "Alone\n" +
-            "Amazing\n" +
             "Anger\n" +
-            "Anniversary\n" +
             "Architecture\n" +
-            "Art Favorite\n" +
+            "Art\n" +
             "Attitude\n" +
             "Beauty\n" +
             "Best\n" +

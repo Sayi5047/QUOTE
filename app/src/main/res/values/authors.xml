@@ -1,491 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="authors">
-
-        <item>A. A. Milne Favorite</item>
-        <item>A. P. J. Abdul Kalam</item>
-        <item>Abraham Lincoln Favorite</item>
-        <item>Abraham Maslow</item>
-        <item>Adam Smith</item>
-        <item>Aeschylus</item>
-        <item>Alan Watts</item>
-        <item>Albert Camus</item>
-        <item>Albert Einstein</item>
-        <item>Albert Schweitzer</item>
-        <item>Aldous Huxley</item>
-        <item>Alexander Hamilton</item>
-        <item>Alexander Pope</item>
-        <item>Alexander the Great</item>
-        <item>Alexis de Tocqueville</item>
-        <item>Alfred Lord Tennyson</item>
-        <item>Alice Walker</item>
-        <item>Ambrose Bierce</item>
-        <item>Amelia Earhart</item>
-        <item>Amy Winehouse</item>
-        <item>Anais Nin</item>
-        <item>Andrew Carnegie</item>
-        <item>Andrew Jackson</item>
-        <item>Andy Warhol</item>
-        <item>Angela Davis</item>
-        <item>Anne Frank</item>
-        <item>Anne Lamott</item>
-        <item>Antoine de SaintExupery</item>
-        <item>Aristotle Favorite</item>
-        <item>rnold Schwarzenegger</item>
-        <item>Arthur C. Clarke</item>
-        <item>Arthur Schopenhauer</item>
-        <item>ASAP Rocky</item>
-        <item>Audre Lorde</item>
-        <item>Audrey Hepburn</item>
-        <item>Ayn Rand</item>
-
-
-        <item>B. F. Skinner</item>
-        <item>Barack Obama Favorite</item>
-        <item>Baruch Spinoza</item>
-        <item>bell hooks</item>
-        <item>Ben Shapiro</item>
-        <item>Benjamin Disraeli</item>
-        <item>Benjamin Franklin Favorite</item>
-        <item>Bernie Sanders</item>
-        <item>Bertrand Russell</item>
-        <item>Betty White</item>
-        <item>Beyonce Knowles</item>
-        <item>Bill Gates</item>
-        <item>Billy Graham</item>
-        <item>Blaise Pascal</item>
-        <item>Bob Dylan</item>
-        <item>Bob Marley</item>
-        <item>Booker T. Washington</item>
-        <item>Brene Brown</item>
-        <item>Brigitte Bardot</item>
-        <item>Bruce Lee</item>
-        <item>Buddha Favorite</item>
-
-
-        <item>C. S. Lewis Favorite</item>
-        <item>Calvin Coolidge</item>
-        <item>Carl Jung</item>
-        <item>Carl Sagan</item>
-        <item>Carol Burnett</item>
-        <item>Carrie Fisher</item>
-        <item>Cesar Chavez</item>
-        <item>Chanakya</item>
-        <item>Charles Bukowski</item>
-        <item>Charles Darwin</item>
-        <item>Charles de Montesquieu</item>
-        <item>Charles Dickens</item>
-        <item>Charles R. Swindoll</item>
-        <item>Charles Spurgeon</item>
-        <item>Charlie Chaplin</item>
-        <item>Charlotte Bronte</item>
-        <item>Christopher Columbus</item>
-        <item>Christopher Hitchens</item>
-        <item>Chuck Norris</item>
-        <item>Claude Monet</item>
-        <item>Clint Eastwood</item>
-        <item>Coco Chanel</item>
-        <item>Colin Kaepernick</item>
-        <item>Colin Powell</item>
-        <item>Confucius Favorite</item>
-        <item>Conor McGregor</item>
-        <item>Coretta Scott King</item>
-
-        <item>Dalai Lama Favorite</item>
-        <item>Dale Carnegie</item>
-        <item>Dan Quayle</item>
-        <item>Daniel Webster</item>
-        <item>Dave Attell</item>
-        <item>Dave Chappelle</item>
-        <item>Dave Ramsey</item>
-        <item>David Attenborough</item>
-        <item>David Bowie</item>
-        <item>David Lynch</item>
-        <item>David Ogilvy</item>
-        <item>Deepak Chopra</item>
-        <item>Demetri Martin</item>
-        <item>Denzel Washington</item>
-        <item>Desmond Tutu</item>
-        <item>Diogenes</item>
-        <item>Dolly Parton Favorite</item>
-        <item>Donald Trump Favorite</item>
-        <item>Douglas Adams</item>
-        <item>Douglas MacArthur</item>
-        <item>Dr. Seuss</item>
-        <item>Drake</item>
-        <item>Dwight D. Eisenhower</item>
-
-        <item>e. e. cummings</item>
-        <item>Eartha Kitt</item>
-        <item>Eckhart Tolle</item>
-        <item>Edgar Allan Poe Favorite</item>
-        <item>Edmund Burke</item>
-        <item>Elbert Hubbard</item>
-        <item>Eleanor Roosevelt Favorite</item>
-        <item>Elie Wiesel</item>
-        <item>Elizabeth Cady Stanton</item>
-        <item>Elizabeth I</item>
-        <item>Ellen DeGeneres</item>
-        <item>Elon Musk</item>
-        <item>Elvis Presley</item>
-        <item>Emily Dickinson</item>
-        <item>Eminem</item>
-        <item>Emma Watson</item>
-        <item>Epictetus</item>
-        <item>Erma Bombeck</item>
-        <item>Ernest Hemingway</item>
-        <item>Erykah Badu</item>
-
-        <item>F. Scott Fitzgerald</item>
-        <item>Fidel Castro</item>
-        <item>Florence Nightingale</item>
-        <item>Francis Bacon</item>
-        <item>Francis of Assisi</item>
-        <item>Frank Lloyd Wright</item>
-        <item>Frank Sinatra</item>
-        <item>Franklin D. Roosevelt</item>
-        <item>Franz Kafka</item>
-        <item>Frederick Douglass</item>
-        <item>Frida Kahlo</item>
-        <item>Friedrich Nietzsche Favorite</item>
-        <item>Fyodor Dostoevsky</item>
-
-        <item>Galileo Galilei</item>
-        <item>George Bernard Shaw</item>
-        <item>George Carlin</item>
-        <item>George Eliot</item>
-        <item>George Orwell</item>
-        <item>George S. Patton</item>
-        <item>George Sand</item>
-        <item>George W. Bush</item>
-        <item>George Washington Favorite</item>
-        <item>George Washington Carver</item>
-        <item>Georgia OKeeffe</item>
-        <item>Gilbert K. Chesterton</item>
-        <item>Gloria Steinem</item>
-        <item>Gordon Ramsay</item>
-        <item>Groucho Marx</item>
-        <item>Guy Fieri</item>
-
-        <item>H. Jackson Brown, Jr.</item>
-        <item>H. L. Mencken</item>
-        <item>H. P. Lovecraft</item>
-        <item>Hannah Arendt</item>
-        <item>Harriet Tubman</item>
-        <item>Harry S Truman
-        <item>Heath Ledger</item></item>
-        <item>Helen Keller Favorite</item>
-        <item>Henny Youngman</item>
-        <item>Henry David Thoreau Favorite</item>
-        <item>Henry Ford</item>
-        <item>Henry Kissinger</item>
-        <item>Henry Rollins</item>
+    <string-array name="quote_authors">
+        <item>Proverb</item>
+        <item>Archibald Alexander</item>
+        <item>Mary Kay Ash</item>
         <item>Henry Ward Beecher</item>
-        <item>Heraclitus</item>
-        <item>Hillary Clinton</item>
-        <item>Hippocrates</item>
-        <item>Hunter S. Thompson</item>
-
-        <item>Immanuel Kant</item>
-        <item>Isaac Asimov</item>
-        <item>Isaac Newton</item>
-
-        <item>J. Cole</item>
-        <item>J. K. Rowling</item>
-        <item>J. R. R. Tolkien</item>
-        <item>J. Robert Oppenheimer</item>
-        <item>Jack Kerouac</item>
-        <item>Jack Ma</item>
-        <item>Jack Welch</item>
-        <item>Jackie Kennedy</item>
-        <item>Jackie Robinson</item>
-        <item>James A. Baldwin</item>
-        <item>James Joyce</item>
-        <item>James Madison</item>
-        <item>Jane Austen</item>
-        <item>Jane Goodall</item>
-        <item>Janis Joplin</item>
-        <item>JayZ</item>
-        <item>Jean Piaget</item>
-        <item>Jean Jacques Rousseau</item>
-        <item>Jean Michel Basquiat</item>
-        <item>Jean Paul Sartre</item>
-        <item>Jeff Bezos</item>
-        <item>Jerry Seinfeld</item>
-        <item>Jesus Christ</item>
-        <item>Jiddu Krishnamurti</item>
-        <item>Jim Carrey</item>
-        <item>Jim Morrison</item>
-        <item>Jim Rohn</item>
-        <item>Jim Valvano</item>
-        <item>Jimi Hendrix</item>
-        <item>Jimmy Carter</item>
-        <item>Jimmy Dean</item>
-        <item>Joan Rivers</item>
-        <item>Joel Osteen</item>
-        <item>Johann Wolfgang von Goethe</item>
-        <item>John Adams</item>
-        <item>John C. Maxwell</item>
-        <item>John D. Rockefeller</item>
-        <item>John F. Kennedy Favorite</item>
-        <item>John Keats</item>
-        <item>John Lennon</item>
-        <item>John Lewis</item>
-        <item>John Locke</item>
-        <item>John Mayer</item>
-        <item>John Muir</item>
-        <item>John Ruskin</item>
-        <item>John Steinbeck</item>
-        <item>John Wayne</item>
-        <item>John Wooden</item>
-        <item>Johnny Cash</item>
-        <item>Johnny Depp</item>
-        <item>Jonathan Davis</item>
-        <item>Joseph Campbell</item>
-        <item>Joseph Stalin</item>
-        <item>Joyce Meyer</item>
-        <item>Julia Child</item>
-        <item>Julius Caesar</item>
-
-        <item>Kanye West</item>
-        <item>Karl Marx</item>
-        <item>Karl Pilkington</item>
-        <item>Kendrick Lamar</item>
-        <item>Kevin Costner</item>
-        <item>Kevin Gates</item>
-        <item>Khalil Gibran Favorite</item>
-        <item>Kim Jong</item>
-        <item>Kim Kardashian</item>
-        <item>Kobe Bryant</item>
-        <item>Kurt Cobain</item>
-        <item>Kurt Vonnegut</item>
-
-        <item>Lady Gaga</item>
-        <item>Langston Hughes</item>
-        <item>Lao Tzu Favorite</item>
-        <item>Larry David</item>
-        <item>LeBron James</item>
-        <item>Leo Buscaglia</item>
-        <item>Leo Tolstoy</item>
-        <item>Leonard Cohen</item>
-        <item>Leonardo da Vinci</item>
-        <item>Les Brown</item>
-        <item>Lewis Carroll</item>
-        <item>Lewis Mumford</item>
-        <item>Lil Uzi Vert</item>
-        <item>Lil Wayne</item>
-        <item>Lord Byron</item>
-        <item>Lou Holtz</item>
-        <item>Lucille Ball</item>
-        <item>Lucius Annaeus Seneca</item>
-        <item>Ludwig Wittgenstein</item>
-        <item>Lyndon B. Johnson</item>
-        <item>Lysander Spooner</item>
-
-        <item>Mae West</item>
-        <item>Mahatma Gandhi </item>
-        <item>Malala Yousafzai</item>
-        <item>Malcolm X</item>
-        <item>Mao Zedong</item>
-        <item>Marcel Proust</item>
-        <item>Marcus Aurelius Favorite</item>
-        <item>Marcus Garvey</item>
-        <item>Marcus Tullius Cicero</item>
-        <item>Margaret Atwood</item>
-        <item>Margaret Mead</item>
-        <item>Margaret Thatcher</item>
-        <item>Maria Montessori</item>
-        <item>Marie Curie</item>
-        <item>Marilyn Manson</item>
-        <item>Marilyn Monroe</item>
-        <item>Mark Cuban</item>
-        <item>Mark Twain Favorite</item>
-        <item>Mark Zuckerberg</item>
-        <item>Martin Luther</item>
-        <item>Martin Luther King, Jr</item>
-        <item>Matthew McConaughey</item>
-        <item>Maya Angelou Favorite</item>
-        <item>Michael Jackson</item>
-        <item>Michael Jordan</item>
-        <item>Michel de Montaigne</item>
-        <item>Michelangelo</item>
-        <item>Michelle Obama Favorite</item>
-        <item>Mike Tyson</item>
-        <item>Milton Friedman</item>
-        <item>Mitch Hedberg</item>
-        <item>Mother Teresa</item>
-        <item>Muhammad Ali</item>
-
-
-        <item>Nancy Pelosi</item>
+        <item>William J. H. Boetcker</item>
         <item>Napoleon Bonaparte</item>
-        <item>Napoleon Hill</item>
-        <item>Neil Armstrong</item>
-        <item>Neil deGrasse Tyson</item>
-        <item>Neil Gaiman</item>
-        <item>Nelson Mandela Favorite</item>
-        <item>Niccolo Machiavelli</item>
-        <item>Nikola Tesla</item>
-        <item>Nina Simone</item>
-        <item>Noam Chomsky</item>
-        <item>Norman Vincent Peale</item>
+        <item>Harriet Braiker</item>
+        <item>Les Brown</item>
 
-        <item>O Authors</item>
-        <item>Og Mandino</item>
-        <item>Omar Khayyam</item>
-        <item>Oprah Winfrey Favorite</item>
-        <item>Oscar Wilde Favorite</item>
+        <!--ALONE-->
 
-
-        <item>P. T. Barnum</item>
-        <item>Pablo Picasso</item>
-        <item>Patti Smith</item>
-        <item>Paul Cezanne</item>
-        <item>Paul McCartney</item>
-        <item>Paulo Coelho</item>
-        <item>Pele</item>
-        <item>Peter Drucker</item>
-        <item>Phil McGraw</item>
-        <item>Pierre Teilhard de Chardin</item>
-        <item>Plato</item>
-        <item>Pope Francis</item>
-        <item>Pope John Paul I</item>
-        <item>Post Malone</item>
-        <item>Prince</item>
-        <item>Princess Diana</item>
-
-        <item>Quavo</item>
-        <item>Queen Elizabeth II</item>
-
-
-        <item>R. Buckminster Fuller</item>
-        <item>Rabindranath Tagore</item>
-        <item>Rainer Maria Rilke</item>
-        <item>Ralph Marston</item>
-        <item>Ray Bradbury</item>
-        <item>Rene Descartes</item>
-        <item>Richard Bach</item>
-        <item>Richard Branson</item>
-        <item>Richard Dawkins</item>
-        <item>Richard M. Nixon</item>
-        <item>Richard P. Feynman</item>
-        <item>Rihanna</item>
-        <item>Robert A. Heinlein</item>
-        <item>Robert Anton Wilson</item>
-        <item>Robert BadenPowell</item>
-        <item>Robert Burns</item>
-        <item>Robert E. Lee</item>
-        <item>Robert Frost</item>
-        <item>Robert Kennedy</item>
-        <item>Robin Williams</item>
-        <item>Rodney Dangerfield</item>
-        <item>Ronald Reagan Favorite</item>
-        <item>Ronaldinho</item>
-        <item>Rosa Parks</item>
-        <item>Rudyard Kipling</item>
-        <item>Rumi Favorite</item>
-        <item>Russell M. Nelson</item>
-        <item>Ruth Bader Ginsburg</item>
-
-        <item>Saint Augustine</item>
-        <item>Saint Francis de Sales</item>
-        <item>Saint Teresa of Avila</item>
-        <item>Salvador Dali</item>
-        <item>Sam Houston</item>
-        <item>Sam Walton</item>
-        <item>Samuel Johnson</item>
-        <item>Satya Nadella</item>
-        <item>Seth Godin</item>
-        <item>Sheila Jackson Lee</item>
-        <item>Shirley Chisholm</item>
-        <item>Sigmund Freud</item>
-        <item>Simon Sinek</item>
-        <item>Snoop Dogg</item>
-        <item>Socrates Favorite</item>
-        <item>Sojourner Truth</item>
-        <item>Sonia Sotomayor</item>
-        <item>Soren Kierkegaard</item>
-        <item>St. Jerome</item>
-        <item>Stephen Covey</item>
-        <item>Stephen Hawking</item>
-        <item>Stephen King</item>
-        <item>Steve Jobs Favorite</item>
-        <item>Steve Martin</item>
-        <item>Steven Spielberg</item>
-        <item>Steven Wright Favorite</item>
-        <item>Sun Tzu</item>
-        <item>Susan B. Anthony</item>
-        <item>Swami Vivekananda</item>
-        <item>Sylvia Plath</item>
-
-
-        <item>T Authors</item>
-        <item>T. S. Eliot</item>
-        <item>Taylor Swift</item>
-        <item>Terry Pratchett</item>
-        <item>Theodore Roosevelt Favorite</item>
-        <item>Thich Nhat Hanh</item>
-        <item>Thomas A. Edison</item>
-        <item>Thomas Aquinas</item>
-        <item>Thomas Hobbes</item>
-        <item>Thomas Jefferson Favorite</item>
-        <item>Thomas Merton</item>
-        <item>Thomas Paine</item>
-        <item>Thomas S. Monson</item>
-        <item>Thomas Sowell</item>
-        <item>Tom Brady</item>
-        <item>Tom Lehrer</item>
-        <item>Toni Morrison</item>
-        <item>Tony Robbins</item>
-        <item>Travis Scott</item>
-        <item>Tupac Shakur</item>
-        <item>Tyler</item>
-
-
-        <item>Unknown</item>
-
-
-        <item>Victor Hugo</item>
-        <item>Viktor E. Frankl</item>
-        <item>Vince Lombardi</item>
-        <item>Vincent Van Gogh</item>
-        <item>Virginia Woolf</item>
-        <item>Vladimir Lenin</item>
-        <item>Vladimir Putin</item>
-        <item>Voltaire</item>
-
-
-        <item>W. C. Fields</item>
-        <item>W. E. B. Du Bois</item>
-        <item>W. Edwards Deming</item>
-        <item>W. H. Auden</item>
-        <item>Walt Disney Favorite</item>
-        <item>Walt Whitman</item>
-        <item>Walter Cronkite</item>
-        <item>Warren Buffett Favorite</item>
-        <item>Wayne Dyer</item>
-        <item>Will Ferrell</item>
-        <item>Will Rogers</item>
-        <item>Will Smith</item>
-        <item>William Arthur Ward</item>
+        <item>Italian Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Pearl Bailey</item>
+        <item>Judith M. Bardwick</item>
+        <item>James Barrie</item>
+        <item>Henry Ward Beecher</item>
+        <item>Ambrose Bierce</item>
         <item>William Blake</item>
-        <item>William Butler Yeats</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Les Brown</item>
+        <item>Robert Browning</item>
+        <item>Robert Browning</item>
+        <item>Robert Browning</item>
+        <item>Jean De La Bruyere</item>
+        <item>Jean De La Bruyere</item>
+        <item>Edmund Burke</item>
+        <item>Robert Burton</item>
+        <item>Lord (George Gordon) Byron</item>
+        <item>Lord (George Gordon) Byron</item>
+        <item>Herbert N. Casson</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>James Champy</item>
+        <item>Marcus Tullius Cicero</item>
+        <!--ANGRY-->
+        <item>Chinese Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Akhenaton</item>
+        <item>Akhenaton</item>
+        <item>The Five People You Meet in Heaven</item>
+        <item>Louisa May Alcott</item>
+        <item>Helen Alfredsson</item>
+        <item>William R. Alger</item>
+        <item>Maya Angelou</item>
+        <item>Maya Angelou</item>
+        <item>Marcus Antonius</item>
+        <item>Pietro Aretino</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Marcus Aurelius</item>
+        <item>Marcus Aurelius</item>
+        <item>George R. Bach</item>
+        <item>Francis Bacon</item>
+        <item>James Baldwin</item>
+        <!--<Architecture>-->
+
+        <item>Guillaume Apollinaire</item>
+        <item>Nancy Banks-Smith</item>
+        <item>Colleen C. Barrett</item>
+        <item>Stephen Bayley</item>
+        <item>Ambrose Bierce</item>
+        <item>Constantin Brancusi</item>
+        <item>Prince Of Wales Charles</item>
+        <item>G. K. Chesterton</item>
+        <item>G. K. Chesterton</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Dan Cruickshank</item>
+        <item>Salvador Dali</item>
+        <item>Ralph Erskine</item>
+        <item>Curtis W. Fentress</item>
+        <item>Curtis W. Fentress</item>
+        <item>Curtis W. Fentress</item>
+        <item>Curtis W. Fentress</item>
+        <item>Curtis W. Fentress</item>
+        <item>Curtis W. Fentress</item>
+        <item>Richard Buckminster Fuller</item>
+        <item>Thomas Fuller</item>
+        <item>Walter Gropius</item>
+        <item>Walter Gropius</item>
+        <item>Benjamin Haydon</item>
+        <item>Sir Geoffrey Jellicoe</item>
+
+
+        <!--ART-->
+        <item> Theodor Wiesengrund Adorno</item>
+        <item> Lindsay Anderson</item>
+        <item> Guillaume Apollinaire</item>
+        <item> Guillaume Apollinaire</item>
+        <item> Rudolph Arnheim</item>
+        <item> Jean Arp</item>
+        <item> Francis Bacon</item>
+        <item> James Baldwin</item>
+        <item> James Baldwin</item>
+        <item> Honore de Balzac</item>
+        <item> Honore de Balzac</item>
+        <item> Lester Bangs</item>
+        <item> Daniel Barenboim</item>
+        <item> Mikhail Baryshnikov</item>
+        <item> Jacques Barzun</item>
+        <item> Charles Baudelaire</item>
+        <item> Charles Baudelaire</item>
+        <item> Simone de Beauvoir</item>
+        <item> Henry Ward Beecher</item>
+        <item> Ludwig van Beethoven</item>
+        <item> Ludwig van Beethoven</item>
+        <item> Saul Bellow</item>
+        <item> Saul Bellow</item>
+        <item> Walter Benjamin</item>
+        <item> John Berger</item>
+
+
+        <!--ATTITUDE-->
+
+        <item> Scottish Proverb</item>
+        <item> Joseph Addison</item>
+        <item> Julie Andrews</item>
+        <item> Louis Armstrong</item>
+        <item> Henry Ward Beecher</item>
+        <item> Robert Benchley</item>
+        <item> Bo Bennett</item>
+        <item> William John Bennett</item>
+        <item> Timothy Bentley</item>
+        <item> Milton Berle</item>
+        <item> Irving Berlin</item>
+        <item> Josh Billings</item>
+        <item> Tom Blandi</item>
+        <item> Charlotte Bronte</item>
+        <item> H. Jackson Brown, Jr.</item>
+        <item> Jerome Bruner</item>
+        <item> Pearl Buck</item>
+        <item> Leo Buscaglia</item>
+        <item> Eric Butterworth</item>
+        <item> Julius Caesar</item>
+        <item> Albert Camus</item>
+        <item> Sir Winston Churchill</item>
+        <item> Glenn Clark</item>
+        <item> Susanna Clark</item>
+        <item> Robert Conklin</item>
+        <item>Moraji R. Desai</item>
+        <item>J. E. Dinger</item>
+        <item>Benjamin Disraeli</item>
+        <item>Norman Douglas</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Epictetus</item>
+        <item>Golnik Eric</item>
+        <item>Euripides</item>
+        <item>Chris Evert</item>
+        <item>David Feherty</item>
+        <item>Victor Frankl</item>
+        <item>Zina Garrison</item>
+        <item>Kahlil Gibran, "A Handful of Sand on the Shore"</item>
+        <item>Kahlil Gibran, "A Handful of Sand on the Shore"</item>
+        <item>Ellen Glasgow</item>
+        <item>Thaddeus Golas</item>
+        <item>Vernon Grounds</item>
+        <item>Henry S. Haskins</item>
+        <item>Raymond Holliwell</item>
+        <item>Lou Holtz</item>
+        <item>Lou Holtz</item>
+        <item>Lena Horne</item>
+        <item>Elbert Hubbard</item>
+        <item>Aldous Huxley</item>
+        <item>Washington Irving</item>
         <item>William James</item>
-        <item>William Shakespeare Favorite</item>
-        <item>William Tecumseh Sherman</item>
-        <item>William Wordsworth</item>
-        <item>Willie Nelson</item>
-        <item>Winston Churchill Favorite</item>
-        <item>Woodrow Wilson</item>
-        <item>Woody Allen</item>
+        <item>William James</item>
+        <item>William James</item>
+        <item>Thomas Jefferson</item>
+        <item>Dupree Jordan</item>
+        <item>Bela Karolyi</item>
+        <item>Louis LAmour</item>
+        <item>Jean De La Fontaine</item>
+        <item>Charles Lamb</item>
+        <item>Frederick Langbridge</item>
+        <item>Clare Boothe Luce</item>
+        <item>J. C. Macaulay</item>
+        <item>Chretien Malesherbes</item>
+        <item>Maxwell Maltz</item>
+        <item>Og Mandino</item>
+        <item>Louis L. Mann</item>
+        <item>Katherine Mansfield</item>
+        <item>Orison Swett Marden</item>
+        <item>General George Catlett Marshall</item>
+        <item>Karl Menninger</item>
+        <item>Henry Miller</item>
+        <item>John Homer Miller</item>
+        <item>John R. Miller</item>
+        <item>Earl Nightingale</item>
+        <item>Earl Nightingale</item>
+        <item>Norman Vincent Peale</item>
+        <item>Alexander Pope</item>
+        <item>Candice M. Pope</item>
+        <item>Terry Pratchett</item>
+        <item>Christopher Reeve</item>
+        <item>Pat Riley</item>
+        <item>Pat Riley</item>
+        <item>James H. Robinson</item>
+        <item>Sugar Ray Robinson</item>
+        <item>Jim Rohn</item>
+        <item>Jim Rohn</item>
+        <item>Ruth Ross</item>
+        <item>Rene Russo</item>
+        <item>Michel De Saint-Pierre</item>
+        <item>Colonel Harland Sanders</item>
+        <item>Dr. Laura Schlessinger</item>
+        <item>E. F. [Ernst Friedrich] Schumacher</item>
+        <item>Charles Prestwich Scott</item>
+        <item>Hans Selye</item>
+        <item>Robert E. Speer</item>
+        <item>Casey (Charles Dillon) Stengel</item>
+        <item>Adlai Stevenson</item>
+        <item>W. Clement Stone</item>
+        <item>Tom Stoppard</item>
+        <item>Charles Swindoll</item>
+        <item>Charles Swindoll</item>
+        <item>Charles Swindoll</item>
+        <item>Amy Tan</item>
+        <item>William Makepeace Thackeray</item>
+        <item>Hunter S. Thompson</item>
+        <item>James Thurber</item>
+        <item>Leo Tolstoy</item>
+        <item>Brian Tracy</item>
+        <item>Harry S Truman</item>
+        <item>Ted Turner</item>
+        <item>Uhland</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item> Unknown</item>
+        <item>Peter Ustinov</item>
+        <item>Paul Ambroise Valery</item>
+        <item>Denis Waitley</item>
+        <item>C. M. Ward</item>
+        <item>Karl Weick</item>
+        <item>Willis Whitney</item>
+        <item>Ella Wheeler Wilcox</item>
+        <item>Oscar Wilde</item>
+        <item>Oscar Wilde</item>
+        <item>Mclandburgh Wilson</item>
+        <item>Tom Wilson</item>
+        <item>John Wooden</item>
+        <item>Zig Ziglar</item>
+        <item>Zig Ziglar</item>
+        <item>Zig Ziglar</item>
 
-        <item>Yogi Berra</item>
-        <item>Yoko Ono</item>
-
-
-        <item>Zig Ziglar Favorite</item>
-        <item>Zora Neale Hurston</item>
-
-
+        <!--Beauty-->
+        <item>English Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>James Allen</item>
+        <item>Hans Christian Andersen</item>
+        <item>Father Andre</item>
+        <item>Jean Anouilh</item>
+        <item>Jean Anouilh</item>
+        <item>Jean Anouilh</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Mary Arnim</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>George Bancroft</item>
+        <item>George Bancroft</item>
+        <item>Tyra Banks</item>
+        <item>Georges Bataille</item>
+        <item>Charles Baudelaire</item>
+        <item>Charles Baudelaire</item>
+        <item>Max Beerbohm</item>
+        <item>Walter Benjamin</item>
+        <item>Al Bernstein</item>
     </string-array>
+
 </resources>
