@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="TIMEOUT_ERROR">Weak internet! Server took too long to respond.Try again</string>
+    <string name="NO_CONNECTION_ERROR">No internet! Please connect to network and try again.</string>
+    <string name="AUTH_FAILURE_ERROR">Authentication has failed from the server.Please try again</string>
+    <string name="SERVER_ERROR">We cannot process it right now. Please try again later</string>
+    <string name="NETWORK_ERROR">Some problem with network please try again.</string>
+    <string name="PARSE_ERROR">Something went wrong please try again.</string>
+
+</resources>
