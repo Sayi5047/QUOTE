@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -83,12 +89,11 @@ public class Restutility {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                listner.onError(error.getMessage());
+                listner.onError(getRelevantVolleyErrorMessage(context, error));
             }
         });
         MySingleton.addJsonObjRequest(context, jsonObject);
     }
-
 
     public void getUnsplashRandomImages(final Context context, final ImagesFromUnsplashResponse listener, final String request) {
         logtheRequest(request);
@@ -115,11 +120,40 @@ public class Restutility {
             public void onErrorResponse(VolleyError error) {
                 Log.d("ERROR LENGTGH", error.getMessage());
 
-                listener.onError(error.getMessage());
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
 
             }
         });
         MySingleton.addJsonArrayObjRequest(context, request1);
+    }
+
+    public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
+        try {
+            volleyError.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        }
+        try {
+            if (volleyError instanceof NoConnectionError) {
+                return context.getString(R.string.NO_CONNECTION_ERROR);
+            } else if (volleyError instanceof TimeoutError) {
+                return context.getString(R.string.TIMEOUT_ERROR);
+            } else if (volleyError instanceof AuthFailureError) {
+                return context.getString(R.string.AUTH_FAILURE_ERROR);
+            } else if (volleyError instanceof ServerError) {
+                return context.getString(R.string.SERVER_ERROR);
+            } else if (volleyError instanceof NetworkError) {
+                return context.getString(R.string.NETWORK_ERROR);
+            } else if (volleyError instanceof ParseError) {
+                return context.getString(R.string.PARSE_ERROR);
+            }
+            return null;
+        } catch (Exception e) {
+//            FirebaseCrash.log(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
