@@ -7,56 +7,80 @@ import java.util.ArrayList;
  */
 
 public class StringFactory {
-    public static String ALONE = "A poor beauty finds more lovers than husbands. \n" +
-            "English Proverb\n" +
-            "Beauty, unaccompanied by virtue, is as a flower without perfume. \n" +
+    public static String ALONE = "God will provide -- ah, if only He would till He does! \n" +
+            "Yiddish Proverb\n" +
+            
+            "If God lived on earth, people would break his windows. \n" +
+            "Yiddish Proverb\n" +
+            
+            "God is closest to those with broken hearts. \n" +
+            "Yiddish Proverb\n" +
+            
+            "Forsake not God till you find a better master. \n" +
+            "Scottish Proverb\n" +
+            
+            "Every man for himself and God for us all. \n" +
             "Proverb\n" +
-            "The loveliest faces are to be seen by moonlight, when one sees half with the eye and half with the fancy. \n" +
+            
+            "What men usually ask for when they pray to God is, that two and two may not make four. \n" +
             "Proverb\n" +
-            "Beauty is a good letter of introduction. \n" +
+            
+            "Man does what he can, God does what he will. \n" +
             "Proverb\n" +
-            "There is nothing that makes its way more directly to the soul than beauty. \n" +
-            "Joseph Addison\n" +
-            "Let there be nothing within thee that is not very beautiful and very gentle, and there will be nothing without thee that is not beautiful and softened by the spell of thy presence. \n" +
-            "James Allen\n" +
-            "....Then he felt quite ashamed, and hid his head under his wing; for he did not know what to do, he was so happy, and yet not at all proud. He had been persecuted and despised for his ugliness, and now he heard them say he was the most beautiful of all the birds. Even the elder-tree bent down its bows into the water before him, and the sun shone warm and bright. He would never became vain or conceited, and would always remembered how it felt to be despised and teased, and he was very sorry for all the creatures who are so treated merely because they are different from those around them. Then he rustled his feathers, curved his slender neck, and cried joyfully, from the depths of his heart, \n" +
-            "Hans Christian Andersen\n" +
-            "What ever beauty may be, it has for its basis order, and for its essence unity. \n" +
-            "Father Andre\n" +
-            "Beauty is one of the rare things that do not lead to doubt of God. \n" +
+            
+            "I find it interesting that the meanest life, the poorest existence, is attributed to God's will, but as human beings become more affluent, as their living standard and style begin to ascend the material scale, God descends the scale of responsibility at a commensurate speed. \n" +
+            "Maya Angelou\n" +
+            
+            "With God, what is terrible is that one never knows whether it's not just a trick of the devil. \n" +
             "Jean Anouilh\n" +
-            "Things are beautiful if you love them. \n" +
-            "Jean Anouilh\n" +
-            "Beauty is one of the rare things that do not lead to doubt of God. \n" +
-            "Jean Anouilh\n" +
-            "Personal beauty is a greater recommendation than any letter of reference. \n" +
-            "Aristotle\n" +
-            "Beauty depends on size as well as symmetry. No very small animal can be beautiful, for looking at it takes so small a portion of time that the impression of it will be confused. Nor can any very large one, for a whole view of it cannot be had at once, and so there will be no unity and completeness. \n" +
-            "Aristotle\n" +
-            "Strange that the vanity which accompanies beauty --excusable, perhaps, when there is such great beauty, or at any rate understandable --should persist after the beauty was gone. \n" +
-            "Mary Arnim\n" +
-            "The best part of beauty is that which no picture can express. \n" +
+            
+            "God is Love, we are taught as children to believe. But when we first begin to get some inkling of how He loves us, we are repelled; it seems so cold, indeed, not love at all as we understand the word. \n" +
+            "W. H. Auden\n" +
+            
+            "God brings men into deep waters not to drown them, but to cleanse them. \n" +
+            "John H. Aughey\n" +
+            
+            "They that deny a God destroy man's nobility; for certainly man is of kin to the beasts by his body; and, if he be not of kin to God by his spirit, he is a base and ignoble creature. \n" +
             "Francis Bacon\n" +
-            "There is no excellent beauty that hath not some strangeness in the proportion. \n" +
+            
+            "God hangs the greatest weights upon the smallest wires. \n" +
             "Francis Bacon\n" +
-            "Beauty is but the sensible image of the Infinite. Like truth and justice it lives within us; like virtue and the moral law it is a companion of the soul. \n" +
-            "George Bancroft\n" +
-            "Beauty itself is but the sensible image of the infinite. \n" +
-            "George Bancroft\n" +
-            "Im not ugly, but my beauty is a total creation. \n" +
-            "Tyra Banks\n" +
-            "Beauty is desired in order that it may be befouled; not for its own sake, but for the joy brought by the certainty of profaning it. \n" +
+            
+            "I went to the root of things, and found nothing but Him alone. \n" +
+            "Mira Bai\n" +
+            
+            "We know all their gods; they ignore ours. What they call our sins are our gods, and what they call their gods, we name otherwise. \n" +
+            "Natalie Clifford Barney\n" +
+            
+            "To place oneself in the position of God is painful: being God is equivalent to being tortured. For being God means that one is in harmony with all that is, including the worst. The existence of the worst evils is unimaginable unless God willed them. \n" +
             "Georges Bataille\n" +
-            "All forms of beauty, like all possible phenomena, contain an element of the eternal and an element of the transitory -- of the absolute and of the particular. Absolute and eternal beauty does not exist, or rather it is only an abstraction creamed from the general surface of different beauties. The particular element in each manifestation comes from the emotions: and just as we have our own particular emotions, so we have our own beauty. \n" +
-            "Charles Baudelaire\n" +
-            "There are as many kinds of beauty as there are habitual ways of seeking happiness. \n" +
-            "Charles Baudelaire\n" +
-            "The loveliest face in all the world will not please you if you see it suddenly eye to eye, at a distance of half an inch from your own. \n" +
-            "Max Beerbohm\n" +
-            "The idea that happiness could have a share in beauty would be too much of a good thing. \n" +
-            "Walter Benjamin\n" +
-            "Beauty is in the heart of the beholder. \n" +
-            "Al Bernstein";
+            
+            "How can one better magnify the Almighty than by sniggering with him at his little jokes, particularly the poorer ones. \n" +
+            "Samuel Beckett\n" +
+            
+            "The bastard! He doesn't exist! \n" +
+            "Samuel Beckett\n" +
+            
+            "God's providence is on the side of clear heads. \n" +
+            "Henry Ward Beecher\n" +
+            
+            "And now Israel, what does the Lord your God require from you, but to fear the Lord your God, to walk in all His ways and love Him, and to serve the Lord your God with all your heart and all your soul. Deuteronomy 10:12 \n" +
+            "Bible\n" +
+            
+            "But from there you will seek the Lord you God and you will find Him if you search for Him with all your heart and all your soul. Deuteronomy 4:29 \n" +
+            "Bible\n" +
+            
+            "For now we see through a glass darkly, but then face to face; now I know in part, but then shall I know even as also I am known. I Corinthians \n" +
+            "Bible\n" +
+            
+            "God is not a man, that he should lie, nor a son of man, that he should repent; has he not said, and will he not do it? Or has he spoken, and will he not make it good? Numbers 23:19 \n" +
+            "Bible\n" +
+            
+            "Oh the depth of both the wisdom and riches of God! How unsearchable are his judgments, and his ways beyond understanding. \n" +
+            "Bible\n" +
+            
+            "A god who let us prove his existence would be an idol. \n" +
+            "Dietrich Bonhoeffer";
     static String[] vals;
     static ArrayList<String> quotes = new ArrayList<>();
     static ArrayList<String> authors = new ArrayList<>();
@@ -80,7 +104,7 @@ public class StringFactory {
 
         }
         for (int i = 0; i < quotes.size(); i++) {
-            System.out.println("<item>" + "Beauty" + "</item>");
+            System.out.println("<item>" + "GOD" + "</item>");
 
         }
         for (int i = 0; i < authors.size(); i++) {

@@ -91,7 +91,7 @@ public class Constants {
             "God\n" +
             "Good\n" +
             "Government\n" +
-            "Graduation\n" +
+            "Gratitude\n" +
             "Great\n" +
             "Happiness\n" +
             "Health\n" +
@@ -103,24 +103,23 @@ public class Constants {
             "Independence\n" +
             "Inspirational\n" +
             "Intelligence\n" +
-            "Jealousy\n" +
+            "Joy\n" +
             "Knowledge\n" +
+            "Kindness\n" +
             "Leadership\n" +
             "Learning\n" +
-            "Legal\n" +
+            "Legacy\n" +
             "Life Favorite\n" +
             "Love Favorite\n" +
             "Marriage\n" +
             "Medical\n" +
-            "Memorial Day\n" +
+            "Memory\n" +
             "Men\n" +
             "Mom\n" +
             "Money\n" +
-            "Morning\n" +
-            "Mother's Day\n" +
-            "Motivational Favorite\n" +
+            "Mercy\n" +
+            "Motivational \n" +
             "Movies\n" +
-            "Moving On\n" +
             "Music\n" +
             "Nature\n" +
             "New Year's\n" +
