@@ -166,7 +166,7 @@
                 android:alpha="0.6"
                 android:background="@android:color/background_light"
                 android:elevation="4dp"
-                android:text="@string/made_with_quotzy"
+                android:text="Image from Unsplash.com"
                 android:textAlignment="center"
                 android:textColor="@color/textColor" />
 
