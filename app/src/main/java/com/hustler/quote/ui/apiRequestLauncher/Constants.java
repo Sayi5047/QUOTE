@@ -44,31 +44,35 @@ public class Constants {
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
-    public static final String CATEGORIES_STRING = "Age\n" + "Alone\n" +
+    public static final String CATEGORIES_STRING =
+
+
+            "Age\n" +
+            "Alone\n" +
             "Anger\n" +
             "Architecture\n" +
             "Art\n" +
             "Attitude\n" +
             "Beauty\n" +
-            "Best\n" +
+            "Belief\n" +
+            "Bible\n" +
             "Birthday\n" +
-            "Brainy\n" +
+            "Books\n" +
+            "Bravery\n" +
             "Business\n" +
-            "Car\n" +
+            "Cats\n" +
             "Chance\n" +
             "Change\n" +
-            "Christmas\n" +
             "Communication\n" +
             "Computers\n" +
-            "Cool\n" +
-            "Courage\n" +
-            "Dad\n" +
-            "Dating\n" +
+            "Creativity\n" +
+            "Dignity\n" +
+            "Duty\n" +
             "Death\n" +
             "Design\n" +
             "Diet\n" +
             "Dreams\n" +
-            "Easter\n" +
+            "Effort\n" +
             "Education\n" +
             "Environmental\n" +
             "Equality\n" +
@@ -76,16 +80,12 @@ public class Constants {
             "Failure\n" +
             "Faith\n" +
             "Family\n" +
-            "Famous\n" +
-            "Father's Day\n" +
+            "Father\n" +
             "Fear\n" +
-            "Finance\n" +
-            "Fitness\n" +
             "Food\n" +
-            "Forgiveness\n" +
+            "Forgive\n" +
             "Freedom\n" +
-            "Friendship Favorite\n" +
-            "Funny\n" +
+            "Friendship\n" +
             "Future\n" +
             "Gardening\n" +
             "God\n" +
