@@ -12,19 +12,33 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
-
-        <ProgressBar
-            android:id="@+id/loader"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_rv"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/crdit"
+            android:text="Photos by Unsplash"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:padding="4dp"
+            android:textAlignment="center"/>
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+
 
     </LinearLayout>
 

@@ -51,7 +51,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
     private void findViews(View view) {
         categories_rv = (RecyclerView) view.findViewById(R.id.rv_categories);
-        categories_rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        categories_rv.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
         categories_rv.setAdapter(new CategoriesAdapter(getActivity(), new CategoriesAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClicked(String category, int position) {

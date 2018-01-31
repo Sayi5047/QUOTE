@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
     private static final int MY_PERMISSION_REQUEST_ = 1001;
     RecyclerView rv;
+    TextView credit;
     ProgressBar loader;
     UserWorkImages userWorkImages;
     private LinearLayout dataView;
@@ -49,8 +51,16 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         rv = (RecyclerView) view.findViewById(R.id.main_rv);
         loader = (ProgressBar) view.findViewById(R.id.loader);
         dataView = (LinearLayout) view.findViewById(R.id.data_view);
+        credit = (TextView) view.findViewById(R.id.crdit);
         loader.setVisibility(View.GONE);
         checkPermission_and_proceed();
+        credit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://unsplash.com?utm_source=Quotzy&utm_medium=referral"));
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -65,6 +75,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
 
     private void setRecyclerview() {
+        userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         getRandomIMages();
 
@@ -87,7 +98,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
                     wallpaperAdapter = new WallpaperAdapter(getActivity(), unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
-                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
+//                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
                             Intent intent=new Intent(getActivity(), WallpapersPagerActivity.class);
 
                             intent.putExtra(Constants.Pager_position,position);

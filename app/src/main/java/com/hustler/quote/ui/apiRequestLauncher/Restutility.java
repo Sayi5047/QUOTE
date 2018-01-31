@@ -127,6 +127,37 @@ public class Restutility {
         MySingleton.addJsonArrayObjRequest(context, request1);
     }
 
+    public void getUnsplashUSERImages(final Context context, final ImagesFromUnsplashResponse listener, final String request) {
+        logtheRequest(request);
+        JsonArrayRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
+                imagesFromUnsplashResponse.Value = new Unsplash_Image[response.length()];
+                Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        Unsplash_Image unspalshImage = new Gson().fromJson(response.get(i).toString(), Unsplash_Image.class);
+                        imagesFromUnsplashResponse.Value[i] = unspalshImage;
+                        Log.d("JSON ARRAY NAME", unspalshImage.getWidth());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                listener.onSuccess(imagesFromUnsplashResponse.Value);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+
+            }
+        });
+        MySingleton.addJsonArrayObjRequest(context, request1);
+    }
+
     public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
         try {
             volleyError.printStackTrace();

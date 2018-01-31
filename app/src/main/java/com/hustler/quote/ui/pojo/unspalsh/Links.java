@@ -13,6 +13,25 @@ public class Links implements Serializable {
 
     private String html;
 
+    public String getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
+    }
+
+    private String photos;
+
+    public String getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(String portfolio) {
+        this.portfolio = portfolio;
+    }
+
+    private String portfolio;
     private String self;
 
     public String getDownload_location() {
