@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:background="@android:color/white"
     android:orientation="vertical">
@@ -10,7 +11,7 @@
         android:id="@+id/data_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="top"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
@@ -21,6 +22,19 @@
             android:textStyle="bold"
             android:padding="4dp"
             android:textAlignment="center"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/catgories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.CardView>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

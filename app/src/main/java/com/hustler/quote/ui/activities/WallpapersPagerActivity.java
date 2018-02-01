@@ -31,6 +31,7 @@ import com.hustler.quote.ui.adapters.WallpaperSliderAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
 import com.hustler.quote.ui.customviews.WallpaperPageTransformer;
+import com.hustler.quote.ui.database.ImagesDbHelper;
 import com.hustler.quote.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.utils.InternetUtils;
@@ -132,7 +133,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == fabSetLike) {
-            // Handle clicks for fabSetLike
+            new ImagesDbHelper(WallpapersPagerActivity.this).addFav(unsplash_images[position]);
         } else if (v == fabSetWall) {
             if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
                 setWallPaer();

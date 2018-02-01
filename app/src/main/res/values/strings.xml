@@ -241,6 +241,28 @@
         <item>Triangle</item>
         <item>Custom</item>
     </string-array>
+    <string-array name="images_categories">
+        <item>Nature</item>
+        <item>Girls</item>
+        <item>Love</item>
+        <item>Dark Portraits</item>
+        <item>Workspaces</item>
+        <item>Yellow</item>
+        <item>SHADOW AND LIGHT</item>
+        <item>healthy food</item>
+        <item>Flowers with Black Background</item>
+        <item>Editors Choice: 2017</item>
+        <item>One Color</item>
+        <item>Colour</item>
+        <item>Yosemite</item>
+        <item>Flatlay</item>
+        <item>Negative Space Flat Lays</item>
+        <item>Write, Read, Note</item>
+        <item>Together</item>
+        <item>FESTIVE</item>
+        <item>Animals</item>
+        <item>Hand It Over</item>
+    </string-array>
 
 
 </resources>

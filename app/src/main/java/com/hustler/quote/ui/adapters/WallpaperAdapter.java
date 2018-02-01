@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,7 +29,9 @@ import java.util.ArrayList;
 public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Adapter<WallpaperAdapter.WallpaperViewholder> {
     Activity context;
     private boolean isLoadingAdded = false;
-    ArrayList<Unsplash_Image> m_AL_Images = new ArrayList<>();
+    static ArrayList<Unsplash_Image> m_AL_Images = new ArrayList<>();
+    Unsplash_Image[] images;
+    OnWallpaperClickListener onimageClickListener;
 
     public WallpaperAdapter(Activity context, Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
         this.context = context;
@@ -37,14 +40,24 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         convertToArraYList(images);
     }
 
+    public static void addItems(Unsplash_Image[] images) {
+        for (int i = 0; i < images.length; i++) {
+            m_AL_Images.add(images[i]);
+        }
+
+    }
+
     private void convertToArraYList(Unsplash_Image[] images) {
         for (int i = 0; i < images.length; i++) {
             m_AL_Images.add(i, images[i]);
         }
+        Log.d("ADAPTER SIZE", images.length + "");
     }
 
-    Unsplash_Image[] images;
-    OnWallpaperClickListener onimageClickListener;
+    public interface OnWallpaperClickListener {
+        void onWallpaperClicked(int position, Unsplash_Image wallpaper);
+
+    }
 
     @Override
     public WallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,70 +90,66 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         });
     }
 
-    public interface OnWallpaperClickListener {
-        void onWallpaperClicked(int position, Unsplash_Image wallpaper);
-
-    }
 
     @Override
     public int getItemCount() {
         return images.length <= 0 ? 0 : images.length;
     }
-
-    //    @Override
-//    public int getItemViewType(int position) {
-////        return (position == images.length - 1 && isLoadingAdded) ? LOADING : ITEM;
+//
+//    //    @Override
+////    public int getItemViewType(int position) {
+//////        return (position == images.length - 1 && isLoadingAdded) ? LOADING : ITEM;
+////    }
+//    public Unsplash_Image getItem(int position) {
+//        return m_AL_Images.get(position);
 //    }
-    public Unsplash_Image getItem(int position) {
-        return m_AL_Images.get(position);
-    }
-
-    public void add(Unsplash_Image image) {
-        m_AL_Images.add(image);
-        notifyItemInserted(m_AL_Images.size() - 1);
-    }
-
-    public void add_All(ArrayList<Unsplash_Image> images) {
-        for (Unsplash_Image image : images) {
-            m_AL_Images.add(image);
-        }
-    }
-
-    public void remove(Unsplash_Image city) {
-        int position = m_AL_Images.indexOf(city);
-        if (position > -1) {
-            m_AL_Images.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
-    public void clear() {
-        isLoadingAdded = false;
-        while (getItemCount() > 0) {
-            remove(getItem(0));
-        }
-    }
-
-    public boolean isEmpty() {
-        return getItemCount() == 0;
-    }
-
-    public void addLoadingFooter() {
-        isLoadingAdded = true;
-        add(new Unsplash_Image());
-    }
-
-    public void removeLoadingFooter() {
-        isLoadingAdded = false;
-
-        int position = m_AL_Images.size() - 1;
-        Unsplash_Image item = getItem(position);
-
-        if (item != null) {
-            m_AL_Images.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
+//
+//    public void add(Unsplash_Image image) {
+//        m_AL_Images.add(image);
+//        notifyItemInserted(m_AL_Images.size() - 1);
+//    }
+//
+//    public void add_All(ArrayList<Unsplash_Image> images) {
+//        for (Unsplash_Image image : images) {
+//            m_AL_Images.add(image);
+//        }
+//    }
+//
+//    public void remove(Unsplash_Image city) {
+//        int position = m_AL_Images.indexOf(city);
+//        if (position > -1) {
+//            m_AL_Images.remove(position);
+//            notifyItemRemoved(position);
+//        }
+//    }
+//
+//    public void clear() {
+//        isLoadingAdded = false;
+//        while (getItemCount() > 0) {
+//            remove(getItem(0));
+//        }
+//    }
+//
+//    public boolean isEmpty() {
+//        return getItemCount() == 0;
+//    }
+//
+//    public void addLoadingFooter() {
+//        isLoadingAdded = true;
+//        add(new Unsplash_Image());
+//    }
+//
+//    public void removeLoadingFooter() {
+//        isLoadingAdded = false;
+//
+//        int position = m_AL_Images.size() - 1;
+//        Unsplash_Image item = getItem(position);
+//
+//        if (item != null) {
+//            m_AL_Images.remove(position);
+//            notifyItemRemoved(position);
+//        }
+//    }
 
 
     public class WallpaperViewholder extends RecyclerView.ViewHolder {

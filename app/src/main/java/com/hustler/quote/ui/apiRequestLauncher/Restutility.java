@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.networkhandler.MySingleton;
 import com.hustler.quote.ui.pojo.ImagesResponse;
+import com.hustler.quote.ui.pojo.UnsplashImages_Collection_Response;
+import com.hustler.quote.ui.pojo.Unsplash_Image_collection_response_listener;
 import com.hustler.quote.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
 import com.hustler.quote.ui.pojo.unspalsh.UnsplashImageResponse;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
@@ -49,7 +51,7 @@ public class Restutility {
 //
 //    public void getRandomQuotes(final Context context, final QuotesApiResponceListener listener) {
 //        logtheRequest(Constants.API_FAVQ_RANDOM_QUOTES);
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequestwithAuthHeader(Request.Method.GET, Constants.API_FAVQ_RANDOM_QUOTES, null,
+//        JsonObjectRequest jsonObjectRequest = new JsonArrayRequestwithAuthHeader(Request.Method.GET, Constants.API_FAVQ_RANDOM_QUOTES, null,
 //                new Response.Listener<JSONObject>() {
 //                    @Override
 //                    public void onResponse(JSONObject response) {
@@ -97,7 +99,7 @@ public class Restutility {
 
     public void getUnsplashRandomImages(final Context context, final ImagesFromUnsplashResponse listener, final String request) {
         logtheRequest(request);
-        JsonArrayRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request1 = new JsonArrayRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
@@ -129,7 +131,7 @@ public class Restutility {
 
     public void getUnsplashUSERImages(final Context context, final ImagesFromUnsplashResponse listener, final String request) {
         logtheRequest(request);
-        JsonArrayRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request1 = new JsonArrayRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
@@ -156,6 +158,27 @@ public class Restutility {
             }
         });
         MySingleton.addJsonArrayObjRequest(context, request1);
+    }
+
+    public void getUnsplash_Collections_Images(final Context context, final Unsplash_Image_collection_response_listener listener, final String request) {
+        logtheRequest(request);
+        JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                        UnsplashImages_Collection_Response unspalshImage = new Gson().fromJson(response.toString(), UnsplashImages_Collection_Response.class);
+                        listener.onSuccess(unspalshImage);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+
+            }
+        });
+        MySingleton.addJsonObjRequest(context, request1);
     }
 
     public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
