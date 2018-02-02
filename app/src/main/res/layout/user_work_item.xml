@@ -5,35 +5,41 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="@dimen/elevation4"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="2dp"
     android:clipToPadding="true"
     android:id="@+id/root_cl">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="120dp"
         android:orientation="vertical"
         >
 
         <ImageView
             android:id="@+id/user_work_iv"
             android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
              />
-
+        <View
+            android:id="@+id/layer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bwgradient" />
         <TextView
             android:id="@+id/user_work_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/font1"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/font"
             android:elevation="4dp"
+
             android:padding="4dp"
             tools:text="work" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </android.support.v7.widget.CardView>
