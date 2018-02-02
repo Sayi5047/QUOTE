@@ -22,13 +22,12 @@ public class Constants {
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos/?client_id=" + UNSPLASH_CLIENT_ID;
 
     public static final String FONT_NEVIS = "fonts/nevis.ttf";
-    public static final String FONT_SKETCHDARK = "fonts/sketch_dark.ttf";
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
-    public static final String FONT_ZINGSANS = "fonts/zingsans.otf";
     public static final String FONT_multicolore = "fonts/multicolore.otf";
     public static final String FONT_Sans_Bold = "fonts/sans_bold.ttf";
     public static final String FONT_Roboto_regular = "fonts/robot_regular.ttf";
     public static final String FONT_Google_sans_regular = "fonts/google_sans_reg.ttf";
+    public static final String FONT_CIRCULAR = "fonts/cstd_reg.otf";
 
 
     public static final String INTENT_QUOTE_OBJECT_KEY = "QUOTE_OBJECT_TRAVELLER_KEY";
@@ -197,6 +196,7 @@ public class Constants {
     public static String Wallpapers="WallPapers";
     public static String Image_Name_to_save_key="Intent_wallpaper_name_key";
     public static String is_to_setWallpaper_fromActivity="is_to_set_wallpaper_from_activity";
+    public static String is_from_fav="IS_FROM_FAVOURITE";
 
 
 //    UNSPLASH IDS

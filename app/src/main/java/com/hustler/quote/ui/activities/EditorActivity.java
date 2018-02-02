@@ -1080,12 +1080,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         adView = (AdView) dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
-        TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, start, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, center, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, end, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, header, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, addingText, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, align_text, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, start, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, center, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, end, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
         TextUtils.setFont(this, done, Constants.FONT_NEVIS);
         TextUtils.setFont(this, add_bg, Constants.FONT_NEVIS);
@@ -1151,7 +1151,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
-                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Google_sans_regular);
+                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_CIRCULAR);
 
                         textView.setText(newly_Added_Text);
 
@@ -1227,22 +1227,22 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        spannableString = new SpannableString(addingText.getText().toString());
 
         addingText.setText(((TextView) selectedView).getText());
-        TextUtils.setFont(this, header, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, addingText, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, align_text, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, start, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, center, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, end, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, bold, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, underline, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, italic, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, strikethrough, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, highlight, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, colorText, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, header, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, addingText, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, align_text, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, start, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, center, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, end, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, bold, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, underline, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, italic, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, strikethrough, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, highlight, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, colorText, Constants.FONT_CIRCULAR);
 
         TextUtils.setFont(this, done, Constants.FONT_NEVIS);
         TextUtils.setFont(this, close, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, previewText, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, previewText, Constants.FONT_CIRCULAR);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1374,7 +1374,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
-                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_Google_sans_regular);
+                        TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_CIRCULAR);
                         if (spannableString != null) {
                             textView.setText(spannableString);
                         } else {
@@ -1539,9 +1539,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             choose = (Button) dialog.findViewById(R.id.bt_color_choose);
             shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
             adView = (AdView) dialog.findViewById(R.id.adView);
-            TextUtils.setFont(this, head_tv, Constants.FONT_Google_sans_regular);
-            TextUtils.setFont(this, close, Constants.FONT_Google_sans_regular);
-            TextUtils.setFont(this, choose, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
             AdUtils.loadBannerAd(adView, EditorActivity.this);
             colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
@@ -1683,9 +1683,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         choose = (Button) dialog.findViewById(R.id.bt_color_choose);
         shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
         adView = (AdView) dialog.findViewById(R.id.adView);
-        TextUtils.setFont(this, head_tv, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, close, Constants.FONT_Google_sans_regular);
-        TextUtils.setFont(this, choose, Constants.FONT_Google_sans_regular);
+        TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 

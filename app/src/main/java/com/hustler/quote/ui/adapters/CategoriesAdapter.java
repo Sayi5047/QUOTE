@@ -106,7 +106,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.bt_category);
             imageView = (ImageView) itemView.findViewById(R.id.back_image);
-            TextUtils.setFont(activity, textView, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(activity, textView, Constants.FONT_CIRCULAR);
         }
     }
 }

@@ -60,6 +60,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     ImageView profile_image;
     TextView profile_name, profile_desc;
     Window window;
+    boolean isfromFav = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     private void getIntentData() {
         position = getIntent().getIntExtra(Constants.Pager_position, 1);
         unsplash_images = (Unsplash_Image[]) getIntent().getSerializableExtra(Constants.PAGER_LIST_WALL_OBKHECTS);
-
+        isfromFav = getIntent().getBooleanExtra(Constants.is_from_fav, false);
     }
 
     private void findViews() {
@@ -127,13 +128,30 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
             }
         });
+
+        if (isfromFav == true) {
+            fabShare.setVisibility(View.GONE);
+            fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+
+        } else {
+            fabShare.setVisibility(View.VISIBLE);
+            fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+
+        }
+
     }
 
 
     @Override
     public void onClick(View v) {
         if (v == fabSetLike) {
-            new ImagesDbHelper(WallpapersPagerActivity.this).addFav(unsplash_images[position]);
+            if (isfromFav == true) {
+                fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+                new ImagesDbHelper(WallpapersPagerActivity.this).removeFav(unsplash_images[position]);
+            } else {
+                new ImagesDbHelper(WallpapersPagerActivity.this).addFav(unsplash_images[position]);
+                fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+            }
         } else if (v == fabSetWall) {
             if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
                 setWallPaer();
@@ -247,6 +265,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
                             intent.putExtra(Constants.Pager_position, position);
                             intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, unsplash_images);
+                            intent.putExtra(Constants.is_from_fav, false);
+
                             startActivity(intent);
                         }
                     }));

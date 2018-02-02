@@ -86,7 +86,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             adView=(AdView) dialog.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
-            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
             catgory_name.setText(category + " ( " + quoteslist.size() + " )");
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {

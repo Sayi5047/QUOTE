@@ -132,7 +132,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             tv = (TextView) itemView.findViewById(R.id.main_quote);
             tv2 = (TextView) itemView.findViewById(R.id.quote_author);
             tv3 = (TextView) itemView.findViewById(R.id.quote_genre_end);
-            tv.setTypeface(App.applyFont(activity, Constants.FONT_Google_sans_regular));
+            tv.setTypeface(App.applyFont(activity, Constants.FONT_CIRCULAR));
             tv2.setTypeface(App.applyFont(activity, Constants.FONT_Roboto_regular));
             tv3.setTypeface(App.applyFont(activity, Constants.FONT_Roboto_regular));
 

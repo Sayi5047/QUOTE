@@ -139,7 +139,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 tv.setClipToOutline(true);
             }
-            TextUtils.setFont(activity, tv, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(activity, tv, Constants.FONT_CIRCULAR);
 
         }
     }

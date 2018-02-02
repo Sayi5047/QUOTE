@@ -2,17 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/black_overlay">
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:visibility="gone"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
+
+
+
+    <com.hustler.quote.ui.customviews.MyViewPager
+        android:id="@+id/fav_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12">
+
+    </com.hustler.quote.ui.customviews.MyViewPager>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/fav_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.design.widget.TabLayout>
 </LinearLayout>

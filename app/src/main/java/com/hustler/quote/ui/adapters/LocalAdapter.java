@@ -49,7 +49,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 
     @Override
     public void onBindViewHolder(LocalViewholder holder, final int position) {
-        final int color = TextUtils.getMainMatColor("mdcolor_100", activity);
+        final int color = TextUtils.getMainMatColor("mdcolor_50", activity);
         holder.itemView.setBackgroundColor(color);
         final Quote quote = dataFromNet.get(position);
         quote.setColor(color);
@@ -101,7 +101,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             tv = (TextView) itemView.findViewById(R.id.main_quote);
             tv2 = (TextView) itemView.findViewById(R.id.quote_author);
             tv3 = (TextView) itemView.findViewById(R.id.quote_genre_end);
-            tv.setTypeface(App.applyFont(activity, Constants.FONT_Google_sans_regular));
+            tv.setTypeface(App.applyFont(activity, Constants.FONT_CIRCULAR));
             tv2.setTypeface(App.applyFont(activity, Constants.FONT_ZINGCURSIVE));
             tv3.setTypeface(App.applyFont(activity, Constants.FONT_NEVIS));
 

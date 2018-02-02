@@ -50,11 +50,11 @@ public class TextUtils {
             if (view instanceof ViewGroup) {
                 findText_and_applyTypeface((ViewGroup) view, activity);
             } else if (view instanceof TextView) {
-                setFont(activity, ((TextView) view), Constants.FONT_Google_sans_regular);
+                setFont(activity, ((TextView) view), Constants.FONT_CIRCULAR);
             } else if (view instanceof EditText) {
-                setEdit_Font(activity, ((EditText) view), Constants.FONT_Google_sans_regular);
+                setEdit_Font(activity, ((EditText) view), Constants.FONT_CIRCULAR);
             } else if (view instanceof Button) {
-                setFont(activity, ((TextView) view), Constants.FONT_Google_sans_regular);
+                setFont(activity, ((TextView) view), Constants.FONT_CIRCULAR);
             }
         }
     }

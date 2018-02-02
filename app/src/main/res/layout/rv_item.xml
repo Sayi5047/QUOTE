@@ -8,6 +8,7 @@
     android:clipToPadding="true"
     android:elevation="4dp"
     android:orientation="vertical"
+    app:cardUseCompatPadding="true"
     android:transitionName="@string/quotes_author_transistion"
 
     app:cardCornerRadius="@dimen/elevation16"
@@ -26,10 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="@dimen/elevation8"
-            android:gravity="center"
             android:padding="@dimen/elevation8"
             android:text="Something"
-            android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textSize="@dimen/font1"
             android:transitionName="@string/quotes_body_transistion" />
@@ -38,15 +37,13 @@
             android:id="@+id/quote_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:elevation="@dimen/elevation4"
-            android:gravity="center"
             android:padding="@dimen/elevation4"
             android:text="Something"
-            android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/font1"
-
+            android:layout_gravity="end"
+            android:textAlignment="viewEnd"
 
             />
 

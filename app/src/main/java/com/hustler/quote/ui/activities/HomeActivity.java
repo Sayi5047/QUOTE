@@ -17,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
@@ -30,6 +31,7 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
+import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.ColorUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
@@ -72,12 +74,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 ContextCompat.getColor(HomeActivity.this, R.color.orange_300),
                 ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
+        editTabLayout();
+
+    }
+
+    private void editTabLayout() {
+        ViewGroup vg = (ViewGroup) tab_layout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    TextView textView=(TextView) tabViewChild;
+                    textView.setAllCaps(false);
+//                    setAnimation(textView);
+                    TextUtils.setFont(HomeActivity.this, textView, Constants.FONT_ZINGCURSIVE);
+                }
+            }
+        }
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        setAnimation(appBar);
+//        setAnimation(appBar);
         setAnimation(floatingActionButton);
         setAnimation(mainPager);
         setAnimation(tab_layout);
@@ -86,7 +110,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void findViews() {
         appBar = (AppBarLayout) findViewById(R.id.app_bar);
         headerName = (TextView) findViewById(R.id.header_name);
-        headerName.setTypeface(App.applyFont(this, Constants.FONT_Google_sans_regular));
+        headerName.setTypeface(App.applyFont(this, Constants.FONT_ZINGCURSIVE));
+        headerName.setAnimation(AnimationUtils.loadAnimation(HomeActivity.this,R.anim.scaleup));
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         mainPager = (ViewPager) findViewById(R.id.main_pager);
         tab_layout = (TabLayout) findViewById(R.id.tab_layout);
@@ -136,10 +161,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             close_tv = (TextView) dialog.findViewById(R.id.close_tv);
             select_tv = (TextView) dialog.findViewById(R.id.select_tv);
 
-            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_Google_sans_regular);
-            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_Google_sans_regular);
-            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_Google_sans_regular);
-            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_CIRCULAR);
 
             dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override

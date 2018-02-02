@@ -1089,8 +1089,9 @@
     <string-array name="allfonts">
         <item>fonts/nevis.ttf</item>
         <item>fonts/zingcursive.otf</item>
-        <item>fonts/zingsans.otf</item>
         <item>fonts/multicolore.otf</item>
+        <item>fonts/cstd_reg.otf</item>
+        <item>fonts/rounded.ttf.otf</item>
     </string-array>
 
     <string-array name="layout_styles_vals">

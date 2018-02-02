@@ -157,7 +157,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
             super(itemView);
             feature_item = (ImageView) itemView.findViewById(R.id.feature_item);
             feature_name = (TextView) itemView.findViewById(R.id.feature_name);
-            TextUtils.setFont(activity, feature_name, Constants.FONT_Google_sans_regular);
+            TextUtils.setFont(activity, feature_name, Constants.FONT_CIRCULAR);
         }
     }
 }

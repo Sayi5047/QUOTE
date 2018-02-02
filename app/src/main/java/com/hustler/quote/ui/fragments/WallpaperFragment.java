@@ -29,8 +29,6 @@ import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.utils.InternetUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
-import static android.view.View.GONE;
-
 /**
  * Created by Sayi on 26-01-2018.
  */
@@ -113,6 +111,8 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
                                     intent.putExtra(Constants.Pager_position, position);
                                     intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, response.getResults());
+                                    intent.putExtra(Constants.is_from_fav, false);
+
                                     startActivity(intent);
                                 }
                             }));
@@ -164,6 +164,8 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
                             intent.putExtra(Constants.Pager_position, position);
                             intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, unsplash_images);
+                            intent.putExtra(Constants.is_from_fav, false);
+
                             startActivity(intent);
                         }
                     }));

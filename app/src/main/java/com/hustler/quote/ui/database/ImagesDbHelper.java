@@ -90,7 +90,7 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sqLiteDatabase.delete(Contract.Images.TABLE_NAME, Contract.Images.IMAGE_ID + "=" + image.getId(), null);
+                sqLiteDatabase.delete(Contract.Images.TABLE_NAME, Contract.Images.IMAGE_ID +  " =?" ,new String[]{image.getId()});
                 sqLiteDatabase.close();
 
             }

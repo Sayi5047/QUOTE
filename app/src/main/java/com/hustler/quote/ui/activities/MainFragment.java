@@ -87,22 +87,18 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    private void setAdapter(RecyclerView rv) {
+    private void setAdapter(final RecyclerView rv) {
         final ArrayList<Quote>[] quotes = new ArrayList[]{new ArrayList<>()};
         new Thread(new Runnable() {
             @Override
             public void run() {
                 quotes[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes();
-
-            }
-        }).run();
-
-        rv.setAdapter(new LocalAdapter(
-                getActivity(),
-                quotes[0],
-                new LocalAdapter.OnQuoteClickListener() {
-                    @Override
-                    public void onQuoteClicked(int position, int color, Quote quote, View view1) {
+                rv.setAdapter(new LocalAdapter(
+                        getActivity(),
+                        quotes[0],
+                        new LocalAdapter.OnQuoteClickListener() {
+                            @Override
+                            public void onQuoteClicked(int position, int color, Quote quote, View view1) {
 //                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                            getActivity().getWindow().setEnterTransition(new Slide());
 //                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
@@ -113,13 +109,17 @@ public class MainFragment extends Fragment {
 //                                            getString(R.string.quotes_author_transistion));
 //                            startActivity(intent, options.toBundle());
 //                        } else {
-                        Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                        startActivity(intent);
+                                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                                startActivity(intent);
 //                        }
-                    }
-                }));
-        loader.setVisibility(View.GONE);
+                            }
+                        }));
+                loader.setVisibility(View.GONE);
+            }
+        }).run();
+
+
 
     }
 
