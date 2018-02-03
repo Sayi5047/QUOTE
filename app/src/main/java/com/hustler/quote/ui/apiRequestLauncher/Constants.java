@@ -54,109 +54,127 @@ public class Constants {
             "Art\n" +
             "Attitude\n" +
             "Beauty\n" +
+
             "Belief\n" +
             "Bible\n" +
-            "Birthday\n" +
             "Books\n" +
-            "Bravery\n" +
+            "Brave\n" +
             "Business\n" +
             "Cats\n" +
+//                    DONE
             "Chance\n" +
             "Change\n" +
             "Communication\n" +
             "Computers\n" +
             "Creativity\n" +
             "Dignity\n" +
+
             "Duty\n" +
             "Death\n" +
             "Design\n" +
             "Diet\n" +
             "Dreams\n" +
             "Effort\n" +
+
             "Education\n" +
             "Environmental\n" +
             "Equality\n" +
             "Experience\n" +
             "Failure\n" +
             "Faith\n" +
+
             "Family\n" +
             "Father\n" +
             "Fear\n" +
             "Food\n" +
             "Forgive\n" +
             "Freedom\n" +
+
             "Friendship\n" +
             "Future\n" +
             "Gardening\n" +
             "God\n" +
             "Good\n" +
             "Government\n" +
+
             "Gratitude\n" +
             "Great\n" +
             "Happiness\n" +
             "Health\n" +
             "History\n" +
             "Home\n" +
+
             "Hope\n" +
             "Humor\n" +
             "Imagination\n" +
             "Independence\n" +
             "Inspirational\n" +
             "Intelligence\n" +
+
             "Joy\n" +
             "Knowledge\n" +
             "Kindness\n" +
             "Leadership\n" +
             "Learning\n" +
             "Legacy\n" +
+
             "Life Favorite\n" +
             "Love Favorite\n" +
             "Marriage\n" +
             "Medical\n" +
             "Memory\n" +
             "Men\n" +
+
             "Mom\n" +
             "Money\n" +
             "Mercy\n" +
             "Motivational \n" +
             "Movies\n" +
             "Music\n" +
+
             "Nature\n" +
             "New Year's\n" +
             "Parenting\n" +
             "Patience\n" +
             "Patriotism\n" +
             "Peace\n" +
+
             "Pet\n" +
             "Poetry\n" +
             "Politics\n" +
             "Positive\n" +
             "Power\n" +
             "Relationship\n" +
+
             "Religion\n" +
             "Respect\n" +
             "Romantic\n" +
             "Sad\n" +
             "Saint Patrick's Day\n" +
             "Science\n" +
+
             "Smile\n" +
             "Society\n" +
             "Space\n" +
             "Sports\n" +
             "Strength\n" +
             "Success Favorite\n" +
+
+
             "Sympathy\n" +
             "Teacher\n" +
             "Technology\n" +
             "Teen\n" +
             "Thankful\n" +
             "Thanksgiving\n" +
+
             "Time\n" +
             "Travel\n" +
             "Trust\n" +
             "Truth\n" +
             "Valentine's Day\n" +
             "Veterans Day\n" +
+
             "War\n" +
             "Wedding\n" +
             "Wisdom Favorite\n" +

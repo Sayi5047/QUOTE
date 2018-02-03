@@ -1,5 +1,7 @@
 package com.hustler.quote.ui.pojo;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -103,4 +105,9 @@ public class Quote implements Serializable {
     }
 
 
+//    @Override
+//    public int compareTo(@NonNull Object o) {
+//        Quote quote = (Quote) o;
+//        return quote_body.equals(quote.quote_body) ? 0 : 1  ;
+//    }
 }

@@ -331,33 +331,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setQuotes(RecyclerView result_rv, final String query, ProgressBar loader) {
+    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
-        final ArrayList<Quote>[] quoteslist = new ArrayList[]{new ArrayList<>()};
+        final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(),new ArrayList<>()};
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                quoteslist[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
+                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesBystring(query);
+                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
+                ArrayList<Quote> finalArrayList = new ArrayList<Quote>();
+                quoteslisttemp[1].remove(quoteslisttemp[0]);
+                finalArrayList.addAll(quoteslisttemp[0]);
+                finalArrayList.addAll(quoteslisttemp[1]);
+                if (finalArrayList.size() <= 0) {
+                    loader.setVisibility(View.GONE);
 
-            }
-        });
-        if (quoteslist[0].size() <= 0) {
-            loader.setVisibility(View.GONE);
-
-            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
-        } else {
-            loader.setVisibility(View.GONE);
-            result_rv.setAdapter(new LocalAdapter(HomeActivity.this, quoteslist[0], new LocalAdapter.OnQuoteClickListener() {
-                @Override
-                public void onQuoteClicked(int position, int color, Quote quote, View view) {
-                    Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    startActivity(intent);
+                    Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
+                } else {
+                    loader.setVisibility(View.GONE);
+                    result_rv.setAdapter(new LocalAdapter(HomeActivity.this, finalArrayList, new LocalAdapter.OnQuoteClickListener() {
+                        @Override
+                        public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                            Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
+                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                            startActivity(intent);
+                        }
+                    }));
                 }
-            }));
-        }
+            }
+        }).run();
+
     }
 
     private void loadAds() {

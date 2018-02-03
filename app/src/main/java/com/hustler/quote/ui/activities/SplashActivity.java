@@ -75,21 +75,24 @@ public class SplashActivity extends BaseActivity {
 
     private void load_from_Arrays() {
 
-        bodies = QuotesClass.AGE_QUOTES.split("\n");
-        authors = QuotesAuthorsClass.AGE_AUTHORS.split("\n");
-        categories = QuoteCategories.QUOTE_CATEGORY_AGE.split("\n");
-        for (String body : bodies) {
-            Log.d("VALUES", body);
-
-        }
-        for (String body : authors) {
-            Log.d("authors", body);
-
-        }
-        for (String body : categories) {
-            Log.d("categories", body);
-
-        }
+//        bodies = QuotesClass.AGE_QUOTES.split("\n");
+//        authors = QuotesAuthorsClass.AGE_AUTHORS.split("\n");
+//        categories = QuoteCategories.QUOTE_CATEGORY_AGE.split("\n");
+        bodies = getResources().getStringArray(R.array.quote_bodies);
+        authors = getResources().getStringArray(R.array.quote_authors);
+        categories = getResources().getStringArray(R.array.quote_categories);
+        Log.d("VALUES", String.valueOf(bodies.length));
+        Log.d("VALUES", String.valueOf(authors.length));
+        Log.d("VALUES", String.valueOf(categories.length));
+//        for (String body : bodies) {
+//            Log.d("VALUES", body);
+//        }
+//        for (String body : authors) {
+//            Log.d("authors", body);
+//        }
+//        for (String body : categories) {
+//            Log.d("categories", body);
+//        }
 
 
 

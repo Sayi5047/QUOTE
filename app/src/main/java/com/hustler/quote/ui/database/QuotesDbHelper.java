@@ -157,6 +157,44 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
     }
 
+    public List<Quote> getQuotesBystring(String query) {
+        List<Quote> categorised_Quotes = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String[] pprojection = new String[]{
+                (Contract.Quotes.COLUMN_ID),
+                (Contract.Quotes.QUOTE_BODY),
+                (Contract.Quotes.QUOTE_AUTHOR),
+                (Contract.Quotes.QUOTE_CATEGORY),
+                (Contract.Quotes.QUOTE_LANGUAGE),
+                (Contract.Quotes.QUOTE_IS_LIKED),
+        };
+
+        String rawQury = "SELECT * from " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_BODY + " LIKE " + "'%" + query + "%'";
+//        Cursor cursor1 = database.rawQuery(rawQury, pprojection);
+        Cursor cursor = database.
+                query(Contract.Quotes.TABLE_NAME,
+                        pprojection,
+                        " quote_body LIKE ?",
+                        new String[]{"%" + query + "%"},
+                        null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Quote quote = new Quote();
+            quote.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.Quotes.COLUMN_ID)));
+            quote.setQuote_body(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_BODY)));
+            quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
+            quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
+            quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+
+            categorised_Quotes.add(quote);
+        }
+        cursor.close();
+        database.close();
+        return categorised_Quotes;
+
+    }
+
     public List<Quote> getQuotesByAuthor(String author_Name) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
