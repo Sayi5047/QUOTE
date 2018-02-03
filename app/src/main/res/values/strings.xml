@@ -175,6 +175,10 @@
     <string name="HD">HD</string>
     <string name="need_internet_hd">Internet is required to download Hd image</string>
     <string name="visit_profile">Visit Unsplash Profile</string>
+    <string name="writetous">Write to us</string>
+    <string name="credits_menu">Credits</string>
+    <string name="about">About us</string>
+    <string name="search_hint">Type here</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

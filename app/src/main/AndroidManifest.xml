@@ -60,14 +60,32 @@
         </activity>
         <activity
             android:name=".ui.activities.HomeActivity"
+            android:label=""
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable">
+
+            </meta-data>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activities.LanderActivty"
             android:screenOrientation="portrait"
             android:theme="@style/NoStatusBar" />
-        <activity android:name=".ui.activities.MyPreferenceActivity" />
+        <activity android:name=".ui.activities.MyPreferenceActivity"></activity>
+        <activity android:name=".ui.Widgets.QuoteWidgetConfigurationActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activities.WallpapersPagerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
 
         <receiver android:name=".ui.Widgets.EditWidgetProvider">
@@ -94,15 +112,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <activity android:name=".ui.Widgets.QuoteWidgetConfigurationActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.activities.WallpapersPagerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
 
         <service

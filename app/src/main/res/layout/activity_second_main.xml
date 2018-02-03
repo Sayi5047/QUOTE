@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
@@ -34,7 +35,6 @@
                 android:textSize="@dimen/font3"
                 android:textStyle="bold" />
 
-
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
@@ -42,8 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:tabTextColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
             app:tabMode="scrollable"
+            app:tabTextColor="#fff9f9f9"
             app:tabIndicatorColor="@android:color/white">
 
         </android.support.design.widget.TabLayout>

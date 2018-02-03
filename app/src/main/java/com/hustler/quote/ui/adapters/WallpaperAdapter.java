@@ -67,7 +67,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     @Override
     public void onBindViewHolder(WallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
-        Glide.with(context).load(image.getUrls().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
+        Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
         Glide.with(context).load(image.getUser().getProfile_image().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
         holder.photoGrapher_name.setText(image.getUser().getFirst_name());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

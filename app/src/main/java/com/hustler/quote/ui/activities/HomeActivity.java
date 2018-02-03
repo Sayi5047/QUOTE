@@ -2,6 +2,8 @@ package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,7 +17,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -31,7 +37,6 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.superclasses.App;
-import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.ColorUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
@@ -49,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     float finalRadius;
     int currentcolor;
     int[] colors;
-
+    Toolbar toolbar;
 
     private AdView mAdView;
     private TabsFragmentPagerAdapter pagerAdapter;
@@ -88,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 0; i < tabChildsCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    TextView textView=(TextView) tabViewChild;
+                    TextView textView = (TextView) tabViewChild;
                     textView.setAllCaps(false);
 //                    setAnimation(textView);
                     TextUtils.setFont(HomeActivity.this, textView, Constants.FONT_ZINGCURSIVE);
@@ -108,10 +113,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViews() {
-        appBar = (AppBarLayout) findViewById(R.id.app_bar);
-        headerName = (TextView) findViewById(R.id.header_name);
+
+        appBar = findViewById(R.id.app_bar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        headerName = findViewById(R.id.header_name);
         headerName.setTypeface(App.applyFont(this, Constants.FONT_ZINGCURSIVE));
-        headerName.setAnimation(AnimationUtils.loadAnimation(HomeActivity.this,R.anim.scaleup));
+        headerName.setAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.scaleup));
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         mainPager = (ViewPager) findViewById(R.id.main_pager);
         tab_layout = (TabLayout) findViewById(R.id.tab_layout);
@@ -124,7 +133,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mainPager.setOnPageChangeListener(this);
         floatingActionButton.setOnClickListener(this);
 
+        getIntentData(getIntent());
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        getIntentData(intent);
+    }
+
+    private void getIntentData(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //use the query to search your data somehow
+            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,query);
+        }
     }
 
     private void loadAds() {
@@ -137,6 +160,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         view.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_search: {
+
+            }
+        }
+        return true;
+    }
 
     @Override
     public void onClick(final View v) {

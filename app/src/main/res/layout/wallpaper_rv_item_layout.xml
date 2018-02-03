@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="125dp"
+    android:layout_height="140dp"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-   tool:cardUseCompatPadding="true"
-    tool:cardCornerRadius="2dp">
+    android:layout_margin="1dp"
+    tool:cardCornerRadius="1dp">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/wallpaper_preview"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="140dp"
         android:src="@drawable/geometry_2"
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop"/>
@@ -21,7 +21,7 @@
     <View
         android:id="@+id/layer"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="140dp"
         android:background="@drawable/bwgradient" />
     <ImageView
         android:id="@+id/photographer_image"

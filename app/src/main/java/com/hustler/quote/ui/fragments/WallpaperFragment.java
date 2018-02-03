@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
@@ -41,7 +42,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
     TextView credit;
     ProgressBar loader;
     UserWorkImages userWorkImages;
-    private LinearLayout dataView;
+    private RelativeLayout dataView;
 
 
     @Nullable
@@ -51,7 +52,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         rv = (RecyclerView) view.findViewById(R.id.main_rv);
         catgories = (RecyclerView) view.findViewById(R.id.catgories);
         loader = (ProgressBar) view.findViewById(R.id.loader);
-        dataView = (LinearLayout) view.findViewById(R.id.data_view);
+        dataView = (RelativeLayout) view.findViewById(R.id.data_view);
         credit = (TextView) view.findViewById(R.id.crdit);
         loader.setVisibility(View.GONE);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));

@@ -1,22 +1,19 @@
 package com.hustler.quote.ui.fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.activities.HomeActivity;
 import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.activities.WallpapersPagerActivity;
 import com.hustler.quote.ui.adapters.FavPagerAdapter;
@@ -28,6 +25,7 @@ import com.hustler.quote.ui.database.ImagesDbHelper;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
+import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
@@ -50,9 +48,9 @@ public class UserFavuritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_fav_layout, container, false);
-        viewPager=(MyViewPager) view.findViewById(R.id.fav_viewPager);
-        tabLayout=(TabLayout) view.findViewById(R.id.fav_tabLayout);
-        favPagerAdapter=new FavPagerAdapter(getActivity(),getChildFragmentManager());
+        viewPager = (MyViewPager) view.findViewById(R.id.fav_viewPager);
+        tabLayout = (TabLayout) view.findViewById(R.id.fav_tabLayout);
+        favPagerAdapter = new FavPagerAdapter(getActivity(), getChildFragmentManager());
         viewPager.setAdapter(favPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -61,7 +59,28 @@ public class UserFavuritesFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv);
         rv_imag_no_fv = (RecyclerView) view.findViewById(R.id.rv_imag_no_fv);
 
+        editTabLayout();
         return view;
+    }
+
+    private void editTabLayout() {
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    TextView textView = (TextView) tabViewChild;
+                    textView.setAllCaps(false);
+//                    setAnimation(textView);
+                    TextUtils.setFont(getActivity(), textView, Constants.FONT_ZINGCURSIVE);
+                }
+            }
+        }
+
     }
 
     private void setAdapter(RecyclerView recyclerView) {
