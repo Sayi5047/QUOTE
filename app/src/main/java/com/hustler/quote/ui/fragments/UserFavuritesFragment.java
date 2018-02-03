@@ -44,6 +44,7 @@ public class UserFavuritesFragment extends Fragment {
     TabLayout tabLayout;
     MyViewPager viewPager;
     ArrayList<Quote> quotes;
+    FavPagerAdapter favPagerAdapter;
 
     @Nullable
     @Override
@@ -51,7 +52,8 @@ public class UserFavuritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_fav_layout, container, false);
         viewPager=(MyViewPager) view.findViewById(R.id.fav_viewPager);
         tabLayout=(TabLayout) view.findViewById(R.id.fav_tabLayout);
-        viewPager.setAdapter(new FavPagerAdapter(getActivity(),getFragmentManager()));
+        favPagerAdapter=new FavPagerAdapter(getActivity(),getChildFragmentManager());
+        viewPager.setAdapter(favPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         imageView = (ImageView) view.findViewById(R.id.iv);
@@ -107,5 +109,8 @@ public class UserFavuritesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
     }
+
+
 }

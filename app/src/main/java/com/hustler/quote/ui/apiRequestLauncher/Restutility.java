@@ -120,7 +120,7 @@ public class Restutility {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR LENGTGH", error.getMessage());
+                Log.e("ERROR LENGTGH", String.valueOf(error));
 
                 listener.onError(getRelevantVolleyErrorMessage(context, error));
 

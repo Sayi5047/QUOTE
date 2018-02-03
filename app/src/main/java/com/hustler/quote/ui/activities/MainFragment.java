@@ -99,20 +99,20 @@ public class MainFragment extends Fragment {
                         new LocalAdapter.OnQuoteClickListener() {
                             @Override
                             public void onQuoteClicked(int position, int color, Quote quote, View view1) {
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                            getActivity().getWindow().setEnterTransition(new Slide());
-//                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-//                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-//                            ActivityOptionsCompat options = ActivityOptionsCompat.
-//                                    makeSceneTransitionAnimation(getActivity(),
-//                                            view1,
-//                                            getString(R.string.quotes_author_transistion));
-//                            startActivity(intent, options.toBundle());
-//                        } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getActivity().getWindow().setEnterTransition(new Slide());
+                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                            ActivityOptionsCompat options = ActivityOptionsCompat.
+                                    makeSceneTransitionAnimation(getActivity(),
+                                            view1,
+                                            getString(R.string.quotes_author_transistion));
+                            startActivity(intent, options.toBundle());
+                        } else {
                                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                                 startActivity(intent);
-//                        }
+                        }
                             }
                         }));
                 loader.setVisibility(View.GONE);

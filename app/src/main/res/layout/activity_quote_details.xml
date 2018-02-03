@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
+    android:transitionName="@string/quotes_author_transistion"
 
     tools:context="com.hustler.quote.ui.activities.QuoteDetailsActivity">
 
@@ -15,7 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <include layout="@layout/app_bar_transparent" />
 
@@ -34,7 +36,6 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:elevation="@dimen/elevation4"
-                android:transitionName="@string/quotes_author_transistion"
                 app:cardCornerRadius="16dp"
 
                 app:cardUseCompatPadding="true">

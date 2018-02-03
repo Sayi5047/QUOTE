@@ -70,4 +70,10 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
         }));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setAdapter();
+
+    }
 }
