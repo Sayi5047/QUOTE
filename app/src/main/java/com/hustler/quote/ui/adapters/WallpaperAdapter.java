@@ -40,11 +40,12 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         convertToArraYList(images);
     }
 
-    public static void addItems(Unsplash_Image[] images) {
+    public void addItems(Unsplash_Image[] images) {
         for (int i = 0; i < images.length; i++) {
             m_AL_Images.add(images[i]);
         }
-
+        notifyDataSetChanged();
+        notifyItemRangeInserted(this.images.length, images.length);
     }
 
     private void convertToArraYList(Unsplash_Image[] images) {
@@ -93,7 +94,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
 
     @Override
     public int getItemCount() {
-        return images.length <= 0 ? 0 : images.length;
+        return m_AL_Images.size() <= 0 ? 0 : m_AL_Images.size();
     }
 //
 //    //    @Override

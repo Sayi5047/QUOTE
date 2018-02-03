@@ -18,7 +18,7 @@ public class Constants {
     public static final String API_FAVQ_FLTER_QUOTES = "https://favqs.com/api/quotes/:";
 
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
-    public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos/?client_id=" + UNSPLASH_CLIENT_ID+"&per_page=200";
+    public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos/?client_id=" + UNSPLASH_CLIENT_ID+"&per_page=30";
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos/?client_id=" + UNSPLASH_CLIENT_ID;
 
     public static final String FONT_NEVIS = "fonts/nevis.ttf";

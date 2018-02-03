@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -21,6 +22,7 @@ import com.hustler.quote.ui.adapters.ImageCategoryAdapter;
 import com.hustler.quote.ui.adapters.WallpaperAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
+import com.hustler.quote.ui.listeners.InfiniteScrolListener;
 import com.hustler.quote.ui.pojo.UnsplashImages_Collection_Response;
 import com.hustler.quote.ui.pojo.Unsplash_Image_collection_response_listener;
 import com.hustler.quote.ui.pojo.UserWorkImages;
@@ -42,6 +44,9 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
     ProgressBar loader;
     UserWorkImages userWorkImages;
     private RelativeLayout dataView;
+    InfiniteScrolListener infiniteScrolListener;
+    WallpaperAdapter wallAdapter;
+    boolean IS_CATEGORY_FLAG = false;
 
 
     @Nullable
@@ -58,6 +63,23 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         catgories.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         checkPermission_and_proceed();
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        rv.setLayoutManager(gridLayoutManager);
+        infiniteScrolListener = new InfiniteScrolListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int i, int totalItemCount) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "DSDsdsd");
+                if (IS_CATEGORY_FLAG == true) {
+//                    load_searched_images(i);
+
+                } else {
+
+                    getRandomIMages(i);
+                }
+            }
+        };
+        rv.addOnScrollListener(infiniteScrolListener);
+
         credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,13 +109,14 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         catgories.setAdapter(new ImageCategoryAdapter(getActivity(), new ImageCategoryAdapter.OnImageClickLitner() {
             @Override
             public void onCategoryClicked(int position, String category) {
-                load_searched_images(category);
+                load_searched_images(category, 1);
 
             }
         }));
     }
 
-    public void load_searched_images(String category) {
+    public void load_searched_images(String category, final int pagePosition) {
+        clearEverything();
         loader.setVisibility(View.VISIBLE);
         final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + category + "&per_page=30";
         new Restutility(getActivity()).getUnsplash_Collections_Images(getActivity(), new Unsplash_Image_collection_response_listener() {
@@ -110,7 +133,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
                     Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Currently_no_wallpaper));
                 } else {
                     dataView.setVisibility(View.VISIBLE);
-                    rv.setAdapter(new WallpaperAdapter(getActivity(), response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
+                    wallAdapter = new WallpaperAdapter(getActivity(), response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
@@ -122,7 +145,8 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
                             startActivity(intent);
                         }
-                    }));
+                    });
+                    rv.setAdapter(wallAdapter);
 
                 }
             }
@@ -141,41 +165,51 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
 
     public void setRecyclerview() {
-        getRandomIMages();
+        getRandomIMages(1);
 
     }
 
-    private void getRandomIMages() {
+    private void getRandomIMages(final int pagePosition) {
         loader.setVisibility(View.VISIBLE);
 
-        String request = Constants.API_GET_IMAGES_FROM_UNSPLASH;
+
+        String request = Constants.API_GET_IMAGES_FROM_UNSPLASH + "&page=" + pagePosition;
         new Restutility(getActivity()).getUnsplashRandomImages(getActivity(), new ImagesFromUnsplashResponse() {
             @Override
             public void onSuccess(final Unsplash_Image[] unsplash_images) {
                 loader.setVisibility(View.GONE);
-                rv.setAdapter(null);
-                rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
-                Log.i("VALUEUNSPLASH_RANDOM", String.valueOf(unsplash_images.length));
-                if (unsplash_images.length <= 0) {
-                    dataView.setVisibility(View.GONE);
-                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Currently_no_wallpaper));
-                } else {
-                    dataView.setVisibility(View.VISIBLE);
-                    rv.setAdapter(new WallpaperAdapter(getActivity(), unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
-                        @Override
-                        public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
-//                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
-                            Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
-
-                            intent.putExtra(Constants.Pager_position, position);
-                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, unsplash_images);
-                            intent.putExtra(Constants.is_from_fav, false);
-
-                            startActivity(intent);
+                if (pagePosition > 1) {
+                    if (unsplash_images.length <= 0) {
+                        // TODO: 04-02-2018 handle for nodata in pagination
+                    } else {
+                        if (wallAdapter != null) {
+                            wallAdapter.addItems(unsplash_images);
                         }
-                    }));
+                    }
+                } else {
+                    rv.setAdapter(null);
+                    if (unsplash_images.length <= 0) {
+                        dataView.setVisibility(View.GONE);
+                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Currently_no_wallpaper));
+                    } else {
+                        dataView.setVisibility(View.VISIBLE);
+                        wallAdapter = new WallpaperAdapter(getActivity(), unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
+                            @Override
+                            public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+                                //                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
+                                Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
+
+                                intent.putExtra(Constants.Pager_position, position);
+                                intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, unsplash_images);
+                                intent.putExtra(Constants.is_from_fav, false);
+
+                                startActivity(intent);
+                            }
+                        });
+                        rv.setAdapter(wallAdapter);
+                    }
                 }
+
             }
 
             @Override
@@ -194,5 +228,12 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
     }
 
-
+    public void clearEverything() {
+        rv.setAdapter(null);
+// 2. Notify the adapter of the update
+        wallAdapter.notifyDataSetChanged(); // or notifyItemRangeRemoved
+// 3. Reset endless scroll listener when performing a new search
+//        infiniteScrolListener.resetState();
+        infiniteScrolListener.resetState();
+    }
 }
