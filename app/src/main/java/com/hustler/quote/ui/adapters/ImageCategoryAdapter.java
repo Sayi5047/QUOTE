@@ -46,7 +46,7 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.itemView.setClipToOutline(true);
         }
-        TextUtils.setFont(activity, holder.category, Constants.FONT_NEVIS);
+        TextUtils.setFont(activity, holder.category, Constants.FONT_ZINGCURSIVE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

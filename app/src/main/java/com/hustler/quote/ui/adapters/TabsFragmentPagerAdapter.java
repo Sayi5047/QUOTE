@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.MainFragment;
@@ -18,6 +20,7 @@ import com.hustler.quote.ui.fragments.WallpaperFragment;
 
 public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
     Context context;
+    SparseArray<Fragment> registeredFragments =new SparseArray<>();
 
     public TabsFragmentPagerAdapter(Context mContext, FragmentManager fm) {
         super(fm);
@@ -30,6 +33,7 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0: {
                 returning_fragment = new CategoriesFragment();
+
             }
             break;
             case 1: {

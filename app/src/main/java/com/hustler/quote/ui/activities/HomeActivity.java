@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +18,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,36 +32,54 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
+import com.hustler.quote.ui.adapters.WallpaperAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
-import com.hustler.quote.ui.superclasses.App;
+import com.hustler.quote.ui.apiRequestLauncher.Restutility;
+import com.hustler.quote.ui.database.QuotesDbHelper;
+import com.hustler.quote.ui.pojo.Quote;
+import com.hustler.quote.ui.pojo.UnsplashImages_Collection_Response;
+import com.hustler.quote.ui.pojo.Unsplash_Image_collection_response_listener;
+import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
+import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.ColorUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
-    private TextView headerName;
+    private TextView search_Query;
     private FloatingActionButton floatingActionButton;
     private ViewPager mainPager;
     private TabLayout tab_layout;
     Window window;
     Animator anim;
+    TextView header_name;
     CoordinatorLayout rootView;
     int cx, cy;
     float finalRadius;
     int currentcolor;
     int[] colors;
     Toolbar toolbar;
-
+    final String IMAGES = "images";
+    final String QUOTES = "quotes";
     private AdView mAdView;
     private TabsFragmentPagerAdapter pagerAdapter;
+    String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,15 +140,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        headerName = findViewById(R.id.header_name);
-        headerName.setTypeface(App.applyFont(this, Constants.FONT_ZINGCURSIVE));
-        headerName.setAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.scaleup));
+
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         mainPager = (ViewPager) findViewById(R.id.main_pager);
         tab_layout = (TabLayout) findViewById(R.id.tab_layout);
         rootView = (CoordinatorLayout) findViewById(R.id.root);
         tab_layout.setupWithViewPager(mainPager);
         mAdView = (AdView) findViewById(R.id.adView);
+        header_name = (TextView) findViewById(R.id.header_name);
+        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_ZINGCURSIVE);
         loadAds();
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
         mainPager.setCurrentItem(1);
@@ -144,9 +166,197 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getIntentData(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            query = intent.getStringExtra(SearchManager.QUERY);
             //use the query to search your data somehow
-            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this,query);
+            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, query);
+            buildDialog_and_search(query);
+        }
+    }
+
+
+    private void buildDialog_and_search(final String query) {
+
+        final Dialog dialog = new Dialog(HomeActivity.this, R.style.EditTextDialog_non_floater);
+        dialog.setContentView(R.layout.search_chooser_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+//        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(andro));
+        dialog.setCancelable(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary));
+        }
+
+
+        final RelativeLayout root;
+        final EditText search_Query;
+        ImageView search;
+        RadioGroup radioGroup;
+        FloatingActionButton close;
+        final RecyclerView result_rv;
+        final ProgressBar loader;
+        final String[] selected_type = new String[1];
+        selected_type[0] = IMAGES;
+        AdView adView;
+
+
+        search_Query = (EditText) dialog.findViewById(R.id.header_name);
+        search = (ImageView) dialog.findViewById(R.id.search);
+        radioGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
+        close = (FloatingActionButton) dialog.findViewById(R.id.search_btn);
+        root = (RelativeLayout) dialog.findViewById(R.id.root);
+        result_rv = (RecyclerView) dialog.findViewById(R.id.result_rv);
+        loader = (ProgressBar) dialog.findViewById(R.id.loader);
+        adView = (AdView) dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView, HomeActivity.this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            result_rv.setClipToOutline(true);
+        }
+        setImages(result_rv, query, loader);
+//        setQuotes(result_rv, query, loader);
+
+        TextUtils.findText_and_applyTypeface(root, HomeActivity.this);
+        TextUtils.findText_and_applyamim_slideup(root, HomeActivity.this);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_images: {
+//                        setImages(result_rv, query, loader);
+                        selected_type[0] = IMAGES;
+                    }
+                    break;
+                    case R.id.rb_quotes: {
+//                        setQuotes(result_rv, query, loader);
+                        selected_type[0] = QUOTES;
+                    }
+                    break;
+
+                }
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (search_Query.getText().length() <= 0 || search_Query.getText() == null) {
+                    search_Query.setError(getString(R.string.enter_something));
+                } else {
+                    switch (selected_type[0]) {
+                        case IMAGES: {
+                            setImages(result_rv, search_Query.getText().toString(), loader);
+                        }
+                        break;
+                        case QUOTES: {
+                            setQuotes(result_rv, search_Query.getText().toString(), loader);
+                        }
+                        break;
+
+                    }
+                }
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                result_rv.setAdapter(null);
+                TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
+
+                dialog.dismiss();
+
+            }
+        });
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                    TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
+
+                    dialog.dismiss();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        dialog.show();
+
+
+    }
+
+    private void setImages(final RecyclerView rv, String query, final ProgressBar loader) {
+        rv.setAdapter(null);
+        loader.setVisibility(View.VISIBLE);
+        final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
+        new Restutility(HomeActivity.this).getUnsplash_Collections_Images(HomeActivity.this, new Unsplash_Image_collection_response_listener() {
+            @Override
+            public void onSuccess(final UnsplashImages_Collection_Response response) {
+
+                loader.setVisibility(View.GONE);
+                rv.setAdapter(null);
+                rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().length));
+                if (response.getResults().length <= 0) {
+//                    dataView.setVisibility(View.GONE);
+                    Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.Currently_no_wallpaper));
+                } else {
+//                    dataView.setVisibility(View.VISIBLE);
+                    rv.setAdapter(new WallpaperAdapter(HomeActivity.this, response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
+                        @Override
+                        public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+//                            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, wallpaper.getUser().getFirst_name());
+                            Intent intent = new Intent(HomeActivity.this, WallpapersPagerActivity.class);
+
+                            intent.putExtra(Constants.Pager_position, position);
+                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, response.getResults());
+                            intent.putExtra(Constants.is_from_fav, false);
+
+                            startActivity(intent);
+                        }
+                    }));
+
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e("ERROR FROM UNSPLASH", error);
+                loader.setVisibility(View.GONE);
+
+//                dataView.setVisibility(View.GONE);
+                Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.Failed));
+            }
+        }, request);
+
+    }
+
+    private void setQuotes(RecyclerView result_rv, final String query, ProgressBar loader) {
+        loader.setVisibility(View.VISIBLE);
+        result_rv.setAdapter(null);
+        final ArrayList<Quote>[] quoteslist = new ArrayList[]{new ArrayList<>()};
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                quoteslist[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
+
+            }
+        });
+        if (quoteslist[0].size() <= 0) {
+            loader.setVisibility(View.GONE);
+
+            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
+        } else {
+            loader.setVisibility(View.GONE);
+            result_rv.setAdapter(new LocalAdapter(HomeActivity.this, quoteslist[0], new LocalAdapter.OnQuoteClickListener() {
+                @Override
+                public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                    Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
+                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                    startActivity(intent);
+                }
+            }));
         }
     }
 

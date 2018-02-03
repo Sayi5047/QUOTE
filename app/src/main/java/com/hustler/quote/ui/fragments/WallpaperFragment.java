@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,7 +51,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         rv = (RecyclerView) view.findViewById(R.id.main_rv);
         catgories = (RecyclerView) view.findViewById(R.id.catgories);
         loader = (ProgressBar) view.findViewById(R.id.loader);
-        dataView = (RelativeLayout) view.findViewById(R.id.data_view);
+        dataView = (RelativeLayout) view.findViewById(R.id.data_views);
         credit = (TextView) view.findViewById(R.id.crdit);
         loader.setVisibility(View.GONE);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -88,54 +87,60 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         catgories.setAdapter(new ImageCategoryAdapter(getActivity(), new ImageCategoryAdapter.OnImageClickLitner() {
             @Override
             public void onCategoryClicked(int position, String category) {
-                loader.setVisibility(View.VISIBLE);
-                final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + category + "&per_page=30";
-                new Restutility(getActivity()).getUnsplash_Collections_Images(getActivity(), new Unsplash_Image_collection_response_listener() {
-                    @Override
-                    public void onSuccess(final UnsplashImages_Collection_Response response) {
+                load_searched_images(category);
 
-                        loader.setVisibility(View.GONE);
-                        rv.setAdapter(null);
-                        rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
-                        Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().length));
-                        if (response.getResults().length <= 0) {
-                            dataView.setVisibility(View.GONE);
-                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Currently_no_wallpaper));
-                        } else {
-                            dataView.setVisibility(View.VISIBLE);
-                            rv.setAdapter(new WallpaperAdapter(getActivity(), response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
-                                @Override
-                                public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
-//                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
-                                    Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
-
-                                    intent.putExtra(Constants.Pager_position, position);
-                                    intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, response.getResults());
-                                    intent.putExtra(Constants.is_from_fav, false);
-
-                                    startActivity(intent);
-                                }
-                            }));
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        Log.e("ERROR FROM UNSPLASH", error);
-                        loader.setVisibility(View.GONE);
-
-                        dataView.setVisibility(View.GONE);
-                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Failed));
-                    }
-                }, request);
             }
         }));
     }
 
+    public void load_searched_images(String category) {
+        loader.setVisibility(View.VISIBLE);
+        final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + category + "&per_page=30";
+        new Restutility(getActivity()).getUnsplash_Collections_Images(getActivity(), new Unsplash_Image_collection_response_listener() {
+            @Override
+            public void onSuccess(final UnsplashImages_Collection_Response response) {
 
-    private void setRecyclerview() {
+                loader.setVisibility(View.GONE);
+                rv.setAdapter(null);
+                rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().length));
+                if (response.getResults().length <= 0) {
+                    dataView.setVisibility(View.GONE);
+                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Currently_no_wallpaper));
+                } else {
+                    dataView.setVisibility(View.VISIBLE);
+                    rv.setAdapter(new WallpaperAdapter(getActivity(), response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
+                        @Override
+                        public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+//                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
+                            Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
+
+                            intent.putExtra(Constants.Pager_position, position);
+                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, response.getResults());
+                            intent.putExtra(Constants.is_from_fav, false);
+
+                            startActivity(intent);
+                        }
+                    }));
+
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e("ERROR FROM UNSPLASH", error);
+                loader.setVisibility(View.GONE);
+
+                dataView.setVisibility(View.GONE);
+                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Failed));
+            }
+        }, request);
+
+    }
+
+
+    public void setRecyclerview() {
         getRandomIMages();
 
     }

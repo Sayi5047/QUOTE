@@ -140,8 +140,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/close"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="24dp"

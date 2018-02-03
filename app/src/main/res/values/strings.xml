@@ -179,6 +179,9 @@
     <string name="credits_menu">Credits</string>
     <string name="about">About us</string>
     <string name="search_hint">Type here</string>
+    <string name="where_to_search">Choose what search is for</string>
+    <string name="search">Search</string>
+    <string name="enter_something">Please,Enter something to search for</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
