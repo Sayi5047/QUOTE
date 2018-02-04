@@ -11,15 +11,7 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/crdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Photos by Unsplash"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:layout_alignBottom="@id/main_rv"
-        android:textStyle="bold" />
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
@@ -50,8 +42,17 @@
         android:id="@+id/loader"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:layout_below="@id/main_rv"
         android:layout_centerInParent="true" />
-
+    <TextView
+        android:id="@+id/crdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Photos by Unsplash"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
 </RelativeLayout>
 
 

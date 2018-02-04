@@ -19,6 +19,7 @@ import com.hustler.quote.ui.database.ImagesDbHelper;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,7 +45,6 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
 
     private void setAdapter() {
         final List<Unsplash_Image>[] imageLists = new List[]{new LinkedList()};
-        final Unsplash_Image[][] images = new Unsplash_Image[1][1];
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -55,16 +55,16 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
         rv_imag_no_fv.setAdapter(new FavWallpaperAdapter(getActivity(), imageLists[0], new FavWallpaperAdapter.OnWallpaperClickListener() {
             @Override
             public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
-                images[0] = new Unsplash_Image[imageLists[0].size()];
-                for (int i = 0; i < images[0].length; i++) {
-                    images[0][i] = imageLists[0].get(i);
+                ArrayList<Unsplash_Image> images1=new ArrayList<Unsplash_Image>();
+                for (int i = 0; i < imageLists[0].size(); i++) {
+                    images1.add(imageLists[0].get(i));
                 }
                 Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getId());
                 Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
 
                 intent.putExtra(Constants.Pager_position, position);
                 intent.putExtra(Constants.is_from_fav, true);
-                intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, images[0]);
+                intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, images1);
                 startActivity(intent);
             }
         }));

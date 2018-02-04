@@ -68,7 +68,7 @@ public abstract class InfiniteScrolListener extends RecyclerView.OnScrollListene
         // If it isn't currently loading, we check to see if we have breached
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
-        if (!loading && (layoutManager.findFirstVisibleItemPosition() + visibleItemCount + visibleThreshold) >= totalItemCount) {
+        if ((!loading && (layoutManager.findFirstVisibleItemPosition() + visibleItemCount + visibleThreshold) >= totalItemCount) ) {
             loading = true;
             onLoadMore(currentPage + 1, totalItemCount);
         }
@@ -87,6 +87,8 @@ public abstract class InfiniteScrolListener extends RecyclerView.OnScrollListene
         loading = false;
         // Sets the starting page index
         startingPageIndex = 0;
+
+        currentPage=0;
     }
 
     @Override

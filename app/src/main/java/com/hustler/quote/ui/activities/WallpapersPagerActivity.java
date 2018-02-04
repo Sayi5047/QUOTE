@@ -38,6 +38,8 @@ import com.hustler.quote.ui.utils.InternetUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
+import java.util.ArrayList;
+
 import static com.hustler.quote.ui.apiRequestLauncher.Constants.UNSPLASH_CLIENT_ID;
 
 /**
@@ -48,7 +50,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
     WallpaperPageTransformer pageTransformer;
     int position;
-    Unsplash_Image[] unsplash_images;
+    ArrayList<Unsplash_Image> unsplash_images;
     WallpaperSliderAdapter adapter;
     private ViewPager imageViewer;
     private LinearLayout buttonsLayout;
@@ -78,7 +80,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
     private void getIntentData() {
         position = getIntent().getIntExtra(Constants.Pager_position, 1);
-        unsplash_images = (Unsplash_Image[]) getIntent().getSerializableExtra(Constants.PAGER_LIST_WALL_OBKHECTS);
+        unsplash_images = (ArrayList<Unsplash_Image>) getIntent().getSerializableExtra(Constants.PAGER_LIST_WALL_OBKHECTS);
         isfromFav = getIntent().getBooleanExtra(Constants.is_from_fav, false);
     }
 
@@ -109,9 +111,9 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
             fabShare.setClipToOutline(true);
 
         }
-        profile_name.setText(unsplash_images[position].getUser().getFirst_name());
-        profile_desc.setText(unsplash_images[position].getUser().getPortfolio_url());
-        Glide.with(WallpapersPagerActivity.this).load(unsplash_images[position].getUser().getProfile_image().getMedium()).centerCrop().into(profile_image);
+        profile_name.setText(unsplash_images.get(position).getUser().getFirst_name());
+        profile_desc.setText(unsplash_images.get(position).getUser().getPortfolio_url());
+        Glide.with(WallpapersPagerActivity.this).load(unsplash_images.get(position).getUser().getProfile_image().getMedium()).centerCrop().into(profile_image);
         imageViewer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -147,9 +149,9 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         if (v == fabSetLike) {
             if (isfromFav == true) {
                 fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
-                new ImagesDbHelper(WallpapersPagerActivity.this).removeFav(unsplash_images[position]);
+                new ImagesDbHelper(WallpapersPagerActivity.this).removeFav(unsplash_images.get(position));
             } else {
-                new ImagesDbHelper(WallpapersPagerActivity.this).addFav(unsplash_images[position]);
+                new ImagesDbHelper(WallpapersPagerActivity.this).addFav(unsplash_images.get(position));
                 fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
             }
         } else if (v == fabSetWall) {
@@ -168,12 +170,12 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         } else if (v == fabEdit) {
             Intent intent = new Intent(WallpapersPagerActivity.this, EditorActivity.class);
             intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 2);
-            intent.putExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY, unsplash_images[position].getUrls().getRegular());
+            intent.putExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY, unsplash_images.get(position).getUrls().getRegular());
             startActivity(intent);
         } else if (v == fabShare) {
             // Handle clicks for fabShare
 
-            showUserDetails(unsplash_images[position]);
+            showUserDetails(unsplash_images.get(position));
         }
     }
 
@@ -260,11 +262,11 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
                 public void onSuccess(final Unsplash_Image[] unsplash_images) {
                     userPics.setAdapter(new WallpaperAdapter(WallpapersPagerActivity.this, unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
-                        public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> images) {
                             Intent intent = new Intent(WallpapersPagerActivity.this, WallpapersPagerActivity.class);
 
                             intent.putExtra(Constants.Pager_position, position);
-                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, unsplash_images);
+                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, images);
                             intent.putExtra(Constants.is_from_fav, false);
 
                             startActivity(intent);
@@ -307,16 +309,16 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
     private void downloadImage() {
         Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
-        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images[position].getUrls().getRaw());
-        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images[position].getId());
+        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getUrls().getRaw());
+        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
         intent.putExtra(Constants.is_to_setWallpaper_fromActivity, false);
         startService(intent);
     }
 
     public void setWallPaer() {
         Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
-        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images[position].getUrls().getRaw());
-        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images[position].getId());
+        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getUrls().getRaw());
+        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
         intent.putExtra(Constants.is_to_setWallpaper_fromActivity, true);
         startService(intent);
 //        Intent intent = new Intent(WallpaperManager.

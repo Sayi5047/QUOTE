@@ -9,15 +9,17 @@ import android.util.Log;
 import com.hustler.quote.ui.fragments.PaperFragment;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sayi on 27-01-2018.
  */
 
 public class WallpaperSliderAdapter extends FragmentStatePagerAdapter {
-    Unsplash_Image[] images;
+    ArrayList<Unsplash_Image> images;
     Activity activity;
 
-    public WallpaperSliderAdapter(FragmentManager fragmentManager, Unsplash_Image[] images, Activity activity) {
+    public WallpaperSliderAdapter(FragmentManager fragmentManager, ArrayList<Unsplash_Image> images, Activity activity) {
         super(fragmentManager);
         this.images = images;
         this.activity = activity;
@@ -25,9 +27,9 @@ public class WallpaperSliderAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        Log.i("POSITION", String.valueOf(images.length));
+        Log.i("POSITION", String.valueOf(images.size()));
 
-        return images.length;
+        return images.size();
     }
 
     @Override
@@ -35,7 +37,7 @@ public class WallpaperSliderAdapter extends FragmentStatePagerAdapter {
         Log.i("POSITION--", String.valueOf(position));
         PaperFragment paperFragment;
 
-        paperFragment = getWallpaperFragment(position, images[position]);
+        paperFragment = getWallpaperFragment(position, images.get(position));
 
 
         return paperFragment;

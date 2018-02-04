@@ -304,12 +304,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                    dataView.setVisibility(View.VISIBLE);
                     rv.setAdapter(new WallpaperAdapter(HomeActivity.this, response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
-                        public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, wallpaper.getUser().getFirst_name());
                             Intent intent = new Intent(HomeActivity.this, WallpapersPagerActivity.class);
 
                             intent.putExtra(Constants.Pager_position, position);
-                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, response.getResults());
+                            intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, unsplash_images);
                             intent.putExtra(Constants.is_from_fav, false);
 
                             startActivity(intent);
@@ -334,7 +334,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
-        final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(),new ArrayList<>()};
+        final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
 
         new Thread(new Runnable() {
             @Override

@@ -23,17 +23,17 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 import java.util.ArrayList;
 
 /**
- * Created by Sayi on 26-01-2018.
+ * Created by Sayi on 04-02-2018.
  */
 
-public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Adapter<WallpaperAdapter.WallpaperViewholder> {
+public class CollectionsWallpaperAdapter extends android.support.v7.widget.RecyclerView.Adapter<CollectionsWallpaperAdapter.WallpaperViewholder> {
     Activity context;
     private boolean isLoadingAdded = false;
     static ArrayList<Unsplash_Image> m_AL_Images = new ArrayList<>();
     Unsplash_Image[] images;
     OnWallpaperClickListener onimageClickListener;
 
-    public WallpaperAdapter(Activity context, Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
+    public CollectionsWallpaperAdapter(Activity context, Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
         this.context = context;
         this.images = images;
         this.onimageClickListener = onimageClickListener;
@@ -48,14 +48,17 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         notifyItemRangeInserted(this.images.length, images.length);
     }
 
+    public void removeItems(){
+        m_AL_Images.clear();
+        notifyDataSetChanged();
+//        notifyItemRangeRemoved(0,m_AL_Images.size());
+    }
+
     private void convertToArraYList(Unsplash_Image[] images) {
         m_AL_Images.clear();
         notifyDataSetChanged();
         for (int i = 0; i < images.length; i++) {
-
             m_AL_Images.add(i, images[i]);
-
-
         }
         Log.d("ADAPTER SIZE", images.length + "");
     }
@@ -66,12 +69,12 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     }
 
     @Override
-    public WallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CollectionsWallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(WallpaperAdapter.WallpaperViewholder holder, final int position) {
+    public void onBindViewHolder(CollectionsWallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
         Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
         Glide.with(context).load(image.getUser().getProfile_image().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
@@ -101,62 +104,6 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     public int getItemCount() {
         return m_AL_Images.size() <= 0 ? 0 : m_AL_Images.size();
     }
-//
-//    //    @Override
-////    public int getItemViewType(int position) {
-//////        return (position == images.length - 1 && isLoadingAdded) ? LOADING : ITEM;
-////    }
-//    public Unsplash_Image getItem(int position) {
-//        return m_AL_Images.get(position);
-//    }
-//
-//    public void add(Unsplash_Image image) {
-//        m_AL_Images.add(image);
-//        notifyItemInserted(m_AL_Images.size() - 1);
-//    }
-//
-//    public void add_All(ArrayList<Unsplash_Image> images) {
-//        for (Unsplash_Image image : images) {
-//            m_AL_Images.add(image);
-//        }
-//    }
-//
-//    public void remove(Unsplash_Image city) {
-//        int position = m_AL_Images.indexOf(city);
-//        if (position > -1) {
-//            m_AL_Images.remove(position);
-//            notifyItemRemoved(position);
-//        }
-//    }
-//
-//    public void clear() {
-//        isLoadingAdded = false;
-//        while (getItemCount() > 0) {
-//            remove(getItem(0));
-//        }
-//    }
-//
-//    public boolean isEmpty() {
-//        return getItemCount() == 0;
-//    }
-//
-//    public void addLoadingFooter() {
-//        isLoadingAdded = true;
-//        add(new Unsplash_Image());
-//    }
-//
-//    public void removeLoadingFooter() {
-//        isLoadingAdded = false;
-//
-//        int position = m_AL_Images.size() - 1;
-//        Unsplash_Image item = getItem(position);
-//
-//        if (item != null) {
-//            m_AL_Images.remove(position);
-//            notifyItemRemoved(position);
-//        }
-//    }
-
 
     public class WallpaperViewholder extends RecyclerView.ViewHolder {
         ImageView wallpaper, photographer;

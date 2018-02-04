@@ -17,9 +17,14 @@ public class Constants {
     public static final String API_FAVQ_FILTER_QUOTES = "https://favqs.com/api/quotes/?filter=";
     public static final String API_FAVQ_FLTER_QUOTES = "https://favqs.com/api/quotes/:";
 
+    public static final String PER_PAGE = "&per_page=30";
+    public static final String QUERY = "&query=";
+    public static final String PAGE_NUMBER = "&page=";
+
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
-    public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos/?client_id=" + UNSPLASH_CLIENT_ID+"&per_page=30";
+    public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos/?client_id=" + UNSPLASH_CLIENT_ID + PER_PAGE;
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos/?client_id=" + UNSPLASH_CLIENT_ID;
+
 
     public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
@@ -40,7 +45,7 @@ public class Constants {
     public static final String IS_DB_LOADED_PREFERENCE = "is_db_loaded_key";
     public static final String IS_USER_SAW_INRODUCTION = "is_user_saw_intro_key";
     public static final String SAHRED_PREFS_DEVICE_HEIGHT_KEY = "shared_prefs_device_height";
-    public static final String APPFOLDER ="Quotzy" ;
+    public static final String APPFOLDER = "Quotzy";
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
@@ -48,138 +53,138 @@ public class Constants {
 
 
             "Age\n" +
-            "Alone\n" +
-            "Anger\n" +
-            "Architecture\n" +
-            "Art\n" +
-            "Attitude\n" +
-            "Beauty\n" +
+                    "Alone\n" +
+                    "Anger\n" +
+                    "Architecture\n" +
+                    "Art\n" +
+                    "Attitude\n" +
+                    "Beauty\n" +
 
-            "Belief\n" +
-            "Bible\n" +
-            "Books\n" +
-            "Brave\n" +
-            "Business\n" +
-            "Cats\n" +
+                    "Belief\n" +
+                    "Bible\n" +
+                    "Books\n" +
+                    "Brave\n" +
+                    "Business\n" +
+                    "Cats\n" +
 //                    DONE
-            "Chance\n" +
-            "Change\n" +
-            "Communication\n" +
-            "Computers\n" +
-            "Creativity\n" +
-            "Dignity\n" +
+                    "Chance\n" +
+                    "Change\n" +
+                    "Communication\n" +
+                    "Computers\n" +
+                    "Creativity\n" +
+                    "Dignity\n" +
 
-            "Duty\n" +
-            "Death\n" +
-            "Design\n" +
-            "Diet\n" +
-            "Dreams\n" +
-            "Effort\n" +
+                    "Duty\n" +
+                    "Death\n" +
+                    "Design\n" +
+                    "Diet\n" +
+                    "Dreams\n" +
+                    "Effort\n" +
 
-            "Education\n" +
-            "Environmental\n" +
-            "Equality\n" +
-            "Experience\n" +
-            "Failure\n" +
-            "Faith\n" +
+                    "Education\n" +
+                    "Environmental\n" +
+                    "Equality\n" +
+                    "Experience\n" +
+                    "Failure\n" +
+                    "Faith\n" +
 
-            "Family\n" +
-            "Father\n" +
-            "Fear\n" +
-            "Food\n" +
-            "Forgive\n" +
-            "Freedom\n" +
+                    "Family\n" +
+                    "Father\n" +
+                    "Fear\n" +
+                    "Food\n" +
+                    "Forgive\n" +
+                    "Freedom\n" +
 
-            "Friendship\n" +
-            "Future\n" +
-            "Gardening\n" +
-            "God\n" +
-            "Good\n" +
-            "Government\n" +
+                    "Friendship\n" +
+                    "Future\n" +
+                    "Gardening\n" +
+                    "God\n" +
+                    "Good\n" +
+                    "Government\n" +
 
-            "Gratitude\n" +
-            "Great\n" +
-            "Happiness\n" +
-            "Health\n" +
-            "History\n" +
-            "Home\n" +
+                    "Gratitude\n" +
+                    "Great\n" +
+                    "Happiness\n" +
+                    "Health\n" +
+                    "History\n" +
+                    "Home\n" +
 
-            "Hope\n" +
-            "Humor\n" +
-            "Imagination\n" +
-            "Independence\n" +
-            "Inspirational\n" +
-            "Intelligence\n" +
+                    "Hope\n" +
+                    "Humor\n" +
+                    "Imagination\n" +
+                    "Independence\n" +
+                    "Inspirational\n" +
+                    "Intelligence\n" +
 
-            "Joy\n" +
-            "Knowledge\n" +
-            "Kindness\n" +
-            "Leadership\n" +
-            "Learning\n" +
-            "Legacy\n" +
+                    "Joy\n" +
+                    "Knowledge\n" +
+                    "Kindness\n" +
+                    "Leadership\n" +
+                    "Learning\n" +
+                    "Legacy\n" +
 
-            "Life Favorite\n" +
-            "Love Favorite\n" +
-            "Marriage\n" +
-            "Medical\n" +
-            "Memory\n" +
-            "Men\n" +
+                    "Life Favorite\n" +
+                    "Love Favorite\n" +
+                    "Marriage\n" +
+                    "Medical\n" +
+                    "Memory\n" +
+                    "Men\n" +
 
-            "Mom\n" +
-            "Money\n" +
-            "Mercy\n" +
-            "Motivational \n" +
-            "Movies\n" +
-            "Music\n" +
+                    "Mom\n" +
+                    "Money\n" +
+                    "Mercy\n" +
+                    "Motivational \n" +
+                    "Movies\n" +
+                    "Music\n" +
 
-            "Nature\n" +
-            "New Year's\n" +
-            "Parenting\n" +
-            "Patience\n" +
-            "Patriotism\n" +
-            "Peace\n" +
+                    "Nature\n" +
+                    "New Year's\n" +
+                    "Parenting\n" +
+                    "Patience\n" +
+                    "Patriotism\n" +
+                    "Peace\n" +
 
-            "Pet\n" +
-            "Poetry\n" +
-            "Politics\n" +
-            "Positive\n" +
-            "Power\n" +
-            "Relationship\n" +
+                    "Pet\n" +
+                    "Poetry\n" +
+                    "Politics\n" +
+                    "Positive\n" +
+                    "Power\n" +
+                    "Relationship\n" +
 
-            "Religion\n" +
-            "Respect\n" +
-            "Romantic\n" +
-            "Sad\n" +
-            "Saint Patrick's Day\n" +
-            "Science\n" +
+                    "Religion\n" +
+                    "Respect\n" +
+                    "Romantic\n" +
+                    "Sad\n" +
+                    "Saint Patrick's Day\n" +
+                    "Science\n" +
 
-            "Smile\n" +
-            "Society\n" +
-            "Space\n" +
-            "Sports\n" +
-            "Strength\n" +
-            "Success Favorite\n" +
+                    "Smile\n" +
+                    "Society\n" +
+                    "Space\n" +
+                    "Sports\n" +
+                    "Strength\n" +
+                    "Success Favorite\n" +
 
 
-            "Sympathy\n" +
-            "Teacher\n" +
-            "Technology\n" +
-            "Teen\n" +
-            "Thankful\n" +
-            "Thanksgiving\n" +
+                    "Sympathy\n" +
+                    "Teacher\n" +
+                    "Technology\n" +
+                    "Teen\n" +
+                    "Thankful\n" +
+                    "Thanksgiving\n" +
 
-            "Time\n" +
-            "Travel\n" +
-            "Trust\n" +
-            "Truth\n" +
-            "Valentine's Day\n" +
-            "Veterans Day\n" +
+                    "Time\n" +
+                    "Travel\n" +
+                    "Trust\n" +
+                    "Truth\n" +
+                    "Valentine's Day\n" +
+                    "Veterans Day\n" +
 
-            "War\n" +
-            "Wedding\n" +
-            "Wisdom Favorite\n" +
-            "Women\n" +
-            "Work\n";
+                    "War\n" +
+                    "Wedding\n" +
+                    "Wisdom Favorite\n" +
+                    "Women\n" +
+                    "Work\n";
 
 
     public static final String COLOUR_KEY = "colour_key";
@@ -207,14 +212,17 @@ public class Constants {
     public static final float ITALIC_MAX = 1f;
     public static final float ITALIC_MIN = 0f;
     public static String Widget_current_object = "WIDGET_CURRENT_OBJECT";
-    public static String Pager_position="PAGER_POSITION_KEY";
-    public static String PAGER_LIST_WALL_OBKHECTS="PAGER_LIST_OBJECTS_KEY";
-    public static String Shared_prefs_image_resol_key="Shared_prefs_image_res_key";
-    public static String ImageUrl_to_download="IMAGE_TO_DOWNLOAD_KEY";
-    public static String Wallpapers="WallPapers";
-    public static String Image_Name_to_save_key="Intent_wallpaper_name_key";
-    public static String is_to_setWallpaper_fromActivity="is_to_set_wallpaper_from_activity";
-    public static String is_from_fav="IS_FROM_FAVOURITE";
+    public static String Pager_position = "PAGER_POSITION_KEY";
+    public static String PAGER_LIST_WALL_OBKHECTS = "PAGER_LIST_OBJECTS_KEY";
+    public static String Shared_prefs_image_resol_key = "Shared_prefs_image_res_key";
+    public static String ImageUrl_to_download = "IMAGE_TO_DOWNLOAD_KEY";
+    public static String Wallpapers = "WallPapers";
+    public static String Image_Name_to_save_key = "Intent_wallpaper_name_key";
+    public static String is_to_setWallpaper_fromActivity = "is_to_set_wallpaper_from_activity";
+    public static String is_from_fav = "IS_FROM_FAVOURITE";
+    public static String Shared_prefs_Images_loaded_for_first_time="shared_prefs_image_loaded_-for_first_key";
+    public static String Shared_prefs_loaded_images="shared_prefs_images_loaded_key";
+    public static String Shared_prefs_images_loaded_times="shared_prefs_images_loaded_times_key";
 
 
 //    UNSPLASH IDS
