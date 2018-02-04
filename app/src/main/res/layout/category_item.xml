@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="114dp"
     android:layout_height="114dp"
     android:layout_gravity="center"
 
@@ -10,31 +10,28 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/back_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_pattern"
-            android:alpha="0.8"
 
 
             />
 
         <TextView
             android:id="@+id/bt_category"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
             android:layout_centerInParent="true"
-            android:alpha="0.8"
-            android:background="@drawable/circular_button"
             android:gravity="center"
             android:text="Category"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/font"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font1"
             android:textStyle="bold" />
 
         <ImageView
@@ -42,7 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/bt_category"
-            android:alpha="0.9"
 
             />
 

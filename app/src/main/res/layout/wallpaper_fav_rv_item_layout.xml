@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:elevation="10dp"
+    android:orientation="vertical"
+    android:layout_margin="4dp"
+    tool:cardCornerRadius="8dp"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/wallpaper_preview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/geometry_2" />
+
+        <View
+            android:id="@+id/layer"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bwgradient" />
+
+        <ImageView
+            android:id="@+id/photographer_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
+            android:background="@drawable/circledrawable" />
+
+        <TextView
+            android:id="@+id/photographer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
+            android:layout_toEndOf="@id/photographer_image"
+            android:padding="4dp"
+            android:textColor="@android:color/white"
+            tools:text="Sayi Manoj Sugavasi" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

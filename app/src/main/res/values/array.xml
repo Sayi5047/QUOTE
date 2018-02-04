@@ -1091,7 +1091,7 @@
         <item>fonts/zingcursive.otf</item>
         <item>fonts/multicolore.otf</item>
         <item>fonts/cstd_reg.otf</item>
-        <item>fonts/rounded.ttf.otf</item>
+        <item>fonts/rounded.ttf</item>
     </string-array>
 
     <string-array name="layout_styles_vals">

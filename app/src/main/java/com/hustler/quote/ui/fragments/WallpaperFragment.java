@@ -72,6 +72,8 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         credit = (TextView) view.findViewById(R.id.crdit);
         loader.setVisibility(View.GONE);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        });
         catgories.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
 

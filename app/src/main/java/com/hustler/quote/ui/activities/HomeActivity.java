@@ -294,7 +294,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 loader.setVisibility(View.GONE);
                 rv.setAdapter(null);
-                rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 
                 Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().length));
                 if (response.getResults().length <= 0) {
@@ -314,7 +314,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                             startActivity(intent);
                         }
-                    }));
+                    }, 3));
 
                 }
             }
@@ -400,85 +400,89 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(final View v) {
-//        DIALOG FOR EDITORS
-        if (v == floatingActionButton) {
-            Button quote, meme, close;
-            TextView quote_tv, meme_tv, close_tv, select_tv;
+////        DIALOG FOR EDITORS
+//        if (v == floatingActionButton) {
+//            Button quote, meme, close;
+//            TextView quote_tv, meme_tv, close_tv, select_tv;
+//
+//
+//            // Handle clicks for floatingActionButton
+//            final Dialog dialog = new Dialog(this, R.style.EditTextDialog_scaled);
+//            final View view = View.inflate(this, R.layout.edit_chooser, null);
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog.setContentView(view);
+//
+//            quote = (Button) dialog.findViewById(R.id.Quotes);
+//            meme = (Button) dialog.findViewById(R.id.meme);
+//            close = (Button) dialog.findViewById(R.id.close);
+//
+//            quote_tv = (TextView) dialog.findViewById(R.id.Quotes_tv);
+//            meme_tv = (TextView) dialog.findViewById(R.id.meme_tv);
+//            close_tv = (TextView) dialog.findViewById(R.id.close_tv);
+//            select_tv = (TextView) dialog.findViewById(R.id.select_tv);
+//
+//            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_CIRCULAR);
+//
+//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialog) {
+////                    AnimUtils.revealCircular(floatingActionButton, dialog, view, true);
+//                }
+//            });
+//
+//            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+//                @Override
+//                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+//                    if (keyCode == event.KEYCODE_BACK) {
+//                        dialog.dismiss();
+////                        AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
+//                        return true;
+//                    }
+//                    return false;
+//                }
+//            });
+//
+//
+//            quote.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // TODO: 02-12-2017 implement to go quotes editor
+//                    dialog.dismiss();
+//                    Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
+//                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
+//                    startActivity(intent);
+//                }
+//            });
+//
+//            meme.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // TODO: 02-12-2017 implement to go to meme Editor
+//                }
+//            });
+//            close.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+////                    AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
+//
+//                }
+//            });
+//            view.setBackgroundColor(getResources().getColor(android.R.color.white));
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_scaled;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, android.R.color.white));
+//            }
+//            dialog.show();
+//        }
 
-
-            // Handle clicks for floatingActionButton
-            final Dialog dialog = new Dialog(this, R.style.EditTextDialog_scaled);
-            final View view = View.inflate(this, R.layout.edit_chooser, null);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(view);
-
-            quote = (Button) dialog.findViewById(R.id.Quotes);
-            meme = (Button) dialog.findViewById(R.id.meme);
-            close = (Button) dialog.findViewById(R.id.close);
-
-            quote_tv = (TextView) dialog.findViewById(R.id.Quotes_tv);
-            meme_tv = (TextView) dialog.findViewById(R.id.meme_tv);
-            close_tv = (TextView) dialog.findViewById(R.id.close_tv);
-            select_tv = (TextView) dialog.findViewById(R.id.select_tv);
-
-            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_CIRCULAR);
-            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_CIRCULAR);
-            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_CIRCULAR);
-            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_CIRCULAR);
-
-            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-//                    AnimUtils.revealCircular(floatingActionButton, dialog, view, true);
-                }
-            });
-
-            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == event.KEYCODE_BACK) {
-                        dialog.dismiss();
-//                        AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-
-            quote.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO: 02-12-2017 implement to go quotes editor
-                    dialog.dismiss();
-                    Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
-                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
-                    startActivity(intent);
-                }
-            });
-
-            meme.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO: 02-12-2017 implement to go to meme Editor
-                }
-            });
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-//                    AnimUtils.revealCircular(floatingActionButton, dialog, view, false);
-
-                }
-            });
-            view.setBackgroundColor(getResources().getColor(android.R.color.white));
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_scaled;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, android.R.color.white));
-            }
-            dialog.show();
-        }
+        Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
+        intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
+        startActivity(intent);
     }
 
 

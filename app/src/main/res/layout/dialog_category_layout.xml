@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_close"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:gravity="center"
-        android:layout_margin="4dp"
-        android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+
     <TextView
         android:id="@+id/tv_category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
         android:padding="@dimen/padding1"
         android:text="@string/Category_Name"
@@ -23,25 +19,33 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/font2" />
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/tv_category_name"
+        android:layout_centerHorizontal="true"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/bannerAdId"
-        >
+        ads:adUnitId="@string/bannerAdId">
 
     </com.google.android.gms.ads.AdView>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_category_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/elevation4"
-        android:layout_below="@id/adView">
+        android:layout_below="@id/adView"
+        android:layout_margin="@dimen/elevation4">
 
     </android.support.v7.widget.RecyclerView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/bt_close"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_close_white"
 
+        app:fabSize="normal" />
 </RelativeLayout>

@@ -1,7 +1,9 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +49,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
     public interface OnCategoryClickListener {
-        void onCategoryClicked(String category, int position);
+        void onCategoryClicked(String category, int position,GradientDrawable drawable);
     }
 
 
@@ -57,21 +59,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
-        createDrawable(holder);
+    public void onBindViewHolder(final CategoryViewHolder holder, final int position) {
+        final GradientDrawable gradientDrawable=createDrawable(holder);
         holder.textView.setText(categoryArrayList.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (categoryClickListener != null) {
-                    categoryClickListener.onCategoryClicked(categoryArrayList.get(position), position);
+                    categoryClickListener.onCategoryClicked(categoryArrayList.get(position), position,gradientDrawable);
                 }
             }
         });
 
     }
 
-    private void createDrawable(CategoryViewHolder holder) {
+    private GradientDrawable createDrawable(CategoryViewHolder holder) {
         int color1 = TextUtils.getMatColor(activity);
         int color2 = TextUtils.getMatColor(activity);
         int[] colors = {color1, color2};
@@ -79,6 +81,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         gradientDrawable.setGradientRadius(135);
         gradientDrawable.setCornerRadius(0f);
         holder.imageView.setBackground(gradientDrawable);
+        return gradientDrawable;
 //        holder.imageView.layout(0,0,100,100);
 //
 //        holder.imageView.setDrawingCacheEnabled(true);
@@ -106,7 +109,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.bt_category);
             imageView = (ImageView) itemView.findViewById(R.id.back_image);
-            TextUtils.setFont(activity, textView, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(activity, textView, Constants.FONT_ZINGCURSIVE);
+            textView.setShadowLayer(1f,2,2, activity.getResources().getColor(android.R.color.black));
+
         }
     }
 }

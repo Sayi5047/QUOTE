@@ -62,7 +62,7 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
 
     @Override
     public FavWallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout, parent, false));
+        return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_fav_rv_item_layout, parent, false));
     }
 
     @Override
