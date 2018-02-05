@@ -144,12 +144,11 @@ public class Constants {
                     "Patriotism\n" +
                     "Peace\n" +
 
-                    "Pet\n" +
                     "Poetry\n" +
                     "Politics\n" +
-                    "Positive\n" +
+                    "Potential\n" +
                     "Power\n" +
-                    "Relationship\n" +
+                    "Reputation\n" +
 
                     "Religion\n" +
                     "Respect\n" +
@@ -160,34 +159,25 @@ public class Constants {
 
                     "Smile\n" +
                     "Society\n" +
-                    "Space\n" +
                     "Sports\n" +
                     "Strength\n" +
-                    "Success Favorite\n" +
+                    "Success \n" +
 
 
                     "Sympathy\n" +
                     "Teacher\n" +
-                    "Technology\n" +
-                    "Teen\n" +
                     "Thankful\n" +
-                    "Thanksgiving\n" +
 
                     "Time\n" +
-                    "Travel\n" +
                     "Trust\n" +
                     "Truth\n" +
-                    "Valentine's Day\n" +
-                    "Veterans Day\n" +
 
                     "War\n" +
-                    "Wedding\n" +
-                    "Wisdom Favorite\n" +
-                    "Women\n" +
-                    "Work\n";
+                    "Wisdom \n" +
+                    "Women\n" +"Work\n" +
+                    "Youth\n";
 
 
-    public static final String COLOUR_KEY = "colour_key";
     //ORIGINAL
     public static final String ADS_APP_ID = "ca-app-pub-6594544657945805~7199397048";
 
@@ -195,22 +185,24 @@ public class Constants {
     public static final String TEST_SMART_BANNER_AD = "ca-app-pub-3940256099942544/6300978111";
     public static final String TEST_INTERSTITIAL_AD = "ca-app-pub-3940256099942544/1033173712";
     public static final String TEST_REWARDED_AD = "ca-app-pub-3940256099942544/5224354917";
-    public static String TEMP_FILE_NAME_KEY = "File_temporary_name_key";
-    public static String FONTS_LOCATION = "File_temporary_name_key";
-    public static String FONTS_TEMP_LOCATIONS = "File_temporary_name_key";
 
 
     public static final int WIDTH_DEFAULT = 100;
     public static final int WIDTH_MAX = 1000;
     public static final int WIDTH_MIN = 0;
-
     public static final int WEIGHT_DEFAULT = 400;
     public static final int WEIGHT_MAX = 1000;
     public static final int WEIGHT_MIN = 0;
-
     public static final float ITALIC_DEFAULT = 0f;
     public static final float ITALIC_MAX = 1f;
     public static final float ITALIC_MIN = 0f;
+
+
+    //    INTENT KEYS
+    public static String TEMP_FILE_NAME_KEY = "File_temporary_name_key";
+    public static String FONTS_LOCATION = "File_temporary_name_key";
+    public static String FONTS_TEMP_LOCATIONS = "File_temporary_name_key";
+    public static final String COLOUR_KEY = "colour_key";
     public static String Widget_current_object = "WIDGET_CURRENT_OBJECT";
     public static String Pager_position = "PAGER_POSITION_KEY";
     public static String PAGER_LIST_WALL_OBKHECTS = "PAGER_LIST_OBJECTS_KEY";
@@ -220,9 +212,9 @@ public class Constants {
     public static String Image_Name_to_save_key = "Intent_wallpaper_name_key";
     public static String is_to_setWallpaper_fromActivity = "is_to_set_wallpaper_from_activity";
     public static String is_from_fav = "IS_FROM_FAVOURITE";
-    public static String Shared_prefs_Images_loaded_for_first_time="shared_prefs_image_loaded_-for_first_key";
-    public static String Shared_prefs_loaded_images="shared_prefs_images_loaded_key";
-    public static String Shared_prefs_images_loaded_times="shared_prefs_images_loaded_times_key";
+    public static String Shared_prefs_Images_loaded_for_first_time = "shared_prefs_image_loaded_-for_first_key";
+    public static String Shared_prefs_loaded_images = "shared_prefs_images_loaded_key";
+    public static String Shared_prefs_images_loaded_times = "shared_prefs_images_loaded_times_key";
 
 
 //    UNSPLASH IDS
