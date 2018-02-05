@@ -620,7 +620,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.canvas_size_dialog_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
         LinearLayout root;
         TextView canvasSizeHeader;
@@ -793,7 +793,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.search_images);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
 
         AdView adView;
@@ -892,7 +892,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.image_fit_type_layout_dialog);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
 
         AdView adView;
@@ -1064,10 +1065,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final EditText addingText;
         AdView adView;
         final Button close, done, start, center, end, add_bg;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
-
         header = (TextView) dialog.findViewById(R.id.tv_header);
         align_text = (TextView) dialog.findViewById(R.id.tv_align_text);
         addingText = (EditText) dialog.findViewById(R.id.et_text);
@@ -1200,7 +1200,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final RecyclerView recyclerView;
         AdView adView;
         final Button close, done, start, center, end, previewText, bold, underline, italic, strikethrough, highlight, colorText;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
 
@@ -1520,7 +1520,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             current_Text_feature = array[5];
             final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
             dialog.setContentView(R.layout.colors_dialog_layout);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+
             dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
             final boolean[] isShadowApplied = new boolean[1];
@@ -1665,7 +1666,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.colors_dialog_layout);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
         final boolean[] isShadowApplied = new boolean[1];
@@ -1725,7 +1727,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void bringGradients() {
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.gradient_bg_layout);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         AdView adView;
         RelativeLayout relativeLayout;

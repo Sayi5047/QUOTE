@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
-        android:padding="@dimen/padding1"
+        android:padding="10dp"
         android:text="@string/Category_Name"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -23,8 +23,8 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_category_name"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/bannerAdId">
 
@@ -34,8 +34,10 @@
         android:id="@+id/rv_category_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/adView"
-        android:layout_margin="@dimen/elevation4">
+        android:layout_margin="4dp"
+        android:layout_below="@id/tv_category_name"
+        android:layout_above="@id/adView"
+        >
 
     </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton

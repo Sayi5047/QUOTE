@@ -15,8 +15,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -68,7 +66,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
 
 
-        TextView catgory_name;
+        TextView catgory_name = null;
         AdView adView;
         FloatingActionButton close_button;
         ArrayList<Quote> quoteslist = new ArrayList<>();
@@ -80,24 +78,24 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
         } else {
             catgory_name = (TextView) dialog.findViewById(R.id.tv_category_name);
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
-            }else {
-            }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     dialog.getWindow().setStatusBarColor(gradientDrawable.getColors()[1]);
                     catgory_name.setBackgroundColor(gradientDrawable.getColors()[1]);
 
-                } else {
-                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
-                    }
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
                 }
-
+//                } else {
+//                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
+//                    }
+//                }
             }
+
             categories_rv = (RecyclerView) dialog.findViewById(R.id.rv_category_list);
             close_button = (FloatingActionButton) dialog.findViewById(R.id.bt_close);
             adView = (AdView) dialog.findViewById(R.id.adView);
@@ -126,7 +124,9 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
         dialog.setCancelable(false);
 
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener()
+
+        {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
@@ -138,5 +138,6 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             }
         });
     }
-
 }
+
+

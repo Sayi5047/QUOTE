@@ -84,7 +84,7 @@ public class TextFeatures {
         final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.shadow_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         AdView adView;
         TextView tvHead;
         final TextView demoShadowText;
@@ -271,7 +271,7 @@ public class TextFeatures {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.apply_font_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         AdView adView;
 
         LinearLayout root;
@@ -562,7 +562,7 @@ public class TextFeatures {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.geadient_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
 
         AdView adView;
@@ -817,7 +817,7 @@ public class TextFeatures {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.vfx_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 
         AdView adView;
         TextView tvHead;
@@ -1105,7 +1105,7 @@ public class TextFeatures {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.hollow_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.show();
         dialog.setCancelable(false);
         TextView tvHead;

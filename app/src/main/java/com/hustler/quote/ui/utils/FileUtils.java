@@ -115,7 +115,7 @@ public class FileUtils {
 
             final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
             dialog.setContentView(View.inflate(activity, R.layout.install_fonts_layout, null));
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
             dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
             dialog.setCancelable(false);
             TextView headTv;
@@ -275,7 +275,7 @@ public class FileUtils {
                 AdView adView;
                 final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
                 dialog.setContentView(View.inflate(activity, R.layout.save_image_layout, null));
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
                 dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
                 dialog.setCancelable(false);
 
@@ -416,7 +416,7 @@ public class FileUtils {
         AdView adView;
         final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
         dialog.setContentView(View.inflate(activity, R.layout.save_image_layout_ads, null));
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
 

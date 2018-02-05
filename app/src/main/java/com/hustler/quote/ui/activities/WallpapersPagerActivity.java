@@ -183,7 +183,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         final Dialog dialog = new Dialog(WallpapersPagerActivity.this, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.show_photographer_dialog_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 //        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

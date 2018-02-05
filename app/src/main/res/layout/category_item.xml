@@ -4,9 +4,10 @@
     android:layout_width="114dp"
     android:layout_height="114dp"
     android:layout_gravity="center"
-
+    android:foregroundGravity="center"
     app:cardCornerRadius="4dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    app:layout_anchorGravity="center">
 
     <RelativeLayout
         android:layout_width="wrap_content"

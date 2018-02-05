@@ -133,7 +133,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(View.inflate(getActivity().getApplicationContext(),R.layout.user_work_show_item,null));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 //        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE);
         final RelativeLayout rootLayout;
         final TextView header;
