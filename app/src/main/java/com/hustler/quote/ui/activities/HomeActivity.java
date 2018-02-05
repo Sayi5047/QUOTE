@@ -394,6 +394,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_search: {
 
             }
+            case R.id.action_Pro_features:{
+
+            }
         }
         return true;
     }

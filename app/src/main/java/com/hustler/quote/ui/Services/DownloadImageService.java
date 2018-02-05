@@ -45,7 +45,7 @@ public class DownloadImageService extends Service {
     int counter = 0;
     String mUrl_To_Download;
     String mFileName;
-    boolean is_from_activity;
+    boolean is_to_set_wallpaper;
     AsyncTask<String, String, Void> mDownload_Async_Task;
     File downloading_File;
     ImageDownloader imageDownloader;
@@ -60,32 +60,34 @@ public class DownloadImageService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String url = null;
+//        GET DATA FROM THE INTENT
         url = intent.getStringExtra(Constants.ImageUrl_to_download);
         mFileName = intent.getStringExtra(Constants.Image_Name_to_save_key);
-        is_from_activity = intent.getBooleanExtra(Constants.is_to_setWallpaper_fromActivity, false);
+        is_to_set_wallpaper = intent.getBooleanExtra(Constants.is_to_setWallpaper_fromActivity, false);
+//        PREPARE notification to build
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotification_Builder = new NotificationCompat.Builder(this);
         mNotification_Builder.setContentTitle("Downloading images...").setContentText("Download in progress").setSmallIcon(R.drawable.ic_launcher);
-        // Start a lengthy operation in a background thread
         mNotification_Builder.setProgress(0, 0, true);
         mNotificationManager.notify(id, mNotification_Builder.build());
         mNotification_Builder.setAutoCancel(true);
-
+        // Start a image download operation in a background thread
         imageDownloader = new ImageDownloader();
         imageDownloader.execute(url);
-
+// Check for notification settings
         ContentResolver contentResolver = getContentResolver();
         String enabledNotifications = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
         String packageName = getPackageName();
-        if (enabledNotifications == null || enabledNotifications.contains(packageName)) {
+        if (enabledNotifications == null || (enabledNotifications.contains(packageName) == false)) {
             Intent intent1 = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent1);
         }
+//Start the notification recieer
         mNotification_Reciever = new NotifcationReciever();
         IntentFilter filter = new IntentFilter();
         filter.addAction(NotificationCustomListener_Service.NOTIFICATION_TAG);
-        registerReceiver(mNotification_Reciever, filter);
+        getApplicationContext().registerReceiver(mNotification_Reciever, filter);
         return START_REDELIVER_INTENT;
 
     }
@@ -94,16 +96,18 @@ public class DownloadImageService extends Service {
     public void onDestroy() {
         super.onDestroy();
         killAllNotifs();
-        unregisterReceiver(mNotification_Reciever);
+        getApplicationContext().unregisterReceiver(mNotification_Reciever);
+        stopSelf();
+        Log.d("Notification got killed", "KILLED");
     }
 
-    class NotifcationReciever extends BroadcastReceiver {
+    public class NotifcationReciever extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String evet = intent.getStringExtra(NotificationCustomListener_Service.NOTIFICATION_EVENT_KEY);
             Log.i(" NOTIFICATIOn DETAILS", evet);
-            if (evet.trim().equalsIgnoreCase(NotificationCustomListener_Service.NOTIFICATION_POSTED_REMOVED_FLAG_KEY)) {
+            if (evet.trim().equalsIgnoreCase(NotificationCustomListener_Service.NOTIFICATION_POSTED_REMOVED_FLAG_VALUE)) {
                 killAllNotifs();
             }
 
@@ -114,6 +118,9 @@ public class DownloadImageService extends Service {
         // TODO: 28-01-2018 DESTROY DOWNLOADING TASK
         imageDownloader.cancel(true);
         mNotificationManager.cancelAll();
+        stopSelf();
+        Log.d("Notification got killed", "KILLED");
+
     }
 
 
@@ -139,11 +146,12 @@ public class DownloadImageService extends Service {
         @Override
         protected void onPostExecute(Void aVoid) {
             mNotification_Builder.setContentTitle("Completed");
-            mNotification_Builder.setContentText("Images Downloaded to sd card").setProgress(0, 0, false);
-            // Removes the progress bar
+            mNotification_Builder.setContentText("Images Successfully downloaded to SD card").setProgress(100, 100, false);// Removes the progress bar
 
             mNotificationManager.notify(id, mNotification_Builder.build());
-            if (is_from_activity == false) {
+            if (is_to_set_wallpaper == false) {
+                imageDownloader.cancel(true);
+                stopSelf();
             } else {
                 if (downloading_File != null) {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
@@ -164,6 +172,8 @@ public class DownloadImageService extends Service {
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast((Activity) getApplicationContext(), "Failed to set wallpaper");
                 }
+                killAllNotifs();
+
             }
 
 

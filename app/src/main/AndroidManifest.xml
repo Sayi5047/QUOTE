@@ -112,7 +112,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
+        <receiver android:name=".ui.Services.DownloadImageService$NotifcationReciever">
+            <intent-filter>
+                <action android:name="com.hustler.quote.ui.Services.NotificationCustomListener_Service.NOTIFICATION_TAG" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".ui.livewallpaper.MyWallpaperService"

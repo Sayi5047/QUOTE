@@ -62,11 +62,13 @@ public class RandomQuoteUpdateService extends Service {
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.quote_widget_layout);
         remoteViews.setTextViewText(R.id.quote_body, quotesList.get(randomINt).getQuote_body());
         remoteViews.setTextViewText(R.id.quote_author, quotesList.get(randomINt).getQuote_author());
+
         Gson gson = new Gson();
         String val = gson.toJson(quotesList.get(randomINt));
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.Widget_current_object, val);
         editor.commit();
+
         ComponentName theWidget = new ComponentName(this, EditWidgetProvider2.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         manager.updateAppWidget(theWidget, remoteViews);
