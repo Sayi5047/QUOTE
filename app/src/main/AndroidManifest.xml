@@ -8,7 +8,7 @@
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -87,7 +87,9 @@
         <activity
             android:name=".ui.activities.WallpapersPagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".ui.activities.ProfeaturesActivity"
+            android:label="@string/pro"></activity>
 
         <receiver android:name=".ui.Widgets.EditWidgetProvider">
             <intent-filter>

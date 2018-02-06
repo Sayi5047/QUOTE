@@ -1,0 +1,42 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Dialy wallpaper">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/DWL_key1"
+            android:summary="Enabled"
+            android:title="DailyWallpaper"
+            />
+        <ListPreference
+            android:dialogTitle="@string/frequency"
+            android:entries="@array/Wallpaper_update_widget"
+            android:entryValues="@array/Wallpaper_update_vals"
+            android:key="@string/DWL_key2"
+            android:summary="@string/change_wallpaper_at"
+            android:title="Frequency" />
+        <ListPreference
+            android:dialogTitle="@string/Personalise"
+            android:entries="@array/wallpaper_keys"
+            android:entryValues="@array/wallpaper_keys"
+            android:key="@string/DWL_key3"
+            android:summary="@string/personalise_which_wall"
+            android:title="@string/Personalise" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/DWL_key4"
+            android:summary="@string/download_over_wifi_desc"
+            android:title="@string/download_wifi" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Dialy Notification">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/DNT_key1"
+            android:summary="Enabled"
+            android:title="Dialy Notification" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

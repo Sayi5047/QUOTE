@@ -39,7 +39,8 @@ import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
  * Created by anvaya5 on 23/01/2018.
  */
 
-public class QuoteWidgetConfigurationActivity extends BaseActivity implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+public class QuoteWidgetConfigurationActivity extends BaseActivity implements View.OnClickListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Button colorChanger;
     private Button SizeChanger;

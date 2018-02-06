@@ -78,9 +78,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     final String QUOTES = "quotes";
     private AdView mAdView;
     String query;
-    Intent alarm_intent;
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager;
 
 
     @Override
@@ -96,7 +93,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
         colors = new int[]{
                 ContextCompat.getColor(HomeActivity.this, R.color.pink_400),
@@ -396,23 +392,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search: {
-
-            }
+           }
             case R.id.action_Pro_features: {
 
-
-                alarm_intent = new Intent(getApplicationContext(), AlarmReciever.class);
-                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm_intent, 0);
-                alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 60 * 1000, pendingIntent);
-                Log.i("ALARM SET", "SET");
-
-            }
+           }
             case R.id.action_Pro_about: {
-                alarm_intent = new Intent(getApplicationContext(), AlarmReciever.class);
-                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm_intent, 0);
-                alarmManager.cancel(pendingIntent);
-                Log.i("ALARM Canceled", "Cancel");
-
+                Intent intent=new Intent(HomeActivity.this,ProfeaturesActivity.class);
+                startActivity(intent);
 
             }
         }

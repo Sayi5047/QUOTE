@@ -182,6 +182,17 @@
     <string name="where_to_search">Choose what search is for</string>
     <string name="search">Search</string>
     <string name="enter_something">Please,Enter something to search for</string>
+    <string name="frequency">Frequency</string>
+    <string name="DWL_key3">DWL_key3</string>
+    <string name="DWL_key2">DWL_key2</string>
+    <string name="DWL_key1">DWL_key1</string>
+    <string name="DNT_key1">DNT_key1</string>
+    <string name="Personalise">Personalise</string>
+    <string name="personalise_which_wall">Choose which type of wallpapers to set</string>
+    <string name="download_over_wifi_desc">Images will be updated in presense of Wifi only</string>
+    <string name="download_wifi">Download Over Wifi</string>
+    <string name="change_wallpaper_at">Wallpaper change time gap</string>
+    <string name="DWL_key4">DWL_key4</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

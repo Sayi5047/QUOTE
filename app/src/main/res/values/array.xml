@@ -1140,5 +1140,44 @@
         <item>8640000</item>
     </string-array>
 
+    <string-array name="Wallpaper_update_widget">
+        <item>1 Minute</item>
+        <item>15 Minute</item>
+        <item>30 Minute</item>
+        <item>45 Minute</item>
+        <item>60 Minute</item>
+        <item>90 Minute</item>
+        <item>120 Minute</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>24 hours</item>
+    </string-array>
+
+    <string-array  name="Wallpaper_update_vals">
+        <item>6000</item>
+        <item>90000</item>
+        <item>180000</item>
+        <item>270000</item>
+        <item>360000</item>
+        <item>540000</item>
+        <item>720000</item>
+        <item>2160000</item>
+        <item>4320000</item>
+        <item>8640000</item>
+    </string-array>
+
+
+    <string-array name="wallpaper_keys">
+        <item>Favourites</item>
+        <item>Random</item>
+        <item>Nature</item>
+        <item>cars</item>
+        <item>kids</item>
+        <item>Girls</item>
+        <item>Beautiful</item>
+        <item>One color</item>
+        <item>Love</item>
+        <item>Latest</item>
+    </string-array>
 
 </resources>
