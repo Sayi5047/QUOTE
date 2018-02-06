@@ -1,15 +1,16 @@
 package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -31,7 +32,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,6 +43,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.Recievers.AlarmReciever;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.adapters.WallpaperAdapter;
@@ -62,7 +63,6 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
-    private TextView search_Query;
     private FloatingActionButton floatingActionButton;
     private ViewPager mainPager;
     private TabLayout tab_layout;
@@ -72,14 +72,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     CoordinatorLayout rootView;
     int cx, cy;
     float finalRadius;
-    int currentcolor;
     int[] colors;
     Toolbar toolbar;
     final String IMAGES = "images";
     final String QUOTES = "quotes";
     private AdView mAdView;
-    private TabsFragmentPagerAdapter pagerAdapter;
     String query;
+    Intent alarm_intent;
+    PendingIntent pendingIntent;
+    AlarmManager alarmManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+
         colors = new int[]{
                 ContextCompat.getColor(HomeActivity.this, R.color.pink_400),
                 ContextCompat.getColor(HomeActivity.this, R.color.colorAccent),
@@ -394,7 +398,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_search: {
 
             }
-            case R.id.action_Pro_features:{
+            case R.id.action_Pro_features: {
+
+
+                alarm_intent = new Intent(getApplicationContext(), AlarmReciever.class);
+                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm_intent, 0);
+                alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 60 * 1000, pendingIntent);
+                Log.i("ALARM SET", "SET");
+
+            }
+            case R.id.action_Pro_about: {
+                alarm_intent = new Intent(getApplicationContext(), AlarmReciever.class);
+                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm_intent, 0);
+                alarmManager.cancel(pendingIntent);
+                Log.i("ALARM Canceled", "Cancel");
+
 
             }
         }

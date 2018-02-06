@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -117,6 +118,7 @@
                 <action android:name="com.hustler.quote.ui.Services.NotificationCustomListener_Service.NOTIFICATION_TAG" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".ui.Recievers.AlarmReciever"></receiver>
 
         <service
             android:name=".ui.livewallpaper.MyWallpaperService"
@@ -132,16 +134,11 @@
                 android:resource="@xml/mywallpaper"></meta-data>
         </service>
         <service android:name=".ui.Services.RandomQuoteUpdateService" />
-        <service
-            android:name=".ui.Services.NotificationCustomListener_Service"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
-        <service android:name=".ui.Services.DownloadImageService"></service>
 
+        <service android:name=".ui.Services.DownloadImageService"></service>
+        <service
+            android:name=".ui.Services.DailyWallpaperService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

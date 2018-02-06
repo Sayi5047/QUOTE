@@ -12,8 +12,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -50,6 +48,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -801,4 +804,66 @@ public class FileUtils {
 
 
     }
+
+
+    public static File downloadImageToSd_Card(String param, String download_image_name) {
+
+        File downloading_File;
+        FileOutputStream fileOutputStream = null;
+        InputStream inputStream = null;
+
+        try {
+//                GET URL
+            URL url = new URL(param);
+//                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
+            String SdCard = Environment.getExternalStorageDirectory().toString();
+            File destination_downloading_directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
+            if (destination_downloading_directory.exists() == false) {
+                destination_downloading_directory.mkdirs();
+            }
+//                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE
+            downloading_File = new File(destination_downloading_directory + File.separator + download_image_name);
+            if (downloading_File.exists()) {
+                downloading_File.delete();
+            }
+
+            try {
+//                    OPEN A URL CONNECTION AND ATTACH TO HTTPURLCONNECTION
+                URLConnection urlConnection = url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.connect();
+                int length = httpURLConnection.getContentLength();
+
+//                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
+                inputStream = httpURLConnection.getInputStream();
+                fileOutputStream = new FileOutputStream(downloading_File);
+//                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
+                byte[] buffer = new byte[2048];
+                int bufferLength = 0;
+                int manoj = 0;
+                while ((bufferLength = inputStream.read(buffer)) > 0) {
+
+                    fileOutputStream.write(buffer, 0, bufferLength);
+                    manoj++;
+
+                }
+                inputStream.close();
+                fileOutputStream.close();
+                Log.d("IMAGE SAVED", "Image Saved in sd card");
+                return downloading_File;
+            } catch (IOException e) {
+                inputStream = null;
+                fileOutputStream = null;
+                e.printStackTrace();
+                return null;
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
 }

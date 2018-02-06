@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -24,13 +23,7 @@ import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by Sayi on 28-01-2018.
@@ -136,8 +129,7 @@ public class DownloadImageService extends Service {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    downloadImageToSd_Card(params[0], mFileName + ".jpg");
-
+                    downloading_File = FileUtils.downloadImageToSd_Card(params[0], mFileName + ".jpg");
                 }
             }).run();
             return null;
@@ -190,58 +182,4 @@ public class DownloadImageService extends Service {
         }
     }
 
-    private void downloadImageToSd_Card(String param, String s) {
-        FileOutputStream fileOutputStream = null;
-        InputStream inputStream = null;
-
-        try {
-//                GET URL
-            URL url = new URL(param);
-//                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
-            String SdCard = Environment.getExternalStorageDirectory().toString();
-            File tibe_Downloaded_Directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
-            if (tibe_Downloaded_Directory.exists() == false) {
-                tibe_Downloaded_Directory.mkdirs();
-            }
-            String fileName = s;
-//                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE
-            downloading_File = new File(tibe_Downloaded_Directory + File.separator + fileName);
-            if (downloading_File.exists()) {
-                downloading_File.delete();
-            }
-            try {
-//                    OPEN A URL CONNECTION AND ATTACH TO HTTPURLCONNECTION
-                URLConnection urlConnection = url.openConnection();
-                HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.connect();
-                int length = httpURLConnection.getContentLength();
-
-//                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
-                inputStream = httpURLConnection.getInputStream();
-                fileOutputStream = new FileOutputStream(downloading_File);
-//                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
-                byte[] buffer = new byte[2048];
-                int bufferLength = 0;
-                int manoj = 0;
-                while ((bufferLength = inputStream.read(buffer)) > 0) {
-
-                    fileOutputStream.write(buffer, 0, bufferLength);
-                    manoj++;
-
-                }
-                inputStream.close();
-                fileOutputStream.close();
-                Log.d("IMAGE SAVED", "Image Saved in sd card");
-            } catch (IOException e) {
-                inputStream = null;
-                fileOutputStream = null;
-                e.printStackTrace();
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 }

@@ -47,5 +47,6 @@ public class NotificationCustomListener_Service extends NotificationListenerServ
         Intent intent=new Intent(NOTIFICATION_TAG);
         intent.putExtra(NOTIFICATION_EVENT_KEY, NOTIFICATION_POSTED_REMOVED_FLAG_VALUE);
         sendBroadcast(intent);
+        stopSelf();
     }
 }
