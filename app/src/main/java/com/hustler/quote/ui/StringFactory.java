@@ -163,115 +163,7 @@ public class StringFactory {
             "Be daring, be different, be impractical, be anything that will assert integrity of purpose and imaginative vision against the play-it-safers, the creatures of the commonplace, the slaves of the ordinary.\n" +
             "Sir Cecil Walter Hardy Beaton\n" +
             "Courage is a special kind of knowledge: the knowledge of how to fear what ought to be feared and how not to fear what ought no to be feared.\n" +
-            "David Ben-Gurion\n" +
-            "It is the perpetual dread of fear, the fear of fear, that shapes the face of a brave man.\n" +
-            "Georges Bernanos\n" +
-            "Courage is fear that has said its prayers.\n" +
-            "Dorothy Bernard\n" +
-            "If we have the courage and tenacity of our forebears, who stood firmly like a rock against the lash of slavery, we shall find a way to do for our day what they did for theirs.\n" +
-            "Mary Mcleod Bethune\n" +
-            "Do not fear, for those who are with us, are more than those who are with them. 2 Kings 6:16\n" +
-            "Bible\n" +
-            "Finally, be strong in the Lord, and in the strength of His might. Ephesians 6:10\n" +
-            "Bible\n" +
-            "I can do all things through him who strengthens me. Philippians 4:13\n" +
-            "Bible\n" +
-            "Don't open a shop unless you like to smile.\n" +
-            "Chinese Proverb\n" +
-            "The go-between wears out a thousand sandals.\n" +
-            "Japanese Proverb\n" +
-            "Instead of focusing on their individual agendas, collaborative partnerships establish common goals. In order to address problems that lie beyond any single agency's exclusive purview, but which concern them all, partners agree to pool resources, jointly plan, implement, and evaluate new services and procedures, and delegate individual responsibility for the outcomes of their joint efforts.\n" +
-            "Anon.\n" +
-            "Buying is cheaper than asking.\n" +
-            "Proverb\n" +
-            "Work is our business; it's success is God s.\n" +
-            "Proverb\n" +
-            "A miser and a liar bargain quickly.\n" +
-            "Proverb\n" +
-            "When two friends have a common bank account, one sings and the other weeps.\n" +
-            "Proverb\n" +
-            "Cut your losses and let your profits run.\n" +
-            "Proverb\n" +
-            "In business partnerships and marriage partnerships, oh, the cheating that goes on.\n" +
-            "Proverb\n" +
-            "It is the privilege of posterity to set matters right between those antagonists who, by their rivalry for greatness, divided a whole age.\n" +
-            "Joseph Addison\n" +
-            "There is nothing more requisite in business than dispatch.\n" +
-            "Joseph Addison\n" +
-            "The one sure way to conciliate a tiger is to allow oneself to be devoured.\n" +
-            "Konrad Adenauer\n" +
-            "The basic rule of free enterprise: You must give in order to get.\n" +
-            "Scott Alexander\n" +
-            "Treat employees like partners, and they act like partners.\n" +
-            "Fred A. Allen\n" +
-            "Anybody can cut prices, but it takes brains to produce a better article.\n" +
-            "P. D. Armour\n" +
-            "Frankly, I don't want to see a rapid upturn. I want it to hold until some of these idiotic competitors go bust.\n" +
-            "Joe Bamford\n" +
-            "Nobody ever lost money taking a profit.\n" +
-            "Bernard Baruch\n" +
-            "Forty for you, sixty for me And equal partners we will be\n" +
-            "Gerald Barzan\n" +
-            "I work in a strange business, and trust is a word that's not even in the vocabulary.\n" +
-            "Kim Basinger\n" +
-            "If you wish to prosper, let your customer prosper.When people have learned this lesson, everyone will seek his individual welfare in the general welfare. Then jealousies between man and man, city and city, province and province, nation and nation, will no longer trouble the world.\n" +
-            "Fr\n" +
-            "The fellow who says he'll meet you halfway usually thinks he's standing on the dividing line.\n" +
-            "Orlando A. Battista\n" +
-            "For the merchant, even honesty is a financial speculation.\n" +
-            "Charles Baudelaire\n" +
-            "Executives are like joggers. If you stop a jogger, he goes on running on the spot. If you drag an executive away from his business, he goes on running on the spot, pawing the ground, talking business. He never stops hurtling onwards, making decisions and executing them.\n" +
-            "Jean Baudrillard\n" +
-            "No sale is really complete until the product is worn out, and the customer is satisfied.\n" +
-            "L.L. Bean\n" +
-            "Business is more exciting than any game.\n" +
-            "Lord Beaverbrook\n" +
-            "In a cat's eye, all things belong to cats.\n" +
-            "English Proverb\n" +
-            "One of the problems of taking things apart and seeing how they work - supposing you're trying to find out how a cat works--you take that cat apart to see how it works, what you've got in your hands is a non-working cat. The cat wasn't a sort of clunky mechanism that was susceptible to our available tools of analysis.\n" +
-            "Douglas Adams\n" +
-            "Cruel, but composed and bland Dumb, inscrutable and grand,So Tiberius might have sat Had Tiberius been a cat.\n" +
-            "Matthew Arnold\n" +
-            "Both ardent lovers and austere scholars, when once they come to the years of discretion, love cats, so strong and gentle, the pride of the household, who like them are sensitive to the cold, and sedentary.\n" +
-            "Charles Baudelaire\n" +
-            "A lion, for instance, which in nature is not a very distinctive object, was portrayed, for greater distinction, with its leonine attributes, its fierce expression, frightful claws, lithe and ,lissom body all vastly exaggerated, so that indeed it looked more like a lion than did ever any lion of nature. In this wise, by turning away from true representation and adopting a character all its own, was the 'heraldic lion' born, and with it came also the manner of depictin all the other beasts and forms and patterns which is so peculiarly heraldic.\n" +
-            "Sir George Bellew\n" +
-            "If a cat spoke, it would say things like Hey, I don't see the problem here.\n" +
-            "Roy Blount, Jr.\n" +
-            "Dogs come when they are called; cats take a message and get back to you.\n" +
-            "Mary Bly\n" +
-            "One small cat changes coming home to an empty house to coming home.\n" +
-            "Pam Brown\n" +
-            "Cats don't like change without their consent.\n" +
-            "Roger Caras\n" +
-            "Cats can be cooperative when something feels good, which, to a cat, is the way everything is supposed to feel as much of the time as possible.\n" +
-            "Roger Caras\n" +
-            "It is a very inconvenient habit of kittens (Alice had once made the remark) that whatever you say to them, they always purr.\n" +
-            "Lewis Carroll\n" +
-            "I said something which gave you to think I hated cats. But gad, sir, I am one of the most fanatical cat lovers in the business. If you hate them, I may learn to hate you. If your allergies hate them, I will tolerate the situation to the best of my ability.\n" +
-            "Raymond Chandler\n" +
-            "Your rat tail is all the fashion now. I prefer a bushy plume, carried straight up. You are Siamese and your ancestors lived in trees. Mine lived in palaces. It has been suggested to me that I am a bit of a snob. How true! I prefer to be.Raymond Chandler Take a cat, nourish it well with milk And tender meat, make it a couch of silk But let it see a mouse along the wall And it abandones milk and meat and all Chaucer I love my cats because I love my home, and little by little they become its visible soul.\n" +
-            "Jean Cocteau\n" +
-            "The appearance of a cat is not controlled by the color of it's skin but by the content of its hairacter.\n" +
-            "Brian Michael Cote\n" +
-            "One cat in a house is a sign of loneliness, two of barrenness, and three of sodomy.\n" +
-            "Edward Dahlberg\n" +
-            "Authors like cats because they are such quiet, lovable, wise creatures, and cats like authors for the same reasons.\n" +
-            "Robertson Davies\n" +
-            "The smallest feline is a masterpiece.\n" +
-            "Leonardo DaVinci\n" +
-            "Curiosity is the very basis of education and if you tell me that curiosity killed the cat, I say only the cat died nobly.\n" +
-            "Arnold Edinborough\n" +
-            "Never try to outstubborn a cat.\n" +
-            "Robert A. Heinlein\n" +
-            "If you want to be a psychological novelist and write about human beings, the best thing you can do is keep a pair of cats.\n" +
-            "Aldous Huxley\n" +
-            "Cats are intended to teach us that not everything in nature has a function.\n" +
-            "Garrison Keillor\n" +
-            "Bragging is not an attractive trait, but let's be honest. A man who catches a big fish doesn't go home through an alley.\n" +
-            "Ann Landers\n" +
-            "If a fish is the movement of water embodied, given shape, then cat is a diagram and pattern of subtle air.\n" +
-            "Doris Lessing\n"
+            "David Ben-Gurion\n"
            ;
     static String[] vals;
     static ArrayList<String> quotes = new ArrayList<>();
@@ -301,7 +193,7 @@ public class StringFactory {
         }
         for (int i = 0; i < authors.size(); i++) {
 
-            System.out.println("<item>" + "English" + "</item>");
+            System.out.println(Long.valueOf("1.10"));
 
         }
 
