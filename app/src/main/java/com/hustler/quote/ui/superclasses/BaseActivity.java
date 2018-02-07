@@ -49,7 +49,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setToolbar(Activity activity) {
-        android.support.v7.widget.Toolbar toolbar1 = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        android.support.v7.widget.Toolbar toolbar1 = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar1);
 //        toolbar1.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.slideup));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

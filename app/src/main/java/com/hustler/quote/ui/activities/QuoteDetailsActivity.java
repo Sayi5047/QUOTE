@@ -88,15 +88,15 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
-        root = (RelativeLayout) findViewById(R.id.root);
-        mAdView = (AdView) findViewById(R.id.adView);
-        tv_Quote_Author = (TextView) findViewById(R.id.tv_Quote_Author);
-        tv_Quote_Body = (TextView) findViewById(R.id.tv_Quote_Body);
+        root = findViewById(R.id.root);
+        mAdView = findViewById(R.id.adView);
+        tv_Quote_Author = findViewById(R.id.tv_Quote_Author);
+        tv_Quote_Body = findViewById(R.id.tv_Quote_Body);
 
-        quote_layout = (LinearLayout) findViewById(R.id.quote_layout);
-        wallpaper_layout = (RelativeLayout) findViewById(R.id.wallpaper_layout);
-        quote_bottom = (LinearLayout) findViewById(R.id.quote_bottom);
-        quote_anim = (ImageView) findViewById(R.id.quote_anim);
+        quote_layout = findViewById(R.id.quote_layout);
+        wallpaper_layout = findViewById(R.id.wallpaper_layout);
+        quote_bottom = findViewById(R.id.quote_bottom);
+        quote_anim = findViewById(R.id.quote_anim);
         Drawable drawable = quote_anim.getDrawable();
         if (drawable instanceof Animatable) {
             ((Animatable) drawable).start();
@@ -106,11 +106,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //        tv_Quote_Body.setTypeface(App.applyFont(QuoteDetailsActivity.this, Constants.FONT_ZINGSANS));
         TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
 
-        fab_edit = (FloatingActionButton) findViewById(R.id.fab_edit);
-        fab_save = (FloatingActionButton) findViewById(R.id.fab_download);
-        fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
-        fab_set_wall = (FloatingActionButton) findViewById(R.id.fab_set_wall);
-        fab_set_like = (FloatingActionButton) findViewById(R.id.fab_set_like);
+        fab_edit = findViewById(R.id.fab_edit);
+        fab_save = findViewById(R.id.fab_download);
+        fab_share = findViewById(R.id.fab_share);
+        fab_set_wall = findViewById(R.id.fab_set_wall);
+        fab_set_like = findViewById(R.id.fab_set_like);
 
         fab_edit.setOnClickListener(this);
         fab_save.setOnClickListener(this);

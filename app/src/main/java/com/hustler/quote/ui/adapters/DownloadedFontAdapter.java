@@ -65,7 +65,7 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
 
         public FontItemViewHolder(View itemView) {
             super(itemView);
-            tv = (Button) itemView.findViewById(R.id.tv);
+            tv = itemView.findViewById(R.id.tv);
         }
     }
 }

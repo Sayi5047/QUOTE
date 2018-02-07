@@ -65,12 +65,12 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_work_fragment, container, false);
-        rv = (RecyclerView) view.findViewById(R.id.main_rv);
-        loader = (ProgressBar) view.findViewById(R.id.loader);
-        dataView = (LinearLayout) view.findViewById(R.id.data_view);
-        noPermissionView = (LinearLayout) view.findViewById(R.id.no_permission_view);
-        imageText = (TextView) view.findViewById(R.id.image_text);
-        message = (TextView) view.findViewById(R.id.message);
+        rv = view.findViewById(R.id.main_rv);
+        loader = view.findViewById(R.id.loader);
+        dataView = view.findViewById(R.id.data_view);
+        noPermissionView = view.findViewById(R.id.no_permission_view);
+        imageText = view.findViewById(R.id.image_text);
+        message = view.findViewById(R.id.message);
         loader.setVisibility(View.GONE);
         new Thread(new Runnable() {
             @Override
@@ -117,7 +117,6 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                     Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
                     Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
                     Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
-                    ;
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
@@ -151,23 +150,23 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         TextView metaFileLocation, metaImageSize;
         final ArrayList<Palette.Swatch> swatches = new ArrayList<>();
 
-        rootLayout = (RelativeLayout) dialog.findViewById(R.id.root_layout);
-        header = (TextView) dialog.findViewById(R.id.header);
-        closeIv = (ImageView) dialog.findViewById(R.id.close_iv);
-        ivWork = (ImageView) dialog.findViewById(R.id.iv_work);
-        fabDelete = (FloatingActionButton) dialog.findViewById(R.id.fab_delete);
-        fabWallpaper = (FloatingActionButton) dialog.findViewById(R.id.fab_wallpaper);
-        fabShare = (FloatingActionButton) dialog.findViewById(R.id.fab_share);
-        tvDelete = (TextView) dialog.findViewById(R.id.tv_delete);
-        tvWallpaper = (TextView) dialog.findViewById(R.id.tv_wallpaper);
-        tvShare = (TextView) dialog.findViewById(R.id.tv_share);
-        metaDataDateTv = (TextView) dialog.findViewById(R.id.meta_data_date_tv);
-        metaDataResolutionTv = (TextView) dialog.findViewById(R.id.meta_data_resolution_tv);
-        metaFileLocation = (TextView) dialog.findViewById(R.id.meta_data_location_tv);
-        metaImageSize = (TextView) dialog.findViewById(R.id.meta_data_size_tv);
+        rootLayout = dialog.findViewById(R.id.root_layout);
+        header = dialog.findViewById(R.id.header);
+        closeIv = dialog.findViewById(R.id.close_iv);
+        ivWork = dialog.findViewById(R.id.iv_work);
+        fabDelete = dialog.findViewById(R.id.fab_delete);
+        fabWallpaper = dialog.findViewById(R.id.fab_wallpaper);
+        fabShare = dialog.findViewById(R.id.fab_share);
+        tvDelete = dialog.findViewById(R.id.tv_delete);
+        tvWallpaper = dialog.findViewById(R.id.tv_wallpaper);
+        tvShare = dialog.findViewById(R.id.tv_share);
+        metaDataDateTv = dialog.findViewById(R.id.meta_data_date_tv);
+        metaDataResolutionTv = dialog.findViewById(R.id.meta_data_resolution_tv);
+        metaFileLocation = dialog.findViewById(R.id.meta_data_location_tv);
+        metaImageSize = dialog.findViewById(R.id.meta_data_size_tv);
 
-        adView1 = (AdView) dialog.findViewById(R.id.adView);
-        adView2 = (AdView) dialog.findViewById(R.id.adView2);
+        adView1 = dialog.findViewById(R.id.adView);
+        adView2 = dialog.findViewById(R.id.adView2);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView1.loadAd(adRequest);

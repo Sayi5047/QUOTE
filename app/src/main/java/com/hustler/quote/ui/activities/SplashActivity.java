@@ -39,8 +39,8 @@ public class SplashActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        tv = (TextView) findViewById(R.id.tv_splash_name);
-        iv = (ImageView) findViewById(R.id.iv_logo);
+        tv = findViewById(R.id.tv_splash_name);
+        iv = findViewById(R.id.iv_logo);
 
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));

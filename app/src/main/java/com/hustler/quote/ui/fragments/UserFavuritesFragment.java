@@ -48,16 +48,16 @@ public class UserFavuritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_fav_layout, container, false);
-        viewPager = (MyViewPager) view.findViewById(R.id.fav_viewPager);
-        tabLayout = (TabLayout) view.findViewById(R.id.fav_tabLayout);
+        viewPager = view.findViewById(R.id.fav_viewPager);
+        tabLayout = view.findViewById(R.id.fav_tabLayout);
         favPagerAdapter = new FavPagerAdapter(getActivity(), getChildFragmentManager());
         viewPager.setAdapter(favPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        imageView = (ImageView) view.findViewById(R.id.iv);
-        iv_no_fav = (ImageView) view.findViewById(R.id.iv_no_fav);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv);
-        rv_imag_no_fv = (RecyclerView) view.findViewById(R.id.rv_imag_no_fv);
+        imageView = view.findViewById(R.id.iv);
+        iv_no_fav = view.findViewById(R.id.iv_no_fav);
+        recyclerView = view.findViewById(R.id.rv);
+        rv_imag_no_fv = view.findViewById(R.id.rv_imag_no_fv);
 
         editTabLayout();
         return view;

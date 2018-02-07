@@ -36,8 +36,8 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fav_images_fragment_layout, container, false);
 
-        iv_no_fav = (ImageView) view.findViewById(R.id.iv_no_fav);
-        rv_imag_no_fv = (RecyclerView) view.findViewById(R.id.rv_imag_no_fv);
+        iv_no_fav = view.findViewById(R.id.iv_no_fav);
+        rv_imag_no_fv = view.findViewById(R.id.rv_imag_no_fv);
         rv_imag_no_fv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         setAdapter();
         return view;

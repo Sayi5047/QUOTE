@@ -183,44 +183,44 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void findViews() {
 //        All layouts
-        root_layout = (RelativeLayout) findViewById(R.id.root_Lo);
+        root_layout = findViewById(R.id.root_Lo);
         windowManager = this.getWindow();
         windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        quoteLayout = (RelativeLayout) findViewById(R.id.quote_layout);
-        text_and_bg_layout = (LinearLayout) findViewById(R.id.text_and_background_layout);
+        quoteLayout = findViewById(R.id.quote_layout);
+        text_and_bg_layout = findViewById(R.id.text_and_background_layout);
 //        main_editor_layout = (LinearLayout) findViewById(R.id.Main_editor_arena);
-        close_and_done_layout = (LinearLayout) findViewById(R.id.close_and_done_layout);
+        close_and_done_layout = findViewById(R.id.close_and_done_layout);
 
 //      level 1 top bar buttons
 //        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
 //        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
-        save_work_button = (ImageView) findViewById(R.id.save_work_button);
-        share_work_button = (ImageView) findViewById(R.id.font_share_module);
-        delete_view_button = (ImageView) findViewById(R.id.delete_view_button);
+        save_work_button = findViewById(R.id.save_work_button);
+        share_work_button = findViewById(R.id.font_share_module);
+        delete_view_button = findViewById(R.id.delete_view_button);
 
-        font_size_changer = (ImageView) findViewById(R.id.spacer_in_top);
-        light_effect_filter_IV = (ImageView) findViewById(R.id.iv_light_effect);
+        font_size_changer = findViewById(R.id.spacer_in_top);
+        light_effect_filter_IV = findViewById(R.id.iv_light_effect);
 
 
-        seekBar = (SeekBar) findViewById(R.id.progress_slider_bar);
+        seekBar = findViewById(R.id.progress_slider_bar);
         seekBar.setContentDescription("Slide to Rotate");
-        close_text_size = (ImageView) findViewById(R.id.close_editor_button);
+        close_text_size = findViewById(R.id.close_editor_button);
 
-        features_recyclerview = (RecyclerView) findViewById(R.id.content_rv);
+        features_recyclerview = findViewById(R.id.content_rv);
         features_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
-        imageView_background = (ImageView) findViewById(R.id.imageView_background);
+        imageView_background = findViewById(R.id.imageView_background);
 
 
-        text_layout = (TextView) findViewById(R.id.text_field);
-        background_layout = (TextView) findViewById(R.id.background_and_Image_field);
-        close_layout = (TextView) findViewById(R.id.close_tv);
-        done_layout = (TextView) findViewById(R.id.done_tv);
-        mark_quotzy = (TextView) findViewById(R.id.mark_quotzy_tv);
-        core_editor_layout = (RelativeLayout) findViewById(R.id.arena_text_layout);
-        clear_button = (Button) findViewById(R.id.bt_clear);
+        text_layout = findViewById(R.id.text_field);
+        background_layout = findViewById(R.id.background_and_Image_field);
+        close_layout = findViewById(R.id.close_tv);
+        done_layout = findViewById(R.id.done_tv);
+        mark_quotzy = findViewById(R.id.mark_quotzy_tv);
+        core_editor_layout = findViewById(R.id.arena_text_layout);
+        clear_button = findViewById(R.id.bt_clear);
 
         scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
 /*setting on click listners */
@@ -340,7 +340,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void getIntentData() {
-        int value = (Integer) getIntent().getIntExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
+        int value = getIntent().getIntExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
         switch (value) {
             case 0: {
                 isFromEdit_Activity = 0;
@@ -627,11 +627,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         RecyclerView sizesRv;
 
 
-        root = (LinearLayout) dialog.findViewById(R.id.root);
-        canvasSizeHeader = (TextView) dialog.findViewById(R.id.canvas_size_header);
-        sizesRv = (RecyclerView) dialog.findViewById(R.id.sizes_rv);
+        root = dialog.findViewById(R.id.root);
+        canvasSizeHeader = dialog.findViewById(R.id.canvas_size_header);
+        sizesRv = dialog.findViewById(R.id.sizes_rv);
         AdView adView;
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
         sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this, 3));
@@ -722,7 +722,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
                 } else {
@@ -797,7 +797,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setCancelable(false);
 
         AdView adView;
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        adView = dialog.findViewById(R.id.adView);
 
 
         RelativeLayout scrool;
@@ -812,16 +812,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         ImagesAdapter imagesAdapter;
 
 
-        scrool = (RelativeLayout) dialog.findViewById(R.id.scrool);
-        root = (RelativeLayout) dialog.findViewById(R.id.root);
-        searchHeader = (TextView) dialog.findViewById(R.id.search_header);
-        searchBoxView = (LinearLayout) dialog.findViewById(R.id.search_Box_view);
-        searchBox = (EditText) dialog.findViewById(R.id.search_box);
-        searchButton = (ImageView) dialog.findViewById(R.id.search_button);
-        progressBar = (ProgressBar) dialog.findViewById(R.id.progress_bar);
-        imagesRecycler = (RecyclerView) dialog.findViewById(R.id.images_recycler);
-        adView = (AdView) dialog.findViewById(R.id.adView);
-        diclaimer = (TextView) dialog.findViewById(R.id.diclaimer);
+        scrool = dialog.findViewById(R.id.scrool);
+        root = dialog.findViewById(R.id.root);
+        searchHeader = dialog.findViewById(R.id.search_header);
+        searchBoxView = dialog.findViewById(R.id.search_Box_view);
+        searchBox = dialog.findViewById(R.id.search_box);
+        searchButton = dialog.findViewById(R.id.search_button);
+        progressBar = dialog.findViewById(R.id.progress_bar);
+        imagesRecycler = dialog.findViewById(R.id.images_recycler);
+        adView = dialog.findViewById(R.id.adView);
+        diclaimer = dialog.findViewById(R.id.diclaimer);
         getRandomImages(null, imagesRecycler, progressBar, dialog);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -841,7 +841,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
                 } else {
@@ -897,18 +897,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setCancelable(false);
 
         AdView adView;
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         LinearLayout root;
         final RadioGroup radioGroup;
         final RadioButton crop, fit, none;
         Button launch;
-        root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
-        radioGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
-        none = (RadioButton) dialog.findViewById(R.id.rb_none);
-        crop = (RadioButton) dialog.findViewById(R.id.rb_centerCrop);
-        fit = (RadioButton) dialog.findViewById(R.id.rb_fitcenter);
-        launch = (Button) dialog.findViewById(R.id.bt_save);
+        root = dialog.findViewById(R.id.root_Lo);
+        radioGroup = dialog.findViewById(R.id.rd_group);
+        none = dialog.findViewById(R.id.rb_none);
+        crop = dialog.findViewById(R.id.rb_centerCrop);
+        fit = dialog.findViewById(R.id.rb_fitcenter);
+        launch = dialog.findViewById(R.id.bt_save);
         TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
         launch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1068,17 +1068,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
-        header = (TextView) dialog.findViewById(R.id.tv_header);
-        align_text = (TextView) dialog.findViewById(R.id.tv_align_text);
-        addingText = (EditText) dialog.findViewById(R.id.et_text);
-        close = (Button) dialog.findViewById(R.id.bt_close);
-        done = (Button) dialog.findViewById(R.id.bt_done);
-        start = (Button) dialog.findViewById(R.id.bt_start);
-        center = (Button) dialog.findViewById(R.id.bt_center);
-        end = (Button) dialog.findViewById(R.id.bt_end);
-        add_bg = (Button) dialog.findViewById(R.id.bt_add_bg);
+        header = dialog.findViewById(R.id.tv_header);
+        align_text = dialog.findViewById(R.id.tv_align_text);
+        addingText = dialog.findViewById(R.id.et_text);
+        close = dialog.findViewById(R.id.bt_close);
+        done = dialog.findViewById(R.id.bt_done);
+        start = dialog.findViewById(R.id.bt_start);
+        center = dialog.findViewById(R.id.bt_center);
+        end = dialog.findViewById(R.id.bt_end);
+        add_bg = dialog.findViewById(R.id.bt_add_bg);
 
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.setFont(this, header, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, addingText, Constants.FONT_CIRCULAR);
@@ -1204,25 +1204,25 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
 
-        header = (TextView) dialog.findViewById(R.id.tv_header);
-        align_text = (TextView) dialog.findViewById(R.id.tv_align_text);
-        addingText = (EditText) dialog.findViewById(R.id.et_text);
-        close = (Button) dialog.findViewById(R.id.bt_close);
-        done = (Button) dialog.findViewById(R.id.bt_done);
-        start = (Button) dialog.findViewById(R.id.bt_start);
-        center = (Button) dialog.findViewById(R.id.bt_center);
-        end = (Button) dialog.findViewById(R.id.bt_end);
-        previewText = (Button) dialog.findViewById(R.id.bt_add_bg);
-        recyclerView = (RecyclerView) dialog.findViewById(R.id.color_rv);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        header = dialog.findViewById(R.id.tv_header);
+        align_text = dialog.findViewById(R.id.tv_align_text);
+        addingText = dialog.findViewById(R.id.et_text);
+        close = dialog.findViewById(R.id.bt_close);
+        done = dialog.findViewById(R.id.bt_done);
+        start = dialog.findViewById(R.id.bt_start);
+        center = dialog.findViewById(R.id.bt_center);
+        end = dialog.findViewById(R.id.bt_end);
+        previewText = dialog.findViewById(R.id.bt_add_bg);
+        recyclerView = dialog.findViewById(R.id.color_rv);
+        adView = dialog.findViewById(R.id.adView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false));
         AdUtils.loadBannerAd(adView, activity);
-        bold = (Button) dialog.findViewById(R.id.bt_bold);
-        underline = (Button) dialog.findViewById(R.id.bt_underline);
-        italic = (Button) dialog.findViewById(R.id.bt_italic);
-        strikethrough = (Button) dialog.findViewById(R.id.bt_strikethrough);
-        highlight = (Button) dialog.findViewById(R.id.bt_highlight);
-        colorText = (Button) dialog.findViewById(R.id.bt_colored);
+        bold = dialog.findViewById(R.id.bt_bold);
+        underline = dialog.findViewById(R.id.bt_underline);
+        italic = dialog.findViewById(R.id.bt_italic);
+        strikethrough = dialog.findViewById(R.id.bt_strikethrough);
+        highlight = dialog.findViewById(R.id.bt_highlight);
+        colorText = dialog.findViewById(R.id.bt_colored);
 
 //        spannableString = new SpannableString(addingText.getText().toString());
 
@@ -1533,13 +1533,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             final int[] choosen_color = new int[1];
 
 
-            head_tv = (TextView) dialog.findViewById(R.id.color_text);
-            demo_tv = (TextView) dialog.findViewById(R.id._demo_color_text);
-            colors_rv = (RecyclerView) dialog.findViewById(R.id.colors_rv);
-            close = (Button) dialog.findViewById(R.id.bt_color_close);
-            choose = (Button) dialog.findViewById(R.id.bt_color_choose);
-            shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
-            adView = (AdView) dialog.findViewById(R.id.adView);
+            head_tv = dialog.findViewById(R.id.color_text);
+            demo_tv = dialog.findViewById(R.id._demo_color_text);
+            colors_rv = dialog.findViewById(R.id.colors_rv);
+            close = dialog.findViewById(R.id.bt_color_close);
+            choose = dialog.findViewById(R.id.bt_color_choose);
+            shadow = dialog.findViewById(R.id.bt_color_shadow);
+            adView = dialog.findViewById(R.id.adView);
             TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
@@ -1678,13 +1678,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final int[] choosen_color = new int[1];
 
         AdView adView;
-        head_tv = (TextView) dialog.findViewById(R.id.color_text);
-        demo_tv = (TextView) dialog.findViewById(R.id._demo_color_text);
-        colors_rv = (RecyclerView) dialog.findViewById(R.id.colors_rv);
-        close = (Button) dialog.findViewById(R.id.bt_color_close);
-        choose = (Button) dialog.findViewById(R.id.bt_color_choose);
-        shadow = (Button) dialog.findViewById(R.id.bt_color_shadow);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        head_tv = dialog.findViewById(R.id.color_text);
+        demo_tv = dialog.findViewById(R.id._demo_color_text);
+        colors_rv = dialog.findViewById(R.id.colors_rv);
+        close = dialog.findViewById(R.id.bt_color_close);
+        choose = dialog.findViewById(R.id.bt_color_choose);
+        shadow = dialog.findViewById(R.id.bt_color_shadow);
+        adView = dialog.findViewById(R.id.adView);
         TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
@@ -1750,17 +1750,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final int[] secondColor = {0};
         final int[] selected_color = {0};
 
-        relativeLayout = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
-        demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
-        demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
-        demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
-        demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
-        demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
-        colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
-        preview = (Button) dialog.findViewById(R.id.preview);
-        btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
-        btApply = (Button) dialog.findViewById(R.id.bt_apply);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        relativeLayout = dialog.findViewById(R.id.root_Rl);
+        demoGradient = dialog.findViewById(R.id.demo_gradient);
+        demoColor1 = dialog.findViewById(R.id.demo_color_1);
+        demoColor2 = dialog.findViewById(R.id.demo_color_2);
+        demoColor1Tv = dialog.findViewById(R.id.demo_color_1_tv);
+        demoColor2Tv = dialog.findViewById(R.id.demo_color_2_tv);
+        colorsRecycler = dialog.findViewById(R.id.colors_recycler);
+        preview = dialog.findViewById(R.id.preview);
+        btCancel = dialog.findViewById(R.id.bt_cancel);
+        btApply = dialog.findViewById(R.id.bt_apply);
+        adView = dialog.findViewById(R.id.adView);
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
@@ -2072,7 +2072,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             if (selectedView != null) {
-                View selected = (View) selectedView;
+                View selected = selectedView;
                 if (selected instanceof TextView) {
                     TextView selectedText = ((TextView) selected);
                     float size = selectedText.getTextSize();

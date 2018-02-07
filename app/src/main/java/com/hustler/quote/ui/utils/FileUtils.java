@@ -128,14 +128,14 @@ public class FileUtils {
             LinearLayout root = null;
             Button btClose, btInstall;
             AdView adView = null;
-            recyclerView = (RecyclerView) dialog.findViewById(R.id.font_recycler);
-            headTv = (TextView) dialog.findViewById(R.id.head_tv);
-            etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
-            btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
-            root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
-            btClose = (Button) dialog.findViewById(R.id.bt_close);
-            btInstall = (Button) dialog.findViewById(R.id.bt_save);
-            adView = (AdView) dialog.findViewById(R.id.adView);
+            recyclerView = dialog.findViewById(R.id.font_recycler);
+            headTv = dialog.findViewById(R.id.head_tv);
+            etProjectName = dialog.findViewById(R.id.et_project_name);
+            btLlLayout = dialog.findViewById(R.id.bt_ll_layout);
+            root = dialog.findViewById(R.id.root_Lo);
+            btClose = dialog.findViewById(R.id.bt_close);
+            btInstall = dialog.findViewById(R.id.bt_save);
+            adView = dialog.findViewById(R.id.adView);
             AdUtils.loadBannerAd(adView, activity);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
@@ -180,7 +180,7 @@ public class FileUtils {
             dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                         dialog.dismiss();
                         return true;
                     } else {
@@ -264,7 +264,7 @@ public class FileUtils {
     }
 
     public interface onSaveComplete {
-        public void onImageSaveListner(File file);
+        void onImageSaveListner(File file);
     }
 
     public static void savetoDevice(final ViewGroup layout, final Activity activity, final onSaveComplete listneer) {
@@ -292,16 +292,16 @@ public class FileUtils {
                 Button btClose, btSave;
 
 
-                headTv = (TextView) dialog.findViewById(R.id.head_tv);
-                etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
-                rdGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
-                rbJpeg = (RadioButton) dialog.findViewById(R.id.rb_jpeg);
-                rbPng = (RadioButton) dialog.findViewById(R.id.rb_png);
-                btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
-                root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
-                btClose = (Button) dialog.findViewById(R.id.bt_close);
-                btSave = (Button) dialog.findViewById(R.id.bt_save);
-                adView = (AdView) dialog.findViewById(R.id.adView);
+                headTv = dialog.findViewById(R.id.head_tv);
+                etProjectName = dialog.findViewById(R.id.et_project_name);
+                rdGroup = dialog.findViewById(R.id.rd_group);
+                rbJpeg = dialog.findViewById(R.id.rb_jpeg);
+                rbPng = dialog.findViewById(R.id.rb_png);
+                btLlLayout = dialog.findViewById(R.id.bt_ll_layout);
+                root = dialog.findViewById(R.id.root_Lo);
+                btClose = dialog.findViewById(R.id.bt_close);
+                btSave = dialog.findViewById(R.id.bt_save);
+                adView = dialog.findViewById(R.id.adView);
                 AdUtils.loadBannerAd(adView, activity);
                 TextUtils.findText_and_applyTypeface(root, activity);
 
@@ -397,7 +397,7 @@ public class FileUtils {
                 dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
                     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                        if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                             dialog.dismiss();
                             return true;
                         } else {
@@ -434,21 +434,21 @@ public class FileUtils {
         Button btClose, btSave, remove_watermark, watch_ad, buy_pro;
 
 
-        headTv = (TextView) dialog.findViewById(R.id.head_tv);
-        etProjectName = (EditText) dialog.findViewById(R.id.et_project_name);
-        rdGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
-        rbJpeg = (RadioButton) dialog.findViewById(R.id.rb_jpeg);
-        rbPng = (RadioButton) dialog.findViewById(R.id.rb_png);
-        btLlLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_layout);
-        root = (LinearLayout) dialog.findViewById(R.id.root_Lo);
-        adLayout = (LinearLayout) dialog.findViewById(R.id.bt_ll_watch_Ad_layout);
+        headTv = dialog.findViewById(R.id.head_tv);
+        etProjectName = dialog.findViewById(R.id.et_project_name);
+        rdGroup = dialog.findViewById(R.id.rd_group);
+        rbJpeg = dialog.findViewById(R.id.rb_jpeg);
+        rbPng = dialog.findViewById(R.id.rb_png);
+        btLlLayout = dialog.findViewById(R.id.bt_ll_layout);
+        root = dialog.findViewById(R.id.root_Lo);
+        adLayout = dialog.findViewById(R.id.bt_ll_watch_Ad_layout);
         adLayout.setVisibility(View.GONE);
-        btClose = (Button) dialog.findViewById(R.id.bt_close);
-        btSave = (Button) dialog.findViewById(R.id.bt_save);
-        remove_watermark = (Button) dialog.findViewById(R.id.remove_watermark_bt);
-        watch_ad = (Button) dialog.findViewById(R.id.bt_watch_ad);
-        buy_pro = (Button) dialog.findViewById(R.id.bt_buy_pro);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        btClose = dialog.findViewById(R.id.bt_close);
+        btSave = dialog.findViewById(R.id.bt_save);
+        remove_watermark = dialog.findViewById(R.id.remove_watermark_bt);
+        watch_ad = dialog.findViewById(R.id.bt_watch_ad);
+        buy_pro = dialog.findViewById(R.id.bt_buy_pro);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, activity);
         TextUtils.findText_and_applyTypeface(root, activity);
 

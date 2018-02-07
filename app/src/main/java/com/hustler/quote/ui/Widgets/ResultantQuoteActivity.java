@@ -37,13 +37,13 @@ public class ResultantQuoteActivity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quote_widget_layout);
-        root = (LinearLayout) findViewById(R.id.root);
-        mainWidgetLayout = (LinearLayout) findViewById(R.id.main_widget_layout);
-        rootWidget = (LinearLayout) findViewById(R.id.root_widget);
-        quoteBody = (TextView) findViewById(R.id.quote_body);
-        quoteAuthor = (TextView) findViewById(R.id.quote_author);
-        widgetEditQuote = (ImageView) findViewById(R.id.widget_edit_quote);
-        widgetEditRefresh = (ImageView) findViewById(R.id.widget_edit_refresh);
+        root = findViewById(R.id.root);
+        mainWidgetLayout = findViewById(R.id.main_widget_layout);
+        rootWidget = findViewById(R.id.root_widget);
+        quoteBody = findViewById(R.id.quote_body);
+        quoteAuthor = findViewById(R.id.quote_author);
+        widgetEditQuote = findViewById(R.id.widget_edit_quote);
+        widgetEditRefresh = findViewById(R.id.widget_edit_refresh);
     }
 
 

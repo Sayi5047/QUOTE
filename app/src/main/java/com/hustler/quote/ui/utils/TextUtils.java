@@ -81,7 +81,7 @@ public class TextUtils {
             if (view instanceof ViewGroup) {
                 findText_and_applyamim_slideup((ViewGroup) view, activity);
             } else if (view instanceof TextView) {
-                ((TextView) view).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slideup));
+                view.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slideup));
             }
         }
     }
@@ -93,7 +93,7 @@ public class TextUtils {
             if (view instanceof ViewGroup) {
                 findText_and_applyamim_slideup((ViewGroup) view, activity);
             } else if (view instanceof TextView) {
-                ((TextView) view).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slidedown));
+                view.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.slidedown));
             }
         }
     }

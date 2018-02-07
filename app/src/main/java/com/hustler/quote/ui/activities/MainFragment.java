@@ -54,12 +54,12 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mainfragmentlayout, container, false);
-        rv = (RecyclerView) view.findViewById(R.id.main_rv);
+        rv = view.findViewById(R.id.main_rv);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        loader = (ProgressBar) view.findViewById(R.id.loader);
-        quote_of_day = (ImageView) view.findViewById((R.id.quote_of_day));
-        quote_author = (TextView) view.findViewById(R.id.quote_of_day_author);
+        loader = view.findViewById(R.id.loader);
+        quote_of_day = view.findViewById((R.id.quote_of_day));
+        quote_author = view.findViewById(R.id.quote_of_day_author);
 //        quote_of_day.setTypeface(App.applyFont(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setTypeface(App.applyFont(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));

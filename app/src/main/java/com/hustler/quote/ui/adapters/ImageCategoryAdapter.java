@@ -63,7 +63,7 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
     }
 
     public interface OnImageClickLitner {
-        public void onCategoryClicked(int position, String category);
+        void onCategoryClicked(int position, String category);
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +71,7 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            category = (TextView) itemView.findViewById(R.id.category);
+            category = itemView.findViewById(R.id.category);
         }
     }
 }

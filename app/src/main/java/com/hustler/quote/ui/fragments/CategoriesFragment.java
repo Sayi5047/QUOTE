@@ -48,7 +48,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
     }
 
     private void findViews(View view) {
-        categories_rv = (RecyclerView) view.findViewById(R.id.rv_categories);
+        categories_rv = view.findViewById(R.id.rv_categories);
         categories_rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         categories_rv.setAdapter(new CategoriesAdapter(getActivity(), new CategoriesAdapter.OnCategoryClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             dialog.cancel();
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
         } else {
-            catgory_name = (TextView) dialog.findViewById(R.id.tv_category_name);
+            catgory_name = dialog.findViewById(R.id.tv_category_name);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -96,9 +96,9 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 //                }
             }
 
-            categories_rv = (RecyclerView) dialog.findViewById(R.id.rv_category_list);
-            close_button = (FloatingActionButton) dialog.findViewById(R.id.bt_close);
-            adView = (AdView) dialog.findViewById(R.id.adView);
+            categories_rv = dialog.findViewById(R.id.rv_category_list);
+            close_button = dialog.findViewById(R.id.bt_close);
+            adView = dialog.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
             TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
@@ -129,7 +129,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
                 } else {

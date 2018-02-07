@@ -90,8 +90,8 @@ public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.
 
         public FontViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.tv);
-            installText = (TextView) itemView.findViewById(R.id.install_text);
+            textView = itemView.findViewById(R.id.tv);
+            installText = itemView.findViewById(R.id.install_text);
         }
     }
 }

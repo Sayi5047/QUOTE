@@ -12,9 +12,9 @@ import android.widget.Toast;
 public class Toast_Snack_Dialog_Utils {
 
     public interface Alertdialoglistener {
-        public void onPositiveselection();
+        void onPositiveselection();
 
-        public void onNegativeSelection();
+        void onNegativeSelection();
     }
 
     public static void show_ShortToast(Activity activity, String message) {

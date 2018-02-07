@@ -102,7 +102,7 @@ public class TextFeatures {
         Button btShadowApply;
         LinearLayout root;
 
-        root = (LinearLayout) dialog.findViewById(R.id.root);
+        root = dialog.findViewById(R.id.root);
         /*VARIABLES FOR SHADOW*/
         final float[] radius = {checkFornull(selectedTextView.getShadowRadius(), 2)};
         final float[] x = {checkFornull(selectedTextView.getShadowDx(), 1)};
@@ -110,25 +110,25 @@ public class TextFeatures {
         final int[] shadow_color = {(int) checkFornull((float) selectedTextView.getShadowColor(), activity.getResources().getColor(R.color.black_overlay))};
         final float[] opacity = {checkFornull(selectedTextView.getAlpha(), 1.0f)};
 
-        tvHead = (TextView) dialog.findViewById(R.id.tv_head);
-        demoShadowText = (TextView) dialog.findViewById(R.id.demo_shadow_text);
-        tvOpacity = (TextView) dialog.findViewById(R.id.tv_opacity);
-        tvShadowRadius = (TextView) dialog.findViewById(R.id.tv_shadow_radius);
-        tvXPos = (TextView) dialog.findViewById(R.id.tv_x_pos);
-        tvYPos = (TextView) dialog.findViewById(R.id.tv_y_pos);
-        tvShadowColor = (TextView) dialog.findViewById(R.id.tv_shadow_color);
-        adView = (AdView) dialog.findViewById(R.id.adView);
-        opacitySeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.opacity_seekbar);
-        shadowRadiusSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.shadow_radius_seekbar);
-        posXSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_x_seekbar);
-        posYSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_y_seekbar);
+        tvHead = dialog.findViewById(R.id.tv_head);
+        demoShadowText = dialog.findViewById(R.id.demo_shadow_text);
+        tvOpacity = dialog.findViewById(R.id.tv_opacity);
+        tvShadowRadius = dialog.findViewById(R.id.tv_shadow_radius);
+        tvXPos = dialog.findViewById(R.id.tv_x_pos);
+        tvYPos = dialog.findViewById(R.id.tv_y_pos);
+        tvShadowColor = dialog.findViewById(R.id.tv_shadow_color);
+        adView = dialog.findViewById(R.id.adView);
+        opacitySeekbar = dialog.findViewById(R.id.opacity_seekbar);
+        shadowRadiusSeekbar = dialog.findViewById(R.id.shadow_radius_seekbar);
+        posXSeekbar = dialog.findViewById(R.id.pos_x_seekbar);
+        posYSeekbar = dialog.findViewById(R.id.pos_y_seekbar);
         AdUtils.loadBannerAd(adView, activity);
-        rvShadowColor = (RecyclerView) dialog.findViewById(R.id.rv_shadow_color);
+        rvShadowColor = dialog.findViewById(R.id.rv_shadow_color);
         rvShadowColor.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
 
-        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
-        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
+        btShadowClose = dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = dialog.findViewById(R.id.bt_shadow_apply);
         demoShadowText.setTextColor(selectedTextView.getTextColors());
 
         /*Applying font to all TextViews and Edittexts*/
@@ -296,24 +296,24 @@ public class TextFeatures {
         final FontSelected fontSelected = new FontSelected();
 
 
-        root = (LinearLayout) dialog.findViewById(R.id.root);
-        root2 = (LinearLayout) dialog.findViewById(R.id.root2);
-        root3 = (LinearLayout) dialog.findViewById(R.id.root3);
+        root = dialog.findViewById(R.id.root);
+        root2 = dialog.findViewById(R.id.root2);
+        root3 = dialog.findViewById(R.id.root3);
 
-        tvAppFonts = (TextView) dialog.findViewById(R.id.tv_app_fonts);
-        demoText = (TextView) dialog.findViewById(R.id.tv_demo_text);
-        tvSymbolFonts = (TextView) dialog.findViewById(R.id.tv_symbol_fonts);
-        tvDownloadedFonts = (TextView) dialog.findViewById(R.id.tv_downloaded_fonts);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        tvAppFonts = dialog.findViewById(R.id.tv_app_fonts);
+        demoText = dialog.findViewById(R.id.tv_demo_text);
+        tvSymbolFonts = dialog.findViewById(R.id.tv_symbol_fonts);
+        tvDownloadedFonts = dialog.findViewById(R.id.tv_downloaded_fonts);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, editorActivity);
-        rvGoogleFont = (RecyclerView) dialog.findViewById(R.id.rv_downloaded_font);
-        rvAppFont = (RecyclerView) dialog.findViewById(R.id.rv_app_font);
-        rvDownloadedFont = (RecyclerView) dialog.findViewById(R.id.rv_symbol_font);
+        rvGoogleFont = dialog.findViewById(R.id.rv_downloaded_font);
+        rvAppFont = dialog.findViewById(R.id.rv_app_font);
+        rvDownloadedFont = dialog.findViewById(R.id.rv_symbol_font);
 
-        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
-        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
-        searchButton = (ImageView) dialog.findViewById(R.id.search_button);
-        searchBox = (AutoCompleteTextView) dialog.findViewById(R.id.search_box);
+        btShadowClose = dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = dialog.findViewById(R.id.bt_shadow_apply);
+        searchButton = dialog.findViewById(R.id.search_button);
+        searchBox = dialog.findViewById(R.id.search_box);
         familyNameSet = new ArraySet<>();
         familyNameSet.addAll(Arrays.asList(editorActivity.getResources().getStringArray(R.array.family_names)));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(editorActivity,
@@ -507,11 +507,7 @@ public class TextFeatures {
                         return true;
                     } else if (name.endsWith(".TTF")) {
                         return true;
-                    } else if (name.endsWith(".OTF")) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    } else return name.endsWith(".OTF");
                 }
             });
 
@@ -595,28 +591,28 @@ public class TextFeatures {
         final int[] selected_color = {0};
         final int[] colors = new int[5];
 
-        root = (LinearLayout) dialog.findViewById(R.id.root);
-        gradientText = (TextView) dialog.findViewById(R.id.gradient_text);
-        gradientPreviewText = (TextView) dialog.findViewById(R.id.gradient_preview_text);
-        gradientTypeText = (TextView) dialog.findViewById(R.id.gradient_type_text);
-        rdGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
-        rbJpeg = (RadioButton) dialog.findViewById(R.id.rb_jpeg);
-        rbPng = (RadioButton) dialog.findViewById(R.id.rb_png);
-        preview = (Button) dialog.findViewById(R.id.preview);
-        adView = (AdView) dialog.findViewById(R.id.adView);
-        btCancel = (Button) dialog.findViewById(R.id.bt_cancel);
-        btApply = (Button) dialog.findViewById(R.id.bt_apply);
-        demoGradient = (TextView) dialog.findViewById(R.id.demo_gradient);
-        demoColor1 = (ImageView) dialog.findViewById(R.id.demo_color_1);
-        demoColor2 = (ImageView) dialog.findViewById(R.id.demo_color_2);
-        demoColor3 = (ImageView) dialog.findViewById(R.id.demo_color_3);
+        root = dialog.findViewById(R.id.root);
+        gradientText = dialog.findViewById(R.id.gradient_text);
+        gradientPreviewText = dialog.findViewById(R.id.gradient_preview_text);
+        gradientTypeText = dialog.findViewById(R.id.gradient_type_text);
+        rdGroup = dialog.findViewById(R.id.rd_group);
+        rbJpeg = dialog.findViewById(R.id.rb_jpeg);
+        rbPng = dialog.findViewById(R.id.rb_png);
+        preview = dialog.findViewById(R.id.preview);
+        adView = dialog.findViewById(R.id.adView);
+        btCancel = dialog.findViewById(R.id.bt_cancel);
+        btApply = dialog.findViewById(R.id.bt_apply);
+        demoGradient = dialog.findViewById(R.id.demo_gradient);
+        demoColor1 = dialog.findViewById(R.id.demo_color_1);
+        demoColor2 = dialog.findViewById(R.id.demo_color_2);
+        demoColor3 = dialog.findViewById(R.id.demo_color_3);
 
-        demoColor4 = (ImageView) dialog.findViewById(R.id.demo_color_4);
+        demoColor4 = dialog.findViewById(R.id.demo_color_4);
 
-        demoColor5 = (ImageView) dialog.findViewById(R.id.demo_color_5);
-        demoColor1Tv = (TextView) dialog.findViewById(R.id.demo_color_1_tv);
-        demoColor2Tv = (TextView) dialog.findViewById(R.id.demo_color_2_tv);
-        colorsRecycler = (RecyclerView) dialog.findViewById(R.id.colors_recycler);
+        demoColor5 = dialog.findViewById(R.id.demo_color_5);
+        demoColor1Tv = dialog.findViewById(R.id.demo_color_1_tv);
+        demoColor2Tv = dialog.findViewById(R.id.demo_color_2_tv);
+        colorsRecycler = dialog.findViewById(R.id.colors_recycler);
         AdUtils.loadBannerAd(adView, editorActivity);
         dialog.setCancelable(false);
         colorsRecycler.setVisibility(GONE);
@@ -838,7 +834,7 @@ public class TextFeatures {
         LinearLayout root;
         final int[] selectedVfx = new int[1];
 
-        root = (LinearLayout) dialog.findViewById(R.id.root);
+        root = dialog.findViewById(R.id.root);
         /*VARIABLES FOR SHADOW*/
         final float[] radius = new float[1];
         final float[] x = new float[1];
@@ -846,27 +842,27 @@ public class TextFeatures {
         final int[] shadow_color = new int[1];
         final float[] opacity = new float[3];
 
-        tvHead = (TextView) dialog.findViewById(R.id.tv_head);
-        demoShadowText = (TextView) dialog.findViewById(R.id.demo_shadow_text);
-        lighting_direction_tv = (TextView) dialog.findViewById(R.id.tv_opacity);
-        lighting_strngth_tv = (TextView) dialog.findViewById(R.id.tv_shadow_radius);
-        highlights_tv = (TextView) dialog.findViewById(R.id.tv_x_pos);
-        blurr_radius_tv = (TextView) dialog.findViewById(R.id.tv_y_pos);
-        tvShadowColor = (TextView) dialog.findViewById(R.id.tv_shadow_color);
-        adView = (AdView) dialog.findViewById(R.id.adView);
-        lightingDirectionSeekBar = (AppCompatSeekBar) dialog.findViewById(R.id.opacity_seekbar);
-        lightingStrngthSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.shadow_radius_seekbar);
-        highlightsSeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.pos_x_seekbar);
-        blurrRadius = (AppCompatSeekBar) dialog.findViewById(R.id.pos_y_seekbar);
-        spinner = (Spinner) dialog.findViewById(R.id.fx_spinner);
+        tvHead = dialog.findViewById(R.id.tv_head);
+        demoShadowText = dialog.findViewById(R.id.demo_shadow_text);
+        lighting_direction_tv = dialog.findViewById(R.id.tv_opacity);
+        lighting_strngth_tv = dialog.findViewById(R.id.tv_shadow_radius);
+        highlights_tv = dialog.findViewById(R.id.tv_x_pos);
+        blurr_radius_tv = dialog.findViewById(R.id.tv_y_pos);
+        tvShadowColor = dialog.findViewById(R.id.tv_shadow_color);
+        adView = dialog.findViewById(R.id.adView);
+        lightingDirectionSeekBar = dialog.findViewById(R.id.opacity_seekbar);
+        lightingStrngthSeekbar = dialog.findViewById(R.id.shadow_radius_seekbar);
+        highlightsSeekbar = dialog.findViewById(R.id.pos_x_seekbar);
+        blurrRadius = dialog.findViewById(R.id.pos_y_seekbar);
+        spinner = dialog.findViewById(R.id.fx_spinner);
         AdUtils.loadBannerAd(adView, editorActivity);
-        rvShadowColor = (RecyclerView) dialog.findViewById(R.id.rv_shadow_color);
+        rvShadowColor = dialog.findViewById(R.id.rv_shadow_color);
         rvShadowColor.setVisibility(GONE);
         rvShadowColor.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
 
 
-        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
-        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
+        btShadowClose = dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = dialog.findViewById(R.id.bt_shadow_apply);
         demoShadowText.setTextColor(selectedTextView.getTextColors());
 
         /*Applying font to all TextViews and Edittexts*/
@@ -1122,15 +1118,15 @@ public class TextFeatures {
         final ArrayList<PathEffect> pathEffects = new ArrayList<>();
         pathEffects.add(null);
         final int[] selectedOption = new int[1];
-        tvHead = (TextView) dialog.findViewById(R.id.tv_head);
-        root = (LinearLayout) dialog.findViewById(R.id.root);
-        fxSpinner = (AppCompatSpinner) dialog.findViewById(R.id.fx_spinner);
-        demoShadowText = (TextView) dialog.findViewById(R.id.demo_shadow_text);
-        opacitySeekbar = (AppCompatSeekBar) dialog.findViewById(R.id.opacity_seekbar);
-        tvOpacity = (TextView) dialog.findViewById(R.id.tv_opacity);
-        btShadowClose = (Button) dialog.findViewById(R.id.bt_shadow_close);
-        btShadowApply = (Button) dialog.findViewById(R.id.bt_shadow_apply);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        tvHead = dialog.findViewById(R.id.tv_head);
+        root = dialog.findViewById(R.id.root);
+        fxSpinner = dialog.findViewById(R.id.fx_spinner);
+        demoShadowText = dialog.findViewById(R.id.demo_shadow_text);
+        opacitySeekbar = dialog.findViewById(R.id.opacity_seekbar);
+        tvOpacity = dialog.findViewById(R.id.tv_opacity);
+        btShadowClose = dialog.findViewById(R.id.bt_shadow_close);
+        btShadowApply = dialog.findViewById(R.id.bt_shadow_apply);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, editorActivity);
         TextUtils.findText_and_applyTypeface(root, editorActivity);
         pathEffects.add(getDashPathEffect(6));

@@ -111,9 +111,9 @@ public class CollectionsWallpaperAdapter extends android.support.v7.widget.Recyc
 
         public WallpaperViewholder(View itemView) {
             super(itemView);
-            wallpaper = (ImageView) itemView.findViewById(R.id.wallpaper_preview);
-            photographer = (ImageView) itemView.findViewById(R.id.photographer_image);
-            photoGrapher_name = (TextView) itemView.findViewById(R.id.photographer_name);
+            wallpaper = itemView.findViewById(R.id.wallpaper_preview);
+            photographer = itemView.findViewById(R.id.photographer_image);
+            photoGrapher_name = itemView.findViewById(R.id.photographer_name);
             photoGrapher_name.setShadowLayer(24, 5, 5, ContextCompat.getColor(context, android.R.color.black));
             TextUtils.setFont(context, photoGrapher_name, Constants.FONT_CIRCULAR);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

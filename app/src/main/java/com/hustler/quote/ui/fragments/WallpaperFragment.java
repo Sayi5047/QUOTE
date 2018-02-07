@@ -65,11 +65,11 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_wallpaper_fragment, container, false);
-        rv = (RecyclerView) view.findViewById(R.id.main_rv);
-        catgories = (RecyclerView) view.findViewById(R.id.catgories);
-        loader = (ProgressBar) view.findViewById(R.id.loader);
-        dataView = (RelativeLayout) view.findViewById(R.id.data_views);
-        credit = (TextView) view.findViewById(R.id.crdit);
+        rv = view.findViewById(R.id.main_rv);
+        catgories = view.findViewById(R.id.catgories);
+        loader = view.findViewById(R.id.loader);
+        dataView = view.findViewById(R.id.data_views);
+        credit = view.findViewById(R.id.crdit);
         loader.setVisibility(View.GONE);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {

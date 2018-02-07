@@ -138,12 +138,12 @@ public class QuotzyColorPicker extends Dialog implements SeekBar.OnSeekBarChange
         colorView = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.colorView);
         colorView.setBackgroundColor(getColor());
 
-        hexCode = (EditText) findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.hexCode);
+        hexCode = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.hexCode);
 
-        alphaSeekBar = (SeekBar) findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.alphaSeekBar);
-        redSeekBar = (SeekBar) findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.redSeekBar);
-        greenSeekBar = (SeekBar) findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.greenSeekBar);
-        blueSeekBar = (SeekBar) findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.blueSeekBar);
+        alphaSeekBar = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.alphaSeekBar);
+        redSeekBar = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.redSeekBar);
+        greenSeekBar = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.greenSeekBar);
+        blueSeekBar = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.blueSeekBar);
 
         alphaSeekBar.setOnSeekBarChangeListener(this);
         redSeekBar.setOnSeekBarChangeListener(this);
@@ -185,7 +185,7 @@ public class QuotzyColorPicker extends Dialog implements SeekBar.OnSeekBarChange
                     }
                 });
 
-        final Button okColor = (Button) findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.okColorButton);
+        final Button okColor = findViewById(com.pes.androidmaterialcolorpickerdialog.R.id.okColorButton);
         okColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

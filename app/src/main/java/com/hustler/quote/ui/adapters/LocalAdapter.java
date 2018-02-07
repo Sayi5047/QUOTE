@@ -90,17 +90,17 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 
         public LocalViewholder(View itemView) {
             super(itemView);
-            rootView = (LinearLayout) itemView.findViewById(R.id.root_ll);
-            cardView = (CardView) itemView.findViewById(R.id.iv_quote_card_root);
-            imageView = (ImageView) itemView.findViewById(R.id.fav_iv);
+            rootView = itemView.findViewById(R.id.root_ll);
+            cardView = itemView.findViewById(R.id.iv_quote_card_root);
+            imageView = itemView.findViewById(R.id.fav_iv);
 
             cardView.setClipToPadding(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 cardView.setClipToOutline(true);
             }
-            tv = (TextView) itemView.findViewById(R.id.main_quote);
-            tv2 = (TextView) itemView.findViewById(R.id.quote_author);
-            tv3 = (TextView) itemView.findViewById(R.id.quote_genre_end);
+            tv = itemView.findViewById(R.id.main_quote);
+            tv2 = itemView.findViewById(R.id.quote_author);
+            tv3 = itemView.findViewById(R.id.quote_genre_end);
             tv.setTypeface(App.applyFont(activity, Constants.FONT_CIRCULAR));
             tv2.setTypeface(App.applyFont(activity, Constants.FONT_ZINGCURSIVE));
             tv3.setTypeface(App.applyFont(activity, Constants.FONT_NEVIS));

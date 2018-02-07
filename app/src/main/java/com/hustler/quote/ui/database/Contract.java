@@ -29,7 +29,6 @@ public class Contract implements BaseColumns {
                         QUOTE_CATEGORY + " STRING," +
                         QUOTE_LANGUAGE + " STRING," +
                         QUOTE_IS_LIKED + " INTEGER )";
-        ;
 
         public static final String SQL_DELETE_TABLE =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;

@@ -21,7 +21,7 @@ public class AnimUtils {
 
     public static void revealCircular(FloatingActionButton floatingActionButton, final DialogInterface dialog, View dialog_layout, boolean isDialog_Starting) {
 
-        final View view = (View) dialog_layout.findViewById(R.id.dialog);
+        final View view = dialog_layout.findViewById(R.id.dialog);
         int width = view.getWidth();
         int height = view.getHeight();
 

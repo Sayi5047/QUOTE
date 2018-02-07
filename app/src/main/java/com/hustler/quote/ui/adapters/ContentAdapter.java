@@ -134,8 +134,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
         public ContentViewholder(View itemView) {
             super(itemView);
-            colorsItem = (View) itemView.findViewById(R.id.content_color_item);
-            fontItem = (TextView) itemView.findViewById(R.id.content_font_item);
+            colorsItem = itemView.findViewById(R.id.content_color_item);
+            fontItem = itemView.findViewById(R.id.content_font_item);
 
         }
     }

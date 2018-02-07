@@ -141,13 +141,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        mainPager = (ViewPager) findViewById(R.id.main_pager);
-        tab_layout = (TabLayout) findViewById(R.id.tab_layout);
-        rootView = (CoordinatorLayout) findViewById(R.id.root);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
+        mainPager = findViewById(R.id.main_pager);
+        tab_layout = findViewById(R.id.tab_layout);
+        rootView = findViewById(R.id.root);
         tab_layout.setupWithViewPager(mainPager);
-        mAdView = (AdView) findViewById(R.id.adView);
-        header_name = (TextView) findViewById(R.id.header_name);
+        mAdView = findViewById(R.id.adView);
+        header_name = findViewById(R.id.header_name);
         TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_ZINGCURSIVE);
         loadAds();
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
@@ -198,14 +198,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         AdView adView;
 
 
-        search_Query = (EditText) dialog.findViewById(R.id.header_name);
-        search = (ImageView) dialog.findViewById(R.id.search);
-        radioGroup = (RadioGroup) dialog.findViewById(R.id.rd_group);
-        close = (FloatingActionButton) dialog.findViewById(R.id.search_btn);
-        root = (RelativeLayout) dialog.findViewById(R.id.root);
-        result_rv = (RecyclerView) dialog.findViewById(R.id.result_rv);
-        loader = (ProgressBar) dialog.findViewById(R.id.loader);
-        adView = (AdView) dialog.findViewById(R.id.adView);
+        search_Query = dialog.findViewById(R.id.header_name);
+        search = dialog.findViewById(R.id.search);
+        radioGroup = dialog.findViewById(R.id.rd_group);
+        close = dialog.findViewById(R.id.search_btn);
+        root = dialog.findViewById(R.id.root);
+        result_rv = dialog.findViewById(R.id.result_rv);
+        loader = dialog.findViewById(R.id.loader);
+        adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, HomeActivity.this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
@@ -269,7 +269,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
 
                     dialog.dismiss();

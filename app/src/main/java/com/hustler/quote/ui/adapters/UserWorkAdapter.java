@@ -132,9 +132,9 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
 
         public UserWorkViewHolder(View itemView) {
             super(itemView);
-            iv = (ImageView) itemView.findViewById(R.id.user_work_iv);
-            tv = (TextView) itemView.findViewById(R.id.user_work_name_tv);
-            rootCard = (CardView) itemView.findViewById(R.id.root_cl);
+            iv = itemView.findViewById(R.id.user_work_iv);
+            tv = itemView.findViewById(R.id.user_work_name_tv);
+            rootCard = itemView.findViewById(R.id.root_cl);
             rootCard.setClipToPadding(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 tv.setClipToOutline(true);

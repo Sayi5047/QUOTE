@@ -37,7 +37,7 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
 
     public FavWallpaperAdapter(Activity context, List<Unsplash_Image> m_AL_Images, OnWallpaperClickListener onimageClickListener) {
         this.context = context;
-        this.m_AL_Images = m_AL_Images;
+        FavWallpaperAdapter.m_AL_Images = m_AL_Images;
         this.onimageClickListener = onimageClickListener;
     }
 
@@ -104,9 +104,9 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
 
         public WallpaperViewholder(View itemView) {
             super(itemView);
-            wallpaper = (ImageView) itemView.findViewById(R.id.wallpaper_preview);
-            photographer = (ImageView) itemView.findViewById(R.id.photographer_image);
-            photoGrapher_name = (TextView) itemView.findViewById(R.id.photographer_name);
+            wallpaper = itemView.findViewById(R.id.wallpaper_preview);
+            photographer = itemView.findViewById(R.id.photographer_image);
+            photoGrapher_name = itemView.findViewById(R.id.photographer_name);
             photoGrapher_name.setShadowLayer(24, 5, 5, ContextCompat.getColor(context, android.R.color.black));
             TextUtils.setFont(context, photoGrapher_name, Constants.FONT_CIRCULAR);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

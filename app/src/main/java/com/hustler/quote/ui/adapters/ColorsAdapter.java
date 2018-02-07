@@ -81,7 +81,7 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorViewH
 
         public ColorViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.bt_color);
+            imageView = itemView.findViewById(R.id.bt_color);
         }
     }
 }

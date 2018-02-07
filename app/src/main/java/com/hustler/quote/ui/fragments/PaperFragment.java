@@ -57,11 +57,11 @@ public class PaperFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wallpaer_fragment_layout, container, false);
-        imageView = (ImageView) view.findViewById(R.id.wallpaper_image);
-        radioGroup = (RadioGroup) view.findViewById(R.id.rd_group);
-        rd1 = (RadioButton) view.findViewById(R.id.rb_regular);
-        rd2 = (RadioButton) view.findViewById(R.id.rb_hd);
-        rd3 = (RadioButton) view.findViewById(R.id.rb_uhd);
+        imageView = view.findViewById(R.id.wallpaper_image);
+        radioGroup = view.findViewById(R.id.rd_group);
+        rd1 = view.findViewById(R.id.rb_regular);
+        rd2 = view.findViewById(R.id.rb_hd);
+        rd3 = view.findViewById(R.id.rb_uhd);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             radioGroup.setClipToOutline(true);
             rd1.setClipToOutline(true);

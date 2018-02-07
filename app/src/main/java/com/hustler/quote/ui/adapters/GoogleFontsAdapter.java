@@ -119,7 +119,7 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
 
         public FontItemViewHolder(View itemView) {
             super(itemView);
-            tv = (Button) itemView.findViewById(R.id.tv);
+            tv = itemView.findViewById(R.id.tv);
         }
     }
 }

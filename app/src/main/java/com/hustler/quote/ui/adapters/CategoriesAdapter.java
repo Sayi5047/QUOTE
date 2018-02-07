@@ -107,8 +107,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         public CategoryViewHolder(View itemView) {
 
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.bt_category);
-            imageView = (ImageView) itemView.findViewById(R.id.back_image);
+            textView = itemView.findViewById(R.id.bt_category);
+            imageView = itemView.findViewById(R.id.back_image);
             TextUtils.setFont(activity, textView, Constants.FONT_ZINGCURSIVE);
             textView.setShadowLayer(1f,2,2, activity.getResources().getColor(android.R.color.black));
 

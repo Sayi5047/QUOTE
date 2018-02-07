@@ -65,7 +65,7 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
 
         public FontItemViewHolder(View itemView) {
             super(itemView);
-            tv = (Button) itemView.findViewById(R.id.tv);
+            tv = itemView.findViewById(R.id.tv);
         }
     }
 }

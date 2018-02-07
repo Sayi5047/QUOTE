@@ -85,16 +85,16 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     }
 
     private void findViews() {
-        imageViewer = (ViewPager) findViewById(R.id.image_viewer);
-        buttonsLayout = (LinearLayout) findViewById(R.id.buttons_layout);
-        fabSetLike = (FloatingActionButton) findViewById(R.id.fab_set_like);
-        fabSetWall = (FloatingActionButton) findViewById(R.id.fab_set_wall);
-        fabDownload = (FloatingActionButton) findViewById(R.id.fab_download);
-        fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
-        fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
-        profile_image = (ImageView) findViewById(R.id.profile_image);
-        profile_name = (TextView) findViewById(R.id.profile_name);
-        profile_desc = (TextView) findViewById(R.id.image_desciption);
+        imageViewer = findViewById(R.id.image_viewer);
+        buttonsLayout = findViewById(R.id.buttons_layout);
+        fabSetLike = findViewById(R.id.fab_set_like);
+        fabSetWall = findViewById(R.id.fab_set_wall);
+        fabDownload = findViewById(R.id.fab_download);
+        fabEdit = findViewById(R.id.fab_edit);
+        fabShare = findViewById(R.id.fab_share);
+        profile_image = findViewById(R.id.profile_image);
+        profile_name = findViewById(R.id.profile_name);
+        profile_desc = findViewById(R.id.image_desciption);
 
         fabSetLike.setOnClickListener(this);
         fabSetWall.setOnClickListener(this);
@@ -206,19 +206,19 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         FloatingActionButton close;
 
         Button visit_profile;
-        rootView = (RelativeLayout) dialog.findViewById(R.id.root);
-        header = (RelativeLayout) dialog.findViewById(R.id.header);
-        userCover = (ImageView) dialog.findViewById(R.id.user_cover);
-        userImage = (ImageView) dialog.findViewById(R.id.user_image);
-        details = (RelativeLayout) dialog.findViewById(R.id.details);
-        name = (TextView) dialog.findViewById(R.id.name);
-        bio = (TextView) dialog.findViewById(R.id.bio);
-        location = (TextView) dialog.findViewById(R.id.location);
-        twitterName = (TextView) dialog.findViewById(R.id.twitter_name);
-        portfolioUrl = (TextView) dialog.findViewById(R.id.portfolio_url);
-        userPics = (RecyclerView) dialog.findViewById(R.id.user_pics);
-        close = (FloatingActionButton) dialog.findViewById(R.id.close);
-        visit_profile = (Button) dialog.findViewById(R.id.visit_profile);
+        rootView = dialog.findViewById(R.id.root);
+        header = dialog.findViewById(R.id.header);
+        userCover = dialog.findViewById(R.id.user_cover);
+        userImage = dialog.findViewById(R.id.user_image);
+        details = dialog.findViewById(R.id.details);
+        name = dialog.findViewById(R.id.name);
+        bio = dialog.findViewById(R.id.bio);
+        location = dialog.findViewById(R.id.location);
+        twitterName = dialog.findViewById(R.id.twitter_name);
+        portfolioUrl = dialog.findViewById(R.id.portfolio_url);
+        userPics = dialog.findViewById(R.id.user_pics);
+        close = dialog.findViewById(R.id.close);
+        visit_profile = dialog.findViewById(R.id.visit_profile);
         dialog.show();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -283,7 +283,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == event.KEYCODE_BACK || keyCode == event.KEYCODE_HOME) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
                 } else {

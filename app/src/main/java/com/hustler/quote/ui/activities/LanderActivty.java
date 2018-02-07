@@ -57,8 +57,8 @@ public class LanderActivty extends BaseActivity {
             getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
         }
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        relativeLayout = (RelativeLayout) findViewById(R.id.root_layout);
+        viewPager = findViewById(R.id.view_pager);
+        relativeLayout = findViewById(R.id.root_layout);
         colors = new int[]{ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
                 ContextCompat.getColor(LanderActivty.this, R.color.green_300),
                 ContextCompat.getColor(LanderActivty.this, R.color.orange_300),
@@ -72,10 +72,10 @@ public class LanderActivty extends BaseActivity {
                 ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
 
         };
-        relativeLayout1 = (RelativeLayout) findViewById(R.id.bt_launch_layout);
-        skip = (Button) findViewById(R.id.bt_skip);
-        bt_next = (Button) findViewById(R.id.bt_next);
-        bt_launch = (Button) findViewById(R.id.bt_launch_button);
+        relativeLayout1 = findViewById(R.id.bt_launch_layout);
+        skip = findViewById(R.id.bt_skip);
+        bt_next = findViewById(R.id.bt_next);
+        bt_launch = findViewById(R.id.bt_launch_button);
         TextUtils.findText_and_applyTypeface(relativeLayout1, LanderActivty.this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         viewPager.setAdapter(new landerAdapter(getSupportFragmentManager(), LanderActivty.this));
@@ -243,9 +243,9 @@ public class LanderActivty extends BaseActivity {
             if (desciption != null && !desciption.equals("")) {
                 ((TextView) view.findViewById(R.id.on_board_descriptiom)).setText(desciption);
             }
-            image = (RelativeLayout) view.findViewById(R.id.card);
-            imageView = (ImageView) view.findViewById(R.id.on_board_image_circle);
-            linearLayout = (RelativeLayout) view.findViewById(R.id.linear_bg_layout);
+            image = view.findViewById(R.id.card);
+            imageView = view.findViewById(R.id.on_board_image_circle);
+            linearLayout = view.findViewById(R.id.linear_bg_layout);
             TextUtils.findText_and_applyTypeface(linearLayout, getActivity());
             animationDrawable = (AnimationDrawable) linearLayout.getBackground();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());

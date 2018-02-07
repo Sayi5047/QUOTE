@@ -97,18 +97,18 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
     }
 
     private void findViews() {
-        root = (RelativeLayout) findViewById(R.id.root);
-        mainWidgetLayout = (LinearLayout) findViewById(R.id.main_widget_layout);
-        rootWidget = (LinearLayout) findViewById(R.id.root_widget);
-        quoteBody = (TextView) findViewById(R.id.quote_body);
-        quoteAuthor = (TextView) findViewById(R.id.quote_author);
-        btLayout = (LinearLayout) findViewById(R.id.bt_layout);
-        widgetEditQuote = (ImageView) findViewById(R.id.widget_edit_quote);
-        widgetEditRefresh = (ImageView) findViewById(R.id.widget_edit_refresh);
-        navLayout = (LinearLayout) findViewById(R.id.nav_layout);
-        btClose = (Button) findViewById(R.id.bt_close);
-        btDone = (Button) findViewById(R.id.bt_done);
-        widgetPreferencePager = (ViewPager) findViewById(R.id.widget_preference_pager);
+        root = findViewById(R.id.root);
+        mainWidgetLayout = findViewById(R.id.main_widget_layout);
+        rootWidget = findViewById(R.id.root_widget);
+        quoteBody = findViewById(R.id.quote_body);
+        quoteAuthor = findViewById(R.id.quote_author);
+        btLayout = findViewById(R.id.bt_layout);
+        widgetEditQuote = findViewById(R.id.widget_edit_quote);
+        widgetEditRefresh = findViewById(R.id.widget_edit_refresh);
+        navLayout = findViewById(R.id.nav_layout);
+        btClose = findViewById(R.id.bt_close);
+        btDone = findViewById(R.id.bt_done);
+        widgetPreferencePager = findViewById(R.id.widget_preference_pager);
         widgetPreferencePager.setAdapter(new QuoteWidgetConfigAdapter(getFragmentManager(), this));
 
         btClose.setOnClickListener(this);
