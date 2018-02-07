@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -833,7 +834,6 @@ public class FileUtils {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.connect();
-                int length = httpURLConnection.getContentLength();
 
 //                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
                 inputStream = httpURLConnection.getInputStream();
@@ -861,6 +861,31 @@ public class FileUtils {
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;
+        }
+
+
+    }
+    class ImageDownloader extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(final String... params) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                }
+            }).run();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+
         }
 
 

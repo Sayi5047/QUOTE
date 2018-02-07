@@ -3,17 +3,28 @@ package com.hustler.quote.ui.Services;
 import android.app.IntentService;
 import android.app.WallpaperManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.os.IBinder;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hustler.quote.R;
 import com.hustler.quote.ui.Recievers.AlarmReciever;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import com.hustler.quote.ui.apiRequestLauncher.Restutility;
 import com.hustler.quote.ui.database.ImagesDbHelper;
+import com.hustler.quote.ui.pojo.UnsplashImages_Collection_Response;
+import com.hustler.quote.ui.pojo.Unsplash_Image_collection_response_listener;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Random;
 
@@ -24,28 +35,138 @@ import java.util.Random;
 public class DailyWallpaperService extends IntentService {
     List<Unsplash_Image> images;
     File downloading_File;
+    SharedPreferences sharedPreferences;
+    int image;
+    SharedPreferences.Editor editor;
+    String request;
+    Unsplash_Image unsplash_image;
+    WallpaperManager wallpaperManager;
 
     public DailyWallpaperService() {
         super("DailyWallpaperService");
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected void onHandleIntent(@Nullable final Intent intent) {
 
-        images = new ImagesDbHelper(getApplicationContext()).getAllFav();
-        int image = new Random().nextInt(images.size())+0;
-        Unsplash_Image unsplash_image = images.get(image);
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-        downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getRaw(), unsplash_image.getId());
-        try {
-            wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+
+        if (sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature").equals("Favourites")) {
+            images = new ImagesDbHelper(getApplicationContext()).getAllFav();
+            if (images == null || images.size() <= 0) {
+                callApi(sharedPreferences, editor, "Nature", intent);
+                editor.putString(getResources().getString(R.string.DWL_key3), "Nature");
+            } else {
+                image = new Random().nextInt(images.size()) + 0;
+                unsplash_image = images.get(image);
+                download_and_setWallapper(intent, unsplash_image);
+            }
+
+            Log.i("SERVICE CHECK", "FAV S SET");
+
+        } else {
+            if (sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0) <= 0) {
+                callApi(sharedPreferences, editor, sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature"), intent);
+
+            } else {
+                Type type = new TypeToken<Unsplash_Image[]>() {
+                }.getType();
+                int imageIndex = sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0);
+                Log.i("Image index", String.valueOf(imageIndex));
+                Log.i("images length", String.valueOf(sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_Size_key, 0)));
+
+                if (sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0) >= sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_Size_key, 0)) {
+                    callApi(sharedPreferences, editor, sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature"), intent);
+
+                } else {
+                    Unsplash_Image[] unsplash_images = new Gson().fromJson(sharedPreferences.getString(Constants.Shared_prefs_loaded_images_for_service_key, null), type);
+                    unsplash_image = unsplash_images[imageIndex];
+                    editor.putInt(Constants.Shared_prefs_current_service_image_key, imageIndex + 1);
+                    editor.commit();
+                    Log.i("Updated Image index", String.valueOf(sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0)));
+
+                    download_and_setWallapper(intent, unsplash_image);
+                }
+
+
+            }
+
+            Log.i("SERVICE CHECK", "APIS SET");
+
         }
-        AlarmReciever.completeWakefulIntent(intent);
-        stopSelf();
+
 
     }
 
+    private void callApi(SharedPreferences sharedPreferences, final SharedPreferences.Editor editor, String query, final Intent intent) {
+        request = Constants.API_GET_Collections_FROM_UNSPLASH + "&orientation=portrait&featured=true&count=30&query=" + query + "&page=" + new Random().nextInt(8);
+        new Restutility().getImages_for_service(getApplicationContext(), new Unsplash_Image_collection_response_listener() {
+            @Override
+            public void onSuccess(UnsplashImages_Collection_Response response) {
+                Gson gson = new Gson();
+                String imagess = gson.toJson(response.getResults());
+                editor.putString(Constants.Shared_prefs_loaded_images_for_service_key, imagess);
+                editor.putInt(Constants.Shared_prefs_current_service_image_key, 1);
+                editor.putInt(Constants.Shared_prefs_current_service_image_Size_key, response.getResults().length);
+                editor.commit();
+                unsplash_image = response.getResults()[0];
+                download_and_setWallapper(intent, unsplash_image);
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        }, request);
+
+    }
+
+    private void download_and_setWallapper(final Intent intent, final Unsplash_Image unsplash_image) {
+        wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+        new ImageDownloader(intent, unsplash_image).execute();
+
+    }
+
+    class ImageDownloader extends AsyncTask<String, String, Void> {
+        public ImageDownloader(Intent intent, Unsplash_Image unsplash_image) {
+            this.intent = intent;
+            this.unsplash_image = unsplash_image;
+        }
+
+        Intent intent;
+        Unsplash_Image unsplash_image;
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(final String... params) {
+
+                    downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getFull(), unsplash_image.getId() + "SAYI.jpg");
+                    try {
+                        wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
+                    if (downloading_File != null) {
+                        downloading_File.delete();
+                    }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            AlarmReciever.completeWakefulIntent(intent);
+            stopSelf();
+
+
+        }
+    }
 
 }

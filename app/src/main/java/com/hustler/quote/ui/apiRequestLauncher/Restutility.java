@@ -40,6 +40,9 @@ public class Restutility {
         this.activity = activity;
     }
 
+    public Restutility() {
+    }
+
     public void logtheResponse(JSONObject response) {
         Log.d("API RESPONSE", response.toString());
     }
@@ -180,6 +183,28 @@ public class Restutility {
         });
         MySingleton.addJsonObjRequest(context, request1);
     }
+
+    public void getImages_for_service(final Context context, final Unsplash_Image_collection_response_listener listener, final String request) {
+        logtheRequest(request);
+        JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                UnsplashImages_Collection_Response unspalshImage = new Gson().fromJson(response.toString(), UnsplashImages_Collection_Response.class);
+                listener.onSuccess(unspalshImage);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ERROR LENGTGH", String.valueOf(error));
+
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+
+            }
+        });
+        MySingleton.addJsonObjRequest(context, request1);
+    }
+
 
     public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
         try {
