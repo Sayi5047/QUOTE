@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,24 +25,18 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.MainAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
-import com.hustler.quote.ui.apiRequestLauncher.QuotesApiResponceListener;
-import com.hustler.quote.ui.apiRequestLauncher.Restutility;
-import com.hustler.quote.ui.database.QuotesDbHelper;
+import com.hustler.quote.ui.loaders.Quotesloader;
 import com.hustler.quote.ui.pojo.Quote;
-import com.hustler.quote.ui.pojo.QuotesFromFC;
-import com.hustler.quote.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
-import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.superclasses.App;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Sayi on 07-10-2017.
  */
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Quote>> {
 
     RecyclerView rv;
     ProgressBar loader;
@@ -82,43 +77,50 @@ public class MainFragment extends Fragment {
             }
 
         });
-        setAdapter(rv);
 
         return view;
     }
 
-    private void setAdapter(final RecyclerView rv) {
-        final ArrayList<Quote>[] quotes = new ArrayList[]{new ArrayList<>()};
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                quotes[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllQuotes();
-                rv.setAdapter(new LocalAdapter(
-                        getActivity(),
-                        quotes[0],
-                        new LocalAdapter.OnQuoteClickListener() {
-                            @Override
-                            public void onQuoteClicked(int position, int color, Quote quote, View view1) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().getWindow().setEnterTransition(new Slide());
-                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                            ActivityOptionsCompat options = ActivityOptionsCompat.
-                                    makeSceneTransitionAnimation(getActivity(),
-                                            view1,
-                                            getString(R.string.quotes_author_transistion));
-                            startActivity(intent, options.toBundle());
-                        } else {
-                                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                                startActivity(intent);
-                        }
-                            }
-                        }));
-                loader.setVisibility(View.GONE);
-            }
-        }).run();
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+    }
 
+    private void setAdapter(final RecyclerView rv, final ArrayList<Quote> quotes) {
+        if(quotes==null){
+
+        }else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    rv.setAdapter(new LocalAdapter(
+                            getActivity(),
+                            quotes,
+                            new LocalAdapter.OnQuoteClickListener() {
+                                @Override
+                                public void onQuoteClicked(int position, int color, Quote quote, View view1) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        getActivity().getWindow().setEnterTransition(new Slide());
+                                        Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                                        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                                makeSceneTransitionAnimation(getActivity(),
+                                                        view1,
+                                                        getString(R.string.quotes_author_transistion));
+                                        startActivity(intent, options.toBundle());
+                                    } else {
+                                        Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                                        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }));
+                    loader.setVisibility(View.GONE);
+                }
+            }).run();
+
+        }
 
 
     }
@@ -167,7 +169,21 @@ public class MainFragment extends Fragment {
 //        });
 
 
+    }
 
+    @Override
+    public Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
+        return new Quotesloader(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
+        setAdapter(rv, new ArrayList<Quote>(data));
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Quote>> loader) {
+            setAdapter(rv,null);
     }
 
 //    @Override
