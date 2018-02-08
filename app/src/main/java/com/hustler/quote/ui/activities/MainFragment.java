@@ -44,6 +44,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     ImageView quote_of_day;
     TextView quote_author;
     int selectedQuote;
+    LocalAdapter localAdapter;
 
     @Nullable
     @Override
@@ -51,11 +52,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         View view = inflater.inflate(R.layout.mainfragmentlayout, container, false);
         rv = view.findViewById(R.id.main_rv);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
         loader = view.findViewById(R.id.loader);
         quote_of_day = view.findViewById((R.id.quote_of_day));
         quote_author = view.findViewById(R.id.quote_of_day_author);
-//        quote_of_day.setTypeface(App.applyFont(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setTypeface(App.applyFont(getActivity(), Constants.FONT_ZINGCURSIVE));
         quote_author.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
         quote_of_day.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
@@ -77,7 +76,25 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             }
 
         });
-
+        localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
+            @Override
+            public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getActivity().getWindow().setEnterTransition(new Slide());
+                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(getActivity(),
+                                    view,
+                                    getString(R.string.quotes_author_transistion));
+                    startActivity(intent, options.toBundle());
+                } else {
+                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                    startActivity(intent);
+                }
+            }
+        });
         return view;
     }
 
@@ -87,42 +104,15 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         getLoaderManager().initLoader(0, null, this);
     }
 
-    private void setAdapter(final RecyclerView rv, final ArrayList<Quote> quotes) {
-        if(quotes==null){
-
-        }else {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    rv.setAdapter(new LocalAdapter(
-                            getActivity(),
-                            quotes,
-                            new LocalAdapter.OnQuoteClickListener() {
-                                @Override
-                                public void onQuoteClicked(int position, int color, Quote quote, View view1) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                        getActivity().getWindow().setEnterTransition(new Slide());
-                                        Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                                        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                                        ActivityOptionsCompat options = ActivityOptionsCompat.
-                                                makeSceneTransitionAnimation(getActivity(),
-                                                        view1,
-                                                        getString(R.string.quotes_author_transistion));
-                                        startActivity(intent, options.toBundle());
-                                    } else {
-                                        Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                                        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                                        startActivity(intent);
-                                    }
-                                }
-                            }));
-                    loader.setVisibility(View.GONE);
-                }
-            }).run();
+    private void setAdapter(final ArrayList<Quote> quotes) {
+        if (quotes == null) {
+        } else {
+            localAdapter.addData(quotes);
+            localAdapter.notifyDataSetChanged();
+            rv.setAdapter(localAdapter);
+            loader.setVisibility(View.GONE);
 
         }
-
-
     }
 
     private void getRandomQuotes() {
@@ -178,12 +168,12 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
-        setAdapter(rv, new ArrayList<Quote>(data));
+        setAdapter(new ArrayList<Quote>(data));
     }
 
     @Override
     public void onLoaderReset(Loader<List<Quote>> loader) {
-            setAdapter(rv,null);
+        setAdapter(null);
     }
 
 //    @Override

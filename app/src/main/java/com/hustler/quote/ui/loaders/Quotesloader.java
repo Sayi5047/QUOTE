@@ -23,7 +23,7 @@ public class Quotesloader extends AsyncTaskLoader<List<Quote>> {
 
     @Override
     public List<Quote> loadInBackground() {
-        quotes = new QuotesDbHelper(context).getAllQuotes();
+        quotes = new QuotesDbHelper(context).getQuotesByCategory("Attitude");
         return quotes;
     }
 

@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 //        setAnimation(appBar);
         setAnimation(floatingActionButton);
-        setAnimation(mainPager);
+//        setAnimation(mainPager);
         setAnimation(tab_layout);
     }
 

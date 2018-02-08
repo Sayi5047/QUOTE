@@ -1154,16 +1154,16 @@
     </string-array>
 
     <string-array  name="Wallpaper_update_vals">
-        <item>6000</item>
-        <item>90000</item>
-        <item>180000</item>
-        <item>270000</item>
-        <item>360000</item>
-        <item>540000</item>
-        <item>720000</item>
-        <item>2160000</item>
-        <item>4320000</item>
-        <item>8640000</item>
+        <item>60000</item>
+        <item>900000</item>
+        <item>1800000</item>
+        <item>2700000</item>
+        <item>3600000</item>
+        <item>5400000</item>
+        <item>7200000</item>
+        <item>21600000</item>
+        <item>43200000</item>
+        <item>86400000</item>
     </string-array>
 
 
