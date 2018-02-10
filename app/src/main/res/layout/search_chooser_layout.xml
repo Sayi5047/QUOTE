@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
+                android:imeOptions="actionSearch"
                 android:layout_weight="8"
                 android:background="@drawable/transparent_drawable"
                 android:hint="@string/where_to_search"
@@ -88,7 +89,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rd_group"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="4dp"
+        android:layout_margin="4dp"
+        android:background="@android:color/transparent"
+        >
 
         <RelativeLayout
 
