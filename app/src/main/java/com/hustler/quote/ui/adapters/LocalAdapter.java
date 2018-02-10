@@ -36,6 +36,13 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     public LocalAdapter(Activity activity, ArrayList<Quote> dataFromNet) {
         this.activity = activity;
         this.dataFromNet = dataFromNet;
+        this.dataFromNet=new ArrayList<>();
+    }
+
+    public LocalAdapter(Activity activity, OnQuoteClickListener onQuoteClickListener) {
+        this.activity = activity;
+        this.onQuoteClickListener = onQuoteClickListener;
+        dataFromNet=new ArrayList<Quote>();
     }
 
     public interface OnQuoteClickListener {
@@ -45,6 +52,15 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     @Override
     public LocalViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new LocalViewholder(activity.getLayoutInflater().inflate(R.layout.rv_item, parent, false));
+    }
+
+    public void addData(ArrayList<Quote> extraData) {
+        dataFromNet=new ArrayList<>();
+        for(int i=0;i<extraData.size();i++){
+            dataFromNet.add(extraData.get(i));
+        }
+        notifyItemRangeInserted(0, dataFromNet.size());
+        notifyDataSetChanged();
     }
 
     @Override

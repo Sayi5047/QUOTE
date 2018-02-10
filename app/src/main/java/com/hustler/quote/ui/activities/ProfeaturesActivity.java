@@ -74,9 +74,10 @@ public class ProfeaturesActivity extends BaseActivity implements SharedPreferenc
         pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm_intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),
-                Integer.parseInt(sharedPreferences.getString(getString(R.string.DWL_key2), String.valueOf(60 * 1000))),
+                Integer.parseInt(sharedPreferences.getString(getString(R.string.DWL_key2), String.valueOf(7200000))),
                 pendingIntent);
         Log.i("ALARM SET", "SET");
+        Log.i("ALARM TIME", sharedPreferences.getString(getString(R.string.DWL_key2), String.valueOf(7200000)));
     }
 
     private void stopAlarm(SharedPreferences sharedPreferences) {
