@@ -344,7 +344,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 finalArrayList.addAll(quoteslisttemp[1]);
                 if (finalArrayList.size() <= 0) {
                     loader.setVisibility(View.GONE);
-
                     Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
                 } else {
                     loader.setVisibility(View.GONE);
