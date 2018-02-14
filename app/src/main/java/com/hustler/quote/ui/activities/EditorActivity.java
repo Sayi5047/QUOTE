@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -256,7 +255,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setViews() {
-        if (isFromEdit_Activity == 0) {
+        if (isFromEdit_Activity == 1) {
             quote_editor_body = new TextView(this);
             quote_editor_author = new TextView(this);
             quote_editor_body.setId(addedTextIds);
@@ -335,6 +334,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         return false;
                     }
                 }).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+                selected_picture = geust_image;
             }
         }
     }
@@ -342,13 +342,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void getIntentData() {
         int value = getIntent().getIntExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
         switch (value) {
-            case 0: {
-                isFromEdit_Activity = 0;
+            case 1: {
+                isFromEdit_Activity = 1;
                 quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
             }
             break;
-            case 1: {
-                isFromEdit_Activity = 1;
+            case 0: {
+                isFromEdit_Activity = 0;
                 Intent intent = getIntent();
                 File file;
                 String path = null;
@@ -381,7 +381,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
         }
 
-    }
+      }
 
     private void convertFeatures(String[] valueArray) {
         itemsTo = valueArray;
@@ -1620,7 +1620,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             TextFeatures.setGradients(EditorActivity.this, selectedTextView);
         }
     }
-
 
     private void textFx(String[] array) {
         final TextView selectedTextView = (TextView) selectedView;

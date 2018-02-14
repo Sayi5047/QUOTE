@@ -3,8 +3,6 @@ package com.hustler.quote.ui.activities;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,6 +61,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     TextView profile_name, profile_desc;
     Window window;
     boolean isfromFav = false;
+    ArrayList<String> likedArray_list = new ArrayList<>();
+    boolean is_image_liked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,6 +123,16 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
             @Override
             public void onPageSelected(int position) {
                 WallpapersPagerActivity.this.position = position;
+                if (isfromFav == false) {
+                    if (new ImagesDbHelper(WallpapersPagerActivity.this).check_Fav_Image_Exists(unsplash_images.get(position).getId()) == true) {
+                        fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+                        is_image_liked = true;
+                    } else {
+                        fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+                        is_image_liked = false;
+
+                    }
+                }
             }
 
             @Override
@@ -136,8 +146,16 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
             fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
 
         } else {
+            if (new ImagesDbHelper(this).check_Fav_Image_Exists(unsplash_images.get(position).getId()) == true) {
+                fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+                is_image_liked = true;
+
+            } else {
+                fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+                is_image_liked = false;
+
+            }
             fabShare.setVisibility(View.VISIBLE);
-            fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
 
         }
 
@@ -147,7 +165,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == fabSetLike) {
-            if (isfromFav == true) {
+            if (isfromFav == true || (is_image_liked == true)) {
                 fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
                 new ImagesDbHelper(WallpapersPagerActivity.this).removeFav(unsplash_images.get(position));
             } else {

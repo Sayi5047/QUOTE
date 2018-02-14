@@ -1,16 +1,13 @@
 package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
-import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -32,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,7 +41,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
-import com.hustler.quote.ui.Recievers.AlarmReciever;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.adapters.WallpaperAdapter;
@@ -212,7 +209,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
         setImages(result_rv, query, loader);
 //        setQuotes(result_rv, query, loader);
-
+        search_Query.setText(query);
         TextUtils.findText_and_applyTypeface(root, HomeActivity.this);
         TextUtils.findText_and_applyamim_slideup(root, HomeActivity.this);
 
@@ -347,7 +344,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 finalArrayList.addAll(quoteslisttemp[1]);
                 if (finalArrayList.size() <= 0) {
                     loader.setVisibility(View.GONE);
-
                     Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
                 } else {
                     loader.setVisibility(View.GONE);
@@ -378,12 +374,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        final EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+
+        editText.setHint("Search");
+
+        editText.setHintTextColor(getResources().getColor(android.R.color.white));
+        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    buildDialog_and_search(editText.getText().toString());
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -392,15 +404,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search: {
-           }
+            }
+            break;
             case R.id.action_Pro_features: {
 
-           }
+            }
+            break;
+
             case R.id.action_Pro_about: {
-                Intent intent=new Intent(HomeActivity.this,ProfeaturesActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
                 startActivity(intent);
 
             }
+            break;
+
         }
         return true;
     }

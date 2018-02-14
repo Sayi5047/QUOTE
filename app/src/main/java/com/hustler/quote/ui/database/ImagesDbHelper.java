@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.hustler.quote.ui.pojo.unspalsh.Links;
 import com.hustler.quote.ui.pojo.unspalsh.Profile_image;
@@ -90,7 +91,7 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sqLiteDatabase.delete(Contract.Images.TABLE_NAME, Contract.Images.IMAGE_ID +  " =?" ,new String[]{image.getId()});
+                sqLiteDatabase.delete(Contract.Images.TABLE_NAME, Contract.Images.IMAGE_ID + " =?", new String[]{image.getId()});
                 sqLiteDatabase.close();
 
             }
@@ -142,6 +143,30 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
 //            }
 //        }).run();
 
+    }
+
+    public boolean check_Fav_Image_Exists(String id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        boolean result;
+        Cursor cursor = sqLiteDatabase.query(Contract.Images.TABLE_NAME,
+                null,
+                "image_id =?",
+                new String[]{id}, null, null, null, null);
+
+        if (cursor.getCount() <= 0) {
+            result = false;
+            Log.d("Image exists", "TRUE");
+        } else {
+
+            Log.d("Image exists", "FALSE");
+            result = true;
+
+
+        }
+
+        sqLiteDatabase.close();
+        cursor.close();
+        return result;
     }
 
 }

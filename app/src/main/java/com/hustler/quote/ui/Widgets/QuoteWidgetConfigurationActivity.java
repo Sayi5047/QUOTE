@@ -134,7 +134,7 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
 
     private void startServices() {
         Intent intent_edit = new Intent(this, EditorActivity.class);
-        intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, true);
+        intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         Quote quote = new Gson().fromJson(sharedPreferences.getString(Constants.Widget_current_object, null), Quote.class);
         intent_edit.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, (quote));
 

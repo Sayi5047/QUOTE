@@ -21,7 +21,9 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -39,12 +41,17 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
         this.context = context;
         FavWallpaperAdapter.m_AL_Images = m_AL_Images;
         this.onimageClickListener = onimageClickListener;
+        Set<Unsplash_Image> hs = new HashSet<>();
+        hs.addAll(this.m_AL_Images);
+        this.m_AL_Images.clear();
+        this.m_AL_Images.addAll(hs);
     }
 
     public static void addItems(Unsplash_Image[] images) {
         for (int i = 0; i < images.length; i++) {
             m_AL_Images.add(images[i]);
         }
+
 
     }
 
