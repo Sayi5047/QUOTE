@@ -89,7 +89,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.ProfeaturesActivity"
-            android:label="@string/pro"></activity>
+            android:label="@string/beta"></activity>
 
         <receiver android:name=".ui.Widgets.EditWidgetProvider">
             <intent-filter>

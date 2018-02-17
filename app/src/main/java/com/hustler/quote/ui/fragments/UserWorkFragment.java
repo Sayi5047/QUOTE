@@ -102,30 +102,32 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
             }
         }).run();
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        if (userWorkImages == null) {
+        if (userWorkImages == null || userWorkImages.getImageNames().length<=0 || userWorkImages.getImagesPaths().length<=0) {
             dataView.setVisibility(View.GONE);
             noPermissionView.setVisibility(View.VISIBLE);
             message.setText(getActivity().getString(R.string.no_work));
-        }
-        userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
-            @Override
-            public void onImageClickListneer(int position, String imageName, String imagepath) {
-                try {
-                    android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
-                    buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
-                    Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
-                    Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
-                    Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
-                    Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
+        }else {
+            userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
+                @Override
+                public void onImageClickListneer(int position, String imageName, String imagepath) {
+                    try {
+                        android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
+                        buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
+                        Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
+                        Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
+                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
+                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
+                    }
                 }
-            }
-        });
+            });
 
-        rv.setAdapter(userWorkAdapter);
-        rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
+            rv.setAdapter(userWorkAdapter);
+            rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
+        }
+
     }
 
     private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {

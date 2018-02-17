@@ -174,7 +174,7 @@ public class Constants {
 
                     "War\n" +
                     "Wisdom \n" +
-                    "Women\n" +"Work\n" +
+                    "Women\n" + "Work\n" +
                     "Youth\n";
 
 
@@ -216,8 +216,8 @@ public class Constants {
     public static String Shared_prefs_loaded_images = "shared_prefs_images_loaded_key";
     public static String Shared_prefs_loaded_images_for_service_key = "shared_prefs_images_loaded_for_service_key";
     public static String Shared_prefs_images_loaded_times = "shared_prefs_images_loaded_times_key";
-    public static String Shared_prefs_current_service_image_key="shared_prefs_current_image_key";
-    public static String Shared_prefs_current_service_image_Size_key="shared_prefs_current_images_size_key";
+    public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
+    public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
 
 
 //    UNSPLASH IDS

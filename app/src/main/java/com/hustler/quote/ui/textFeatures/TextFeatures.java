@@ -16,7 +16,6 @@ import android.graphics.PathEffect;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
@@ -1092,6 +1091,7 @@ public class TextFeatures {
         if (Build.VERSION.SDK_INT >= 11) {
             textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
+        val = val <= 0.0f ? 1.0f : val;
         float radius = textView.getTextSize() / val < 0 ? 0 : textView.getTextSize() / val;
         BlurMaskFilter filter = new BlurMaskFilter(radius, style);
         textView.getPaint().setMaskFilter(filter);

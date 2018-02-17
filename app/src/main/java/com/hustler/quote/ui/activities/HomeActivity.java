@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -30,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -362,7 +364,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadAds() {
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("A5B1E467FD401973F9F69AD2CCC13C30").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
     }
@@ -407,7 +409,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
             case R.id.action_Pro_features: {
-
+                Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
+                startActivity(intent);
             }
             break;
 
@@ -417,9 +420,68 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             }
             break;
+            case R.id.action_Pro_credits: {
+                launch_credits_dialog();
+
+            }
+            break;
+            case R.id.action_Pro_write: {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "quotzyapp@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+            }
+            break;
+            case R.id.action_Pro_rate: {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "quotzyapp@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+            }
+            break;
 
         }
         return true;
+    }
+
+    private void launch_credits_dialog() {
+        final Dialog dialog = new Dialog(HomeActivity.this, R.style.EditTextDialog_non_floater);
+        dialog.setContentView(R.layout.credits_dialog_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+//        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(andro));
+        dialog.setCancelable(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary));
+        }
+        final RelativeLayout root = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
+        final Button bt_cose = (Button) dialog.findViewById(R.id.bt_close);
+        TextUtils.findText_and_applyTypeface(root, HomeActivity.this);
+        dialog.show();
+        TextUtils.findText_and_applyamim_slideup(root,HomeActivity.this);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+                    TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
+                    dialog.dismiss();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        bt_cose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
+                dialog.dismiss();
+            }
+        });
+
     }
 
     @Override

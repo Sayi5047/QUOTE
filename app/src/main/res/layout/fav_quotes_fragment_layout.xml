@@ -26,9 +26,9 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_centerInParent="true"
-            android:foregroundGravity="center"
             android:src="@drawable/ic_quote_animation"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/Quotzy"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

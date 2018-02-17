@@ -29,12 +29,15 @@
             android:summary="@string/download_over_wifi_desc"
             android:title="@string/download_wifi" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Dialy Notification">
+    <PreferenceCategory android:title="Dialy Notification"
+        android:shouldDisableView="true">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="@string/DNT_key1"
             android:summary="Enabled"
+            android:visibility="invisible"
+            android:shouldDisableView="true"
             android:title="Dialy Notification" />
 
     </PreferenceCategory>

@@ -10,7 +10,6 @@
     android:orientation="vertical"
     app:cardUseCompatPadding="true"
     android:transitionName="@string/quotes_author_transistion"
-
     app:cardCornerRadius="@dimen/elevation16"
 
     >

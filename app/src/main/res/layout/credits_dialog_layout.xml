@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/root_Rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/font_ctedit_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
+            android:text="@string/fonts"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font1" />
+
+        <TextView
+            android:id="@+id/font_credit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/font_ctedit_head"
+            android:padding="16dp"
+            android:text="@string/font_confession" />
+
+        <TextView
+            android:id="@+id/Image_ctedit_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/font_credit_text"
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
+            android:text="@string/images"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font1" />
+
+        <TextView
+            android:id="@+id/Image_credit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Image_ctedit_head"
+            android:padding="16dp"
+            android:text="@string/Image_confession" />
+
+        <TextView
+            android:id="@+id/Quotes_ctedit_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Image_credit_text"
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
+            android:text="@string/Quotes"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font1" />
+
+        <TextView
+            android:id="@+id/Quote_credit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Quotes_ctedit_head"
+            android:padding="16dp"
+            android:text="@string/Quote_confession" />
+
+        <TextView
+            android:id="@+id/Icons_ctedit_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Quote_credit_text"
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
+            android:text="@string/Icons"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font1" />
+
+        <TextView
+            android:id="@+id/Icons_credit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Icons_ctedit_head"
+            android:padding="16dp"
+            android:text="@string/Icon_confession" />
+
+        <Button
+            android:id="@+id/bt_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/Icons_credit_text"
+            android:background="@drawable/rounded_rect"
+            android:text="@string/close"
+            android:layout_margin="16dp"/>
+
+    </RelativeLayout>
+
+
+</ScrollView>
