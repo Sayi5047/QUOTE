@@ -75,6 +75,7 @@ import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.AnimUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.ImageProcessingUtils;
+import com.hustler.quote.ui.utils.InternetUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
@@ -381,7 +382,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
         }
 
-      }
+    }
 
     private void convertFeatures(String[] valueArray) {
         itemsTo = valueArray;
@@ -599,7 +600,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             adjustFrameWidth(array);
 
         } else if (feature.equalsIgnoreCase(array[8])) {
-            shadowText(array);
+            final TextView selectedTextView = (TextView) selectedView;
+            if(selectedTextView!=null && selectedTextView.getPaint().getMaskFilter()!=null){
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.cant_apply));
+            }else {
+                shadowText(array);
+            }
         } else if (feature.equalsIgnoreCase(array[9])) {
             applyFont(array);
         } else if (feature.equalsIgnoreCase(array[10])) {
@@ -609,7 +615,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     .getDefaultSharedPreferences(EditorActivity.this)
                     .getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
         } else if (feature.equalsIgnoreCase(array[12])) {
-            textFx(array);
+            final TextView selectedTextView = (TextView) selectedView;
+
+            if(selectedTextView!=null && selectedTextView.getShadowDx()>=1){
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.remove_shadow));
+            }else {
+                textFx(array);
+
+            }
         } else if (feature.equalsIgnoreCase(array[13])) {
 //            hollowText(array);
         }
@@ -746,6 +759,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quoteLayout.setElevation(4f);
         }
+        if(selected_picture!=null){
+            imageView_background.setBackground(null);
+            Glide.with(EditorActivity.this).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+        }
         dialog.dismiss();
     }
 
@@ -783,7 +800,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
             current_Bg_feature = bgfeaturesArray[6];
 //            selected_picture = null;
-            seachImages();
+            if(InternetUtils.isConnectedtoNet(EditorActivity.this)==true){
+                seachImages();
+            }else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.internet_required_images));
+            }
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
 
         }

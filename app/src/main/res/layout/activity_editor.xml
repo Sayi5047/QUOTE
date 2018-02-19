@@ -164,9 +164,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="4dp"
                 android:alpha="0.6"
+                android:visibility="visible"
                 android:background="@android:color/background_light"
                 android:elevation="4dp"
-                android:text="Image from Unsplash.com"
+                android:text="@string/Quotzy"
                 android:textAlignment="center"
                 android:textColor="@color/textColor" />
 

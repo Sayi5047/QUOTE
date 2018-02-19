@@ -2,10 +2,13 @@ package com.hustler.quote.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.SparseLongArray;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,7 +48,9 @@ public class SplashActivity extends BaseActivity {
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         tv.setTypeface(App.applyFont(this, Constants.FONT_multicolore));
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.getWindow().setStatusBarColor(ContextCompat.getColor(SplashActivity.this, android.R.color.white));
+        }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
         if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
             setCounter_and_launch();

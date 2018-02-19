@@ -20,7 +20,7 @@ public class AdUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice("A5B1E467FD401973F9F69AD2CCC13C30").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
                 adView.loadAd(adRequest);
                 adView.setAdListener(new AdListener() {
                     @Override
@@ -62,7 +62,7 @@ public class AdUtils {
 
     public static void loadRewardAd(final RewardedVideoAd adView, final Activity activity) {
 
-        adView.loadAd(activity.getString(R.string.rewardAdId), new AdRequest.Builder().addTestDevice("A5B1E467FD401973F9F69AD2CCC13C30").build());
+        adView.loadAd(activity.getString(R.string.rewardAdId), new AdRequest.Builder().build());
 
     }
 }

@@ -101,7 +101,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        android:visibility="gone"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/bannerAdId"
         ads:layout_anchorGravity="bottom">

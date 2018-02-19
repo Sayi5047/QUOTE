@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name"> Quotes</string>
+    <string name="app_name">Quotzy</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -193,6 +193,17 @@
     <string name="download_wifi">Download Over Wifi</string>
     <string name="change_wallpaper_at">Wallpaper change time gap</string>
     <string name="DWL_key4">DWL_key4</string>
+    <string name="remove_shadow">Remove shadow of the text to apply features</string>
+    <string name="cant_apply">Cant apply shadow</string>
+    <string name="internet_required_images">Internet is required to download images</string>
+    <string name="beta">Beta features</string>
+    <string name="rate_us">Rate us</string>
+    <string name="fonts">Fonts</string>
+    <string name="font_confession">All in app fonts are downloaded from web and Dafont.com ,Editor fonts are provided by google api ,if you want to use your custom fonts please dont forget to read TnC</string>
+    <string name="Image_confession">All images are provided by Unsplash.com and the Editor search images are provided by pixabay.com </string>
+    <string name="Quote_confession">All quotes you can see in this app are Collected from internet</string>
+    <string name="Icons">Icons</string>
+    <string name="Icon_confession">,All icons are downloaded from internet and Flaticon.com</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
