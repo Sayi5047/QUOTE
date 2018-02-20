@@ -19,7 +19,6 @@ import com.android.volley.toolbox.Volley;
 public class MySingleton {
 
 
-
     private static final int VOLLEY_MAX_RETRIES = 0;
     private static MySingleton mInstance;
     private static Context mCtx;
@@ -62,7 +61,9 @@ public class MySingleton {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context.getApplicationContext()).getRequestQueue().add(jsObjRequest);
 
-    }public static void addJsonArrayObjRequest(Context context, JsonArrayRequest jsObjRequest) {
+    }
+
+    public static void addJsonArrayObjRequest(Context context, JsonArrayRequest jsObjRequest) {
         jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 10,
                 VOLLEY_MAX_RETRIES,
