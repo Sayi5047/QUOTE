@@ -601,9 +601,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         } else if (feature.equalsIgnoreCase(array[8])) {
             final TextView selectedTextView = (TextView) selectedView;
-            if(selectedTextView!=null && selectedTextView.getPaint().getMaskFilter()!=null){
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.cant_apply));
-            }else {
+            if (selectedTextView != null && selectedTextView.getPaint().getMaskFilter() != null) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.cant_apply));
+            } else {
                 shadowText(array);
             }
         } else if (feature.equalsIgnoreCase(array[9])) {
@@ -617,9 +617,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[12])) {
             final TextView selectedTextView = (TextView) selectedView;
 
-            if(selectedTextView!=null && selectedTextView.getShadowDx()>=1){
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.remove_shadow));
-            }else {
+            if (selectedTextView != null && selectedTextView.getShadowDx() >= 1) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.remove_shadow));
+            } else {
                 textFx(array);
 
             }
@@ -759,7 +759,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quoteLayout.setElevation(4f);
         }
-        if(selected_picture!=null){
+        if (selected_picture != null) {
             imageView_background.setBackground(null);
             Glide.with(EditorActivity.this).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
         }
@@ -800,10 +800,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
             current_Bg_feature = bgfeaturesArray[6];
 //            selected_picture = null;
-            if(InternetUtils.isConnectedtoNet(EditorActivity.this)==true){
+            if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
                 seachImages();
-            }else {
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this,getString(R.string.internet_required_images));
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));
             }
         } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
 

@@ -908,7 +908,8 @@ public class TextFeatures {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 /*alpha applies between 0 to 1*/
                 opacity[0] = (0f);
-                opacity[2] = (progress * 0.2f > 1.0f ? 1.0f : progress * 0.2f);
+                opacity[2] = (0.8f);
+
                 if (selectedVfx[0] == 0) {
                     opacity[1] = 1;
                     applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
@@ -951,7 +952,8 @@ public class TextFeatures {
         lightingStrngthSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                radius[0] = progress;
+                radius[0] = progress%10;
+
                 if (selectedVfx[0] == 1) {
                     opacity[1] = 1;
                     applyFilter(demoShadowText, opacity, radius[0], x[0], y[0]);
