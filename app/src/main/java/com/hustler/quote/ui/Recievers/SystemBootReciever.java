@@ -36,7 +36,7 @@ public class SystemBootReciever extends BroadcastReceiver {
             notif_pending_intent = PendingIntent.getBroadcast(context, 1, notif_alarm_intent, 0);
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                     SystemClock.elapsedRealtime(),
-                    (60 * 1000),
+                    (600 * 1000),
                     notif_pending_intent);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
