@@ -10,7 +10,7 @@ import android.view.View;
 
 public class WallpaperPageTransformer implements ViewPager.PageTransformer {
     private int border = 0;
-    private float speed = 0.2f;
+    private float speed = 0.8f;
     int imageId;
 
     public WallpaperPageTransformer(int imageId) {

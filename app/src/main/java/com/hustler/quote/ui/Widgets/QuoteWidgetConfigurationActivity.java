@@ -231,24 +231,26 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
             }
         }
     }
-    public class Bootreciever extends BroadcastReceiver {
-        public Bootreciever() {
-        }
-
-        @Override
-
-        public void onReceive(Context context, Intent intent) {
-        Toast_Snack_Dialog_Utils.show_ShortToast(QuoteWidgetConfigurationActivity.this, "DEVICE SUCCESSFULLY BOOTED");
-
-            if(sharedPreferences.getBoolean(context.getString(R.string.widget_added_key),false)==true){
-                Log.d("PREFERNCE LOADED",String.valueOf(sharedPreferences.getBoolean(context.getString(R.string.widget_added_key),false)));
-                startServices();
-            }
-            else {
-
-            }
-        }
-    }
+//    public class Bootreciever extends BroadcastReceiver {
+//
+//
+//        public Bootreciever() {
+//        }
+//
+//        @Override
+//
+//        public void onReceive(Context context, Intent intent) {
+//        Toast_Snack_Dialog_Utils.show_ShortToast(QuoteWidgetConfigurationActivity.this, "DEVICE SUCCESSFULLY BOOTED");
+//
+//            if(sharedPreferences.getBoolean(context.getString(R.string.widget_added_key),false)==true){
+//                Log.d("PREFERNCE LOADED",String.valueOf(sharedPreferences.getBoolean(context.getString(R.string.widget_added_key),false)));
+//                startServices();
+//            }
+//            else {
+//
+//            }
+//        }
+//    }
     @Override
     protected void onStart() {
         super.onStart();

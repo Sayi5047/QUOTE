@@ -106,7 +106,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 
         public LocalViewholder(View itemView) {
             super(itemView);
-            rootView = itemView.findViewById(R.id.root_ll);
+            rootView = itemView.findViewById(R.id.root_layout);
             cardView = itemView.findViewById(R.id.iv_quote_card_root);
             imageView = itemView.findViewById(R.id.fav_iv);
 

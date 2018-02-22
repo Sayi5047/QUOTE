@@ -102,8 +102,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             ((Animatable) drawable).start();
         }
 
-//        tv_Quote_Author.setTypeface(App.applyFont(QuoteDetailsActivity.this, Constants.FONT_ZINGCURSIVE));
-//        tv_Quote_Body.setTypeface(App.applyFont(QuoteDetailsActivity.this, Constants.FONT_ZINGSANS));
+//        tv_Quote_Author.setTypeface(App.applyFont(QuoteDetailsActivity.this, Shared_prefs_constants.FONT_ZINGCURSIVE));
+//        tv_Quote_Body.setTypeface(App.applyFont(QuoteDetailsActivity.this, Shared_prefs_constants.FONT_ZINGSANS));
         TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
 
         fab_edit = findViewById(R.id.fab_edit);
@@ -138,7 +138,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void getIntentData() {
-//        Bundle bundle=getIntent().getBundleExtra(Constants.BUNDLE_OBJECT);
+//        Bundle bundle=getIntent().getBundleExtra(Shared_prefs_constants.BUNDLE_OBJECT);
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
         int length = quote.getQuote_body().length();

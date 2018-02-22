@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hustler.quote">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -78,8 +79,10 @@
             android:name=".ui.activities.LanderActivty"
             android:screenOrientation="portrait"
             android:theme="@style/NoStatusBar" />
-        <activity android:name=".ui.activities.MyPreferenceActivity"></activity>
-        <activity android:name=".ui.Widgets.QuoteWidgetConfigurationActivity">
+        <activity android:name=".ui.activities.MyPreferenceActivity" />
+        <activity
+            android:name=".ui.Widgets.QuoteWidgetConfigurationActivity"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -89,9 +92,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.ProfeaturesActivity"
-            android:label="@string/beta"></activity>
+            android:label="@string/beta" />
 
-        <receiver android:name=".ui.Widgets.EditWidgetProvider">
+        <receiver
+            android:name=".ui.Widgets.EditWidgetProvider"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -102,7 +107,9 @@
             </meta-data>
 
         </receiver>
-        <receiver android:name=".ui.Widgets.EditWidgetProvider2">
+        <receiver
+            android:name=".ui.Widgets.EditWidgetProvider2"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -110,7 +117,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/second_widget_info" />
         </receiver>
-        <receiver android:name=".ui.Widgets.QuoteWidgetConfigurationActivity$Bootreciever">
+        <!--<receiver android:name=".ui.Widgets.QuoteWidgetConfigurationActivity$Bootreciever">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <receiver android:name=".ui.Recievers.SystemBootReciever">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -120,7 +132,12 @@
                 <action android:name="com.hustler.quote.ui.Services.NotificationCustomListener_Service.NOTIFICATION_TAG" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".ui.Recievers.AlarmReciever"></receiver>
+        <receiver
+            android:name=".ui.Recievers.AlarmReciever"
+            tools:ignore="InnerclassSeparator" />
+        <receiver
+            android:name=".ui.Recievers.NotifAlarmReciever"
+            tools:ignore="InnerclassSeparator" />
 
         <service
             android:name=".ui.livewallpaper.MyWallpaperService"
@@ -128,19 +145,28 @@
             android:label="My Wallpaper"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
-                <action android:name="android.service.wallpaper.WallpaperService"></action>
+                <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>
 
             <meta-data
                 android:name="android.service.wallpaper"
-                android:resource="@xml/mywallpaper"></meta-data>
+                android:resource="@xml/mywallpaper" />
         </service>
-        <service android:name=".ui.Services.RandomQuoteUpdateService" />
+        <service
+            android:name=".ui.Services.RandomQuoteUpdateService"
+            tools:ignore="InnerclassSeparator" />
 
-        <service android:name=".ui.Services.DownloadImageService"></service>
+        <service
+            android:name=".ui.Services.DownloadImageService"
+            tools:ignore="InnerclassSeparator" />
         <service
             android:name=".ui.Services.DailyWallpaperService"
-            android:exported="false"></service>
+            android:exported="false"
+            tools:ignore="InnerclassSeparator" />
+        <service
+            android:name=".ui.Services.DailyNotificationService"
+
+            tools:ignore="InnerclassSeparator" />
     </application>
 
 </manifest>

@@ -54,6 +54,7 @@ public class DailyWallpaperService extends IntentService {
 
         if (sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature").equals("Favourites")) {
             images = new ImagesDbHelper(getApplicationContext()).getAllFav();
+//            IF USER SELECTS FAV BUT HE HAS NO FAV LIST IN DB THEN WE CALL API WITH NATURE IMAGES
             if (images == null || images.size() <= 0) {
                 callApi(sharedPreferences, editor, "Nature", intent);
                 editor.putString(getResources().getString(R.string.DWL_key3), "Nature");

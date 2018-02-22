@@ -15,7 +15,7 @@
     >
 
     <LinearLayout
-        android:id="@+id/root_ll"
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

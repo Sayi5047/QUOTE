@@ -127,7 +127,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 //                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                            getActivity().getWindow().setEnterTransition(new Slide());
 //                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-//                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
+//                            intent.putExtra(Shared_prefs_constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
 //                            ActivityOptionsCompat options = ActivityOptionsCompat.
 //                                    makeSceneTransitionAnimation(getActivity(),
 //                                            view,
@@ -135,7 +135,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 //                            startActivity(intent, options.toBundle());
 //                        } else {
 //                            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-//                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
+//                            intent.putExtra(Shared_prefs_constants.INTENT_QUOTE_OBJECT_KEY, quotesFromFC);
 //                            startActivity(intent);
 //                        }
 //

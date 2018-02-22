@@ -122,7 +122,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         public MainViewHolder(View itemView) {
             super(itemView);
-            rootView = itemView.findViewById(R.id.root_ll);
+            rootView = itemView.findViewById(R.id.root_layout);
             cardView = itemView.findViewById(R.id.iv_quote_card_root);
             iv = itemView.findViewById(R.id.fav_iv);
             cardView.setClipToPadding(true);

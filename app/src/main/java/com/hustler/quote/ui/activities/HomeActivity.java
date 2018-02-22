@@ -507,10 +507,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //            close_tv = (TextView) dialog.findViewById(R.id.close_tv);
 //            select_tv = (TextView) dialog.findViewById(R.id.select_tv);
 //
-//            TextUtils.setFont(HomeActivity.this, quote_tv, Constants.FONT_CIRCULAR);
-//            TextUtils.setFont(HomeActivity.this, meme_tv, Constants.FONT_CIRCULAR);
-//            TextUtils.setFont(HomeActivity.this, close_tv, Constants.FONT_CIRCULAR);
-//            TextUtils.setFont(HomeActivity.this, select_tv, Constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, quote_tv, Shared_prefs_constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, meme_tv, Shared_prefs_constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, close_tv, Shared_prefs_constants.FONT_CIRCULAR);
+//            TextUtils.setFont(HomeActivity.this, select_tv, Shared_prefs_constants.FONT_CIRCULAR);
 //
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                @Override
@@ -538,7 +538,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                    // TODO: 02-12-2017 implement to go quotes editor
 //                    dialog.dismiss();
 //                    Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
-//                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
+//                    intent.putExtra(Shared_prefs_constants.INTENT_IS_FROM_EDIT_KEY, 1);
 //                    startActivity(intent);
 //                }
 //            });

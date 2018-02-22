@@ -218,6 +218,7 @@ public class Constants {
     public static String Shared_prefs_images_loaded_times = "shared_prefs_images_loaded_times_key";
     public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
+    public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG="is_download_intent_alarm_key";
 
 
 //    UNSPLASH IDS

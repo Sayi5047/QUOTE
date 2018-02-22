@@ -53,8 +53,8 @@ public class Restutility {
 
 //
 //    public void getRandomQuotes(final Context context, final QuotesApiResponceListener listener) {
-//        logtheRequest(Constants.API_FAVQ_RANDOM_QUOTES);
-//        JsonObjectRequest jsonObjectRequest = new JsonArrayRequestwithAuthHeader(Request.Method.GET, Constants.API_FAVQ_RANDOM_QUOTES, null,
+//        logtheRequest(Shared_prefs_constants.API_FAVQ_RANDOM_QUOTES);
+//        JsonObjectRequest jsonObjectRequest = new JsonArrayRequestwithAuthHeader(Request.Method.GET, Shared_prefs_constants.API_FAVQ_RANDOM_QUOTES, null,
 //                new Response.Listener<JSONObject>() {
 //                    @Override
 //                    public void onResponse(JSONObject response) {
