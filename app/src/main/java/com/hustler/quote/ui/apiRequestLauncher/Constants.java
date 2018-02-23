@@ -49,133 +49,134 @@ public class Constants {
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
+
     public static final String CATEGORIES_STRING =
-
-
-            "Age\n" +
+                    "Age\n" +
                     "Alone\n" +
                     "Anger\n" +
                     "Architecture\n" +
                     "Art\n" +
                     "Attitude\n" +
                     "Beauty\n" +
-
                     "Belief\n" +
                     "Bible\n" +
                     "Books\n" +
                     "Brave\n" +
                     "Business\n" +
                     "Cats\n" +
-//                    DONE
-                    "Chance\n" +
+
+
+
                     "Change\n" +
+                    "Character\n" +
                     "Communication\n" +
                     "Computers\n" +
                     "Creativity\n" +
-                    "Dignity\n" +
 
+                    "Dignity\n" +
                     "Duty\n" +
                     "Death\n" +
                     "Design\n" +
                     "Diet\n" +
                     "Dreams\n" +
-                    "Effort\n" +
 
+                    "Effort\n" +
                     "Education\n" +
                     "Environmental\n" +
                     "Equality\n" +
                     "Experience\n" +
+
                     "Failure\n" +
                     "Faith\n" +
-
                     "Family\n" +
                     "Father\n" +
                     "Fear\n" +
                     "Food\n" +
-                    "Forgive\n" +
+                    "Forgiveness\n" +
                     "Freedom\n" +
-
                     "Friendship\n" +
                     "Future\n" +
-                    "Gardening\n" +
-                    "God\n" +
+
                     "Good\n" +
                     "Government\n" +
-
                     "Gratitude\n" +
                     "Great\n" +
+
                     "Happiness\n" +
                     "Health\n" +
                     "History\n" +
                     "Home\n" +
-
                     "Hope\n" +
                     "Humor\n" +
+
                     "Imagination\n" +
                     "Independence\n" +
                     "Inspirational\n" +
                     "Intelligence\n" +
 
                     "Joy\n" +
+
                     "Knowledge\n" +
                     "Kindness\n" +
+
                     "Leadership\n" +
                     "Learning\n" +
                     "Legacy\n" +
+                    "Life \n" +
+                    "Love \n" +
 
-                    "Life Favorite\n" +
-                    "Love Favorite\n" +
                     "Marriage\n" +
                     "Medical\n" +
                     "Memory\n" +
                     "Men\n" +
-
                     "Mom\n" +
                     "Money\n" +
                     "Mercy\n" +
                     "Motivational \n" +
-                    "Movies\n" +
+                    "Morals\n" +
                     "Music\n" +
 
                     "Nature\n" +
-                    "New Year's\n" +
+                    "New Year\n" +
+
                     "Parenting\n" +
                     "Patience\n" +
                     "Patriotism\n" +
                     "Peace\n" +
-
                     "Poetry\n" +
                     "Politics\n" +
                     "Potential\n" +
                     "Power\n" +
-                    "Reputation\n" +
 
+                    "Reputation\n" +
                     "Religion\n" +
                     "Respect\n" +
                     "Romantic\n" +
-                    "Sad\n" +
-                    "Saint Patrick's Day\n" +
-                    "Science\n" +
 
+                    "Sad\n" +
+                    "Sex\n" +
+                    "Science\n" +
                     "Smile\n" +
                     "Society\n" +
                     "Sports\n" +
                     "Strength\n" +
                     "Success \n" +
-
-
                     "Sympathy\n" +
+
                     "Teacher\n" +
                     "Thankful\n" +
-
                     "Time\n" +
                     "Trust\n" +
                     "Truth\n" +
 
                     "War\n" +
                     "Wisdom \n" +
-                    "Women\n" + "Work\n" +
-                    "Youth\n";
+                    "Women\n" +
+                    "Work\n" +
+
+                    "Youth\n"
+//                    DONE
+            ;
 
 
     //ORIGINAL
@@ -218,7 +219,7 @@ public class Constants {
     public static String Shared_prefs_images_loaded_times = "shared_prefs_images_loaded_times_key";
     public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
-    public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG="is_download_intent_alarm_key";
+    public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG = "is_download_intent_alarm_key";
 
 
 //    UNSPLASH IDS

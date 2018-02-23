@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by Sayi on 07-10-2017.

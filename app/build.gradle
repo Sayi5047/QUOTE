@@ -8,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.000001"
 
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
@@ -19,11 +19,34 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+//        debug {
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+    }
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each { output ->
+                output.outputFile = new File(
+                        output.outputFile.parent,
+                        output.outputFile.name.replace("$APK_EXTENSION", "$APK_PREFIX"+"$SEPERATOR" + getDate() + "$APK_EXTENSION"))
+            }
     }
 }
 ext {
     supportLibVersion = '26.0.1'
+    SEPERATOR = '-'
+    APK_EXTENSION = '.apk'
+    RELEASE = 'release'
+    DEBUG = 'debug'
+    APK_PREFIX = 'quotzy'
 }
+
+
+def getDate() {
+    return new Date().format('ddMMMyy')
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -45,6 +68,5 @@ dependencies {
     compile 'org.jetbrains:annotations-java5:15.0'
     compile 'com.google.android.gms:play-services-ads:11.8.0'
     compile 'com.pes.materialcolorpicker:library:1.2.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     testCompile 'junit:junit:4.12'
 }

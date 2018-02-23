@@ -145,7 +145,7 @@ public class ProfeaturesActivity extends BaseActivity implements SharedPreferenc
     }
 
     private void stopAlarmForNotifications() {
-        notif_alarm_intent = new Intent(getApplicationContext(), AlarmReciever.class);
+        notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
         notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
         alarmManager.cancel(notif_pending_intent);
         SharedPreferences.Editor editor = sharedPreferences.edit();

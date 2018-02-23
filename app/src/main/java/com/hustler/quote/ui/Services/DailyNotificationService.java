@@ -23,6 +23,7 @@ public class DailyNotificationService extends IntentService {
     android.support.v4.app.NotificationCompat.Builder mNotification_Builder;
     NotificationManager mNotificationManager;
     List<Quote> quotes;
+    int val;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -45,20 +46,25 @@ public class DailyNotificationService extends IntentService {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    quotes = new QuotesDbHelper(getApplicationContext()).getAllFav_Quotes();
+                    quotes = new QuotesDbHelper(getApplicationContext()).getQuotesByCategory("Bible");
                 }
             }).run();
         } else {
 
         }
-        int val = new Random().nextInt(quotes.size());
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotification_Builder = new NotificationCompat.Builder(this);
-        mNotification_Builder
-                .setContentTitle("QUOTZY")
-                .setContentText(quotes.get(val).getQuote_body() + " -- " + quotes.get(val).getQuote_author())
-                .setSmallIcon(R.drawable.ic_launcher);
-        mNotificationManager.notify(1, mNotification_Builder.build());
+        if (quotes.size() <= 0) {
+            return;
+        } else {
+            val = new Random().nextInt(quotes.size());
+            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotification_Builder = new NotificationCompat.Builder(this);
+            mNotification_Builder
+                    .setContentTitle("QUOTZY")
+                    .setContentText(quotes.get(val).getQuote_body() + " -- " + quotes.get(val).getQuote_author())
+                    .setSmallIcon(R.drawable.ic_launcher);
+            mNotificationManager.notify(1, mNotification_Builder.build());
+        }
+
     }
 
 
