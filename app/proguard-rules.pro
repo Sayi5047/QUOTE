@@ -19,7 +19,10 @@
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
-
+#not obuscating for debugging
+#-dontobfuscate
+-optimizations !class/unboxing/enum
+-optimizationpasses 3
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
@@ -32,3 +35,16 @@
 # Add this global rule
 -keepattributes Signature
 -keep  class com.hustler.** { *; }
+-dontwarn com.squareup.okhttp.**
+#GLIDE
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+# Uncomment for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+

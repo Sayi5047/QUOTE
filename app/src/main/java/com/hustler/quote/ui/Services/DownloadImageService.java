@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.app.WallpaperManager;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.Recievers.NotifcationReciever;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
@@ -94,18 +94,6 @@ public class DownloadImageService extends Service {
         Log.d("Notification got killed", "KILLED");
     }
 
-    public class NotifcationReciever extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String evet = intent.getStringExtra(NotificationCustomListener_Service.NOTIFICATION_EVENT_KEY);
-            Log.i(" NOTIFICATIOn DETAILS", evet);
-            if (evet.trim().equalsIgnoreCase(NotificationCustomListener_Service.NOTIFICATION_POSTED_REMOVED_FLAG_VALUE)) {
-                killAllNotifs();
-            }
-
-        }
-    }
 
     private void killAllNotifs() {
         // TODO: 28-01-2018 DESTROY DOWNLOADING TASK

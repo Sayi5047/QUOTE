@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="quote_authors">
+
+
+
+
+
+
         <item>Proverb</item>
         <item>Archibald Alexander</item>
         <item>Mary Kay Ash</item>
@@ -9,9 +15,6 @@
         <item>Napoleon Bonaparte</item>
         <item>Harriet Braiker</item>
         <item>Les Brown</item>
-
-        <!--ALONE-->
-
         <item>Italian Proverb</item>
         <item>Anon.</item>
         <item>Proverb</item>
@@ -36,7 +39,6 @@
         <item>Sebastian Roch Nicolas Chamfort</item>
         <item>James Champy</item>
         <item>Marcus Tullius Cicero</item>
-        <!--ANGRY-->
         <item>Chinese Proverb</item>
         <item>Anon.</item>
         <item>Proverb</item>
@@ -62,8 +64,6 @@
         <item>George R. Bach</item>
         <item>Francis Bacon</item>
         <item>James Baldwin</item>
-        <!--<Architecture>-->
-
         <item>Guillaume Apollinaire</item>
         <item>Nancy Banks-Smith</item>
         <item>Colleen C. Barrett</item>
@@ -89,9 +89,6 @@
         <item>Walter Gropius</item>
         <item>Benjamin Haydon</item>
         <item>Sir Geoffrey Jellicoe</item>
-
-
-        <!--ART-->
         <item> Theodor Wiesengrund Adorno</item>
         <item> Lindsay Anderson</item>
         <item> Guillaume Apollinaire</item>
@@ -117,10 +114,6 @@
         <item> Saul Bellow</item>
         <item> Walter Benjamin</item>
         <item> John Berger</item>
-
-
-        <!--ATTITUDE-->
-
         <item> Scottish Proverb</item>
         <item> Joseph Addison</item>
         <item> Julie Andrews</item>
@@ -259,8 +252,6 @@
         <item>Zig Ziglar</item>
         <item>Zig Ziglar</item>
         <item>Zig Ziglar</item>
-
-        <!--Beauty-->
         <item>English Proverb</item>
         <item>Proverb</item>
         <item>Proverb</item>
@@ -286,7 +277,6 @@
         <item>Max Beerbohm</item>
         <item>Walter Benjamin</item>
         <item>Al Bernstein</item>
-
         <item>Anon.</item>
         <item>Japanese Proverb</item>
         <item>Anon.</item>
@@ -419,6 +409,2383 @@
         <item>Garrison Keillor</item>
         <item>Ann Landers</item>
         <item>Doris Lessing</item>
+        <item>Henry Adams</item>
+        <item>James Allen</item>
+        <item>Greg Anderson</item>
+        <item>Mario Andretti</item>
+        <item>Bible</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Christian Nevell Bovee</item>
+        <item>Harry Browne</item>
+        <item>George Earle Buckle</item>
+        <item>Leo Buscaglia</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Jackie Chan</item>
+        <item>Bart Conner</item>
+        <item>Parks Cousins</item>
+        <item>Stephen Covey</item>
+        <item>William Cowper</item>
+        <item>Jacques Delille</item>
+        <item>Jack Dempsey</item>
+        <item>Benjamin Disraeli</item>
+        <item>Cotton Fitzsimmons</item>
+        <item>Michel Foucault</item>
+        <item>C. H. Fowler</item>
+        <item>Anatole France</item>
+        <item>Anatole France</item>
+        <item>Thomas Fuller</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Saul Alinsky</item>
+        <item>Mary S. Almanac</item>
+        <item>Lisa Alther</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Maya Angelou</item>
+        <item>Maya Angelou</item>
+        <item>Isaac Asimov</item>
+        <item>Nancy Astor</item>
+        <item>Marcus Aurelius</item>
+        <item>Francis Bacon</item>
+        <item>Pearl Bailey</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>James Barrie</item>
+        <item>Bruce Barton</item>
+        <item>Augusto Roa Bastos</item>
+        <item>Jean Baudrillard</item>
+        <item>Simone de Beauvoir</item>
+        <item>African Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Anon.</item>
+        <item>American Indian Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Lyman Abbott</item>
+        <item>Lyman Abbott</item>
+        <item>Lord John Emerich Edward Dalberg Acton</item>
+        <item>George M. Adams</item>
+        <item>Aeschylus</item>
+        <item>Akhenaton</item>
+        <item>Akhenaton</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Thomas Aquinas</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Earl of Arran</item>
+        <item>Fred Astaire</item>
+        <item>John Atkinson</item>
+        <item>Marcus Aurelius</item>
+        <item>Decimus Magnus Ausonius</item>
+        <item>Italian Proverb</item>
+        <item>Proverb</item>
+        <item>Creighton Abrams</item>
+        <item>George Ade</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Sylvia Ashton Warner</item>
+        <item>Sylvia Ashton Warner</item>
+        <item>Isaac Asimov</item>
+        <item>Russell Baker</item>
+        <item>J. G. Ballard</item>
+        <item>John Banham</item>
+        <item>Bernard Baruch</item>
+        <item>Alexander Graham Bell</item>
+        <item>Robert Benchley</item>
+        <item>Gael Boardman</item>
+        <item>Erma Bombeck</item>
+        <item>Pearl Buck</item>
+        <item>Bruce Burton</item>
+        <item>Albert Camus</item>
+        <item>Dale Carnegie</item>
+        <item>Dale Carnegie</item>
+        <item>Miguel de Cervantes</item>
+        <item>Anton Chekhov</item>
+        <item>Sir Winston Churchill</item>
+        <item>Sir Winston Churchill</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon. , </item>
+        <item>Anon.</item>
+        <item>Douglas Adams</item>
+        <item>Howard Aiken</item>
+        <item>Howard Aiken</item>
+        <item>Isaac Asimov</item>
+        <item>Isaac Asimov</item>
+        <item>Norman Augustine</item>
+        <item>J. G. Ballard</item>
+        <item>Dave Barry</item>
+        <item>Dave Barry</item>
+        <item>Jean Baudrillard</item>
+        <item>Jean Baudrillard</item>
+        <item>Nathaniel Borenstein</item>
+        <item>Bob Boschert</item>
+        <item>Japanese Proverb</item>
+        <item>Scott Adams</item>
+        <item>Scott Adams</item>
+        <item>Edward Albee</item>
+        <item>Brian W. Aldiss</item>
+        <item>Alfonso X</item>
+        <item>Carl Ally</item>
+        <item>Antonin Artaud</item>
+        <item>Sholem Asch</item>
+        <item>W. H. Auden</item>
+        <item>Nnamdi Azikiwe</item>
+        <item>Alexander Graham Bell</item>
+        <item>Arnold Bennett</item>
+        <item>Warren Bennis</item>
+        <item>William Blake</item>
+        <item>Ray Bradbury</item>
+        <item>Robert Bresson</item>
+        <item>Jacob Bronowski</item>
+        <item>Charles Browder</item>
+        <item>Rita Mae Brown</item>
+        <item>Pearl Buck</item>
+        <item>Georges Louis Leclerc Buffon</item>
+        <item>Julius Caesar</item>
+        <item>Frank Capra</item>
+        <item>Coco Chanel</item>
+        <item>Aristotle</item>
+        <item>Kenneth Burke</item>
+        <item>Denis Diderot</item>
+        <item>E. M. Forster</item>
+        <item>Emma Goldman</item>
+        <item>Elbert Hubbard</item>
+        <item>Washington Irving</item>
+        <item>Ronald Knox</item>
+        <item>Philip Massinger</item>
+        <item>Robert Maynard</item>
+        <item>James A. Michener</item>
+        <item>Luigi Pirandello</item>
+        <item>George Santayana</item>
+        <item>George Santayana</item>
+        <item>James Thurber</item>
+        <item>English Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>William R. Alger</item>
+        <item>Ghose Aurobindo</item>
+        <item>Richard Bach</item>
+        <item>Henry Ward Beecher</item>
+        <item>Ambrose Bierce</item>
+        <item>Thomas Carlyle</item>
+        <item>Pierre Teilhard de Chardin</item>
+        <item>Charles Horton Cooley</item>
+        <item>Calvin Coolidge</item>
+        <item>Pierre Corneille</item>
+        <item>Theodore L. Cuyler</item>
+        <item>Benjamin Disraeli</item>
+        <item>George Eliot</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Augusta Jane Evans</item>
+        <item>John Fowles</item>
+        <item>Charles A. Garfield</item>
+        <item>Edward Gibbon</item>
+        <item>Arnold Glasgow</item>
+        <item>Johann von Goethe</item>
+        <item>Johann von Goethe</item>
+        <item>Anon.</item>
+        <item>Scottish Proverb</item>
+        <item>Arabic Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>English Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Mitch Albom</item>
+        <item>Woody Allen</item>
+        <item>Woody Allen</item>
+        <item>Woody Allen</item>
+        <item>Guy Almes</item>
+        <item>Steward Alsop</item>
+        <item>Douglas Adams</item>
+        <item>Stephen Bayley</item>
+        <item>Philip Caldwell</item>
+        <item>Sir Terence Conran</item>
+        <item>James Gulliver</item>
+        <item>David Hockney</item>
+        <item>Steve Jobs</item>
+        <item>Philip Johnson</item>
+        <item>D. H. David Herbert Lawrence</item>
+        <item>Issey Miyake</item>
+        <item>Eliel Saarinen</item>
+        <item>F.W.J. Schelling</item>
+        <item>Louis Henri Sullivan</item>
+        <item>Mies Van der Rohe</item>
+        <item>Mies Van der Rohe</item>
+        <item>Henry Watton</item>
+        <item>E.B. Elwyn Brooks White</item>
+        <item>Frank Lloyd Wright</item>
+        <item>William Butler Yeats</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Kingsley Amis</item>
+        <item>Greg Anderson</item>
+        <item>Fatty Arbuckle</item>
+        <item>Jean Baudrillard</item>
+        <item>Samuel Beckett</item>
+        <item>Josh Billings</item>
+        <item>Shelley Bovey</item>
+        <item>Marlon Brando</item>
+        <item>Charles Buck</item>
+        <item>Cyril Connolly</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>George Fordyce</item>
+        <item>Benjamin Franklin</item>
+        <item>Paul Gauguin</item>
+        <item>Nikki Giovanni</item>
+        <item>Jackie Gleason</item>
+        <item>Elbert Hubbard</item>
+        <item>Washington Irving</item>
+        <item>St. Jerome</item>
+        <item>Juvenal</item>
+        <item>Marshall McLuhan</item>
+        <item>Les Murray</item>
+        <item>Ogden Nash</item>
+        <item>Chinese Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Anon.</item>
+        <item>Douglas Adams</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Fred A. Allen</item>
+        <item>James Allen</item>
+        <item>James Allen</item>
+        <item>James Allen</item>
+        <item>Woody Allen</item>
+        <item>John A. Appleman</item>
+        <item>Louis Aragon</item>
+        <item>Matthew Arnold</item>
+        <item>Isaac Asimov</item>
+        <item>W. H. Auden</item>
+        <item>Gaston Bachelard</item>
+        <item>Djuna Barnes</item>
+        <item>St. Basil</item>
+        <item>Peter S. Beagle</item>
+        <item>Thomas Lovell Beddoes</item>
+        <item>Bo Bennett</item>
+        <item>Bible</item>
+        <item>Daniel J. Boorstin</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Hank Aaron</item>
+        <item>Hannah Arendt</item>
+        <item>Richard Bach</item>
+        <item>Francis Bacon</item>
+        <item>Lucille Ball</item>
+        <item>Jesse Barfield</item>
+        <item>Johnny Bench</item>
+        <item>Arnold Bennett</item>
+        <item>Al Bernstein</item>
+        <item>Yogi Berra</item>
+        <item>Bible</item>
+        <item>Larry Bird</item>
+        <item>Barry Bonds</item>
+        <item>Claude M. Bristol</item>
+        <item>H. Jackson Brown ,Jr.</item>
+        <item>Robert Browning</item>
+        <item>Buddha</item>
+        <item>Liane Cardes</item>
+        <item>Miguel de Cervantes</item>
+        <item>Sir Winston Churchill</item>
+        <item>Sebastian Coe</item>
+        <item>Henry Adams</item>
+        <item>John Adams</item>
+        <item>Jane Addams</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Louisa May Alcott</item>
+        <item>Maya Angelou</item>
+        <item>Maya Angelou</item>
+        <item>Susan B. Anthony</item>
+        <item>Thomas Aquinas</item>
+        <item>Jeffrey Archer</item>
+        <item>Hannah Arendt</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Matthew Arnold</item>
+        <item>Thomas Arnold</item>
+        <item>Antonin Artaud</item>
+        <item>William C. Bagley</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>Henry Ward Beecher</item>
+        <item>James Allen</item>
+        <item>Mark Caine</item>
+        <item>Robert Collier</item>
+        <item>Ren</item>
+        <item>Euripides</item>
+        <item>David Harold Fink</item>
+        <item>James Hansen</item>
+        <item>Napoleon Hill</item>
+        <item>L. Ron Hubbard</item>
+        <item>Orison Swett Marden</item>
+        <item>Orison Swett Marden</item>
+        <item>Orison Swett Marden</item>
+        <item>Orison Swett Marden</item>
+        <item>Earl Nightingale</item>
+        <item>Charles Panati</item>
+        <item>Joseph Chilton Pearce</item>
+        <item>Joseph Chilton Pearce</item>
+        <item>Thomas J. Peters</item>
+        <item>Dan Quayle</item>
+        <item>W. Clement Stone</item>
+        <item>Scottish Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Abdul Baha Paris Talks</item>
+        <item>Bella Abzug</item>
+        <item>Bella Abzug</item>
+        <item>Bella Abzug</item>
+        <item>Cecil Frances Alexander</item>
+        <item>Susan B. Anthony</item>
+        <item>Thomas Aquinas</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>John Ball</item>
+        <item>Honore de Balzac</item>
+        <item>Simone de Beauvoir</item>
+        <item>Erma Bombeck</item>
+        <item>Paul Burton</item>
+        <item>Andrew Carnegie</item>
+        <item>Miguel de Cervantes</item>
+        <item>Anna Chennault</item>
+        <item>Italian Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Cleveland Amory</item>
+        <item>Minna Antrim</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>Arnold Bax</item>
+        <item>Henry Ward Beecher</item>
+        <item>Gita Bellin</item>
+        <item>Walter Benjamin</item>
+        <item>Ezra Taft Benson</item>
+        <item>Ambrose Bierce</item>
+        <item>Ambrose Bierce</item>
+        <item>Josh Billings</item>
+        <item>Josh Billings</item>
+        <item>Josh Billings</item>
+        <item>Randolph Silliman Bourne</item>
+        <item>Elizabeth Bowen</item>
+        <item>Louis D. Brandeis</item>
+        <item>Elizabeth Barrett Browning</item>
+        <item>Martin Buber</item>
+        <item>Buddha</item>
+        <item>African Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Hank Aaron</item>
+        <item>Karl Albrecht</item>
+        <item>Thomas Bailey Aldrich</item>
+        <item>James Baldwin</item>
+        <item>James Barrie</item>
+        <item>Steve Bartkowski</item>
+        <item>Bruce Barton</item>
+        <item>Anne Baxter</item>
+        <item>Anne Baxter</item>
+        <item>Samuel Beckett</item>
+        <item>Bhagavad Gita</item>
+        <item>Arthur Bloch</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Amar Gopal Bose</item>
+        <item>Kenneth Ewart Boulding</item>
+        <item>Christian Nevell Bovee</item>
+        <item>Claude M. Bristol</item>
+        <item>Les Brown</item>
+        <item>William D. Brown</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>William Adams</item>
+        <item>Alexander The Great</item>
+        <item>James Allen</item>
+        <item>Thomas Aquinas</item>
+        <item>Eberhard Arnold</item>
+        <item>W. H. Auden</item>
+        <item>Henry Christopher Bailey</item>
+        <item>Henry Christopher Bailey</item>
+        <item>Jim Bakker</item>
+        <item>Bruce Barton</item>
+        <item>Francis Beaumont</item>
+        <item>Ruth Benedict</item>
+        <item>Georges Bernanos</item>
+        <item>St. Bernard</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Arabic Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>George Ade</item>
+        <item>Felix Adler</item>
+        <item>Aesop</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Ruth Nanda Anshen</item>
+        <item>Hannah Arendt</item>
+        <item>Aristotle</item>
+        <item>Richard Bach</item>
+        <item>Francis Bacon</item>
+        <item>Anita Baker</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Stella Benson</item>
+        <item>Nicolas Bentley</item>
+        <item>Bible</item>
+        <item>Erma Bombeck</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>John Aubrey</item>
+        <item>Enid Bagnold</item>
+        <item>James Baldwin</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Erma Bombeck</item>
+        <item>Samuel Butler</item>
+        <item>Lord Chesterfield</item>
+        <item>Lydia Maria Child</item>
+        <item>Confucius</item>
+        <item>Bill Cosby</item>
+        <item>Bill Cosby</item>
+        <item>Erika Cosby</item>
+        <item>Margaret Courtney</item>
+        <item>Croesus</item>
+        <item>Mario Cuomo</item>
+        <item>Mary Mapes Dodge</item>
+        <item>Umberto Eco</item>
+        <item>Euripides</item>
+        <item>Euripides</item>
+        <item>Sigmund Freud</item>
+        <item>Ernest Hemingway</item>
+        <item>Swedish Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Akhenaton</item>
+        <item>Mitch Albom</item>
+        <item>Gillian Anderson</item>
+        <item>Marian Anderson</item>
+        <item>Jean Anouilh</item>
+        <item>Guillaume Apollinaire</item>
+        <item>Arthur Ashe</item>
+        <item>Marcus Aurelius</item>
+        <item>Jane Austen</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Georges Bataille</item>
+        <item>Mary Catherine Bateson</item>
+        <item>Jean Baudrillard</item>
+        <item>Henry Ward Beecher</item>
+        <item>James F. Bell</item>
+        <item>Robert Benchley</item>
+        <item>Arabic Proverb</item>
+        <item>English Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Woody Allen</item>
+        <item>Jeff Arder</item>
+        <item>Isaac Asimov</item>
+        <item>Ray Stannard Baker</item>
+        <item>John Barrymore</item>
+        <item>Luigi Barzini</item>
+        <item>Luigi Barzini</item>
+        <item>Jean Baudrillard</item>
+        <item>James Beard</item>
+        <item>Ludwig van Beethoven</item>
+        <item>Walter Benjamin</item>
+        <item>Yogi Berra</item>
+        <item>Bible</item>
+        <item>Scottish Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Mishkat Al masabih</item>
+        <item>Hannah Arendt</item>
+        <item>Aristotle</item>
+        <item>Decimus Magnus Ausonius</item>
+        <item>Josiah Bailey</item>
+        <item>Arthur Balfour</item>
+        <item>Arthur Balfour</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Willard Beecher</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>Chinese Proverb</item>
+        <item>John Adams</item>
+        <item>John Adams</item>
+        <item>John Adams</item>
+        <item>John Adams</item>
+        <item>Samuel Adams </item>
+        <item>Mortimer J. Adler</item>
+        <item>Hannah Arendt</item>
+        <item>Hannah Arendt</item>
+        <item>Aristotle</item>
+        <item>Sir Edwin Arnold</item>
+        <item>Kemal Ataturk</item>
+        <item>Ghose Aurobindo</item>
+        <item>Walter Bagehot</item>
+        <item>James Baldwin</item>
+        <item>Hosea Ballou</item>
+        <item>John Barbour</item>
+        <item>Bruce Barton</item>
+        <item>Bernard Baruch</item>
+        <item>Bernard Baruch</item>
+        <item>Jean Baudrillard</item>
+        <item>Jean Baudrillard</item>
+        <item>Charles Austin Beard</item>
+        <item>Henry Ward Beecher</item>
+        <item>Gita Bellin</item>
+        <item>Arabic Proverb</item>
+        <item>Arabic Proverb</item>
+        <item>Arabic Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Danish proverb</item>
+        <item>Danish proverb</item>
+        <item>English Proverb</item>
+        <item>English Proverb</item>
+        <item>Anon.</item>
+        <item>Yiddish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Anon.</item>
+        <item>Danish proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Arabic Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Dean Acheson</item>
+        <item>Marcus Aurelius</item>
+        <item>James Baldwin</item>
+        <item>J. G. Ballard</item>
+        <item>J. G. Ballard</item>
+        <item>Yogi Berra</item>
+        <item>John Betjeman</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>William Blake</item>
+        <item>Napoleon Bonaparte</item>
+        <item>William Booth</item>
+        <item>Christian Nevell Bovee</item>
+        <item>Ray Bradbury</item>
+        <item>Mel Brooks</item>
+        <item>George Burns ,At age 87 he lived to be 100</item>
+        <item>William Carey</item>
+        <item>Miguel de Cervantes</item>
+        <item>Charlie Chaplin</item>
+        <item>Merelene Cornish</item>
+        <item>Dalai Lama</item>
+        <item>Yiddish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Maya Angelou</item>
+        <item>Jean Anouilh</item>
+        <item>W. H. Auden</item>
+        <item>John H. Aughey</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Mira Bai</item>
+        <item>Natalie Clifford Barney</item>
+        <item>Georges Bataille</item>
+        <item>Samuel Beckett</item>
+        <item>Samuel Beckett</item>
+        <item>Henry Ward Beecher</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Dietrich Bonhoeffer</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Dean Acheson</item>
+        <item>Dean Acheson ,from a speech in Independence ,Missouri ,March 31 ,1962</item>
+        <item>John Adams</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Maury Amsterdam</item>
+        <item>Walter Bagehot</item>
+        <item>Joy Baluch</item>
+        <item>Honore de Balzac</item>
+        <item>Fr</item>
+        <item>Charles Baudelaire</item>
+        <item>Jean Baudrillard</item>
+        <item>Beverley Baxter</item>
+        <item>Henry Ward Beecher</item>
+        <item>Jean Baptiste Bernadotte</item>
+        <item>Baron William Henry Beveridge</item>
+        <item>Otto von Bismarck</item>
+        <item>Otto von Bismarck</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Count Boytzwnburg</item>
+        <item>Louis D. Brandeis</item>
+        <item>Basil Bunting</item>
+        <item>Yiddish Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Decimus Magnus Ausonius</item>
+        <item>Melody Beattie</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>William John Bennett</item>
+        <item>Bhagavad Gita</item>
+        <item>Bible</item>
+        <item>Ralph H. Blum</item>
+        <item>Dietrich Bonhoeffer</item>
+        <item>Sarah Ban Breathnach</item>
+        <item>Sarah Ban Breathnach</item>
+        <item>Sarah Ban Breathnach</item>
+        <item>Sarah Ban Breathnach</item>
+        <item>Elizabeth Barrett Browning</item>
+        <item>Buddha</item>
+        <item>Eileen Caddy</item>
+        <item>Nicolas Cage</item>
+        <item>Elizabeth Carter</item>
+        <item>Proverb</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Matthew Arnold</item>
+        <item>Margot Asquith</item>
+        <item>Jean Baudrillard</item>
+        <item>Pierre De Beaumarchais</item>
+        <item>Max Beerbohm</item>
+        <item>Bible</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>William Booth</item>
+        <item>Elizabeth Bowen</item>
+        <item>Phillips Brooks</item>
+        <item>Jean De La Bruyere</item>
+        <item>William Cullen Bryant</item>
+        <item>Edmund Burke</item>
+        <item>Edmund Burke</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Joseph Campell</item>
+        <item>Albert Camus</item>
+        <item>Thomas Carlyle</item>
+        <item>Thomas Carlyle</item>
+        <item>Alexis Carrel</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Fred Adler</item>
+        <item>Aeschylus</item>
+        <item>Louisa May Alcott</item>
+        <item>Alan Alda</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Greg Anderson</item>
+        <item>Robert Anthony</item>
+        <item>Guillaume Apollinaire</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Japanese Proverb</item>
+        <item>English Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Proverb</item>
+        <item>Franklin Pierce Adams</item>
+        <item>Patricia Alexander</item>
+        <item>Greg Anderson</item>
+        <item>Francis Bacon</item>
+        <item>Richard Baker</item>
+        <item>Rona Barrett</item>
+        <item>Charles Baudelaire</item>
+        <item>Melody Beattie</item>
+        <item>Henry Ward Beecher</item>
+        <item>Josh Billings</item>
+        <item>Eubie Blake</item>
+        <item>William Blake</item>
+        <item>Francis Bowen</item>
+        <item>Henry de Bracton</item>
+        <item>Buddha</item>
+        <item>Edward George Bulwer Lytton</item>
+        <item>Thomas Carlyle</item>
+        <item>Anton Chekhov</item>
+        <item>James Freeman Clarke</item>
+        <item>Charles Caleb Colton</item>
+        <item>African Proverb</item>
+        <item>Joseph Addison</item>
+        <item>George Ade</item>
+        <item>Konrad Adenauer</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>James Baldwin</item>
+        <item>Arthur Balfour</item>
+        <item>Julian Barnes</item>
+        <item>Charles Austin Beard</item>
+        <item>Max Beerbohm</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>Ambrose Bierce</item>
+        <item>Otto von Bismarck</item>
+        <item>Boethius Anicius Manlius Severinus </item>
+        <item>Napoleon Bonaparte</item>
+        <item>Edmund Burke</item>
+        <item>John Burns</item>
+        <item>Samuel Butler</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Albert Camus</item>
+        <item>Thomas Carlyle</item>
+        <item>Thomas Carlyle</item>
+        <item>Anon.</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Gaston Bachelard</item>
+        <item>Francis Bacon</item>
+        <item>Simone de Beauvoir</item>
+        <item>John Betjeman</item>
+        <item>Sarah Ban Breathnach</item>
+        <item>Bill Bryson</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Thomas Campion</item>
+        <item>Miguel de Cervantes</item>
+        <item>Alexander Chase</item>
+        <item>William Pitt The Elder Chatham</item>
+        <item>G. K. Chesterton</item>
+        <item>Lydia Maria Child</item>
+        <item>Sir Winston Churchill</item>
+        <item>Marcus Tullius Cicero</item>
+        <item>Sidonie Gabrielle Colette</item>
+        <item>Joseph Conrad</item>
+        <item>Le Corbusier</item>
+        <item>Frank Dane</item>
+        <item>Charles Dickens</item>
+        <item>Emily Dickinson</item>
+        <item>Arabic Proverb</item>
+        <item>English Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Maya Angelou</item>
+        <item>Dr. Robert Anthony</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Eberhard Arnold</item>
+        <item>Matthew Arnold</item>
+        <item>Mary Kay Ash</item>
+        <item>Francis Bacon</item>
+        <item>Cyrus A. Bartol</item>
+        <item>Bruce Barton</item>
+        <item>Thomas Haynes Bayly ,  ,New Monthly Magazine  ,</item>
+        <item>May L. Becker</item>
+        <item>Hal Borland</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Proverb</item>
+        <item>Harold Abelson</item>
+        <item>Edward Albee</item>
+        <item>Maya Angelou</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Henry Ward Beecher</item>
+        <item>Ambrose Bierce</item>
+        <item>Ambrose Bierce</item>
+        <item>Marguerite Blessington</item>
+        <item>Erma Bombeck</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Victor Borge</item>
+        <item>James Boswell</item>
+        <item>Fanny Brice</item>
+        <item>Thomas Edward Brown</item>
+        <item>Lenny Bruce</item>
+        <item>Lenny Bruce</item>
+        <item>Jean De La Bruyere</item>
+        <item>Gelett Burgess</item>
+        <item>Carol Burnett</item>
+        <item>Anon.</item>
+        <item>Marian Anderson</item>
+        <item>Dr. Robert Anthony</item>
+        <item>Louis Aragon</item>
+        <item>Lauren Bacall</item>
+        <item>Richard Bach</item>
+        <item>Richard Bach</item>
+        <item>Gaston Bachelard</item>
+        <item>Francis Bacon</item>
+        <item>Philip James Bailey</item>
+        <item>Mary Catherine Bateson</item>
+        <item>Henry Ward Beecher</item>
+        <item>Madame Belazy</item>
+        <item>E. T. Bell</item>
+        <item>John Berger</item>
+        <item>Sandra Bernhard</item>
+        <item>Robert Bierstedt</item>
+        <item>William Blake</item>
+        <item>William Blake</item>
+        <item>William Blake</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Dorothea Brande</item>
+        <item>Andre Breton</item>
+        <item>Lou Brock</item>
+        <item>Proverb</item>
+        <item>Aeschylus</item>
+        <item>Thomas Aquinas</item>
+        <item>Natalie Clifford Barney</item>
+        <item>Charles Austin Beard</item>
+        <item>David Ben Gurion</item>
+        <item>John Milton Cage</item>
+        <item>Willa Cather</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>Demosthenes</item>
+        <item>John Donne</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Owen Felltham</item>
+        <item>Benjamin Franklin</item>
+        <item>John Gay</item>
+        <item>Horace</item>
+        <item>Henrik Ibsen</item>
+        <item>Mahalia Jackson</item>
+        <item>William H. Johnsen</item>
+        <item>June Jordan</item>
+        <item>John Keats</item>
+        <item>Leonard Bernstein</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Robert Bresson</item>
+        <item>Robert Browning</item>
+        <item>William S. Burroughs</item>
+        <item>Marcus Tullius Cicero</item>
+        <item>William Congreve</item>
+        <item>Aaron Copland</item>
+        <item>Comer Cotrell</item>
+        <item>Benjamin Disraeli</item>
+        <item>George Eliot</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>William Feather</item>
+        <item>Johann Gottfried Von Herder</item>
+        <item>Ernest Holmes</item>
+        <item>Elbert Hubbard</item>
+        <item>Steve Jobs</item>
+        <item>Father James Keller</item>
+        <item>Richard Kemph</item>
+        <item>Elisabeth Kubler Ross</item>
+        <item>Og Mandino</item>
+        <item>Henry Miller</item>
+        <item>Alexander Pope</item>
+        <item>Cole Porter</item>
+        <item>Publius Ovidius NasoOvid</item>
+        <item>Robert Stuberg</item>
+        <item>Henry David Thoreau</item>
+        <item>Source Unknown</item>
+        <item>Source Unknown</item>
+        <item>Peter Nivio Zarlenga</item>
+        <item>Yiddish Proverb</item>
+        <item>Proverb</item>
+        <item>George Ade</item>
+        <item>James Agate</item>
+        <item>Woody Allen</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Gillian Anderson</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Tallulah Bankhead</item>
+        <item>Arnold Bennett</item>
+        <item>William Blake</item>
+        <item>Louise Bogan</item>
+        <item>Ray Bradbury</item>
+        <item>Jacob Bronowski</item>
+        <item>Charles R. Brown</item>
+        <item>Thomas Carlyle</item>
+        <item>Dick Cavett</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>G. K. Chesterton</item>
+        <item>G. K. Chesterton</item>
+        <item>G. K. Chesterton</item>
+        <item>Chinese Proverb</item>
+        <item>Henry Ward Beecher</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>William Blake</item>
+        <item>Christian Nevell Bovee</item>
+        <item>Tony Campolo</item>
+        <item>Dr. Melba Colgrove</item>
+        <item>Pierre Coneille</item>
+        <item>Confucius</item>
+        <item>William Congreve</item>
+        <item>R. W. Dale</item>
+        <item>Emily Dickinson</item>
+        <item>John Dryden</item>
+        <item>Eugene Field</item>
+        <item>Jessie B. Fremont</item>
+        <item>Josiah Gilbert Holland</item>
+        <item>Elbert Hubbard</item>
+        <item>Martin Luther King ,Jr.</item>
+        <item>C.S. Lewis</item>
+        <item>Rollo May</item>
+        <item>Michel de Montaigne</item>
+        <item>Alfred A. Montapert</item>
+        <item>Mother Theresa</item>
+        <item>Anais Nin</item>
+        <item>Chinese Proverb</item>
+        <item>Italian Proverb</item>
+        <item>African Proverb</item>
+        <item>Anon.</item>
+        <item>Sicilian Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>John Abbott</item>
+        <item>Franklin Pierce Adams</item>
+        <item>Joseph Addison</item>
+        <item>Alfred Adler</item>
+        <item>Aristotle</item>
+        <item>Thomas Arnold</item>
+        <item>Marcus Aurelius</item>
+        <item>Sudie Back</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Ivern Ball</item>
+        <item>Lucille Ball</item>
+        <item>Orlando A. Battista</item>
+        <item>Robert Benchley</item>
+        <item>Warren Bennis</item>
+        <item>R. K. Bergethon</item>
+        <item>Japanese Proverb</item>
+        <item>English Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Aeschylus</item>
+        <item>Aesop</item>
+        <item>Robert Alan</item>
+        <item>Robert Alan</item>
+        <item>W. H. Auden</item>
+        <item>Philip James Bailey</item>
+        <item>James Barrie</item>
+        <item>Anne Baxter</item>
+        <item>William John Bennett</item>
+        <item>John Berger</item>
+        <item>Georges Bernanos</item>
+        <item>Bhagavad Gita</item>
+        <item>Bible</item>
+        <item>Christian Nevell Bovee</item>
+        <item>Frederick Buechner</item>
+        <item>Robert Burns</item>
+        <item>Robert Burns</item>
+        <item>Henry Burton</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Italian Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Dean Acheson</item>
+        <item>John Adair</item>
+        <item>Ken Adelman</item>
+        <item>Aeschylus</item>
+        <item>Elaine Agather</item>
+        <item>Norman Allen</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Marian Anderson</item>
+        <item>W. H. Auden</item>
+        <item>Rabbi Ben Azai</item>
+        <item>Joel A. Barker</item>
+        <item>Joe Batten</item>
+        <item>Henry Ward Beecher</item>
+        <item>American Indian Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Abigail Adams</item>
+        <item>Douglas Adams</item>
+        <item>Joseph Addison</item>
+        <item>Mortimer J. Adler</item>
+        <item>Aeschylus</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Louisa May Alcott</item>
+        <item>Louisa May Alcott</item>
+        <item>Muhammad Ali</item>
+        <item>Gillian Anderson</item>
+        <item>Hannah Arendt</item>
+        <item>Richard Bach</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>William C. Bagley</item>
+        <item>Newton D. Baker</item>
+        <item>American Indian Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Abigail Adams</item>
+        <item>Douglas Adams</item>
+        <item>Joseph Addison</item>
+        <item>Mortimer J. Adler</item>
+        <item>Aeschylus</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Louisa May Alcott</item>
+        <item>Louisa May Alcott</item>
+        <item>Muhammad Ali</item>
+        <item>Gillian Anderson</item>
+        <item>Hannah Arendt</item>
+        <item>Richard Bach</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>William C. Bagley</item>
+        <item>Newton D. Baker</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Abdul Baha</item>
+        <item>Agesilaus II</item>
+        <item>Louisa May Alcott</item>
+        <item>John Allston</item>
+        <item>John Arbuthnot</item>
+        <item>W. H. Auden</item>
+        <item>Arthur Balfour</item>
+        <item>P. T. Phineas Taylor Barnum</item>
+        <item>Augusto Roa Bastos</item>
+        <item>Hilaire Belloc</item>
+        <item>Walter Benjamin</item>
+        <item>John Berger</item>
+        <item>Catherine Drinker Bowen</item>
+        <item>Ray Bradbury</item>
+        <item>Fawn M. Brodie</item>
+        <item>Italo Calvino</item>
+        <item>Elias Canetti</item>
+        <item>Neville Cardus</item>
+        <item>Thomas Carlyle</item>
+        <item>Thomas Carlyle</item>
+        <item>Thomas Carlyle</item>
+        <item>Thomas Carlyle</item>
+        <item>Raymond Chandler</item>
+        <item>Anon. ,December 21 ,1925</item>
+        <item>Anon.</item>
+        <item>Scottish Proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Peter Henry Abrahams</item>
+        <item>Diane Ackerman ,  ,quoted in Newsweek  , ,September 22 ,1986</item>
+        <item>Douglas Adams</item>
+        <item>Douglas Adams</item>
+        <item>Joseph Addison</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Italian Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>English Proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>A.R. Rahman</item>
+        <item>Diane Ackerman</item>
+        <item>Alfred Adler</item>
+        <item>Grace Aguilar</item>
+        <item>Abu Hamid Al Ghazzali</item>
+        <item>Louisa May Alcott</item>
+        <item>Nelson Algren</item>
+        <item>Woody Allen</item>
+        <item>Woody Allen</item>
+        <item>Pierre De Beaumarchais</item>
+        <item>Ernest Becker</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Aphra Behn</item>
+        <item>George De Benneville</item>
+        <item>John Berger</item>
+        <item>St. Bernard</item>
+        <item>St. Bernard</item>
+        <item>Sarah Bernhardt</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Lydia Maria Child</item>
+        <item>Williams Childs</item>
+        <item>Mary Cholmondeley</item>
+        <item>John Ciardi</item>
+        <item>Melanie Clark</item>
+        <item>Paulo Coelho</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Charles Caleb Colton</item>
+        <item>Charles Caleb Colton</item>
+        <item>Charles Caleb Colton</item>
+        <item>Confucius</item>
+        <item>Confucius</item>
+        <item>William Congreve</item>
+        <item>Cyril Connolly</item>
+        <item>Cyril Connolly</item>
+        <item>Joseph Conrad</item>
+        <item>Pierre Corneille</item>
+        <item>E. Joseph Cossman</item>
+        <item>Stephen Covey</item>
+        <item>Joan Crawford</item>
+        <item>Richard Crawshaw</item>
+        <item>Quentin Crisp</item>
+        <item>Roy Croft</item>
+        <item>Aleister Crowley</item>
+        <item>Yiddish Proverb</item>
+        <item>Arabic Proverb</item>
+        <item>English Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Aeschylus</item>
+        <item>Hoshang N. Akhtar</item>
+        <item>Shana Alexander</item>
+        <item>Marty Allen</item>
+        <item>Woody Allen</item>
+        <item>Woody Allen</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Alexander The Great</item>
+        <item>Alois Alzheimer</item>
+        <item>Henry Ward Beecher</item>
+        <item>Jello Biafra</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>Josh Billings</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Ray Bradbury</item>
+        <item>James Bryce</item>
+        <item>Robert Burton</item>
+        <item>Samuel Butler</item>
+        <item>Miguel de Cervantes</item>
+        <item>Prince Of Wales Charles</item>
+        <item>Anton Chekhov</item>
+        <item>Anton Chekhov</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Norman Cousins</item>
+        <item>Maurice Delort</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Aeschylus</item>
+        <item>Mitch Albom</item>
+        <item>Fred A. Allen</item>
+        <item>Aristotle</item>
+        <item>Matthew Arnold</item>
+        <item>Sholem Asch</item>
+        <item>Maurice Baring</item>
+        <item>Ellen Barkin</item>
+        <item>John M. Barrie</item>
+        <item>Garrett Bartley</item>
+        <item>Basile</item>
+        <item>To her caverns ,pure and deep.</item>
+        <item>Robert Benchley</item>
+        <item>Walter Benjamin</item>
+        <item>Walter Benjamin</item>
+        <item>Jorge Luis Borges</item>
+        <item>Elizabeth Bowen</item>
+        <item>Sandra Boynton</item>
+        <item>James Branch Cabell</item>
+        <item>Rita Mae Brown</item>
+        <item>Carl W. Buechner</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Sholom Aleichem</item>
+        <item>Jean Anouilh</item>
+        <item>Matthew Arnold</item>
+        <item>Margaret Atwood</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Faith Baldwin</item>
+        <item>James Barrie</item>
+        <item>Louise Bernikow</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Pam Brown</item>
+        <item>Jean De La Bruyere</item>
+        <item>John Burroughs</item>
+        <item>Nicholas Murray Butler</item>
+        <item>Julius Caesar</item>
+        <item>Cher</item>
+        <item>G. K. Chesterton</item>
+        <item>Jean Cocteau</item>
+        <item>Wendy Cope</item>
+        <item>Richard Crashaw</item>
+        <item>English Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Arabic Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Louisa May Alcott</item>
+        <item>Honore de Balzac</item>
+        <item>Honore de Balzac</item>
+        <item>Henry Ward Beecher</item>
+        <item>Bible</item>
+        <item>Victoria Billings</item>
+        <item>Leon Blum</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Elizabeth Barrett Browning</item>
+        <item>Robert Browning</item>
+        <item>Pearl Buck</item>
+        <item>Cardinal Mermillod</item>
+        <item>Jane Welsh Carlyle</item>
+        <item>Anon.</item>
+        <item>American Indian Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Scottish Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Joey Adams</item>
+        <item>Louisa May Alcott</item>
+        <item>Scott Alexander</item>
+        <item>Scott Alexander</item>
+        <item>Woody Allen</item>
+        <item>Martin Amis</item>
+        <item>Mary Archer</item>
+        <item>J. Ogden Armour</item>
+        <item>Max Asnas</item>
+        <item>Proverb</item>
+        <item>Lyman Abbott</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Sir Winston Churchill </item>
+        <item>B. R. Hayden</item>
+        <item>C.S. Lewis</item>
+        <item>Abraham Lincoln </item>
+        <item>Alexander Pope</item>
+        <item>Frederick William Robertson</item>
+        <item>W. Secker</item>
+        <item>Source Unknown</item>
+        <item>George Washington</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Archibald Alexander</item>
+        <item>Mary Kay Ash</item>
+        <item>Henry Ward Beecher</item>
+        <item>Bo Bennett</item>
+        <item>William J. H. Boetcker</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Harriet Braiker</item>
+        <item>Les Brown</item>
+        <item>Daniel Hudson Burnham</item>
+        <item>Nolan Bushnell</item>
+        <item>Herman Cain</item>
+        <item>Thomas Carlyle</item>
+        <item>Dale Carnegie</item>
+        <item>Edwin Hubbell Chapin</item>
+        <item>Roberto Clemente</item>
+        <item>Lee J. Colan</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Confucius</item>
+        <item>Pierre de Coubertin</item>
+        <item>Peter Davies</item>
+        <item>Mike Ditka</item>
+        <item>Peter Drucker</item>
+        <item>Finley Peter Dunne</item>
+        <item>Gerard C. Eakedale</item>
+        <item>Dwight D Eisenhower</item>
+        <item>Dwight D Eisenhower</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>David Harold Fink</item>
+        <item>John W. Foster</item>
+        <item>Ken Gilbert</item>
+        <item>Jerry Gillies</item>
+        <item>Johann von Goethe</item>
+        <item>Johann von Goethe</item>
+        <item>Johann von Goethe</item>
+        <item>Bill Gothard</item>
+        <item>Russell Green</item>
+        <item>Jack Herbert</item>
+        <item>Hitopadesa</item>
+        <item>Raymond Holliwell</item>
+        <item>Lou Holtz</item>
+        <item>Lou Holtz</item>
+        <item>Lee Iacocca</item>
+        <item>W. M. L. Jay</item>
+        <item>Steve Jobs</item>
+        <item>E.E. Jones</item>
+        <item>Donald Laird</item>
+        <item>Karen Lamb</item>
+        <item>Walter Savage Landor</item>
+        <item>Blaine Lee</item>
+        <item>Sir John Lubbock</item>
+        <item>Norman Mailer</item>
+        <item>Maxwell Maltz</item>
+        <item>Og Mandino</item>
+        <item>James A. Michener</item>
+        <item>Earl Nightingale</item>
+        <item>Akeem Olajuwon</item>
+        <item>Rick Pitino</item>
+        <item>Alexander Pope</item>
+        <item>Chesty Puller</item>
+        <item>Bob Richards</item>
+        <item>Jean Paul Richter</item>
+        <item>Pat Riley</item>
+        <item>Pat Riley</item>
+        <item>John Robinson</item>
+        <item>Francois de la Rochefoucauld</item>
+        <item>Francois de la Rochefoucauld</item>
+        <item>Eleanor Roosevelt</item>
+        <item>Leo Rosten</item>
+        <item>Jean Jacques Rousseau</item>
+        <item>Jim Ryun</item>
+        <item>George Santayana</item>
+        <item>Max Schmelling</item>
+        <item>George Sheehan</item>
+        <item>Francie Larrieu Smith</item>
+        <item>Sydney Smith</item>
+        <item>Scott Sorrell</item>
+        <item>Howard Stern</item>
+        <item>Edward Teller</item>
+        <item>William Makepeace Thackeray</item>
+        <item>Margaret Thatcher</item>
+        <item>Paul G. Thomas</item>
+        <item>Hugh Stevenson Tigner</item>
+        <item>Source Unknown</item>
+        <item>Marquis De Vauvenargues</item>
+        <item>Marquis De Vauvenargues</item>
+        <item>John Wesley</item>
+        <item>Tennessee Thomas Lanier Williams</item>
+        <item>Zig Ziglar</item>
+        <item>Henry Adams</item>
+        <item>Dante Alighieri</item>
+        <item>Jean Anouilh</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Antonin Artaud</item>
+        <item>Isaac Asimov</item>
+        <item>Sir Alfred Jules Ayer</item>
+        <item>Tallulah Bankhead</item>
+        <item>Georges Bataille</item>
+        <item>Henry Ward Beecher</item>
+        <item>Aneurin Bevan</item>
+        <item>Bible</item>
+        <item>Allan Bloom</item>
+        <item>Robert Bolt</item>
+        <item>Samuel Butler</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Thomas Carlyle</item>
+        <item>Lewis Carroll</item>
+        <item>Angela Carter</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>William Ellery Channing</item>
+        <item>Harrison Christian</item>
+        <item>Robert Coles</item>
+        <item>Charles Caleb Colton</item>
+        <item>Joseph Addison</item>
+        <item>Joseph Addison</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Hans Christian Andersen</item>
+        <item>Ian Anderson</item>
+        <item>Anonymous</item>
+        <item>Louis Armstrong</item>
+        <item>Louis Armstrong</item>
+        <item>Jacques Attali</item>
+        <item>W. H. Auden</item>
+        <item>Berthold Auerbach</item>
+        <item>Lauren Bacall</item>
+        <item>Johann Sebastian Bach</item>
+        <item>Johann Sebastian Bach</item>
+        <item>Sir Thomas Beecham</item>
+        <item>Sir Thomas Beecham</item>
+        <item>Sir Thomas Beecham</item>
+        <item>Sir Thomas Beecham</item>
+        <item>Henry Ward Beecher</item>
+        <item>Max Beerbohm</item>
+        <item>Ludwig van Beethoven</item>
+        <item>Ludwig van Beethoven</item>
+        <item>Ludwig van Beethoven</item>
+        <item>Ludwig van Beethoven</item>
+        <item>Leonard Bernstein</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Hayduke Lives</item>
+        <item>Joseph Addison</item>
+        <item>Woody Allen</item>
+        <item>Lorraine Anderson</item>
+        <item>Maya Angelou</item>
+        <item>Guillaume Apollinaire</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Jane Austen</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Philip James Bailey</item>
+        <item>Hosea Ballou</item>
+        <item>Bruce Barton</item>
+        <item>Charles Baudelaire</item>
+        <item>Bernoulli</item>
+        <item>Bhagavad Gita</item>
+        <item>William Blake</item>
+        <item>Hal Borland</item>
+        <item>Jacob Bronowski</item>
+        <item>Sir Thomas Browne</item>
+        <item>William Cullen Bryant</item>
+        <item>W. H. Auden</item>
+        <item>Emily Miller</item>
+        <item>Ogden Nash</item>
+        <item>Sir Walter Scott</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Proverb</item>
+        <item>Joseph Addison</item>
+        <item>Ama Ata Aidoo</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Simone de Beauvoir</item>
+        <item>Samuel Beckett</item>
+        <item>Henry Ward Beecher</item>
+        <item>Bible</item>
+        <item>Josh Billings</item>
+        <item>Russell Bishop</item>
+        <item>Smiley Blanton</item>
+        <item>Allan Bloom</item>
+        <item>Erma Bombeck</item>
+        <item>Ray Bradbury</item>
+        <item>H. Jackson Brown ,Jr.</item>
+        <item>Barbara Bush</item>
+        <item>George Herbert Walker Bush</item>
+        <item>Samuel Butler</item>
+        <item>Taylor Caldwell</item>
+        <item>Thomas Carlyle</item>
+        <item>Miguel de Cervantes</item>
+        <item>Danish proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Lyman Abbott</item>
+        <item>Joseph Addison</item>
+        <item>Aesop</item>
+        <item>Robert Anthony</item>
+        <item>Matthew Arnold</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Arnold Bennett</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>Paul Boese</item>
+        <item>Jerry Brown</item>
+        <item>Jean De La Bruyere</item>
+        <item>Georges Louis Leclerc Buffon</item>
+        <item>Edward George Bulwer Lytton</item>
+        <item>Edmund Burke</item>
+        <item>Horace Bushnell</item>
+        <item>African Proverb</item>
+        <item>Edward Abbey</item>
+        <item>Joseph Addison</item>
+        <item>Alfred Adler</item>
+        <item>Felix Adler</item>
+        <item>Baha u llah</item>
+        <item>James Baldwin</item>
+        <item>George Barrington</item>
+        <item>Ambrose Bierce</item>
+        <item>Henry Bolingbroke</item>
+        <item>Napoleon Bonaparte</item>
+        <item>George Borrow</item>
+        <item>James Bryce</item>
+        <item>Luis Bunuel</item>
+        <item>Edmund Burke</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Pau Pablo Casals</item>
+        <item>Edith Cavell ,Last words</item>
+        <item>G. K. Chesterton</item>
+        <item>G. K. Chesterton</item>
+        <item>William Jefferson Clinton</item>
+        <item>George M. Cohan</item>
+        <item>Calvin Coolidge</item>
+        <item>George William Curtis</item>
+        <item>Marquis De Custine</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>James Allen</item>
+        <item>Martin Amis</item>
+        <item>Alice A. Bailey</item>
+        <item>Bernard Baruch</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>Napoleon Bonaparte</item>
+        <item>David Borenstein</item>
+        <item>Frank Borman</item>
+        <item>Omar Bradley</item>
+        <item>Swami Brahmanada</item>
+        <item>Bertolt Brecht</item>
+        <item>Vera Brittain</item>
+        <item>Rita Mae Brown</item>
+        <item>Buddha</item>
+        <item>Anon.</item>
+        <item>Edward Abbey</item>
+        <item>Diane Ackerman</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Antonin Artaud</item>
+        <item>John Ashbery</item>
+        <item>Brooks Atkinson</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Russell Baker</item>
+        <item>John Barrymore</item>
+        <item>Charles Baudelaire</item>
+        <item>Charles Baudelaire</item>
+        <item>Charles Baudelaire</item>
+        <item>Charles Baudelaire</item>
+        <item>Saul Bellow</item>
+        <item>Harold Bloom</item>
+        <item>Maxwell Bodenheim</item>
+        <item>Joseph Brodsky</item>
+        <item>Joseph Brodsky</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Henry Adams</item>
+        <item>Henry Adams</item>
+        <item>Henry Adams</item>
+        <item>John Adams</item>
+        <item>Oscar Ameringer</item>
+        <item>Kingsley Amis</item>
+        <item>Jack Anderson</item>
+        <item>John B. Anderson</item>
+        <item>Jean Anouilh</item>
+        <item>John Arbuthnot</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Dick Armey</item>
+        <item>Lance Armstrong</item>
+        <item>Margot Asquith</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>Walter Bagehot</item>
+        <item>Walter Bagehot</item>
+        <item>Walter Bagehot</item>
+        <item>Edward C. Banfield</item>
+        <item>Barres</item>
+        <item>Henry Adams</item>
+        <item>James Agee</item>
+        <item>Kehlog Albran</item>
+        <item>Alan Alda</item>
+        <item>Woody Allen</item>
+        <item>Mary S. Almanac</item>
+        <item>Aristotle</item>
+        <item>Richard Bach</item>
+        <item>Richard Bach</item>
+        <item>Bernard Baruch</item>
+        <item>Ludwig van Beethoven</item>
+        <item>Rusty Berkus</item>
+        <item>Bible</item>
+        <item>G. A. Borghese</item>
+        <item>Preston Bradley</item>
+        <item>Wernher Von Braun</item>
+        <item>Les Brown</item>
+        <item>Les Brown</item>
+        <item>Les Brown</item>
+        <item>Les Brown</item>
+        <item>Sir Thomas Browne</item>
+        <item>Robert Browning</item>
+        <item>Tony Buzan</item>
+        <item>Richard E. Byrd</item>
+        <item>Eileen Caddy</item>
+        <item>Anon.</item>
+        <item>Arabic Proverb</item>
+        <item>Italian Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Edward Abbey</item>
+        <item>Lord John Emerich Edward Dalberg Acton</item>
+        <item>Abigail Adams</item>
+        <item>Henry Adams</item>
+        <item>John Adams</item>
+        <item>Aeschylus</item>
+        <item>Withrop Aldrich</item>
+        <item>Saul Alinsky</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Giulio Andreotti</item>
+        <item>Margaret Atwood</item>
+        <item>Marcus Aurelius</item>
+        <item>Marcus Aurelius</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>James Baldwin</item>
+        <item>Honore de Balzac</item>
+        <item>Harry F. Banks</item>
+        <item>Bible</item>
+        <item>Warren Buffett</item>
+        <item>Marcus Tullius Cicero</item>
+        <item>Charles Caleb Colton</item>
+        <item>Charles Caleb Colton</item>
+        <item>Princess of Wales Diana</item>
+        <item>St. Evermond</item>
+        <item>Benjamin Franklin</item>
+        <item>John B. Gough</item>
+        <item>Joseph Hall</item>
+        <item>Dag Hammarskjold</item>
+        <item>Benjamin Haydon</item>
+        <item>Oliver Wendell Holmes</item>
+        <item>Edward W. Howe</item>
+        <item>James Howell</item>
+        <item>Lord Jeffrey</item>
+        <item>Samuel Johnson</item>
+        <item>Charles Lamb</item>
+        <item>Mignon McLaughlin</item>
+        <item>Mencius Mengzi Meng tse </item>
+        <item>Margaret Mitchell</item>
+        <item>Dwight L. Moody</item>
+        <item>Pliny The Elder</item>
+        <item>Francis Quarles</item>
+        <item>Henry Rink</item>
+        <item>Jewish Folk Saying</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Abigail Adams</item>
+        <item>John Adams</item>
+        <item>John Adams</item>
+        <item>Fred A. Allen</item>
+        <item>Robert Altman</item>
+        <item>Kingsley Amis</item>
+        <item>Thomas Aquinas</item>
+        <item>Louis Aragon</item>
+        <item>Matthew Arnold</item>
+        <item>Daisy Ashford</item>
+        <item>Brooks Atkinson</item>
+        <item>W. H. Auden</item>
+        <item>Jane Austen</item>
+        <item>Jane Austen</item>
+        <item>Mikhail Bakunin</item>
+        <item>Charles Baudelaire</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Henry Ward Beecher</item>
+        <item>Bhagavad Gita</item>
+        <item>Bible</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Aesop</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Henri Frederic Amiel</item>
+        <item>James Baldwin</item>
+        <item>Ambrose Bierce</item>
+        <item>William Blake</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Napoleon Bonaparte</item>
+        <item>Charlotte Bronte</item>
+        <item>Frankie Byrne</item>
+        <item>Albert Camus</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>Eldridge Cleaver</item>
+        <item>Confucius</item>
+        <item>Quentin Crisp</item>
+        <item>Salvador Dali</item>
+        <item>Rodney Dangerfield</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Euripides</item>
+        <item>John W. Gardner</item>
+        <item>William Lloyd Garrison</item>
+        <item>Arnold Glasgow</item>
+        <item>Charles Baudelaire</item>
+        <item>Anita Brookner</item>
+        <item>Anita Brookner</item>
+        <item>Thomas Carlyle</item>
+        <item>Aleister Crowley</item>
+        <item>George William Curtis</item>
+        <item>Isaac Disraeli</item>
+        <item>F. Scott Fitzgerald</item>
+        <item>Emma Goldman</item>
+        <item>Oliver Goldsmith</item>
+        <item>Oliver Goldsmith</item>
+        <item>Beverly Jones</item>
+        <item>D. H. David Herbert Lawrence</item>
+        <item>Kate Millet</item>
+        <item>Mary Wortley Montagu</item>
+        <item>Source Unknown</item>
+        <item>Source Unknown</item>
+        <item>Source Unknown</item>
+        <item>David A. Vigilanti</item>
+        <item>Oscar Wilde</item>
+        <item>Oscar Wilde</item>
+        <item>Oscar Wilde</item>
+        <item>Oscar Wilde</item>
+        <item>Oscar Wilde</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Anonymous</item>
+        <item>Samuel Beckett</item>
+        <item>Bible</item>
+        <item>William Blake</item>
+        <item>William Blake</item>
+        <item>William Blake</item>
+        <item>Dorothea Brande</item>
+        <item>Elizabeth Barrett Browning</item>
+        <item>Edward George Bulwer Lytton</item>
+        <item>Robert Burns</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Jane Welsh Carlyle</item>
+        <item>Thomas Carlyle</item>
+        <item>Louis Ferdinand Celine</item>
+        <item>Marcus Tullius Cicero</item>
+        <item>Marcus Tullius Cicero</item>
+        <item>Arthur H. Clough</item>
+        <item>Confucius</item>
+        <item>William Cowper</item>
+        <item>Edward De Bono</item>
+        <item>Emily Dickinson</item>
+        <item>Emile Durkheim</item>
+        <item>Emile Durkheim</item>
+        <item>Anon.</item>
+        <item>James Agate</item>
+        <item>Woody Allen</item>
+        <item>Woody Allen</item>
+        <item>Woody Allen</item>
+        <item>W. H. Auden</item>
+        <item>Kevin Bacon</item>
+        <item>Enid Bagnold</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>J. G. Ballard</item>
+        <item>Tallulah Bankhead</item>
+        <item>John Barrymore</item>
+        <item>Georges Bataille</item>
+        <item>Simone de Beauvoir</item>
+        <item>Arnold Bennett</item>
+        <item>Candice Bergen</item>
+        <item>Victoria Billings</item>
+        <item>Charlotte Bingham</item>
+        <item>Jacqueline Bisset</item>
+        <item>William Blake</item>
+        <item>Bertolt Brecht</item>
+        <item>Fanny Brice</item>
+        <item>Robert McAfee Brown</item>
+        <item>Luis Bunuel</item>
+        <item>Archimedes</item>
+        <item>Thomas Arnold</item>
+        <item>Isaac Asimov</item>
+        <item>Isaac Asimov</item>
+        <item>Isaac Asimov</item>
+        <item>W. H. Auden</item>
+        <item>Francis Bacon</item>
+        <item>The Search for the Absolute</item>
+        <item>Amelia E. Barr</item>
+        <item>Dave Barry</item>
+        <item>Karl Barth</item>
+        <item>Hilaire Belloc</item>
+        <item>P. L. Berger</item>
+        <item>Bishop of Worcester ,wife</item>
+        <item>Neils Bohr</item>
+        <item>Georges Braque</item>
+        <item>Bertolt Brecht</item>
+        <item>Jacob Bronowski</item>
+        <item>Jacob Bronowski</item>
+        <item>Jacob Bronowski</item>
+        <item>Jacob Bronowski</item>
+        <item>Jacob Bronowski</item>
+        <item>Jacob Bronowski</item>
+        <item>Robert Alan</item>
+        <item>Robert Alan</item>
+        <item>Maya Angelou</item>
+        <item>Jean Baudrillard</item>
+        <item>Christian Nevell Bovee</item>
+        <item>Gelett Burgess</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Raymond Chandler</item>
+        <item>William Ellery Channing</item>
+        <item>Frank A. Clark</item>
+        <item>Phyllis Diller</item>
+        <item>George Eliot</item>
+        <item>W. C. Fields</item>
+        <item>Les Giblin</item>
+        <item>Thomas Gray</item>
+        <item>David Hare</item>
+        <item>Dame Sybil Hathaway</item>
+        <item>Doug Horton</item>
+        <item>Doug Horton</item>
+        <item>Kin Hubbard</item>
+        <item>Johann Kaspar Lavater</item>
+        <item>Og Mandino</item>
+        <item>Mother Theresa</item>
+        <item>Thomas Paine</item>
+        <item>William Shakespeare</item>
+        <item>Edward Abbey</item>
+        <item>Lord Acton</item>
+        <item>Henry Adams</item>
+        <item>John Adams</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Anonymous</item>
+        <item>Aristotle</item>
+        <item>Isaac Asimov</item>
+        <item>Margaret Atwood</item>
+        <item>Walter Bagehot</item>
+        <item>James Baldwin</item>
+        <item>James Baldwin</item>
+        <item>Roland Barthes</item>
+        <item>Simone de Beauvoir</item>
+        <item>Eric Bently</item>
+        <item>William Blake</item>
+        <item>Randolph Silliman Bourne</item>
+        <item>John Brewer</item>
+        <item>Emily Bronte</item>
+        <item>Edmund Burke</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Taylor Caldwell</item>
+        <item>Thomas Carlyle</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>Sebastian Roch Nicolas Chamfort</item>
+        <item>Anon.</item>
+        <item>Anonymous</item>
+        <item>Arthur Ashe</item>
+        <item>Arthur Ashe</item>
+        <item>Sasha Azevedo</item>
+        <item>Roland Barthes</item>
+        <item>Ernest Becker</item>
+        <item>Max Beerbohm</item>
+        <item>Chuck D</item>
+        <item>Pierre de Coubertin</item>
+        <item>Epictetus</item>
+        <item>Peggy Fleming</item>
+        <item>Sir Wilfred T. Grenfell</item>
+        <item>Piet Hein</item>
+        <item>Phil Hellmuth</item>
+        <item>Ernest Hemingway</item>
+        <item>Lewis H. Lapham</item>
+        <item>Tommy Lasorda</item>
+        <item>Charles Mann</item>
+        <item>Joe Montana</item>
+        <item>Lewis Mumford</item>
+        <item>Martina Navratilova</item>
+        <item>Terry Orlick</item>
+        <item>George Orwell</item>
+        <item>Ouida</item>
+        <item>Francis Bacon</item>
+        <item>James Barrie</item>
+        <item>Henry Ward Beecher</item>
+        <item>John Beecher</item>
+        <item>Bible</item>
+        <item>Otto von Bismarck</item>
+        <item>Hugh Blair</item>
+        <item>Thomas Carlyle</item>
+        <item>Chow Ching</item>
+        <item>Calvin Coolidge</item>
+        <item>Dwight D Eisenhower</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Anna Freud</item>
+        <item>James A. Froude</item>
+        <item>Johann von Goethe</item>
+        <item>Oliver Goldsmith</item>
+        <item>Han Suyin</item>
+        <item>David Hare</item>
+        <item>Eric Hoffer</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>Anon.</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Amos Bronson Alcott</item>
+        <item>M. H. Alderson</item>
+        <item>Muhammad Ali,</item>
+        <item>James Allen</item>
+        <item>Woody Allen</item>
+        <item>John R. Amos</item>
+        <item>Gillian Anderson</item>
+        <item>Sparky Anderson</item>
+        <item>Maya Angelou</item>
+        <item>Dr. Robert Anthony</item>
+        <item>Aristotle</item>
+        <item>Mary Kay Ash</item>
+        <item>Mary Kay Ash</item>
+        <item>James Atlas</item>
+        <item>Sasha Azevedo</item>
+        <item>Dr. Marcus Bach</item>
+        <item>Jim Backus</item>
+        <item>Francis Bacon</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>G. Emmons</item>
+        <item>Epictetus</item>
+        <item>Sam Ewing</item>
+        <item>George Fabricius</item>
+        <item>Benjamin F. Fairless</item>
+        <item>William Feather</item>
+        <item>Art Fettig</item>
+        <item>Charles Fillmore</item>
+        <item>Harry Firestone</item>
+        <item>Harry Firestone</item>
+        <item>Harvey S. Firestone</item>
+        <item>Harvey S. Firestone</item>
+        <item>Ernest A. Fitzgerald</item>
+        <item>Marshal Ferdinand Foch</item>
+        <item>G. W. Follin</item>
+        <item>Malcolm Stevenson Forbes</item>
+        <item>Henry Ford</item>
+        <item>E. M. Forster,</item>
+        <item>Brendan Francis</item>
+        <item>Benjamin Franklin</item>
+        <item>Benjamin Franklin</item>
+        <item>Robert Frost</item>
+        <item>Leon Gambetta</item>
+        <item>Italian Proverb</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Jean Anouilh</item>
+        <item>Sir Edwin Arnold</item>
+        <item>Jane Austen</item>
+        <item>Nicholson Baker</item>
+        <item>Catharine Esther Beecher</item>
+        <item>Josh Billings</item>
+        <item>William Blake</item>
+        <item>Albert Camus</item>
+        <item>Randolph Churchill</item>
+        <item>Marcus Tullius Cicero</item>
+        <item>Samuel Taylor Coleridge</item>
+        <item>Charles Caleb Colton</item>
+        <item>Marquis De Sade</item>
+        <item>Princess of Wales Diana</item>
+        <item>John W. Draper</item>
+        <item>George Eliot</item>
+        <item>George Eliot</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>John Galsworthy</item>
+        <item>Johann von Goethe</item>
+        <item>Oliver Goldsmith</item>
+        <item>B. R. Hayden</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Henry Adams</item>
+        <item>Amos Bronson Alcott</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Aristotle</item>
+        <item>Thomas Arnold</item>
+        <item>Sylvia Ashton Warner</item>
+        <item>W. H. Auden</item>
+        <item>Hari Dass Baba</item>
+        <item>Richard Bach</item>
+        <item>Richard Bach</item>
+        <item>Walter Bagehot</item>
+        <item>William C. Bagley</item>
+        <item>M. Russell Ballard</item>
+        <item>Bernard Baruch</item>
+        <item>Jacques Barzun</item>
+        <item>A. C. Benson</item>
+        <item>Ezra Taft Benson</item>
+        <item>Roy Blount ,Jr.</item>
+        <item>Erma Bombeck</item>
+        <item>Erma Bombeck</item>
+        <item>George Carlin</item>
+        <item>Meister Eckhart</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>John Henry Jowett</item>
+        <item>H. L. Mencken</item>
+        <item>Anon.</item>
+        <item>Scottish Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>English Proverb</item>
+        <item>English Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Edward Abbey</item>
+        <item>Ansel Adams</item>
+        <item>Joseph Addison</item>
+        <item>Louis Agassiz</item>
+        <item>Maya Angelou</item>
+        <item>John Arthorne</item>
+        <item>English Proverb</item>
+        <item>Yiddish Proverb</item>
+        <item>Warren Bennis</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Joyce Brothers</item>
+        <item>Mary F. Butts</item>
+        <item>Camillo Benso Conte Di Cavour</item>
+        <item>William Pitt The Elder Chatham</item>
+        <item>John Churton Collins</item>
+        <item>Eliza Cook</item>
+        <item>William Cowper</item>
+        <item>Archibald Cox</item>
+        <item>Frank Crane</item>
+        <item>Oliver Cromwell</item>
+        <item>John Dryden</item>
+        <item>Finley Peter Dunne</item>
+        <item>Elsa Einstein</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Ralph Waldo Emerson</item>
+        <item>Harvey Fierstein</item>
+        <item>Yiddish Proverb</item>
+        <item>Danish proverb</item>
+        <item>Jewish Folk Saying</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Franklin Pierce Adams</item>
+        <item>Alfred Adler</item>
+        <item>Sherwood Anderson</item>
+        <item>Hannah Arendt</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Matthew Arnold</item>
+        <item>Marcus Aurelius</item>
+        <item>Dr. Marcus Bach</item>
+        <item>Richard Bach</item>
+        <item>Azel Backus</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>American Indian Proverb</item>
+        <item>Italian Proverb</item>
+        <item>African Proverb</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Aesop</item>
+        <item>Aesop</item>
+        <item>Martin Amis</item>
+        <item>C. D. Andrews</item>
+        <item>Hannah Arendt</item>
+        <item>Hannah Arendt</item>
+        <item>Isaac Asimov</item>
+        <item>Margot Asquith</item>
+        <item>Francis Bacon</item>
+        <item>Walter Bagehot</item>
+        <item>Walter Bagehot</item>
+        <item>Band of Brothers</item>
+        <item>Fr</item>
+        <item>Charles Baudelaire</item>
+        <item>Baudouin I</item>
+        <item>Simone de Beauvoir</item>
+        <item>Ruth Benedict</item>
+        <item>Tony Benn</item>
+        <item>Friedrich Von Bernhardi</item>
+        <item>Hans A. Bethe</item>
+        <item>Yiddish Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Danish proverb</item>
+        <item>African Proverb</item>
+        <item>Japanese Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>James Truslow Adams</item>
+        <item>Aristophanes</item>
+        <item>Isaac Asimov</item>
+        <item>Marcus Aurelius</item>
+        <item>Rabbi Ben Azai</item>
+        <item>Francis Bacon</item>
+        <item>Francis Bacon</item>
+        <item>Matsuo Basho</item>
+        <item>Dan Bell</item>
+        <item>Bhagavad Gita</item>
+        <item>Bhagavad Gita</item>
+        <item>Abigail Adams</item>
+        <item>Spiro T. Agnew</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Henri Frederic Amiel</item>
+        <item>Maya Angelou</item>
+        <item>Maya Angelou</item>
+        <item>Susan B. Anthony</item>
+        <item>Aristophanes</item>
+        <item>Jane Austen</item>
+        <item>Jane Austen</item>
+        <item>Honore de Balzac</item>
+        <item>Brigitte Bardot</item>
+        <item>James Barrie</item>
+        <item>Dave Barry</item>
+        <item>Charles Baudelaire</item>
+        <item>Jean Baudrillard</item>
+        <item>Simone de Beauvoir</item>
+        <item>Caroline Bird</item>
+        <item>Louise Bogan</item>
+        <item>Erma Bombeck</item>
+        <item>Scottish Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Chinese Proverb</item>
+        <item>Anon.</item>
+        <item>First Appeared in 1721 </item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Sean Adams</item>
+        <item>George Allen</item>
+        <item>Maya Angelou</item>
+        <item>Ramona E.F. Arnett</item>
+        <item>Antonin Artaud ,1947</item>
+        <item>Evelyn Ashford</item>
+        <item>Brooks Atkinson</item>
+        <item>W. H. Auden</item>
+        <item>W. H. Auden</item>
+        <item>Jane Austen</item>
+        <item>Colleen C. Barrett</item>
+        <item>Anon.</item>
+        <item>Proverb</item>
+        <item>Proverb</item>
+        <item>Conrad Aiken</item>
+        <item>Aristotle</item>
+        <item>Aristotle</item>
+        <item>Margaret Atwood</item>
+        <item>Francis Bacon</item>
+        <item>Natalie Clifford Barney</item>
+        <item>James Barrie</item>
+        <item>Georges Bernanos</item>
+        <item>Bible</item>
+        <item>Bible</item>
+        <item>Ambrose Bierce</item>
+        <item>Josh Billings</item>
+        <item>Jim Bishop</item>
+        <item>Louise Bogan</item>
+        <item>Erma Bombeck</item>
+        <item>Anita Brookner</item>
+        <item>Robert Browning</item>
+        <item>Pearl Buck</item>
+        <item>Edward George Bulwer Lytton</item>
+        <item>Edmund Burke</item>
+        <item>Lord George Gordon Byron</item>
+        <item>Al Capp</item>
     </string-array>
 
 </resources>
