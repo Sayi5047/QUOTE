@@ -55,11 +55,10 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
             itemstobe_used_images.add(getDrawable(R.drawable.ic_font_bt));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_gradient));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_canvas_size));
-            itemstobe_used_images.add(getDrawable(R.drawable.ic_canvas_size));
-//            itemstobe_used_images.add(getDrawable(R.drawable.ic_canvas_size));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_text_fx));
 
         } else {
-            itemstobe_used_images.add(getDrawable(R.drawable.ic_menu_gallery));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_gallery_bg));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_colors_bg));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_blur_on_black_24dp));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_filter_b_and_w_black_24dp));

@@ -113,7 +113,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         }
         profile_name.setText(unsplash_images.get(position).getUser().getFirst_name());
         profile_desc.setText(unsplash_images.get(position).getUser().getPortfolio_url());
-        Glide.with(WallpapersPagerActivity.this).load(unsplash_images.get(position).getUser().getProfile_image().getMedium()).centerCrop().into(profile_image);
+//        Glide.with(WallpapersPagerActivity.this).load(unsplash_images.get(position).getUser().getProfile_image().getMedium()).centerCrop().into(profile_image);
         imageViewer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

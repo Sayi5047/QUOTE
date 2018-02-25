@@ -3,10 +3,10 @@
     <string-array name="quote_categories">
 
 
-
-
-
-
+        
+        
+        
+        
         <item>Proverb</item>
         <item>Motivational</item>
         <item>Motivational</item>
@@ -301,7 +301,6 @@
         <item>Belief</item>
         <item>Belief</item>
         <item>Belief</item>
-        <item>Belief</item>
         <item>Bible</item>
         <item>Bible</item>
         <item>Bible</item>
@@ -386,29 +385,29 @@
         <item>Business</item>
         <item>Business</item>
         <item>Business</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
-        <item>Cat</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
+        <item>Cats</item>
         <item>Change</item>
         <item>Change</item>
         <item>Change</item>
@@ -1560,101 +1559,101 @@
         <item>Legacy</item>
         <item>Legacy</item>
         <item>Legacy</item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Life </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
-        <item>Love </item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Life</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
+        <item>Love</item>
         <item>Marriage</item>
         <item>Marriage</item>
         <item>Marriage</item>
@@ -1987,10 +1986,10 @@
         <item>Nature</item>
         <item>Nature</item>
         <item>Nature</item>
-        <item>New Year</item>
-        <item>New Year</item>
-        <item>New Year</item>
-        <item>New Year</item>
+        <item>NewYear</item>
+        <item>NewYear</item>
+        <item>NewYear</item>
+        <item>NewYear</item>
         <item>Parenting</item>
         <item>Parenting</item>
         <item>Parenting</item>
@@ -2463,56 +2462,56 @@
         <item>Strength</item>
         <item>Strength</item>
         <item>Strength</item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
-        <item>Success </item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
+        <item>Success</item>
         <item>Sympathy</item>
         <item>Sympathy</item>
         <item>Sympathy</item>
@@ -2671,31 +2670,31 @@
         <item>War</item>
         <item>War</item>
         <item>War</item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
-        <item>Wisdom </item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
+        <item>Wisdom</item>
         <item>Women</item>
         <item>Women</item>
         <item>Women</item>
@@ -2746,6 +2745,7 @@
         <item>Work</item>
         <item>Work</item>
         <item>Work</item>
+        <item>Youth</item>
         <item>Youth</item>
         <item>Youth</item>
         <item>Youth</item>

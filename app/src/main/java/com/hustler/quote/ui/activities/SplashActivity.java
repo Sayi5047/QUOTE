@@ -1,22 +1,20 @@
 package com.hustler.quote.ui.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.util.SparseLongArray;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.QuoteStrings.QuoteCategories;
-import com.hustler.quote.ui.QuoteStrings.QuotesAuthorsClass;
-import com.hustler.quote.ui.QuoteStrings.QuotesClass;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
@@ -37,6 +35,8 @@ public class SplashActivity extends BaseActivity {
     String[] bodies;
     String[] authors;
     String[] categories;
+    ProgressDialog progressDialog;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class SplashActivity extends BaseActivity {
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         tv.setTypeface(App.applyFont(this, Constants.FONT_multicolore));
+        progressDialog = new ProgressDialog(SplashActivity.this);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().setStatusBarColor(ContextCompat.getColor(SplashActivity.this, android.R.color.white));
         }
@@ -55,13 +57,15 @@ public class SplashActivity extends BaseActivity {
         if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
             setCounter_and_launch();
         } else {
-            load_from_Arrays();
-            load_to_database();
+            new QuoteLoadTask().execute();
         }
 
     }
 
     private void load_to_database() {
+        if (progressDialog != null) {
+            progressDialog.setProgress(55);
+        }
         ArrayList<Quote> quotes = new ArrayList<>();
         for (int i = 0; i < quotesFromdb.length; i++) {
             quotes.add(i, quotesFromdb[i]);
@@ -75,71 +79,52 @@ public class SplashActivity extends BaseActivity {
             editor.putBoolean(Constants.IS_DB_LOADED_PREFERENCE, true);
             editor.apply();
         }
-        setCounter_and_launch();
+        if (progressDialog != null) {
+            progressDialog.setProgress(95);
+        }
+//        setCounter_and_launch();
     }
 
     private void load_from_Arrays() {
+        if (progressDialog != null) {
+            progressDialog.setProgress(25);
+        }
 
-//        bodies = QuotesClass.AGE_QUOTES.split("\n");
-//        authors = QuotesAuthorsClass.AGE_AUTHORS.split("\n");
-//        categories = QuoteCategories.QUOTE_CATEGORY_AGE.split("\n");
         bodies = getResources().getStringArray(R.array.quote_bodies);
         authors = getResources().getStringArray(R.array.quote_authors);
         categories = getResources().getStringArray(R.array.quote_categories);
+
         Log.d("VALUES", String.valueOf(bodies.length));
         Log.d("VALUES", String.valueOf(authors.length));
         Log.d("VALUES", String.valueOf(categories.length));
-//        for (String body : bodies) {
-//            Log.d("VALUES", body);
-//        }
-//        for (String body : authors) {
-//            Log.d("authors", body);
-//        }
-//        for (String body : categories) {
-//            Log.d("categories", body);
-//        }
+
+        Log.d("BODIES LENGTH", String.valueOf(bodies.length));
+        Log.d("AUTHORS LENGTH", String.valueOf(authors.length));
+        Log.d("Categories LENGTH", String.valueOf(categories.length));
 
 
-
-        Log.d("BODIES LENGTH",String.valueOf(bodies.length));
-        Log.d("AUTHORS LENGTH",String.valueOf(authors.length));
-        Log.d("Categories LENGTH",String.valueOf(categories.length));
-
-//        final String[] bodies = getResources().getStringArray(R.array.quote_bodies);
-//        final String[] authors = getResources().getStringArray(R.array.quote_authors);
-//        final String[] categories = getResources().getStringArray(R.array.quote_categories);
         final String[] languages = getResources().getStringArray(R.array.quote_languages);
-        quotesFromdb=new Quote[bodies.length];
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < bodies.length; i++) {
-                    Log.d("ADDED ELEMNT",String.valueOf(i));
-                    Quote quote = new Quote(bodies[i], authors[i], categories[i], languages[0]);
-                    quotesFromdb[i]=quote;
-                }
-            }
-        }).run();
+        quotesFromdb = new Quote[bodies.length];
+        for (int i = 0; i < bodies.length; i++) {
+            Log.d("ADDED ELEMNT", String.valueOf(i));
+            Quote quote = new Quote(bodies[i], authors[i], categories[i], languages[0]);
+            quotesFromdb[i] = quote;
+        }
 
     }
 
-    private void convertQuotes() {
-
-    }
 
     private void gotoSecondmain() {
         if (sharedPreferences.getBoolean(Constants.IS_USER_SAW_INRODUCTION, false)) {
             startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-
         } else {
             startActivity(new Intent(SplashActivity.this, LanderActivty.class));
-
         }
 
     }
 
     private void setCounter_and_launch() {
-        CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(800, 800) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -147,19 +132,50 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    gotoFirstMain();
-//                }
                 gotoSecondmain();
             }
         };
         countDownTimer.start();
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//    private void gotoFirstMain() {
-//        getWindow().setEnterTransition(new Explode());
-//        Intent intent=new Intent(SplashActivity.this,MainActivity.class);
-//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this).toBundle());
-//    }
+    public class QuoteLoadTask extends AsyncTask<String, String, Void> {
+
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setTitle(getString(R.string.First_setup));
+            progressDialog.setMessage(getString(R.string.please_wait));
+            progressDialog.setProgress(0);
+            progressDialog.create();
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            load_from_Arrays();
+            load_to_database();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.setProgress(100);
+            progressDialog.dismiss();
+            setCounter_and_launch();
+        }
+    }
 }

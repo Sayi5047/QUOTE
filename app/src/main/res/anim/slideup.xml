@@ -5,6 +5,7 @@
         android:duration="400"
         android:fromYDelta="100%"
         android:toYDelta="0" />
-    />
+
+
 
 </set>

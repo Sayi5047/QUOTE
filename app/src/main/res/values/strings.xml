@@ -55,9 +55,9 @@
     <string name="local_fonts">Local fonts</string>
     <string name="symbol_fonts">Symbol fonts</string>
     <string name="downloaded_fonts">Your fonts</string>
-    <string name="app_fonts">Local fonts</string>
-    <string name="download_fonts">Downloaded fonts</string>
-    <string name="symbolic_fonts">Symbol fonts</string>
+    <string name="app_fonts">App fonts</string>
+    <string name="download_fonts">Online fonts</string>
+    <string name="symbolic_fonts">Downloaded fonts</string>
     <string name="select_font">Select any font style to apply.</string>
     <string name="clear">Clear selection</string>
     <string name="permission_comulsory">Permission is mandatory for editing pictures.</string>
@@ -204,6 +204,9 @@
     <string name="Quote_confession">All quotes you can see in this app are Collected from internet</string>
     <string name="Icons">Icons</string>
     <string name="Icon_confession">,All icons are downloaded from internet and Flaticon.com</string>
+    <string name="First_setup">Fitrst time setup</string>
+    <string name="please_wait">Please,wait getting and extracting all necessary files.This happens only for the first time</string>
+    <string name="loading_image">Loading Image from server</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">

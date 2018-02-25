@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -38,6 +38,7 @@ public class PaperFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton rd1, rd2, rd3;
     SharedPreferences sharedPreferences;
+    LinearLayout loading_layout;
 
     public static PaperFragment newInstance(Unsplash_Image textView) {
         PaperFragment wallpaperFragmente = new PaperFragment();
@@ -58,6 +59,7 @@ public class PaperFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wallpaer_fragment_layout, container, false);
         imageView = view.findViewById(R.id.wallpaper_image);
+        loading_layout = view.findViewById(R.id.loading_layout);
         radioGroup = view.findViewById(R.id.rd_group);
         rd1 = view.findViewById(R.id.rb_regular);
         rd2 = view.findViewById(R.id.rb_hd);
@@ -75,71 +77,58 @@ public class PaperFragment extends Fragment {
     }
 
     private void updateSharedPreferences(int i) {
+        loading_layout.setVisibility(View.VISIBLE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(Constants.Shared_prefs_image_resol_key, i);
         editor.commit();
-        final ProgressBar progressBar = new ProgressBar(getActivity());
 
         switch (i) {
             case 0: {
-                progressBar.setVisibility(View.VISIBLE);
                 Glide.with(getActivity()).load(textView.getUrls().getRegular()).crossFade().centerCrop().listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-                        return false;
-
+                        loading_layout.setVisibility(View.GONE);
+                        return true;
                     }
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
+                        loading_layout.setVisibility(View.GONE);
                         return false;
                     }
                 }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
-
             }
             break;
             case 1: {
-                progressBar.setVisibility(View.VISIBLE);
-
                 Glide.with(getActivity()).load(textView.getUrls().getFull()).crossFade().centerCrop().listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-
-                        return false;
+                        loading_layout.setVisibility(View.GONE);
+                        return true;
                     }
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-
+                        loading_layout.setVisibility(View.GONE);
                         return false;
                     }
                 }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
-
             }
             break;
             case 2: {
-                progressBar.setVisibility(View.VISIBLE);
-
                 Glide.with(getActivity()).load(textView.getUrls().getRaw()).crossFade().centerCrop().listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-
-                        return false;
+                        loading_layout.setVisibility(View.GONE);
+                        return true;
                     }
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-
+                        loading_layout.setVisibility(View.GONE);
                         return false;
                     }
                 }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
-
             }
             break;
         }
@@ -149,7 +138,20 @@ public class PaperFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 //        Log.i("CREATEDDDDD","CREATEDDDD");
 //        Log.i("CREATEDDDDD",textView);
-        Glide.with(getActivity()).load(textView.getUrls().getRegular()).crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        Glide.with(getActivity()).load(textView.getUrls().getRegular()).crossFade().centerCrop().
+        listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                loading_layout.setVisibility(View.GONE);
+                return true;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                loading_layout.setVisibility(View.GONE);
+                return false;
+            }
+        }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -159,7 +161,6 @@ public class PaperFragment extends Fragment {
                     updateSharedPreferences(0);
                 } else if (checkedId == R.id.rb_hd) {
                     updateSharedPreferences(1);
-
                 } else if (checkedId == R.id.rb_uhd) {
                     updateSharedPreferences(2);
 

@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -271,9 +272,12 @@ public class TextFeatures {
         dialog.setContentView(R.layout.apply_font_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(editorActivity, R.color.colorAccent));
+        }
         AdView adView;
 
-        LinearLayout root;
+        ScrollView root;
         TextView tvAppFonts;
         final TextView demoText;
         RecyclerView rvAppFont;
@@ -952,7 +956,7 @@ public class TextFeatures {
         lightingStrngthSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                radius[0] = progress%10;
+                radius[0] = progress % 10;
 
                 if (selectedVfx[0] == 1) {
                     opacity[1] = 1;

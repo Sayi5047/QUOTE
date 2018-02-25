@@ -51,9 +51,8 @@ public class Constants {
 
 
     public static final String CATEGORIES_STRING =
-                    "Age\n" +
                     "Alone\n" +
-                    "Anger\n" +
+                    "Angry\n" +
                     "Architecture\n" +
                     "Art\n" +
                     "Attitude\n" +
@@ -170,7 +169,7 @@ public class Constants {
                     "Truth\n" +
 
                     "War\n" +
-                    "Wisdom \n" +
+                    "Wisdom\n" +
                     "Women\n" +
                     "Work\n" +
 

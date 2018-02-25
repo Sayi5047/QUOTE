@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/root">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,16 +19,72 @@
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font4"
-            android:textStyle="italic">
+            android:textSize="@dimen/font2"
+            >
 
         </TextView>
-
         <LinearLayout
-            android:id="@+id/root"
+            android:id="@+id/root3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_demo_text"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_downloaded_fonts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/smallPadding"
+                android:text="@string/download_fonts"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font"
+                >
+
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/search_Box_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/search_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rounded_rect"
+                    android:padding="10dp"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/search_button"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_search_black_24dp"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_downloaded_font"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_margin="@dimen/smallPadding">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:orientation="vertical">
 
             <TextView
@@ -39,8 +96,8 @@
                 android:text="@string/app_fonts"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:textStyle="italic">
+                android:textSize="@dimen/font"
+                >
 
             </TextView>
 
@@ -58,7 +115,7 @@
             android:id="@+id/root2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/root"
+
             android:orientation="vertical">
 
             <TextView
@@ -70,8 +127,8 @@
                 android:text="@string/symbolic_fonts"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:textStyle="italic">
+                android:textSize="@dimen/font"
+                >
 
             </TextView>
 
@@ -85,63 +142,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/root3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/root2"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_downloaded_fonts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:padding="@dimen/smallPadding"
-                android:text="@string/download_fonts"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:textStyle="italic">
-
-            </TextView>
-
-            <LinearLayout
-                android:id="@+id/search_Box_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/search_box"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:background="@drawable/rounded_rect"
-                    android:hint="@string/enter_search"
-                    android:padding="16dp"
-                    android:textColor="@color/textColor" />
-
-                <ImageView
-                    android:id="@+id/search_button"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_search_black_24dp"
-                    tools:ignore="ContentDescription" />
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_downloaded_font"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_margin="@dimen/smallPadding">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
 
 
         <LinearLayout

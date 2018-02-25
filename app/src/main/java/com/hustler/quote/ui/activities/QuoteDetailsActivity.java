@@ -387,7 +387,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         Intent intent = new Intent(this, EditorActivity.class);
 
         intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-        intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
+        intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         startActivity(intent);
     }
 
