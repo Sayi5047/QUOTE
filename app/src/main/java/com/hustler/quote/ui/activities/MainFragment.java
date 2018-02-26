@@ -57,6 +57,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         rv = view.findViewById(R.id.main_rv);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         loader = view.findViewById(R.id.loader);
+        loader.setVisibility(View.VISIBLE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
@@ -87,7 +88,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
             getLoaderManager().initLoader(0, null, this);
         } else {
-            loader.setVisibility(View.GONE);
+            loader.setVisibility(View.VISIBLE);
         }
     }
 
@@ -110,6 +111,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
+        this.loader.setVisibility(View.GONE);
         setAdapter(new ArrayList<Quote>(data));
     }
 
@@ -137,7 +139,34 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         }
     }
 
-//    @Override
+    @Override
+    public void onStart() {
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        super.onResume();
+    }
+    //    @Override
 //    public void onResume() {
 //        super.onResume();
 //        Log.d("MainAdapter","ON RESUME");

@@ -54,6 +54,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
     }
 
     private void setAdapter(RecyclerView recyclerView) {
+        recyclerView.setAdapter(null);
         final ArrayList<Quote>[] arrayLists = new ArrayList[]{new ArrayList<>()};
         new Thread(new Runnable() {
             @Override

@@ -74,7 +74,11 @@ public class QuoteLoaderService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        new QuoteLoadTask().execute();
+        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false) == false) {
+            new QuoteLoadTask().execute();
+        } else {
+
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -110,7 +114,8 @@ public class QuoteLoaderService extends Service {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            sharedPreferences.edit().putBoolean(Constants.IS_QUOTES_LOADED_KEY, true).apply();
+            sharedPreferences.edit().putBoolean(Constants.IS_QUOTES_LOADED_KEY, true).commit();
+            stopSelf();
         }
     }
 
@@ -127,7 +132,7 @@ public class QuoteLoaderService extends Service {
             Log.d("Quotes list length", quotes.size() + "");
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Constants.IS_DB_LOADED_PREFERENCE, true);
-            editor.apply();
+            editor.commit();
         }
 
     }
