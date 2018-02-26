@@ -203,7 +203,7 @@
     <string name="Image_confession">All images are provided by Unsplash.com and the Editor search images are provided by pixabay.com </string>
     <string name="Quote_confession">All quotes you can see in this app are Collected from internet</string>
     <string name="Icons">Icons</string>
-    <string name="Icon_confession">,All icons are downloaded from internet and Flaticon.com</string>
+    <string name="Icon_confession">All icons are downloaded from internet and Flaticon.com</string>
     <string name="First_setup">Fitrst time setup</string>
     <string name="please_wait">Please,wait getting and extracting all necessary files.This happens only for the first time</string>
     <string name="loading_image">Loading Image from server</string>
