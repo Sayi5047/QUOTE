@@ -14,12 +14,14 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,7 +88,19 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener, View.OnLongClickListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
@@ -250,7 +264,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).edit();
             editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
-            editor.commit();
+            editor.apply();
             isHeightMeasured = true;
         }
     }
@@ -361,6 +375,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 String action = intent.getAction();
                 if (action == Intent.ACTION_VIEW) {
                     path = intent.getData().getPath();
+//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
+//                    path = uri.getPath();
+//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
                     Log.d("ACTION_VIEW", path);
 
                 } else if (action == Intent.ACTION_SEND) {
@@ -371,6 +388,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
                 try {
                     file = new File(path);
+
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
                     FileUtils.unzipandSave(file, EditorActivity.this);
                 } catch (Exception e) {
@@ -1111,9 +1129,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, start, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, center, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, end, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, add_bg, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, done, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, add_bg, Constants.FONT_CIRCULAR);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1267,8 +1285,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, highlight, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, colorText, Constants.FONT_CIRCULAR);
 
-        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, done, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, previewText, Constants.FONT_CIRCULAR);
         start.setOnClickListener(new View.OnClickListener() {
             @Override

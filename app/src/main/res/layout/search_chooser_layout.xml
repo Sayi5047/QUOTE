@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
@@ -27,10 +27,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
-                android:imeOptions="actionSearch"
                 android:layout_weight="8"
                 android:background="@drawable/transparent_drawable"
                 android:hint="@string/where_to_search"
+                android:imeOptions="actionSearch"
                 android:padding="16dp"
                 android:textColor="@color/textColor"
                 android:textColorHint="@color/black_overlay"
@@ -90,10 +90,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rd_group"
-        app:cardCornerRadius="4dp"
         android:layout_margin="4dp"
         android:background="@android:color/transparent"
-        >
+        app:cardCornerRadius="4dp">
 
         <RelativeLayout
 
@@ -115,14 +114,14 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_centerInParent="true" />
+
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 ads:adSize="SMART_BANNER"
-                ads:adUnitId="@string/bannerAdId"
-                >
+                ads:adUnitId="@string/bannerAdId">
 
             </com.google.android.gms.ads.AdView>
         </RelativeLayout>

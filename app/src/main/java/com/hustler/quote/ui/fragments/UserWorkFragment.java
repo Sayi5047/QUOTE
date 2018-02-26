@@ -3,11 +3,10 @@ package com.hustler.quote.ui.fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.ExifInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +14,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -32,7 +29,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.UserWorkAdapter;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
@@ -47,6 +46,19 @@ import java.util.ArrayList;
  * Created by Sayi on 17-12-2017.
  */
 
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class UserWorkFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_ = 1001;
     RecyclerView rv;
@@ -56,7 +68,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     private LinearLayout dataView;
     private RelativeLayout quoteOfDayLl;
     private LinearLayout noPermissionView;
-    private TextView imageText;
+    private ImageView imageText;
     private TextView message;
     UserWorkAdapter userWorkAdapter;
 
@@ -72,13 +84,10 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         imageText = view.findViewById(R.id.image_text);
         message = view.findViewById(R.id.message);
         loader.setVisibility(View.GONE);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                checkPermission_and_proceed();
-            }
-        }).run();
+        checkPermission_and_proceed();
+        TextUtils.findText_and_applyTypeface(noPermissionView, getActivity());
         return view;
+
     }
 
     private void checkPermission_and_proceed() {
@@ -95,28 +104,37 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
 
     private void setRecyclerview() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
-            }
-        }).run();
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        if (userWorkImages == null || userWorkImages.getImageNames().length<=0 || userWorkImages.getImagesPaths().length<=0) {
+        userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
+        setUpAdapter();
+//        new GetUserImagesTask().execute();
+    }
+
+    private void setUpAdapter() {
+        if (userWorkImages == null || userWorkImages.getImageNames().length <= 0 || userWorkImages.getImagesPaths().length <= 0) {
             dataView.setVisibility(View.GONE);
             noPermissionView.setVisibility(View.VISIBLE);
             message.setText(getActivity().getString(R.string.no_work));
-        }else {
+            noPermissionView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), EditorActivity.class);
+                    intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
+                    startActivity(intent);
+                }
+            });
+        } else {
+//            rv.setAdapter(null);
             userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
                 @Override
                 public void onImageClickListneer(int position, String imageName, String imagepath) {
                     try {
                         android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
                         buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
-                        Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
-                        Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
-                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
-                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
+//                        Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
+//                        Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
+//                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
+//                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
@@ -125,14 +143,15 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
             });
 
             rv.setAdapter(userWorkAdapter);
-            rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
-        }
 
+//            rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
+
+        }
     }
 
     private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
         final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
-        dialog.setContentView(View.inflate(getActivity().getApplicationContext(),R.layout.user_work_show_item,null));
+        dialog.setContentView(View.inflate(getActivity().getApplicationContext(), R.layout.user_work_show_item, null));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 //        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE);
@@ -302,7 +321,56 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        rv.setAdapter(null);
         checkPermission_and_proceed();
+    }
+
+    /*   Copyright [2018] [Sayi Manoj Sugavasi]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
+public class GetUserImagesTask extends AsyncTask<String, String, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @param strings The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            setUpAdapter();
+            super.onPostExecute(aVoid);
+
+        }
     }
 }

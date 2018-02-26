@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
     tools:context="com.hustler.quote.ui.activities.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -42,10 +42,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:tabSelectedTextColor="@android:color/white"
+            app:tabIndicatorColor="@android:color/white"
             app:tabMode="scrollable"
-            app:tabTextColor="#fff9f9f9"
-            app:tabIndicatorColor="@android:color/white">
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="#fff9f9f9">
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
@@ -56,10 +56,11 @@
         android:layout_height="56dp"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
-        android:src="@drawable/ic_mode_edit_white_24dp"
         android:layout_marginRight="25dp"
+        android:src="@drawable/ic_mode_edit_white_24dp"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />
+
     <ImageView
         android:layout_width="34dp"
         android:layout_height="64dp"
@@ -69,8 +70,8 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="38dp"
         android:elevation="4dp"
-        android:visibility="gone"
         android:src="@drawable/ic_mode_edit_white_24dp"
+        android:visibility="gone"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />
 
@@ -84,6 +85,7 @@
         >
 
     </android.support.v4.view.ViewPager>
+
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"

@@ -1,52 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    xmlns:tool="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-   >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/wallpaper_preview"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:src="@drawable/geometry_2"
-        android:fitsSystemWindows="true"
-        android:scaleType="centerCrop"/>
+    android:orientation="vertical">
 
-    <View
-        android:id="@+id/layer"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@drawable/bwgradient" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
+
         <ImageView
-            android:id="@+id/photographer_image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/circledrawable"
-            android:layout_margin="4dp"/>
-        <TextView
-            android:id="@+id/photographer_name"
+            android:id="@+id/wallpaper_preview"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/geometry_2" />
+
+        <View
+            android:id="@+id/layer"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/bwgradient" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            tools:text="Sayi Manoj Sugavasi"
-            android:layout_margin="4dp"
-            android:padding="4dp"
-            android:textColor="@android:color/white"
-            android:layout_toEndOf="@id/photographer_image"/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/photographer_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp"
+                android:background="@drawable/circledrawable" />
+
+            <TextView
+                android:id="@+id/photographer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp"
+                android:layout_toEndOf="@id/photographer_image"
+                android:padding="4dp"
+                android:textColor="@android:color/white"
+                tools:text="Sayi Manoj Sugavasi" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

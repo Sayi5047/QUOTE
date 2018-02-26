@@ -31,7 +31,19 @@ import java.util.Random;
 /**
  * Created by Sayi on 25-01-2018.
  */
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class DailyWallpaperService extends IntentService {
     List<Unsplash_Image> images;
     File downloading_File;
@@ -110,7 +122,7 @@ public class DailyWallpaperService extends IntentService {
                 editor.putString(Constants.Shared_prefs_loaded_images_for_service_key, imagess);
                 editor.putInt(Constants.Shared_prefs_current_service_image_key, 1);
                 editor.putInt(Constants.Shared_prefs_current_service_image_Size_key, response.getResults().length);
-                editor.commit();
+                editor.apply();
                 unsplash_image = response.getResults()[0];
                 download_and_setWallapper(intent, unsplash_image);
 
@@ -147,15 +159,15 @@ public class DailyWallpaperService extends IntentService {
         @Override
         protected Void doInBackground(final String... params) {
 
-                    downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getFull(), unsplash_image.getId() + "SAYI.jpg");
-                    try {
-                        wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-                    if (downloading_File != null) {
-                        downloading_File.delete();
-                    }
+            downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getFull(), unsplash_image.getId() + "SAYI.jpg");
+            try {
+                wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            if (downloading_File != null) {
+                downloading_File.delete();
+            }
 
             return null;
         }

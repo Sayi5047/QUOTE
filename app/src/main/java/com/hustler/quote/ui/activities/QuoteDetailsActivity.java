@@ -30,7 +30,6 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
-import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.FileUtils;
@@ -40,7 +39,19 @@ import com.hustler.quote.ui.utils.TextUtils;
 import java.io.File;
 
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_WALLPAPER = 1003;
@@ -373,19 +384,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void edit() {
-        tv_Quote_Body.setTypeface(App.applyFont(this, Constants.FONT_NEVIS));
-//        int cx=image_saved_message.getWidth()/2;
-//        int cy=image_saved_message.getHeight()/2;
-//         float finalradius=((float) StrictMath.hypot(cx,cy));
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            Animator anim =
-//                    ViewAnimationUtils.createCircularReveal(image_saved_message, cx, cy, 0, finalradius);
-////            anim.
-//            anim.start();
-//        }
-
         Intent intent = new Intent(this, EditorActivity.class);
-
         intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
         intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         startActivity(intent);
@@ -396,39 +395,4 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         super.onBackPressed();
     }
 
-    //    private void savetoDevice(ViewGroup layout) {
-//
-//
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                Bitmap bitmap = quote_layout.getDrawingCache();
-////        quote_layout.setDrawingCacheEnabled(false);
-//
-//                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-//
-//                File file = new File(new StringBuilder().append(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES))
-//                        .append(File.separator)
-//                        .append(quote.getBody().substring(0, 10))
-//                        .append(quote.getAuthor())
-//                        .append(System.currentTimeMillis())
-//                        .append(".jpeg")
-//                        .toString());
-//                savedFile = file;
-//                Log.d("ImageLocation -->", file.toString());
-//                try {
-//                    file.createNewFile();
-//                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-//                    fileOutputStream.write(byteArrayOutputStream.toByteArray());
-//                    fileOutputStream.close();
-////                    App.showToast(QuoteDetailsActivity.this,getString(R.string.image_saved));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
-//
-//
-//    }
 }
