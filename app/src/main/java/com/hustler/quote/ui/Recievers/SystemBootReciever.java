@@ -14,6 +14,9 @@ import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Shared_prefs_constants;
 
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Sayi on 26-01-2018.
  */
@@ -31,12 +34,16 @@ public class SystemBootReciever extends BroadcastReceiver {
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
+            Calendar calendar=Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY,11);
+            calendar.set(Calendar.MINUTE,58);
             notif_alarm_intent = new Intent(context, NotifAlarmReciever.class);
             notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
             notif_pending_intent = PendingIntent.getBroadcast(context, 1, notif_alarm_intent, 0);
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime(),
-                    (60 * 1000),
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    1 * 24 * 60 * 60 * 1000,
                     notif_pending_intent);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);

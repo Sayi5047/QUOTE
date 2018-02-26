@@ -17,6 +17,8 @@ import com.hustler.quote.ui.Recievers.NotifAlarmReciever;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Shared_prefs_constants;
 
+import java.util.Calendar;
+
 /**
  * Created by anvaya5 on 06/02/2018.
  */
@@ -135,9 +137,13 @@ public class ProfeaturesActivity extends BaseActivity implements SharedPreferenc
         notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
         notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
         notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime(),
-                (60 * 1000),
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 58);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                1 * 24 * 60 * 60 * 1000,
                 notif_pending_intent);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);

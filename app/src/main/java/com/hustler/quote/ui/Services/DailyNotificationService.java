@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -39,38 +40,64 @@ public class DailyNotificationService extends IntentService {
 
     }
 
-    private void doTask() {
-        Log.i("JOB SERVICE", "JOB STARTED");
-
-        if (quotes == null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    quotes = new QuotesDbHelper(getApplicationContext()).getQuotesByCategory("Bible");
-                }
-            }).run();
-        } else {
-
-        }
-        if (quotes.size() <= 0) {
-            return;
-        } else {
-            val = new Random().nextInt(quotes.size());
-            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotification_Builder = new NotificationCompat.Builder(this);
-            mNotification_Builder
-                    .setContentTitle("QUOTZY")
-                    .setContentText(quotes.get(val).getQuote_body() + " -- " + quotes.get(val).getQuote_author())
-                    .setSmallIcon(R.drawable.ic_launcher);
-            mNotificationManager.notify(1, mNotification_Builder.build());
-        }
-
-    }
-
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         doTask();
 
+    }
+
+    private void doTask() {
+        Log.i("JOB SERVICE", "JOB STARTED");
+        new GetQuotesTask().execute();
+
+    }
+
+    public class GetQuotesTask extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d("NOTIF TASK", "TASK STARTED");
+        }
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @param strings The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            quotes = new QuotesDbHelper(getApplicationContext()).getAllFav_Quotes();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (quotes.size() <= 0) {
+                return;
+            } else {
+                val = new Random().nextInt(quotes.size());
+                mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotification_Builder = new NotificationCompat.Builder(getApplicationContext());
+                mNotification_Builder
+                        .setContentTitle("QUOTZY")
+                        .setContentText(quotes.get(val).getQuote_body() + " -- " + quotes.get(val).getQuote_author())
+                        .setSmallIcon(R.drawable.ic_launcher);
+                mNotificationManager.notify(1, mNotification_Builder.build());
+            }
+
+        }
     }
 }
