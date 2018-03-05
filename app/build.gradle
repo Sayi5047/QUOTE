@@ -68,5 +68,7 @@ dependencies {
     compile 'org.jetbrains:annotations-java5:15.0'
     compile 'com.google.android.gms:play-services-ads:11.8.0'
     compile 'com.pes.materialcolorpicker:library:1.2.0'
+    compile 'com.google.firebase:firebase-core:11.8.0'
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'
