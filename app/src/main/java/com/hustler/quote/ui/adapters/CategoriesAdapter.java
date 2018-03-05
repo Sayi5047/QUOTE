@@ -1,9 +1,7 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,19 @@ import java.util.ArrayList;
 /**
  * Created by anvaya5 on 20/12/2017.
  */
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
     Activity activity;
     String categoriesString = Constants.CATEGORIES_STRING;
@@ -41,15 +51,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
     private void convertvals() {
-        categoriesListArray = categoriesString.split("\n");
-        for (int i = 0; i < categoriesListArray.length; i++) {
-            categoryArrayList.add(i, categoriesListArray[i]);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                categoriesListArray = categoriesString.split("\n");
+                for (int i = 0; i < categoriesListArray.length; i++) {
+                    categoryArrayList.add(i, categoriesListArray[i]);
+                }
+            }
+        }).run();
+
 
     }
 
     public interface OnCategoryClickListener {
-        void onCategoryClicked(String category, int position,GradientDrawable drawable);
+        void onCategoryClicked(String category, String cate2, int position, GradientDrawable drawable);
     }
 
 
@@ -60,13 +76,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(final CategoryViewHolder holder, final int position) {
-        final GradientDrawable gradientDrawable=createDrawable(holder);
+        final GradientDrawable gradientDrawable = createDrawable(holder);
         holder.textView.setText(categoryArrayList.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (categoryClickListener != null) {
-                    categoryClickListener.onCategoryClicked(categoryArrayList.get(position), position,gradientDrawable);
+                    categoryClickListener.onCategoryClicked(categoryArrayList.get(position), position == 0 ? " " :
+                            categoryArrayList.get(position - 1), position, gradientDrawable);
                 }
             }
         });
@@ -110,7 +127,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             textView = itemView.findViewById(R.id.bt_category);
             imageView = itemView.findViewById(R.id.back_image);
             TextUtils.setFont(activity, textView, Constants.FONT_ZINGCURSIVE);
-            textView.setShadowLayer(1f,2,2, activity.getResources().getColor(android.R.color.black));
+            textView.setShadowLayer(1f, 2, 2, activity.getResources().getColor(android.R.color.black));
 
         }
     }

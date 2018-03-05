@@ -1,231 +1,238 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/tv_header"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
-        android:background="@color/colorAccent"
         android:gravity="center"
-        android:padding="16dp"
-        android:text="@string/edit_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font3" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rect"
-        android:padding="16dp"
-        android:layout_margin="4dp"/>
-
-    <TextView
-        android:id="@+id/tv_align_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/align"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/font1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bt_start"
+        <TextView
+            android:id="@+id/tv_header"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/start"
-            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/edit_text"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font3" />
 
-            android:textColor="@color/textColor" />
-
-        <Button
-            android:id="@+id/bt_center"
+        <EditText
+            android:id="@+id/et_text"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:background="@drawable/rounded_rect"
-            android:text="@string/center"
-            android:textAllCaps="false"
+            android:padding="16dp" />
 
-            android:textColor="@color/textColor" />
+        <TextView
+            android:id="@+id/tv_align_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/align"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/font1" />
 
-        <Button
-            android:id="@+id/bt_end"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/end"
-            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            android:textColor="@color/textColor" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/bt_start"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/start"
+                android:textAllCaps="false"
 
-    <TextView
-        android:id="@+id/tv_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/format"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/font1" />
+                android:textColor="@color/textColor" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/bt_center"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/center"
+                android:textAllCaps="false"
 
-        <Button
-            android:id="@+id/bt_bold"
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_end"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/end"
+                android:textAllCaps="false"
+
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/format"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/font1" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            android:text="@string/bold"
-            android:textAllCaps="false"
-            android:textColor="@color/textColor" />
+            <Button
+                android:id="@+id/bt_bold"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
 
-        <Button
-            android:id="@+id/bt_underline"
+                android:text="@string/bold"
+                android:textAllCaps="false"
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_underline"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/underline"
+                android:textAllCaps="false"
+
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_italic"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+
+                android:text="@string/italic"
+                android:textAllCaps="false"
+                android:textColor="@color/textColor" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/underline"
-            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            android:textColor="@color/textColor" />
+            <Button
+                android:id="@+id/bt_strikethrough"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/strike"
+                android:textAllCaps="false"
 
-        <Button
-            android:id="@+id/bt_italic"
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_highlight"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/backgroundColor"
+                android:textAllCaps="false"
+
+                android:textColor="@color/textColor" />
+
+            <Button
+                android:id="@+id/bt_colored"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/color"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/color_rv"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-
-            android:text="@string/italic"
-            android:textAllCaps="false"
-            android:textColor="@color/textColor" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="45dp"
+            android:visibility="gone" />
 
         <Button
-            android:id="@+id/bt_strikethrough"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/strike"
-            android:textAllCaps="false"
-
-            android:textColor="@color/textColor" />
-
-        <Button
-            android:id="@+id/bt_highlight"
+            android:id="@+id/bt_add_bg"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="@dimen/fab_margin"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/backgroundColor"
-            android:textAllCaps="false"
-
-            android:textColor="@color/textColor" />
-
-        <Button
-            android:id="@+id/bt_colored"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/color"
             android:textColor="@color/colorAccent"
             android:visibility="gone" />
-    </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/color_rv"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/bt_add_bg"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_weight="1"
-        android:background="@drawable/rounded_rect"
-        android:text="@string/backgroundColor"
-        android:textColor="@color/colorAccent"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bt_close"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/cancel"
-            android:textColor="@android:color/holo_red_light" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_done"
+            <Button
+                android:id="@+id/bt_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/cancel"
+                android:textColor="@android:color/holo_red_light" />
+
+            <Button
+                android:id="@+id/bt_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_rect"
+                android:text="@string/done"
+
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_rect"
-            android:text="@string/done"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/bannerAdId"
+            ads:layout_anchorGravity="bottom">
 
-            android:textColor="@color/colorAccent" />
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/bannerAdId"
-        ads:layout_anchorGravity="bottom">
-
-    </com.google.android.gms.ads.AdView>
-</LinearLayout>
+</ScrollView>

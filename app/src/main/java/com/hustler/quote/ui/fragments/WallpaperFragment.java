@@ -3,6 +3,7 @@ package com.hustler.quote.ui.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -44,6 +45,19 @@ import java.util.Random;
  * Created by Sayi on 26-01-2018.
  */
 
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class WallpaperFragment extends android.support.v4.app.Fragment {
 
 
@@ -60,6 +74,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
     String collection_category = "girls";
     Unsplash_Image[] unsplash_images_loaded;
     SharedPreferences sharedPreferences;
+    Unsplash_Image[] unsplash_images;
 
     @Nullable
     @Override
@@ -72,24 +87,24 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         credit = view.findViewById(R.id.crdit);
         loader.setVisibility(View.GONE);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-        });
+//        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//        });
         catgories.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
 
-        infiniteScrolListener = new InfiniteScrolListener(gridLayoutManager) {
-            @Override
-            public void onLoadMore(int i, int totalItemCount) {
-                if (IS_CATEGORY_FLAG == true) {
-                    Log.d("LISTENR", String.valueOf(i + "----" + totalItemCount));
-                    load_searched_images(collection_category, i);
-
-                } else {
-
-                    getRandomIMages(i);
-                }
-            }
-        };
+//        infiniteScrolListener = new InfiniteScrolListener(gridLayoutManager) {
+//            @Override
+//            public void onLoadMore(int i, int totalItemCount) {
+//                if (IS_CATEGORY_FLAG == true) {
+//                    Log.d("LISTENR", String.valueOf(i + "----" + totalItemCount));
+//                    load_searched_images(collection_category, i);
+//
+//                } else {
+//
+//                    getRandomIMages(i);
+//                }
+//            }
+//        };
 //        rv.addOnScrollListener(infiniteScrolListener);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         checkPermission_and_proceed();
@@ -195,20 +210,11 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
     public void setRecyclerview() {
 //        clearEverything();
 
-        if(sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times,0)>5){
-                    getRandomIMages(new Random().nextInt(30));
-            Log.d("IMAGE LOADED TIMES",String.valueOf(sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times,0)));
-        }else {
+        if (sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times, 0) > 5) {
+            getRandomIMages(new Random().nextInt(30));
+        } else {
             if (sharedPreferences.getBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, false) == true) {
-                Type type = new TypeToken<Unsplash_Image[]>(){}.getType();
-                Unsplash_Image[] unsplash_images = new Gson().fromJson(sharedPreferences.getString(Constants.Shared_prefs_loaded_images, null), type);
-                setDataToRecyclerVIew(unsplash_images);
-                int loaded_times=sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times,0);
-                Log.d("IMAGE LOADED TIMES 2",String.valueOf(loaded_times));
-
-                sharedPreferences.edit().putInt(Constants.Shared_prefs_images_loaded_times,loaded_times+1).commit();
-                Log.d("IMAGE LOADED TIMES 3",String.valueOf(sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times,0)));
-
+                new LoadImagestoSharedPrefsTask().execute();
 
             } else {
                 getRandomIMages(1);
@@ -226,7 +232,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
         String request = Constants.API_GET_IMAGES_FROM_UNSPLASH + "&page=" + pagePosition;
         new Restutility(getActivity()).getUnsplashRandomImages(getActivity(), new ImagesFromUnsplashResponse() {
             @Override
-            public void onSuccess(Unsplash_Image[] unsplash_images) {
+            public void onSuccess(final Unsplash_Image[] unsplash_images) {
 //                IS_CATEGORY_FLAG = false;
 //                loader.setVisibility(View.GONE);
 //                if (pagePosition > 1) {
@@ -239,17 +245,9 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 //                        }
 //                    }
 //                } else {
-
                 unsplash_images_loaded = unsplash_images;
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, true);
-                Gson gson = new Gson();
-                String images = gson.toJson(unsplash_images);
-                editor.putString(Constants.Shared_prefs_loaded_images, images);
-                editor.putInt(Constants.Shared_prefs_images_loaded_times,1).commit();
-                editor.commit();
-                setDataToRecyclerVIew(unsplash_images);
 
+                new LoadImagestoSharedPrefsTask2().execute();
 
             }
 
@@ -291,9 +289,108 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
 
     }
 
-    private void setResultRecyclerView(Unsplash_Image[] unsplash_images) {
+    /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
+public class LoadImagestoSharedPrefsTask extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @param strings The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            Type type = new TypeToken<Unsplash_Image[]>() {
+            }.getType();
+            unsplash_images = new Gson().fromJson(sharedPreferences.getString(Constants.Shared_prefs_loaded_images, null), type);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            setDataToRecyclerVIew(unsplash_images);
+            int loaded_times = sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times, 0);
+            sharedPreferences.edit().putInt(Constants.Shared_prefs_images_loaded_times, loaded_times + 1).apply();
+        }
+    }
+
+    /*   Copyright [2018] [Sayi Manoj Sugavasi]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
+public class LoadImagestoSharedPrefsTask2 extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @param strings The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, true);
+            Gson gson = new Gson();
+            String images = gson.toJson(unsplash_images_loaded);
+            editor.putString(Constants.Shared_prefs_loaded_images, images);
+            editor.putInt(Constants.Shared_prefs_images_loaded_times, 1).apply();
+            editor.apply();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            setDataToRecyclerVIew(unsplash_images_loaded);
+        }
     }
 
 //    public void clearEverything() {

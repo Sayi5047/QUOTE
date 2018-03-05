@@ -1,127 +1,135 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/root_Lo"
     android:background="@drawable/rounded_rect"
-    android:clipToPadding="true">
+    android:clipToPadding="true"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/head_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:text="@string/project"
-        android:textSize="@dimen/font2"
-        android:textStyle="italic"
-        android:textAlignment="center"
         android:background="@color/colorPrimary"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:text="@string/project"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font2"
+        android:textStyle="italic" />
+
     <EditText
         android:id="@+id/et_project_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rect"
-        android:padding="16dp"
         android:layout_margin="@dimen/elevation8"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_rect"
+        android:hint="project name"
+        android:padding="16dp"
         android:textAlignment="textStart"
         android:textColor="@color/textColor"
-        android:hint="project name"
-        android:textColorHint="@color/colorPrimary1"
-        android:layout_marginTop="10dp"/>
+        android:textColorHint="@color/colorPrimary1" />
+
     <RadioGroup
         android:id="@+id/rd_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:textAlignment="center"
-        >
+        android:orientation="horizontal"
+        android:textAlignment="center">
+
         <RadioButton
             android:id="@+id/rb_jpeg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="@string/jpg"
-            android:textColor="@color/colorAccent"
-            android:checked="true"/>
+            android:textColor="@color/colorAccent" />
+
         <RadioButton
             android:id="@+id/rb_png"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/png"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
     </RadioGroup>
+
     <Button
         android:id="@+id/remove_watermark_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/watermark"
-        android:background="@drawable/rounded_rect"
         android:layout_margin="4dp"
-        android:textColor="@color/textColor"
-        android:textAllCaps="false"/>
+        android:background="@drawable/rounded_rect"
+        android:text="@string/watermark"
+        android:textAllCaps="false"
+        android:textColor="@color/textColor" />
 
     <LinearLayout
         android:id="@+id/bt_ll_watch_Ad_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        >
+        android:orientation="horizontal"
+        android:padding="10dp">
+
         <Button
             android:id="@+id/bt_watch_ad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
-            android:textColor="@color/colorAccent"
             android:text="@string/WatchAd"
-            android:layout_margin="4dp"/>
+            android:textColor="@color/colorAccent" />
+
         <Button
             android:id="@+id/bt_buy_pro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
-            android:textColor="@color/colorAccent"
             android:text="@string/pro"
-            android:layout_margin="4dp"/>
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/bt_ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        >
+        android:orientation="horizontal"
+        android:padding="10dp">
+
         <Button
             android:id="@+id/bt_close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
-            android:textColor="@color/colorAccent"
             android:text="@string/cancel"
-            android:layout_margin="4dp"/>
+            android:textColor="@color/colorAccent" />
+
         <Button
             android:id="@+id/bt_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
-            android:textColor="@color/colorAccent"
             android:text="@string/save"
-            android:layout_margin="4dp"/>
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

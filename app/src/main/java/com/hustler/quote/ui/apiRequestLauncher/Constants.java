@@ -5,7 +5,19 @@ import android.graphics.Color;
 /**
  * Created by Sayi on 07-10-2017.
  */
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class Constants {
     public static final String API_TOKEN = "Token token=28e954724c62237845fec852bc2b15c7";
     public static final String API_IMAGES_TOKEN = "7732312-2d2304a57655fc65d52bde5f1";
@@ -26,12 +38,10 @@ public class Constants {
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos?client_id=" + UNSPLASH_CLIENT_ID;
 
 
-    public static final String FONT_NEVIS = "fonts/nevis.ttf";
+//    public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
-    public static final String FONT_multicolore = "fonts/multicolore.otf";
-    public static final String FONT_Sans_Bold = "fonts/sans_bold.ttf";
-    public static final String FONT_Roboto_regular = "fonts/robot_regular.ttf";
-    public static final String FONT_Google_sans_regular = "fonts/google_sans_reg.ttf";
+//    public static final String FONT_multicolore = "fonts/multicolore.otf";
+//    public static final String FONT_Roboto_regular = "fonts/robot_regular.ttf";
     public static final String FONT_CIRCULAR = "fonts/cstd_reg.otf";
 
 
@@ -51,9 +61,8 @@ public class Constants {
 
 
     public static final String CATEGORIES_STRING =
-                    "Age\n" +
                     "Alone\n" +
-                    "Anger\n" +
+                    "Angry\n" +
                     "Architecture\n" +
                     "Art\n" +
                     "Attitude\n" +
@@ -170,7 +179,7 @@ public class Constants {
                     "Truth\n" +
 
                     "War\n" +
-                    "Wisdom \n" +
+                    "Wisdom\n" +
                     "Women\n" +
                     "Work\n" +
 
@@ -220,6 +229,7 @@ public class Constants {
     public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
     public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG = "is_download_intent_alarm_key";
+    public static String IS_QUOTES_LOADED_KEY="is_quotes_loaded_to_db_key";
 
 
 //    UNSPLASH IDS

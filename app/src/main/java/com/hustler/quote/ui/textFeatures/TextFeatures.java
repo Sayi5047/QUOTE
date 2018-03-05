@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,9 +69,21 @@ import java.util.Arrays;
 import static android.view.View.GONE;
 
 /**
- * Created by anvaya5 on 15/12/2017.
+ * Created by Sayi on 15/12/2017.
  */
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class TextFeatures {
 
 
@@ -271,9 +284,12 @@ public class TextFeatures {
         dialog.setContentView(R.layout.apply_font_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(editorActivity, R.color.colorAccent));
+        }
         AdView adView;
 
-        LinearLayout root;
+        ScrollView root;
         TextView tvAppFonts;
         final TextView demoText;
         RecyclerView rvAppFont;
@@ -952,7 +968,7 @@ public class TextFeatures {
         lightingStrngthSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                radius[0] = progress%10;
+                radius[0] = progress % 10;
 
                 if (selectedVfx[0] == 1) {
                     opacity[1] = 1;

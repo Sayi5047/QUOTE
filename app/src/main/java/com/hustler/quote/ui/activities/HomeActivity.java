@@ -17,6 +17,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -59,7 +60,19 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
     private FloatingActionButton floatingActionButton;
@@ -69,26 +82,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     Animator anim;
     TextView header_name;
     CoordinatorLayout rootView;
-    int cx, cy;
-    float finalRadius;
+
     int[] colors;
     Toolbar toolbar;
     final String IMAGES = "images";
     final String QUOTES = "quotes";
     private AdView mAdView;
     String query;
+    LocalAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
-        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
+//        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
 
         findViews();
-        cx = appBar.getWidth() / 2;
-        cy = appBar.getHeight() / 2;
-        finalRadius = (float) StrictMath.hypot(cx, cy);
+
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -128,9 +139,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 //        setAnimation(appBar);
-        setAnimation(floatingActionButton);
+//        setAnimation(floatingActionButton);
 //        setAnimation(mainPager);
-        setAnimation(tab_layout);
+//        setAnimation(tab_layout);
     }
 
     private void findViews() {
@@ -333,39 +344,47 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
+        result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this,LinearLayoutManager.VERTICAL,false));
+
         final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
+        final ArrayList<Quote> finalArrayList;
+        finalArrayList = new ArrayList<>();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesBystring(query);
                 quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
-                ArrayList<Quote> finalArrayList = new ArrayList<Quote>();
                 quoteslisttemp[1].remove(quoteslisttemp[0]);
                 finalArrayList.addAll(quoteslisttemp[0]);
                 finalArrayList.addAll(quoteslisttemp[1]);
-                if (finalArrayList.size() <= 0) {
-                    loader.setVisibility(View.GONE);
-                    Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
-                } else {
-                    loader.setVisibility(View.GONE);
-                    result_rv.setAdapter(new LocalAdapter(HomeActivity.this, finalArrayList, new LocalAdapter.OnQuoteClickListener() {
-                        @Override
-                        public void onQuoteClicked(int position, int color, Quote quote, View view) {
-                            Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
-                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                            startActivity(intent);
-                        }
-                    }));
-                }
+
             }
         }).run();
+        if (finalArrayList.size() <= 0) {
+            loader.setVisibility(View.GONE);
+            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
+        } else {
+            loader.setVisibility(View.GONE);
+            adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
+                @Override
+                public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                    Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
+                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                    startActivity(intent);
+                }
+            }));
+            adapter.addData(finalArrayList);
+            adapter.notifyDataSetChanged();
+            result_rv.setAdapter(adapter);
+        }
 
     }
 
     private void loadAds() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        AdUtils.loadBannerAd(mAdView,HomeActivity.this);
 
     }
 
@@ -461,7 +480,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         final Button bt_cose = (Button) dialog.findViewById(R.id.bt_close);
         TextUtils.findText_and_applyTypeface(root, HomeActivity.this);
         dialog.show();
-        TextUtils.findText_and_applyamim_slideup(root,HomeActivity.this);
+        TextUtils.findText_and_applyamim_slideup(root, HomeActivity.this);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -584,41 +603,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-//        switch (position){
-//            case 0:{
-//                tab_layout.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryDark));
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    anim = ViewAnimationUtils.createCircularReveal(tab_layout, cx, cy, 0, finalRadius);
-//
-//                }
-//                appBar.setVisibility(View.VISIBLE);
-//
-//                anim.start();
-//
-//            }break;case 1:{
-//                tab_layout.setBackgroundColor(this.getResources().getColor(R.color.colorAccent));
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    anim = ViewAnimationUtils.createCircularReveal(tab_layout, cx, cy, 0, finalRadius);
-//                }
-//                appBar.setVisibility(View.VISIBLE);
-//
-//                anim.start();
-//
-//            }break;case 2:{
-//                tab_layout.setBackgroundColor(this.getResources().getColor(R.color.textColor));
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    anim = ViewAnimationUtils.createCircularReveal(tab_layout, cx, cy, 0, finalRadius);
-//                }
-//                appBar.setVisibility(View.VISIBLE);
-//
-//                anim.start();
-//
-//
-//            }break;
-//        }
     }
 
     @Override
@@ -646,13 +630,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
         });
-//        super.onBackPressed();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            this.finishAndRemoveTask();
-//        }
-//        else {
-//            this.finishAffinity();
-//        }
-//        System.exit(0);
     }
 }

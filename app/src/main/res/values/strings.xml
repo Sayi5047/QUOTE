@@ -55,16 +55,16 @@
     <string name="local_fonts">Local fonts</string>
     <string name="symbol_fonts">Symbol fonts</string>
     <string name="downloaded_fonts">Your fonts</string>
-    <string name="app_fonts">Local fonts</string>
-    <string name="download_fonts">Downloaded fonts</string>
-    <string name="symbolic_fonts">Symbol fonts</string>
+    <string name="app_fonts">App fonts</string>
+    <string name="download_fonts">Online fonts</string>
+    <string name="symbolic_fonts">Downloaded fonts</string>
     <string name="select_font">Select any font style to apply.</string>
     <string name="clear">Clear selection</string>
     <string name="permission_comulsory">Permission is mandatory for editing pictures.</string>
     <string name="permission_">Please,give permission to use features.</string>
     <string name="operation_failed">Operation failed</string>
     <string name="permissin_granted">Permission granted now you can use the feature.</string>
-    <string name="no_work">No work done yet</string>
+    <string name="no_work">No work done yet, click to start </string>
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
     <string name="set_wallpaer">Wallpaper</string>
     <string name="share">Share</string>
@@ -203,7 +203,10 @@
     <string name="Image_confession">All images are provided by Unsplash.com and the Editor search images are provided by pixabay.com </string>
     <string name="Quote_confession">All quotes you can see in this app are Collected from internet</string>
     <string name="Icons">Icons</string>
-    <string name="Icon_confession">,All icons are downloaded from internet and Flaticon.com</string>
+    <string name="Icon_confession">All icons are downloaded from internet and Flaticon.com</string>
+    <string name="First_setup">Fitrst time setup</string>
+    <string name="please_wait">Please,wait getting and extracting all necessary files.This happens only for the first time</string>
+    <string name="loading_image">Loading Image from server</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
@@ -293,5 +296,5 @@
         <item>Hand It Over</item>
     </string-array>
 
-
+    <string name="file_provider_authority" translatable="false">com.hustler.quote.fileprovider</string>
 </resources>

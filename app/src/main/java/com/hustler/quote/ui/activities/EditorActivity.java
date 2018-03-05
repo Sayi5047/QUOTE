@@ -14,12 +14,14 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,7 +88,19 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener, View.OnLongClickListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
@@ -250,7 +264,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).edit();
             editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
-            editor.commit();
+            editor.apply();
             isHeightMeasured = true;
         }
     }
@@ -311,8 +325,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                 core_editor_layout.addView(quote_editor_body);
                 core_editor_layout.addView(quote_editor_author);
-                quote_editor_author.setOnTouchListener(this);
-                quote_editor_body.setOnTouchListener(this);
+                quote_editor_author.setLongClickable(true);
+                quote_editor_author.setOnLongClickListener(EditorActivity.this);
+                quote_editor_body.setLongClickable(true);
+                quote_editor_body.setOnLongClickListener(EditorActivity.this);
+                quote_editor_author.setOnTouchListener(EditorActivity.this);
+                quote_editor_body.setOnTouchListener(EditorActivity.this);
             }
         } else if (isFromEdit_Activity == 2) {
             if (geust_image == null) {
@@ -357,6 +375,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 String action = intent.getAction();
                 if (action == Intent.ACTION_VIEW) {
                     path = intent.getData().getPath();
+//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
+//                    path = uri.getPath();
+//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
                     Log.d("ACTION_VIEW", path);
 
                 } else if (action == Intent.ACTION_SEND) {
@@ -367,6 +388,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
                 try {
                     file = new File(path);
+
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
                     FileUtils.unzipandSave(file, EditorActivity.this);
                 } catch (Exception e) {
@@ -761,7 +783,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
         if (selected_picture != null) {
             imageView_background.setBackground(null);
-            Glide.with(EditorActivity.this).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+            Glide.with(EditorActivity.this).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
         }
         dialog.dismiss();
     }
@@ -895,7 +917,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     public void onImageClicked(String previreLink, String Biglink) {
                         selected_picture = Biglink;
                         imageView_background.setBackground(null);
-                        Glide.with(EditorActivity.this).load(Biglink).asBitmap().centerCrop().into(imageView_background);
+                        Glide.with(EditorActivity.this).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
                         dialog.dismiss();
                     }
                 }));
@@ -1013,7 +1035,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (current_module.equalsIgnoreCase(Constants.TEXT)) {
             TextView selected_textView = (TextView) selectedView;
             if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
-                float size = radius / 4;
+                float size = radius / 2;
                 selected_textView.setTextSize(size);
             } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
                 float degree = radius - 180;
@@ -1107,9 +1129,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, start, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, center, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, end, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, add_bg, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, done, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, add_bg, Constants.FONT_CIRCULAR);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1174,9 +1196,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_CIRCULAR);
 
-                        textView.setText(newly_Added_Text);
+                        textView.setText(newly_Added_Text + " ");
 
-                        textView.setX(core_editor_layout.getWidth() / 2 - 250);
+                        textView.setX(core_editor_layout.getWidth() - (core_editor_layout.getWidth() - 100));
 //                        textView.setY(core_editor_layout.getHeight() / 2);
                         textView.setId(addedTextIds);
                         textView.setOnClickListener(new View.OnClickListener() {
@@ -1187,10 +1209,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         });
                         set_text_alignment(alignment[0], textView);
 
-                        textView.setPadding(16, 16, 16, 16);
+                        textView.setPadding(8, 8, 8, 8);
                         textView.setLongClickable(true);
                         textView.setOnLongClickListener(EditorActivity.this);
                         textView.setOnTouchListener(EditorActivity.this);
+                        textView.setGravity(Gravity.CENTER);
+                        textView.setTextDirection(View.TEXT_DIRECTION_LOCALE);
                         core_editor_layout.addView(textView);
                     }
 
@@ -1261,8 +1285,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextUtils.setFont(this, highlight, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, colorText, Constants.FONT_CIRCULAR);
 
-        TextUtils.setFont(this, done, Constants.FONT_NEVIS);
-        TextUtils.setFont(this, close, Constants.FONT_NEVIS);
+        TextUtils.setFont(this, done, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, previewText, Constants.FONT_CIRCULAR);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2073,6 +2097,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
         return false;
     }
+
 
     @Override
     public boolean onLongClick(View v) {

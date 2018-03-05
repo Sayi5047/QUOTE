@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,16 +19,71 @@
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font4"
-            android:textStyle="italic">
+            android:textSize="@dimen/font2">
 
         </TextView>
 
         <LinearLayout
-            android:id="@+id/root"
+            android:id="@+id/root3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_demo_text"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_downloaded_fonts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/smallPadding"
+                android:text="@string/download_fonts"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font">
+
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/search_Box_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/search_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rounded_rect"
+                    android:padding="10dp"
+                    android:textColor="@color/textColor" />
+
+                <ImageView
+                    android:id="@+id/search_button"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_search_black_24dp"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_downloaded_font"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_margin="@dimen/smallPadding">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:orientation="vertical">
 
             <TextView
@@ -39,8 +95,7 @@
                 android:text="@string/app_fonts"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:textStyle="italic">
+                android:textSize="@dimen/font">
 
             </TextView>
 
@@ -58,7 +113,7 @@
             android:id="@+id/root2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/root"
+
             android:orientation="vertical">
 
             <TextView
@@ -70,71 +125,12 @@
                 android:text="@string/symbolic_fonts"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:textStyle="italic">
+                android:textSize="@dimen/font">
 
             </TextView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_symbol_font"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_margin="@dimen/smallPadding">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/root3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/root2"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_downloaded_fonts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:padding="@dimen/smallPadding"
-                android:text="@string/download_fonts"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/font2"
-                android:textStyle="italic">
-
-            </TextView>
-
-            <LinearLayout
-                android:id="@+id/search_Box_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/search_box"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:background="@drawable/rounded_rect"
-                    android:hint="@string/enter_search"
-                    android:padding="16dp"
-                    android:textColor="@color/textColor" />
-
-                <ImageView
-                    android:id="@+id/search_button"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_search_black_24dp"
-                    tools:ignore="ContentDescription" />
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_downloaded_font"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="@dimen/smallPadding">
@@ -150,8 +146,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -161,6 +156,7 @@
                 ads:adUnitId="@string/bannerAdId">
 
             </com.google.android.gms.ads.AdView>
+
             <LinearLayout
                 android:id="@+id/buttons"
                 android:layout_width="match_parent"

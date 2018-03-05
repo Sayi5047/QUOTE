@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.Quote;
-import com.hustler.quote.ui.superclasses.App;
 import com.hustler.quote.ui.utils.TextUtils;
 
 import java.util.ArrayList;
@@ -21,7 +20,19 @@ import java.util.ArrayList;
 /**
  * Created by anvaya5 on 27/12/2017.
  */
+/*   Copyright [2018] [Sayi Manoj Sugavasi]
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.*/
 public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewholder> {
     Activity activity;
     ArrayList<Quote> dataFromNet;
@@ -36,13 +47,13 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     public LocalAdapter(Activity activity, ArrayList<Quote> dataFromNet) {
         this.activity = activity;
         this.dataFromNet = dataFromNet;
-        this.dataFromNet=new ArrayList<>();
+        this.dataFromNet = new ArrayList<>();
     }
 
     public LocalAdapter(Activity activity, OnQuoteClickListener onQuoteClickListener) {
         this.activity = activity;
         this.onQuoteClickListener = onQuoteClickListener;
-        dataFromNet=new ArrayList<Quote>();
+        dataFromNet = new ArrayList<Quote>();
     }
 
     public interface OnQuoteClickListener {
@@ -55,8 +66,8 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     }
 
     public void addData(ArrayList<Quote> extraData) {
-        dataFromNet=new ArrayList<>();
-        for(int i=0;i<extraData.size();i++){
+        dataFromNet = new ArrayList<>();
+        for (int i = 0; i < extraData.size(); i++) {
             dataFromNet.add(extraData.get(i));
         }
         notifyItemRangeInserted(0, dataFromNet.size());
@@ -117,9 +128,9 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             tv = itemView.findViewById(R.id.main_quote);
             tv2 = itemView.findViewById(R.id.quote_author);
             tv3 = itemView.findViewById(R.id.quote_genre_end);
-            tv.setTypeface(App.applyFont(activity, Constants.FONT_CIRCULAR));
-            tv2.setTypeface(App.applyFont(activity, Constants.FONT_ZINGCURSIVE));
-            tv3.setTypeface(App.applyFont(activity, Constants.FONT_NEVIS));
+            TextUtils.setFont(activity, tv, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(activity, tv2, Constants.FONT_ZINGCURSIVE);
+            TextUtils.setFont(activity, tv3, Constants.FONT_CIRCULAR);
 
         }
     }

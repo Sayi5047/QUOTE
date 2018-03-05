@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,15 +7,14 @@
     <ImageView
         android:id="@+id/wallpaper_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient1" />
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
-        android:background="@drawable/rounded_white_rect"
+        android:background="@android:color/white"
 
         android:visibility="gone">
 
@@ -61,13 +60,13 @@
         android:id="@+id/rd_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rect"
-        android:alpha="0.8"
-        android:padding="4dp"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp">
+        android:layout_marginBottom="100dp"
+        android:alpha="0.8"
+        android:background="@drawable/rounded_rect"
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <RadioButton
             android:id="@+id/rb_regular"
@@ -118,4 +117,27 @@
             android:text="@string/UHD"
             android:textColor="@drawable/rd_btn_text_color" />
     </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:text="@string/loading_image"
+            android:textAlignment="center"
+            android:textSize="@dimen/font1" />
+
+    </LinearLayout>
 </RelativeLayout>
