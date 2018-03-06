@@ -59,7 +59,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         this.context = context;
         this.images = images;
         this.onimageClickListener = onimageClickListener;
-        from_which_activity=1;
+        from_which_activity = 1;
         convertToArraYList(images);
     }
 
@@ -84,23 +84,23 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     }
 
     public interface OnWallpaperClickListener {
-        void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images);
+        void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images, View itemView);
 
     }
 
     @Override
     public WallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(from_which_activity==3){
+        if (from_which_activity == 3) {
             return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout_search, parent, false));
 
-        }else {
+        } else {
             return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout, parent, false));
 
         }
     }
 
     @Override
-    public void onBindViewHolder(WallpaperAdapter.WallpaperViewholder holder, final int position) {
+    public void onBindViewHolder(final WallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
         Glide.with(context).load(image.getUrls().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
         Glide.with(context).load(image.getUser().getProfile_image().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
@@ -109,7 +109,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
             @Override
             public void onClick(View v) {
                 if (onimageClickListener != null) {
-                    onimageClickListener.onWallpaperClicked(position, m_AL_Images);
+                    onimageClickListener.onWallpaperClicked(position, m_AL_Images, holder.itemView);
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(context, context.getString(R.string.Listener));
                 }

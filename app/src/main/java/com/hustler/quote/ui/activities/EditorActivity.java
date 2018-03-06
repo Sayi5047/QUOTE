@@ -14,14 +14,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,6 +86,7 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -177,7 +176,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+            getWindow().setClipToOutline(true);
+        }  super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         findViews();
         getIntentData();
@@ -2041,10 +2043,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         if (backpressCount >= 2) {
             this.finish();
+            overridePendingTransition(R.anim.slideup, R.anim.slidedown);
         } else {
-//            App.showToast(activity,"Press again to discard the image and exit");
-
+            Toast_Snack_Dialog_Utils.show_ShortToast(activity, "Press again to discard the image and exit");
         }
+
     }
 
     /*Methods to handle view movements*/

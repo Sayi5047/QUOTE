@@ -1,9 +1,13 @@
 package com.hustler.quote.ui.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+
+import com.hustler.quote.R;
 
 /**
  * Created by anvaya5 on 18/12/2017.
@@ -25,6 +29,10 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+            getWindow().setClipToOutline(true);
+        }
         super.onCreate(savedInstanceState, persistentState);
     }
 

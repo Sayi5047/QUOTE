@@ -16,7 +16,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -36,13 +35,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
@@ -60,6 +58,7 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
+
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -73,7 +72,7 @@ import java.util.ArrayList;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
     private FloatingActionButton floatingActionButton;
     private ViewPager mainPager;
@@ -94,6 +93,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+            getWindow().setClipToOutline(true);
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
 //        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
@@ -192,7 +196,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(andro));
         dialog.setCancelable(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary));
+            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, android.R.color.white));
         }
 
 
@@ -314,7 +318,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                    dataView.setVisibility(View.VISIBLE);
                     rv.setAdapter(new WallpaperAdapter(HomeActivity.this, response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
-                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images) {
+                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, View itemView) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, wallpaper.getUser().getFirst_name());
                             Intent intent = new Intent(HomeActivity.this, WallpapersPagerActivity.class);
 
@@ -344,7 +348,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
-        result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this,LinearLayoutManager.VERTICAL,false));
+        result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
 
         final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
         final ArrayList<Quote> finalArrayList;
@@ -384,7 +388,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void loadAds() {
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
-        AdUtils.loadBannerAd(mAdView,HomeActivity.this);
+        AdUtils.loadBannerAd(mAdView, HomeActivity.this);
 
     }
 
@@ -430,12 +434,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_Pro_features: {
                 Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
             }
             break;
 
             case R.id.action_Pro_about: {
                 Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
 
             }
             break;
@@ -454,11 +460,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
             case R.id.action_Pro_rate: {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "quotzyapp@gmail.com", null));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
-                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity  object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
 
             }
             break;
@@ -588,21 +595,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(HomeActivity.this, EditorActivity.class);
         intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         startActivity(intent);
+        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+
     }
 
 
     /*VIEW PAGER METHODS*/
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        appBar.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
-        mainPager.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
-        tab_layout.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
-//        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
-        }
+//        appBar.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+//        mainPager.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+//        tab_layout.setBackgroundColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+////        floatingActionButton.setBackgroundColor((getHEaderColor(position, positionOffset)));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            window.setStatusBarColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+//        }
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
 
-
+//        header_name.setTextColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+        tab_layout.setTabTextColors(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this),
+                ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+        editTabLayout();
     }
 
     @Override

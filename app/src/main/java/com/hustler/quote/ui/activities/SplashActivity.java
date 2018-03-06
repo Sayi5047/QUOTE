@@ -44,6 +44,10 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+            getWindow().setClipToOutline(true);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         tv = findViewById(R.id.tv_splash_name);

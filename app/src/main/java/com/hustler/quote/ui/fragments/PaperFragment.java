@@ -9,10 +9,13 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.transition.Explode;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -54,6 +57,7 @@ public class PaperFragment extends Fragment {
     LinearLayout loading_layout;
 
     public static PaperFragment newInstance(Unsplash_Image textView) {
+
         PaperFragment wallpaperFragmente = new PaperFragment();
         Bundle args = new Bundle();
         args.putSerializable("IMAGEURL", textView);
@@ -65,6 +69,14 @@ public class PaperFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.textView = (Unsplash_Image) getArguments().getSerializable("IMAGEURL");
+
+    }
+
+    public void setExplodeAnimations() {
+        Explode explode = new Explode();
+        explode.setDuration(300);
+        getActivity().getWindow().setEnterTransition(explode);
+        getActivity().getWindow().setExitTransition(explode);
     }
 
     @Nullable
@@ -85,7 +97,9 @@ public class PaperFragment extends Fragment {
         }
         radioGroup.setClipToPadding(true);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            setExplodeAnimations();
+//        }
         return view;
     }
 
@@ -152,19 +166,19 @@ public class PaperFragment extends Fragment {
 //        Log.i("CREATEDDDDD","CREATEDDDD");
 //        Log.i("CREATEDDDDD",textView);
         Glide.with(getActivity()).load(textView.getUrls().getRegular()).crossFade().centerCrop().
-        listener(new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                loading_layout.setVisibility(View.GONE);
-                return true;
-            }
+                listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        loading_layout.setVisibility(View.GONE);
+                        return true;
+                    }
 
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                loading_layout.setVisibility(View.GONE);
-                return false;
-            }
-        }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        loading_layout.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

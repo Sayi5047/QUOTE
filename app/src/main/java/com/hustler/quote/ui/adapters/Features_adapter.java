@@ -56,7 +56,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     private void addImages() {
         if (isText) {
             itemstobe_used_images.add(getDrawable(R.drawable.ic_text_format_black_24dp));
-            itemstobe_used_images.add(getDrawable(R.drawable.ic_edit_black));
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_edit_blue));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_font_sizes));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_rotate_right_black_24dp));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_spacing));

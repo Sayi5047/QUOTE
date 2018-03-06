@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -274,15 +275,17 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
             dataView.setVisibility(View.VISIBLE);
             rv.setAdapter(new WallpaperAdapter(getActivity(), unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                 @Override
-                public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images) {
+                public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images, View itemView) {
                     //                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
                     Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
 
                     intent.putExtra(Constants.Pager_position, position);
                     intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, m_AL_Images);
                     intent.putExtra(Constants.is_from_fav, false);
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), itemView, "se");
 
                     startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slideup,R.anim.slidedown);
                 }
             }));
         }
@@ -302,7 +305,7 @@ public class WallpaperFragment extends android.support.v4.app.Fragment {
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class LoadImagestoSharedPrefsTask extends AsyncTask<String, String, Void> {
+    public class LoadImagestoSharedPrefsTask extends AsyncTask<String, String, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -353,7 +356,7 @@ public class LoadImagestoSharedPrefsTask extends AsyncTask<String, String, Void>
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class LoadImagestoSharedPrefsTask2 extends AsyncTask<String, String, Void> {
+    public class LoadImagestoSharedPrefsTask2 extends AsyncTask<String, String, Void> {
 
         @Override
         protected void onPreExecute() {

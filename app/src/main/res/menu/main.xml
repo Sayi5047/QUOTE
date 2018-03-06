@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_white_24dp"
+        android:icon="@drawable/ic_search_black2_24dp"
         android:title="@string/action_settings"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
@@ -13,6 +13,7 @@
             android:orderInCategory="1"
             android:title="@string/action_settings"
             android:visible="false"
+            android:icon="@drawable/ic_search_blue"
             app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/action_Pro_features"
@@ -42,7 +43,7 @@
             android:id="@+id/action_Pro_rate"
             android:orderInCategory="2"
             android:title="@string/rate_us"
-            android:visible="false"
+            android:visible="true"
             app:showAsAction="collapseActionView" />
     </group>
 

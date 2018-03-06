@@ -12,15 +12,16 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@android:color/white"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:theme="@style/AppTheme"
+            app:elevation="0dp">
 
 
             <TextView
@@ -31,7 +32,7 @@
                 android:gravity="center"
                 android:text="@string/app_name"
                 android:textAlignment="textStart"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/font3"
                 android:textStyle="bold" />
 
@@ -57,7 +58,8 @@
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:src="@drawable/ic_mode_edit_white_24dp"
+        android:backgroundTint="@android:color/white"
+        android:src="@drawable/ic_edit_black"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />
 

@@ -4,7 +4,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/white">
 
 
     <LinearLayout
@@ -17,8 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@drawable/white_rounded_drawable"
-            android:elevation="4dp"
             android:orientation="horizontal">
 
             <EditText
@@ -31,26 +29,34 @@
                 android:background="@drawable/transparent_drawable"
                 android:hint="@string/where_to_search"
                 android:imeOptions="actionSearch"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:textColor="@color/textColor"
                 android:textColorHint="@color/black_overlay"
-                android:textSize="@dimen/font1"
+                android:textSize="@dimen/font"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/search"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="36dp"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:elevation="4dp"
                 android:padding="4dp"
-                android:src="@drawable/ic_search_blue" />
+                android:src="@drawable/ic_search_black2_24dp" />
         </LinearLayout>
 
     </LinearLayout>
 
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/search_header"
+        android:background="@color/textColor"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:alpha="0.5"/>
 
     <RadioGroup
         android:id="@+id/rd_group"
@@ -58,9 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/search_header"
         android:layout_gravity="center"
-        android:layout_margin="6dp"
-        android:background="@drawable/white_rounded_drawable"
-        android:elevation="4dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="8dp">
@@ -73,16 +76,17 @@
             android:checked="true"
             android:enabled="true"
             android:text="@string/images"
-            android:textColor="@color/textColor" />
+            android:background="@drawable/rd_category_selector"
+            android:textColor="@color/divider" />
 
         <RadioButton
             android:id="@+id/rb_quotes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
+            android:background="@drawable/rd_category_selector"
             android:layout_weight="1"
             android:text="@string/Quotes"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/divider" />
 
     </RadioGroup>
 
@@ -90,9 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rd_group"
-        android:layout_margin="4dp"
         android:background="@android:color/transparent"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="0dp">
 
         <RelativeLayout
 
@@ -136,7 +139,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="24dp"
-        android:src="@drawable/ic_close_white"
+        android:backgroundTint="@android:color/white"
+        android:src="@drawable/ic_close_black_24dp"
         app:fabSize="normal" />
 
 
