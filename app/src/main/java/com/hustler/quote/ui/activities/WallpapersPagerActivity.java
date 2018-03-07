@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.transition.Explode;
-import android.transition.Slide;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -96,6 +95,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 //            setExplodeAnimation();
 //        }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setExplodeAnimation() {
         Explode explode = new Explode();
@@ -103,6 +103,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         getWindow().setEnterTransition(explode);
         getWindow().setExitTransition(explode);
     }
+
     private void getIntentData() {
         position = getIntent().getIntExtra(Constants.Pager_position, 1);
         unsplash_images = (ArrayList<Unsplash_Image>) getIntent().getSerializableExtra(Constants.PAGER_LIST_WALL_OBKHECTS);
@@ -112,7 +113,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-     overridePendingTransition(R.anim.slideup,R.anim.slidedown);
+        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
 
     }
 
