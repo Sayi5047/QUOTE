@@ -6,14 +6,15 @@
     android:layout_height="250dp"
     android:layout_centerInParent="true"
     android:layout_gravity="center"
-    android:layout_margin="2dp"
-    android:elevation="10dp"
+    android:layout_margin="16dp"
+    android:elevation="16dp"
     android:orientation="vertical"
-    tool:cardCornerRadius="4dp">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="16dp">
 
         <ImageView
             android:id="@+id/wallpaper_preview"

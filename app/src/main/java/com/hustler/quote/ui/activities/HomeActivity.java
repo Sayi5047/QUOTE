@@ -2,8 +2,6 @@ package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
 import android.app.Dialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,12 +27,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +54,8 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
+
+import static android.view.View.GONE;
 
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
@@ -106,7 +104,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         colors = new int[]{
                 ContextCompat.getColor(HomeActivity.this, R.color.pink_400),
@@ -179,20 +178,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void getIntentData(Intent intent) {
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, query);
-            buildDialog_and_search(query);
-        }
+//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+//            query = intent.getStringExtra(SearchManager.QUERY);
+//            //use the query to search your data somehow
+//            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, query);
+//            buildDialog_and_search(query);
+//        }
     }
 
 
-    private void buildDialog_and_search(final String query) {
+    private void buildDialog_and_search() {
 
-        final Dialog dialog = new Dialog(HomeActivity.this, R.style.EditTextDialog_non_floater);
+        final Dialog dialog = new Dialog(HomeActivity.this, R.style.EditTextDialog_non_floater_2);
         dialog.setContentView(R.layout.search_chooser_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater_2;
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(andro));
         dialog.setCancelable(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -202,31 +202,37 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         final RelativeLayout root;
         final EditText search_Query;
-        ImageView search;
-        RadioGroup radioGroup;
-        FloatingActionButton close;
+        final ImageView search;
+        final RadioGroup radioGroup;
+        ImageView close;
         final RecyclerView result_rv;
+        final LinearLayout search_header;
         final ProgressBar loader;
         final String[] selected_type = new String[1];
         selected_type[0] = IMAGES;
         AdView adView;
+        final TextView search_term;
 
 
         search_Query = dialog.findViewById(R.id.header_name);
         search = dialog.findViewById(R.id.search);
         radioGroup = dialog.findViewById(R.id.rd_group);
         close = dialog.findViewById(R.id.search_btn);
+        search_header = dialog.findViewById(R.id.search_header);
         root = dialog.findViewById(R.id.root);
         result_rv = dialog.findViewById(R.id.result_rv);
         loader = dialog.findViewById(R.id.loader);
+        loader.setVisibility(GONE);
+
         adView = dialog.findViewById(R.id.adView);
+        search_term = dialog.findViewById(R.id.search_term);
         AdUtils.loadBannerAd(adView, HomeActivity.this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }
-        setImages(result_rv, query, loader);
+//        setImages(result_rv, query, loader, radioGroup, search_header, search_term);
 //        setQuotes(result_rv, query, loader);
-        search_Query.setText(query);
+//        search_Query.setText(query);
         TextUtils.findText_and_applyTypeface(root, HomeActivity.this);
         TextUtils.findText_and_applyamim_slideup(root, HomeActivity.this);
 
@@ -237,11 +243,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     case R.id.rb_images: {
 //                        setImages(result_rv, query, loader);
                         selected_type[0] = IMAGES;
+                        search.performClick();
                     }
                     break;
                     case R.id.rb_quotes: {
 //                        setQuotes(result_rv, query, loader);
                         selected_type[0] = QUOTES;
+                        search.performClick();
+
                     }
                     break;
 
@@ -257,11 +266,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 } else {
                     switch (selected_type[0]) {
                         case IMAGES: {
-                            setImages(result_rv, search_Query.getText().toString(), loader);
+                            setImages(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
                         }
                         break;
                         case QUOTES: {
-                            setQuotes(result_rv, search_Query.getText().toString(), loader);
+                            setQuotes(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
                         }
                         break;
 
@@ -279,7 +288,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
             }
         });
+        search_term.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                radioGroup.setVisibility(View.VISIBLE);
+                search_header.setVisibility(View.VISIBLE);
+                search_term.setVisibility(GONE);
 
+                radioGroup.setVisibility(View.VISIBLE);
+                search_header.setVisibility(View.VISIBLE);
+                search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+                radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
+                search_term.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown));
+                search_term.setVisibility(GONE);
+            }
+        });
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -298,7 +322,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void setImages(final RecyclerView rv, String query, final ProgressBar loader) {
+    private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, final RadioGroup radioGroup, final LinearLayout search_header, final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
         final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
@@ -306,7 +330,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             @Override
             public void onSuccess(final UnsplashImages_Collection_Response response) {
 
-                loader.setVisibility(View.GONE);
+                loader.setVisibility(GONE);
                 rv.setAdapter(null);
                 rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 
@@ -330,13 +354,23 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         }
                     }, 3));
 
+                    radioGroup.setVisibility(GONE);
+                    search_header.setVisibility(GONE);
+                    search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+                    radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+                    rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
+                    search_term.setText(query);
+                    search_term.setVisibility(View.VISIBLE);
+                    search_term.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
                 }
             }
 
             @Override
             public void onError(String error) {
                 Log.e("ERROR FROM UNSPLASH", error);
-                loader.setVisibility(View.GONE);
+                loader.setVisibility(GONE);
 
 //                dataView.setVisibility(View.GONE);
                 Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.Failed));
@@ -345,7 +379,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader) {
+    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, RadioGroup radioGroup, LinearLayout search_header, TextView search_term) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -366,10 +400,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             }
         }).run();
         if (finalArrayList.size() <= 0) {
-            loader.setVisibility(View.GONE);
+            loader.setVisibility(GONE);
             Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
         } else {
-            loader.setVisibility(View.GONE);
+            loader.setVisibility(GONE);
             adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
                 @Override
                 public void onQuoteClicked(int position, int color, Quote quote, View view) {
@@ -381,6 +415,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             adapter.addData(finalArrayList);
             adapter.notifyDataSetChanged();
             result_rv.setAdapter(adapter);
+            radioGroup.setVisibility(GONE);
+            search_header.setVisibility(GONE);
+            search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+            radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+            result_rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
+            search_term.setText(query);
+            search_term.setVisibility(View.VISIBLE);
+            search_term.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
+
         }
 
     }
@@ -399,28 +444,28 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        final EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-
-        editText.setHint("Search");
-
-        editText.setHintTextColor(getResources().getColor(android.R.color.white));
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    buildDialog_and_search(editText.getText().toString());
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        final EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+//
+//        editText.setHint("Search");
+//
+//        editText.setHintTextColor(getResources().getColor(android.R.color.white));
+//        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(getComponentName()));
+//
+//        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                    buildDialog_and_search(editText.getText().toString());
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            }
+//        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -429,6 +474,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search: {
+                buildDialog_and_search();
             }
             break;
             case R.id.action_Pro_features: {

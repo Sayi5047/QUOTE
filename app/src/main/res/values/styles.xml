@@ -70,6 +70,13 @@
         <item name="android:windowExitAnimation">@anim/slidedown</item>
     </style>
 
+    <style name="EditTextDialog_non_floater_2" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowEnterAnimation">@anim/alpha_visible</item>
+        <item name="android:windowExitAnimation">@anim/alpha_invisible</item>
+    </style>
+
     <style name="EditTextDialog_scaled" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
