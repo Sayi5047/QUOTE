@@ -100,7 +100,10 @@ import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener, View.OnLongClickListener {
+public class EditorActivity extends BaseActivity implements View.OnClickListener,
+        SeekBar.OnSeekBarChangeListener,
+        View.OnTouchListener,
+        View.OnLongClickListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
@@ -173,13 +176,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private boolean isHeightMeasured = false;
     private String geust_image;
 
+//    final int INVALIDPOINTERID = -1;
+//    int mActivePointerId = INVALIDPOINTERID;
+//    in
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
-        }  super.onCreate(savedInstanceState);
+        }
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         findViews();
         getIntentData();
@@ -225,7 +233,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_text_size = findViewById(R.id.close_editor_button);
 
         features_recyclerview = findViewById(R.id.content_rv);
-        features_recyclerview.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
+        features_recyclerview.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
         imageView_background = findViewById(R.id.imageView_background);
 
@@ -909,7 +917,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150" + "&order=popular";
 
         }
-        new Restutility(activity).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
+        new Restutility(EditorActivity.this).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
             @Override
             public void onSuccess(List<ImagesFromPixaBay> images) {
                 progressBar.setVisibility(GONE);
@@ -1263,7 +1271,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         recyclerView = dialog.findViewById(R.id.color_rv);
         adView = dialog.findViewById(R.id.adView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false));
-        AdUtils.loadBannerAd(adView, activity);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
         bold = dialog.findViewById(R.id.bt_bold);
         underline = dialog.findViewById(R.id.bt_underline);
         italic = dialog.findViewById(R.id.bt_italic);
@@ -2045,7 +2053,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             this.finish();
             overridePendingTransition(R.anim.slideup, R.anim.slidedown);
         } else {
-            Toast_Snack_Dialog_Utils.show_ShortToast(activity, "Press again to discard the image and exit");
+            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Press again to discard the image and exit");
         }
 
     }

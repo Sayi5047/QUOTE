@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.activities.HomeActivity;
 import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.activities.WallpapersPagerActivity;
 import com.hustler.quote.ui.adapters.FavPagerAdapter;
