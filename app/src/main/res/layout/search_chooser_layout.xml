@@ -15,7 +15,7 @@
         android:layout_marginBottom="-10dp"
         android:layout_marginStart="15dp"
         android:alpha="0.4"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:padding="4dp"
         android:src="@drawable/ic_close_black_24dp" />
 
@@ -39,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_btn"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,17 +75,19 @@
                 android:padding="4dp"
                 android:src="@drawable/ic_search_black2_24dp" />
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/search_header"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:alpha="0.2"
+            android:background="@color/textColor"
+            />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/search_header"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:alpha="0.2"
-        android:background="@color/textColor" />
+
 
     <RadioGroup
         android:id="@+id/rd_group"
@@ -134,7 +137,8 @@
             android:id="@+id/result_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/adView">
+            android:layout_above="@id/adView"
+            android:layout_marginTop="10dp">
 
         </android.support.v7.widget.RecyclerView>
 

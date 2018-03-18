@@ -18,4 +18,6 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+    <style name="lightstatusbar" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    </style>
 </resources>

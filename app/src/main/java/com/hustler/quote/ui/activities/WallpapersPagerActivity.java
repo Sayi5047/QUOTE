@@ -84,16 +84,10 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallpaper_viewer_activity);
         window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
-        }
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getIntentData();
         findViews();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            setExplodeAnimation();
-//        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

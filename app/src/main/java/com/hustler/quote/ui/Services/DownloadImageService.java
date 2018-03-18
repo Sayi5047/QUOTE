@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.app.WallpaperManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -80,14 +78,14 @@ public class DownloadImageService extends Service {
         imageDownloader = new ImageDownloader();
         imageDownloader.execute(url);
 // Check for notification settings
-        ContentResolver contentResolver = getContentResolver();
-        String enabledNotifications = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
-        String packageName = getPackageName();
-        if (enabledNotifications == null || (enabledNotifications.contains(packageName) == false)) {
-            Intent intent1 = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent1);
-        }
+//        ContentResolver contentResolver = getContentResolver();
+//        String enabledNotifications = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+//        String packageName = getPackageName();
+//        if (enabledNotifications == null || (enabledNotifications.contains(packageName) == false)) {
+//            Intent intent1 = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+//            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent1);
+//        }
 //Start the notification recieer
         mNotification_Reciever = new NotifcationReciever();
         IntentFilter filter = new IntentFilter();

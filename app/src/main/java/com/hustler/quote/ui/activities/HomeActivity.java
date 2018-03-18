@@ -99,13 +99,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
 //        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
-
         findViews();
-
         window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         colors = new int[]{
                 ContextCompat.getColor(HomeActivity.this, R.color.pink_400),
@@ -358,7 +354,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     search_header.setVisibility(GONE);
                     search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
                     radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-                    rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
 
                     search_term.setText(query);
                     search_term.setVisibility(View.VISIBLE);
@@ -379,7 +374,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, RadioGroup radioGroup, LinearLayout search_header, TextView search_term) {
+    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, RadioGroup radioGroup, LinearLayout search_header, TextView searchTerm) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -421,10 +416,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
             result_rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
 
-            search_term.setText(query);
-            search_term.setVisibility(View.VISIBLE);
-            search_term.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-
+            searchTerm.setText(query);
+            searchTerm.setVisibility(View.VISIBLE);
+            searchTerm.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
 
         }
 

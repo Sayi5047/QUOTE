@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,9 +56,8 @@ public class SplashActivity extends BaseActivity {
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         TextUtils.setFont(SplashActivity.this, tv, Constants.FONT_CIRCULAR);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            this.getWindow().setStatusBarColor(ContextCompat.getColor(SplashActivity.this, android.R.color.white));
-        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
         if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
             setCounter_and_launch();

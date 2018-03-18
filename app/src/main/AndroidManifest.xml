@@ -61,7 +61,7 @@
             android:label=""
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/lightstatusbar">
             <!--<meta-data-->
                 <!--android:name="android.app.searchable"-->
                 <!--android:resource="@xml/searchable">-->

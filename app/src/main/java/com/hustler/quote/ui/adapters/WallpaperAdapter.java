@@ -94,7 +94,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
             return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout_search, parent, false));
 
         } else {
-            return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout, parent, false));
+            return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout_search, parent, false));
 
         }
     }
