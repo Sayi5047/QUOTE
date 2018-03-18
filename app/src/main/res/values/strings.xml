@@ -297,4 +297,14 @@
     </string-array>
 
     <string name="file_provider_authority" translatable="false">com.hustler.quote.fileprovider</string>
+    <string name="start_your_first_wallpaper">Start Editing</string>
+    <string name="Click_to_start">Start editing your first text wallpaper</string>
+    <string name="explore_categories">Explore all categories</string>
+    <string name="read_from_more_than_100">Read quotes from more than 100 categories</string>
+    <string name="explore_images">Explore Hd wallpapers</string>
+    <string name="daily_get_new_wallpapers_with_categories">Get Everyday new wallpapers from Photographers around the world</string>
+    <string name="find_your_fav">Find your favourites</string>
+    <string name="All_your_fav_images_at_one_place">You can see all your favourite quotes and images at one place.</string>
+    <string name="find_your_works">Be proud of your work</string>
+    <string name="you_can_find_your_works_here">You can see all of your works here after you edit and save images.</string>
 </resources>

@@ -230,6 +230,7 @@ public class Constants {
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
     public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG = "is_download_intent_alarm_key";
     public static String IS_QUOTES_LOADED_KEY="is_quotes_loaded_to_db_key";
+    public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED="VIEW_PAGER_INTRO_COMPLETETION_KEY";
 
 
 //    UNSPLASH IDS
