@@ -39,6 +39,7 @@ import com.hustler.quote.ui.utils.TextUtils;
 import java.io.File;
 
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,6 +73,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+            getWindow().setClipToOutline(true);
+        }
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);

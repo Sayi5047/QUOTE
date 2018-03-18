@@ -9,6 +9,7 @@
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColorSecondary">@color/textColor</item>
     </style>
 
     <style name="NoStatusBar" parent="AppTheme.NoActionBar">

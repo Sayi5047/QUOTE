@@ -6,9 +6,11 @@ import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.hustler.quote.R;
@@ -44,11 +46,22 @@ public class ProfeaturesActivity extends BaseActivity implements SharedPreferenc
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+//            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+//            getWindow().setClipToOutline(true);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pro_features_layout);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         mJobScheduler = (JobScheduler) getApplicationContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slideup,R.anim.slidedown);
 
     }
 

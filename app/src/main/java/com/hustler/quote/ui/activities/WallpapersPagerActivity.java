@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.transition.Explode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -78,6 +80,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallpaper_viewer_activity);
         window = this.getWindow();
@@ -88,12 +91,30 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         }
         getIntentData();
         findViews();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            setExplodeAnimation();
+//        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void setExplodeAnimation() {
+        Explode explode = new Explode();
+        explode.setDuration(300);
+        getWindow().setEnterTransition(explode);
+        getWindow().setExitTransition(explode);
     }
 
     private void getIntentData() {
         position = getIntent().getIntExtra(Constants.Pager_position, 1);
         unsplash_images = (ArrayList<Unsplash_Image>) getIntent().getSerializableExtra(Constants.PAGER_LIST_WALL_OBKHECTS);
         isfromFav = getIntent().getBooleanExtra(Constants.is_from_fav, false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+
     }
 
     private void findViews() {
@@ -292,7 +313,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
                 public void onSuccess(final Unsplash_Image[] unsplash_images) {
                     userPics.setAdapter(new WallpaperAdapter(WallpapersPagerActivity.this, unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
-                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> images) {
+                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> images, View itemView) {
                             Intent intent = new Intent(WallpapersPagerActivity.this, WallpapersPagerActivity.class);
 
                             intent.putExtra(Constants.Pager_position, position);

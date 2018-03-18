@@ -1,7 +1,9 @@
 package com.hustler.quote.ui.activities;
 
+import android.os.Build;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.hustler.quote.R;
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
@@ -21,7 +23,10 @@ public class MyPreferenceActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+            getWindow().setClipToOutline(true);
+        }super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.test_prefs);
     }
 }

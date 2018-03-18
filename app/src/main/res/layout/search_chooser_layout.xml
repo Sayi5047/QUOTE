@@ -1,24 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/white">
 
+    <ImageView
+        android:id="@+id/search_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginStart="15dp"
+        android:alpha="0.4"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_close_black_24dp" />
+
+    <TextView
+        android:id="@+id/search_term"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.4"
+        android:gravity="center"
+        android:padding="4dp"
+        android:visibility="visible"
+        tools:text="SOME SEARCH TERM"
+        />
 
     <LinearLayout
         android:id="@+id/search_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/search_btn"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@drawable/white_rounded_drawable"
-            android:elevation="4dp"
             android:orientation="horizontal">
 
             <EditText
@@ -31,113 +57,104 @@
                 android:background="@drawable/transparent_drawable"
                 android:hint="@string/where_to_search"
                 android:imeOptions="actionSearch"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:textColor="@color/textColor"
                 android:textColorHint="@color/black_overlay"
-                android:textSize="@dimen/font1"
+                android:textSize="@dimen/font"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/search"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="36dp"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:elevation="4dp"
                 android:padding="4dp"
-                android:src="@drawable/ic_search_blue" />
+                android:src="@drawable/ic_search_black2_24dp" />
         </LinearLayout>
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/search_header"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:alpha="0.2"
+        android:background="@color/textColor" />
 
     <RadioGroup
         android:id="@+id/rd_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_header"
-        android:layout_gravity="center"
-        android:layout_margin="6dp"
-        android:background="@drawable/white_rounded_drawable"
-        android:elevation="4dp"
-        android:gravity="center"
+        android:layout_gravity="start"
+        android:gravity="start"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <RadioButton
             android:id="@+id/rb_images"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/rd_category_selector"
+            android:button="@null"
             android:checked="true"
             android:enabled="true"
+            android:padding="4dp"
             android:text="@string/images"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/divider" />
 
         <RadioButton
             android:id="@+id/rb_quotes"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/rd_category_selector"
+            android:button="@null"
+            android:padding="4dp"
             android:text="@string/Quotes"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/divider" />
 
     </RadioGroup>
 
-    <android.support.v7.widget.CardView
+
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rd_group"
-        android:layout_margin="4dp"
-        android:background="@android:color/transparent"
-        app:cardCornerRadius="4dp">
+        android:layout_below="@id/rd_group">
 
-        <RelativeLayout
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/result_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/adView">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rd_group">
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/bannerAdId">
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/result_rv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/adView">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <ProgressBar
-                android:id="@+id/loader"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_centerInParent="true" />
-
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="@string/bannerAdId">
-
-            </com.google.android.gms.ads.AdView>
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/search_btn"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_close_white"
-        app:fabSize="normal" />
+        </com.google.android.gms.ads.AdView>
+    </RelativeLayout>
 
 
 </RelativeLayout>
