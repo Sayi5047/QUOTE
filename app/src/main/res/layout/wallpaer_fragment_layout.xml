@@ -65,7 +65,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
         android:alpha="0.8"
-        android:background="@drawable/rounded_rect"
+        android:background="@drawable/rounded_rect_transparent"
         android:orientation="horizontal"
         android:padding="4dp">
 

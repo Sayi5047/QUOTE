@@ -9,16 +9,16 @@
     <group>
         <item
             android:id="@+id/action_settings"
+            android:icon="@drawable/ic_search_blue"
             android:orderInCategory="1"
             android:title="@string/action_settings"
             android:visible="false"
-            android:icon="@drawable/ic_search_blue"
             app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/action_Pro_features"
             android:orderInCategory="2"
             android:title="@string/beta"
-
+            android:visible="false"
             app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/action_Pro_about"

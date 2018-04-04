@@ -307,4 +307,7 @@
     <string name="All_your_fav_images_at_one_place">You can see all your favourite quotes and images at one place.</string>
     <string name="find_your_works">Be proud of your work</string>
     <string name="you_can_find_your_works_here">You can see all of your works here after you edit and save images.</string>
+    <string name="wallpapers">Curated</string>
+    <string name="image_will_be_downloaded_to_sdCard">Image will be saved to sdcard/Quotzywallpapers</string>
+    <string name="downloading_and_setting">Wallpaper will be set once it is downloaded.</string>
 </resources>

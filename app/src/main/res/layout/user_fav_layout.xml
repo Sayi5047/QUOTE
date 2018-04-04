@@ -10,8 +10,9 @@
         android:id="@+id/fav_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
-        app:tabIndicatorColor="@color/orange_300"
+        android:layout_weight="0.6"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorHeight="1dp"
         app:tabSelectedTextColor="@color/orange_300">
 
     </android.support.design.widget.TabLayout>

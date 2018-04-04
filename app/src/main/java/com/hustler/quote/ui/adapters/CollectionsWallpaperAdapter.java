@@ -82,7 +82,7 @@ public class CollectionsWallpaperAdapter extends android.support.v7.widget.Recyc
 
     @Override
     public CollectionsWallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout, parent, false));
+        return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout_search, parent, false));
     }
 
     @Override

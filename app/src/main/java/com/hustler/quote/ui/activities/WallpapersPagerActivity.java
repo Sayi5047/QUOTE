@@ -202,6 +202,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         } else if (v == fabSetWall) {
             if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
                 setWallPaer();
+                Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.downloading_and_setting));
+
             } else {
                 Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
             }
@@ -209,6 +211,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         } else if (v == fabDownload) {
             if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
                 downloadImage();
+                Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_downloaded_to_sdCard));
+
             } else {
                 Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.need_internet_hd));
             }

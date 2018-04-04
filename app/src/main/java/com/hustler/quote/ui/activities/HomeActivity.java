@@ -1,12 +1,16 @@
 package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -38,11 +42,13 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.Recievers.NotifAlarmReciever;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.adapters.WallpaperAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
+import com.hustler.quote.ui.apiRequestLauncher.Shared_prefs_constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.UnsplashImages_Collection_Response;
@@ -54,6 +60,7 @@ import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.view.View.GONE;
 
@@ -87,7 +94,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private AdView mAdView;
     String query;
     LocalAdapter adapter;
+    AlarmManager alarmManager;
 
+    Intent alarm_intent, notif_alarm_intent;
+    PendingIntent pendingIntent, notif_pending_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +121,29 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
         editTabLayout();
+        setUpNotifications();
+    }
 
+    private void setUpNotifications() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 10);
+            calendar.set(Calendar.MINUTE, 30);
+            notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
+            notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
+            notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    1 * 24 * 60 * 60 * 1000,
+                    notif_pending_intent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
+            editor.apply();
+            Log.i("ALARM  NOTIF BOOT R", "SET");
+
+        }
     }
 
     private void editTabLayout() {
@@ -655,6 +687,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //        header_name.setTextColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
         tab_layout.setTabTextColors(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this),
                 ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+        tab_layout.setSelectedTabIndicatorColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
         editTabLayout();
     }
 

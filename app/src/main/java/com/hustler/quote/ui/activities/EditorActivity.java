@@ -470,7 +470,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case R.id.save_work_button: {
                 if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+                    if (selectedView != null) {
+                        selectedView.setBackground(null);
+                        clear_button.setVisibility(GONE);
+                        previousSelcted_View = null;
+                        selectedView = null;
 
+                    }
                     savetoDevice(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
                         @Override
                         public void onImageSaveListner(File file) {
