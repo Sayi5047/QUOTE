@@ -2,6 +2,7 @@ package com.hustler.quote.ui.Services;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +11,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.activities.QuoteDetailsActivity;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 
@@ -91,7 +94,8 @@ public class DailyNotificationService extends IntentService {
 
         @Override
         protected Void doInBackground(String... strings) {
-            quotes = new QuotesDbHelper(getApplicationContext()).getAllFav_Quotes();
+
+            quotes = new QuotesDbHelper(getApplicationContext()).getQuotesByCategory("Motivational ");
             return null;
         }
 
@@ -101,11 +105,17 @@ public class DailyNotificationService extends IntentService {
                 return;
             } else {
                 val = new Random().nextInt(quotes.size());
+                Intent intent = new Intent(getApplicationContext(), QuoteDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quotes.get(val));
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
                 mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 mNotification_Builder = new NotificationCompat.Builder(getApplicationContext());
                 mNotification_Builder
                         .setContentTitle("QUOTZY")
                         .setContentText(quotes.get(val).getQuote_body() + " -- " + quotes.get(val).getQuote_author())
+                        .setContentIntent(pendingIntent)
                         .setSmallIcon(R.drawable.ic_launcher);
                 mNotificationManager.notify(1, mNotification_Builder.build());
             }

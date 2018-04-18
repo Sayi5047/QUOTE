@@ -310,4 +310,5 @@
     <string name="wallpapers">Curated</string>
     <string name="image_will_be_downloaded_to_sdCard">Image will be saved to sdcard/Quotzywallpapers</string>
     <string name="downloading_and_setting">Wallpaper will be set once it is downloaded.</string>
+    <string name="image_will_be_set_wall">As soon as image get downloaded wallpaper will be set. Check progress in notification bar.</string>
 </resources>

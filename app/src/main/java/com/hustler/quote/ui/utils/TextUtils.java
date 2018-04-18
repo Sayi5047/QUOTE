@@ -4,16 +4,26 @@ import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.design.widget.NavigationView;
 import android.support.v7.graphics.Palette;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.hustler.quote.R;
+import com.hustler.quote.ui.CustomSpan.CustomTypefaceSpan;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
+
+import static com.hustler.quote.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
 /**
  * Created by Sayi on 02-12-2017.
@@ -40,6 +50,10 @@ public class TextUtils {
         et.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
     }
 
+    public static void set_Radio_font(Activity activity, RadioButton et, String fontname) {
+        et.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
+    }
+
     public static String getArrayItem_of_String(Activity activity, String name, int index) {
         int arrayid;
         arrayid = activity.getResources().getIdentifier(name, "array", activity.getApplicationContext().getPackageName());
@@ -62,11 +76,13 @@ public class TextUtils {
             if (view instanceof ViewGroup) {
                 findText_and_applyTypeface((ViewGroup) view, activity);
             } else if (view instanceof TextView) {
-                setFont(activity, ((TextView) view), Constants.FONT_CIRCULAR);
+                setFont(activity, ((TextView) view), FONT_CIRCULAR);
             } else if (view instanceof EditText) {
-                setEdit_Font(activity, ((EditText) view), Constants.FONT_CIRCULAR);
+                setEdit_Font(activity, ((EditText) view), FONT_CIRCULAR);
             } else if (view instanceof Button) {
-                setFont(activity, ((TextView) view), Constants.FONT_CIRCULAR);
+                setFont(activity, ((TextView) view), FONT_CIRCULAR);
+            } else if (view instanceof RadioButton) {
+                set_Radio_font(activity, ((RadioButton) view), FONT_CIRCULAR);
             }
         }
     }
@@ -134,5 +150,29 @@ public class TextUtils {
             colors.recycle();
         }
         return returnColor;
+    }
+
+
+    public static void setMenu_Font(Menu navigationView, Activity activity) {
+        Menu menu = navigationView;
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem menuItem = menu.getItem(i);
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                for (int j = 0; j < subMenu.size(); j++) {
+                    MenuItem subMenu_Item = subMenu.getItem();
+                    setFont_For_menu(subMenu_Item, activity);
+                }
+            }
+            setFont_For_menu(menuItem, activity);
+
+        }
+    }
+
+    private static void setFont_For_menu(MenuItem subMenu, Activity activity) {
+        Typeface typeface = Typeface.createFromAsset(activity.getAssets(), FONT_CIRCULAR);
+        SpannableString spannableString = new SpannableString(subMenu.getTitle());
+        spannableString.setSpan(new CustomTypefaceSpan("", typeface), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        subMenu.setTitle(spannableString);
     }
 }

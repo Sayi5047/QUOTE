@@ -45,7 +45,7 @@ public class SystemBootReciever extends BroadcastReceiver {
         Log.d("BOOT RECEIDEVR","RECIEVED");
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
+        if (!sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
             Calendar calendar=Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY,10);

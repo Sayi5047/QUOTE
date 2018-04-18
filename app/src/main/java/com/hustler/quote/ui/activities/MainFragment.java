@@ -2,17 +2,12 @@ package com.hustler.quote.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +16,7 @@ import android.widget.ProgressBar;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
-import com.hustler.quote.ui.loaders.Quotesloader;
+import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 
 import java.util.ArrayList;
@@ -43,12 +38,14 @@ import java.util.List;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Quote>>, SharedPreferences.OnSharedPreferenceChangeListener {
+//LoaderManager.LoaderCallbacks<List<Quote>>,
+public class MainFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     RecyclerView rv;
     ProgressBar loader;
     LocalAdapter localAdapter;
     SharedPreferences sharedPreferences;
+    private List<Quote> quotes;
 
     @Nullable
     @Override
@@ -62,31 +59,36 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
             public void onQuoteClicked(int position, int color, Quote quote, View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getActivity().getWindow().setEnterTransition(new Slide());
-                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(getActivity(),
-                                    view,
-                                    getString(R.string.quotes_author_transistion));
-                    startActivity(intent, options.toBundle());
-                } else {
-                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    startActivity(intent);
-                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    getActivity().getWindow().setEnterTransition(new Slide());
+//                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+//                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+//                    ActivityOptionsCompat options = ActivityOptionsCompat.
+//                            makeSceneTransitionAnimation(getActivity(),
+//                                    view,
+//                                    getString(R.string.quotes_author_transistion));
+//                    startActivity(intent, options.toBundle());
+//                } else {
+                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                startActivity(intent);
+//                }
             }
         });
+        loadQuotes();
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    public void loadQuotes() {
         if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
-            getLoaderManager().initLoader(0, null, this);
+//            getLoaderManager().initLoader(0, null, this);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    quotes = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
+                    setAdapter(new ArrayList<Quote>(quotes));
+                }
+            }).run();
         } else {
             loader.setVisibility(View.VISIBLE);
         }
@@ -103,22 +105,23 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         }
     }
 
-
-    @Override
-    public Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
-        return new Quotesloader(getActivity());
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
-        this.loader.setVisibility(View.GONE);
-        setAdapter(new ArrayList<Quote>(data));
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Quote>> loader) {
-        setAdapter(null);
-    }
+//
+//    @Override
+//    public Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
+////        return new Quotesloader(getActivity());
+//        return null
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
+////        this.loader.setVisibility(View.GONE);
+////        setAdapter(new ArrayList<Quote>(data));
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<List<Quote>> loader) {
+////        setAdapter(null);
+//    }
 
     /**
      * Called when a shared preference is changed, added, or removed. This
@@ -133,9 +136,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key == Constants.IS_QUOTES_LOADED_KEY) {
-            if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
-                getLoaderManager().initLoader(0, null, this);
-            }
+            loadQuotes();
         }
     }
 
@@ -153,19 +154,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         super.onStop();
     }
 
-    @Override
-    public void onPause() {
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
 
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
-        super.onResume();
-    }
     //    @Override
 //    public void onResume() {
 //        super.onResume();

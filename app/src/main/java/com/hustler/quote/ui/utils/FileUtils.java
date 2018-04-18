@@ -505,6 +505,11 @@ public class FileUtils {
             public void onRewardedVideoAdFailedToLoad(int i) {
 
             }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+
+            }
         });
 
         remove_watermark.setOnClickListener(new View.OnClickListener() {
@@ -877,30 +882,6 @@ public class FileUtils {
 
 
     }
-    class ImageDownloader extends AsyncTask<String, String, Void> {
 
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Void doInBackground(final String... params) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                }
-            }).run();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-
-
-        }
-
-
-    }
 
 }

@@ -10,13 +10,13 @@
 
     tools:context="com.hustler.quote.ui.activities.QuoteDetailsActivity">
 
-    <include layout="@layout/half" />
+    <!--<include layout="@layout/half" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <include layout="@layout/app_bar_transparent" />
 
         <RelativeLayout
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:elevation="@dimen/elevation4"
+                android:elevation="@dimen/elevation8"
                 app:cardCornerRadius="16dp"
 
                 app:cardUseCompatPadding="true">
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="#f5f5f5"
+                    android:background="@drawable/white_rounded_drawable"
                     android:elevation="@dimen/elevation4"
 
                     android:gravity="center"
@@ -81,7 +81,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
 
-                        android:textColor="@color/textColor"
+                        android:textColor="@android:color/white"
                         android:textIsSelectable="true"
 
                         android:textSize="@dimen/font3_5"
@@ -115,7 +115,7 @@
                             android:paddingTop="@dimen/elevation8"
                             android:textAlignment="center"
 
-                            android:textColor="@color/colorAccent"
+                            android:textColor="@android:color/white"
 
                             android:textSize="@dimen/font2"
                             tools:text="hdsjkdsfsdhfhdjhfsjhf" />

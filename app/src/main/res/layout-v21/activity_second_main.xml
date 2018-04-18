@@ -19,7 +19,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:theme="@style/AppTheme"
             app:layout_scrollFlags="scroll|enterAlways">
 
@@ -42,7 +42,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:textAlignment="center"
             app:tabIndicatorColor="@android:color/white"
             app:tabIndicatorHeight="1dp"
@@ -96,7 +96,8 @@
 
     </android.support.v4.view.ViewPager>
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto" android:visibility="gone"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,9 +1,11 @@
 package com.hustler.quote.ui.activities;
 
 import android.animation.Animator;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,6 +45,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Recievers.NotifAlarmReciever;
+import com.hustler.quote.ui.Services.DailyNotificationService;
 import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.adapters.WallpaperAdapter;
@@ -61,6 +64,7 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.view.View.GONE;
 
@@ -94,9 +98,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private AdView mAdView;
     String query;
     LocalAdapter adapter;
-    AlarmManager alarmManager;
-
+    Menu menu;
     Intent alarm_intent, notif_alarm_intent;
+    AlarmManager alarmManager;
+    boolean service_Started;
     PendingIntent pendingIntent, notif_pending_intent;
 
     @Override
@@ -104,7 +109,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
-            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.white_apple));
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
@@ -121,28 +126,48 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
         editTabLayout();
-        setUpNotifications();
+        alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+
+//        setUpNotifications();
+//        if(!service_Started){
+//            stratServices();
+//        }
+    }
+
+    private void stratServices() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Log.d(this.getClass().getSimpleName(), String.valueOf(sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 30);
+        notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
+        notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
+        notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                1 * 24 * 60 * 60 * 1000,
+                notif_pending_intent);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
+        editor.apply();
+        Log.i("ALARM  NOTIF BOOT R", "SET");
     }
 
     private void setUpNotifications() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 10);
-            calendar.set(Calendar.MINUTE, 30);
-            notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
-            notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
-            notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    1 * 24 * 60 * 60 * 1000,
-                    notif_pending_intent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
-            editor.apply();
-            Log.i("ALARM  NOTIF BOOT R", "SET");
 
+        ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningServiceInfo service : am.getRunningServices(Integer.MAX_VALUE)) {
+            String serv = service.service.getClassName();
+            if (serv.equals(DailyNotificationService.class)) {
+                service_Started = true;
+                break;
+            } else {
+                service_Started = false;
+
+            }
         }
     }
 
@@ -159,7 +184,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     TextView textView = (TextView) tabViewChild;
                     textView.setAllCaps(false);
 //                    setAnimation(textView);
-                    TextUtils.setFont(HomeActivity.this, textView, Constants.FONT_ZINGCURSIVE);
+                    TextUtils.setFont(HomeActivity.this, textView, Constants.FONT_CIRCULAR);
                 }
             }
         }
@@ -173,7 +198,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //        setAnimation(floatingActionButton);
 //        setAnimation(mainPager);
 //        setAnimation(tab_layout);
+
+//        setUpNotifications();
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        invalidateOptionsMenu();
+        this.menu = menu;
+        return super.onPrepareOptionsMenu(menu);
+
+    }
+
 
     private void findViews() {
 
@@ -189,7 +225,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tab_layout.setupWithViewPager(mainPager);
         mAdView = findViewById(R.id.adView);
         header_name = findViewById(R.id.header_name);
-        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_ZINGCURSIVE);
+        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_CIRCULAR);
         loadAds();
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
         mainPager.setCurrentItem(1);
@@ -492,6 +528,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //                }
 //            }
 //        });
+        if (this != null) {
+            TextUtils.setMenu_Font(menu, HomeActivity.this);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

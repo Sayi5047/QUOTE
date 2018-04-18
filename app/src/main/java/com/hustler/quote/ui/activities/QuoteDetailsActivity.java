@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -158,14 +159,16 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
         int length = quote.getQuote_body().length();
-        root.setBackgroundColor(quote.getColor());
+        root.setBackgroundColor(Color.WHITE);
+        quote_layout.setBackgroundColor(quote.getColor());
         fab_share.setBackgroundColor(quote.getColor());
         quote_bottom.setBackgroundColor(quote.getColor());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
-            window.setStatusBarColor(quote.getColor());
+            window.setStatusBarColor(Color.WHITE);
         }
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
         if (length > 230) {
             tv_Quote_Body.setTextSize(20.0f);
         } else if (length < 230 && length > 150) {
@@ -395,9 +398,5 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
 }

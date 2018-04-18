@@ -51,14 +51,14 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, final int position) {
 
-        final int color = TextUtils.getMainMatColor("mdcolor_100", activity);
+        final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
 
         holder.category.setText(cats[position]);
         holder.itemView.setBackgroundColor(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.itemView.setClipToOutline(true);
         }
-        TextUtils.setFont(activity, holder.category, Constants.FONT_ZINGCURSIVE);
+        TextUtils.setFont(activity, holder.category, Constants.FONT_CIRCULAR);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -74,6 +74,7 @@ public class DownloadImageService extends Service {
         mNotification_Builder.setProgress(0, 0, true);
         mNotificationManager.notify(id, mNotification_Builder.build());
         mNotification_Builder.setAutoCancel(true);
+        mNotification_Builder.setOngoing(true);
         // Start a image download operation in a background thread
         imageDownloader = new ImageDownloader();
         imageDownloader.execute(url);
@@ -137,7 +138,7 @@ public class DownloadImageService extends Service {
         protected void onPostExecute(Void aVoid) {
             mNotification_Builder.setContentTitle("Completed");
             mNotification_Builder.setContentText("Images Successfully downloaded to SD card").setProgress(100, 100, false);// Removes the progress bar
-
+            mNotification_Builder.setOngoing(false);
             mNotificationManager.notify(id, mNotification_Builder.build());
             if (is_to_set_wallpaper == false) {
                 imageDownloader.cancel(true);

@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -76,7 +77,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 
     @Override
     public void onBindViewHolder(LocalViewholder holder, final int position) {
-        final int color = TextUtils.getMainMatColor("mdcolor_50", activity);
+        final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
         holder.itemView.setBackgroundColor(color);
         final Quote quote = dataFromNet.get(position);
         quote.setColor(color);
@@ -85,6 +86,9 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         genre = quote.getQuote_category();
 
         holder.tv.setText(quote.getQuote_body());
+        holder.tv.setTextColor(Color.WHITE);
+        holder.tv2.setTextColor(Color.WHITE);
+        holder.tv3.setTextColor(Color.WHITE);
         holder.tv2.setText(quote.getQuote_author());
         holder.tv3.setText(genre);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +133,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             tv2 = itemView.findViewById(R.id.quote_author);
             tv3 = itemView.findViewById(R.id.quote_genre_end);
             TextUtils.setFont(activity, tv, Constants.FONT_CIRCULAR);
-            TextUtils.setFont(activity, tv2, Constants.FONT_ZINGCURSIVE);
+            TextUtils.setFont(activity, tv2, Constants.FONT_CIRCULAR);
             TextUtils.setFont(activity, tv3, Constants.FONT_CIRCULAR);
 
         }
