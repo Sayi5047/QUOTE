@@ -15,10 +15,12 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         releaseconfig {
-            keyAlias 'quotzy'
-            keyPassword 'Johnvonnueman1!'
-            storeFile file('C:/Users/Sayi/Documents/GitHub/Keys/QUOTZY/quotzy_prod.jks')
-            storePassword 'Johnvonnueman1!'
+            def props = new Properties()
+            file("Cred.properties").withInputStream { props.load(it) }
+            keyAlias props.getProperty("keyAlias")
+            keyPassword props.getProperty("keyPassword")
+            storeFile file(props.getProperty("storeFile"))
+            storePassword props.getProperty("storePassword")
         }
     }
     compileSdkVersion 27
