@@ -17,7 +17,7 @@ android {
         releaseconfig {
             keyAlias 'quotzy'
             keyPassword 'Johnvonnueman1!'
-            storeFile file('C:/Users/Sayi/Documents/GitHub/Keys/quotzy_prod.jks')
+            storeFile file('C:/Users/Sayi/Documents/GitHub/Keys/QUOTZY/quotzy_prod.jks')
             storePassword 'Johnvonnueman1!'
         }
     }
@@ -36,7 +36,7 @@ android {
     }
     buildTypes {
         release {
-            debuggable false
+            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             shrinkResources true
@@ -61,7 +61,7 @@ android {
 //    }
 }
 ext {
-    supportLibVersion = '27.1.0'
+    supportLibVersion = '27.1.1'
     googleLibVersion = '15.0.0'
     SEPERATOR = '-'
     APK_EXTENSION = '.apk'

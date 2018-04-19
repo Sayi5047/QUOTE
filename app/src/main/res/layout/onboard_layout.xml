@@ -8,18 +8,14 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
-        android:clipToPadding="true"
         android:orientation="vertical">
 
         <ImageView
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
             android:alpha="0.3"
-            android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
             android:src="@drawable/geometry_2" />
 

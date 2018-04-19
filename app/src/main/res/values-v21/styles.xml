@@ -16,7 +16,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
     </style>
     <style name="lightstatusbar" parent="@style/Theme.AppCompat.Light.NoActionBar">
     </style>

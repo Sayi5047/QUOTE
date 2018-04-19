@@ -60,14 +60,10 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="top|left"
         android:layout_marginBottom="25dp"
-        android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:backgroundTint="@android:color/white"
-        android:src="@drawable/ic_edit_black"
+        app:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/ic_edit_black"
         app:layout_anchor="@+id/main_pager"
         app:layout_anchorGravity="bottom|right" />
 
