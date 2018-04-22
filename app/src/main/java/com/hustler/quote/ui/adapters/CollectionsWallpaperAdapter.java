@@ -2,6 +2,7 @@ package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;

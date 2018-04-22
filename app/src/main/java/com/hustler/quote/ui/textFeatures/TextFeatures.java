@@ -339,8 +339,8 @@ public class TextFeatures {
             @Override
             public void onClick(View v) {
                 String familyName = searchBox.getText().toString();
-                if (checkFamilyValid(familyName) == true) {
-                    if (InternetUtils.isConnectedtoNet(editorActivity) == true) {
+                if (checkFamilyValid(familyName)) {
+                    if (InternetUtils.isConnectedtoNet(editorActivity)) {
                         requestDownload(editorActivity, familyName, selectedTextView, demoText);
                     } else {
                         Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.internet_required));
@@ -396,7 +396,7 @@ public class TextFeatures {
             public void onFontClicked(String font, int isDownloadFont) {
                 selected_type_face[0] = font;
                 isDownloaded[2] = isDownloadFont;
-                if (InternetUtils.isConnectedtoNet(editorActivity) == true) {
+                if (InternetUtils.isConnectedtoNet(editorActivity)) {
                     requestDownload(editorActivity, font, selectedTextView, demoText);
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.internet_required));
@@ -418,7 +418,9 @@ public class TextFeatures {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_font));
                 } else {
                     if (isDownloaded[0] == 1) {
-                        TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
+                        if(selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/web.ttf")){
+                            TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
+                        }
 
                     } else if (isDownloaded[1] == 2) {
                         selectedTextView.setTypeface(Typeface.createFromFile(selected_type_face[0]));

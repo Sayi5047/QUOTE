@@ -59,6 +59,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
@@ -83,6 +84,7 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
@@ -269,7 +271,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if (isHeightMeasured) {
-            return;
         } else {
 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).edit();
@@ -383,24 +384,37 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 String path = null;
 
                 String action = intent.getAction();
-                if (action == Intent.ACTION_VIEW) {
-                    path = intent.getData().getPath();
+                if (Objects.equals(action, Intent.ACTION_VIEW)) {
+                    try {
+                        path = intent.getData().getPath();
+                        Log.d("ACTION_VIEW", path);
+                    } catch (NullPointerException ne) {
+                        finish();
+                        ne.printStackTrace();
+                    }
 //                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
 //                    path = uri.getPath();
 //                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
-                    Log.d("ACTION_VIEW", path);
 
-                } else if (action == Intent.ACTION_SEND) {
+                } else if (Objects.equals(action, Intent.ACTION_SEND)) {
                     Bundle bundle = intent.getExtras();
-                    Uri uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
-                    path = uri.getPath();
-                    Log.d("ACTION_SEND", path);
+                    Uri uri = null;
+                    if (bundle != null) {
+                        uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
+                    }
+                    if (uri != null) {
+                        path = uri.getPath();
+                        Log.d("ACTION_SEND", path);
+                    }
                 }
                 try {
-                    file = new File(path);
+                    if (path != null) {
+                        file = new File(path);
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
+                        FileUtils.unzipandSave(file, EditorActivity.this);
+                    }
 
-                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
-                    FileUtils.unzipandSave(file, EditorActivity.this);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -805,47 +819,52 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void enable_Selected_Background_Features(String clickedItem, String[] bgfeaturesArray) {
-        if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
-            current_Bg_feature = bgfeaturesArray[0];
-            if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
-                handle_gallery_dialog(EditorActivity.this);
-            } else {
-                requestAppPermissions_for_launch_gallery();
-            }
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[1])) {
-            current_Bg_feature = bgfeaturesArray[1];
-            selected_picture = null;
-            colorbg(bgfeaturesArray);
+        if (clickedItem != null) {
+            if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
+                current_Bg_feature = bgfeaturesArray[0];
+                if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+                    handle_gallery_dialog(EditorActivity.this);
+                } else {
+                    requestAppPermissions_for_launch_gallery();
+                }
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[1])) {
+                current_Bg_feature = bgfeaturesArray[1];
+                selected_picture = null;
+                colorbg(bgfeaturesArray);
 
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[2])) {
-            current_Bg_feature = bgfeaturesArray[2];
-            if (selected_picture != null) {
-                blurrImage(bgfeaturesArray);
-            } else {
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.please_select_image));
-            }
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[3])) {
-            current_Bg_feature = bgfeaturesArray[3];
-            applyBlackFilter();
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[2])) {
+                current_Bg_feature = bgfeaturesArray[2];
+                if (selected_picture != null) {
+                    blurrImage(bgfeaturesArray);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.please_select_image));
+                }
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[3])) {
+                current_Bg_feature = bgfeaturesArray[3];
+                applyBlackFilter();
 
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[4])) {
-            current_Bg_feature = bgfeaturesArray[4];
-            applyWhiteFilter();
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
-            current_Bg_feature = bgfeaturesArray[5];
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[4])) {
+                current_Bg_feature = bgfeaturesArray[4];
+                applyWhiteFilter();
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
+                current_Bg_feature = bgfeaturesArray[5];
 //            selected_picture = null;
-            bringGradients();
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
-            current_Bg_feature = bgfeaturesArray[6];
+                bringGradients();
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
+                current_Bg_feature = bgfeaturesArray[6];
 //            selected_picture = null;
-            if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
-                seachImages();
-            } else {
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));
-            }
-        } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
+                if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
+                    seachImages();
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));
+                }
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
 
+            }
+        } else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.please_select_feature_again));
         }
+
     }
 
     private void seachImages() {
@@ -1006,110 +1025,123 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void handle_bg_seekbar(SeekBar seekBar) {
         String[] featuresLocalArray = getResources().getStringArray(R.array.Background_features);
-        if (current_module.equalsIgnoreCase(Constants.BG)) {
-            if (current_Bg_feature.equalsIgnoreCase(featuresLocalArray[2]) && seekBar.getProgress() >= 0) {
-                Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
-                if (seekBar.getProgress() == 0) {
+        if (current_module == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(activity, getString(R.string.we_missed_bg));
+        } else {
+            if (current_module.equalsIgnoreCase(Constants.BG)) {
+                if (current_Bg_feature.equalsIgnoreCase(featuresLocalArray[2]) && seekBar.getProgress() >= 0) {
                     Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
-                } else {
-                    imageView_background.setDrawingCacheEnabled(true);
-                    imageView_background.buildDrawingCache();
-                    if (imageView_background.getDrawingCache().isRecycled()) {
-
+                    if (seekBar.getProgress() == 0) {
+                        Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
                     } else {
+                        imageView_background.setDrawingCacheEnabled(true);
+                        imageView_background.buildDrawingCache();
+                        if (imageView_background.getDrawingCache().isRecycled()) {
+
+                        } else {
 //                        Bitmap bitmap = imageView_background.getDrawingCache();
 //                        float blurr_progress = seekBar.getProgress() <= 0 ? 0.1f : seekBar.getProgress() / 15;
 //                        Bitmap newblurredImage = create_blur(bitmap, blurr_progress);
 //                        imageView_background.setImageBitmap(newblurredImage);
-                        imageView_background.destroyDrawingCache();
+                            imageView_background.destroyDrawingCache();
+                        }
+                        Bitmap bitmap = imageView_background.getDrawingCache();
+                        float radius;
+                        if (Math.round(seekBar.getProgress() / 15) <= 0) {
+                            radius = 0.1f;
+                        } else {
+                            radius = Math.round(seekBar.getProgress() / 15);
+                        }
+                        float blurr_progress = seekBar.getProgress() <= 0 ? 0.1f : radius;
+                        Bitmap newblurredImage = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                            newblurredImage = ImageProcessingUtils.create_blur(bitmap, blurr_progress, EditorActivity.this);
+                        } else {
+                            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
+                        }
+                        imageView_background.setImageBitmap(newblurredImage);
                     }
-                    Bitmap bitmap = imageView_background.getDrawingCache();
-                    float radius;
-                    if (Math.round(seekBar.getProgress() / 15) <= 0) {
-                        radius = 0.1f;
-                    } else {
-                        radius = Math.round(seekBar.getProgress() / 15);
-                    }
-                    float blurr_progress = seekBar.getProgress() <= 0 ? 0.1f : radius;
-                    Bitmap newblurredImage = null;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        newblurredImage = ImageProcessingUtils.create_blur(bitmap, blurr_progress, EditorActivity.this);
-                    } else {
-                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
-                    }
-                    imageView_background.setImageBitmap(newblurredImage);
+                } else if ((current_Bg_feature.equalsIgnoreCase(featuresLocalArray[3]) || current_Bg_feature.equalsIgnoreCase(featuresLocalArray[4])) && seekBar.getProgress() >= 0) {
+                    double opacity = ((double) ((seekBar.getProgress() * 10) / 360) / 10);
+                    light_effect_filter_IV.setAlpha((float) opacity);
                 }
-            } else if ((current_Bg_feature.equalsIgnoreCase(featuresLocalArray[3]) || current_Bg_feature.equalsIgnoreCase(featuresLocalArray[4])) && seekBar.getProgress() >= 0) {
-                double opacity = ((double) ((seekBar.getProgress() * 10) / 360) / 10);
-                light_effect_filter_IV.setAlpha((float) opacity);
             }
         }
+
     }
 
     private void handle_seekbar_value(SeekBar seekBar) {
         float radius = (float) seekBar.getProgress();
-        if (current_module.equalsIgnoreCase(Constants.TEXT)) {
-            TextView selected_textView = (TextView) selectedView;
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
-                float size = radius / 2;
-                selected_textView.setTextSize(size);
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
-                float degree = radius - 180;
-                selected_textView.setRotation(degree);
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
-                float degree = radius / 500;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    selected_textView.setLetterSpacing(degree);
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
-                }
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
-                float degrer = radius / 100;
-                selected_textView.setLineSpacing(15, degrer);
-            } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
-                int degrer = (int) radius * 3;
+        if (current_module == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
+        } else {
+            if (current_module.equalsIgnoreCase(Constants.TEXT)) {
+                TextView selected_textView = (TextView) selectedView;
+                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
+                    float size = radius / 2;
+                    selected_textView.setTextSize(size);
+                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
+                    float degree = radius - 180;
+                    selected_textView.setRotation(degree);
+                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
+                    float degree = radius / 500;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        selected_textView.setLetterSpacing(degree);
+                    } else {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
+                    }
+                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
+                    float degrer = radius / 100;
+                    selected_textView.setLineSpacing(15, degrer);
+                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
+                    int degrer = (int) radius * 3;
 //                Log.d("PADDIG DEGEREE", degrer + "");
-                selected_textView.setMaxWidth(degrer);
+                    selected_textView.setMaxWidth(degrer);
+                }
             }
         }
     }
 
 
     private void handle_close_Feature() {
-        if (current_module.equalsIgnoreCase(Constants.TEXT)) {
-            TextView current_text_view = (TextView) selectedView;
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2])) {
-                current_text_view.setTextSize(25);
-            }
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3])) {
-                current_text_view.setRotation(0);
-            }
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4])) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    current_text_view.setLetterSpacing(0);
+        if (current_module == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
+        } else {
+            if (current_module.equalsIgnoreCase(Constants.TEXT)) {
+                TextView current_text_view = (TextView) selectedView;
+                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2])) {
+                    current_text_view.setTextSize(25);
+                }
+                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3])) {
+                    current_text_view.setRotation(0);
+                }
+                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4])) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        current_text_view.setLetterSpacing(0);
+                    }
+                }
+                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6])) {
+                    current_text_view.setLineSpacing(15, 1.0f);
+                }
+                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7])) {
+                    current_text_view.setPadding(16, 16, 16, 16);
+                }
+            } else if (current_module.equalsIgnoreCase(Constants.BG)) {
+                if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[2])) {
+                    if (selected_picture != null) {
+                        Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+
+                    } else {
+
+                    }
+
+                } else if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[3]) ||
+                        current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[4])) {
+                    light_effect_filter_IV.setBackground(null);
                 }
             }
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6])) {
-                current_text_view.setLineSpacing(15, 1.0f);
-            }
-            if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7])) {
-                current_text_view.setPadding(16, 16, 16, 16);
-            }
-        } else if (current_module.equalsIgnoreCase(Constants.BG)) {
-            if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[2])) {
-                if (selected_picture != null) {
-                    Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
 
-                } else {
-
-                }
-
-            } else if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[3]) ||
-                    current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[4])) {
-                light_effect_filter_IV.setBackground(null);
-            }
         }
-
     }
 
 
@@ -1261,7 +1293,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final RecyclerView recyclerView;
         AdView adView;
         final Button close, done, start, center, end, previewText, bold, underline, italic, strikethrough, highlight, colorText;
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+        try {
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+            e.printStackTrace();
+        }
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
 

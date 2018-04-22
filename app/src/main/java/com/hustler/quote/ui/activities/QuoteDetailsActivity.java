@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.android.gms.ads.AdView;
 import com.hustler.quote.R;
@@ -71,6 +73,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private RelativeLayout wallpaper_layout;
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
     private AdView mAdView;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +117,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         wallpaper_layout = findViewById(R.id.wallpaper_layout);
         quote_bottom = findViewById(R.id.quote_bottom);
         quote_anim = findViewById(R.id.quote_anim);
+//        toolbar = findViewById(R.id.toolbar);
         Drawable drawable = quote_anim.getDrawable();
-        if (drawable instanceof Animatable) {
-            ((Animatable) drawable).start();
-        }
+//        if (drawable instanceof Animatable) {
+//            ((Animatable) drawable).start();
+//        }
 
 //        tv_Quote_Author.setTypeface(App.applyFont(QuoteDetailsActivity.this, Shared_prefs_constants.FONT_ZINGCURSIVE));
 //        tv_Quote_Body.setTypeface(App.applyFont(QuoteDetailsActivity.this, Shared_prefs_constants.FONT_ZINGSANS));
@@ -154,15 +158,33 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    private GradientDrawable createDrawable() {
+        int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+        int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+        int[] colors = {color1, color2};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
+        gradientDrawable.setGradientRadius(135);
+        gradientDrawable.setCornerRadius(20f);
+        return gradientDrawable;
+//        holder.imageView.layout(0,0,100,100);
+//
+//        holder.imageView.setDrawingCacheEnabled(true);
+//        holder.imageView.buildDrawingCache();
+//        Bitmap bitmap=holder.imageView.getDrawingCache();
+//        Bitmap finalbitmap =ImageProcessingUtils.create_blur(bitmap,5.0f,activity);
+//        holder.imageView.setImageBitmap(finalbitmap);
+    }
+
     private void getIntentData() {
 //        Bundle bundle=getIntent().getBundleExtra(Shared_prefs_constants.BUNDLE_OBJECT);
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
+        GradientDrawable gradientDrawable = createDrawable();
         int length = quote.getQuote_body().length();
-        root.setBackgroundColor(Color.WHITE);
-        quote_layout.setBackgroundColor(quote.getColor());
-        fab_share.setBackgroundColor(quote.getColor());
-        quote_bottom.setBackgroundColor(quote.getColor());
+        root.setBackground(quote.getColor());
+        quote_layout.setBackground(gradientDrawable);
+        fab_share.setBackground(gradientDrawable);
+        quote_bottom.setBackground(gradientDrawable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
             window.setStatusBarColor(Color.WHITE);
@@ -367,7 +389,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                 }
             });
 
-        } else if (savedFile != null) {
+        } else {
+
             shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(savedFile.getPath())));
             startActivity(Intent.createChooser(shareIntent, "send"));
         }
@@ -377,7 +400,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         final Uri[] uri = {null};
         if (savedFile != null) {
             uri[0] = Uri.fromFile(savedFile);
-        } else if (savedFile == null) {
+        } else {
             savetoDevice(rootview, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
                 @Override
                 public void onImageSaveListner(File file) {

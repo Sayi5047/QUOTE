@@ -2,6 +2,7 @@ package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +59,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     }
 
     public interface OnQuoteClickListener {
-        void onQuoteClicked(int position, int color, Quote quote, View view);
+        void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view);
     }
 
     @Override
@@ -74,13 +75,27 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         notifyItemRangeInserted(0, dataFromNet.size());
         notifyDataSetChanged();
     }
-
+    private GradientDrawable createDrawable(LocalViewholder holder) {
+        int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
+        int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
+        int[] colors = {color1, color2};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
+        gradientDrawable.setGradientRadius(135);
+        gradientDrawable.setCornerRadius(20f);
+        holder.itemView.setBackground(gradientDrawable);
+        return gradientDrawable;
+//        holder.imageView.layout(0,0,100,100);
+//
+//        holder.imageView.setDrawingCacheEnabled(true);
+//        holder.imageView.buildDrawingCache();
+//        Bitmap bitmap=holder.imageView.getDrawingCache();
+//        Bitmap finalbitmap =ImageProcessingUtils.create_blur(bitmap,5.0f,activity);
+//        holder.imageView.setImageBitmap(finalbitmap);
+    }
     @Override
     public void onBindViewHolder(LocalViewholder holder, final int position) {
-        final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
-        holder.itemView.setBackgroundColor(color);
+       final GradientDrawable gradientDrawable= createDrawable(holder);
         final Quote quote = dataFromNet.get(position);
-        quote.setColor(color);
         String genre;
 
         genre = quote.getQuote_category();
@@ -95,7 +110,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             @Override
             public void onClick(View v) {
                 if (onQuoteClickListener != null) {
-                    onQuoteClickListener.onQuoteClicked(position, color, quote, v);
+                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, v);
                 }
             }
         });

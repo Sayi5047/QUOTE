@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -48,17 +49,34 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
         return new CategoryViewHolder(activity.getLayoutInflater().inflate(R.layout.image_category_item, parent, false));
     }
 
+    private GradientDrawable createDrawable(CategoryViewHolder holder) {
+        int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
+        int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
+        int[] colors = {color1, color2};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
+        gradientDrawable.setGradientRadius(135);
+        gradientDrawable.setCornerRadius(20f);
+        holder.itemView.setBackground(gradientDrawable);
+        return gradientDrawable;
+//        holder.imageView.layout(0,0,100,100);
+//
+//        holder.imageView.setDrawingCacheEnabled(true);
+//        holder.imageView.buildDrawingCache();
+//        Bitmap bitmap=holder.imageView.getDrawingCache();
+//        Bitmap finalbitmap =ImageProcessingUtils.create_blur(bitmap,5.0f,activity);
+//        holder.imageView.setImageBitmap(finalbitmap);
+    }
+
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, final int position) {
 
         final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
-
+        createDrawable(holder);
         holder.category.setText(cats[position]);
-        holder.itemView.setBackgroundColor(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.itemView.setClipToOutline(true);
         }
-        TextUtils.setFont(activity, holder.category, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(activity, holder.category, Constants.FONT_CIRCULAR2);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
 
         iv_no_fav = view.findViewById(R.id.iv_no_fav);
         rv_imag_no_fv = view.findViewById(R.id.rv_imag_no_fv);
-        rv_imag_no_fv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
         setAdapter();
         return view;
     }

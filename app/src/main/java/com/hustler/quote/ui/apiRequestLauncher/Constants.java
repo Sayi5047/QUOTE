@@ -43,6 +43,7 @@ public class Constants {
 //    public static final String FONT_multicolore = "fonts/multicolore.otf";
 //    public static final String FONT_Roboto_regular = "fonts/robot_regular.ttf";
     public static final String FONT_CIRCULAR = "fonts/cstd_reg.otf";
+    public static final String FONT_CIRCULAR2 = "fonts/web.ttf";
 
 
     public static final String INTENT_QUOTE_OBJECT_KEY = "QUOTE_OBJECT_TRAVELLER_KEY";
@@ -57,6 +58,7 @@ public class Constants {
     public static final String SAHRED_PREFS_DEVICE_HEIGHT_KEY = "shared_prefs_device_height";
     public static final String APPFOLDER = "Quotzy";
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
+    public static final String HOME_SCREEN_NUMBER = "home_screen_number_object";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
 

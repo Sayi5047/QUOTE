@@ -1,5 +1,6 @@
 package com.hustler.quote.ui.pojo;
 
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
@@ -14,8 +15,9 @@ public class Quote implements Serializable {
     String quote_author;
     String quote_category;
     String quote_language;
+    GradientDrawable color;
 
-    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, int color) {
+    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, GradientDrawable color) {
         this.id = id;
         this.quote_body = quote_body;
         this.quote_author = quote_author;
@@ -24,17 +26,16 @@ public class Quote implements Serializable {
         this.color = color;
     }
 
-    public int getColor() {
+    public GradientDrawable getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(GradientDrawable color) {
         this.color = color;
     }
 
-    int color;
 
-    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, int color, int isLiked) {
+    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, GradientDrawable color, int isLiked) {
         this.id = id;
         this.quote_body = quote_body;
         this.quote_author = quote_author;

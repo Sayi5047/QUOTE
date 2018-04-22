@@ -7,11 +7,11 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.hustler.quote.R;
@@ -21,7 +21,6 @@ import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Sayi on 28-01-2018.
@@ -116,7 +115,7 @@ public class DownloadImageService extends Service {
     }
 
 
-    class ImageDownloader extends AsyncTask<String, String, Void> {
+    private class ImageDownloader extends AsyncTask<String, String, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -140,28 +139,23 @@ public class DownloadImageService extends Service {
             mNotification_Builder.setContentText("Images Successfully downloaded to SD card").setProgress(100, 100, false);// Removes the progress bar
             mNotification_Builder.setOngoing(false);
             mNotificationManager.notify(id, mNotification_Builder.build());
-            if (is_to_set_wallpaper == false) {
+            if (!is_to_set_wallpaper) {
                 imageDownloader.cancel(true);
                 stopSelf();
             } else {
                 if (downloading_File != null) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                        Intent intent = new Intent(WallpaperManager.getInstance(getApplicationContext()).
-                                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(getApplicationContext(), downloading_File)));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    } else {
-                        WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-                        try {
-                            wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("WALLPAPEREXCEPTION", "WALLPAPER NOT FOUND");
-                        }
-                    }
+                    Intent intent = new Intent(WallpaperManager.getInstance(getApplicationContext()).
+                            getCropAndSetWallpaperIntent(FileProvider.getUriForFile(getApplicationContext(), "com.hustler.quote.fileprovider", (downloading_File))));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
                 } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast((Activity) getApplicationContext(), "Failed to set wallpaper");
+                    try {
+                        Toast_Snack_Dialog_Utils.show_ShortToast((Activity) getApplicationContext(), "Failed to set wallpaper");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 killAllNotifs();
 

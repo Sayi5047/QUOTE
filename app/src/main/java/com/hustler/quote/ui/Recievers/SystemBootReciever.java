@@ -42,41 +42,41 @@ public class SystemBootReciever extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("BOOT RECEIDEVR","RECIEVED");
-        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
-            Calendar calendar=Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY,10);
-            calendar.set(Calendar.MINUTE,30);
-            notif_alarm_intent = new Intent(context, NotifAlarmReciever.class);
-            notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
-            notif_pending_intent = PendingIntent.getBroadcast(context, 1, notif_alarm_intent, 0);
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    1 * 24 * 60 * 60 * 1000,
-                    notif_pending_intent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
-            editor.apply();
-            Log.i("ALARM  NOTIF BOOT R", "SET");
-
-        }
-        if (sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_IMAGE_SERVICES_RUNNING_KEY, false)) {
-            alarm_intent = new Intent(context, AlarmReciever.class);
-            alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, true);
-            pendingIntent = PendingIntent.getBroadcast(context, 0, alarm_intent, 0);
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime(),
-                    Integer.parseInt(sharedPreferences.getString(context.getString(R.string.DWL_key2), String.valueOf(7200000))),
-                    pendingIntent);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_IMAGE_SERVICES_RUNNING_KEY, true);
-            editor.apply();
-            Log.i("ALARM  BOOT RECIEVER", "SET");
-            Log.i("ALARM TIME  RECIEVER", sharedPreferences.getString(context.getString(R.string.DWL_key2), String.valueOf(7200000)));
-        }
+//        Log.d("BOOT RECEIDEVR","RECIEVED");
+//        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        if (!sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, false)) {
+//            Calendar calendar=Calendar.getInstance();
+//            calendar.setTimeInMillis(System.currentTimeMillis());
+//            calendar.set(Calendar.HOUR_OF_DAY,10);
+//            calendar.set(Calendar.MINUTE,30);
+//            notif_alarm_intent = new Intent(context, NotifAlarmReciever.class);
+//            notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
+//            notif_pending_intent = PendingIntent.getBroadcast(context, 1, notif_alarm_intent, 0);
+//            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+//                    calendar.getTimeInMillis(),
+//                    1 * 24 * 60 * 60 * 1000,
+//                    notif_pending_intent);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
+//            editor.apply();
+//            Log.i("ALARM  NOTIF BOOT R", "SET");
+//
+//        }
+//        if (sharedPreferences.getBoolean(Shared_prefs_constants.SHARED_PREFS_IMAGE_SERVICES_RUNNING_KEY, false)) {
+//            alarm_intent = new Intent(context, AlarmReciever.class);
+//            alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, true);
+//            pendingIntent = PendingIntent.getBroadcast(context, 0, alarm_intent, 0);
+//            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//                    SystemClock.elapsedRealtime(),
+//                    Integer.parseInt(sharedPreferences.getString(context.getString(R.string.DWL_key2), String.valueOf(7200000))),
+//                    pendingIntent);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_IMAGE_SERVICES_RUNNING_KEY, true);
+//            editor.apply();
+//            Log.i("ALARM  BOOT RECIEVER", "SET");
+//            Log.i("ALARM TIME  RECIEVER", sharedPreferences.getString(context.getString(R.string.DWL_key2), String.valueOf(7200000)));
+//        }
     }
 //    public void onReceive(Context context, Intent intent) {
 ////        Toast_Snack_Dialog_Utils.show_ShortToast(QuoteWidgetConfigurationActivity.this, "DEVICE SUCCESSFULLY BOOTED");

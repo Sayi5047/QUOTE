@@ -38,7 +38,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        activity = this;
+        activity = BaseActivity.this;
         MobileAds.initialize(activity, Constants.ADS_APP_ID);
 
     }

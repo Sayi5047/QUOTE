@@ -7,9 +7,9 @@
     android:layout_margin="2dp"
     android:clipToPadding="true"
     android:elevation="4dp"
+    android:orientation="vertical"
     app:cardCornerRadius="8dp"
-    app:cardUseCompatPadding="true"
-    android:orientation="vertical">
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:id="@id/root_layout"
@@ -23,21 +23,22 @@
             android:layout_height="wrap_content"
 
             android:elevation="@dimen/elevation8"
+            android:lineSpacingExtra="6dp"
             android:padding="@dimen/elevation8"
             android:text="Something"
             android:textColor="@color/textColor"
-
-            android:textSize="@dimen/font1" />
+            android:textSize="@dimen/font2"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/quote_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/elevation4"
             android:layout_gravity="end"
-            android:textAlignment="viewEnd"
+            android:elevation="@dimen/elevation4"
             android:padding="@dimen/elevation4"
             android:text="Something"
+            android:textAlignment="viewEnd"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/font1"
 
@@ -53,14 +54,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_alignParentEnd="true"
                 android:layout_gravity="start"
                 android:layout_margin="@dimen/elevation4"
-                android:background="@android:drawable/screen_background_light_transparent"
                 android:gravity="start"
                 android:padding="@dimen/elevation4"
                 android:text="Something"
                 android:textAlignment="center"
-
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/font" />
 
@@ -68,8 +68,8 @@
                 android:id="@+id/fav_iv"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="start"
                 android:layout_marginRight="5dp"
                 android:src="@drawable/ic_favorite_black_24dp" />
 

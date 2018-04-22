@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.KeyEvent;
@@ -62,7 +63,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
     private void findViews(View view) {
         categories_rv = view.findViewById(R.id.rv_categories);
-        categories_rv.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        categories_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
         categories_rv.setAdapter(new CategoriesAdapter(getActivity(), new CategoriesAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClicked(String category, String cat2, int position, GradientDrawable gradientDrawable) {
@@ -125,7 +126,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                     startActivity(intent);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.design.widget.NavigationView;
 import android.support.v7.graphics.Palette;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.CustomSpan.CustomTypefaceSpan;
-import com.hustler.quote.ui.apiRequestLauncher.Constants;
 
 import static com.hustler.quote.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
@@ -126,9 +124,9 @@ public class TextUtils {
         }
     }
 
-    public static int getMatColor(Activity activity) {
+    public static int getMatColor(Activity activity, String md_300) {
         int returnColor = Color.BLACK;
-        int arrayId = activity.getResources().getIdentifier("mdcolor_300", "array", activity.getApplicationContext().getPackageName());
+        int arrayId = activity.getResources().getIdentifier(md_300, "array", activity.getApplicationContext().getPackageName());
 
         if (arrayId != 0) {
             TypedArray colors = activity.getResources().obtainTypedArray(arrayId);

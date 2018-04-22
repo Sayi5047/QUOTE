@@ -60,7 +60,6 @@
             android:name=".ui.activities.HomeActivity"
             android:label=""
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/lightstatusbar">
             <!--<meta-data-->
             <!--android:name="android.app.searchable"-->
@@ -89,6 +88,9 @@
         <activity
             android:name=".ui.activities.ProfeaturesActivity"
             android:label="@string/beta" />
+        <activity
+            android:name=".ui.activities.PreHome_Activity"
+            android:theme="@style/lightstatusbar" />
 
         <receiver
             android:name=".ui.Widgets.EditWidgetProvider"
@@ -164,17 +166,6 @@
 
             tools:ignore="InnerclassSeparator" />
         <service android:name=".ui.Services.QuoteLoaderService" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="@string/file_provider_authority"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
-        </provider>
-
         <service android:name=".ui.Services.FbTokenService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -185,6 +176,19 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!--PROVIDERS AREA-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
+
     </application>
 
 </manifest>

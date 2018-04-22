@@ -13,12 +13,12 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.media.ExifInterface;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -790,34 +790,33 @@ public class FileUtils {
     }
 
     public static void setwallpaper(Activity activity, String imagepath) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Intent intent = new Intent(WallpaperManager.getInstance(activity).
-                    getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
+        Intent intent = new Intent(WallpaperManager.getInstance(activity).
+                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
 
-            activity.startActivity(intent);
-        } else {
-            WallpaperManager wallpaperManager = WallpaperManager.getInstance(activity);
-            try {
-                Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
-                wallpaperManager.setBitmap((bitmap));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        activity.startActivity(intent);
     }
 
     public static void shareImage(Activity activity, String imagePath) {
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
-        shareIntent.putExtra(Intent.EXTRA_TITLE, imagePath);
-        if (imagePath != null) {
-            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
-            shareIntent.setType("image/jpeg");
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            activity.startActivity(Intent.createChooser(shareIntent, "send"));
+        if (activity != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
+            shareIntent.putExtra(Intent.EXTRA_TITLE, imagePath);
+            if (imagePath != null) {
+                if (Build.VERSION.SDK_INT >= 24) {
+                    shareIntent.putExtra(Intent.EXTRA_STREAM,
+                            FileProvider.getUriForFile(activity.getApplicationContext(),  activity.getString(R.string.file_provider_authority), new File(imagePath)));
+                } else {
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
+                }
+                shareIntent.setType("image/jpeg");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                activity.startActivity(Intent.createChooser(shareIntent, "send"));
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
+            }
         } else {
-            Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
+            Log.e("FILEUTILS", "ACTIVITY IS NOULL TO SHARE IMG");
         }
 
 
@@ -836,7 +835,7 @@ public class FileUtils {
 //                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
             String SdCard = Environment.getExternalStorageDirectory().toString();
             File destination_downloading_directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
-            if (destination_downloading_directory.exists() == false) {
+            if (!destination_downloading_directory.exists()) {
                 destination_downloading_directory.mkdirs();
             }
 //                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE

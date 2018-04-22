@@ -86,7 +86,7 @@ public class SplashActivity extends BaseActivity {
 
     private void gotoSecondmain() {
         if (sharedPreferences.getBoolean(Constants.IS_USER_SAW_INRODUCTION, false)) {
-            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+            startActivity(new Intent(SplashActivity.this, PreHome_Activity.class));
         } else {
             startActivity(new Intent(SplashActivity.this, LanderActivty.class));
         }

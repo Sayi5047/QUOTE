@@ -1,9 +1,11 @@
 package com.hustler.quote.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -48,7 +50,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
 
         iv_no_fav = view.findViewById(R.id.iv);
         rv_imag_no_fv = view.findViewById(R.id.rv);
-        rv_imag_no_fv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
         setAdapter(rv_imag_no_fv);
         return view;
     }
@@ -64,7 +66,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, int color, Quote quote, View view) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                 startActivity(intent);

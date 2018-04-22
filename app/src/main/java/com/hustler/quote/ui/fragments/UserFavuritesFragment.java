@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -88,7 +89,7 @@ public class UserFavuritesFragment extends Fragment {
                     TextView textView = (TextView) tabViewChild;
                     textView.setAllCaps(false);
 //                    setAnimation(textView);
-                    TextUtils.setFont(getActivity(), textView, Constants.FONT_ZINGCURSIVE);
+                    TextUtils.setFont(getActivity(), textView, Constants.FONT_CIRCULAR);
                 }
             }
         }
@@ -108,7 +109,7 @@ public class UserFavuritesFragment extends Fragment {
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, int color, Quote quote, View view) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                 startActivity(intent);

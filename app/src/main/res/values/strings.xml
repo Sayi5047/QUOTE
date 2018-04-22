@@ -311,4 +311,7 @@
     <string name="image_will_be_downloaded_to_sdCard">Image will be saved to sdcard/Quotzywallpapers</string>
     <string name="downloading_and_setting">Wallpaper will be set once it is downloaded.</string>
     <string name="image_will_be_set_wall">As soon as image get downloaded wallpaper will be set. Check progress in notification bar.</string>
+    <string name="click_text">Oh, somehow we missed something to record . Please click text button at bottom try again.</string>
+    <string name="please_select_feature_again">We missed it . Please,select the feature again</string>
+    <string name="we_missed_bg">We missed your preference, Please click below Background button and try again</string>
 </resources>

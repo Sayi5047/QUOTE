@@ -91,12 +91,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
     private GradientDrawable createDrawable(CategoryViewHolder holder) {
-        int color1 = TextUtils.getMatColor(activity);
-        int color2 = TextUtils.getMatColor(activity);
+        int color1 = TextUtils.getMatColor(activity,"mdcolor_500");
+        int color2 = TextUtils.getMatColor(activity,"mdcolor_500");
         int[] colors = {color1, color2};
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
         gradientDrawable.setGradientRadius(135);
-        gradientDrawable.setCornerRadius(0f);
+        gradientDrawable.setCornerRadius(20f);
         holder.imageView.setBackground(gradientDrawable);
         return gradientDrawable;
 //        holder.imageView.layout(0,0,100,100);
@@ -126,8 +126,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             super(itemView);
             textView = itemView.findViewById(R.id.bt_category);
             imageView = itemView.findViewById(R.id.back_image);
-            TextUtils.setFont(activity, textView, Constants.FONT_CIRCULAR);
-            textView.setShadowLayer(1f, 2, 2, activity.getResources().getColor(android.R.color.black));
+            TextUtils.setFont(activity, textView, Constants.FONT_CIRCULAR2);
+//            textView.setShadowLayer(1f, 2, 2, activity.getResources().getColor(android.R.color.black));
 
         }
     }

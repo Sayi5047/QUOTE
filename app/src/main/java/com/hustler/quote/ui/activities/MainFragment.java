@@ -2,6 +2,7 @@ package com.hustler.quote.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -58,7 +59,7 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, int color, Quote quote, View view) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                    getActivity().getWindow().setEnterTransition(new Slide());
 //                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,7 +65,6 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import static android.view.View.GONE;
 
@@ -90,6 +90,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     Animator anim;
     TextView header_name;
     CoordinatorLayout rootView;
+    int adapterPos;
 
     int[] colors;
     Toolbar toolbar;
@@ -225,7 +226,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tab_layout.setupWithViewPager(mainPager);
         mAdView = findViewById(R.id.adView);
         header_name = findViewById(R.id.header_name);
-        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_CIRCULAR2);
         loadAds();
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
         mainPager.setCurrentItem(1);
@@ -248,6 +249,29 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, query);
 //            buildDialog_and_search(query);
 //        }
+        adapterPos = intent.getIntExtra(Constants.HOME_SCREEN_NUMBER, 1);
+        if (mainPager != null && mainPager.getAdapter() != null) {
+            switch (adapterPos) {
+                case 0:
+                    floatingActionButton.performClick();
+                    break;
+                case 1:
+                    mainPager.setCurrentItem(1);
+                    break;
+                case 2:
+                    mainPager.setCurrentItem(1);
+                    break;
+                case 3:
+                    mainPager.setCurrentItem(2);
+                    break;
+                case 4:
+                    mainPager.setCurrentItem(3);
+                    break;
+                case 5:
+                    mainPager.setCurrentItem(4);
+                    break;
+            }
+        }
     }
 
 
@@ -469,7 +493,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             loader.setVisibility(GONE);
             adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, int color, Quote quote, View view) {
+                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                     startActivity(intent);
