@@ -104,6 +104,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     AlarmManager alarmManager;
     boolean service_Started;
     PendingIntent pendingIntent, notif_pending_intent;
+    int[] icons = new int[]{R.drawable.ic_library,
+            R.drawable.ic_launcher,
+            R.drawable.ic_lover,
+            R.drawable.ic_picture,
+            R.drawable.ic_canvas2
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +132,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 ContextCompat.getColor(HomeActivity.this, R.color.orange_300),
                 ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
-        editTabLayout();
+//        editTabLayout();
         alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
 //        setUpNotifications();
@@ -234,6 +240,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         floatingActionButton.setOnClickListener(this);
 
         getIntentData(getIntent());
+        tab_layout.getTabAt(0).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[0]));
+        tab_layout.getTabAt(1).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[1]));
+        tab_layout.getTabAt(2).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[2]));
+        tab_layout.getTabAt(3).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[3]));
+        tab_layout.getTabAt(4).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[4]));
 
     }
 
@@ -748,10 +759,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
 
 //        header_name.setTextColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
-        tab_layout.setTabTextColors(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this),
-                ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+
+//        tab_layout.setTabTextColors(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this),
+//                ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
         tab_layout.setSelectedTabIndicatorColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
-        editTabLayout();
+//        editTabLayout();
     }
 
     @Override

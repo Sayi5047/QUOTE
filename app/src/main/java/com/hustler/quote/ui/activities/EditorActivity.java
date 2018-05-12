@@ -61,6 +61,7 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.Widgets.RotationGestureDetector;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
 import com.hustler.quote.ui.adapters.Features_adapter;
 import com.hustler.quote.ui.adapters.ImagesAdapter;
@@ -105,7 +106,7 @@ import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
 public class EditorActivity extends BaseActivity implements View.OnClickListener,
         SeekBar.OnSeekBarChangeListener,
         View.OnTouchListener,
-        View.OnLongClickListener {
+        View.OnLongClickListener, RotationGestureDetector.OnRotateGestureListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
@@ -177,6 +178,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public int deviceHeight;
     private boolean isHeightMeasured = false;
     private String geust_image;
+    private RotationGestureDetector rotationGestureDetector;
+
+    private int pointer_Id_1, pointer_ID_2;
+    private float fx;
+    private float fy;
+    private float sx;
+    private float sy;
+    float nsx, nsy, nfx, nfy;
 
 //    final int INVALIDPOINTERID = -1;
 //    int mActivePointerId = INVALIDPOINTERID;
@@ -194,7 +203,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         findViews();
         getIntentData();
         setViews();
-
+        rotationGestureDetector = new RotationGestureDetector(EditorActivity.this);
     }
 
     @Override
@@ -438,6 +447,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
+        rotationGestureDetector.onTouchEvent(event);
         return true;
     }
 
@@ -2104,8 +2114,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     /*Methods to handle view movements*/
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        RelativeLayout.LayoutParams view_Parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
+        RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         selectedView = v;
+        final int INAVALID_POINTER_ID = -1;
 //        v.setPadding(16, 16, 16, 16);
         if (previousSelcted_View != null) {
             previousSelcted_View.setBackground(null);
@@ -2122,30 +2133,89 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
         }
-        switch (event.getAction()) {
-
-            case MotionEvent.ACTION_MOVE: {
-                view_Parameters.topMargin = view_Parameters.topMargin + (int) event.getRawY() - prevY;
-                prevY = (int) event.getRawY();
-                view_Parameters.leftMargin = view_Parameters.leftMargin + (int) event.getRawX() - prevX;
-                prevX = (int) event.getRawX();
-                v.setLayoutParams(view_Parameters);
-                return true;
-
-            }
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
-                prevX = (int) event.getRawX();
-                prevY = (int) event.getRawY();
-                view_Parameters.bottomMargin = -2 * v.getHeight();
-                view_Parameters.rightMargin = -2 * v.getWidth();
-                v.setLayoutParams(view_Parameters);
-
-                return false;
+                pointer_Id_1 = event.getPointerId(event.getActionIndex());
+                Log.d("ACTION DOWN", pointer_Id_1 + "");
+//                prevX = (int) event.getRawX();
+//                prevY = (int) event.getRawY();
+//                selected_text_view_parameters.bottomMargin = -2 * v.getHeight();
+//                selected_text_view_parameters.rightMargin = -2 * v.getWidth();
+////                v.setLayoutParams(selected_text_view_parameters);
+                try {
+                    fx = event.getX(event.findPointerIndex(pointer_Id_1));
+                    fy = event.getY(event.findPointerIndex(pointer_Id_1));
+                } catch (IllegalArgumentException iae) {
+                    iae.printStackTrace();
+                }
+                return true;
             }
+//            case MotionEvent.ACTION_POINTER_DOWN: {
+//                pointer_ID_2 = event.getPointerId(event.getActionIndex());
+//                Log.d("ACTION POINTER DOWN", pointer_ID_2 + "");
+//
+////                sx = event.getX(event.findPointerIndex(pointer_Id_1));
+////                sy = event.getY(event.findPointerIndex(pointer_Id_1));
+//
+//                return true;
+//            }
+            case MotionEvent.ACTION_MOVE: {
+
+                if (pointer_Id_1 != INAVALID_POINTER_ID) {
+//                        nsx = event.getX(event.findPointerIndex(pointer_Id_1));
+//                        nsy = event.getY(event.findPointerIndex(pointer_Id_1));
+
+                    Log.d("ACTION move x POINTE", pointer_Id_1 + "");
+                    try {
+                        nfx = event.getX(event.findPointerIndex(pointer_Id_1));
+                        nfy = event.getY(event.findPointerIndex(pointer_Id_1));
+                    } catch (IllegalArgumentException iae) {
+                        iae.printStackTrace();
+                    }
+
+
+                    selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
+                    prevY = (int) nfy;
+                    selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
+                    prevX = (int) nfx;
+                    v.setLayoutParams(selected_text_view_parameters);
+                    Log.d("ACTION MOVE", "TRUE RETURNED");
+
+                    return true;
+                } else {
+                    Log.d("ACTION MOVE", "FALSE RETURNED");
+
+                    return false;
+                }
+
+
+            }
+
             case MotionEvent.ACTION_UP: {
-                view_Parameters.topMargin += (int) event.getRawY() - prevY;
-                view_Parameters.leftMargin += (int) event.getRawX() - prevX;
-                v.setLayoutParams(view_Parameters);
+
+                pointer_Id_1 = INAVALID_POINTER_ID;
+                Log.d("ACTION UP", pointer_Id_1 + "");
+
+//                selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
+//                selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
+//
+////                selected_text_view_parameters.topMargin += (int) event.getRawY() - prevY;
+////                selected_text_view_parameters.leftMargin += (int) event.getRawX() - prevX;
+//                v.setLayoutParams(selected_text_view_parameters);
+                return true;
+            }
+
+//            case MotionEvent.ACTION_POINTER_UP: {
+////                pointer_ID_2 = INAVALID_POINTER_ID;
+//                Log.d("ACTION POINTER UP", pointer_ID_2 + "");
+//
+//                return true;
+//            }
+
+            case MotionEvent.ACTION_CANCEL: {
+                pointer_ID_2 = pointer_Id_1 = INAVALID_POINTER_ID;
+                Log.d("ACTION CANCEL", pointer_ID_2 + " <--2,1--> " + pointer_Id_1);
+
                 return true;
             }
         }
@@ -2167,6 +2237,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    @Override
+    public void onRotate(RotationGestureDetector rotationGestureDetector) {
+        if (selectedView != null) {
+            View selected = selectedView;
+            if (selected instanceof TextView) {
+                TextView selectedText = ((TextView) selected);
+                selectedText.setRotation(rotationGestureDetector.getmAngle());
+
+                Log.d("RotationGestureDetector", "Rotation: " + Float.toString(rotationGestureDetector.getmAngle()));
+            }
+
+        }
+    }
+
     public class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
@@ -2184,5 +2268,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             return false;
         }
+
     }
+
 }

@@ -3,6 +3,7 @@ package com.hustler.quote.ui.fragments;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
     private void findViews(View view) {
         categories_rv = view.findViewById(R.id.rv_categories);
-        categories_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        categories_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         categories_rv.setAdapter(new CategoriesAdapter(getActivity(), new CategoriesAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClicked(String category, String cat2, int position, GradientDrawable gradientDrawable) {
@@ -76,7 +77,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
     private void bringupQuotes(String category, String cat2, GradientDrawable gradientDrawable) {
         final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.dialog_category_layout);
-        dialog.getWindow().setBackgroundDrawable(gradientDrawable);
+//        dialog.getWindow().setBA(gradientDrawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
 
 
@@ -95,12 +96,17 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    dialog.getWindow().setStatusBarColor(gradientDrawable.getColors()[1]);
+                    dialog.getWindow().setStatusBarColor(Color.WHITE);
+                    catgory_name.setBackgroundColor(Color.WHITE);
                     catgory_name.setBackgroundColor(gradientDrawable.getColors()[1]);
 
+
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+                    dialog.getWindow().setStatusBarColor(Color.WHITE);
+                    catgory_name.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
                 }
+
 //                } else {
 //                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 //                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
