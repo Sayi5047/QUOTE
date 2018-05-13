@@ -144,7 +144,7 @@
                 android:src="@drawable/ic_favorite_border_black_24dp"
 
                 app:backgroundTint="@android:color/white"
-                app:fabSize="normal" />
+                app:fabSize="auto" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_set_wall"
@@ -155,7 +155,7 @@
 
                 android:src="@drawable/ic_crop_original_black_24dp"
                 app:backgroundTint="@android:color/white"
-                app:fabSize="normal" />
+                app:fabSize="auto" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_download"
@@ -166,7 +166,7 @@
 
                 android:src="@drawable/ic_archive_black_24dp"
                 app:backgroundTint="@android:color/white"
-                app:fabSize="normal" />
+                app:fabSize="auto" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_edit"
@@ -177,7 +177,7 @@
                 android:src="@drawable/ic_format_shapes_black_24dp"
                 app:backgroundTint="@android:color/white"
 
-                app:fabSize="normal" />
+                app:fabSize="auto" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_share"
@@ -189,7 +189,7 @@
                 android:src="@drawable/ic_share_black_24dp"
                 app:backgroundTint="@android:color/white"
 
-                app:fabSize="normal" />
+                app:fabSize="auto" />
 
         </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -105,9 +106,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     boolean service_Started;
     PendingIntent pendingIntent, notif_pending_intent;
     int[] icons = new int[]{R.drawable.ic_library,
-            R.drawable.ic_launcher,
+            R.drawable.ic_launcher, R.drawable.ic_picture,
+
             R.drawable.ic_lover,
-            R.drawable.ic_picture,
             R.drawable.ic_canvas2
     };
 
@@ -154,12 +155,42 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
-                1 * 24 * 60 * 60 * 1000,
+                24 * 60 * 60 * 1000,
                 notif_pending_intent);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
         editor.apply();
         Log.i("ALARM  NOTIF BOOT R", "SET");
+    }
+
+    private void setTabColors(final TabLayout tabLayout) {
+        tabLayout.getTabAt(0).getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
+        tabLayout.getTabAt(1).getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
+        tabLayout.getTabAt(2).getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
+        tabLayout.getTabAt(3).getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
+        tabLayout.getTabAt(4).getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().clearColorFilter();
+//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(60, 60); //set new width & Height
+//                params.gravity = Gravity.CENTER;
+//                tab_layout.getChildAt(tab.getPosition()).setLayoutParams(params);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
     }
 
     private void setUpNotifications() {
@@ -232,20 +263,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tab_layout.setupWithViewPager(mainPager);
         mAdView = findViewById(R.id.adView);
         header_name = findViewById(R.id.header_name);
-        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_CIRCULAR2);
+        TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_CIRCULAR);
         loadAds();
         mainPager.setAdapter(new TabsFragmentPagerAdapter(this, getSupportFragmentManager()));
         mainPager.setCurrentItem(1);
         mainPager.setOnPageChangeListener(this);
+//        mainPager.setPageTransformer(false,new WallpaperPageTransformer());
         floatingActionButton.setOnClickListener(this);
 
-        getIntentData(getIntent());
+//        getIntentData(getIntent());
         tab_layout.getTabAt(0).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[0]));
         tab_layout.getTabAt(1).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[1]));
         tab_layout.getTabAt(2).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[2]));
         tab_layout.getTabAt(3).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[3]));
         tab_layout.getTabAt(4).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[4]));
-
+        setTabColors(tab_layout);
     }
 
     @Override
@@ -577,6 +609,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 buildDialog_and_search();
             }
             break;
+            case R.id.action_rate: {
+                taketoRate();
+
+            }
+            break;
             case R.id.action_Pro_features: {
                 Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
                 startActivity(intent);
@@ -606,18 +643,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             }
             break;
             case R.id.action_Pro_rate: {
-                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity  object
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
+                taketoRate();
 
             }
             break;
 
         }
         return true;
+    }
+
+    public void taketoRate() {
+        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity  object
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
     }
 
     private void launch_credits_dialog() {

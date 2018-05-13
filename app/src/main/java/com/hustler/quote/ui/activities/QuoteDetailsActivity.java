@@ -6,7 +6,6 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -74,13 +73,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
     private AdView mAdView;
     Toolbar toolbar;
+    GradientDrawable gradientDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
-            getWindow().setClipToOutline(true);
-        }
+
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
@@ -154,7 +151,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -164,7 +161,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         int[] colors = {color1, color2};
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
         gradientDrawable.setGradientRadius(135);
-        gradientDrawable.setCornerRadius(20f);
+//        gradientDrawable.setCornerRadius(20f);
         return gradientDrawable;
 //        holder.imageView.layout(0,0,100,100);
 //
@@ -179,17 +176,22 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 //        Bundle bundle=getIntent().getBundleExtra(Shared_prefs_constants.BUNDLE_OBJECT);
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
 //        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
-        GradientDrawable gradientDrawable = createDrawable();
+        gradientDrawable = createDrawable();
         int length = quote.getQuote_body().length();
-        root.setBackground(quote.getColor());
-        quote_layout.setBackground(gradientDrawable);
-        fab_share.setBackground(gradientDrawable);
-        quote_bottom.setBackground(gradientDrawable);
+//        root.setBackground(gradientDrawable);
+        quote_layout.setBackground(new ColorDrawable(Color.WHITE));
+//        fab_share.setBackground(gradientDrawable);
+        quote_bottom.setBackground(new ColorDrawable(Color.WHITE));
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
-            window.setStatusBarColor(Color.WHITE);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                window.setStatusBarColor(gradientDrawable.getColors()[0]);
+//            }else {
+//                window.setStatusBarColor(Color.WHITE);
+//
+//            }
         }
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
         if (length > 230) {
             tv_Quote_Body.setTextSize(20.0f);
@@ -211,6 +213,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         }
         tv_Quote_Body.setText(quote.getQuote_body());
         tv_Quote_Author.setText(quote.getQuote_author());
+        tv_Quote_Body.setTextColor(Color.BLACK);
+        tv_Quote_Author.setTextColor(Color.BLACK);
         if (quote.getIsLiked() == 1) {
             IS_LIKED_FLAG = true;
             fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
@@ -231,6 +235,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     addFavourite();
 
                 }
+//                root.setBackgroundDrawable(gradientDrawable);
             }
             break;
             case R.id.fab_download:
@@ -255,6 +260,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
                 break;
         }
+//        root.setBackgroundDrawable(gradientDrawable);
+
     }
 
     private void removeFavourite() {
@@ -420,6 +427,9 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         startActivity(intent);
     }
+
+
+
 
 
 }

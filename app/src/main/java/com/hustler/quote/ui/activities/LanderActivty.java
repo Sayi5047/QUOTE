@@ -148,7 +148,8 @@ public class LanderActivty extends BaseActivity {
             @Override
             public void onClick(View v) {
                 updateSharedPreferences();
-                startActivity(new Intent(LanderActivty.this, PreHome_Activity.class));
+                Intent intent=new Intent(LanderActivty.this,HomeActivity.class);
+                startActivity(new Intent(LanderActivty.this, HomeActivity.class));
 
             }
         });

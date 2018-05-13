@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ベースのグラデーション -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradinent
+                android:angle="270"
+                android:endColor="#009FD9"
+                android:startColor="#55CBF6" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:endColor="#0096DB"
+                android:startColor="#57CCF7" />
+        </shape>
+    </item>
+    <!-- 上の層 -->
+    <!-- 下の暗くなってるとこ -->
+    <item android:top="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#00025a7a"
+                android:centerColor="#00025a7a"
+                android:centerX="0.97"
+                android:endColor="#FF025a7a"/>
+        </shape>
+    </item>
+
+    <!-- 上の明るくなってるとこ -->
+    <item android:top="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#00FFFFFF"
+                android:centerColor="#00FFFFFF"
+                android:centerX="0.97"
+                android:endColor="#FEABE5FB"/>
+        </shape>
+    </item>
+</layer-list>
