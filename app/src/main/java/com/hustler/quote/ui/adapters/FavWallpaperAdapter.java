@@ -54,9 +54,9 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
         FavWallpaperAdapter.m_AL_Images = m_AL_Images;
         this.onimageClickListener = onimageClickListener;
         Set<Unsplash_Image> hs = new HashSet<>();
-        hs.addAll(this.m_AL_Images);
-        this.m_AL_Images.clear();
-        this.m_AL_Images.addAll(hs);
+        hs.addAll(FavWallpaperAdapter.m_AL_Images);
+        FavWallpaperAdapter.m_AL_Images.clear();
+        FavWallpaperAdapter.m_AL_Images.addAll(hs);
     }
 
     public static void addItems(Unsplash_Image[] images) {

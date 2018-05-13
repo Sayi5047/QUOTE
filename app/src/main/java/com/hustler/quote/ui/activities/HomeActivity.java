@@ -670,8 +670,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dialog.getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary));
         }
-        final RelativeLayout root = (RelativeLayout) dialog.findViewById(R.id.root_Rl);
-        final Button bt_cose = (Button) dialog.findViewById(R.id.bt_close);
+        final RelativeLayout root = dialog.findViewById(R.id.root_Rl);
+        final Button bt_cose = dialog.findViewById(R.id.bt_close);
         TextUtils.findText_and_applyTypeface(root, HomeActivity.this);
         dialog.show();
         TextUtils.findText_and_applyamim_slideup(root, HomeActivity.this);

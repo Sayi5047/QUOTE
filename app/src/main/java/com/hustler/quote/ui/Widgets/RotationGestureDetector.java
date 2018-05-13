@@ -98,7 +98,7 @@ public class RotationGestureDetector {
 
 
     public interface OnRotateGestureListener {
-        public void onRotate(RotationGestureDetector rotationGestureDetector);
+        void onRotate(RotationGestureDetector rotationGestureDetector);
     }
 
 }
