@@ -19,9 +19,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
             android:theme="@style/AppTheme"
-            app:elevation="0dp">
+            app:elevation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways">
 
 
             <TextView
@@ -44,9 +44,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             app:tabIndicatorColor="@android:color/white"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="#fff9f9f9">
+            app:tabMode="scrollable">
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
@@ -58,9 +56,9 @@
         android:layout_marginBottom="25dp"
         android:layout_marginRight="25dp"
         app:backgroundTint="@android:color/white"
-        app:srcCompat="@drawable/ic_edit_black"
         app:layout_anchor="@+id/main_pager"
-        app:layout_anchorGravity="bottom|right"  />
+        app:layout_anchorGravity="bottom|right"
+        app:srcCompat="@drawable/ic_edit_black" />
 
     <ImageView
         android:layout_width="34dp"
@@ -94,8 +92,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        ads:adSize="SMART_BANNER"
         android:visibility="gone"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/bannerAdId"
         ads:layout_anchorGravity="bottom">
 

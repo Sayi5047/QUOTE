@@ -32,9 +32,10 @@
             android:gravity="center"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font1"
+            android:textSize="@dimen/font3"
             android:lineSpacingExtra="@dimen/font"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="kfjdlkfdlkfdl"/>
 
         <ImageView
             android:id="@+id/front_button"

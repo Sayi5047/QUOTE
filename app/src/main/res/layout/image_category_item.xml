@@ -18,7 +18,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/font1"
+        android:textSize="@dimen/font2"
         tools:text="SAYI MANOJ"
         android:lineSpacingExtra="@dimen/font"
         android:textStyle="bold"/>

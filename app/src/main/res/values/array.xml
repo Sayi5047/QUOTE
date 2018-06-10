@@ -276,6 +276,7 @@
         <item name="grey_1000w" type="color">#ffffff</item>
     </array>
 
+<array name="seemless_colors"></array>
 
     <array name="allColors">
         <!--reds-->
