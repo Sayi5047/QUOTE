@@ -27,7 +27,9 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="6"
             android:elevation="@dimen/elevation4"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:transitionName="@string/quotes_body_transistion"
+            >
 
             <android.support.v7.widget.CardView
                 android:id="@+id/card_view"
@@ -44,7 +46,8 @@
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:elevation="@dimen/elevation8"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:transitionName="transistion_bg">
 
                     <TextView
                         android:id="@+id/image_saved_message"

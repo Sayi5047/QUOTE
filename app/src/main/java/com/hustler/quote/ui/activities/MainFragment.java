@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,7 +20,9 @@ import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
+import com.hustler.quote.ui.utils.IntentConstants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,8 +74,10 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
 //                    startActivity(intent, options.toBundle());
 //                } else {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new android.support.v4.util.Pair<View, String>(view, view.getTransitionName())).toBundle();
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                startActivity(intent);
+                intent.putExtra(IntentConstants.QUOTE_DETAILS_GRADIENT_INTENT_OBJECT, (Serializable) color);
+                startActivity(intent, bundle);
 //                }
             }
         });

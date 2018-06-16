@@ -56,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:background="@drawable/rounded_rect"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
                     android:padding="10dp"
                     android:textColor="@color/textColor" />
 
@@ -116,18 +118,36 @@
 
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_symbol_fonts"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:padding="@dimen/smallPadding"
-                android:text="@string/symbolic_fonts"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/font">
+                android:layout_height="wrap_content">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/tv_symbol_fonts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="@dimen/smallPadding"
+                    android:text="@string/symbolic_fonts"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font">
+
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/youtube_img"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_ondemand_video_black_24dp"
+                    android:tint="@android:color/white" />
+            </RelativeLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_symbol_font"

@@ -439,6 +439,50 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        isFromEdit_Activity = 0;
+
+        File file;
+        String path = null;
+
+        String action = intent.getAction();
+        if (Objects.equals(action, Intent.ACTION_VIEW)) {
+            try {
+                path = intent.getData().getPath();
+                Log.d("ACTION_VIEW", path);
+            } catch (NullPointerException ne) {
+                finish();
+                ne.printStackTrace();
+            }
+//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
+//                    path = uri.getPath();
+//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
+
+        } else if (Objects.equals(action, Intent.ACTION_SEND)) {
+            Bundle bundle = intent.getExtras();
+            Uri uri = null;
+            if (bundle != null) {
+                uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
+            }
+            if (uri != null) {
+                path = uri.getPath();
+                Log.d("ACTION_SEND", path);
+            }
+        }
+        try {
+            if (path != null) {
+                file = new File(path);
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
+                FileUtils.unzipandSave(file, EditorActivity.this);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void convertFeatures(String[] valueArray) {
         itemsTo = valueArray;
     }

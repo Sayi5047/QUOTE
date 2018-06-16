@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -35,6 +34,7 @@ import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.superclasses.BaseActivity;
 import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.FileUtils;
+import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 
@@ -78,15 +78,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
         setToolbar(this);
-
         initView();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setExplodeAnimation();
-        }
         getIntentData();
 
     }
@@ -114,14 +110,6 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         wallpaper_layout = findViewById(R.id.wallpaper_layout);
         quote_bottom = findViewById(R.id.quote_bottom);
         quote_anim = findViewById(R.id.quote_anim);
-//        toolbar = findViewById(R.id.toolbar);
-        Drawable drawable = quote_anim.getDrawable();
-//        if (drawable instanceof Animatable) {
-//            ((Animatable) drawable).start();
-//        }
-
-//        tv_Quote_Author.setTypeface(App.applyFont(QuoteDetailsActivity.this, Shared_prefs_constants.FONT_ZINGCURSIVE));
-//        tv_Quote_Body.setTypeface(App.applyFont(QuoteDetailsActivity.this, Shared_prefs_constants.FONT_ZINGSANS));
         TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
 
         fab_edit = findViewById(R.id.fab_edit);
@@ -173,24 +161,14 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void getIntentData() {
-//        Bundle bundle=getIntent().getBundleExtra(Shared_prefs_constants.BUNDLE_OBJECT);
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
-//        Toast.makeText(this, quote.getBody() + quote.getColor(), Toast.LENGTH_SHORT).show();
-        gradientDrawable = createDrawable();
         int length = quote.getQuote_body().length();
-//        root.setBackground(gradientDrawable);
         quote_layout.setBackground(new ColorDrawable(Color.WHITE));
-//        fab_share.setBackground(gradientDrawable);
         quote_bottom.setBackground(new ColorDrawable(Color.WHITE));
-
+        gradientDrawable = (GradientDrawable) getIntent().getSerializableExtra(IntentConstants.QUOTE_DETAILS_GRADIENT_INTENT_OBJECT);
+        wallpaper_layout.setBackground(gradientDrawable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                window.setStatusBarColor(gradientDrawable.getColors()[0]);
-//            }else {
-//                window.setStatusBarColor(Color.WHITE);
-//
-//            }
         }
 
         if (length > 230) {
@@ -429,7 +407,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        finishAfterTransition();
+    }
 }

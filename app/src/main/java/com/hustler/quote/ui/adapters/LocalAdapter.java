@@ -93,7 +93,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 //        holder.imageView.setImageBitmap(finalbitmap);
     }
     @Override
-    public void onBindViewHolder(LocalViewholder holder, final int position) {
+    public void onBindViewHolder(final LocalViewholder holder, final int position) {
        final GradientDrawable gradientDrawable= createDrawable(holder);
         final Quote quote = dataFromNet.get(position);
         String genre;
@@ -110,7 +110,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             @Override
             public void onClick(View v) {
                 if (onQuoteClickListener != null) {
-                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, v);
+                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.rootView);
                 }
             }
         });
