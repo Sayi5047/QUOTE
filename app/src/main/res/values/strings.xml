@@ -314,4 +314,6 @@
     <string name="click_text">Oh, somehow we missed something to record . Please click text button at bottom try again.</string>
     <string name="please_select_feature_again">We missed it . Please,select the feature again</string>
     <string name="we_missed_bg">We missed your preference, Please click below Background button and try again</string>
+    <string name="notication_channel_desc">Notification for downloading image</string>
+    <string name="root_quote">Quote</string>
 </resources>

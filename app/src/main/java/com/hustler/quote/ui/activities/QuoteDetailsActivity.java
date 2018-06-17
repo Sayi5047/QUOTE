@@ -6,7 +6,6 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -74,6 +73,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private AdView mAdView;
     Toolbar toolbar;
     GradientDrawable gradientDrawable;
+    int[] color1, color2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,10 +143,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private GradientDrawable createDrawable() {
+    private GradientDrawable createDrawable(int[] colors) {
         int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
         int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-        int[] colors = {color1, color2};
+        int[] color = {colors[0], colors[1]};
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
         gradientDrawable.setGradientRadius(135);
 //        gradientDrawable.setCornerRadius(20f);
@@ -163,36 +163,42 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private void getIntentData() {
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
         int length = quote.getQuote_body().length();
-        quote_layout.setBackground(new ColorDrawable(Color.WHITE));
-        quote_bottom.setBackground(new ColorDrawable(Color.WHITE));
-        gradientDrawable = (GradientDrawable) getIntent().getSerializableExtra(IntentConstants.QUOTE_DETAILS_GRADIENT_INTENT_OBJECT);
-        wallpaper_layout.setBackground(gradientDrawable);
+        color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
+        if (color1 != null) {
+            quote_layout.setBackground(createDrawable(color1));
+        } else {
+            quote_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+            tv_Quote_Body.setTextColor(Color.BLACK);
+            tv_Quote_Author.setTextColor(Color.BLACK);
+        }
+//        quote_bottom.setBackground(createDrawable(color1));
+//        wallpaper_layout.setBackground(createDrawable(color1));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
         }
 
         if (length > 230) {
-            tv_Quote_Body.setTextSize(20.0f);
-        } else if (length < 230 && length > 150) {
             tv_Quote_Body.setTextSize(25.0f);
+        } else if (length < 230 && length > 150) {
+            tv_Quote_Body.setTextSize(28.0f);
 
         } else if (length > 100 && length < 150) {
-            tv_Quote_Body.setTextSize(30.0f);
+            tv_Quote_Body.setTextSize(32.0f);
 
         } else if (length > 50 && length < 100) {
-            tv_Quote_Body.setTextSize(35.0f);
+            tv_Quote_Body.setTextSize(38.0f);
 
         } else if (length > 2 && length < 50) {
-            tv_Quote_Body.setTextSize(40.0f);
+            tv_Quote_Body.setTextSize(42.0f);
 
         } else {
-            tv_Quote_Body.setTextSize(45.0f);
+            tv_Quote_Body.setTextSize(48.0f);
 
         }
         tv_Quote_Body.setText(quote.getQuote_body());
         tv_Quote_Author.setText(quote.getQuote_author());
-        tv_Quote_Body.setTextColor(Color.BLACK);
-        tv_Quote_Author.setTextColor(Color.BLACK);
+        tv_Quote_Body.setTextColor(Color.WHITE);
+        tv_Quote_Author.setTextColor(Color.WHITE);
         if (quote.getIsLiked() == 1) {
             IS_LIKED_FLAG = true;
             fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));

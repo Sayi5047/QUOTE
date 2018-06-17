@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@android:color/white"
     android:transitionName="@string/quotes_author_transistion"
 
     tools:context="com.hustler.quote.ui.activities.QuoteDetailsActivity">
@@ -51,13 +51,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:background="#d35"
                         android:elevation="@dimen/elevation8"
+                        android:gravity="start"
                         android:padding="25dp"
                         android:text="Image hasbeen saved to your device"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
                         android:textAllCaps="true"
-                        android:textColor="@color/textColor"
+                        android:textColor="@android:color/black"
                         android:textSize="@dimen/font3_8" />
                 </LinearLayout>
 
@@ -70,22 +70,22 @@
                     android:elevation="@dimen/elevation4"
 
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:transitionName="@string/root_quote">
 
                     <TextView
                         android:id="@+id/tv_Quote_Body"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:padding="5dp"
-                        android:textAlignment="center"
-
-                        android:textColor="@android:color/white"
-                        android:textIsSelectable="true"
-
+                        android:padding="16dp"
+                        android:textAlignment="textStart"
+                        android:textColor="@android:color/black"
                         android:textSize="@dimen/font3_5"
+
+                        android:textStyle="bold"
                         tools:text="hdsjkdsfsdhfhdjhfsjhfjhjdsfjk
             shdjfhsjhfjkhsdfhjsdhjs" />
 
@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:background="@drawable/rect_black_border"
+                        android:background="@android:color/transparent"
                         android:gravity="bottom"
                         android:orientation="vertical">
 
@@ -102,8 +102,8 @@
                             android:id="@+id/quote_anim"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/elevation8"
+                            android:layout_gravity="end"
+                            android:layout_margin="16dp"
                             android:src="@mipmap/ic_launcher" />
 
                         <TextView
@@ -111,12 +111,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginBottom="20dp"
                             android:gravity="top"
-                            android:paddingTop="@dimen/elevation8"
-                            android:textAlignment="center"
+                            android:padding="8dp"
 
+                            android:textAlignment="viewEnd"
                             android:textColor="@android:color/white"
-
                             android:textSize="@dimen/font2"
                             tools:text="hdsjkdsfsdhfhdjhfsjhf" />
                     </LinearLayout>

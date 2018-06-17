@@ -359,7 +359,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     private void downloadImage() {
         Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_downloaded_to_sdCard));
         Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
-        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getUrls().getRaw());
+        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
         intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
         intent.putExtra(Constants.is_to_setWallpaper_fromActivity, false);
         startService(intent);
@@ -369,7 +369,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_set_wall));
 
         Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
-        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getUrls().getRaw());
+        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
         intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
         intent.putExtra(Constants.is_to_setWallpaper_fromActivity, true);
         startService(intent);

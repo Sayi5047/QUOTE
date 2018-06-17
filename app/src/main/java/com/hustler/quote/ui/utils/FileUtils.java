@@ -39,6 +39,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hustler.quote.R;
+import com.hustler.quote.ui.Services.DownloadImageService;
 import com.hustler.quote.ui.adapters.InstallFontAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
@@ -805,7 +806,7 @@ public class FileUtils {
             if (imagePath != null) {
                 if (Build.VERSION.SDK_INT >= 24) {
                     shareIntent.putExtra(Intent.EXTRA_STREAM,
-                            FileProvider.getUriForFile(activity.getApplicationContext(),  activity.getString(R.string.file_provider_authority), new File(imagePath)));
+                            FileProvider.getUriForFile(activity.getApplicationContext(), activity.getString(R.string.file_provider_authority), new File(imagePath)));
                 } else {
                     shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
                 }
@@ -823,7 +824,7 @@ public class FileUtils {
     }
 
 
-    public static File downloadImageToSd_Card(String param, String download_image_name) {
+    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader) {
 
         File downloading_File;
         FileOutputStream fileOutputStream = null;
@@ -850,6 +851,7 @@ public class FileUtils {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.connect();
+                int lengthOfFile = httpURLConnection.getContentLength();
 
 //                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
                 inputStream = httpURLConnection.getInputStream();
@@ -857,11 +859,15 @@ public class FileUtils {
 //                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
                 byte[] buffer = new byte[2048];
                 int bufferLength = 0;
-                int manoj = 0;
+                long total = 0;
                 while ((bufferLength = inputStream.read(buffer)) > 0) {
-
+//                    if (imageDownloader != null) {
+//                        total += bufferLength;
+//                        int length = (int) (total * 100 / lengthOfFile);
+//                        imageDownloader.publishTheProgress(length);
+//                    }
                     fileOutputStream.write(buffer, 0, bufferLength);
-                    manoj++;
+
 
                 }
                 inputStream.close();
