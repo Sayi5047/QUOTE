@@ -28,7 +28,7 @@ import com.hustler.quote.R;
 public class AdUtils {
 
     public static void loadBannerAd(final AdView adView, final Activity activity) {
-        adView.setVisibility(View.GONE);
+//        adView.setVisibility(View.GONE);
         new Thread(new Runnable() {
             @Override
             public void run() {

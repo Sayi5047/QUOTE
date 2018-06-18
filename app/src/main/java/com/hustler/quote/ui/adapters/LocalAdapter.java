@@ -59,7 +59,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     }
 
     public interface OnQuoteClickListener {
-        void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view);
+        void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView1, TextView textView2);
     }
 
     @Override
@@ -75,6 +75,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         notifyItemRangeInserted(0, dataFromNet.size());
         notifyDataSetChanged();
     }
+
     private GradientDrawable createDrawable(LocalViewholder holder) {
         int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
         int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
@@ -92,9 +93,10 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 //        Bitmap finalbitmap =ImageProcessingUtils.create_blur(bitmap,5.0f,activity);
 //        holder.imageView.setImageBitmap(finalbitmap);
     }
+
     @Override
     public void onBindViewHolder(final LocalViewholder holder, final int position) {
-       final GradientDrawable gradientDrawable= createDrawable(holder);
+        final GradientDrawable gradientDrawable = createDrawable(holder);
         final Quote quote = dataFromNet.get(position);
         String genre;
 
@@ -110,7 +112,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             @Override
             public void onClick(View v) {
                 if (onQuoteClickListener != null) {
-                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.rootView);
+                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.rootView, holder.tv, holder.tv2);
                 }
             }
         });

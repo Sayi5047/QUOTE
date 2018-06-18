@@ -2,10 +2,13 @@ package com.hustler.quote.ui.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,7 @@ import com.hustler.quote.ui.database.ImagesDbHelper;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
+import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -109,10 +113,18 @@ public class UserFavuritesFragment extends Fragment {
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView, TextView textView2) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))
+                       ).toBundle();
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+
+                } else {
+
+                }
+                startActivity(intent, bundle);
 //                Intent intent = new Intent(
 //                        WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
 //                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,

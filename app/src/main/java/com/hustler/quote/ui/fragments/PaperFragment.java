@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -65,6 +66,7 @@ public class PaperFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         this.textView = (Unsplash_Image) getArguments().getSerializable("IMAGEURL");
 
@@ -80,6 +82,7 @@ public class PaperFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.wallpaer_fragment_layout, container, false);
         imageView = view.findViewById(R.id.wallpaper_image);
         loading_layout = view.findViewById(R.id.loading_layout);

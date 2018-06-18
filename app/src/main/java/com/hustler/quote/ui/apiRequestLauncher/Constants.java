@@ -38,9 +38,9 @@ public class Constants {
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos?client_id=" + UNSPLASH_CLIENT_ID;
 
 
-//    public static final String FONT_NEVIS = "fonts/nevis.ttf";
+    //    public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
-//    public static final String FONT_multicolore = "fonts/multicolore.otf";
+    //    public static final String FONT_multicolore = "fonts/multicolore.otf";
 //    public static final String FONT_Roboto_regular = "fonts/robot_regular.ttf";
     public static final String FONT_CIRCULAR = "fonts/cstd_reg.otf";
     public static final String FONT_CIRCULAR2 = "fonts/web.ttf";
@@ -63,7 +63,7 @@ public class Constants {
 
 
     public static final String CATEGORIES_STRING =
-                    "Alone\n" +
+            "Alone\n" +
                     "Angry\n" +
                     "Architecture\n" +
                     "Art\n" +
@@ -75,7 +75,6 @@ public class Constants {
                     "Brave\n" +
                     "Business\n" +
                     "Cats\n" +
-
 
 
                     "Change\n" +
@@ -191,12 +190,12 @@ public class Constants {
 
 
     //ORIGINAL
-    public static final String ADS_APP_ID = "ca-app-pub-7219349290716348~4164465126";
+    public static final String ADS_APP_ID = "ca-app-pub-9653011938091807~6524335542";
 
     //    DUPE
-    public static final String TEST_SMART_BANNER_AD = "ca-app-pub-3940256099942544/6300978111";
-    public static final String TEST_INTERSTITIAL_AD = "ca-app-pub-3940256099942544/1033173712";
-    public static final String TEST_REWARDED_AD = "ca-app-pub-3940256099942544/5224354917";
+    public static final String TEST_SMART_BANNER_AD = "ca-app-pub-9653011938091807/8683595028";
+    public static final String TEST_INTERSTITIAL_AD = "ca-app-pub-9653011938091807/3150683855";
+    public static final String TEST_REWARDED_AD = "ca-app-pub-9653011938091807/7917308260";
 
 
     public static final int WIDTH_DEFAULT = 100;
@@ -231,8 +230,8 @@ public class Constants {
     public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
     public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG = "is_download_intent_alarm_key";
-    public static String IS_QUOTES_LOADED_KEY="is_quotes_loaded_to_db_key";
-    public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED="VIEW_PAGER_INTRO_COMPLETETION_KEY";
+    public static String IS_QUOTES_LOADED_KEY = "is_quotes_loaded_to_db_key";
+    public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED = "VIEW_PAGER_INTRO_COMPLETETION_KEY";
 
 
 //    UNSPLASH IDS

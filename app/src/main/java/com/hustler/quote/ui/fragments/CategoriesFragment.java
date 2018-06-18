@@ -9,7 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -28,6 +30,7 @@ import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
+import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -132,10 +135,17 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView, TextView textView2) {
                     Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+
+                    } else {
+
+                    }
+                    startActivity(intent, bundle);
                 }
             }));
             close_button.setOnClickListener(new View.OnClickListener() {

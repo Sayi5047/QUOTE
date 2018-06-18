@@ -107,7 +107,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+//        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
 
     }
 
@@ -311,7 +311,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
                 public void onSuccess(final Unsplash_Image[] unsplash_images) {
                     userPics.setAdapter(new WallpaperAdapter(WallpapersPagerActivity.this, unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
-                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> images, View itemView) {
+                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> images, ImageView itemView) {
                             Intent intent = new Intent(WallpapersPagerActivity.this, WallpapersPagerActivity.class);
 
                             intent.putExtra(Constants.Pager_position, position);

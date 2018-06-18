@@ -84,10 +84,9 @@
                         android:textAlignment="textStart"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font3_5"
-
                         android:textStyle="bold"
-                        tools:text="hdsjkdsfsdhfhdjhfsjhfjhjdsfjk
-            shdjfhsjhfjkhsdfhjsdhjs" />
+                        android:transitionName="@string/quotes_body_transistion"
+                        tools:text="hdsjkdsfsdhfhdjhfsjhfjhjdsfjkshdjfhsjhfjkhsdfhjsdhjs" />
 
                     <LinearLayout
                         android:id="@+id/quote_bottom"
@@ -118,6 +117,7 @@
                             android:textAlignment="viewEnd"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/font2"
+                            android:transitionName="@string/quotes_author_transistion"
                             tools:text="hdsjkdsfsdhfhdjhfsjhf" />
                     </LinearLayout>
 

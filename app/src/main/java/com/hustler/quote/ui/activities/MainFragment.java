@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.LocalAdapter;
@@ -24,7 +25,6 @@ import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.utils.IntentConstants;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView,TextView textView2) {
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                    getActivity().getWindow().setEnterTransition(new Slide());
 //                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
@@ -81,7 +81,7 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
 
-                }else {
+                } else {
 
                 }
                 startActivity(intent, bundle);

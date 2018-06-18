@@ -15,7 +15,7 @@
             android:layout_height="180dp"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
-            android:transitionName="se"
+            android:transitionName="@string/wallpaper_transision_name"
             android:src="@drawable/geometry_2" />
 
         <View

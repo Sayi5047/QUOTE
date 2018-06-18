@@ -44,7 +44,7 @@
             android:textAlignment="viewEnd"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/font1"
-
+            android:transitionName="@string/quotes_author_transistion"
             />
 
         <RelativeLayout

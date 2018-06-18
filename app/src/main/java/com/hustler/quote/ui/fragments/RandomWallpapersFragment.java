@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -164,17 +166,17 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
 //            dataView.setVisibility(View.VISIBLE);
             rv.setAdapter(new WallpaperAdapter(getActivity(), unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                 @Override
-                public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images, View itemView) {
+                public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images, ImageView itemView) {
                     //                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), wallpaper.getUser().getFirst_name());
                     Intent intent = new Intent(getActivity(), WallpapersPagerActivity.class);
 
                     intent.putExtra(Constants.Pager_position, position);
                     intent.putExtra(Constants.PAGER_LIST_WALL_OBKHECTS, m_AL_Images);
                     intent.putExtra(Constants.is_from_fav, false);
-                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), itemView, "se");
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(itemView, getString(R.string.wallpaper_transision_name))).toBundle();
 
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+                    startActivity(intent, bundle);
+//                    getActivity().overridePendingTransition(R.anim.slideup, R.anim.slidedown);
                 }
             }));
         }

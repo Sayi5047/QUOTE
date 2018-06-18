@@ -103,8 +103,9 @@
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
     <string name="made_with_quotzy">Made with Quotzy</string>
-    <string name="bannerAdId">ca-app-pub-7219349290716348/2622839666</string>
-    <string name="rewardAdId">ca-app-pub-7219349290716348/3824665720</string>
+    <string name="bannerAdId">ca-app-pub-9653011938091807/8683595028</string>
+    <string name="rewardAdId">ca-app-pub-9653011938091807/7917308260</string>
+    <string name="interstaialId">ca-app-pub-9653011938091807/3150683855</string>
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>
@@ -316,4 +317,5 @@
     <string name="we_missed_bg">We missed your preference, Please click below Background button and try again</string>
     <string name="notication_channel_desc">Notification for downloading image</string>
     <string name="root_quote">Quote</string>
+    <string name="wallpaper_transision_name">wallpaper_transistion</string>
 </resources>

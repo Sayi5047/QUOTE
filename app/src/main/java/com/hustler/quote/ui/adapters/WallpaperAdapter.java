@@ -84,7 +84,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     }
 
     public interface OnWallpaperClickListener {
-        void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images, View itemView);
+        void onWallpaperClicked(int position, ArrayList<Unsplash_Image> m_AL_Images, ImageView itemView);
 
     }
 
@@ -109,7 +109,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
             @Override
             public void onClick(View v) {
                 if (onimageClickListener != null) {
-                    onimageClickListener.onWallpaperClicked(position, m_AL_Images, holder.itemView);
+                    onimageClickListener.onWallpaperClicked(position, m_AL_Images, holder.wallpaper);
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(context, context.getString(R.string.Listener));
                 }

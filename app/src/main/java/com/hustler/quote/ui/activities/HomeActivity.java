@@ -20,7 +20,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +47,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Recievers.NotifAlarmReciever;
 import com.hustler.quote.ui.Services.DailyNotificationService;
@@ -61,6 +64,7 @@ import com.hustler.quote.ui.pojo.Unsplash_Image_collection_response_listener;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
 import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.ColorUtils;
+import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -121,7 +125,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
-//        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
+        MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
         findViews();
         window = this.getWindow();
 
@@ -473,7 +477,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //                    dataView.setVisibility(View.VISIBLE);
                     rv.setAdapter(new WallpaperAdapter(HomeActivity.this, response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
-                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, View itemView) {
+                        public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, ImageView itemView) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, wallpaper.getUser().getFirst_name());
                             Intent intent = new Intent(HomeActivity.this, WallpapersPagerActivity.class);
 
@@ -536,10 +540,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             loader.setVisibility(GONE);
             adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView, TextView textView2) {
                     Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+
+                    } else {
+
+                    }
+                    startActivity(intent, bundle);
                 }
             }));
             adapter.addData(finalArrayList);
