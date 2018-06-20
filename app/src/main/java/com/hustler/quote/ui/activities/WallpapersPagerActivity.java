@@ -107,7 +107,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
 
     }
 

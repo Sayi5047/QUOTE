@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Sayi\Documents\GitHub\QUOTE\POC.iml" filepath="C:\Users\Sayi\Documents\GitHub\QUOTE\POC.iml" />
       <module fileurl="file://$PROJECT_DIR$/QUOTE.iml" filepath="$PROJECT_DIR$/QUOTE.iml" />
-      <module fileurl="file://D:\DUMP\POC\QUOTE.iml" filepath="D:\DUMP\POC\QUOTE.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -8,7 +8,7 @@
     android:clipToPadding="true"
     android:elevation="4dp"
     android:orientation="vertical"
-    android:transitionName="@string/quotes_author_transistion"
+    android:transitionName="@string/root_quote"
     app:cardCornerRadius="@dimen/elevation16"
     app:cardUseCompatPadding="true"
 
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:transitionName="@string/root_quote">
+        >
 
         <TextView
             android:id="@+id/main_quote"

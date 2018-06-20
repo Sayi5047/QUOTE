@@ -175,8 +175,8 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
                     intent.putExtra(Constants.is_from_fav, false);
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(itemView, getString(R.string.wallpaper_transision_name))).toBundle();
 
-                    startActivity(intent, bundle);
-//                    getActivity().overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slideup, R.anim.slidedown);
                 }
             }));
         }

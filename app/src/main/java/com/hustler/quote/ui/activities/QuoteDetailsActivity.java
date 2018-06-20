@@ -139,8 +139,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private GradientDrawable createDrawable(int[] colors) {
-        int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-        int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+
         int[] color = {colors[0], colors[1]};
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
         gradientDrawable.setGradientRadius(135);
@@ -162,9 +161,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         if (color1 != null) {
             quote_layout.setBackground(createDrawable(color1));
         } else {
-            quote_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-            tv_Quote_Body.setTextColor(Color.BLACK);
-            tv_Quote_Author.setTextColor(Color.BLACK);
+            int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+            int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+            quote_layout.setBackground(createDrawable(new int[]{color1, color2}));
+
         }
 //        quote_bottom.setBackground(createDrawable(color1));
 //        wallpaper_layout.setBackground(createDrawable(color1));
@@ -410,6 +410,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        finishAfterTransition();
+        super.onBackPressed();
+//        finishAfterTransition();
     }
 }

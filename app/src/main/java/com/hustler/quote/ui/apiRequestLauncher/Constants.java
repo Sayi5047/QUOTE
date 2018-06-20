@@ -1,6 +1,9 @@
 package com.hustler.quote.ui.apiRequestLauncher;
 
 import android.graphics.Color;
+import android.os.Environment;
+
+import java.io.File;
 
 /**
  * Created by Sayi on 07-10-2017.
@@ -59,6 +62,8 @@ public class Constants {
     public static final String APPFOLDER = "Quotzy";
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static final String HOME_SCREEN_NUMBER = "home_screen_number_object";
+    public static final String APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy";
+    public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
 

@@ -2,8 +2,11 @@
 <paths>
     <external-path
         name="user_works"
-        path="Quotzy/Images" />
+        path="Pictures/Quotzy" />
     <external-path
         name="user_wallpapers"
-        path="QuotzyWallPapers" />
+        path="Pictures/QuotzyWallPapers" />
+    <external-path
+        name="external_files"
+        path="." />
 </paths>

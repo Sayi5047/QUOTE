@@ -3,7 +3,7 @@
     xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="270dp"
+    android:layout_height="400dp"
     android:layout_centerInParent="true"
     android:layout_gravity="center"
     android:layout_margin="6dp"
@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/wallpaper_preview"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
             android:src="@drawable/geometry_2"
@@ -28,7 +28,7 @@
         <View
             android:id="@+id/layer"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="500dp"
             android:background="@drawable/bwgradient" />
 
         <LinearLayout

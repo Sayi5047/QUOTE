@@ -112,7 +112,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             @Override
             public void onClick(View v) {
                 if (onQuoteClickListener != null) {
-                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.rootView, holder.tv, holder.tv2);
+                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.cardView, holder.tv, holder.tv2);
                 }
             }
         });

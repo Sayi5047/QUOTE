@@ -352,39 +352,70 @@ public class FileUtils {
                                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                             }
 
-                            File directoryChecker;
-                            File savingFile;
+                            File directoryChecker, directoryChecker2;
+                            File savingFile, savingFile2 = null;
 
-                            directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images));
+//                            directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images));
+                            directoryChecker2 = new File(Constants.APP_SAVED_PICTURES_FOLDER);
                             if (format[0].equalsIgnoreCase(Constants.JPEG)) {
-                                if (directoryChecker.isDirectory()) {
-                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+                                if (directoryChecker2.isDirectory()) {
+
+//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+//                                            File.separator + projectname[0] + ".jpg");
+
+                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                                            + File.separator
+                                            + activity.getString(R.string.Quotzy)
+                                            +
                                             File.separator + projectname[0] + ".jpg");
                                 } else {
-                                    directoryChecker.mkdirs();
-                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+//                                    directoryChecker.mkdirs();
+                                    directoryChecker2.mkdirs();
+//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+//                                            File.separator + projectname[0] + ".jpg");
+
+                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                                            + File.separator
+                                            + activity.getString(R.string.Quotzy)
+                                            +
                                             File.separator + projectname[0] + ".jpg");
                                 }
 
                             } else {
-                                if (directoryChecker.isDirectory()) {
-                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+                                if (directoryChecker2.isDirectory()) {
+//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+//                                            File.separator + projectname[0] + ".png");
+
+                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                                            + File.separator
+                                            + activity.getString(R.string.Quotzy)
+                                            +
                                             File.separator + projectname[0] + ".png");
                                 } else {
-                                    directoryChecker.mkdir();
-                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+                                    directoryChecker2.mkdir();
+//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
+//                                            File.separator + projectname[0] + ".png");
+
+                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                                            + File.separator
+                                            + activity.getString(R.string.Quotzy)
+                                            +
                                             File.separator + projectname[0] + ".png");
                                 }
 
                             }
 
-                            filetoReturn[0] = savingFile;
-                            Log.d("ImageLocation -->", savingFile.toString());
+                            filetoReturn[0] = savingFile2;
+                            Log.d("ImageLocation -->", savingFile2.toString());
                             try {
-                                savingFile.createNewFile();
-                                FileOutputStream fileOutputStream = new FileOutputStream(savingFile);
-                                fileOutputStream.write(byteArrayOutputStream.toByteArray());
-                                fileOutputStream.close();
+//                                savingFile.createNewFile();
+                                savingFile2.createNewFile();
+//                                FileOutputStream fileOutputStream = new FileOutputStream(savingFile);
+                                FileOutputStream fileOutputStream2 = new FileOutputStream(savingFile2);
+//                                fileOutputStream.write(byteArrayOutputStream.toByteArray());
+                                fileOutputStream2.write(byteArrayOutputStream.toByteArray());
+//                                fileOutputStream.close();
+                                fileOutputStream2.close();
 //                    App.showToast(QuoteDetailsctivity.this,getString(R.string.image_saved));
                             } catch (IOException e) {
                                 e.printStackTrace();

@@ -3,6 +3,7 @@ package com.hustler.quote.ui.Services;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -62,7 +63,7 @@ public class DownloadImageService extends Service {
     String mFileName;
     boolean is_to_set_wallpaper;
     AsyncTask<String, String, Void> mDownload_Async_Task;
-    File downloading_File;
+    public File downloading_File;
     ImageDownloader imageDownloader;
     private static final String CHANNEL_ID = "QUOTZY";
     private static final int NOTIFY_ID = 5004;
@@ -144,7 +145,7 @@ public class DownloadImageService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        killAllNotifs();
+//        killAllNotifs();
         getApplicationContext().unregisterReceiver(mNotification_Reciever);
         stopSelf();
         Log.d("Notification got killed", "KILLED");
@@ -177,7 +178,6 @@ public class DownloadImageService extends Service {
 //                }
 //            }).run();
 
-            File downloading_File;
             FileOutputStream fileOutputStream = null;
             InputStream inputStream = null;
 
@@ -186,7 +186,7 @@ public class DownloadImageService extends Service {
                 URL url = new URL(params[0]);
 //                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
                 String SdCard = Environment.getExternalStorageDirectory().toString();
-                File destination_downloading_directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
+                File destination_downloading_directory = new File(Constants.APP_WALLPAPERS_FOLDER);
                 if (!destination_downloading_directory.exists()) {
                     destination_downloading_directory.mkdirs();
                 }
@@ -194,6 +194,7 @@ public class DownloadImageService extends Service {
                 downloading_File = new File(destination_downloading_directory + File.separator + mFileName + ".jpg");
                 if (downloading_File.exists()) {
                     downloading_File.delete();
+
                 }
 
                 try {
@@ -211,14 +212,15 @@ public class DownloadImageService extends Service {
                     byte[] buffer = new byte[2048];
                     int bufferLength = 0;
                     long total = 0;
-                    while ((bufferLength = inputStream.read(buffer)) > 0) {
+                    while ((bufferLength = inputStream.read(buffer)) != -1) {
                         total += bufferLength;
 //                        mNotification_Builder.setProgress(100, ((int) (total * 100 / lengthOfFile)), false);
 //                        mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
+                        fileOutputStream.write(buffer, 0, bufferLength);
                         publishProgress(String.valueOf((int) (total * 100 / lengthOfFile)));
                         Log.d("do in BG", String.valueOf((int) (total * 100 / lengthOfFile)));
 
-                        fileOutputStream.write(buffer, 0, bufferLength);
+
                     }
 
 
@@ -243,8 +245,12 @@ public class DownloadImageService extends Service {
         @Override
         protected void onPostExecute(Void aVoid) {
             Log.d("ON POST EXEC", String.valueOf("COMPLETED"));
-
+            Log.d("ON POST EXEC LOC", String.valueOf(FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File))));
+            Intent intent_gallery = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File)));
+            intent_gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), NOTIFY_ID, intent_gallery, PendingIntent.FLAG_ONE_SHOT);
             mNotification_Builder.setContentTitle("Completed");
+            mNotification_Builder.setContentIntent(pendingIntent);
             mNotification_Builder.setContentText("Images Successfully downloaded to SD card").setProgress(100, 100, false);// Removes the progress bar
             mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
             if (!is_to_set_wallpaper) {
