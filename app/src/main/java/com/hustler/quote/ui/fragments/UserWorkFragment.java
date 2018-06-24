@@ -14,7 +14,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +104,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
 
     private void setRecyclerview() {
-        rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
         setUpAdapter();
 //        new GetUserImagesTask().execute();
@@ -338,7 +337,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class GetUserImagesTask extends AsyncTask<String, String, Void> {
+    public class GetUserImagesTask extends AsyncTask<String, String, Void> {
 
 
         @Override

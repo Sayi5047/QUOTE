@@ -27,12 +27,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -79,6 +83,11 @@ import java.util.zip.ZipInputStream;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class FileUtils {
+
+    public interface onSaveComplete {
+        void onImageSaveListner(File file);
+    }
+
     static String folderName = null;
 
     public static void unzipandSave(File file, final Activity activity) {
@@ -267,20 +276,6 @@ public class FileUtils {
 
     }
 
-    private static void saveToShared(String folderName, Activity activity) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(activity).edit();
-        editor.putString(Constants.TEMP_FILE_NAME_KEY, folderName);
-        editor.apply();
-    }
-
-    private static String getSavedShared(Activity activity) {
-        return PreferenceManager.getDefaultSharedPreferences(activity).getString(Constants.TEMP_FILE_NAME_KEY, null);
-    }
-
-    public interface onSaveComplete {
-        void onImageSaveListner(File file);
-    }
-
     public static void savetoDevice(final ViewGroup layout, final Activity activity, final onSaveComplete listneer) {
         new Thread(new Runnable() {
             @Override
@@ -453,6 +448,353 @@ public class FileUtils {
 
             }
         }).run();
+    }
+
+    public static void show_post_save_dialog(final Activity activity, final File savedFile) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RelativeLayout rootRl;
+                ImageView savedImage;
+                ImageView gradientImage;
+                LinearLayout shareLayoutImage;
+                ImageView facebook;
+                ImageView whatsapp;
+                ImageView instagram;
+                ImageView twitter;
+                ImageView others;
+                TextView ratingbarText;
+                RatingBar ratingBar;
+                Button closeBtn;
+                AdView adView;
+
+                final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
+                dialog.setContentView(View.inflate(activity, R.layout.post_save_image_layout, null));
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+                dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+                dialog.setCancelable(false);
+                rootRl = dialog.findViewById(R.id.root_Rl);
+                savedImage = dialog.findViewById(R.id.saved_image);
+                gradientImage = dialog.findViewById(R.id.gradient_image);
+                shareLayoutImage = dialog.findViewById(R.id.share_layout_image);
+                facebook = dialog.findViewById(R.id.facebook);
+                whatsapp = dialog.findViewById(R.id.whatsapp);
+                instagram = dialog.findViewById(R.id.instagram);
+                twitter = dialog.findViewById(R.id.twitter);
+                others = dialog.findViewById(R.id.others);
+                ratingbarText = dialog.findViewById(R.id.ratingbar_text);
+                ratingBar = dialog.findViewById(R.id.rating_bar);
+                closeBtn = dialog.findViewById(R.id.close_btn);
+
+
+                setListeners(facebook, "com.facebook.katana", activity, savedFile);
+                setListeners(whatsapp, "com.whatsapp", activity, savedFile);
+                setListeners(twitter, "com.twitter.android", activity, savedFile);
+                setListeners(instagram, "com.instagram.android", activity, savedFile);
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                savedImage.setClipToOutline(true);
+                Glide.with(activity).load(savedFile).asBitmap().centerCrop().crossFade().into(savedImage);
+                others.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.setType("image/jpeg");
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
+//                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
+                        Uri uri = null;
+                        if (savedFile != null) {
+                            uri = Uri.fromFile(savedFile);
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                            activity.startActivity(Intent.createChooser(shareIntent, "send"));
+                        }
+                    }
+                });
+                ratingBar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity  object
+                        try {
+                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                    }
+                });
+                ratingbarText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity  object
+                        try {
+                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                    }
+                });
+
+                dialog.show();
+                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+                            dialog.dismiss();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+
+            }
+        }).run();
+    }
+
+    private static void setListeners(ImageView facebook, final String packageName, final Activity activity, final File savedFile) {
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchSpecificApp(packageName, activity, savedFile);
+            }
+        });
+    }
+
+    private static void launchSpecificApp(String s, Activity activity, File savedFile) {
+        Intent fbIntent = activity.getPackageManager().getLaunchIntentForPackage(s);
+        if (fbIntent != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setPackage(s);
+            shareIntent.putExtra(Intent.EXTRA_TITLE, activity.getString(R.string.share_text));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.share_description));
+            shareIntent.setType("image/jpeg");
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
+//                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
+            Uri uri = null;
+            if (savedFile != null) {
+                if (Build.VERSION.SDK_INT >= 24) {
+                    uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+                } else {
+                    uri = Uri.fromFile(savedFile);
+
+                }
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                activity.startActivity(shareIntent);
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(activity, "File does not exist");
+
+            }
+//            activity.startActivity(shareIntent);
+        } else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.app_does_not_exist));
+        }
+    }
+
+
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        final float totalPixels = width * height;
+        final float totalReqPixelsCap = reqWidth * reqHeight * 2;
+        while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
+            inSampleSize++;
+        }
+
+        return inSampleSize;
+
+    }
+
+    public static Bitmap returnBitmap(final ViewGroup layout) {
+        layout.buildDrawingCache();
+        layout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        Bitmap bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+        layout.destroyDrawingCache();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        return bitmap;
+    }
+
+    // METHOD TOOK FROM INTERNET
+    public static Uri getImageContentUri(Context context, File imageFile) {
+        try {
+            String filePath = imageFile.getAbsolutePath();
+
+            Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=? ", new String[]{filePath}, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+                Uri baseUri = Uri.parse("content://media/external/images/media");
+                return Uri.withAppendedPath(baseUri, "" + id);
+            } else {
+                if (imageFile.exists()) {
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.DATA, filePath);
+                    return context.getContentResolver().insert(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                } else {
+                    return null;
+                }
+            }
+        } catch (Exception ie) {
+            if (ie instanceof SecurityException) {
+                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.permission_comulsory));
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.operation_failed));
+
+            }
+            return null;
+        }
+
+    }
+
+    public static UserWorkImages getImagesFromSdCard(Activity activity) {
+        File file;
+        String[] imagePaths;
+        String[] imageNames;
+        File[] files;
+
+        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                + File.separator
+                + activity.getString(R.string.Quotzy));
+        file.mkdir();
+        if (file.isDirectory()) {
+            files = file.listFiles();
+            imageNames = new String[files.length];
+            imagePaths = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                imageNames[i] = files[i].getName();
+                imagePaths[i] = files[i].getAbsolutePath();
+            }
+            return new UserWorkImages(imagePaths, imageNames);
+        } else {
+            file.mkdirs();
+            return null;
+        }
+
+    }
+
+    public static void setwallpaper(Activity activity, String imagepath) {
+        Intent intent = new Intent(WallpaperManager.getInstance(activity).
+                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
+
+        activity.startActivity(intent);
+    }
+
+    public static void shareImage(Activity activity, String imagePath) {
+        if (activity != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
+            shareIntent.putExtra(Intent.EXTRA_TITLE, imagePath);
+            if (imagePath != null) {
+                if (Build.VERSION.SDK_INT >= 24) {
+                    shareIntent.putExtra(Intent.EXTRA_STREAM,
+                            FileProvider.getUriForFile(activity.getApplicationContext(), activity.getString(R.string.file_provider_authority), new File(imagePath)));
+                } else {
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
+                }
+                shareIntent.setType("image/jpeg");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                activity.startActivity(Intent.createChooser(shareIntent, "send"));
+            } else {
+                Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
+            }
+        } else {
+            Log.e("FILEUTILS", "ACTIVITY IS NOULL TO SHARE IMG");
+        }
+
+
+    }
+
+    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader) {
+
+        File downloading_File;
+        FileOutputStream fileOutputStream = null;
+        InputStream inputStream = null;
+
+        try {
+//                GET URL
+            URL url = new URL(param);
+//                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
+            String SdCard = Environment.getExternalStorageDirectory().toString();
+            File destination_downloading_directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
+            if (!destination_downloading_directory.exists()) {
+                destination_downloading_directory.mkdirs();
+            }
+//                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE
+            downloading_File = new File(destination_downloading_directory + File.separator + download_image_name);
+            if (downloading_File.exists()) {
+                downloading_File.delete();
+            }
+
+            try {
+//                    OPEN A URL CONNECTION AND ATTACH TO HTTPURLCONNECTION
+                URLConnection urlConnection = url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.connect();
+                int lengthOfFile = httpURLConnection.getContentLength();
+
+//                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
+                inputStream = httpURLConnection.getInputStream();
+                fileOutputStream = new FileOutputStream(downloading_File);
+//                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
+                byte[] buffer = new byte[2048];
+                int bufferLength = 0;
+                long total = 0;
+                while ((bufferLength = inputStream.read(buffer)) > 0) {
+//                    if (imageDownloader != null) {
+//                        total += bufferLength;
+//                        int length = (int) (total * 100 / lengthOfFile);
+//                        imageDownloader.publishTheProgress(length);
+//                    }
+                    fileOutputStream.write(buffer, 0, bufferLength);
+
+
+                }
+                inputStream.close();
+                fileOutputStream.close();
+                Log.d("IMAGE SAVED", "Image Saved in sd card");
+                return downloading_File;
+            } catch (IOException e) {
+                inputStream = null;
+                fileOutputStream = null;
+                e.printStackTrace();
+                return null;
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+
+    private static void saveToShared(String folderName, Activity activity) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(activity).edit();
+        editor.putString(Constants.TEMP_FILE_NAME_KEY, folderName);
+        editor.apply();
+    }
+
+    private static String getSavedShared(Activity activity) {
+        return PreferenceManager.getDefaultSharedPreferences(activity).getString(Constants.TEMP_FILE_NAME_KEY, null);
     }
 
     // Will implement once I reach more than 1000 users.
@@ -731,193 +1073,5 @@ public class FileUtils {
 
 
     }
-
-    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height / (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-        }
-        final float totalPixels = width * height;
-        final float totalReqPixelsCap = reqWidth * reqHeight * 2;
-        while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
-            inSampleSize++;
-        }
-
-        return inSampleSize;
-
-    }
-
-    public static Bitmap returnBitmap(final ViewGroup layout) {
-        layout.buildDrawingCache();
-        layout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        Bitmap bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
-        layout.destroyDrawingCache();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        return bitmap;
-    }
-
-    // METHOD TOOK FROM INTERNET
-    public static Uri getImageContentUri(Context context, File imageFile) {
-        try {
-            String filePath = imageFile.getAbsolutePath();
-
-            Cursor cursor = context.getContentResolver().query(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=? ", new String[]{filePath}, null);
-
-            if (cursor != null && cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
-                Uri baseUri = Uri.parse("content://media/external/images/media");
-                return Uri.withAppendedPath(baseUri, "" + id);
-            } else {
-                if (imageFile.exists()) {
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.DATA, filePath);
-                    return context.getContentResolver().insert(
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                } else {
-                    return null;
-                }
-            }
-        } catch (Exception ie) {
-            if (ie instanceof SecurityException) {
-                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.permission_comulsory));
-            } else {
-                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.operation_failed));
-
-            }
-            return null;
-        }
-
-    }
-
-    public static UserWorkImages getImagesFromSdCard(Activity activity) {
-        File file;
-        String[] imagePaths;
-        String[] imageNames;
-        File[] files;
-
-        file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" + File.separator + activity.getString(R.string.images));
-        file.mkdir();
-        if (file.isDirectory()) {
-            files = file.listFiles();
-            imageNames = new String[files.length];
-            imagePaths = new String[files.length];
-            for (int i = 0; i < files.length; i++) {
-                imageNames[i] = files[i].getName();
-                imagePaths[i] = files[i].getAbsolutePath();
-            }
-            return new UserWorkImages(imagePaths, imageNames);
-        } else {
-            file.mkdirs();
-            return null;
-        }
-
-    }
-
-    public static void setwallpaper(Activity activity, String imagepath) {
-        Intent intent = new Intent(WallpaperManager.getInstance(activity).
-                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
-
-        activity.startActivity(intent);
-    }
-
-    public static void shareImage(Activity activity, String imagePath) {
-        if (activity != null) {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, imagePath);
-            shareIntent.putExtra(Intent.EXTRA_TITLE, imagePath);
-            if (imagePath != null) {
-                if (Build.VERSION.SDK_INT >= 24) {
-                    shareIntent.putExtra(Intent.EXTRA_STREAM,
-                            FileProvider.getUriForFile(activity.getApplicationContext(), activity.getString(R.string.file_provider_authority), new File(imagePath)));
-                } else {
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
-                }
-                shareIntent.setType("image/jpeg");
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                activity.startActivity(Intent.createChooser(shareIntent, "send"));
-            } else {
-                Toast_Snack_Dialog_Utils.show_ShortToast(activity, activity.getString(R.string.Unable_to_save_share_image));
-            }
-        } else {
-            Log.e("FILEUTILS", "ACTIVITY IS NOULL TO SHARE IMG");
-        }
-
-
-    }
-
-
-    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader) {
-
-        File downloading_File;
-        FileOutputStream fileOutputStream = null;
-        InputStream inputStream = null;
-
-        try {
-//                GET URL
-            URL url = new URL(param);
-//                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
-            String SdCard = Environment.getExternalStorageDirectory().toString();
-            File destination_downloading_directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
-            if (!destination_downloading_directory.exists()) {
-                destination_downloading_directory.mkdirs();
-            }
-//                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE
-            downloading_File = new File(destination_downloading_directory + File.separator + download_image_name);
-            if (downloading_File.exists()) {
-                downloading_File.delete();
-            }
-
-            try {
-//                    OPEN A URL CONNECTION AND ATTACH TO HTTPURLCONNECTION
-                URLConnection urlConnection = url.openConnection();
-                HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.connect();
-                int lengthOfFile = httpURLConnection.getContentLength();
-
-//                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
-                inputStream = httpURLConnection.getInputStream();
-                fileOutputStream = new FileOutputStream(downloading_File);
-//                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
-                byte[] buffer = new byte[2048];
-                int bufferLength = 0;
-                long total = 0;
-                while ((bufferLength = inputStream.read(buffer)) > 0) {
-//                    if (imageDownloader != null) {
-//                        total += bufferLength;
-//                        int length = (int) (total * 100 / lengthOfFile);
-//                        imageDownloader.publishTheProgress(length);
-//                    }
-                    fileOutputStream.write(buffer, 0, bufferLength);
-
-
-                }
-                inputStream.close();
-                fileOutputStream.close();
-                Log.d("IMAGE SAVED", "Image Saved in sd card");
-                return downloading_File;
-            } catch (IOException e) {
-                inputStream = null;
-                fileOutputStream = null;
-                e.printStackTrace();
-                return null;
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-
-    }
-
 
 }

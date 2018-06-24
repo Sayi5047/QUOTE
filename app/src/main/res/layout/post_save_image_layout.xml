@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_margin="4dp"
+    android:background="@android:color/white"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:id="@+id/root_Rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:clipToPadding="true">
+
+        <ImageView
+            android:id="@+id/saved_image"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:cropToPadding="true"
+            android:src="@drawable/ic_menu_slideshow" />
+
+        <ImageView
+            android:id="@+id/gradient_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="1"
+            android:cropToPadding="true"
+            android:src="@drawable/gradient1"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:id="@+id/share_layout_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/trans_white_apple"
+            android:layout_marginTop="200dp"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/facebook"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/icon_gradient"
+                android:elevation="4dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_fb"
+                android:tint="@android:color/white" />
+
+
+            <ImageView
+                android:id="@+id/whatsapp"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/icon_gradient"
+                android:elevation="4dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_whats"
+                android:tint="@android:color/white" />
+
+
+            <ImageView
+                android:id="@+id/instagram"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/icon_gradient"
+                android:elevation="4dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_insta"
+                android:tint="@android:color/white" />
+
+
+            <ImageView
+                android:id="@+id/twitter"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/icon_gradient"
+                android:elevation="4dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_twitte"
+                android:tint="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/others"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/icon_gradient"
+                android:elevation="4dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_share_others"
+                android:tint="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rate_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/trans_white_apple"
+            android:layout_below="@id/share_layout_image"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ratingbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/enjoying"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:numStars="5" />
+
+            <Button
+                android:id="@+id/close_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/trans_white_apple"
+                android:text="@string/close"
+                android:textColor="@android:color/holo_red_light"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

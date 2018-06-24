@@ -318,4 +318,8 @@
     <string name="notication_channel_desc">Notification for downloading image</string>
     <string name="root_quote">Quote</string>
     <string name="wallpaper_transision_name">wallpaper_transistion</string>
+    <string name="enjoying">Enjoying, Quotzy Please rate us on Google Playstore.</string>
+    <string name="app_does_not_exist">App does not exist</string>
+    <string name="share_text">#Quotzy. I made this wallpaper on Quotzy</string>
+    <string name="share_description">Download Quotzy from playstore to make your own wallpapers #Quotzy</string>
 </resources>

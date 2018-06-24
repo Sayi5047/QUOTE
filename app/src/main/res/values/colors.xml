@@ -17,6 +17,7 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="white_apple">#F2F2F2</color>
+    <color name="trans_white_apple">#AAffffff</color>
 
     <item name="light_blue_400" type="color">#29b6f6</item>
 

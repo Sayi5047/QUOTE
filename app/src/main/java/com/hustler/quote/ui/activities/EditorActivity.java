@@ -89,6 +89,7 @@ import java.util.Objects;
 
 import static android.view.View.GONE;
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+import static com.hustler.quote.ui.utils.FileUtils.show_post_save_dialog;
 
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
@@ -550,6 +551,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         public void onImageSaveListner(File file) {
                             savedFile = file;
                             Toast.makeText(EditorActivity.this, "File Saved", Toast.LENGTH_SHORT).show();
+                            show_post_save_dialog(EditorActivity.this,savedFile);
 
                         }
                     });
