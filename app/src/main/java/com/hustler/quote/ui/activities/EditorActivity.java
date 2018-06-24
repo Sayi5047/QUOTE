@@ -551,7 +551,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         public void onImageSaveListner(File file) {
                             savedFile = file;
                             Toast.makeText(EditorActivity.this, "File Saved", Toast.LENGTH_SHORT).show();
-                            show_post_save_dialog(EditorActivity.this,savedFile);
+                            show_post_save_dialog(EditorActivity.this, savedFile);
 
                         }
                     });

@@ -103,9 +103,11 @@
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
     <string name="made_with_quotzy">Made with Quotzy</string>
-    <string name="bannerAdId">ca-app-pub-9653011938091807/8683595028</string>
+    <string name="bannerAdId">ca-app-pub-9653011938091807/9705197927</string>
+    <!--OLD-->
     <string name="rewardAdId">ca-app-pub-9653011938091807/7917308260</string>
     <string name="interstaialId">ca-app-pub-9653011938091807/3150683855</string>
+    <!--OLD-->
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>
@@ -318,8 +320,9 @@
     <string name="notication_channel_desc">Notification for downloading image</string>
     <string name="root_quote">Quote</string>
     <string name="wallpaper_transision_name">wallpaper_transistion</string>
-    <string name="enjoying">Enjoying, Quotzy Please rate us on Google Playstore.</string>
+    <string name="enjoying">Image successfully saved \n Enjoying, Quotzy Please rate us on Google Playstore.</string>
     <string name="app_does_not_exist">App does not exist</string>
     <string name="share_text">#Quotzy. I made this wallpaper on Quotzy</string>
     <string name="share_description">Download Quotzy from playstore to make your own wallpapers #Quotzy</string>
+    <string name="thanks_for_rating">Thanks for rating, If you already rated please ignore.Else, please provide rating by clicking below</string>
 </resources>

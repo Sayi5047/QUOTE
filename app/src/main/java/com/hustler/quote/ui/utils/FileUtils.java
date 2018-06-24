@@ -463,10 +463,12 @@ public class FileUtils {
                 ImageView instagram;
                 ImageView twitter;
                 ImageView others;
-                TextView ratingbarText;
-                RatingBar ratingBar;
+                final TextView ratingbarText;
+                final RatingBar ratingBar;
                 Button closeBtn;
                 AdView adView;
+                final SharedPreferences sharedPreferences;
+                final Boolean isRating_clicked;
 
                 final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
                 dialog.setContentView(View.inflate(activity, R.layout.post_save_image_layout, null));
@@ -485,8 +487,9 @@ public class FileUtils {
                 ratingbarText = dialog.findViewById(R.id.ratingbar_text);
                 ratingBar = dialog.findViewById(R.id.rating_bar);
                 closeBtn = dialog.findViewById(R.id.close_btn);
-
-
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                isRating_clicked = sharedPreferences.getBoolean(IntentConstants.RATING_GIVEN, false);
+                final SharedPreferences.Editor editor = sharedPreferences.edit();
                 setListeners(facebook, "com.facebook.katana", activity, savedFile);
                 setListeners(whatsapp, "com.whatsapp", activity, savedFile);
                 setListeners(twitter, "com.twitter.android", activity, savedFile);
@@ -499,6 +502,11 @@ public class FileUtils {
                 });
                 savedImage.setClipToOutline(true);
                 Glide.with(activity).load(savedFile).asBitmap().centerCrop().crossFade().into(savedImage);
+                if (isRating_clicked) {
+                    ratingbarText.setText(activity.getString(R.string.thanks_for_rating));
+                } else {
+                    ratingbarText.setText(activity.getString(R.string.enjoying));
+                }
                 others.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -519,23 +527,19 @@ public class FileUtils {
                 ratingBar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity  object
-                        try {
-                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                        }
+                        rate_in_playstore(activity, editor);
+                    }
+                });
+                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        rate_in_playstore(activity, editor);
                     }
                 });
                 ratingbarText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity  object
-                        try {
-                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                        }
+                        rate_in_playstore(activity, editor);
                     }
                 });
 
@@ -554,6 +558,20 @@ public class FileUtils {
 
             }
         }).run();
+    }
+
+    private static void rate_in_playstore(Activity activity, SharedPreferences.Editor editor) {
+
+        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity  object
+        try {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+
+        editor.putBoolean(IntentConstants.RATING_GIVEN, true);
+        editor.commit();
+
     }
 
     private static void setListeners(ImageView facebook, final String packageName, final Activity activity, final File savedFile) {

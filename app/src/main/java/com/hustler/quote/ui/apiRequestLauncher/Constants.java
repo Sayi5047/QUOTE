@@ -195,7 +195,7 @@ public class Constants {
 
 
     //ORIGINAL
-    public static final String ADS_APP_ID = "ca-app-pub-9653011938091807~6524335542";
+    public static final String ADS_APP_ID = "ca-app-pub-9653011938091807~9994624922";
 
     //    DUPE
     public static final String TEST_SMART_BANNER_AD = "ca-app-pub-9653011938091807/8683595028";

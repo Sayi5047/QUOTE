@@ -40,6 +40,7 @@ import com.hustler.quote.ui.utils.TextUtils;
 import java.io.File;
 
 import static com.hustler.quote.ui.utils.FileUtils.savetoDevice;
+import static com.hustler.quote.ui.utils.FileUtils.show_post_save_dialog;
 
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
@@ -294,6 +295,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                 @Override
                 public void onImageSaveListner(File file) {
                     savedFile = file;
+                    show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
                 }
             });
         } else {
@@ -332,6 +334,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
+                            show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
+
                         }
                     });
                 }
@@ -393,6 +397,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     savedFile = file;
                     uri[0] = Uri.fromFile(savedFile);
                     OnImageSaveListner.onImageSaved(uri[0]);
+                    show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
+
 
                 }
             });
