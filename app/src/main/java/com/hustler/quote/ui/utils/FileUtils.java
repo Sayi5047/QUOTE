@@ -4,19 +4,16 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +39,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Services.DownloadImageService;
 import com.hustler.quote.ui.adapters.InstallFontAdapter;
@@ -519,7 +517,11 @@ public class FileUtils {
 //                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
                         Uri uri = null;
                         if (savedFile != null) {
-                            uri = Uri.fromFile(savedFile);
+                            if (Build.VERSION.SDK_INT >= 24) {
+                                uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+                            } else {
+                                uri = Uri.fromFile(savedFile);
+                            }
                             shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                             activity.startActivity(Intent.createChooser(shareIntent, "send"));
                         }
@@ -649,36 +651,43 @@ public class FileUtils {
 
     // METHOD TOOK FROM INTERNET
     public static Uri getImageContentUri(Context context, File imageFile) {
-        try {
-            String filePath = imageFile.getAbsolutePath();
-
-            Cursor cursor = context.getContentResolver().query(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=? ", new String[]{filePath}, null);
-
-            if (cursor != null && cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
-                Uri baseUri = Uri.parse("content://media/external/images/media");
-                return Uri.withAppendedPath(baseUri, "" + id);
-            } else {
-                if (imageFile.exists()) {
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.DATA, filePath);
-                    return context.getContentResolver().insert(
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                } else {
-                    return null;
-                }
-            }
-        } catch (Exception ie) {
-            if (ie instanceof SecurityException) {
-                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.permission_comulsory));
-            } else {
-                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.operation_failed));
-
-            }
-            return null;
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), imageFile);
+        } else {
+            uri = Uri.fromFile(imageFile);
         }
+        return uri;
+//        try {
+//            String filePath = imageFile.getAbsolutePath();
+//
+//            Cursor cursor = context.getContentResolver().query(
+//                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                    new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=? ", new String[]{filePath}, null);
+//
+//            if (cursor != null && cursor.moveToFirst()) {
+//                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+//                Uri baseUri = Uri.parse("content://media/external/images/media");
+//                return Uri.withAppendedPath(baseUri, "" + id);
+//            } else {
+//                if (imageFile.exists()) {
+//                    ContentValues values = new ContentValues();
+//                    values.put(MediaStore.Images.Media.DATA, filePath);
+//                    return context.getContentResolver().insert(
+//                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//                } else {
+//                    return null;
+//                }
+//            }
+//        } catch (Exception ie) {
+//            if (ie instanceof SecurityException) {
+//                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.permission_comulsory));
+//            } else {
+//                Toast_Snack_Dialog_Utils.show_ShortToast((Activity) context, context.getString(R.string.operation_failed));
+//
+//            }
+//            return null;
+//        }
 
     }
 
@@ -709,10 +718,16 @@ public class FileUtils {
     }
 
     public static void setwallpaper(Activity activity, String imagepath) {
-        Intent intent = new Intent(WallpaperManager.getInstance(activity).
-                getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
+        try {
+            Intent intent = new Intent(WallpaperManager.getInstance(activity).
+                    getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
 
-        activity.startActivity(intent);
+            activity.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            FirebaseCrash.log(e.getMessage());
+        }
+
     }
 
     public static void shareImage(Activity activity, String imagePath) {

@@ -14,12 +14,14 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -81,6 +83,8 @@ import com.hustler.quote.ui.utils.InternetUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -573,7 +577,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
                 Uri uri = null;
                 if (savedFile != null) {
-                    uri = Uri.fromFile(savedFile);
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+                    } else {
+                        uri = Uri.fromFile(savedFile);
+                    }
                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                     startActivity(Intent.createChooser(shareIntent, "send"));
                 } else {
@@ -581,7 +589,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
-                            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                            Uri uri1 = null;
+                            if (Build.VERSION.SDK_INT >= 24) {
+                                uri1 = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), savedFile);
+                            } else {
+                                uri1 = Uri.fromFile(savedFile);
+                            }
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, uri1);
                             startActivity(Intent.createChooser(shareIntent, "send"));
                         }
                     });
@@ -2316,5 +2330,4 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
 
     }
-
 }

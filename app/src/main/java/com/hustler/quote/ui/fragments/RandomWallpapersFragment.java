@@ -148,9 +148,9 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
             public void onError(String error) {
                 Log.e("ERROR FROM UNSPLASH", error);
                 loader.setVisibility(View.GONE);
-
-//                dataView.setVisibility(View.GONE);
-                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Failed));
+                if (isAdded() && getActivity() != null) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.Failed));
+                }
             }
         }, request);
     }

@@ -15,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.database.QuotesDbHelper;
@@ -267,13 +269,17 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         checkandRetrieveUri(quote_layout, new OnImageSaveListner() {
             @Override
             public void onImageSaved(Uri uri) {
+                try {
+                    File file = new File(uri.getPath());
+                    Intent intent = new Intent(WallpaperManager.
+                            getInstance(QuoteDetailsActivity.this).
+                            getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(QuoteDetailsActivity.this, file)));
 
-                File file = new File(uri.getPath());
-                Intent intent = new Intent(WallpaperManager.
-                        getInstance(QuoteDetailsActivity.this).
-                        getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(QuoteDetailsActivity.this, file)));
-
-                startActivity(intent);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    FirebaseCrash.log(e.getMessage());
+                }
             }
         });
 
@@ -381,7 +387,13 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
         } else {
 
-            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(savedFile.getPath())));
+            Uri uriValue = null;
+            if (Build.VERSION.SDK_INT >= 24) {
+                uriValue = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+            } else {
+                uriValue = Uri.fromFile(savedFile);
+            }
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uriValue);
             startActivity(Intent.createChooser(shareIntent, "send"));
         }
     }
@@ -389,13 +401,21 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private Uri checkandRetrieveUri(ViewGroup rootview, final OnImageSaveListner OnImageSaveListner) {
         final Uri[] uri = {null};
         if (savedFile != null) {
-            uri[0] = Uri.fromFile(savedFile);
+            if (Build.VERSION.SDK_INT >= 24) {
+                uri[0] = FileProvider.getUriForFile(QuoteDetailsActivity.this, activity.getString(R.string.file_provider_authority), savedFile);
+            } else {
+                uri[0] = Uri.fromFile(savedFile);
+            }
         } else {
             savetoDevice(rootview, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
                 @Override
                 public void onImageSaveListner(File file) {
                     savedFile = file;
-                    uri[0] = Uri.fromFile(savedFile);
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        uri[0] = FileProvider.getUriForFile((QuoteDetailsActivity.this), getString(R.string.file_provider_authority), savedFile);
+                    } else {
+                        uri[0] = Uri.fromFile(savedFile);
+                    }
                     OnImageSaveListner.onImageSaved(uri[0]);
                     show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
 

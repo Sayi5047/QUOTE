@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Recievers.NotifcationReciever;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -217,8 +218,8 @@ public class DownloadImageService extends Service {
 //                        mNotification_Builder.setProgress(100, ((int) (total * 100 / lengthOfFile)), false);
 //                        mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
                         fileOutputStream.write(buffer, 0, bufferLength);
-                        publishProgress(String.valueOf((int) (total * 100 / lengthOfFile)));
-                        Log.d("do in BG", String.valueOf((int) (total * 100 / lengthOfFile)));
+//                        publishProgress(String.valueOf((int) (total * 100 / lengthOfFile)));
+//                        Log.d("do in BG", String.valueOf((int) (total * 100 / lengthOfFile)));
 
 
                     }
@@ -252,16 +253,24 @@ public class DownloadImageService extends Service {
             mNotification_Builder.setContentTitle("Completed");
             mNotification_Builder.setContentIntent(pendingIntent);
             mNotification_Builder.setContentText("Images Successfully downloaded to SD card").setProgress(100, 100, false);// Removes the progress bar
+            mNotification_Builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Click to open"));
+
             mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
             if (!is_to_set_wallpaper) {
                 imageDownloader.cancel(true);
                 stopSelf();
             } else {
                 if (downloading_File != null) {
-                    Intent intent = new Intent(WallpaperManager.getInstance(getApplicationContext()).
-                            getCropAndSetWallpaperIntent(FileProvider.getUriForFile(getApplicationContext(), "com.hustler.quote.fileprovider", (downloading_File))));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    try {
+
+                        Intent intent = new Intent(WallpaperManager.getInstance(getApplicationContext()).
+                                getCropAndSetWallpaperIntent(FileProvider.getUriForFile(getApplicationContext(), "com.hustler.quote.fileprovider", (downloading_File))));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        FirebaseCrash.log(e.getMessage());
+                    }
 
                 } else {
                     try {

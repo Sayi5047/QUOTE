@@ -41,9 +41,9 @@
         <activity
             android:name=".ui.activities.EditorActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter
                 android:scheme="http"
                 tools:ignore="AppLinkUrlError">
@@ -142,7 +142,7 @@
 
         <service
             android:name=".ui.livewallpaper.MyWallpaperService"
-            android:enabled="true"
+            android:enabled="false"
             android:label="My Wallpaper"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
