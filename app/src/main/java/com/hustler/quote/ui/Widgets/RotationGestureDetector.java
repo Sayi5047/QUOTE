@@ -39,11 +39,18 @@ public class RotationGestureDetector {
             }
             break;
             case MotionEvent.ACTION_POINTER_DOWN: {
+
                 pointer_ID_2 = motionEvent.getPointerId(motionEvent.getActionIndex());
-                sx = motionEvent.getX(motionEvent.findPointerIndex(pointer_Id_1));
-                sy = motionEvent.getY(motionEvent.findPointerIndex(pointer_Id_1));
-                fx = motionEvent.getX(motionEvent.findPointerIndex(pointer_ID_2));
-                fy = motionEvent.getY(motionEvent.findPointerIndex(pointer_ID_2));
+                if (pointer_Id_1 != INVALID_POINTER_ID) {
+                    sx = motionEvent.getX(motionEvent.findPointerIndex(pointer_Id_1));
+                    sy = motionEvent.getY(motionEvent.findPointerIndex(pointer_Id_1));
+                }
+                if (pointer_ID_2 != INVALID_POINTER_ID) {
+                    fx = motionEvent.getX(motionEvent.findPointerIndex(pointer_ID_2));
+                    fy = motionEvent.getY(motionEvent.findPointerIndex(pointer_ID_2));
+                }
+
+
             }
             break;
             case MotionEvent.ACTION_MOVE: {

@@ -14,7 +14,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -84,8 +83,6 @@ import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,12 +114,26 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS = 1004;
     private static final int MY_PERMISSION_REQUEST_Launch_gallery = 1007;
-
-
+    public File savedFile;
+    //    private LinearLayout main_editor_layout;
+    public int deviceHeight;
     Window windowManager;
+    RecyclerView features_recyclerview;
+    Features_adapter features_adapter;
+    String[] itemsTo;
+    //    Varaible to give ids to  newly added items
+    int addedTextIds = 0;
+    //    Variables for moving items onTouch
+    int prevX, prevY;
+    //    VIEWS FOR CURRENTLY SELECTED AND PREVIOUS
+    View selectedView;
+    View previousSelcted_View;
+    View previousstate;
+    SpannableString spannableString;
+    ScaleGestureDetector scaleGestureDetector;
+    float nsx, nsy, nfx, nfy;
     private ImageView light_effect_filter_IV;
     private RelativeLayout root_layout;
-
     //    private ImageView font_module;
 //    private ImageView background_image_module;
     private ImageView font_size_changer;
@@ -131,7 +142,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private ImageView share_work_button;
     private ImageView delete_view_button;
     private ImageView imageView_background;
-
     private TextView quote_editor_body;
     private TextView quote_editor_author;
     private TextView text_layout;
@@ -139,63 +149,34 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private TextView close_layout;
     private TextView done_layout;
     private TextView mark_quotzy;
-
     private Quote quote;
     private RelativeLayout quoteLayout;
     private RelativeLayout core_editor_layout;
     private LinearLayout text_and_bg_layout;
     private LinearLayout close_and_done_layout;
-
     private SeekBar seekBar;
     private Button clear_button;
-
     private int imagefittype;
-    RecyclerView features_recyclerview;
-    Features_adapter features_adapter;
-
-    public File savedFile;
-    String[] itemsTo;
-
-
     private int backpressCount = 0;
-
     private String newly_Added_Text;
-
-    //    Varaible to give ids to  newly added items
-    int addedTextIds = 0;
-
-    //    Variables for moving items onTouch
-    int prevX, prevY;
-
-    //    VIEWS FOR CURRENTLY SELECTED AND PREVIOUS
-    View selectedView;
-    View previousSelcted_View;
-    View previousstate;
     private String current_Text_feature;
     private String current_Bg_feature;
-    private String current_module;
-    SpannableString spannableString;
+    private String current_module = null;
     private AdView mAdView;
-    ScaleGestureDetector scaleGestureDetector;
     private int isFromEdit_Activity;
     private String selected_picture;
-    //    private LinearLayout main_editor_layout;
-    public int deviceHeight;
     private boolean isHeightMeasured = false;
     private String geust_image;
     private RotationGestureDetector rotationGestureDetector;
-
     private int pointer_Id_1, pointer_ID_2;
     private float fx;
     private float fy;
     private float sx;
     private float sy;
-    float nsx, nsy, nfx, nfy;
 
 //    final int INVALIDPOINTERID = -1;
 //    int mActivePointerId = INVALIDPOINTERID;
 //    in
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,7 +242,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         mark_quotzy = findViewById(R.id.mark_quotzy_tv);
         core_editor_layout = findViewById(R.id.arena_text_layout);
         clear_button = findViewById(R.id.bt_clear);
-
+        setText_Features_rv();
         scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
 /*setting on click listners */
 //        font_module.setOnClickListener(this);
@@ -279,7 +260,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         clear_button.setOnClickListener(this);
 
 
-        setText_Features_rv();
     }
 
     @Override
@@ -578,7 +558,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 Uri uri = null;
                 if (savedFile != null) {
                     if (Build.VERSION.SDK_INT >= 24) {
-                        uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+                        uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), savedFile);
                     } else {
                         uri = Uri.fromFile(savedFile);
                     }
@@ -1093,7 +1073,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         handle_bg_seekbar(seekBar);
     }
 
-    private void handle_bg_seekbar(SeekBar seekBar) {
+    private void handle_bg_seekbar(SeekBar seekBar) throws NullPointerException {
         String[] featuresLocalArray = getResources().getStringArray(R.array.Background_features);
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(activity, getString(R.string.we_missed_bg));
@@ -1140,7 +1120,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-    private void handle_seekbar_value(SeekBar seekBar) {
+    private void handle_seekbar_value(SeekBar seekBar) throws NullPointerException {
         float radius = (float) seekBar.getProgress();
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
@@ -1173,7 +1153,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-    private void handle_close_Feature() {
+    private void handle_close_Feature() throws NullPointerException {
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
         } else {

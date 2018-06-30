@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.CustomSpan.CustomTypefaceSpan;
 
@@ -168,9 +169,13 @@ public class TextUtils {
     }
 
     private static void setFont_For_menu(MenuItem subMenu, Activity activity) {
-        Typeface typeface = Typeface.createFromAsset(activity.getAssets(), FONT_CIRCULAR);
-        SpannableString spannableString = new SpannableString(subMenu.getTitle());
-        spannableString.setSpan(new CustomTypefaceSpan("", typeface), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        subMenu.setTitle(spannableString);
+        try {
+            Typeface typeface = Typeface.createFromAsset(activity.getResources().getAssets(), FONT_CIRCULAR);
+            SpannableString spannableString = new SpannableString(subMenu.getTitle());
+            spannableString.setSpan(new CustomTypefaceSpan("", typeface), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            subMenu.setTitle(spannableString);
+        } catch (RuntimeException rte) {
+            FirebaseCrash.log(rte.getStackTrace().toString());
+        }
     }
 }
