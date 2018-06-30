@@ -405,7 +405,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (path != null) {
                         file = new File(path);
                         Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
-                        FileUtils.unzipandSave(file, EditorActivity.this);
+                        FileUtils.unzipandSave(file, EditorActivity.this,action);
                     }
 
 
@@ -459,7 +459,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             if (path != null) {
                 file = new File(path);
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
-                FileUtils.unzipandSave(file, EditorActivity.this);
+                FileUtils.unzipandSave(file, EditorActivity.this, action);
             }
 
 

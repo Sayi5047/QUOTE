@@ -418,7 +418,7 @@ public class TextFeatures {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_font));
                 } else {
                     if (isDownloaded[0] == 1) {
-                        if(selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/web.ttf")){
+                        if (selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/web.ttf")) {
                             TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
                         }
 
@@ -1097,20 +1097,16 @@ public class TextFeatures {
         dialog.show();
     }
 
-    public static void applyFilter(TextView textView, float[] direction, float ambient, float specular, float blurRadius) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+    private static void applyFilter(TextView textView, float[] direction, float ambient, float specular, float blurRadius) {
+        textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         EmbossMaskFilter filter = new EmbossMaskFilter(
                 direction, ambient, specular, blurRadius);
         textView.getPaint().setMaskFilter(filter);
     }
 
-    public static void applyBlurrFilter(
+    private static void applyBlurrFilter(
             TextView textView, BlurMaskFilter.Blur style, float val) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+        textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         val = val <= 0.0f ? 1.0f : val;
         float radius = textView.getTextSize() / val < 0 ? 0 : textView.getTextSize() / val;
         BlurMaskFilter filter = new BlurMaskFilter(radius, style);

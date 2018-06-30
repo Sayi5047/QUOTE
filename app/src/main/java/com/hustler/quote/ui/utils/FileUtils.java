@@ -88,16 +88,20 @@ public class FileUtils {
 
     static String folderName = null;
 
-    public static void unzipandSave(File file, final Activity activity) {
+    public static void unzipandSave(File file, final Activity activity, String action) {
         int Buffer = 2048;
         File sourcezipLocation = file;
-        File destinationUnZipLocation;
         final List<String> zipContents = new ArrayList<>();
-        String fontsUnZipPath = sourcezipLocation.getAbsolutePath();
+        String zipLocation = null;
         try {
-            Log.d("ZIP Path", Environment.getExternalStorageDirectory() + sourcezipLocation.getAbsolutePath());
-            Log.d("ZIP Path", sourcezipLocation.getAbsolutePath());
-            ZipFile zipToRead = new ZipFile(sourcezipLocation.getAbsolutePath());
+
+            if (action.equals(Intent.ACTION_VIEW)) {
+                zipLocation = Environment.getExternalStorageDirectory() + sourcezipLocation.getAbsolutePath();
+            } else if (action.equals(Intent.ACTION_SEND)) {
+                zipLocation = sourcezipLocation.getAbsolutePath();
+            }
+            Log.d("ZIP Location " + action, zipLocation);
+            ZipFile zipToRead = new ZipFile(zipLocation);
 
             Enumeration zipEntries = zipToRead.entries();
             while (zipEntries.hasMoreElements()) {
