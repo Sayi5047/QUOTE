@@ -42,7 +42,9 @@ import static com.hustler.quote.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
    limitations under the License.*/
 public class TextUtils {
     public static void setFont(Activity activity, TextView tv, String fontname) {
-        tv.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
+        if (null != activity) {
+            tv.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
+        }
     }
 
     public static void setEdit_Font(Activity activity, EditText et, String fontname) {
@@ -170,10 +172,12 @@ public class TextUtils {
 
     private static void setFont_For_menu(MenuItem subMenu, Activity activity) {
         try {
-            Typeface typeface = Typeface.createFromAsset(activity.getResources().getAssets(), FONT_CIRCULAR);
-            SpannableString spannableString = new SpannableString(subMenu.getTitle());
-            spannableString.setSpan(new CustomTypefaceSpan("", typeface), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            subMenu.setTitle(spannableString);
+            if (null != activity) {
+                Typeface typeface = Typeface.createFromAsset(activity.getResources().getAssets(), FONT_CIRCULAR);
+                SpannableString spannableString = new SpannableString(subMenu.getTitle());
+                spannableString.setSpan(new CustomTypefaceSpan("", typeface), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                subMenu.setTitle(spannableString);
+            }
         } catch (RuntimeException rte) {
             FirebaseCrash.log(rte.getStackTrace().toString());
         }

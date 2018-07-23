@@ -14,6 +14,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
@@ -48,6 +49,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.hustler.quote.BuildConfig;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Recievers.NotifAlarmReciever;
 import com.hustler.quote.ui.Services.DailyNotificationService;
@@ -144,6 +146,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //        if(!service_Started){
 //            stratServices();
 //        }
+
+
     }
 
     private void stratServices() {

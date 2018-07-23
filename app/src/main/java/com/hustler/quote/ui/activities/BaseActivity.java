@@ -3,10 +3,12 @@ package com.hustler.quote.ui.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hustler.quote.BuildConfig;
 import com.hustler.quote.R;
 
 /**
@@ -34,6 +36,13 @@ public class BaseActivity extends AppCompatActivity {
             getWindow().setClipToOutline(true);
         }
         super.onCreate(savedInstanceState, persistentState);
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork()   // or .detectAll() for all detectable problems
+                    .penaltyLog() // Log detected violations to the system log.
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath() // Crashes the whole process on violation.
+                    .build());
+        }
     }
 
     @Override

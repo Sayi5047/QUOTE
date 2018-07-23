@@ -90,7 +90,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         ArrayList<Quote> quoteslist = new ArrayList<>();
         dialog.show();
 
-        quoteslist = (ArrayList<Quote>) new QuotesDbHelper(getContext()).getQuotesByCategory(category);
+        quoteslist = (ArrayList<Quote>) new QuotesDbHelper(getActivity().getApplicationContext()).getQuotesByCategory(category);
         if (quoteslist.size() <= 0) {
             dialog.cancel();
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));

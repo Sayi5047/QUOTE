@@ -2,6 +2,7 @@ package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
@@ -60,8 +61,8 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorViewH
     @Override
     public void onBindViewHolder(ColorViewHolder holder, final int position) {
 //        DrawableCompat.setTint(holder.imageView.getDrawable(), ContextCompat.getColor(activity,colors[position]));
-        holder.imageView.setBackground(new ColorDrawable(colors[position]));
-
+//        holder.imageView.setBackground(new ColorDrawable(colors[position]));
+        holder.imageView.setColorFilter(colors[position], PorterDuff.Mode.SRC_ATOP);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            holder.imageView.getDrawable().setTint(colors[position]);
 //        } else {

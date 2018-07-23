@@ -102,27 +102,30 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     @Override
     public void onBindViewHolder(final WallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
-        Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
-        Glide.with(context).load(image.getUser().getProfile_image().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
-        holder.photoGrapher_name.setText(image.getUser().getFirst_name());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onimageClickListener != null) {
-                    onimageClickListener.onWallpaperClicked(position, m_AL_Images, holder.wallpaper);
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(context, context.getString(R.string.Listener));
+        if (null != context) {
+            Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
+            Glide.with(context).load(image.getUser().getProfile_image().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
+            holder.photoGrapher_name.setText(image.getUser().getFirst_name());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onimageClickListener != null) {
+                        onimageClickListener.onWallpaperClicked(position, m_AL_Images, holder.wallpaper);
+                    } else {
+                        Toast_Snack_Dialog_Utils.show_ShortToast(context, context.getString(R.string.Listener));
+                    }
                 }
-            }
-        });
+            });
 
-        holder.photoGrapher_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://unsplash.com/" + image.getUser().getUsername() + "?utm_source=Quotzy&utm_medium=referral\""));
-                context.startActivity(intent);
-            }
-        });
+            holder.photoGrapher_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://unsplash.com/" + image.getUser().getUsername() + "?utm_source=Quotzy&utm_medium=referral\""));
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
 

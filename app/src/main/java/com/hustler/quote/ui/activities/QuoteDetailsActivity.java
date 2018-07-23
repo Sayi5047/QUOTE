@@ -272,8 +272,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                 try {
                     File file = new File(uri.getPath());
                     Intent intent = new Intent(WallpaperManager.
-                            getInstance(QuoteDetailsActivity.this).
-                            getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(QuoteDetailsActivity.this, file)));
+                            getInstance(getApplicationContext()).
+                            getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(getApplicationContext(), file)));
 
                     startActivity(intent);
                 } catch (Exception e) {
@@ -389,7 +389,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
             Uri uriValue = null;
             if (Build.VERSION.SDK_INT >= 24) {
-                uriValue = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+                uriValue = FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), savedFile);
             } else {
                 uriValue = Uri.fromFile(savedFile);
             }
@@ -402,7 +402,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         final Uri[] uri = {null};
         if (savedFile != null) {
             if (Build.VERSION.SDK_INT >= 24) {
-                uri[0] = FileProvider.getUriForFile(QuoteDetailsActivity.this, activity.getString(R.string.file_provider_authority), savedFile);
+                uri[0] = FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), savedFile);
             } else {
                 uri[0] = Uri.fromFile(savedFile);
             }
@@ -412,7 +412,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                 public void onImageSaveListner(File file) {
                     savedFile = file;
                     if (Build.VERSION.SDK_INT >= 24) {
-                        uri[0] = FileProvider.getUriForFile((QuoteDetailsActivity.this), getString(R.string.file_provider_authority), savedFile);
+                        uri[0] = FileProvider.getUriForFile((getApplicationContext()), getString(R.string.file_provider_authority), savedFile);
                     } else {
                         uri[0] = Uri.fromFile(savedFile);
                     }

@@ -1,6 +1,7 @@
 package com.hustler.quote.ui.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -105,10 +106,7 @@ import static com.hustler.quote.ui.utils.FileUtils.show_post_save_dialog;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class EditorActivity extends BaseActivity implements View.OnClickListener,
-        SeekBar.OnSeekBarChangeListener,
-        View.OnTouchListener,
-        View.OnLongClickListener, RotationGestureDetector.OnRotateGestureListener {
+public class EditorActivity extends BaseActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener, View.OnLongClickListener, RotationGestureDetector.OnRotateGestureListener {
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
@@ -173,6 +171,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private float fy;
     private float sx;
     private float sy;
+    Activity activity;
 
 //    final int INVALIDPOINTERID = -1;
 //    int mActivePointerId = INVALIDPOINTERID;
@@ -186,10 +185,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-        findViews();
-        getIntentData();
-        setViews();
-        rotationGestureDetector = new RotationGestureDetector(EditorActivity.this);
+        activity = EditorActivity.this;
+
+        String called_from = getIntent().getStringExtra("called");
+        if (!"add".equalsIgnoreCase(called_from)) {
+            findViews();
+            getIntentData();
+            setViews();
+            rotationGestureDetector = new RotationGestureDetector(EditorActivity.this);
+        } else {
+            Toast.makeText(activity, "ACTIVITY IS NULL", Toast.LENGTH_SHORT).show();
+            activity.finish();
+        }
+
     }
 
     @Override
@@ -205,7 +213,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void findViews() {
 //        All layouts
         root_layout = findViewById(R.id.root_Lo);
-        windowManager = this.getWindow();
+        windowManager = getWindow();
         windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
@@ -230,7 +238,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_text_size = findViewById(R.id.close_editor_button);
 
         features_recyclerview = findViewById(R.id.content_rv);
-        features_recyclerview.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        features_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
         imageView_background = findViewById(R.id.imageView_background);
 
@@ -243,7 +251,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         core_editor_layout = findViewById(R.id.arena_text_layout);
         clear_button = findViewById(R.id.bt_clear);
         setText_Features_rv();
-        scaleGestureDetector = new ScaleGestureDetector(this, new SimpleOnscaleGestureListener());
+        scaleGestureDetector = new ScaleGestureDetector(getApplicationContext(), new SimpleOnscaleGestureListener());
 /*setting on click listners */
 //        font_module.setOnClickListener(this);
 //        background_image_module.setOnClickListener(this);
@@ -258,6 +266,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_layout.setOnClickListener(this);
         done_layout.setOnClickListener(this);
         clear_button.setOnClickListener(this);
+        TextUtils.setFont(EditorActivity.this, mark_quotzy, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, text_layout, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, background_layout, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, close_layout, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, done_layout, Constants.FONT_CIRCULAR);
 
 
     }
@@ -267,7 +280,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (isHeightMeasured) {
         } else {
 
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).edit();
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
             editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
             editor.apply();
             isHeightMeasured = true;
@@ -276,8 +289,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void setViews() {
         if (isFromEdit_Activity == 1) {
-            quote_editor_body = new TextView(this);
-            quote_editor_author = new TextView(this);
+            quote_editor_body = new TextView(getApplicationContext());
+            quote_editor_author = new TextView(getApplicationContext());
             quote_editor_body.setId(addedTextIds);
             addedTextIds++;
             quote_editor_author.setId(addedTextIds);
@@ -342,9 +355,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
             } else {
                 imageView_background.setBackground(null);
-                final ProgressBar progressBar = new ProgressBar(EditorActivity.this);
+                final ProgressBar progressBar = new ProgressBar(getApplicationContext());
                 progressBar.setVisibility(View.VISIBLE);
-                Glide.with(EditorActivity.this).load(geust_image).listener(new RequestListener<String, GlideDrawable>() {
+                Glide.with(getApplicationContext()).load(geust_image).listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                         progressBar.setVisibility(GONE);
@@ -405,7 +418,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (path != null) {
                         file = new File(path);
                         Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
-                        FileUtils.unzipandSave(file, EditorActivity.this,action);
+                        FileUtils.unzipandSave(file, EditorActivity.this, action);
                     }
 
 
@@ -534,13 +547,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
-                            Toast.makeText(EditorActivity.this, "File Saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "File Saved", Toast.LENGTH_SHORT).show();
                             show_post_save_dialog(EditorActivity.this, savedFile);
 
                         }
                     });
                     if (savedFile != null) {
-                        Toast.makeText(EditorActivity.this, "File Already Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "File Already Saved", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     requestAppPermissions_to_save_to_gallery();
@@ -558,7 +571,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 Uri uri = null;
                 if (savedFile != null) {
                     if (Build.VERSION.SDK_INT >= 24) {
-                        uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), savedFile);
+                        uri = FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), savedFile);
                     } else {
                         uri = Uri.fromFile(savedFile);
                     }
@@ -571,7 +584,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                             savedFile = file;
                             Uri uri1 = null;
                             if (Build.VERSION.SDK_INT >= 24) {
-                                uri1 = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), savedFile);
+                                uri1 = FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), savedFile);
                             } else {
                                 uri1 = Uri.fromFile(savedFile);
                             }
@@ -584,28 +597,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case R.id.delete_view_button: {
                 if (selectedView != null) {
-                    Toast_Snack_Dialog_Utils.createDialog(this,
-                            getString(R.string.are_you_sure),
-                            getString(R.string.this_will_delete),
-                            getString(R.string.cancel),
-                            getString(R.string.delete),
-                            new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
-                                @Override
-                                public void onPositiveselection() {
-                                    close_and_done_layout.setVisibility(GONE);
-                                    text_and_bg_layout.setVisibility(View.VISIBLE);
-                                    features_recyclerview.setVisibility(View.VISIBLE);
-                                    seekBar.setProgress(180);
-                                    seekBar.setVisibility(GONE);
-                                    core_editor_layout.removeView(selectedView);
-                                    selectedView = null;
-                                }
+                    Toast_Snack_Dialog_Utils.createDialog(this, getString(R.string.are_you_sure), getString(R.string.this_will_delete), getString(R.string.cancel), getString(R.string.delete), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+                        @Override
+                        public void onPositiveselection() {
+                            close_and_done_layout.setVisibility(GONE);
+                            text_and_bg_layout.setVisibility(View.VISIBLE);
+                            features_recyclerview.setVisibility(View.VISIBLE);
+                            seekBar.setProgress(180);
+                            seekBar.setVisibility(GONE);
+                            core_editor_layout.removeView(selectedView);
+                            selectedView = null;
+                        }
 
-                                @Override
-                                public void onNegativeSelection() {
+                        @Override
+                        public void onNegativeSelection() {
 
-                                }
-                            });
+                        }
+                    });
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text_to_delete));
                 }
@@ -629,16 +637,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
 
         convertFeatures(getResources().getStringArray(R.array.Background_features));
-        features_adapter = new Features_adapter(this, "Background_features",
-                getResources().getStringArray(R.array.Background_features).length,
-                new Features_adapter.OnFeature_ItemClickListner() {
-                    @Override
-                    public void onItemClick(String clickedItem) {
+        features_adapter = new Features_adapter(this, "Background_features", getResources().getStringArray(R.array.Background_features).length, new Features_adapter.OnFeature_ItemClickListner() {
+            @Override
+            public void onItemClick(String clickedItem) {
 //                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
-                        enable_Selected_Background_Features(clickedItem, getResources().getStringArray(R.array.Background_features));
+                enable_Selected_Background_Features(clickedItem, getResources().getStringArray(R.array.Background_features));
 
-                    }
-                }, false);
+            }
+        }, false);
 
         features_recyclerview.setAdapter(features_adapter);
         features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
@@ -662,7 +668,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         features_adapter = new Features_adapter(this, "Text_features", getResources().getStringArray(R.array.Text_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
             public void onItemClick(String clickedItem) {
-//                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, clickedItem);
                 enable_Selected_Text_Feature(clickedItem, getResources().getStringArray(R.array.Text_features));
             }
         }, true);
@@ -713,9 +718,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[10])) {
             gradienteText(array);
         } else if (feature.equalsIgnoreCase(array[11])) {
-            setCanvasSize(array, PreferenceManager
-                    .getDefaultSharedPreferences(EditorActivity.this)
-                    .getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
+            setCanvasSize(array, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
         } else if (feature.equalsIgnoreCase(array[12])) {
             final TextView selectedTextView = (TextView) selectedView;
 
@@ -729,7 +732,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //            hollowText(array);
         }
     }
-
 
     private void setCanvasSize(String[] array, final int deviceHeight) {
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
@@ -749,7 +751,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
-        sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this, 3));
+        sizesRv.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         ArrayList<Integer> myImageList = new ArrayList<>();
         myImageList.add(R.drawable.ic_1_1);
         myImageList.add(R.drawable.ic_2_3);
@@ -863,7 +865,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
         if (selected_picture != null) {
             imageView_background.setBackground(null);
-            Glide.with(EditorActivity.this).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+            Glide.with(getApplicationContext()).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
         }
         dialog.dismiss();
     }
@@ -983,7 +985,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(null);
         recyclerView.setVisibility(GONE);
-        recyclerView.setLayoutManager(new GridLayoutManager(EditorActivity.this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
 
         String request;
         if (word == null) {
@@ -992,7 +994,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150" + "&order=popular";
 
         }
-        new Restutility(EditorActivity.this).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
+        new Restutility(EditorActivity.this).getRandomImages(getApplicationContext(), new ImagesApiResponceListner() {
             @Override
             public void onSuccess(List<ImagesFromPixaBay> images) {
                 progressBar.setVisibility(GONE);
@@ -1002,7 +1004,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     public void onImageClicked(String previreLink, String Biglink) {
                         selected_picture = Biglink;
                         imageView_background.setBackground(null);
-                        Glide.with(EditorActivity.this).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+                        Glide.with(getApplicationContext()).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
                         dialog.dismiss();
                     }
                 }));
@@ -1078,11 +1080,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(activity, getString(R.string.we_missed_bg));
         } else {
-            if (current_module.equalsIgnoreCase(Constants.BG)) {
+            if (Constants.BG.equalsIgnoreCase(current_module)) {
                 if (current_Bg_feature.equalsIgnoreCase(featuresLocalArray[2]) && seekBar.getProgress() >= 0) {
-                    Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+                    Glide.with(getApplicationContext()).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
                     if (seekBar.getProgress() == 0) {
-                        Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+                        Glide.with(getApplicationContext()).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
                     } else {
                         imageView_background.setDrawingCacheEnabled(true);
                         imageView_background.buildDrawingCache();
@@ -1125,29 +1127,34 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
         } else {
-            if (current_module.equalsIgnoreCase(Constants.TEXT)) {
-                TextView selected_textView = (TextView) selectedView;
-                if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
-                    float size = radius / 2;
-                    selected_textView.setTextSize(size);
-                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
-                    float degree = radius - 180;
-                    selected_textView.setRotation(degree);
-                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
-                    float degree = radius / 500;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        selected_textView.setLetterSpacing(degree);
-                    } else {
-                        Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
-                    }
-                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
-                    float degrer = radius / 100;
-                    selected_textView.setLineSpacing(15, degrer);
-                } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
-                    int degrer = (int) radius * 3;
+            if (Constants.TEXT.equalsIgnoreCase(current_module)) {
+                if (selectedView != null) {
+                    TextView selected_textView = (TextView) selectedView;
+                    if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[2]) && radius >= 0) {
+                        float size = radius / 2;
+                        selected_textView.setTextSize(size);
+                    } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[3]) && radius >= 0) {
+                        float degree = radius - 180;
+                        selected_textView.setRotation(degree);
+                    } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[4]) && radius >= 0) {
+                        float degree = radius / 500;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            selected_textView.setLetterSpacing(degree);
+                        } else {
+                            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.sorry));
+                        }
+                    } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[6]) && radius >= 0) {
+                        float degrer = radius / 100;
+                        selected_textView.setLineSpacing(15, degrer);
+                    } else if (current_Text_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Text_features)[7]) && radius >= 0) {
+                        int degrer = (int) radius * 3;
 //                Log.d("PADDIG DEGEREE", degrer + "");
-                    selected_textView.setMaxWidth(degrer);
+                        selected_textView.setMaxWidth(degrer);
+                    }
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
                 }
+
             }
         }
     }
@@ -1179,14 +1186,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             } else if (current_module.equalsIgnoreCase(Constants.BG)) {
                 if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[2])) {
                     if (selected_picture != null) {
-                        Glide.with(this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+                        Glide.with(getApplicationContext()).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
 
                     } else {
 
                     }
 
-                } else if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[3]) ||
-                        current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[4])) {
+                } else if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[3]) || current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[4])) {
                     light_effect_filter_IV.setBackground(null);
                 }
             }
@@ -1288,7 +1294,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (newly_Added_Text.length() <= 0) {
                         addingText.setError(getString(R.string.please_enter));
                     } else {
-                        final TextView textView = new TextView(EditorActivity.this);
+                        final TextView textView = new TextView(getApplicationContext());
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
@@ -1518,7 +1524,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (newly_Added_Text.length() <= 0) {
                         addingText.setError(getString(R.string.please_enter));
                     } else {
-                        final TextView textView = new TextView(EditorActivity.this);
+                        final TextView textView = new TextView(getApplicationContext());
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
@@ -1911,7 +1917,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
-        colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        colorsRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
         colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
             @Override
@@ -2041,31 +2047,19 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 /*Permission related Methods*/
 
     private void requestAppPermissions() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART));
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART));
     }
 
     private void requestAppPermissions_to_save_to_gallery() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY));
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY));
     }
 
     private void requestAppPermissions_for_fonts() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS));
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS));
     }
 
     private void requestAppPermissions_for_launch_gallery() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                (MY_PERMISSION_REQUEST_Launch_gallery));
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_Launch_gallery));
     }
 
     @Override
@@ -2085,13 +2079,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             selected_picture = picturepath;
             if (imagefittype == 3) {
-                Glide.with(this).load(picturepath).asBitmap().crossFade().into(imageView_background);
+                Glide.with(getApplicationContext()).load(picturepath).asBitmap().crossFade().into(imageView_background);
 
             } else if (imagefittype == 2) {
-                Glide.with(this).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
+                Glide.with(getApplicationContext()).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
 
             } else {
-                Glide.with(this).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
+                Glide.with(getApplicationContext()).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
 
             }
 //            ImageView imageView = new ImageView(EditorActivity.this);
@@ -2157,21 +2151,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         selectedView = v;
         final int INAVALID_POINTER_ID = -1;
-//        v.setPadding(16, 16, 16, 16);
         if (previousSelcted_View != null) {
             previousSelcted_View.setBackground(null);
             previousSelcted_View = v;
             clear_button.setVisibility(View.VISIBLE);
-
             selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
-
-
         } else {
             clear_button.setVisibility(View.VISIBLE);
             previousSelcted_View = v;
             selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
-
-
         }
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
@@ -2291,7 +2279,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    public class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+    private class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             if (selectedView != null) {

@@ -127,18 +127,7 @@ public class DownloadImageService extends Service {
     }
 
     private void setBuilder() {
-        mNotification_Builder.setContentTitle("Downloading images...")
-                .setContentText("Download in progress")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
-                .setBadgeIconType(R.drawable.ic_launcher)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Download in progress"))
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setProgress(0, 0, true)
-                .setAutoCancel(true)
-                .setOngoing(true)
-        ;
+        mNotification_Builder.setContentTitle("Downloading images...").setContentText("Download in progress").setSmallIcon(R.drawable.ic_launcher).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher)).setBadgeIconType(R.drawable.ic_launcher).setStyle(new NotificationCompat.BigTextStyle().bigText("Download in progress")).setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent)).setPriority(NotificationCompat.PRIORITY_HIGH).setProgress(0, 0, true).setAutoCancel(true).setOngoing(true);
         mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
 
     }
@@ -244,9 +233,10 @@ public class DownloadImageService extends Service {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            Log.d("ON POST EXEC", String.valueOf("COMPLETED"));
-            Log.d("ON POST EXEC LOC", String.valueOf(FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File))));
+
+        protected void onPostExecute(Void aVoid) throws NullPointerException {
+//            Log.d("ON POST EXEC", String.valueOf("COMPLETED"));
+//            Log.d("ON POST EXEC LOC", String.valueOf(FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File))));
             Intent intent_gallery = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File)));
             intent_gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), NOTIFY_ID, intent_gallery, PendingIntent.FLAG_ONE_SHOT);
