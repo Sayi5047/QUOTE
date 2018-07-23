@@ -16,7 +16,7 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 /**
  * Created by Sayi on 22-04-2018.
  */
-
+@Deprecated
 public class PreHome_Activity extends BaseActivity {
     RecyclerView recyclerView;
     MainFeatureADapter mainFeatureADapter;
@@ -67,8 +67,8 @@ public class PreHome_Activity extends BaseActivity {
     }
 
     private void callHome(int i) {
-        Intent intent=new Intent(PreHome_Activity.this,MainActivity.class);
-        intent.putExtra(Constants.HOME_SCREEN_NUMBER,i);
+        Intent intent = new Intent(PreHome_Activity.this, MainActivity.class);
+        intent.putExtra(Constants.HOME_SCREEN_NUMBER, i);
         startActivity(intent);
 
     }

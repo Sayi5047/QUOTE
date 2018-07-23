@@ -14,7 +14,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
@@ -49,7 +48,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.hustler.quote.BuildConfig;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Recievers.NotifAlarmReciever;
 import com.hustler.quote.ui.Services.DailyNotificationService;
@@ -88,6 +86,7 @@ import static android.view.View.GONE;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
+@Deprecated
 public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
     private FloatingActionButton floatingActionButton;
@@ -111,12 +110,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     AlarmManager alarmManager;
     boolean service_Started;
     PendingIntent pendingIntent, notif_pending_intent;
-    int[] icons = new int[]{R.drawable.ic_library,
-            R.drawable.ic_launcher, R.drawable.ic_picture,
+    int[] icons = new int[]{R.drawable.ic_library, R.drawable.ic_launcher, R.drawable.ic_picture,
 
-            R.drawable.ic_lover,
-            R.drawable.ic_canvas2
-    };
+            R.drawable.ic_lover, R.drawable.ic_canvas2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,12 +124,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         window = this.getWindow();
 
 
-        colors = new int[]{
-                ContextCompat.getColor(HomeActivity.this, R.color.pink_400),
-                ContextCompat.getColor(HomeActivity.this, R.color.colorAccent),
-                ContextCompat.getColor(HomeActivity.this, R.color.green_300),
-                ContextCompat.getColor(HomeActivity.this, R.color.orange_300),
-                ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
+        colors = new int[]{ContextCompat.getColor(HomeActivity.this, R.color.pink_400), ContextCompat.getColor(HomeActivity.this, R.color.colorAccent), ContextCompat.getColor(HomeActivity.this, R.color.green_300), ContextCompat.getColor(HomeActivity.this, R.color.orange_300), ContextCompat.getColor(HomeActivity.this, R.color.textColor)};
 
         editTabLayout();
         alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
@@ -157,10 +148,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
         notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
         notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
-                24 * 60 * 60 * 1000,
-                notif_pending_intent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24 * 60 * 60 * 1000, notif_pending_intent);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Shared_prefs_constants.SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY, true);
         editor.apply();
@@ -278,7 +266,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         header_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,MainActivity.class));
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
             }
         });
 
@@ -653,8 +641,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             }
             break;
             case R.id.action_Pro_write: {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "quotzyapp@gmail.com", null));
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "quotzyapp@gmail.com", null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
@@ -820,8 +807,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         header_name.setTextColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
 
-        tab_layout.setTabTextColors(ContextCompat.getColor(getApplication(), R.color.textColor),
-                ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
+        tab_layout.setTabTextColors(ContextCompat.getColor(getApplication(), R.color.textColor), ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
         tab_layout.setSelectedTabIndicatorColor(ColorUtils.getHEaderColor(colors, position, positionOffset, HomeActivity.this));
         editTabLayout();
     }
