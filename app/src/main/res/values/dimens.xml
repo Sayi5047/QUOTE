@@ -28,4 +28,5 @@
     <dimen name="smallPadding">8dp</dimen>
     <dimen name="standardMargin">8dp</dimen>
     <dimen name="dashed_text_stroke_width">8dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
 </resources>

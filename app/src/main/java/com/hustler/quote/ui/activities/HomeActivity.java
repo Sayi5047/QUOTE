@@ -120,11 +120,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
-            getWindow().setClipToOutline(true);
-            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.white_apple));
-        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_main);
         MobileAds.initialize(HomeActivity.this, Constants.ADS_APP_ID);
@@ -279,6 +275,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //        mainPager.setPageTransformer(false,new WallpaperPageTransformer());
         floatingActionButton.setOnClickListener(this);
 
+        header_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,MainActivity.class));
+            }
+        });
+
 ////        getIntentData(getIntent());
 //        tab_layout.getTabAt(0).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[0]));
 //        tab_layout.getTabAt(1).setIcon(ContextCompat.getDrawable(getApplicationContext(), icons[1]));
@@ -427,6 +430,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
             }
         });
+
         search_term.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -544,7 +548,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             loader.setVisibility(GONE);
             adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView, TextView textView2) {
+                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);

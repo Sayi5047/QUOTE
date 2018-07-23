@@ -10,6 +10,7 @@ import android.widget.RemoteViews;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.activities.HomeActivity;
+import com.hustler.quote.ui.activities.MainActivity;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 
 /**
@@ -41,7 +42,7 @@ public class EditWidgetProvider extends AppWidgetProvider {
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.editor_widget_layout);
         Intent intent_edit = new Intent(context, EditorActivity.class);
-        Intent intent_home = new Intent(context, HomeActivity.class);
+        Intent intent_home = new Intent(context, MainActivity.class);
         intent_edit.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
         PendingIntent pendingIntent_edit = PendingIntent.getActivity(context, 0, intent_edit, 0);
         PendingIntent pendingIntent_home = PendingIntent.getActivity(context, 0, intent_home, 0);

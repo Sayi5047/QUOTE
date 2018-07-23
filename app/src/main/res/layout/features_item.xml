@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/feature_item"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginLeft="@dimen/elevation16"
         android:background="@drawable/circular_button"
         android:elevation="@dimen/elevation4"

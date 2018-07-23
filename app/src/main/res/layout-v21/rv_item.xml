@@ -28,7 +28,7 @@
             android:padding="@dimen/elevation8"
             android:text="Something"
             android:textColor="@color/textColor"
-            android:textSize="@dimen/font2"
+            android:textSize="@dimen/font1"
             android:textStyle="bold" />
 
         <TextView
@@ -41,7 +41,8 @@
             android:text="Something"
             android:textAlignment="viewEnd"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/font1"
+            android:textSize="@dimen/font"
+            android:textStyle="italic"
 
             />
 

@@ -8,6 +8,6 @@
         android:height="512dp" />
     <stroke
         android:width="@dimen/elevation2"
-        android:color="@color/pink_400" />
+        android:color="@color/colorPrimary1" />
 
 </shape>

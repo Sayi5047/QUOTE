@@ -29,8 +29,8 @@ android {
         applicationId "com.hustler.quote"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.000007"
+        versionCode 9
+        versionName "1.000008"
         resConfigs "en"
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
@@ -40,7 +40,7 @@ android {
         release {
             debuggable false
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             proguardFiles fileTree('proguard').asList().toArray()
             shrinkResources true
             signingConfig signingConfigs.releaseconfig

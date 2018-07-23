@@ -325,4 +325,6 @@
     <string name="share_text">#Quotzy. I made this wallpaper on Quotzy</string>
     <string name="share_description">Download Quotzy from playstore to make your own wallpapers #Quotzy</string>
     <string name="thanks_for_rating">Thanks for rating, If you already rated please ignore.Else, please provide rating by clicking below</string>
+    <string name="title_activity_new_home">NewHomeActivity</string>
+    <string name="others">Others</string>
 </resources>

@@ -436,7 +436,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-//        finishAfterTransition();
+//        super.onBackPressed();
+        finishAfterTransition();
     }
 }

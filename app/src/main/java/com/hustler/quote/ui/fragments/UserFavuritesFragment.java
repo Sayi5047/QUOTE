@@ -113,9 +113,9 @@ public class UserFavuritesFragment extends Fragment {
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView, TextView textView2) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))
                        ).toBundle();
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

@@ -89,7 +89,7 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
     }
 
     private void checkPermission_and_proceed() {
-        if (InternetUtils.isConnectedtoNet(getActivity()) == true) {
+        if (InternetUtils.isConnectedtoNet(getActivity())) {
 //            dataView.setVisibility(View.VISIBLE);
             setRecyclerview();
 //            setCategoriesRecyclerView();
@@ -104,7 +104,7 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
         if (sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times, 0) > 5) {
             getRandomIMages(new Random().nextInt(30));
         } else {
-            if (sharedPreferences.getBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, false) == true) {
+            if (sharedPreferences.getBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, false)) {
                 new LoadImagestoSharedPrefsTask().execute();
 
             } else {

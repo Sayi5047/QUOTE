@@ -61,10 +61,9 @@ public class LanderActivty extends BaseActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-//            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
-//            getWindow().setClipToOutline(true);
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lander_activity_layout);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -74,17 +73,8 @@ public class LanderActivty extends BaseActivity {
 
         viewPager = findViewById(R.id.view_pager);
         relativeLayout = findViewById(R.id.root_layout);
-        colors = new int[]{ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
-                ContextCompat.getColor(LanderActivty.this, R.color.green_300),
-                ContextCompat.getColor(LanderActivty.this, R.color.orange_300),
-                ContextCompat.getColor(LanderActivty.this, R.color.pink_400),
-                ContextCompat.getColor(LanderActivty.this, R.color.purple_400),};
-        colors2 = new int[]{
-                ContextCompat.getColor(LanderActivty.this, android.R.color.white),
-                ContextCompat.getColor(LanderActivty.this, R.color.orange_300),
-                ContextCompat.getColor(LanderActivty.this, R.color.pink_400),
-                ContextCompat.getColor(LanderActivty.this, R.color.purple_400),
-                ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
+        colors = new int[]{ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400), ContextCompat.getColor(LanderActivty.this, R.color.green_300), ContextCompat.getColor(LanderActivty.this, R.color.orange_300), ContextCompat.getColor(LanderActivty.this, R.color.pink_400), ContextCompat.getColor(LanderActivty.this, R.color.purple_400),};
+        colors2 = new int[]{ContextCompat.getColor(LanderActivty.this, android.R.color.white), ContextCompat.getColor(LanderActivty.this, R.color.orange_300), ContextCompat.getColor(LanderActivty.this, R.color.pink_400), ContextCompat.getColor(LanderActivty.this, R.color.purple_400), ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
 
         };
         relativeLayout1 = findViewById(R.id.bt_launch_layout);
@@ -148,8 +138,8 @@ public class LanderActivty extends BaseActivity {
             @Override
             public void onClick(View v) {
                 updateSharedPreferences();
-                Intent intent=new Intent(LanderActivty.this,HomeActivity.class);
-                startActivity(new Intent(LanderActivty.this, HomeActivity.class));
+                Intent intent = new Intent(LanderActivty.this, MainActivity.class);
+                startActivity(new Intent(LanderActivty.this, MainActivity.class));
 
             }
         });
@@ -245,9 +235,7 @@ public class LanderActivty extends BaseActivity {
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater,
-                                 @Nullable ViewGroup container,
-                                 @Nullable Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
             View view = inflater.inflate(R.layout.onboard_layout, container, false);
             if (imageresource != 0) {

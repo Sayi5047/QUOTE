@@ -4,14 +4,17 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black2_24dp"
+        android:iconTint="#FFFFFF"
         android:title="@string/action_settings"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_rate"
         android:icon="@drawable/ic_stars_black_24dp"
+        android:iconTint="#FFFFFF"
         android:title="@string/rate_us"
         app:showAsAction="always" />
-    <group>
+    <group
+        android:visible="false">
         <item
             android:id="@+id/action_settings"
             android:icon="@drawable/ic_search_blue"
@@ -47,7 +50,7 @@
             android:id="@+id/action_Pro_rate"
             android:orderInCategory="2"
             android:title="@string/rate_us"
-            android:visible="true"
+            android:visible="false"
             app:showAsAction="collapseActionView" />
     </group>
 

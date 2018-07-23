@@ -67,7 +67,7 @@ public class PreHome_Activity extends BaseActivity {
     }
 
     private void callHome(int i) {
-        Intent intent=new Intent(PreHome_Activity.this,HomeActivity.class);
+        Intent intent=new Intent(PreHome_Activity.this,MainActivity.class);
         intent.putExtra(Constants.HOME_SCREEN_NUMBER,i);
         startActivity(intent);
 

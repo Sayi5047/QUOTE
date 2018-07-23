@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
-            android:padding="16dp"
+            android:padding="4dp"
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@color/textColor"
@@ -38,7 +38,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/colors_rv"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
 
             android:padding="4dp">

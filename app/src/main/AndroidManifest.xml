@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
+<?xml version="1.0" encoding="utf-8"?><!-- /*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/ -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hustler.quote">
@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -17,10 +16,12 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activities.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,11 +33,13 @@
             android:name=".ui.activities.QuoteDetailsActivity"
             android:label=" "
             android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
+            android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".ui.activities.EditorActivity"
@@ -47,39 +50,45 @@
             <intent-filter
                 android:scheme="http"
                 tools:ignore="AppLinkUrlError">
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<data android:mimeType="application/x-zip-compressed" />-->
+
+                <!-- <action android:name="android.intent.action.VIEW" /> -->
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+                <!-- <data android:mimeType="application/x-zip-compressed" /> -->
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:mimeType="application/zip" />
-
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.HomeActivity"
             android:label=""
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/lightstatusbar">
-            <!--<meta-data-->
-            <!--android:name="android.app.searchable"-->
-            <!--android:resource="@xml/searchable">-->
 
-            <!--</meta-data>-->
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.SEARCH" />-->
-            <!--</intent-filter>-->
+            <!-- <meta-data -->
+            <!-- android:name="android.app.searchable" -->
+            <!-- android:resource="@xml/searchable"> -->
+
+
+            <!-- </meta-data> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.SEARCH" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.activities.LanderActivty"
             android:screenOrientation="portrait"
             android:theme="@style/NoStatusBar" />
-        <activity android:name=".ui.activities.MyPreferenceActivity" />
+        <activity
+            android:name=".ui.activities.MyPreferenceActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Widgets.QuoteWidgetConfigurationActivity"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -87,12 +96,15 @@
         </activity>
         <activity
             android:name=".ui.activities.WallpapersPagerActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.ProfeaturesActivity"
-            android:label="@string/beta" />
+            android:label="@string/beta"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.PreHome_Activity"
+            android:screenOrientation="portrait"
             android:theme="@style/lightstatusbar" />
 
         <receiver
@@ -101,28 +113,26 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/edit_widget_info">
-
-            </meta-data>
-
+                android:resource="@xml/edit_widget_info" />
         </receiver>
-        <!--<receiver-->
-        <!--android:name=".ui.Widgets.EditWidgetProvider2"-->
-        <!--tools:ignore="InnerclassSeparator">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
-        <!--</intent-filter>-->
-        <!--<meta-data-->
-        <!--android:name="android.appwidget.provider"-->
-        <!--android:resource="@xml/second_widget_info" />-->
-        <!--</receiver>-->
-        <!--<receiver android:name=".ui.Widgets.QuoteWidgetConfigurationActivity$Bootreciever">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver -->
+        <!-- android:name=".ui.Widgets.EditWidgetProvider2" -->
+        <!-- tools:ignore="InnerclassSeparator"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.appwidget.action.APPWIDGET_UPDATE" /> -->
+        <!-- </intent-filter> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.appwidget.provider" -->
+        <!-- android:resource="@xml/second_widget_info" /> -->
+        <!-- </receiver> -->
+        <!-- <receiver android:name=".ui.Widgets.QuoteWidgetConfigurationActivity$Bootreciever"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
         <receiver android:name=".ui.Recievers.SystemBootReciever">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -165,7 +175,6 @@
             tools:ignore="InnerclassSeparator" />
         <service
             android:name=".ui.Services.DailyNotificationService"
-
             tools:ignore="InnerclassSeparator" />
         <service android:name=".ui.Services.QuoteLoaderService" />
         <service android:name=".ui.Services.FbTokenService">
@@ -179,7 +188,7 @@
             </intent-filter>
         </service>
 
-        <!--PROVIDERS AREA-->
+        <!-- PROVIDERS AREA -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="@string/file_provider_authority"
@@ -190,7 +199,11 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/lightstatusbar" />
     </application>
 
 </manifest>

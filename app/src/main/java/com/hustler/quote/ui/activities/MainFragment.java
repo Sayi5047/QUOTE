@@ -53,6 +53,11 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
     SharedPreferences sharedPreferences;
     private List<Quote> quotes;
 
+
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,7 +69,7 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView,TextView textView2) {
+            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                    getActivity().getWindow().setEnterTransition(new Slide());
 //                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);

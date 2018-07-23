@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -59,11 +60,11 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     }
 
     public interface OnQuoteClickListener {
-        void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view, TextView textView1, TextView textView2);
+        void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view);
     }
 
     @Override
-    public LocalViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LocalViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new LocalViewholder(activity.getLayoutInflater().inflate(R.layout.rv_item, parent, false));
     }
 
@@ -112,7 +113,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
             @Override
             public void onClick(View v) {
                 if (onQuoteClickListener != null) {
-                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.cardView, holder.tv, holder.tv2);
+                    onQuoteClickListener.onQuoteClicked(position, gradientDrawable, quote, holder.cardView);
                 }
             }
         });
