@@ -63,7 +63,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_edit_black"
-        android:backgroundTint="@color/WHITE"
+        app:backgroundTint="@color/trans_white_apple"
         />
 
 </android.support.design.widget.CoordinatorLayout>

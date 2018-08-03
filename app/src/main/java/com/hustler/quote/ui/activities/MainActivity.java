@@ -90,13 +90,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         main_view = findViewById(R.id.main_view);
 
         setSupportActionBar(toolbar);
         linearLayout = findViewById(R.id.header_ll);
 
-        header_name = (TextView) findViewById(R.id.header_name);
+        header_name = findViewById(R.id.header_name);
         TextUtils.setFont(MainActivity.this, header_name, Constants.FONT_CIRCULAR);
 
         header_name.setVisibility(GONE);
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 header_name.setVisibility(View.VISIBLE);
             }
         }.start();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextUtils.setMenu_Font(navigationView.getMenu(), MainActivity.this);
 //        TextUtils.findText_and_applyTypeface(linearLayout, MainActivity.this);
@@ -527,20 +527,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
             launchFragment(new MainFragment());
-        }
-        if (id == R.id.nav_camera_2) {
-            // Handle the camera action
+        } else if (id == R.id.nav_camera_2) {
             launchFragment(new CategoriesFragment());
         } else if (id == R.id.nav_gallery) {
             launchFragment(new WallpaperFragment());
-
-
         } else if (id == R.id.nav_slideshow) {
             launchFragment(new UserFavuritesFragment());
-
-
         } else if (id == R.id.nav_manage) {
             launchFragment(new UserWorkFragment());
         } else if (id == R.id.nav_share) {
@@ -552,7 +545,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(Intent.createChooser(emailIntent, "Send email..."));
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -588,7 +581,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
