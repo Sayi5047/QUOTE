@@ -1,1087 +1,1087 @@
 <?xml version="1.0" encoding="utf-8"?><!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <array name="mdcolor_50">
-        <item name="red_50" type="color">#fde0dc</item>
-        <item name="pink_50" type="color">#fce4ec</item>
-        <item name="purple_50" type="color">#f3e5f5</item>
-        <item name="deep_purple_50" type="color">#ede7f6</item>
-        <item name="indigo_50" type="color">#e8eaf6</item>
-        <item name="blue_50" type="color">#e7e9fd</item>
-        <item name="light_blue_50" type="color">#e1f5fe</item>
-        <item name="cyan_50" type="color">#e0f7fa</item>
-        <item name="teal_50" type="color">#e0f2f1</item>
-        <item name="green_50" type="color">#d0f8ce</item>
-        <item name="light_green_50" type="color">#f1f8e9</item>
-        <item name="lime_50" type="color">#f9fbe7</item>
-        <item name="yellow_50" type="color">#fffde7</item>
-        <item name="amber_50" type="color">#fff8e1</item>
-        <item name="orange_50" type="color">#fff3e0</item>
-        <item name="deep_orange_50" type="color">#fbe9e7</item>
-        <item name="brown_50" type="color">#efebe9</item>
-        <item name="grey_50" type="color">#fafafa</item>
-        <item name="blue_grey_50" type="color">#eceff1</item>
+    <array name="mdcolor_50" tools:keep="@array/mdcolor_50">
+        <item name="red_50" type="color" tools:keep="@color/red_50">#fde0dc</item>
+        <item name="pink_50" type="color" tools:keep="@color/pink_50">#fce4ec</item>
+        <item name="purple_50" type="color" tools:keep="@color/purple_50">#f3e5f5</item>
+        <item name="deep_purple_50" type="color" tools:keep="@color/deep_purple_50">#ede7f6</item>
+        <item name="indigo_50" type="color" tools:keep="@color/indigo_50">#e8eaf6</item>
+        <item name="blue_50" type="color" tools:keep="@color/blue_50">#e7e9fd</item>
+        <item name="light_blue_50" type="color" tools:keep="@color/light_blue_50">#e1f5fe</item>
+        <item name="cyan_50" type="color" tools:keep="@color/cyan_50">#e0f7fa</item>
+        <item name="teal_50" type="color" tools:keep="@color/teal_50">#e0f2f1</item>
+        <item name="green_50" type="color" tools:keep="@color/green_50">#d0f8ce</item>
+        <item name="light_green_50" type="color" tools:keep="@color/light_green_50">#f1f8e9</item>
+        <item name="lime_50" type="color" tools:keep="@color/lime_50">#f9fbe7</item>
+        <item name="yellow_50" type="color" tools:keep="@color/yellow_50">#fffde7</item>
+        <item name="amber_50" type="color" tools:keep="@color/amber_50">#fff8e1</item>
+        <item name="orange_50" type="color" tools:keep="@color/orange_50">#fff3e0</item>
+        <item name="deep_orange_50" type="color" tools:keep="@color/deep_orange_50">#fbe9e7</item>
+        <item name="brown_50" type="color" tools:keep="@color/brown_50">#efebe9</item>
+        <item name="grey_50" type="color" tools:keep="@color/grey_50">#fafafa</item>
+        <item name="blue_grey_50" type="color" tools:keep="@color/blue_grey_50">#eceff1</item>
     </array>
-    <array name="mdcolor_100">
+    <array name="mdcolor_100" tools:keep="@array/mdcolor_100">
         <item name="red_100" type="color">#f9bdbb</item>
-        <item name="pink_100" type="color">#f8bbd0</item>
-        <item name="purple_100" type="color">#e1bee7</item>
-        <item name="deep_purple_100" type="color">#d1c4e9</item>
-        <item name="indigo_100" type="color">#c5cae9</item>
-        <item name="blue_100" type="color">#d0d9ff</item>
-        <item name="light_blue_100" type="color">#b3e5fc</item>
-        <item name="cyan_100" type="color">#b2ebf2</item>
-        <item name="teal_100" type="color">#b2dfdb</item>
-        <item name="green_100" type="color">#a3e9a4</item>
-        <item name="light_green_100" type="color">#dcedc8</item>
-        <item name="lime_100" type="color">#f0f4c3</item>
-        <item name="yellow_100" type="color">#fff9c4</item>
-        <item name="amber_100" type="color">#ffecb3</item>
-        <item name="orange_100" type="color">#ffe0b2</item>
-        <item name="deep_orange_100" type="color">#ffccbc</item>
-        <item name="brown_100" type="color">#d7ccc8</item>
-        <item name="grey_100" type="color">#f5f5f5</item>
-        <item name="blue_grey_100" type="color">#cfd8dc</item>
+        <item name="pink_100" type="color" tools:keep="@color/pink_100">#f8bbd0</item>
+        <item name="purple_100" type="color" tools:keep="@color/purple_100">#e1bee7</item>
+        <item name="deep_purple_100" type="color" tools:keep="@color/deep_purple_100">#d1c4e9</item>
+        <item name="indigo_100" type="color" tools:keep="@color/indigo_100">#c5cae9</item>
+        <item name="blue_100" type="color" tools:keep="@color/blue_100">#d0d9ff</item>
+        <item name="light_blue_100" type="color" tools:keep="@color/light_blue_100">#b3e5fc</item>
+        <item name="cyan_100" type="color" tools:keep="@color/cyan_100">#b2ebf2</item>
+        <item name="teal_100" type="color" tools:keep="@color/teal_100">#b2dfdb</item>
+        <item name="green_100" type="color" tools:keep="@color/green_100">#a3e9a4</item>
+        <item name="light_green_100" type="color" tools:keep="@color/light_green_100">#dcedc8</item>
+        <item name="lime_100" type="color" tools:keep="@color/lime_100">#f0f4c3</item>
+        <item name="yellow_100" type="color" tools:keep="@color/yellow_100">#fff9c4</item>
+        <item name="amber_100" type="color" tools:keep="@color/amber_100">#ffecb3</item>
+        <item name="orange_100" type="color" tools:keep="@color/orange_100">#ffe0b2</item>
+        <item name="deep_orange_100" type="color" tools:keep="@color/deep_orange_100">#ffccbc</item>
+        <item name="brown_100" type="color" tools:keep="@color/brown_100">#d7ccc8</item>
+        <item name="grey_100" type="color" tools:keep="@color/grey_100">#f5f5f5</item>
+        <item name="blue_grey_100" type="color" tools:keep="@color/blue_grey_100">#cfd8dc</item>
     </array>
-    <array name="mdcolor_200">
-        <item name="red_200" type="color">#f69988</item>
-        <item name="pink_200" type="color">#f48fb1</item>
-        <item name="purple_200" type="color">#ce93d8</item>
-        <item name="deep_purple_200" type="color">#b39ddb</item>
-        <item name="indigo_200" type="color">#9fa8da</item>
-        <item name="blue_200" type="color">#afbfff</item>
-        <item name="light_blue_200" type="color">#81d4fa</item>
-        <item name="cyan_200" type="color">#80deea</item>
-        <item name="teal_200" type="color">#80cbc4</item>
-        <item name="green_200" type="color">#72d572</item>
-        <item name="light_green_200" type="color">#c5e1a5</item>
-        <item name="lime_200" type="color">#e6ee9c</item>
-        <item name="yellow_200" type="color">#fff59d</item>
-        <item name="orange_200" type="color">#ffcc80</item>
-        <item name="deep_orange_200" type="color">#ffab91</item>
-        <item name="brown_200" type="color">#bcaaa4</item>
-        <item name="grey_200" type="color">#eeeeee</item>
-        <item name="blue_grey_200" type="color">#b0bec5</item>
+    <array name="mdcolor_200" tools:keep="@array/mdcolor_200">
+        <item name="red_200" type="color" tools:keep="@color/red_200">#f69988</item>
+        <item name="pink_200" type="color" tools:keep="@color/pink_200">#f48fb1</item>
+        <item name="purple_200" type="color" tools:keep="@color/purple_200">#ce93d8</item>
+        <item name="deep_purple_200" type="color" tools:keep="@color/deep_purple_200">#b39ddb</item>
+        <item name="indigo_200" type="color" tools:keep="@color/indigo_200">#9fa8da</item>
+        <item name="blue_200" type="color" tools:keep="@color/blue_200">#afbfff</item>
+        <item name="light_blue_200" type="color" tools:keep="@color/light_blue_200">#81d4fa</item>
+        <item name="cyan_200" type="color" tools:keep="@color/cyan_200">#80deea</item>
+        <item name="teal_200" type="color" tools:keep="@color/teal_200">#80cbc4</item>
+        <item name="green_200" type="color" tools:keep="@color/green_200">#72d572</item>
+        <item name="light_green_200" type="color" tools:keep="@color/light_green_200">#c5e1a5</item>
+        <item name="lime_200" type="color" tools:keep="@color/lime_200">#e6ee9c</item>
+        <item name="yellow_200" type="color" tools:keep="@color/yellow_200">#fff59d</item>
+        <item name="orange_200" type="color" tools:keep="@color/orange_200">#ffcc80</item>
+        <item name="deep_orange_200" type="color" tools:keep="@color/deep_orange_200">#ffab91</item>
+        <item name="brown_200" type="color" tools:keep="@color/brown_200">#bcaaa4</item>
+        <item name="grey_200" type="color" tools:keep="@color/grey_200">#eeeeee</item>
+        <item name="blue_grey_200" type="color" tools:keep="@color/blue_grey_200">#b0bec5</item>
     </array>
-    <array name="mdcolor_300">
-        <item name="red_300" type="color">#f36c60</item>
-        <item name="pink_300" type="color">#f06292</item>
-        <item name="purple_300" type="color">#ba68c8</item>
-        <item name="deep_purple_300" type="color">#9575cd</item>
-        <item name="indigo_300" type="color">#7986cb</item>
-        <item name="blue_300" type="color">#91a7ff</item>
-        <item name="light_blue_300" type="color">#4fc3f7</item>
-        <item name="cyan_300" type="color">#4dd0e1</item>
-        <item name="teal_300" type="color">#4db6ac</item>
+    <array name="mdcolor_300" tools:keep="@array/mdcolor_300">
+        <item name="red_300" type="color" tools:keep="@color/red_300">#f36c60</item>
+        <item name="pink_300" type="color" tools:keep="@color/pink_300">#f06292</item>
+        <item name="purple_300" type="color" tools:keep="@color/purple_300">#ba68c8</item>
+        <item name="deep_purple_300" type="color" tools:keep="@color/deep_purple_300">#9575cd</item>
+        <item name="indigo_300" type="color" tools:keep="@color/indigo_300">#7986cb</item>
+        <item name="blue_300" type="color" tools:keep="@color/blue_300">#91a7ff</item>
+        <item name="light_blue_300" type="color" tools:keep="@color/light_blue_300">#4fc3f7</item>
+        <item name="cyan_300" type="color" tools:keep="@color/cyan_300">#4dd0e1</item>
+        <item name="teal_300" type="color" tools:keep="@color/teal_300">#4db6ac</item>
         <item name="green_300" type="color">#42bd41</item>
 
 
-        <item name="light_green_300" type="color">#aed581</item>
-        <item name="lime_300" type="color">#dce775</item>
-        <item name="yellow_300" type="color">#fff176</item>
+        <item name="light_green_300" type="color" tools:keep="@color/light_green_300">#aed581</item>
+        <item name="lime_300" type="color" tools:keep="@color/lime_300">#dce775</item>
+        <item name="yellow_300" type="color" tools:keep="@color/yellow_300">#fff176</item>
         <item name="orange_300" type="color">#ffb74d</item>
-        <item name="deep_orange_300" type="color">#ff8a65</item>
-        <item name="brown_300" type="color">#a1887f</item>
-        <item name="grey_300" type="color">#e0e0e0</item>
-        <item name="blue_grey_300" type="color">#90a4ae</item>
+        <item name="deep_orange_300" type="color" tools:keep="@color/deep_orange_300">#ff8a65</item>
+        <item name="brown_300" type="color" tools:keep="@color/brown_300">#a1887f</item>
+        <item name="grey_300" type="color" tools:keep="@color/grey_300">#e0e0e0</item>
+        <item name="blue_grey_300" type="color" tools:keep="@color/blue_grey_300">#90a4ae</item>
     </array>
-    <array name="mdcolor_400">
-        <item name="red_400" type="color">#e84e40</item>
+    <array name="mdcolor_400" tools:keep="@array/mdcolor_400">
+        <item name="red_400" type="color" tools:keep="@color/red_400">#e84e40</item>
         <item name="pink_400" type="color">#ec407a</item>
         <item name="purple_400" type="color">#ab47bc</item>
-        <item name="deep_purple_400" type="color">#7e57c2</item>
-        <item name="indigo_400" type="color">#5c6bc0</item>
-        <item name="blue_400" type="color">#738ffe</item>
+        <item name="deep_purple_400" type="color" tools:keep="@color/deep_purple_400">#7e57c2</item>
+        <item name="indigo_400" type="color" tools:keep="@color/indigo_400">#5c6bc0</item>
+        <item name="blue_400" type="color" tools:keep="@color/blue_400">#738ffe</item>
         <item name="light_blue_400" type="color">#29b6f6</item>
-        <item name="cyan_400" type="color">#26c6da</item>
-        <item name="teal_400" type="color">#26a69a</item>
-        <item name="green_400" type="color">#2baf2b</item>
-        <item name="light_green_400" type="color">#9ccc65</item>
-        <item name="lime_400" type="color">#d4e157</item>
+        <item name="cyan_400" type="color" tools:keep="@color/cyan_400">#26c6da</item>
+        <item name="teal_400" type="color" tools:keep="@color/teal_400">#26a69a</item>
+        <item name="green_400" type="color" tools:keep="@color/green_400">#2baf2b</item>
+        <item name="light_green_400" type="color" tools:keep="@color/light_green_400">#9ccc65</item>
+        <item name="lime_400" type="color" tools:keep="@color/lime_400">#d4e157</item>
         <!--<item name="yellow_400" type="color">#ffee58</item>-->
-        <item name="orange_400" type="color">#ffa726</item>
-        <item name="deep_orange_400" type="color">#ff7043</item>
-        <item name="brown_400" type="color">#8d6e63</item>
-        <item name="grey_400" type="color">#bdbdbd</item>
-        <item name="blue_grey_400" type="color">#78909c</item>
+        <item name="orange_400" type="color" tools:keep="@color/orange_400">#ffa726</item>
+        <item name="deep_orange_400" type="color" tools:keep="@color/deep_orange_400">#ff7043</item>
+        <item name="brown_400" type="color" tools:keep="@color/brown_400">#8d6e63</item>
+        <item name="grey_400" type="color" tools:keep="@color/grey_400">#bdbdbd</item>
+        <item name="blue_grey_400" type="color" tools:keep="@color/blue_grey_400">#78909c</item>
     </array>
-    <array name="mdcolor_500">
-    <item name="red_5001" type="color">#e51c23</item>
-    <item name="pink_5001" type="color">#e91e63</item>
-    <item name="purple_5001" type="color">#9c27b0</item>
-    <item name="deep_purple_5001" type="color">#673ab7</item>
-    <item name="indigo_5001" type="color">#3f51b5</item>
-    <item name="blue_5001" type="color">#5677fc</item>
-    <item name="light_blue_5001" type="color">#03a9f4</item>
-    <item name="cyan_5001" type="color">#00bcd4</item>
-    <item name="teal_5001" type="color">#009688</item>
-    <item name="green_5001" type="color">#259b24</item>
-    <item name="light_green_5001" type="color">#8bc34a</item>
-    <item name="lime_5001" type="color">#cddc39</item>
-    <item name="yellow_5001" type="color">#ffeb3b</item>
-    <item name="orange_5001" type="color">#ff9800</item>
-    <item name="deep_orange_5001" type="color">#ff5722</item>
-    <item name="brown_5001" type="color">#795548</item>
+    <array name="mdcolor_500" tools:keep="@array/mdcolor_500">
+    <item name="red_5001" type="color" tools:keep="@color/red_5001">#e51c23</item>
+    <item name="pink_5001" type="color" tools:keep="@color/pink_5001">#e91e63</item>
+    <item name="purple_5001" type="color" tools:keep="@color/purple_5001">#9c27b0</item>
+    <item name="deep_purple_5001" type="color" tools:keep="@color/deep_purple_5001">#673ab7</item>
+    <item name="indigo_5001" type="color" tools:keep="@color/indigo_5001">#3f51b5</item>
+    <item name="blue_5001" type="color" tools:keep="@color/blue_5001">#5677fc</item>
+    <item name="light_blue_5001" type="color" tools:keep="@color/light_blue_5001">#03a9f4</item>
+    <item name="cyan_5001" type="color" tools:keep="@color/cyan_5001">#00bcd4</item>
+    <item name="teal_5001" type="color" tools:keep="@color/teal_5001">#009688</item>
+    <item name="green_5001" type="color" tools:keep="@color/green_5001">#259b24</item>
+    <item name="light_green_5001" type="color" tools:keep="@color/light_green_5001">#8bc34a</item>
+    <item name="lime_5001" type="color" tools:keep="@color/lime_5001">#cddc39</item>
+    <item name="yellow_5001" type="color" tools:keep="@color/yellow_5001">#ffeb3b</item>
+    <item name="orange_5001" type="color" tools:keep="@color/orange_5001">#ff9800</item>
+    <item name="deep_orange_5001" type="color" tools:keep="@color/deep_orange_5001">#ff5722</item>
+    <item name="brown_5001" type="color" tools:keep="@color/brown_5001">#795548</item>
     </array>
-    <array name="mdcolor_600">
-        <item name="red_600" type="color">#dd191d</item>
-        <item name="pink_600" type="color">#d81b60</item>
-        <item name="purple_600" type="color">#8e24aa</item>
-        <item name="deep_purple_600" type="color">#5e35b1</item>
-        <item name="indigo_600" type="color">#3949ab</item>
-        <item name="blue_600" type="color">#4e6cef</item>
-        <item name="light_blue_600" type="color">#039be5</item>
-        <item name="cyan_600" type="color">#00acc1</item>
-        <item name="teal_600" type="color">#00897b</item>
-        <item name="green_600" type="color">#0a8f08</item>
-        <item name="light_green_600" type="color">#7cb342</item>
-        <item name="lime_600" type="color">#c0ca33</item>
-        <item name="yellow_600" type="color">#fdd835</item>
-        <item name="orange_600" type="color">#fb8c00</item>
-        <item name="deep_orange_600" type="color">#f4511e</item>
-        <item name="brown_600" type="color">#6d4c41</item>
-        <item name="grey_600" type="color">#757575</item>
-        <item name="blue_grey_600" type="color">#546e7a</item>
+    <array name="mdcolor_600" tools:keep="@array/mdcolor_600">
+        <item name="red_600" type="color" tools:keep="@color/red_600">#dd191d</item>
+        <item name="pink_600" type="color" tools:keep="@color/pink_600">#d81b60</item>
+        <item name="purple_600" type="color" tools:keep="@color/purple_600">#8e24aa</item>
+        <item name="deep_purple_600" type="color" tools:keep="@color/deep_purple_600">#5e35b1</item>
+        <item name="indigo_600" type="color" tools:keep="@color/indigo_600">#3949ab</item>
+        <item name="blue_600" type="color" tools:keep="@color/blue_600">#4e6cef</item>
+        <item name="light_blue_600" type="color" tools:keep="@color/light_blue_600">#039be5</item>
+        <item name="cyan_600" type="color" tools:keep="@color/cyan_600">#00acc1</item>
+        <item name="teal_600" type="color" tools:keep="@color/teal_600">#00897b</item>
+        <item name="green_600" type="color" tools:keep="@color/green_600">#0a8f08</item>
+        <item name="light_green_600" type="color" tools:keep="@color/light_green_600">#7cb342</item>
+        <item name="lime_600" type="color" tools:keep="@color/lime_600">#c0ca33</item>
+        <item name="yellow_600" type="color" tools:keep="@color/yellow_600">#fdd835</item>
+        <item name="orange_600" type="color" tools:keep="@color/orange_600">#fb8c00</item>
+        <item name="deep_orange_600" type="color" tools:keep="@color/deep_orange_600">#f4511e</item>
+        <item name="brown_600" type="color" tools:keep="@color/brown_600">#6d4c41</item>
+        <item name="grey_600" type="color" tools:keep="@color/grey_600">#757575</item>
+        <item name="blue_grey_600" type="color" tools:keep="@color/blue_grey_600">#546e7a</item>
     </array>
-    <array name="mdcolor_700">
-        <item name="red_700" type="color">#d01716</item>
-        <item name="pink_700" type="color">#c2185b</item>
-        <item name="purple_700" type="color">#7b1fa2</item>
-        <item name="deep_purple_700" type="color">#512da8</item>
-        <item name="indigo_700" type="color">#303f9f</item>
-        <item name="blue_700" type="color">#455ede</item>
-        <item name="light_blue_700" type="color">#0288d1</item>
-        <item name="cyan_700" type="color">#0097a7</item>
-        <item name="teal_700" type="color">#00796b</item>
-        <item name="green_700" type="color">#0a7e07</item>
-        <item name="light_green_700" type="color">#689f38</item>
-        <item name="lime_700" type="color">#afb42b</item>
-        <item name="yellow_700" type="color">#fbc02d</item>
-        <item name="orange_700" type="color">#f57c00</item>
-        <item name="deep_orange_700" type="color">#e64a19</item>
-        <item name="brown_700" type="color">#5d4037</item>
-        <item name="grey_700" type="color">#616161</item>
-        <item name="blue_grey_700" type="color">#455a64</item>
+    <array name="mdcolor_700" tools:keep="@array/mdcolor_700">
+        <item name="red_700" type="color" tools:keep="@color/red_700">#d01716</item>
+        <item name="pink_700" type="color" tools:keep="@color/pink_700">#c2185b</item>
+        <item name="purple_700" type="color" tools:keep="@color/purple_700">#7b1fa2</item>
+        <item name="deep_purple_700" type="color" tools:keep="@color/deep_purple_700">#512da8</item>
+        <item name="indigo_700" type="color" tools:keep="@color/indigo_700">#303f9f</item>
+        <item name="blue_700" type="color" tools:keep="@color/blue_700">#455ede</item>
+        <item name="light_blue_700" type="color" tools:keep="@color/light_blue_700">#0288d1</item>
+        <item name="cyan_700" type="color" tools:keep="@color/cyan_700">#0097a7</item>
+        <item name="teal_700" type="color" tools:keep="@color/teal_700">#00796b</item>
+        <item name="green_700" type="color" tools:keep="@color/green_700">#0a7e07</item>
+        <item name="light_green_700" type="color" tools:keep="@color/light_green_700">#689f38</item>
+        <item name="lime_700" type="color" tools:keep="@color/lime_700">#afb42b</item>
+        <item name="yellow_700" type="color" tools:keep="@color/yellow_700">#fbc02d</item>
+        <item name="orange_700" type="color" tools:keep="@color/orange_700">#f57c00</item>
+        <item name="deep_orange_700" type="color" tools:keep="@color/deep_orange_700">#e64a19</item>
+        <item name="brown_700" type="color" tools:keep="@color/brown_700">#5d4037</item>
+        <item name="grey_700" type="color" tools:keep="@color/grey_700">#616161</item>
+        <item name="blue_grey_700" type="color" tools:keep="@color/blue_grey_700">#455a64</item>
     </array>
-    <array name="mdcolor_800">
-        <item name="red_800" type="color">#c41411</item>
-        <item name="pink_800" type="color">#ad1457</item>
-        <item name="purple_800" type="color">#6a1b9a</item>
-        <item name="deep_purple_800" type="color">#4527a0</item>
-        <item name="indigo_800" type="color">#283593</item>
-        <item name="blue_800" type="color">#3b50ce</item>
-        <item name="light_blue_800" type="color">#0277bd</item>
-        <item name="cyan_800" type="color">#00838f</item>
-        <item name="teal_800" type="color">#00695c</item>
-        <item name="green_800" type="color">#056f00</item>
-        <item name="light_green_800" type="color">#558b2f</item>
-        <item name="lime_800" type="color">#9e9d24</item>
-        <item name="yellow_800" type="color">#f9a825</item>
-        <item name="orange_800" type="color">#ef6c00</item>
-        <item name="deep_orange_800" type="color">#d84315</item>
-        <item name="brown_800" type="color">#4e342e</item>
-        <item name="grey_800" type="color">#424242</item>
-        <item name="blue_grey_800" type="color">#37474f</item>
+    <array name="mdcolor_800" tools:keep="@array/mdcolor_800">
+        <item name="red_800" type="color" tools:keep="@color/red_800">#c41411</item>
+        <item name="pink_800" type="color" tools:keep="@color/pink_800">#ad1457</item>
+        <item name="purple_800" type="color" tools:keep="@color/purple_800">#6a1b9a</item>
+        <item name="deep_purple_800" type="color" tools:keep="@color/deep_purple_800">#4527a0</item>
+        <item name="indigo_800" type="color" tools:keep="@color/indigo_800">#283593</item>
+        <item name="blue_800" type="color" tools:keep="@color/blue_800">#3b50ce</item>
+        <item name="light_blue_800" type="color" tools:keep="@color/light_blue_800">#0277bd</item>
+        <item name="cyan_800" type="color" tools:keep="@color/cyan_800">#00838f</item>
+        <item name="teal_800" type="color" tools:keep="@color/teal_800">#00695c</item>
+        <item name="green_800" type="color" tools:keep="@color/green_800">#056f00</item>
+        <item name="light_green_800" type="color" tools:keep="@color/light_green_800">#558b2f</item>
+        <item name="lime_800" type="color" tools:keep="@color/lime_800">#9e9d24</item>
+        <item name="yellow_800" type="color" tools:keep="@color/yellow_800">#f9a825</item>
+        <item name="orange_800" type="color" tools:keep="@color/orange_800">#ef6c00</item>
+        <item name="deep_orange_800" type="color" tools:keep="@color/deep_orange_800">#d84315</item>
+        <item name="brown_800" type="color" tools:keep="@color/brown_800">#4e342e</item>
+        <item name="grey_800" type="color" tools:keep="@color/grey_800">#424242</item>
+        <item name="blue_grey_800" type="color" tools:keep="@color/blue_grey_800">#37474f</item>
     </array>
-    <array name="mdcolor_900">
-        <item name="red_900" type="color">#b0120a</item>
-        <item name="pink_900" type="color">#880e4f</item>
-        <item name="purple_900" type="color">#4a148c</item>
-        <item name="deep_purple_900" type="color">#311b92</item>
-        <item name="indigo_900" type="color">#1a237e</item>
-        <item name="blue_900" type="color">#2a36b1</item>
-        <item name="light_blue_900" type="color">#01579b</item>
-        <item name="cyan_900" type="color">#006064</item>
-        <item name="teal_900" type="color">#004d40</item>
-        <item name="green_900" type="color">#0d5302</item>
-        <item name="light_green_900" type="color">#33691e</item>
-        <item name="lime_900" type="color">#827717</item>
-        <item name="yellow_900" type="color">#f57f17</item>
-        <item name="orange_900" type="color">#e65100</item>
-        <item name="deep_orange_900" type="color">#bf360c</item>
-        <item name="brown_900" type="color">#3e2723</item>
-        <item name="grey_900" type="color">#212121</item>
-        <item name="blue_grey_900" type="color">#263238</item>
+    <array name="mdcolor_900" tools:keep="@array/mdcolor_900">
+        <item name="red_900" type="color" tools:keep="@color/red_900">#b0120a</item>
+        <item name="pink_900" type="color" tools:keep="@color/pink_900">#880e4f</item>
+        <item name="purple_900" type="color" tools:keep="@color/purple_900">#4a148c</item>
+        <item name="deep_purple_900" type="color" tools:keep="@color/deep_purple_900">#311b92</item>
+        <item name="indigo_900" type="color" tools:keep="@color/indigo_900">#1a237e</item>
+        <item name="blue_900" type="color" tools:keep="@color/blue_900">#2a36b1</item>
+        <item name="light_blue_900" type="color" tools:keep="@color/light_blue_900">#01579b</item>
+        <item name="cyan_900" type="color" tools:keep="@color/cyan_900">#006064</item>
+        <item name="teal_900" type="color" tools:keep="@color/teal_900">#004d40</item>
+        <item name="green_900" type="color" tools:keep="@color/green_900">#0d5302</item>
+        <item name="light_green_900" type="color" tools:keep="@color/light_green_900">#33691e</item>
+        <item name="lime_900" type="color" tools:keep="@color/lime_900">#827717</item>
+        <item name="yellow_900" type="color" tools:keep="@color/yellow_900">#f57f17</item>
+        <item name="orange_900" type="color" tools:keep="@color/orange_900">#e65100</item>
+        <item name="deep_orange_900" type="color" tools:keep="@color/deep_orange_900">#bf360c</item>
+        <item name="brown_900" type="color" tools:keep="@color/brown_900">#3e2723</item>
+        <item name="grey_900" type="color" tools:keep="@color/grey_900">#212121</item>
+        <item name="blue_grey_900" type="color" tools:keep="@color/blue_grey_900">#263238</item>
     </array>
-    <array name="mdcolor_A100">
-        <item name="red_A100" type="color">#ff7997</item>
-        <item name="pink_A100" type="color">#ff80ab</item>
-        <item name="purple_A100" type="color">#ea80fc</item>
-        <item name="deep_purple_A100" type="color">#b388ff</item>
-        <item name="indigo_A100" type="color">#8c9eff</item>
-        <item name="blue_A100" type="color">#a6baff</item>
-        <item name="light_blue_A100" type="color">#80d8ff</item>
-        <item name="cyan_A100" type="color">#84ffff</item>
-        <item name="teal_A100" type="color">#a7ffeb</item>
-        <item name="green_A100" type="color">#a2f78d</item>
-        <item name="light_green_A100" type="color">#ccff90</item>
-        <item name="lime_A100" type="color">#f4ff81</item>
-        <item name="yellow_A100" type="color">#ffff8d</item>
-        <item name="orange_A100" type="color">#ffd180</item>
-        <item name="deep_orange_A100" type="color">#ff9e80</item>
+    <array name="mdcolor_A100" tools:keep="@array/mdcolor_A100">
+        <item name="red_A100" type="color" tools:keep="@color/red_A100">#ff7997</item>
+        <item name="pink_A100" type="color" tools:keep="@color/pink_A100">#ff80ab</item>
+        <item name="purple_A100" type="color" tools:keep="@color/purple_A100">#ea80fc</item>
+        <item name="deep_purple_A100" type="color" tools:keep="@color/deep_purple_A100">#b388ff</item>
+        <item name="indigo_A100" type="color" tools:keep="@color/indigo_A100">#8c9eff</item>
+        <item name="blue_A100" type="color" tools:keep="@color/blue_A100">#a6baff</item>
+        <item name="light_blue_A100" type="color" tools:keep="@color/light_blue_A100">#80d8ff</item>
+        <item name="cyan_A100" type="color" tools:keep="@color/cyan_A100">#84ffff</item>
+        <item name="teal_A100" type="color" tools:keep="@color/teal_A100">#a7ffeb</item>
+        <item name="green_A100" type="color" tools:keep="@color/green_A100">#a2f78d</item>
+        <item name="light_green_A100" type="color" tools:keep="@color/light_green_A100">#ccff90</item>
+        <item name="lime_A100" type="color" tools:keep="@color/lime_A100">#f4ff81</item>
+        <item name="yellow_A100" type="color" tools:keep="@color/yellow_A100">#ffff8d</item>
+        <item name="orange_A100" type="color" tools:keep="@color/orange_A100">#ffd180</item>
+        <item name="deep_orange_A100" type="color" tools:keep="@color/deep_orange_A100">#ff9e80</item>
     </array>
-    <array name="mdcolor_A200">
-        <item name="red_A200" type="color">#ff5177</item>
-        <item name="pink_A200" type="color">#ff4081</item>
-        <item name="purple_A200" type="color">#e040fb</item>
-        <item name="deep_purple_A200" type="color">#7c4dff</item>
-        <item name="indigo_A200" type="color">#536dfe</item>
-        <item name="blue_A200" type="color">#6889ff</item>
-        <item name="light_blue_A200" type="color">#40c4ff</item>
-        <item name="cyan_A200" type="color">#18ffff</item>
-        <item name="teal_A200" type="color">#64ffda</item>
-        <item name="green_A200" type="color">#5af158</item>
-        <item name="light_green_A200" type="color">#b2ff59</item>
-        <item name="lime_A200" type="color">#eeff41</item>
-        <item name="yellow_A200" type="color">#ffff00</item>
-        <item name="orange_A200" type="color">#ffab40</item>
-        <item name="deep_orange_A200" type="color">#ff6e40</item>
+    <array name="mdcolor_A200" tools:keep="@array/mdcolor_A200">
+        <item name="red_A200" type="color" tools:keep="@color/red_A200">#ff5177</item>
+        <item name="pink_A200" type="color" tools:keep="@color/pink_A200">#ff4081</item>
+        <item name="purple_A200" type="color" tools:keep="@color/purple_A200">#e040fb</item>
+        <item name="deep_purple_A200" type="color" tools:keep="@color/deep_purple_A200">#7c4dff</item>
+        <item name="indigo_A200" type="color" tools:keep="@color/indigo_A200">#536dfe</item>
+        <item name="blue_A200" type="color" tools:keep="@color/blue_A200">#6889ff</item>
+        <item name="light_blue_A200" type="color" tools:keep="@color/light_blue_A200">#40c4ff</item>
+        <item name="cyan_A200" type="color" tools:keep="@color/cyan_A200">#18ffff</item>
+        <item name="teal_A200" type="color" tools:keep="@color/teal_A200">#64ffda</item>
+        <item name="green_A200" type="color" tools:keep="@color/green_A200">#5af158</item>
+        <item name="light_green_A200" type="color" tools:keep="@color/light_green_A200">#b2ff59</item>
+        <item name="lime_A200" type="color" tools:keep="@color/lime_A200">#eeff41</item>
+        <item name="yellow_A200" type="color" tools:keep="@color/yellow_A200">#ffff00</item>
+        <item name="orange_A200" type="color" tools:keep="@color/orange_A200">#ffab40</item>
+        <item name="deep_orange_A200" type="color" tools:keep="@color/deep_orange_A200">#ff6e40</item>
     </array>
-    <array name="mdcolor_A400">
-        <item name="red_A400" type="color">#ff2d6f</item>
-        <item name="pink_A400" type="color">#f50057</item>
-        <item name="purple_A400" type="color">#d500f9</item>
-        <item name="deep_purple_A400" type="color">#651fff</item>
-        <item name="indigo_A400" type="color">#3d5afe</item>
-        <item name="blue_A400" type="color">#4d73ff</item>
-        <item name="light_blue_A400" type="color">#00b0ff</item>
-        <item name="cyan_A400" type="color">#00e5ff</item>
-        <item name="teal_A400" type="color">#1de9b6</item>
-        <item name="green_A400" type="color">#14e715</item>
-        <item name="light_green_A400" type="color">#76ff03</item>
-        <item name="lime_A400" type="color">#c6ff00</item>
-        <item name="yellow_A400" type="color">#ffea00</item>
-        <item name="orange_A400" type="color">#ff9100</item>
-        <item name="deep_orange_A400" type="color">#ff3d00</item>
+    <array name="mdcolor_A400" tools:keep="@array/mdcolor_A400">
+        <item name="red_A400" type="color" tools:keep="@color/red_A400">#ff2d6f</item>
+        <item name="pink_A400" type="color" tools:keep="@color/pink_A400">#f50057</item>
+        <item name="purple_A400" type="color" tools:keep="@color/purple_A400">#d500f9</item>
+        <item name="deep_purple_A400" type="color" tools:keep="@color/deep_purple_A400">#651fff</item>
+        <item name="indigo_A400" type="color" tools:keep="@color/indigo_A400">#3d5afe</item>
+        <item name="blue_A400" type="color" tools:keep="@color/blue_A400">#4d73ff</item>
+        <item name="light_blue_A400" type="color" tools:keep="@color/light_blue_A400">#00b0ff</item>
+        <item name="cyan_A400" type="color" tools:keep="@color/cyan_A400">#00e5ff</item>
+        <item name="teal_A400" type="color" tools:keep="@color/teal_A400">#1de9b6</item>
+        <item name="green_A400" type="color" tools:keep="@color/green_A400">#14e715</item>
+        <item name="light_green_A400" type="color" tools:keep="@color/light_green_A400">#76ff03</item>
+        <item name="lime_A400" type="color" tools:keep="@color/lime_A400">#c6ff00</item>
+        <item name="yellow_A400" type="color" tools:keep="@color/yellow_A400">#ffea00</item>
+        <item name="orange_A400" type="color" tools:keep="@color/orange_A400">#ff9100</item>
+        <item name="deep_orange_A400" type="color" tools:keep="@color/deep_orange_A400">#ff3d00</item>
     </array>
-    <array name="mdcolor_A700">
-        <item name="red_A700" type="color">#e00032</item>
-        <item name="pink_A700" type="color">#c51162</item>
-        <item name="purple_A700" type="color">#aa00ff</item>
-        <item name="deep_purple_A700" type="color">#6200ea</item>
-        <item name="indigo_A700" type="color">#304ffe</item>
-        <item name="blue_A700" type="color">#4d69ff</item>
-        <item name="light_blue_A700" type="color">#0091ea</item>
-        <item name="cyan_A700" type="color">#00b8d4</item>
-        <item name="teal_A700" type="color">#00bfa5</item>
-        <item name="green_A700" type="color">#12c700</item>
-        <item name="light_green_A700" type="color">#64dd17</item>
-        <item name="lime_A700" type="color">#aeea00</item>
-        <item name="yellow_A700" type="color">#ffd600</item>
-        <item name="orange_A700" type="color">#ff6d00</item>
-        <item name="deep_orange_A700" type="color">#dd2c00</item>
+    <array name="mdcolor_A700" tools:keep="@array/mdcolor_A700">
+        <item name="red_A700" type="color" tools:keep="@color/red_A700">#e00032</item>
+        <item name="pink_A700" type="color" tools:keep="@color/pink_A700">#c51162</item>
+        <item name="purple_A700" type="color" tools:keep="@color/purple_A700">#aa00ff</item>
+        <item name="deep_purple_A700" type="color" tools:keep="@color/deep_purple_A700">#6200ea</item>
+        <item name="indigo_A700" type="color" tools:keep="@color/indigo_A700">#304ffe</item>
+        <item name="blue_A700" type="color" tools:keep="@color/blue_A700">#4d69ff</item>
+        <item name="light_blue_A700" type="color" tools:keep="@color/light_blue_A700">#0091ea</item>
+        <item name="cyan_A700" type="color" tools:keep="@color/cyan_A700">#00b8d4</item>
+        <item name="teal_A700" type="color" tools:keep="@color/teal_A700">#00bfa5</item>
+        <item name="green_A700" type="color" tools:keep="@color/green_A700">#12c700</item>
+        <item name="light_green_A700" type="color" tools:keep="@color/light_green_A700">#64dd17</item>
+        <item name="lime_A700" type="color" tools:keep="@color/lime_A700">#aeea00</item>
+        <item name="yellow_A700" type="color" tools:keep="@color/yellow_A700">#ffd600</item>
+        <item name="orange_A700" type="color" tools:keep="@color/orange_A700">#ff6d00</item>
+        <item name="deep_orange_A700" type="color" tools:keep="@color/deep_orange_A700">#dd2c00</item>
     </array>
-    <array name="extra">
-        <item name="grey_1000b" type="color">#000000</item>
-        <item name="grey_1000w" type="color">#ffffff</item>
+    <array name="extra" tools:keep="@array/extra">
+        <item name="grey_1000b" type="color" tools:keep="@color/grey_1000b">#000000</item>
+        <item name="grey_1000w" type="color" tools:keep="@color/grey_1000w">#ffffff</item>
     </array>
 
-<array name="seemless_colors"></array>
+<array name="seemless_colors" tools:keep="@array/seemless_colors"></array>
 
     <array name="allColors">
         <!--reds-->
-        <item name="md_red_50" type="color">#FFEBEE</item>
-        <item name="md_red_100" type="color">#FFCDD2</item>
-        <item name="md_red_200" type="color">#EF9A9A</item>
-        <item name="md_red_300" type="color">#E57373</item>
-        <item name="md_red_400" type="color">#EF5350</item>
-        <item name="md_red_500" type="color">#F44336</item>
-        <item name="md_red_600" type="color">#E53935</item>
-        <item name="md_red_700" type="color">#D32F2F</item>
-        <item name="md_red_800" type="color">#C62828</item>
-        <item name="md_red_900" type="color">#B71C1C</item>
-        <item name="md_red_A100" type="color">#FF8A80</item>
-        <item name="md_red_A200" type="color">#FF5252</item>
-        <item name="md_red_A400" type="color">#FF1744</item>
-        <item name="md_red_A700" type="color">#D50000</item>
+        <item name="md_red_50" type="color" tools:keep="@color/md_red_50">#FFEBEE</item>
+        <item name="md_red_100" type="color" tools:keep="@color/md_red_100">#FFCDD2</item>
+        <item name="md_red_200" type="color" tools:keep="@color/md_red_200">#EF9A9A</item>
+        <item name="md_red_300" type="color" tools:keep="@color/md_red_300">#E57373</item>
+        <item name="md_red_400" type="color" tools:keep="@color/md_red_400">#EF5350</item>
+        <item name="md_red_500" type="color" tools:keep="@color/md_red_500">#F44336</item>
+        <item name="md_red_600" type="color" tools:keep="@color/md_red_600">#E53935</item>
+        <item name="md_red_700" type="color" tools:keep="@color/md_red_700">#D32F2F</item>
+        <item name="md_red_800" type="color" tools:keep="@color/md_red_800">#C62828</item>
+        <item name="md_red_900" type="color" tools:keep="@color/md_red_900">#B71C1C</item>
+        <item name="md_red_A100" type="color" tools:keep="@color/md_red_A100">#FF8A80</item>
+        <item name="md_red_A200" type="color" tools:keep="@color/md_red_A200">#FF5252</item>
+        <item name="md_red_A400" type="color" tools:keep="@color/md_red_A400">#FF1744</item>
+        <item name="md_red_A700" type="color" tools:keep="@color/md_red_A700">#D50000</item>
 
         <!-- pinks -->
-        <item name="md_pink_50" type="color">#FCE4EC</item>
-        <item name="md_pink_100" type="color">#F8BBD0</item>
-        <item name="md_pink_200" type="color">#F48FB1</item>
-        <item name="md_pink_300" type="color">#F06292</item>
-        <item name="md_pink_400" type="color">#EC407A</item>
-        <item name="md_pink_500" type="color">#E91E63</item>
-        <item name="md_pink_600" type="color">#D81B60</item>
-        <item name="md_pink_700" type="color">#C2185B</item>
-        <item name="md_pink_800" type="color">#AD1457</item>
-        <item name="md_pink_900" type="color">#880E4F</item>
-        <item name="md_pink_A100" type="color">#FF80AB</item>
-        <item name="md_pink_A200" type="color">#FF4081</item>
-        <item name="md_pink_A400" type="color">#F50057</item>
-        <item name="md_pink_A700" type="color">#C51162</item>
+        <item name="md_pink_50" type="color" tools:keep="@color/md_pink_50">#FCE4EC</item>
+        <item name="md_pink_100" type="color" tools:keep="@color/md_pink_100">#F8BBD0</item>
+        <item name="md_pink_200" type="color" tools:keep="@color/md_pink_200">#F48FB1</item>
+        <item name="md_pink_300" type="color" tools:keep="@color/md_pink_300">#F06292</item>
+        <item name="md_pink_400" type="color" tools:keep="@color/md_pink_400">#EC407A</item>
+        <item name="md_pink_500" type="color" tools:keep="@color/md_pink_500">#E91E63</item>
+        <item name="md_pink_600" type="color" tools:keep="@color/md_pink_600">#D81B60</item>
+        <item name="md_pink_700" type="color" tools:keep="@color/md_pink_700">#C2185B</item>
+        <item name="md_pink_800" type="color" tools:keep="@color/md_pink_800">#AD1457</item>
+        <item name="md_pink_900" type="color" tools:keep="@color/md_pink_900">#880E4F</item>
+        <item name="md_pink_A100" type="color" tools:keep="@color/md_pink_A100">#FF80AB</item>
+        <item name="md_pink_A200" type="color" tools:keep="@color/md_pink_A200">#FF4081</item>
+        <item name="md_pink_A400" type="color" tools:keep="@color/md_pink_A400">#F50057</item>
+        <item name="md_pink_A700" type="color" tools:keep="@color/md_pink_A700">#C51162</item>
 
         <!-- purples -->
-        <item name="md_purple_50" type="color">#F3E5F5</item>
-        <item name="md_purple_100" type="color">#E1BEE7</item>
-        <item name="md_purple_200" type="color">#CE93D8</item>
-        <item name="md_purple_300" type="color">#BA68C8</item>
-        <item name="md_purple_400" type="color">#AB47BC</item>
-        <item name="md_purple_500" type="color">#9C27B0</item>
-        <item name="md_purple_600" type="color">#8E24AA</item>
-        <item name="md_purple_700" type="color">#7B1FA2</item>
-        <item name="md_purple_800" type="color">#6A1B9A</item>
-        <item name="md_purple_900" type="color">#4A148C</item>
-        <item name="md_purple_A100" type="color">#EA80FC</item>
-        <item name="md_purple_A200" type="color">#E040FB</item>
-        <item name="md_purple_A400" type="color">#D500F9</item>
-        <item name="md_purple_A700" type="color">#AA00FF</item>
+        <item name="md_purple_50" type="color" tools:keep="@color/md_purple_50">#F3E5F5</item>
+        <item name="md_purple_100" type="color" tools:keep="@color/md_purple_100">#E1BEE7</item>
+        <item name="md_purple_200" type="color" tools:keep="@color/md_purple_200">#CE93D8</item>
+        <item name="md_purple_300" type="color" tools:keep="@color/md_purple_300">#BA68C8</item>
+        <item name="md_purple_400" type="color" tools:keep="@color/md_purple_400">#AB47BC</item>
+        <item name="md_purple_500" type="color" tools:keep="@color/md_purple_500">#9C27B0</item>
+        <item name="md_purple_600" type="color" tools:keep="@color/md_purple_600">#8E24AA</item>
+        <item name="md_purple_700" type="color" tools:keep="@color/md_purple_700">#7B1FA2</item>
+        <item name="md_purple_800" type="color" tools:keep="@color/md_purple_800">#6A1B9A</item>
+        <item name="md_purple_900" type="color" tools:keep="@color/md_purple_900">#4A148C</item>
+        <item name="md_purple_A100" type="color" tools:keep="@color/md_purple_A100">#EA80FC</item>
+        <item name="md_purple_A200" type="color" tools:keep="@color/md_purple_A200">#E040FB</item>
+        <item name="md_purple_A400" type="color" tools:keep="@color/md_purple_A400">#D500F9</item>
+        <item name="md_purple_A700" type="color" tools:keep="@color/md_purple_A700">#AA00FF</item>
 
         <!-- deep purples -->
-        <item name="md_deep_purple_50" type="color">#EDE7F6</item>
-        <item name="md_deep_purple_100" type="color">#D1C4E9</item>
-        <item name="md_deep_purple_200" type="color">#B39DDB</item>
-        <item name="md_deep_purple_300" type="color">#9575CD</item>
-        <item name="md_deep_purple_400" type="color">#7E57C2</item>
-        <item name="md_deep_purple_500" type="color">#673AB7</item>
-        <item name="md_deep_purple_600" type="color">#5E35B1</item>
-        <item name="md_deep_purple_700" type="color">#512DA8</item>
-        <item name="md_deep_purple_800" type="color">#4527A0</item>
-        <item name="md_deep_purple_900" type="color">#311B92</item>
-        <item name="md_deep_purple_A100" type="color">#B388FF</item>
-        <item name="md_deep_purple_A200" type="color">#7C4DFF</item>
-        <item name="md_deep_purple_A400" type="color">#651FFF</item>
-        <item name="md_deep_purple_A700" type="color">#6200EA</item>
+        <item name="md_deep_purple_50" type="color" tools:keep="@color/md_deep_purple_50">#EDE7F6</item>
+        <item name="md_deep_purple_100" type="color" tools:keep="@color/md_deep_purple_100">#D1C4E9</item>
+        <item name="md_deep_purple_200" type="color" tools:keep="@color/md_deep_purple_200">#B39DDB</item>
+        <item name="md_deep_purple_300" type="color" tools:keep="@color/md_deep_purple_300">#9575CD</item>
+        <item name="md_deep_purple_400" type="color" tools:keep="@color/md_deep_purple_400">#7E57C2</item>
+        <item name="md_deep_purple_500" type="color" tools:keep="@color/md_deep_purple_500">#673AB7</item>
+        <item name="md_deep_purple_600" type="color" tools:keep="@color/md_deep_purple_600">#5E35B1</item>
+        <item name="md_deep_purple_700" type="color" tools:keep="@color/md_deep_purple_700">#512DA8</item>
+        <item name="md_deep_purple_800" type="color" tools:keep="@color/md_deep_purple_800">#4527A0</item>
+        <item name="md_deep_purple_900" type="color" tools:keep="@color/md_deep_purple_900">#311B92</item>
+        <item name="md_deep_purple_A100" type="color" tools:keep="@color/md_deep_purple_A100">#B388FF</item>
+        <item name="md_deep_purple_A200" type="color" tools:keep="@color/md_deep_purple_A200">#7C4DFF</item>
+        <item name="md_deep_purple_A400" type="color" tools:keep="@color/md_deep_purple_A400">#651FFF</item>
+        <item name="md_deep_purple_A700" type="color" tools:keep="@color/md_deep_purple_A700">#6200EA</item>
 
         <!-- indigo -->
-        <item name="md_indigo_50" type="color">#E8EAF6</item>
-        <item name="md_indigo_100" type="color">#C5CAE9</item>
-        <item name="md_indigo_200" type="color">#9FA8DA</item>
-        <item name="md_indigo_300" type="color">#7986CB</item>
-        <item name="md_indigo_400" type="color">#5C6BC0</item>
-        <item name="md_indigo_500" type="color">#3F51B5</item>
-        <item name="md_indigo_600" type="color">#3949AB</item>
-        <item name="md_indigo_700" type="color">#303F9F</item>
-        <item name="md_indigo_800" type="color">#283593</item>
-        <item name="md_indigo_900" type="color">#1A237E</item>
-        <item name="md_indigo_A100" type="color">#8C9EFF</item>
-        <item name="md_indigo_A200" type="color">#536DFE</item>
-        <item name="md_indigo_A400" type="color">#3D5AFE</item>
-        <item name="md_indigo_A700" type="color">#304FFE</item>
+        <item name="md_indigo_50" type="color" tools:keep="@color/md_indigo_50">#E8EAF6</item>
+        <item name="md_indigo_100" type="color" tools:keep="@color/md_indigo_100">#C5CAE9</item>
+        <item name="md_indigo_200" type="color" tools:keep="@color/md_indigo_200">#9FA8DA</item>
+        <item name="md_indigo_300" type="color" tools:keep="@color/md_indigo_300">#7986CB</item>
+        <item name="md_indigo_400" type="color" tools:keep="@color/md_indigo_400">#5C6BC0</item>
+        <item name="md_indigo_500" type="color" tools:keep="@color/md_indigo_500">#3F51B5</item>
+        <item name="md_indigo_600" type="color" tools:keep="@color/md_indigo_600">#3949AB</item>
+        <item name="md_indigo_700" type="color" tools:keep="@color/md_indigo_700">#303F9F</item>
+        <item name="md_indigo_800" type="color" tools:keep="@color/md_indigo_800">#283593</item>
+        <item name="md_indigo_900" type="color" tools:keep="@color/md_indigo_900">#1A237E</item>
+        <item name="md_indigo_A100" type="color" tools:keep="@color/md_indigo_A100">#8C9EFF</item>
+        <item name="md_indigo_A200" type="color" tools:keep="@color/md_indigo_A200">#536DFE</item>
+        <item name="md_indigo_A400" type="color" tools:keep="@color/md_indigo_A400">#3D5AFE</item>
+        <item name="md_indigo_A700" type="color" tools:keep="@color/md_indigo_A700">#304FFE</item>
 
         <!--blue-->
-        <item name="md_blue_50" type="color">#E3F2FD</item>
-        <item name="md_blue_100" type="color">#BBDEFB</item>
-        <item name="md_blue_200" type="color">#90CAF9</item>
-        <item name="md_blue_300" type="color">#64B5F6</item>
-        <item name="md_blue_400" type="color">#42A5F5</item>
-        <item name="md_blue_500" type="color">#2196F3</item>
-        <item name="md_blue_600" type="color">#1E88E5</item>
-        <item name="md_blue_700" type="color">#1976D2</item>
-        <item name="md_blue_800" type="color">#1565C0</item>
-        <item name="md_blue_900" type="color">#0D47A1</item>
-        <item name="md_blue_A100" type="color">#82B1FF</item>
-        <item name="md_blue_A200" type="color">#448AFF</item>
-        <item name="md_blue_A400" type="color">#2979FF</item>
-        <item name="md_blue_A700" type="color">#2962FF</item>
+        <item name="md_blue_50" type="color" tools:keep="@color/md_blue_50">#E3F2FD</item>
+        <item name="md_blue_100" type="color" tools:keep="@color/md_blue_100">#BBDEFB</item>
+        <item name="md_blue_200" type="color" tools:keep="@color/md_blue_200">#90CAF9</item>
+        <item name="md_blue_300" type="color" tools:keep="@color/md_blue_300">#64B5F6</item>
+        <item name="md_blue_400" type="color" tools:keep="@color/md_blue_400">#42A5F5</item>
+        <item name="md_blue_500" type="color" tools:keep="@color/md_blue_500">#2196F3</item>
+        <item name="md_blue_600" type="color" tools:keep="@color/md_blue_600">#1E88E5</item>
+        <item name="md_blue_700" type="color" tools:keep="@color/md_blue_700">#1976D2</item>
+        <item name="md_blue_800" type="color" tools:keep="@color/md_blue_800">#1565C0</item>
+        <item name="md_blue_900" type="color" tools:keep="@color/md_blue_900">#0D47A1</item>
+        <item name="md_blue_A100" type="color" tools:keep="@color/md_blue_A100">#82B1FF</item>
+        <item name="md_blue_A200" type="color" tools:keep="@color/md_blue_A200">#448AFF</item>
+        <item name="md_blue_A400" type="color" tools:keep="@color/md_blue_A400">#2979FF</item>
+        <item name="md_blue_A700" type="color" tools:keep="@color/md_blue_A700">#2962FF</item>
 
         <!-- light blue-->
-        <item name="md_light_blue_50" type="color">#E1F5FE</item>
-        <item name="md_light_blue_100" type="color">#B3E5FC</item>
-        <item name="md_light_blue_200" type="color">#81D4fA</item>
-        <item name="md_light_blue_300" type="color">#4fC3F7</item>
-        <item name="md_light_blue_400" type="color">#29B6FC</item>
-        <item name="md_light_blue_500" type="color">#03A9F4</item>
-        <item name="md_light_blue_600" type="color">#039BE5</item>
-        <item name="md_light_blue_700" type="color">#0288D1</item>
-        <item name="md_light_blue_800" type="color">#0277BD</item>
-        <item name="md_light_blue_900" type="color">#01579B</item>
-        <item name="md_light_blue_A100" type="color">#80D8FF</item>
-        <item name="md_light_blue_A200" type="color">#40C4FF</item>
-        <item name="md_light_blue_A400" type="color">#00B0FF</item>
-        <item name="md_light_blue_A700" type="color">#0091EA</item>
+        <item name="md_light_blue_50" type="color" tools:keep="@color/md_light_blue_50">#E1F5FE</item>
+        <item name="md_light_blue_100" type="color" tools:keep="@color/md_light_blue_100">#B3E5FC</item>
+        <item name="md_light_blue_200" type="color" tools:keep="@color/md_light_blue_200">#81D4fA</item>
+        <item name="md_light_blue_300" type="color" tools:keep="@color/md_light_blue_300">#4fC3F7</item>
+        <item name="md_light_blue_400" type="color" tools:keep="@color/md_light_blue_400">#29B6FC</item>
+        <item name="md_light_blue_500" type="color" tools:keep="@color/md_light_blue_500">#03A9F4</item>
+        <item name="md_light_blue_600" type="color" tools:keep="@color/md_light_blue_600">#039BE5</item>
+        <item name="md_light_blue_700" type="color" tools:keep="@color/md_light_blue_700">#0288D1</item>
+        <item name="md_light_blue_800" type="color" tools:keep="@color/md_light_blue_800">#0277BD</item>
+        <item name="md_light_blue_900" type="color" tools:keep="@color/md_light_blue_900">#01579B</item>
+        <item name="md_light_blue_A100" type="color" tools:keep="@color/md_light_blue_A100">#80D8FF</item>
+        <item name="md_light_blue_A200" type="color" tools:keep="@color/md_light_blue_A200">#40C4FF</item>
+        <item name="md_light_blue_A400" type="color" tools:keep="@color/md_light_blue_A400">#00B0FF</item>
+        <item name="md_light_blue_A700" type="color" tools:keep="@color/md_light_blue_A700">#0091EA</item>
 
         <!-- cyan -->
-        <item name="md_cyan_50" type="color">#E0F7FA</item>
-        <item name="md_cyan_100" type="color">#B2EBF2</item>
-        <item name="md_cyan_200" type="color">#80DEEA</item>
-        <item name="md_cyan_300" type="color">#4DD0E1</item>
-        <item name="md_cyan_400" type="color">#26C6DA</item>
-        <item name="md_cyan_500" type="color">#00BCD4</item>
-        <item name="md_cyan_600" type="color">#00ACC1</item>
-        <item name="md_cyan_700" type="color">#0097A7</item>
-        <item name="md_cyan_800" type="color">#00838F</item>
-        <item name="md_cyan_900" type="color">#006064</item>
-        <item name="md_cyan_A100" type="color">#84FFFF</item>
-        <item name="md_cyan_A200" type="color">#18FFFF</item>
-        <item name="md_cyan_A400" type="color">#00E5FF</item>
-        <item name="md_cyan_A700" type="color">#00B8D4</item>
+        <item name="md_cyan_50" type="color" tools:keep="@color/md_cyan_50">#E0F7FA</item>
+        <item name="md_cyan_100" type="color" tools:keep="@color/md_cyan_100">#B2EBF2</item>
+        <item name="md_cyan_200" type="color" tools:keep="@color/md_cyan_200">#80DEEA</item>
+        <item name="md_cyan_300" type="color" tools:keep="@color/md_cyan_300">#4DD0E1</item>
+        <item name="md_cyan_400" type="color" tools:keep="@color/md_cyan_400">#26C6DA</item>
+        <item name="md_cyan_500" type="color" tools:keep="@color/md_cyan_500">#00BCD4</item>
+        <item name="md_cyan_600" type="color" tools:keep="@color/md_cyan_600">#00ACC1</item>
+        <item name="md_cyan_700" type="color" tools:keep="@color/md_cyan_700">#0097A7</item>
+        <item name="md_cyan_800" type="color" tools:keep="@color/md_cyan_800">#00838F</item>
+        <item name="md_cyan_900" type="color" tools:keep="@color/md_cyan_900">#006064</item>
+        <item name="md_cyan_A100" type="color" tools:keep="@color/md_cyan_A100">#84FFFF</item>
+        <item name="md_cyan_A200" type="color" tools:keep="@color/md_cyan_A200">#18FFFF</item>
+        <item name="md_cyan_A400" type="color" tools:keep="@color/md_cyan_A400">#00E5FF</item>
+        <item name="md_cyan_A700" type="color" tools:keep="@color/md_cyan_A700">#00B8D4</item>
 
         <!-- teal -->
-        <item name="md_teal_50" type="color">#E0F2F1</item>
-        <item name="md_teal_100" type="color">#B2DFDB</item>
-        <item name="md_teal_200" type="color">#80CBC4</item>
-        <item name="md_teal_300" type="color">#4DB6AC</item>
-        <item name="md_teal_400" type="color">#26A69A</item>
-        <item name="md_teal_500" type="color">#009688</item>
-        <item name="md_teal_600" type="color">#00897B</item>
-        <item name="md_teal_700" type="color">#00796B</item>
-        <item name="md_teal_800" type="color">#00695C</item>
-        <item name="md_teal_900" type="color">#004D40</item>
-        <item name="md_teal_A100" type="color">#A7FFEB</item>
-        <item name="md_teal_A200" type="color">#64FFDA</item>
-        <item name="md_teal_A400" type="color">#1DE9B6</item>
-        <item name="md_teal_A700" type="color">#00BFA5</item>
+        <item name="md_teal_50" type="color" tools:keep="@color/md_teal_50">#E0F2F1</item>
+        <item name="md_teal_100" type="color" tools:keep="@color/md_teal_100">#B2DFDB</item>
+        <item name="md_teal_200" type="color" tools:keep="@color/md_teal_200">#80CBC4</item>
+        <item name="md_teal_300" type="color" tools:keep="@color/md_teal_300">#4DB6AC</item>
+        <item name="md_teal_400" type="color" tools:keep="@color/md_teal_400">#26A69A</item>
+        <item name="md_teal_500" type="color" tools:keep="@color/md_teal_500">#009688</item>
+        <item name="md_teal_600" type="color" tools:keep="@color/md_teal_600">#00897B</item>
+        <item name="md_teal_700" type="color" tools:keep="@color/md_teal_700">#00796B</item>
+        <item name="md_teal_800" type="color" tools:keep="@color/md_teal_800">#00695C</item>
+        <item name="md_teal_900" type="color" tools:keep="@color/md_teal_900">#004D40</item>
+        <item name="md_teal_A100" type="color" tools:keep="@color/md_teal_A100">#A7FFEB</item>
+        <item name="md_teal_A200" type="color" tools:keep="@color/md_teal_A200">#64FFDA</item>
+        <item name="md_teal_A400" type="color" tools:keep="@color/md_teal_A400">#1DE9B6</item>
+        <item name="md_teal_A700" type="color" tools:keep="@color/md_teal_A700">#00BFA5</item>
 
         <!-- green -->
-        <item name="md_green_50" type="color">#E8F5E9</item>
-        <item name="md_green_100" type="color">#C8E6C9</item>
-        <item name="md_green_200" type="color">#A5D6A7</item>
-        <item name="md_green_300" type="color">#81C784</item>
-        <item name="md_green_400" type="color">#66BB6A</item>
-        <item name="md_green_500" type="color">#4CAF50</item>
-        <item name="md_green_600" type="color">#43A047</item>
-        <item name="md_green_700" type="color">#388E3C</item>
-        <item name="md_green_800" type="color">#2E7D32</item>
-        <item name="md_green_900" type="color">#1B5E20</item>
-        <item name="md_green_A100" type="color">#B9F6CA</item>
-        <item name="md_green_A200" type="color">#69F0AE</item>
-        <item name="md_green_A400" type="color">#00E676</item>
-        <item name="md_green_A700" type="color">#00C853</item>
+        <item name="md_green_50" type="color" tools:keep="@color/md_green_50">#E8F5E9</item>
+        <item name="md_green_100" type="color" tools:keep="@color/md_green_100">#C8E6C9</item>
+        <item name="md_green_200" type="color" tools:keep="@color/md_green_200">#A5D6A7</item>
+        <item name="md_green_300" type="color" tools:keep="@color/md_green_300">#81C784</item>
+        <item name="md_green_400" type="color" tools:keep="@color/md_green_400">#66BB6A</item>
+        <item name="md_green_500" type="color" tools:keep="@color/md_green_500">#4CAF50</item>
+        <item name="md_green_600" type="color" tools:keep="@color/md_green_600">#43A047</item>
+        <item name="md_green_700" type="color" tools:keep="@color/md_green_700">#388E3C</item>
+        <item name="md_green_800" type="color" tools:keep="@color/md_green_800">#2E7D32</item>
+        <item name="md_green_900" type="color" tools:keep="@color/md_green_900">#1B5E20</item>
+        <item name="md_green_A100" type="color" tools:keep="@color/md_green_A100">#B9F6CA</item>
+        <item name="md_green_A200" type="color" tools:keep="@color/md_green_A200">#69F0AE</item>
+        <item name="md_green_A400" type="color" tools:keep="@color/md_green_A400">#00E676</item>
+        <item name="md_green_A700" type="color" tools:keep="@color/md_green_A700">#00C853</item>
 
         <!--light green-->
-        <item name="md_light_green_50" type="color">#F1F8E9</item>
-        <item name="md_light_green_100" type="color">#DCEDC8</item>
-        <item name="md_light_green_200" type="color">#C5E1A5</item>
-        <item name="md_light_green_300" type="color">#AED581</item>
-        <item name="md_light_green_400" type="color">#9CCC65</item>
-        <item name="md_light_green_500" type="color">#8BC34A</item>
-        <item name="md_light_green_600" type="color">#7CB342</item>
-        <item name="md_light_green_700" type="color">#689F38</item>
-        <item name="md_light_green_800" type="color">#558B2F</item>
-        <item name="md_light_green_900" type="color">#33691E</item>
-        <item name="md_light_green_A100" type="color">#CCFF90</item>
-        <item name="md_light_green_A200" type="color">#B2FF59</item>
-        <item name="md_light_green_A400" type="color">#76FF03</item>
-        <item name="md_light_green_A700" type="color">#64DD17</item>
+        <item name="md_light_green_50" type="color" tools:keep="@color/md_light_green_50">#F1F8E9</item>
+        <item name="md_light_green_100" type="color" tools:keep="@color/md_light_green_100">#DCEDC8</item>
+        <item name="md_light_green_200" type="color" tools:keep="@color/md_light_green_200">#C5E1A5</item>
+        <item name="md_light_green_300" type="color" tools:keep="@color/md_light_green_300">#AED581</item>
+        <item name="md_light_green_400" type="color" tools:keep="@color/md_light_green_400">#9CCC65</item>
+        <item name="md_light_green_500" type="color" tools:keep="@color/md_light_green_500">#8BC34A</item>
+        <item name="md_light_green_600" type="color" tools:keep="@color/md_light_green_600">#7CB342</item>
+        <item name="md_light_green_700" type="color" tools:keep="@color/md_light_green_700">#689F38</item>
+        <item name="md_light_green_800" type="color" tools:keep="@color/md_light_green_800">#558B2F</item>
+        <item name="md_light_green_900" type="color" tools:keep="@color/md_light_green_900">#33691E</item>
+        <item name="md_light_green_A100" type="color" tools:keep="@color/md_light_green_A100">#CCFF90</item>
+        <item name="md_light_green_A200" type="color" tools:keep="@color/md_light_green_A200">#B2FF59</item>
+        <item name="md_light_green_A400" type="color" tools:keep="@color/md_light_green_A400">#76FF03</item>
+        <item name="md_light_green_A700" type="color" tools:keep="@color/md_light_green_A700">#64DD17</item>
 
         <!-- lime-->
-        <item name="md_lime_50" type="color">#F9FBE7</item>
-        <item name="md_lime_100" type="color">#F0F4C3</item>
-        <item name="md_lime_200" type="color">#E6EE9C</item>
-        <item name="md_lime_300" type="color">#DCE775</item>
-        <item name="md_lime_400" type="color">#D4E157</item>
-        <item name="md_lime_500" type="color">#CDDC39</item>
-        <item name="md_lime_600" type="color">#C0CA33</item>
-        <item name="md_lime_700" type="color">#A4B42B</item>
-        <item name="md_lime_800" type="color">#9E9D24</item>
-        <item name="md_lime_900" type="color">#827717</item>
-        <item name="md_lime_A100" type="color">#F4FF81</item>
-        <item name="md_lime_A200" type="color">#EEFF41</item>
-        <item name="md_lime_A400" type="color">#C6FF00</item>
-        <item name="md_lime_A700" type="color">#AEEA00</item>
+        <item name="md_lime_50" type="color" tools:keep="@color/md_lime_50">#F9FBE7</item>
+        <item name="md_lime_100" type="color" tools:keep="@color/md_lime_100">#F0F4C3</item>
+        <item name="md_lime_200" type="color" tools:keep="@color/md_lime_200">#E6EE9C</item>
+        <item name="md_lime_300" type="color" tools:keep="@color/md_lime_300">#DCE775</item>
+        <item name="md_lime_400" type="color" tools:keep="@color/md_lime_400">#D4E157</item>
+        <item name="md_lime_500" type="color" tools:keep="@color/md_lime_500">#CDDC39</item>
+        <item name="md_lime_600" type="color" tools:keep="@color/md_lime_600">#C0CA33</item>
+        <item name="md_lime_700" type="color" tools:keep="@color/md_lime_700">#A4B42B</item>
+        <item name="md_lime_800" type="color" tools:keep="@color/md_lime_800">#9E9D24</item>
+        <item name="md_lime_900" type="color" tools:keep="@color/md_lime_900">#827717</item>
+        <item name="md_lime_A100" type="color" tools:keep="@color/md_lime_A100">#F4FF81</item>
+        <item name="md_lime_A200" type="color" tools:keep="@color/md_lime_A200">#EEFF41</item>
+        <item name="md_lime_A400" type="color" tools:keep="@color/md_lime_A400">#C6FF00</item>
+        <item name="md_lime_A700" type="color" tools:keep="@color/md_lime_A700">#AEEA00</item>
 
         <!--yellow -->
-        <item name="md_yellow_50" type="color">#FFFDE7</item>
-        <item name="md_yellow_100" type="color">#FFF9C4</item>
-        <item name="md_yellow_200" type="color">#FFF590</item>
-        <item name="md_yellow_300" type="color">#FFF176</item>
-        <item name="md_yellow_400" type="color">#FFEE58</item>
-        <item name="md_yellow_500" type="color">#FFEB3B</item>
-        <item name="md_yellow_600" type="color">#FDD835</item>
-        <item name="md_yellow_700" type="color">#FBC02D</item>
-        <item name="md_yellow_800" type="color">#F9A825</item>
-        <item name="md_yellow_900" type="color">#F57F17</item>
-        <item name="md_yellow_A100" type="color">#FFFF82</item>
-        <item name="md_yellow_A200" type="color">#FFFF00</item>
-        <item name="md_yellow_A400" type="color">#FFEA00</item>
-        <item name="md_yellow_A700" type="color">#FFD600</item>
+        <item name="md_yellow_50" type="color" tools:keep="@color/md_yellow_50">#FFFDE7</item>
+        <item name="md_yellow_100" type="color" tools:keep="@color/md_yellow_100">#FFF9C4</item>
+        <item name="md_yellow_200" type="color" tools:keep="@color/md_yellow_200">#FFF590</item>
+        <item name="md_yellow_300" type="color" tools:keep="@color/md_yellow_300">#FFF176</item>
+        <item name="md_yellow_400" type="color" tools:keep="@color/md_yellow_400">#FFEE58</item>
+        <item name="md_yellow_500" type="color" tools:keep="@color/md_yellow_500">#FFEB3B</item>
+        <item name="md_yellow_600" type="color" tools:keep="@color/md_yellow_600">#FDD835</item>
+        <item name="md_yellow_700" type="color" tools:keep="@color/md_yellow_700">#FBC02D</item>
+        <item name="md_yellow_800" type="color" tools:keep="@color/md_yellow_800">#F9A825</item>
+        <item name="md_yellow_900" type="color" tools:keep="@color/md_yellow_900">#F57F17</item>
+        <item name="md_yellow_A100" type="color" tools:keep="@color/md_yellow_A100">#FFFF82</item>
+        <item name="md_yellow_A200" type="color" tools:keep="@color/md_yellow_A200">#FFFF00</item>
+        <item name="md_yellow_A400" type="color" tools:keep="@color/md_yellow_A400">#FFEA00</item>
+        <item name="md_yellow_A700" type="color" tools:keep="@color/md_yellow_A700">#FFD600</item>
 
         <!--amber-->
-        <item name="md_amber_50" type="color">#FFF8E1</item>
-        <item name="md_amber_100" type="color">#FFECB3</item>
-        <item name="md_amber_200" type="color">#FFE082</item>
-        <item name="md_amber_300" type="color">#FFD54F</item>
-        <item name="md_amber_400" type="color">#FFCA28</item>
-        <item name="md_amber_500" type="color">#FFC107</item>
-        <item name="md_amber_600" type="color">#FFB300</item>
-        <item name="md_amber_700" type="color">#FFA000</item>
-        <item name="md_amber_800" type="color">#FF8F00</item>
-        <item name="md_amber_900" type="color">#FF6F00</item>
-        <item name="md_amber_A100" type="color">#FFE57F</item>
-        <item name="md_amber_A200" type="color">#FFD740</item>
-        <item name="md_amber_A400" type="color">#FFC400</item>
-        <item name="md_amber_A700" type="color">#FFAB00</item>
+        <item name="md_amber_50" type="color" tools:keep="@color/md_amber_50">#FFF8E1</item>
+        <item name="md_amber_100" type="color" tools:keep="@color/md_amber_100">#FFECB3</item>
+        <item name="md_amber_200" type="color" tools:keep="@color/md_amber_200">#FFE082</item>
+        <item name="md_amber_300" type="color" tools:keep="@color/md_amber_300">#FFD54F</item>
+        <item name="md_amber_400" type="color" tools:keep="@color/md_amber_400">#FFCA28</item>
+        <item name="md_amber_500" type="color" tools:keep="@color/md_amber_500">#FFC107</item>
+        <item name="md_amber_600" type="color" tools:keep="@color/md_amber_600">#FFB300</item>
+        <item name="md_amber_700" type="color" tools:keep="@color/md_amber_700">#FFA000</item>
+        <item name="md_amber_800" type="color" tools:keep="@color/md_amber_800">#FF8F00</item>
+        <item name="md_amber_900" type="color" tools:keep="@color/md_amber_900">#FF6F00</item>
+        <item name="md_amber_A100" type="color" tools:keep="@color/md_amber_A100">#FFE57F</item>
+        <item name="md_amber_A200" type="color" tools:keep="@color/md_amber_A200">#FFD740</item>
+        <item name="md_amber_A400" type="color" tools:keep="@color/md_amber_A400">#FFC400</item>
+        <item name="md_amber_A700" type="color" tools:keep="@color/md_amber_A700">#FFAB00</item>
 
         <!--orange-->
-        <item name="md_orange_50" type="color">#FFF3E0</item>
-        <item name="md_orange_100" type="color">#FFE0B2</item>
-        <item name="md_orange_200" type="color">#FFCC80</item>
-        <item name="md_orange_300" type="color">#FFB74D</item>
-        <item name="md_orange_400" type="color">#FFA726</item>
-        <item name="md_orange_500" type="color">#FF9800</item>
-        <item name="md_orange_600" type="color">#FB8C00</item>
-        <item name="md_orange_700" type="color">#F57C00</item>
-        <item name="md_orange_800" type="color">#EF6C00</item>
-        <item name="md_orange_900" type="color">#E65100</item>
-        <item name="md_orange_A100" type="color">#FFD180</item>
-        <item name="md_orange_A200" type="color">#FFAB40</item>
-        <item name="md_orange_A400" type="color">#FF9100</item>
-        <item name="md_orange_A700" type="color">#FF6D00</item>
+        <item name="md_orange_50" type="color" tools:keep="@color/md_orange_50">#FFF3E0</item>
+        <item name="md_orange_100" type="color" tools:keep="@color/md_orange_100">#FFE0B2</item>
+        <item name="md_orange_200" type="color" tools:keep="@color/md_orange_200">#FFCC80</item>
+        <item name="md_orange_300" type="color" tools:keep="@color/md_orange_300">#FFB74D</item>
+        <item name="md_orange_400" type="color" tools:keep="@color/md_orange_400">#FFA726</item>
+        <item name="md_orange_500" type="color" tools:keep="@color/md_orange_500">#FF9800</item>
+        <item name="md_orange_600" type="color" tools:keep="@color/md_orange_600">#FB8C00</item>
+        <item name="md_orange_700" type="color" tools:keep="@color/md_orange_700">#F57C00</item>
+        <item name="md_orange_800" type="color" tools:keep="@color/md_orange_800">#EF6C00</item>
+        <item name="md_orange_900" type="color" tools:keep="@color/md_orange_900">#E65100</item>
+        <item name="md_orange_A100" type="color" tools:keep="@color/md_orange_A100">#FFD180</item>
+        <item name="md_orange_A200" type="color" tools:keep="@color/md_orange_A200">#FFAB40</item>
+        <item name="md_orange_A400" type="color" tools:keep="@color/md_orange_A400">#FF9100</item>
+        <item name="md_orange_A700" type="color" tools:keep="@color/md_orange_A700">#FF6D00</item>
 
         <!--deep orange-->
-        <item name="md_deep_orange_50" type="color">#FBE9A7</item>
-        <item name="md_deep_orange_100" type="color">#FFCCBC</item>
-        <item name="md_deep_orange_200" type="color">#FFAB91</item>
-        <item name="md_deep_orange_300" type="color">#FF8A65</item>
-        <item name="md_deep_orange_400" type="color">#FF7043</item>
-        <item name="md_deep_orange_500" type="color">#FF5722</item>
-        <item name="md_deep_orange_600" type="color">#F4511E</item>
-        <item name="md_deep_orange_700" type="color">#E64A19</item>
-        <item name="md_deep_orange_800" type="color">#D84315</item>
-        <item name="md_deep_orange_900" type="color">#BF360C</item>
-        <item name="md_deep_orange_A100" type="color">#FF9E80</item>
-        <item name="md_deep_orange_A200" type="color">#FF6E40</item>
-        <item name="md_deep_orange_A400" type="color">#FF3D00</item>
-        <item name="md_deep_orange_A700" type="color">#DD2600</item>
+        <item name="md_deep_orange_50" type="color" tools:keep="@color/md_deep_orange_50">#FBE9A7</item>
+        <item name="md_deep_orange_100" type="color" tools:keep="@color/md_deep_orange_100">#FFCCBC</item>
+        <item name="md_deep_orange_200" type="color" tools:keep="@color/md_deep_orange_200">#FFAB91</item>
+        <item name="md_deep_orange_300" type="color" tools:keep="@color/md_deep_orange_300">#FF8A65</item>
+        <item name="md_deep_orange_400" type="color" tools:keep="@color/md_deep_orange_400">#FF7043</item>
+        <item name="md_deep_orange_500" type="color" tools:keep="@color/md_deep_orange_500">#FF5722</item>
+        <item name="md_deep_orange_600" type="color" tools:keep="@color/md_deep_orange_600">#F4511E</item>
+        <item name="md_deep_orange_700" type="color" tools:keep="@color/md_deep_orange_700">#E64A19</item>
+        <item name="md_deep_orange_800" type="color" tools:keep="@color/md_deep_orange_800">#D84315</item>
+        <item name="md_deep_orange_900" type="color" tools:keep="@color/md_deep_orange_900">#BF360C</item>
+        <item name="md_deep_orange_A100" type="color" tools:keep="@color/md_deep_orange_A100">#FF9E80</item>
+        <item name="md_deep_orange_A200" type="color" tools:keep="@color/md_deep_orange_A200">#FF6E40</item>
+        <item name="md_deep_orange_A400" type="color" tools:keep="@color/md_deep_orange_A400">#FF3D00</item>
+        <item name="md_deep_orange_A700" type="color" tools:keep="@color/md_deep_orange_A700">#DD2600</item>
 
         <!--brown -->
-        <item name="md_brown_50" type="color">#EFEBE9</item>
-        <item name="md_brown_100" type="color">#D7CCC8</item>
-        <item name="md_brown_200" type="color">#BCAAA4</item>
-        <item name="md_brown_300" type="color">#A1887F</item>
-        <item name="md_brown_400" type="color">#8D6E63</item>
-        <item name="md_brown_500" type="color">#795548</item>
-        <item name="md_brown_600" type="color">#6D4C41</item>
-        <item name="md_brown_700" type="color">#5D4037</item>
-        <item name="md_brown_800" type="color">#4E342E</item>
-        <item name="md_brown_900" type="color">#3E2723</item>
+        <item name="md_brown_50" type="color" tools:keep="@color/md_brown_50">#EFEBE9</item>
+        <item name="md_brown_100" type="color" tools:keep="@color/md_brown_100">#D7CCC8</item>
+        <item name="md_brown_200" type="color" tools:keep="@color/md_brown_200">#BCAAA4</item>
+        <item name="md_brown_300" type="color" tools:keep="@color/md_brown_300">#A1887F</item>
+        <item name="md_brown_400" type="color" tools:keep="@color/md_brown_400">#8D6E63</item>
+        <item name="md_brown_500" type="color" tools:keep="@color/md_brown_500">#795548</item>
+        <item name="md_brown_600" type="color" tools:keep="@color/md_brown_600">#6D4C41</item>
+        <item name="md_brown_700" type="color" tools:keep="@color/md_brown_700">#5D4037</item>
+        <item name="md_brown_800" type="color" tools:keep="@color/md_brown_800">#4E342E</item>
+        <item name="md_brown_900" type="color" tools:keep="@color/md_brown_900">#3E2723</item>
 
         <!--grey-->
-        <item name="md_grey_50" type="color">#FAFAFA</item>
-        <item name="md_grey_100" type="color">#F5F5F5</item>
-        <item name="md_grey_200" type="color">#EEEEEE</item>
-        <item name="md_grey_300" type="color">#E0E0E0</item>
-        <item name="md_grey_400" type="color">#BDBDBD</item>
-        <item name="md_grey_500" type="color">#9E9E9E</item>
-        <item name="md_grey_600" type="color">#757575</item>
-        <item name="md_grey_700" type="color">#616161</item>
-        <item name="md_grey_800" type="color">#424242</item>
-        <item name="md_grey_900" type="color">#212121</item>
-        <item name="md_black_1000" type="color">#000000</item>
-        <item name="md_white_1000" type="color">#ffffff</item>
+        <item name="md_grey_50" type="color" tools:keep="@color/md_grey_50">#FAFAFA</item>
+        <item name="md_grey_100" type="color" tools:keep="@color/md_grey_100">#F5F5F5</item>
+        <item name="md_grey_200" type="color" tools:keep="@color/md_grey_200">#EEEEEE</item>
+        <item name="md_grey_300" type="color" tools:keep="@color/md_grey_300">#E0E0E0</item>
+        <item name="md_grey_400" type="color" tools:keep="@color/md_grey_400">#BDBDBD</item>
+        <item name="md_grey_500" type="color" tools:keep="@color/md_grey_500">#9E9E9E</item>
+        <item name="md_grey_600" type="color" tools:keep="@color/md_grey_600">#757575</item>
+        <item name="md_grey_700" type="color" tools:keep="@color/md_grey_700">#616161</item>
+        <item name="md_grey_800" type="color" tools:keep="@color/md_grey_800">#424242</item>
+        <item name="md_grey_900" type="color" tools:keep="@color/md_grey_900">#212121</item>
+        <item name="md_black_1000" type="color" tools:keep="@color/md_black_1000">#000000</item>
+        <item name="md_white_1000" type="color" tools:keep="@color/md_white_1000">#ffffff</item>
 
         <!--blue grey-->
-        <item name="md_blue_grey_50" type="color">#ECEFF1</item>
-        <item name="md_blue_grey_100" type="color">#CFD8DC</item>
-        <item name="md_blue_grey_200" type="color">#B0BBC5</item>
-        <item name="md_blue_grey_300" type="color">#90A4AE</item>
-        <item name="md_blue_grey_400" type="color">#78909C</item>
-        <item name="md_blue_grey_500" type="color">#607D8B</item>
-        <item name="md_blue_grey_600" type="color">#546E7A</item>
-        <item name="md_blue_grey_700" type="color">#455A64</item>
-        <item name="md_blue_grey_800" type="color">#37474F</item>
-        <item name="md_blue_grey_900" type="color">#263238</item>
+        <item name="md_blue_grey_50" type="color" tools:keep="@color/md_blue_grey_50">#ECEFF1</item>
+        <item name="md_blue_grey_100" type="color" tools:keep="@color/md_blue_grey_100">#CFD8DC</item>
+        <item name="md_blue_grey_200" type="color" tools:keep="@color/md_blue_grey_200">#B0BBC5</item>
+        <item name="md_blue_grey_300" type="color" tools:keep="@color/md_blue_grey_300">#90A4AE</item>
+        <item name="md_blue_grey_400" type="color" tools:keep="@color/md_blue_grey_400">#78909C</item>
+        <item name="md_blue_grey_500" type="color" tools:keep="@color/md_blue_grey_500">#607D8B</item>
+        <item name="md_blue_grey_600" type="color" tools:keep="@color/md_blue_grey_600">#546E7A</item>
+        <item name="md_blue_grey_700" type="color" tools:keep="@color/md_blue_grey_700">#455A64</item>
+        <item name="md_blue_grey_800" type="color" tools:keep="@color/md_blue_grey_800">#37474F</item>
+        <item name="md_blue_grey_900" type="color" tools:keep="@color/md_blue_grey_900">#263238</item>
 
-        <item name="red_A7000" type="color">#e00032</item>
-        <item name="pink_A7000" type="color">#c51162</item>
-        <item name="purple_A7000" type="color">#aa00ff</item>
-        <item name="deep_purple_A7000" type="color">#6200ea</item>
-        <item name="indigo_A7000" type="color">#304ffe</item>
-        <item name="blue_A7000" type="color">#4d69ff</item>
-        <item name="light_blue_A7000" type="color">#0091ea</item>
-        <item name="cyan_A7000" type="color">#00b8d4</item>
-        <item name="teal_A7000" type="color">#00bfa5</item>
-        <item name="green_A7000" type="color">#12c700</item>
-        <item name="light_green_A7000" type="color">#64dd17</item>
-        <item name="lime_A7000" type="color">#aeea00</item>
-        <item name="yellow_A7000" type="color">#ffd600</item>
-        <item name="orange_A7000" type="color">#ff6d00</item>
-        <item name="deep_orange_A7000" type="color">#dd2c00</item>
-        <item name="red_A4000" type="color">#ff2d6f</item>
-        <item name="pink_A4000" type="color">#f50057</item>
-        <item name="purple_A4000" type="color">#d500f9</item>
-        <item name="deep_purple_A4000" type="color">#651fff</item>
-        <item name="indigo_A4000" type="color">#3d5afe</item>
-        <item name="blue_A4000" type="color">#4d73ff</item>
-        <item name="light_blue_A4000" type="color">#00b0ff</item>
-        <item name="cyan_A4000" type="color">#00e5ff</item>
-        <item name="teal_A4000" type="color">#1de9b6</item>
-        <item name="green_A4000" type="color">#14e715</item>
-        <item name="light_green_A4000" type="color">#76ff03</item>
-        <item name="lime_A4000" type="color">#c6ff00</item>
-        <item name="yellow_A4000" type="color">#ffea00</item>
-        <item name="orange_A4000" type="color">#ff9100</item>
-        <item name="deep_orange_A4000" type="color">#ff3d00</item>
-        <item name="red_A2000" type="color">#ff5177</item>
-        <item name="pink_A2000" type="color">#ff4081</item>
-        <item name="purple_A2000" type="color">#e040fb</item>
-        <item name="deep_purple_A2000" type="color">#7c4dff</item>
-        <item name="indigo_A2000" type="color">#536dfe</item>
-        <item name="blue_A2000" type="color">#6889ff</item>
-        <item name="light_blue_A2000" type="color">#40c4ff</item>
-        <item name="cyan_A2000" type="color">#18ffff</item>
-        <item name="teal_A2000" type="color">#64ffda</item>
-        <item name="green_A2000" type="color">#5af158</item>
-        <item name="light_green_A2000" type="color">#b2ff59</item>
-        <item name="lime_A2000" type="color">#eeff41</item>
-        <item name="yellow_A2000" type="color">#ffff00</item>
-        <item name="orange_A2000" type="color">#ffab40</item>
-        <item name="deep_orange_A2000" type="color">#ff6e40</item>
-        <item name="red_A1000" type="color">#ff7997</item>
-        <item name="pink_A1000" type="color">#ff80ab</item>
-        <item name="purple_A1000" type="color">#ea80fc</item>
-        <item name="deep_purple_A1000" type="color">#b388ff</item>
-        <item name="indigo_A1000" type="color">#8c9eff</item>
-        <item name="blue_A1000" type="color">#a6baff</item>
-        <item name="light_blue_A1000" type="color">#80d8ff</item>
-        <item name="cyan_A1000" type="color">#84ffff</item>
-        <item name="teal_A1000" type="color">#a7ffeb</item>
-        <item name="green_A1000" type="color">#a2f78d</item>
-        <item name="light_green_A1000" type="color">#ccff90</item>
-        <item name="lime_A1000" type="color">#f4ff81</item>
-        <item name="yellow_A1000" type="color">#ffff8d</item>
-        <item name="orange_A1000" type="color">#ffd180</item>
-        <item name="deep_orange_A1000" type="color">#ff9e80</item>
-        <item name="red_9000" type="color">#b0120a</item>
-        <item name="pink_9000" type="color">#880e4f</item>
-        <item name="purple_9000" type="color">#4a148c</item>
-        <item name="deep_purple_9000" type="color">#311b92</item>
-        <item name="indigo_9000" type="color">#1a237e</item>
-        <item name="blue_9000" type="color">#2a36b1</item>
-        <item name="light_blue_9000" type="color">#01579b</item>
-        <item name="cyan_9000" type="color">#006064</item>
-        <item name="teal_9000" type="color">#004d40</item>
-        <item name="green_9000" type="color">#0d5302</item>
-        <item name="light_green_9000" type="color">#33691e</item>
-        <item name="lime_9000" type="color">#827717</item>
-        <item name="yellow_9000" type="color">#f57f17</item>
-        <item name="orange_9000" type="color">#e65100</item>
-        <item name="deep_orange_9000" type="color">#bf360c</item>
-        <item name="brown_9000" type="color">#3e2723</item>
-        <item name="grey_9000" type="color">#212121</item>
-        <item name="blue_grey_9000" type="color">#263238</item>
-        <item name="red_8000" type="color">#c41411</item>
-        <item name="pink_8000" type="color">#ad1457</item>
-        <item name="purple_8000" type="color">#6a1b9a</item>
-        <item name="deep_purple_8000" type="color">#4527a0</item>
-        <item name="indigo_8000" type="color">#283593</item>
-        <item name="blue_8000" type="color">#3b50ce</item>
-        <item name="light_blue_8000" type="color">#0277bd</item>
-        <item name="cyan_8000" type="color">#00838f</item>
-        <item name="teal_8000" type="color">#00695c</item>
-        <item name="green_8000" type="color">#056f00</item>
-        <item name="light_green_8000" type="color">#558b2f</item>
-        <item name="lime_8000" type="color">#9e9d24</item>
-        <item name="yellow_8000" type="color">#f9a825</item>
-        <item name="orange_8000" type="color">#ef6c00</item>
-        <item name="deep_orange_8000" type="color">#d84315</item>
-        <item name="brown_8000" type="color">#4e342e</item>
-        <item name="grey_8000" type="color">#424242</item>
-        <item name="blue_grey_8000" type="color">#37474f</item>
-        <item name="red_7000" type="color">#d01716</item>
-        <item name="pink_7000" type="color">#c2185b</item>
-        <item name="purple_7000" type="color">#7b1fa2</item>
-        <item name="deep_purple_7000" type="color">#512da8</item>
-        <item name="indigo_7000" type="color">#303f9f</item>
-        <item name="blue_7000" type="color">#455ede</item>
-        <item name="light_blue_7000" type="color">#0288d1</item>
-        <item name="cyan_7000" type="color">#0097a7</item>
-        <item name="teal_7000" type="color">#00796b</item>
-        <item name="green_7000" type="color">#0a7e07</item>
-        <item name="light_green_7000" type="color">#689f38</item>
-        <item name="lime_7000" type="color">#afb42b</item>
-        <item name="yellow_7000" type="color">#fbc02d</item>
-        <item name="orange_7000" type="color">#f57c00</item>
-        <item name="deep_orange_7000" type="color">#e64a19</item>
-        <item name="brown_7000" type="color">#5d4037</item>
-        <item name="grey_7000" type="color">#616161</item>
-        <item name="blue_grey_7000" type="color">#455a64</item>
-        <item name="red_6000" type="color">#dd191d</item>
-        <item name="pink_6000" type="color">#d81b60</item>
-        <item name="purple_6000" type="color">#8e24aa</item>
-        <item name="deep_purple_6000" type="color">#5e35b1</item>
-        <item name="indigo_6000" type="color">#3949ab</item>
-        <item name="blue_6000" type="color">#4e6cef</item>
-        <item name="light_blue_6000" type="color">#039be5</item>
-        <item name="cyan_6000" type="color">#00acc1</item>
-        <item name="teal_6000" type="color">#00897b</item>
-        <item name="green_6000" type="color">#0a8f08</item>
-        <item name="light_green_6000" type="color">#7cb342</item>
-        <item name="lime_6000" type="color">#c0ca33</item>
-        <item name="yellow_6000" type="color">#fdd835</item>
-        <item name="orange_6000" type="color">#fb8c00</item>
-        <item name="deep_orange_6000" type="color">#f4511e</item>
-        <item name="brown_6000" type="color">#6d4c41</item>
-        <item name="grey_6000" type="color">#757575</item>
-        <item name="blue_grey_6000" type="color">#546e7a</item>
-        <item name="red_5000" type="color">#e51c23</item>
-        <item name="pink_5000" type="color">#e91e63</item>
-        <item name="purple_5000" type="color">#9c27b0</item>
-        <item name="deep_purple_5000" type="color">#673ab7</item>
-        <item name="indigo_5000" type="color">#3f51b5</item>
-        <item name="blue_5000" type="color">#5677fc</item>
-        <item name="light_blue_5000" type="color">#03a9f4</item>
-        <item name="cyan_5000" type="color">#00bcd4</item>
-        <item name="teal_5000" type="color">#009688</item>
-        <item name="green_5000" type="color">#259b24</item>
-        <item name="light_green_5000" type="color">#8bc34a</item>
-        <item name="lime_5000" type="color">#cddc39</item>
-        <item name="yellow_5000" type="color">#ffeb3b</item>
-        <item name="orange_5000" type="color">#ff9800</item>
-        <item name="deep_orange_5000" type="color">#ff5722</item>
-        <item name="brown_5000" type="color">#795548</item>
-        <item name="grey_5000" type="color">#9e9e9e</item>
-        <item name="blue_grey_5000" type="color">#607d8b</item>
-        <item name="red_4000" type="color">#e84e40</item>
-        <item name="pink_4000" type="color">#ec407a</item>
-        <item name="purple_4000" type="color">#ab47bc</item>
-        <item name="deep_purple_4000" type="color">#7e57c2</item>
-        <item name="indigo_4000" type="color">#5c6bc0</item>
-        <item name="blue_4000" type="color">#738ffe</item>
-        <item name="light_blue_4000" type="color">#29b6f6</item>
-        <item name="cyan_4000" type="color">#26c6da</item>
-        <item name="teal_4000" type="color">#26a69a</item>
-        <item name="green_4000" type="color">#2baf2b</item>
-        <item name="light_green_4000" type="color">#9ccc65</item>
-        <item name="lime_4000" type="color">#d4e157</item>
-        <item name="yellow_4000" type="color">#ffee58</item>
-        <item name="orange_4000" type="color">#ffa726</item>
-        <item name="deep_orange_4000" type="color">#ff7043</item>
-        <item name="brown_4000" type="color">#8d6e63</item>
-        <item name="grey_4000" type="color">#bdbdbd</item>
-        <item name="blue_grey_4000" type="color">#78909c</item>
-        <item name="red_3000" type="color">#f36c60</item>
-        <item name="pink_3000" type="color">#f06292</item>
-        <item name="purple_3000" type="color">#ba68c8</item>
-        <item name="deep_purple_3000" type="color">#9575cd</item>
-        <item name="indigo_3000" type="color">#7986cb</item>
-        <item name="blue_3000" type="color">#91a7ff</item>
-        <item name="light_blue_3000" type="color">#4fc3f7</item>
-        <item name="cyan_3000" type="color">#4dd0e1</item>
-        <item name="teal_3000" type="color">#4db6ac</item>
-        <item name="green_3000" type="color">#42bd41</item>
-        <item name="light_green_3000" type="color">#aed581</item>
-        <item name="lime_3000" type="color">#dce775</item>
-        <item name="yellow_3000" type="color">#fff176</item>
-        <item name="orange_3000" type="color">#ffb74d</item>
-        <item name="deep_orange_3000" type="color">#ff8a65</item>
-        <item name="brown_3000" type="color">#a1887f</item>
-        <item name="grey_3000" type="color">#e0e0e0</item>
-        <item name="blue_grey_3000" type="color">#90a4ae</item>
-        <item name="red_2000" type="color">#f69988</item>
-        <item name="pink_2000" type="color">#f48fb1</item>
-        <item name="purple_2000" type="color">#ce93d8</item>
-        <item name="deep_purple_2000" type="color">#b39ddb</item>
-        <item name="indigo_2000" type="color">#9fa8da</item>
-        <item name="blue_2000" type="color">#afbfff</item>
-        <item name="light_blue_2000" type="color">#81d4fa</item>
-        <item name="cyan_2000" type="color">#80deea</item>
-        <item name="teal_2000" type="color">#80cbc4</item>
-        <item name="green_2000" type="color">#72d572</item>
-        <item name="light_green_2000" type="color">#c5e1a5</item>
-        <item name="lime_2000" type="color">#e6ee9c</item>
-        <item name="yellow_2000" type="color">#fff59d</item>
-        <item name="orange_2000" type="color">#ffcc80</item>
-        <item name="deep_orange_2000" type="color">#ffab91</item>
-        <item name="brown_2000" type="color">#bcaaa4</item>
-        <item name="grey_2000" type="color">#eeeeee</item>
-        <item name="blue_grey_2000" type="color">#b0bec5</item>
-        <item name="red_1000" type="color">#f9bdbb</item>
-        <item name="pink_1000" type="color">#f8bbd0</item>
-        <item name="purple_1000" type="color">#e1bee7</item>
-        <item name="deep_purple_1000" type="color">#d1c4e9</item>
-        <item name="indigo_1000" type="color">#c5cae9</item>
-        <item name="blue_1000" type="color">#d0d9ff</item>
-        <item name="light_blue_1000" type="color">#b3e5fc</item>
-        <item name="cyan_1000" type="color">#b2ebf2</item>
-        <item name="teal_1000" type="color">#b2dfdb</item>
-        <item name="green_1000" type="color">#a3e9a4</item>
-        <item name="light_green_1000" type="color">#dcedc8</item>
-        <item name="lime_1000" type="color">#f0f4c3</item>
-        <item name="yellow_1000" type="color">#fff9c4</item>
-        <item name="amber_1000" type="color">#ffecb3</item>
-        <item name="orange_1000" type="color">#ffe0b2</item>
-        <item name="deep_orange_1000" type="color">#ffccbc</item>
-        <item name="brown_1000" type="color">#d7ccc8</item>
-        <item name="grey_1000" type="color">#f5f5f5</item>
-        <item name="blue_grey_1000" type="color">#cfd8dc</item>
-        <item name="red_500" type="color">#fde0dc</item>
-        <item name="pink_500" type="color">#fce4ec</item>
-        <item name="purple_500" type="color">#f3e5f5</item>
-        <item name="deep_purple_500" type="color">#ede7f6</item>
-        <item name="indigo_500" type="color">#e8eaf6</item>
-        <item name="blue_500" type="color">#e7e9fd</item>
-        <item name="light_blue_500" type="color">#e1f5fe</item>
-        <item name="cyan_500" type="color">#e0f7fa</item>
-        <item name="teal_500" type="color">#e0f2f1</item>
-        <item name="green_500" type="color">#d0f8ce</item>
-        <item name="light_green_500" type="color">#f1f8e9</item>
-        <item name="lime_500" type="color">#f9fbe7</item>
-        <item name="yellow_500" type="color">#fffde7</item>
-        <item name="amber_500" type="color">#fff8e1</item>
-        <item name="orange_500" type="color">#fff3e0</item>
-        <item name="deep_orange_500" type="color">#fbe9e7</item>
-        <item name="brown_500" type="color">#efebe9</item>
-        <item name="grey_500" type="color">#fafafa</item>
-        <item name="blue_grey_500" type="color">#eceff1</item>
-
-
-        <item name="Black" type="color">#FF000000</item>
-        <item name="Black_overlay" type="color">#66000000</item>
-
-        <item name="Black_transparent_black_hex_1" type="color">#11000000</item>
-        <item name="Black_transparent_black_hex_10" type="color">#aa000000</item>
-        <item name="Black_transparent_black_hex_11" type="color">#bb000000</item>
-        <item name="Black_transparent_black_hex_12" type="color">#cc000000</item>
-        <item name="Black_transparent_black_hex_13" type="color">#dd000000</item>
-        <item name="Black_transparent_black_hex_14" type="color">#ee000000</item>
-        <item name="Black_transparent_black_hex_15" type="color">#ff000000</item>
-        <item name="Black_transparent_black_hex_2" type="color">#22000000</item>
-        <item name="Black_transparent_black_hex_3" type="color">#33000000</item>
-        <item name="Black_transparent_black_hex_4" type="color">#44000000</item>
-        <item name="Black_transparent_black_hex_5" type="color">#55000000</item>
-        <item name="Black_transparent_black_hex_6" type="color">#66000000</item>
-        <item name="Black_transparent_black_hex_7" type="color">#77000000</item>
-        <item name="Black_transparent_black_hex_8" type="color">#88000000</item>
-        <item name="Black_transparent_black_hex_9" type="color">#99000000</item>
-
-        <item name="Black_transparent_black_percent_10" type="color">#1A000000</item>
-        <item name="Black_transparent_black_percent_15" type="color">#26000000</item>
-        <item name="Black_transparent_black_percent_20" type="color">#33000000</item>
-        <item name="Black_transparent_black_percent_25" type="color">#40000000</item>
-        <item name="Black_transparent_black_percent_30" type="color">#4D000000</item>
-        <item name="Black_transparent_black_percent_35" type="color">#59000000</item>
-        <item name="Black_transparent_black_percent_40" type="color">#66000000</item>
-        <item name="Black_transparent_black_percent_45" type="color">#73000000</item>
-        <item name="Black_transparent_black_percent_5" type="color">#0D000000</item>
-        <item name="Black_transparent_black_percent_50" type="color">#80000000</item>
-        <item name="Black_transparent_black_percent_55" type="color">#8C000000</item>
-        <item name="Black_transparent_black_percent_60" type="color">#99000000</item>
-        <item name="Black_transparent_black_percent_65" type="color">#A6000000</item>
-        <item name="Black_transparent_black_percent_70" type="color">#B3000000</item>
-        <item name="Black_transparent_black_percent_75" type="color">#BF000000</item>
-        <item name="Black_transparent_black_percent_80" type="color">#CC000000</item>
-        <item name="Black_transparent_black_percent_85" type="color">#D9000000</item>
-        <item name="Black_transparent_black_percent_90" type="color">#E6000000</item>
-        <item name="Black_transparent_black_percent_95" type="color">#F2000000</item>
-
-        <item name="BlanchedAlmond" type="color">#FFEBCD</item>
-        <item name="Blue_AliceBlue" type="color">#F0F8FF</item>
-        <item name="Blue_Aqua" type="color">#00FFFF</item>
-        <item name="Blue_Aquamarine" type="color">#7FFFD4</item>
-        <item name="Blue" type="color">#0000FF</item>
-        <item name="Blue_BlueNavy" type="color">#000080</item>
-        <item name="Blue_BlueViolet" type="color">#8A2BE2</item>
-        <item name="Blue_CadetBlue" type="color">#5F9EA0</item>
-        <item name="Blue_CornflowerBlue" type="color">#6495ED</item>
-        <item name="Blue_DarkBlue" type="color">#00008B</item>
-        <item name="Blue_DarkSlateBlue" type="color">#483D8B</item>
-        <item name="Blue_DeepSkyBlue" type="color">#00BFFF</item>
-        <item name="Blue_DodgerBlue" type="color">#1E90FF</item>
-        <item name="Blue_Lavender" type="color">#E6E6FA</item>
-        <item name="Blue_LavenderBlush" type="color">#FFF0F5</item>
-        <item name="Blue_LightBlue" type="color">#ADD8E6</item>
-        <item name="Blue_LightSkyBlue" type="color">#87CEFA</item>
-        <item name="Blue_LightSteelBlue" type="color">#B0C4DE</item>
-        <item name="Blue_MediumBlue" type="color">#0000CD</item>
-        <item name="Blue_MediumSlateBlue" type="color">#7B68EE</item>
-        <item name="Blue_MidnightBlue" type="color">#191970</item>
-        <item name="Blue_Navy" type="color">#000080</item>
-        <item name="Blue_PowderBlue" type="color">#B0E0E6</item>
-        <item name="Blue_RoyalBlue" type="color">#4169E1</item>
-        <item name="Blue_SkyBlue" type="color">#87CEEB</item>
-        <item name="Blue_SlateBlue" type="color">#6A5ACD</item>
-        <item name="Blue_SteelBlue" type="color">#4682B4</item>
-
-        <item name="Brown" type="color">#A52A2A</item>
-        <item name="Brown_BurlyWood" type="color">#DEB887</item>
-        <item name="Brown_Chocolate" type="color">#D2691E</item>
-        <item name="Brown_DarkKhaki" type="color">#BDB76B</item>
-        <item name="Brown_RosyBrown" type="color">#BC8F8F</item>
-        <item name="Brown_SandyBrown" type="color">#F4A460</item>
-
-        <item name="Chartreuse" type="color">#7FFF00</item>
-        <item name="Coral" type="color">#FF7F50</item>
-        <item name="Cornsilk" type="color">#FFF8DC</item>
-        <item name="Cyan" type="color">#00FFFF</item>
-        <item name="DarkMagenta" type="color">#8B008B</item>
-        <item name="DarkOrchid" type="color">#9932CC</item>
-        <item name="DarkSalmon" type="color">#E9967A</item>
-        <item name="DarkTurquoise" type="color">#00CED1</item>
-        <item name="DarkViolet" type="color">#9400D3</item>
-        <item name="Fuchsia" type="color">#FF00FF</item>
-        <item name="Gainsboro" type="color">#DCDCDC</item>
-
-        <item name="Gray_DarkGray1" type="color">#A9A9A9</item>
-        <item name="Gray_DarkGray" type="color">#2F4F4F</item>
-        <item name="Gray_DimGray" type="color">#696969</item>
-        <item name="Gray_LightGray" type="color">#D3D3D3</item>
-        <item name="Gray_LightSlateGray" type="color">#778899</item>
-        <item name="Gray_SlateGray" type="color">#708090</item>
-
-        <item name="Green" type="color">#008000</item>
-        <item name="Green_DarkGreen" type="color">#006400</item>
-        <item name="Green_DarkOliveGreen" type="color">#556B2F</item>
-        <item name="Green_DarkSeaGreen" type="color">#8FBC8F</item>
-        <item name="Green_ForestGreen" type="color">#228B22</item>
-        <item name="Green_GreenYellow" type="color">#ADFF2F</item>
-        <item name="Green_LawnGreen" type="color">#7CFC00</item>
-        <item name="Green_LightGreen" type="color">#90EE90</item>
-        <item name="Green_LightSeaGreen" type="color">#20B2AA</item>
-        <item name="Green_LimeGreen" type="color">#32CD32</item>
-        <item name="Green_MediumSeaGreen" type="color">#3CB371</item>
-        <item name="Green_MediumSpringGreen" type="color">#00FA9A</item>
-        <item name="Green_PaleGreen" type="color">#98FB98</item>
-        <item name="Green_SeaGreen" type="color">#2E8B57</item>
-        <item name="Green_SpringGreen" type="color">#00FF7F</item>
-        <item name="Green_YellowGreen" type="color">#9ACD32</item>
-
-        <item name="Indigo" type="color">#4B0082</item>
-        <item name="Khaki" type="color">#F0E68C</item>
-        <item name="LemonChiffon" type="color">#FFFACD</item>
-        <item name="LightCoral" type="color">#F08080</item>
-        <item name="LightGoldenrodYellow" type="color">#FAFAD2</item>
-        <item name="LightSalmon" type="color">#FFA07A</item>
-        <item name="Lime" type="color">#00FF00</item>
-        <item name="Linen" type="color">#FAF0E6</item>
-        <item name="Magenta" type="color">#FF00FF</item>
-        <item name="Maroon" type="color">#800000</item>
-        <item name="MediumAquamarine" type="color">#66CDAA</item>
-        <item name="MediumOrchid" type="color">#BA55D3</item>
-        <item name="MediumPurple" type="color">#9370DB</item>
-        <item name="MediumTurquoise" type="color">#48D1CC</item>
-        <item name="MintCream" type="color">#F5FFFA</item>
-        <item name="Moccasin" type="color">#FFE4B5</item>
-        <item name="OldLace" type="color">#FDF5E6</item>
-        <item name="Olive" type="color">#808000</item>
-        <item name="OliveDrab" type="color">#6B8E23</item>
-
-        <item name="Orange" type="color">#FFA500</item>
-        <item name="Orange_DarkOrange" type="color">#FF8C00</item>
-        <item name="Orchid" type="color">#DA70D6</item>
-        <item name="PaleTurquoise" type="color">#AFEEEE</item>
-        <item name="PapayaWhip" type="color">#FFEFD5</item>
-        <item name="PeachPuff" type="color">#FFDAB9</item>
-        <item name="Peru" type="color">#CD853F</item>
-
-        <item name="Pink" type="color">#FFC0CB</item>
-        <item name="Pink_DeepPink" type="color">#FF1493</item>
-        <item name="Pink_HotPink" type="color">#FF69B4</item>
-        <item name="Pink_LightPink" type="color">#FFB6C1</item>
-
-        <item name="Plum" type="color">#DDA0DD</item>
-        <item name="Purple" type="color">#800080</item>
-
-        <item name="Red" type="color">#FF0000</item>
-        <item name="Red_Crimson" type="color">#DC143C</item>
-        <item name="Red_DarkCyan" type="color">#008B8B</item>
-        <item name="Red_DarkRed" type="color">#8B0000</item>
-        <item name="Red_FireBrick" type="color">#B22222</item>
-        <item name="Red_IndianRed" type="color">#CD5C5C</item>
-        <item name="Red_LightCyan" type="color">#E0FFFF</item>
-        <item name="Red_MediumVioletRed" type="color">#C71585</item>
-        <item name="Red_MistyRose" type="color">#FFE4E1</item>
-        <item name="Red_OrangeRed" type="color">#FF4500</item>
-        <item name="Red_PaleVioletRed" type="color">#DB7093</item>
-        <item name="Red_Tomato" type="color">#FF6347</item>
-
-        <item name="SaddleBrown" type="color">#8B4513</item>
-        <item name="Salmon" type="color">#FA8072</item>
-        <item name="Seashell" type="color">#FFF5EE</item>
-        <item name="Sienna" type="color">#A0522D</item>
-        <item name="Silver" type="color">#C0C0C0</item>
-        <item name="Tan" type="color">#D2B48C</item>
-        <item name="Thistle" type="color">#D8BFD8</item>
-        <item name="Turquoise" type="color">#40E0D0</item>
-        <item name="Violet" type="color">#EE82EE</item>
-
-        <item name="White_AntiqueWhite" type="color">#FAEBD7</item>
-        <item name="White_Azure" type="color">#F0FFFF</item>
-        <item name="White_Beige" type="color">#F5F5DC</item>
-        <item name="White_Bisque" type="color">#FFE4C4</item>
-        <item name="White_FloralWhite" type="color">#FFFAF0</item>
-        <item name="White_GhostWhite" type="color">#F8F8FF</item>
-        <item name="White_Honeydew" type="color">#F0FFF0</item>
-        <item name="White_Ivory" type="color">#FFFFF0</item>
-        <item name="White_NavajoWhite" type="color">#FFDEAD</item>
-        <item name="White_Snow" type="color">#FFFAFA</item>
-        <item name="White_Teal" type="color">#008080</item>
-
-        <item name="White_transparent_white_hex_1" type="color">#11ffffff</item>
-        <item name="White_transparent_white_hex_10" type="color">#aaffffff</item>
-        <item name="White_transparent_white_hex_11" type="color">#bbffffff</item>
-        <item name="White_transparent_white_hex_12" type="color">#ccffffff</item>
-        <item name="White_transparent_white_hex_13" type="color">#ddffffff</item>
-        <item name="White_transparent_white_hex_14" type="color">#eeffffff</item>
-        <item name="White_transparent_white_hex_15" type="color">#ffffffff</item>
-        <item name="White_transparent_white_hex_2" type="color">#22ffffff</item>
-        <item name="White_transparent_white_hex_3" type="color">#33ffffff</item>
-        <item name="White_transparent_white_hex_4" type="color">#44ffffff</item>
-        <item name="White_transparent_white_hex_5" type="color">#55ffffff</item>
-        <item name="White_transparent_white_hex_6" type="color">#66ffffff</item>
-        <item name="White_transparent_white_hex_7" type="color">#77ffffff</item>
-        <item name="White_transparent_white_hex_8" type="color">#88ffffff</item>
-        <item name="White_transparent_white_hex_9" type="color">#99ffffff</item>
-
-        <item name="White_transparent_white_percent_10" type="color">#1Affffff</item>
-        <item name="White_transparent_white_percent_15" type="color">#26ffffff</item>
-        <item name="White_transparent_white_percent_20" type="color">#33ffffff</item>
-        <item name="White_transparent_white_percent_25" type="color">#40ffffff</item>
-        <item name="White_transparent_white_percent_30" type="color">#4Dffffff</item>
-        <item name="White_transparent_white_percent_35" type="color">#59ffffff</item>
-        <item name="White_transparent_white_percent_40" type="color">#66ffffff</item>
-        <item name="White_transparent_white_percent_45" type="color">#73ffffff</item>
-        <item name="White_transparent_white_percent_5" type="color">#0Dffffff</item>
-        <item name="White_transparent_white_percent_50" type="color">#80ffffff</item>
-        <item name="White_transparent_white_percent_55" type="color">#8Cffffff</item>
-        <item name="White_transparent_white_percent_60" type="color">#99ffffff</item>
-        <item name="White_transparent_white_percent_65" type="color">#A6ffffff</item>
-        <item name="White_transparent_white_percent_70" type="color">#B3ffffff</item>
-        <item name="White_transparent_white_percent_75" type="color">#BFffffff</item>
-        <item name="White_transparent_white_percent_80" type="color">#CCffffff</item>
-        <item name="White_transparent_white_percent_85" type="color">#D9ffffff</item>
-        <item name="White_transparent_white_percent_90" type="color">#E6ffffff</item>
-        <item name="White_transparent_white_percent_95" type="color">#F2ffffff</item>
-
-        <item name="White_Wheat" type="color">#F5DEB3</item>
-        <item name="White_White" type="color">#FFFFFF</item>
-        <item name="White_WhiteSmoke" type="color">#F5F5F5</item>
-
-        <item name="Yellow" type="color">#FFFF00</item>
-        <item name="Yellow_DarkGoldenrod" type="color">#B8860B</item>
-        <item name="Yellow_Gold" type="color">#FFD700</item>
-        <item name="Yellow_GoldenRod" type="color">#DAA520</item>
-        <item name="Yellow_LightYellow" type="color">#FFFFE0</item>
-        <item name="Yellow_PaleGoldenrod" type="color">#EEE8AA</item>
+        <item name="red_A7000" type="color" tools:keep="@color/red_A7000">#e00032</item>
+        <item name="pink_A7000" type="color" tools:keep="@color/pink_A7000">#c51162</item>
+        <item name="purple_A7000" type="color" tools:keep="@color/purple_A7000">#aa00ff</item>
+        <item name="deep_purple_A7000" type="color" tools:keep="@color/deep_purple_A7000">#6200ea</item>
+        <item name="indigo_A7000" type="color" tools:keep="@color/indigo_A7000">#304ffe</item>
+        <item name="blue_A7000" type="color" tools:keep="@color/blue_A7000">#4d69ff</item>
+        <item name="light_blue_A7000" type="color" tools:keep="@color/light_blue_A7000">#0091ea</item>
+        <item name="cyan_A7000" type="color" tools:keep="@color/cyan_A7000">#00b8d4</item>
+        <item name="teal_A7000" type="color" tools:keep="@color/teal_A7000">#00bfa5</item>
+        <item name="green_A7000" type="color" tools:keep="@color/green_A7000">#12c700</item>
+        <item name="light_green_A7000" type="color" tools:keep="@color/light_green_A7000">#64dd17</item>
+        <item name="lime_A7000" type="color" tools:keep="@color/lime_A7000">#aeea00</item>
+        <item name="yellow_A7000" type="color" tools:keep="@color/yellow_A7000">#ffd600</item>
+        <item name="orange_A7000" type="color" tools:keep="@color/orange_A7000">#ff6d00</item>
+        <item name="deep_orange_A7000" type="color" tools:keep="@color/deep_orange_A7000">#dd2c00</item>
+        <item name="red_A4000" type="color" tools:keep="@color/red_A4000">#ff2d6f</item>
+        <item name="pink_A4000" type="color" tools:keep="@color/pink_A4000">#f50057</item>
+        <item name="purple_A4000" type="color" tools:keep="@color/purple_A4000">#d500f9</item>
+        <item name="deep_purple_A4000" type="color" tools:keep="@color/deep_purple_A4000">#651fff</item>
+        <item name="indigo_A4000" type="color" tools:keep="@color/indigo_A4000">#3d5afe</item>
+        <item name="blue_A4000" type="color" tools:keep="@color/blue_A4000">#4d73ff</item>
+        <item name="light_blue_A4000" type="color" tools:keep="@color/light_blue_A4000">#00b0ff</item>
+        <item name="cyan_A4000" type="color" tools:keep="@color/cyan_A4000">#00e5ff</item>
+        <item name="teal_A4000" type="color" tools:keep="@color/teal_A4000">#1de9b6</item>
+        <item name="green_A4000" type="color" tools:keep="@color/green_A4000">#14e715</item>
+        <item name="light_green_A4000" type="color" tools:keep="@color/light_green_A4000">#76ff03</item>
+        <item name="lime_A4000" type="color" tools:keep="@color/lime_A4000">#c6ff00</item>
+        <item name="yellow_A4000" type="color" tools:keep="@color/yellow_A4000">#ffea00</item>
+        <item name="orange_A4000" type="color" tools:keep="@color/orange_A4000">#ff9100</item>
+        <item name="deep_orange_A4000" type="color" tools:keep="@color/deep_orange_A4000">#ff3d00</item>
+        <item name="red_A2000" type="color" tools:keep="@color/red_A2000">#ff5177</item>
+        <item name="pink_A2000" type="color" tools:keep="@color/pink_A2000">#ff4081</item>
+        <item name="purple_A2000" type="color" tools:keep="@color/purple_A2000">#e040fb</item>
+        <item name="deep_purple_A2000" type="color" tools:keep="@color/deep_purple_A2000">#7c4dff</item>
+        <item name="indigo_A2000" type="color" tools:keep="@color/indigo_A2000">#536dfe</item>
+        <item name="blue_A2000" type="color" tools:keep="@color/blue_A2000">#6889ff</item>
+        <item name="light_blue_A2000" type="color" tools:keep="@color/light_blue_A2000">#40c4ff</item>
+        <item name="cyan_A2000" type="color" tools:keep="@color/cyan_A2000">#18ffff</item>
+        <item name="teal_A2000" type="color" tools:keep="@color/teal_A2000">#64ffda</item>
+        <item name="green_A2000" type="color" tools:keep="@color/green_A2000">#5af158</item>
+        <item name="light_green_A2000" type="color" tools:keep="@color/light_green_A2000">#b2ff59</item>
+        <item name="lime_A2000" type="color" tools:keep="@color/lime_A2000">#eeff41</item>
+        <item name="yellow_A2000" type="color" tools:keep="@color/yellow_A2000">#ffff00</item>
+        <item name="orange_A2000" type="color" tools:keep="@color/orange_A2000">#ffab40</item>
+        <item name="deep_orange_A2000" type="color" tools:keep="@color/deep_orange_A2000">#ff6e40</item>
+        <item name="red_A1000" type="color" tools:keep="@color/red_A1000">#ff7997</item>
+        <item name="pink_A1000" type="color" tools:keep="@color/pink_A1000">#ff80ab</item>
+        <item name="purple_A1000" type="color" tools:keep="@color/purple_A1000">#ea80fc</item>
+        <item name="deep_purple_A1000" type="color" tools:keep="@color/deep_purple_A1000">#b388ff</item>
+        <item name="indigo_A1000" type="color" tools:keep="@color/indigo_A1000">#8c9eff</item>
+        <item name="blue_A1000" type="color" tools:keep="@color/blue_A1000">#a6baff</item>
+        <item name="light_blue_A1000" type="color" tools:keep="@color/light_blue_A1000">#80d8ff</item>
+        <item name="cyan_A1000" type="color" tools:keep="@color/cyan_A1000">#84ffff</item>
+        <item name="teal_A1000" type="color" tools:keep="@color/teal_A1000">#a7ffeb</item>
+        <item name="green_A1000" type="color" tools:keep="@color/green_A1000">#a2f78d</item>
+        <item name="light_green_A1000" type="color" tools:keep="@color/light_green_A1000">#ccff90</item>
+        <item name="lime_A1000" type="color" tools:keep="@color/lime_A1000">#f4ff81</item>
+        <item name="yellow_A1000" type="color" tools:keep="@color/yellow_A1000">#ffff8d</item>
+        <item name="orange_A1000" type="color" tools:keep="@color/orange_A1000">#ffd180</item>
+        <item name="deep_orange_A1000" type="color" tools:keep="@color/deep_orange_A1000">#ff9e80</item>
+        <item name="red_9000" type="color" tools:keep="@color/red_9000">#b0120a</item>
+        <item name="pink_9000" type="color" tools:keep="@color/pink_9000">#880e4f</item>
+        <item name="purple_9000" type="color" tools:keep="@color/purple_9000">#4a148c</item>
+        <item name="deep_purple_9000" type="color" tools:keep="@color/deep_purple_9000">#311b92</item>
+        <item name="indigo_9000" type="color" tools:keep="@color/indigo_9000">#1a237e</item>
+        <item name="blue_9000" type="color" tools:keep="@color/blue_9000">#2a36b1</item>
+        <item name="light_blue_9000" type="color" tools:keep="@color/light_blue_9000">#01579b</item>
+        <item name="cyan_9000" type="color" tools:keep="@color/cyan_9000">#006064</item>
+        <item name="teal_9000" type="color" tools:keep="@color/teal_9000">#004d40</item>
+        <item name="green_9000" type="color" tools:keep="@color/green_9000">#0d5302</item>
+        <item name="light_green_9000" type="color" tools:keep="@color/light_green_9000">#33691e</item>
+        <item name="lime_9000" type="color" tools:keep="@color/lime_9000">#827717</item>
+        <item name="yellow_9000" type="color" tools:keep="@color/yellow_9000">#f57f17</item>
+        <item name="orange_9000" type="color" tools:keep="@color/orange_9000">#e65100</item>
+        <item name="deep_orange_9000" type="color" tools:keep="@color/deep_orange_9000">#bf360c</item>
+        <item name="brown_9000" type="color" tools:keep="@color/brown_9000">#3e2723</item>
+        <item name="grey_9000" type="color" tools:keep="@color/grey_9000">#212121</item>
+        <item name="blue_grey_9000" type="color" tools:keep="@color/blue_grey_9000">#263238</item>
+        <item name="red_8000" type="color" tools:keep="@color/red_8000">#c41411</item>
+        <item name="pink_8000" type="color" tools:keep="@color/pink_8000">#ad1457</item>
+        <item name="purple_8000" type="color" tools:keep="@color/purple_8000">#6a1b9a</item>
+        <item name="deep_purple_8000" type="color" tools:keep="@color/deep_purple_8000">#4527a0</item>
+        <item name="indigo_8000" type="color" tools:keep="@color/indigo_8000">#283593</item>
+        <item name="blue_8000" type="color" tools:keep="@color/blue_8000">#3b50ce</item>
+        <item name="light_blue_8000" type="color" tools:keep="@color/light_blue_8000">#0277bd</item>
+        <item name="cyan_8000" type="color" tools:keep="@color/cyan_8000">#00838f</item>
+        <item name="teal_8000" type="color" tools:keep="@color/teal_8000">#00695c</item>
+        <item name="green_8000" type="color" tools:keep="@color/green_8000">#056f00</item>
+        <item name="light_green_8000" type="color" tools:keep="@color/light_green_8000">#558b2f</item>
+        <item name="lime_8000" type="color" tools:keep="@color/lime_8000">#9e9d24</item>
+        <item name="yellow_8000" type="color" tools:keep="@color/yellow_8000">#f9a825</item>
+        <item name="orange_8000" type="color" tools:keep="@color/orange_8000">#ef6c00</item>
+        <item name="deep_orange_8000" type="color" tools:keep="@color/deep_orange_8000">#d84315</item>
+        <item name="brown_8000" type="color" tools:keep="@color/brown_8000">#4e342e</item>
+        <item name="grey_8000" type="color" tools:keep="@color/grey_8000">#424242</item>
+        <item name="blue_grey_8000" type="color" tools:keep="@color/blue_grey_8000">#37474f</item>
+        <item name="red_7000" type="color" tools:keep="@color/red_7000">#d01716</item>
+        <item name="pink_7000" type="color" tools:keep="@color/pink_7000">#c2185b</item>
+        <item name="purple_7000" type="color" tools:keep="@color/purple_7000">#7b1fa2</item>
+        <item name="deep_purple_7000" type="color" tools:keep="@color/deep_purple_7000">#512da8</item>
+        <item name="indigo_7000" type="color" tools:keep="@color/indigo_7000">#303f9f</item>
+        <item name="blue_7000" type="color" tools:keep="@color/blue_7000">#455ede</item>
+        <item name="light_blue_7000" type="color" tools:keep="@color/light_blue_7000">#0288d1</item>
+        <item name="cyan_7000" type="color" tools:keep="@color/cyan_7000">#0097a7</item>
+        <item name="teal_7000" type="color" tools:keep="@color/teal_7000">#00796b</item>
+        <item name="green_7000" type="color" tools:keep="@color/green_7000">#0a7e07</item>
+        <item name="light_green_7000" type="color" tools:keep="@color/light_green_7000">#689f38</item>
+        <item name="lime_7000" type="color" tools:keep="@color/lime_7000">#afb42b</item>
+        <item name="yellow_7000" type="color" tools:keep="@color/yellow_7000">#fbc02d</item>
+        <item name="orange_7000" type="color" tools:keep="@color/orange_7000">#f57c00</item>
+        <item name="deep_orange_7000" type="color" tools:keep="@color/deep_orange_7000">#e64a19</item>
+        <item name="brown_7000" type="color" tools:keep="@color/brown_7000">#5d4037</item>
+        <item name="grey_7000" type="color" tools:keep="@color/grey_7000">#616161</item>
+        <item name="blue_grey_7000" type="color" tools:keep="@color/blue_grey_7000">#455a64</item>
+        <item name="red_6000" type="color" tools:keep="@color/red_6000">#dd191d</item>
+        <item name="pink_6000" type="color" tools:keep="@color/pink_6000">#d81b60</item>
+        <item name="purple_6000" type="color" tools:keep="@color/purple_6000">#8e24aa</item>
+        <item name="deep_purple_6000" type="color" tools:keep="@color/deep_purple_6000">#5e35b1</item>
+        <item name="indigo_6000" type="color" tools:keep="@color/indigo_6000">#3949ab</item>
+        <item name="blue_6000" type="color" tools:keep="@color/blue_6000">#4e6cef</item>
+        <item name="light_blue_6000" type="color" tools:keep="@color/light_blue_6000">#039be5</item>
+        <item name="cyan_6000" type="color" tools:keep="@color/cyan_6000">#00acc1</item>
+        <item name="teal_6000" type="color" tools:keep="@color/teal_6000">#00897b</item>
+        <item name="green_6000" type="color" tools:keep="@color/green_6000">#0a8f08</item>
+        <item name="light_green_6000" type="color" tools:keep="@color/light_green_6000">#7cb342</item>
+        <item name="lime_6000" type="color" tools:keep="@color/lime_6000">#c0ca33</item>
+        <item name="yellow_6000" type="color" tools:keep="@color/yellow_6000">#fdd835</item>
+        <item name="orange_6000" type="color" tools:keep="@color/orange_6000">#fb8c00</item>
+        <item name="deep_orange_6000" type="color" tools:keep="@color/deep_orange_6000">#f4511e</item>
+        <item name="brown_6000" type="color" tools:keep="@color/brown_6000">#6d4c41</item>
+        <item name="grey_6000" type="color" tools:keep="@color/grey_6000">#757575</item>
+        <item name="blue_grey_6000" type="color" tools:keep="@color/blue_grey_6000">#546e7a</item>
+        <item name="red_5000" type="color" tools:keep="@color/red_5000">#e51c23</item>
+        <item name="pink_5000" type="color" tools:keep="@color/pink_5000">#e91e63</item>
+        <item name="purple_5000" type="color" tools:keep="@color/purple_5000">#9c27b0</item>
+        <item name="deep_purple_5000" type="color" tools:keep="@color/deep_purple_5000">#673ab7</item>
+        <item name="indigo_5000" type="color" tools:keep="@color/indigo_5000">#3f51b5</item>
+        <item name="blue_5000" type="color" tools:keep="@color/blue_5000">#5677fc</item>
+        <item name="light_blue_5000" type="color" tools:keep="@color/light_blue_5000">#03a9f4</item>
+        <item name="cyan_5000" type="color" tools:keep="@color/cyan_5000">#00bcd4</item>
+        <item name="teal_5000" type="color" tools:keep="@color/teal_5000">#009688</item>
+        <item name="green_5000" type="color" tools:keep="@color/green_5000">#259b24</item>
+        <item name="light_green_5000" type="color" tools:keep="@color/light_green_5000">#8bc34a</item>
+        <item name="lime_5000" type="color" tools:keep="@color/lime_5000">#cddc39</item>
+        <item name="yellow_5000" type="color" tools:keep="@color/yellow_5000">#ffeb3b</item>
+        <item name="orange_5000" type="color" tools:keep="@color/orange_5000">#ff9800</item>
+        <item name="deep_orange_5000" type="color" tools:keep="@color/deep_orange_5000">#ff5722</item>
+        <item name="brown_5000" type="color" tools:keep="@color/brown_5000">#795548</item>
+        <item name="grey_5000" type="color" tools:keep="@color/grey_5000">#9e9e9e</item>
+        <item name="blue_grey_5000" type="color" tools:keep="@color/blue_grey_5000">#607d8b</item>
+        <item name="red_4000" type="color" tools:keep="@color/red_4000">#e84e40</item>
+        <item name="pink_4000" type="color" tools:keep="@color/pink_4000">#ec407a</item>
+        <item name="purple_4000" type="color" tools:keep="@color/purple_4000">#ab47bc</item>
+        <item name="deep_purple_4000" type="color" tools:keep="@color/deep_purple_4000">#7e57c2</item>
+        <item name="indigo_4000" type="color" tools:keep="@color/indigo_4000">#5c6bc0</item>
+        <item name="blue_4000" type="color" tools:keep="@color/blue_4000">#738ffe</item>
+        <item name="light_blue_4000" type="color" tools:keep="@color/light_blue_4000">#29b6f6</item>
+        <item name="cyan_4000" type="color" tools:keep="@color/cyan_4000">#26c6da</item>
+        <item name="teal_4000" type="color" tools:keep="@color/teal_4000">#26a69a</item>
+        <item name="green_4000" type="color" tools:keep="@color/green_4000">#2baf2b</item>
+        <item name="light_green_4000" type="color" tools:keep="@color/light_green_4000">#9ccc65</item>
+        <item name="lime_4000" type="color" tools:keep="@color/lime_4000">#d4e157</item>
+        <item name="yellow_4000" type="color" tools:keep="@color/yellow_4000">#ffee58</item>
+        <item name="orange_4000" type="color" tools:keep="@color/orange_4000">#ffa726</item>
+        <item name="deep_orange_4000" type="color" tools:keep="@color/deep_orange_4000">#ff7043</item>
+        <item name="brown_4000" type="color" tools:keep="@color/brown_4000">#8d6e63</item>
+        <item name="grey_4000" type="color" tools:keep="@color/grey_4000">#bdbdbd</item>
+        <item name="blue_grey_4000" type="color" tools:keep="@color/blue_grey_4000">#78909c</item>
+        <item name="red_3000" type="color" tools:keep="@color/red_3000">#f36c60</item>
+        <item name="pink_3000" type="color" tools:keep="@color/pink_3000">#f06292</item>
+        <item name="purple_3000" type="color" tools:keep="@color/purple_3000">#ba68c8</item>
+        <item name="deep_purple_3000" type="color" tools:keep="@color/deep_purple_3000">#9575cd</item>
+        <item name="indigo_3000" type="color" tools:keep="@color/indigo_3000">#7986cb</item>
+        <item name="blue_3000" type="color" tools:keep="@color/blue_3000">#91a7ff</item>
+        <item name="light_blue_3000" type="color" tools:keep="@color/light_blue_3000">#4fc3f7</item>
+        <item name="cyan_3000" type="color" tools:keep="@color/cyan_3000">#4dd0e1</item>
+        <item name="teal_3000" type="color" tools:keep="@color/teal_3000">#4db6ac</item>
+        <item name="green_3000" type="color" tools:keep="@color/green_3000">#42bd41</item>
+        <item name="light_green_3000" type="color" tools:keep="@color/light_green_3000">#aed581</item>
+        <item name="lime_3000" type="color" tools:keep="@color/lime_3000">#dce775</item>
+        <item name="yellow_3000" type="color" tools:keep="@color/yellow_3000">#fff176</item>
+        <item name="orange_3000" type="color" tools:keep="@color/orange_3000">#ffb74d</item>
+        <item name="deep_orange_3000" type="color" tools:keep="@color/deep_orange_3000">#ff8a65</item>
+        <item name="brown_3000" type="color" tools:keep="@color/brown_3000">#a1887f</item>
+        <item name="grey_3000" type="color" tools:keep="@color/grey_3000">#e0e0e0</item>
+        <item name="blue_grey_3000" type="color" tools:keep="@color/blue_grey_3000">#90a4ae</item>
+        <item name="red_2000" type="color" tools:keep="@color/red_2000">#f69988</item>
+        <item name="pink_2000" type="color" tools:keep="@color/pink_2000">#f48fb1</item>
+        <item name="purple_2000" type="color" tools:keep="@color/purple_2000">#ce93d8</item>
+        <item name="deep_purple_2000" type="color" tools:keep="@color/deep_purple_2000">#b39ddb</item>
+        <item name="indigo_2000" type="color" tools:keep="@color/indigo_2000">#9fa8da</item>
+        <item name="blue_2000" type="color" tools:keep="@color/blue_2000">#afbfff</item>
+        <item name="light_blue_2000" type="color" tools:keep="@color/light_blue_2000">#81d4fa</item>
+        <item name="cyan_2000" type="color" tools:keep="@color/cyan_2000">#80deea</item>
+        <item name="teal_2000" type="color" tools:keep="@color/teal_2000">#80cbc4</item>
+        <item name="green_2000" type="color" tools:keep="@color/green_2000">#72d572</item>
+        <item name="light_green_2000" type="color" tools:keep="@color/light_green_2000">#c5e1a5</item>
+        <item name="lime_2000" type="color" tools:keep="@color/lime_2000">#e6ee9c</item>
+        <item name="yellow_2000" type="color" tools:keep="@color/yellow_2000">#fff59d</item>
+        <item name="orange_2000" type="color" tools:keep="@color/orange_2000">#ffcc80</item>
+        <item name="deep_orange_2000" type="color" tools:keep="@color/deep_orange_2000">#ffab91</item>
+        <item name="brown_2000" type="color" tools:keep="@color/brown_2000">#bcaaa4</item>
+        <item name="grey_2000" type="color" tools:keep="@color/grey_2000">#eeeeee</item>
+        <item name="blue_grey_2000" type="color" tools:keep="@color/blue_grey_2000">#b0bec5</item>
+        <item name="red_1000" type="color" tools:keep="@color/red_1000">#f9bdbb</item>
+        <item name="pink_1000" type="color" tools:keep="@color/pink_1000">#f8bbd0</item>
+        <item name="purple_1000" type="color" tools:keep="@color/purple_1000">#e1bee7</item>
+        <item name="deep_purple_1000" type="color" tools:keep="@color/deep_purple_1000">#d1c4e9</item>
+        <item name="indigo_1000" type="color" tools:keep="@color/indigo_1000">#c5cae9</item>
+        <item name="blue_1000" type="color" tools:keep="@color/blue_1000">#d0d9ff</item>
+        <item name="light_blue_1000" type="color" tools:keep="@color/light_blue_1000">#b3e5fc</item>
+        <item name="cyan_1000" type="color" tools:keep="@color/cyan_1000">#b2ebf2</item>
+        <item name="teal_1000" type="color" tools:keep="@color/teal_1000">#b2dfdb</item>
+        <item name="green_1000" type="color" tools:keep="@color/green_1000">#a3e9a4</item>
+        <item name="light_green_1000" type="color" tools:keep="@color/light_green_1000">#dcedc8</item>
+        <item name="lime_1000" type="color" tools:keep="@color/lime_1000">#f0f4c3</item>
+        <item name="yellow_1000" type="color" tools:keep="@color/yellow_1000">#fff9c4</item>
+        <item name="amber_1000" type="color" tools:keep="@color/amber_1000">#ffecb3</item>
+        <item name="orange_1000" type="color" tools:keep="@color/orange_1000">#ffe0b2</item>
+        <item name="deep_orange_1000" type="color" tools:keep="@color/deep_orange_1000">#ffccbc</item>
+        <item name="brown_1000" type="color" tools:keep="@color/brown_1000">#d7ccc8</item>
+        <item name="grey_1000" type="color" tools:keep="@color/grey_1000">#f5f5f5</item>
+        <item name="blue_grey_1000" type="color" tools:keep="@color/blue_grey_1000">#cfd8dc</item>
+        <item name="red_500" type="color" tools:keep="@color/red_500">#fde0dc</item>
+        <item name="pink_500" type="color" tools:keep="@color/pink_500">#fce4ec</item>
+        <item name="purple_500" type="color" tools:keep="@color/purple_500">#f3e5f5</item>
+        <item name="deep_purple_500" type="color" tools:keep="@color/deep_purple_500">#ede7f6</item>
+        <item name="indigo_500" type="color" tools:keep="@color/indigo_500">#e8eaf6</item>
+        <item name="blue_500" type="color" tools:keep="@color/blue_500">#e7e9fd</item>
+        <item name="light_blue_500" type="color" tools:keep="@color/light_blue_500">#e1f5fe</item>
+        <item name="cyan_500" type="color" tools:keep="@color/cyan_500">#e0f7fa</item>
+        <item name="teal_500" type="color" tools:keep="@color/teal_500">#e0f2f1</item>
+        <item name="green_500" type="color" tools:keep="@color/green_500">#d0f8ce</item>
+        <item name="light_green_500" type="color" tools:keep="@color/light_green_500">#f1f8e9</item>
+        <item name="lime_500" type="color" tools:keep="@color/lime_500">#f9fbe7</item>
+        <item name="yellow_500" type="color" tools:keep="@color/yellow_500">#fffde7</item>
+        <item name="amber_500" type="color" tools:keep="@color/amber_500">#fff8e1</item>
+        <item name="orange_500" type="color" tools:keep="@color/orange_500">#fff3e0</item>
+        <item name="deep_orange_500" type="color" tools:keep="@color/deep_orange_500">#fbe9e7</item>
+        <item name="brown_500" type="color" tools:keep="@color/brown_500">#efebe9</item>
+        <item name="grey_500" type="color" tools:keep="@color/grey_500">#fafafa</item>
+        <item name="blue_grey_500" type="color" tools:keep="@color/blue_grey_500">#eceff1</item>
 
 
-        <item name="Gunmetal" type="color">#2C3539</item>
-        <item name="Midnight" type="color">#2B1B17</item>
-        <item name="Charcoal" type="color">#34282C</item>
-        <item name="DarkSlateGrey" type="color">#25383C</item>
-        <item name="Oil" type="color">#3B3131</item>
-        <item name="BlackCat" type="color">#413839</item>
-        <item name="BlackEel" type="color">#463E3F</item>
-        <item name="BlackCow" type="color">#4C4646</item>
-        <item name="GrayWolf" type="color">#504A4B</item>
-        <item name="VampireGray" type="color">#565051</item>
-        <item name="GrayDolphin" type="color">#5C5858</item>
-        <item name="CarbonGray" type="color">#625D5D</item>
-        <item name="AshGray" type="color">#666362</item>
-        <item name="CloudyGray" type="color">#6D6968</item>
-        <item name="SmokeyGray" type="color">#726E6D</item>
-        <item name="Gray" type="color">#736F6E</item>
-        <item name="Granite" type="color">#837E7C</item>
-        <item name="BattleshipGray" type="color">#848482</item>
-        <item name="GrayCloud" type="color">#B6B6B4</item>
-        <item name="GrayGoose" type="color">#D1D0CE</item>
-        <item name="Platinum" type="color">#E5E4E2</item>
-        <item name="MetallicSilver" type="color">#BCC6CC</item>
-        <item name="BlueGray" type="color">#98AFC7</item>
-        <item name="LightSlateGray" type="color">#6D7B8D</item>
-        <item name="SlateGray" type="color">#657383</item>
-        <item name="JetGray" type="color">#616D7E</item>
-        <item name="MistBlue" type="color">#646D7E</item>
-        <item name="MarbleBlue" type="color">#566D7E</item>
-        <item name="SteelBlue" type="color">#4863A0</item>
-        <item name="BlueJay" type="color">#2B547E</item>
-        <item name="DarkSlateBlue" type="color">#2B3856</item>
-        <item name="MidnightBlue" type="color">#151B54</item>
-        <item name="NavyBlue" type="color">#000080</item>
-        <item name="BlueWhale" type="color">#342D7E</item>
-        <item name="LapisBlue" type="color">#15317E</item>
-        <item name="EarthBlue" type="color">#0000A0</item>
+        <item name="Black" type="color" tools:keep="@color/Black">#FF000000</item>
+        <item name="Black_overlay" type="color" tools:keep="@color/Black_overlay">#66000000</item>
+
+        <item name="Black_transparent_black_hex_1" type="color" tools:keep="@color/Black_transparent_black_hex_1">#11000000</item>
+        <item name="Black_transparent_black_hex_10" type="color" tools:keep="@color/Black_transparent_black_hex_10">#aa000000</item>
+        <item name="Black_transparent_black_hex_11" type="color" tools:keep="@color/Black_transparent_black_hex_11">#bb000000</item>
+        <item name="Black_transparent_black_hex_12" type="color" tools:keep="@color/Black_transparent_black_hex_12">#cc000000</item>
+        <item name="Black_transparent_black_hex_13" type="color" tools:keep="@color/Black_transparent_black_hex_13">#dd000000</item>
+        <item name="Black_transparent_black_hex_14" type="color" tools:keep="@color/Black_transparent_black_hex_14">#ee000000</item>
+        <item name="Black_transparent_black_hex_15" type="color" tools:keep="@color/Black_transparent_black_hex_15">#ff000000</item>
+        <item name="Black_transparent_black_hex_2" type="color" tools:keep="@color/Black_transparent_black_hex_2">#22000000</item>
+        <item name="Black_transparent_black_hex_3" type="color" tools:keep="@color/Black_transparent_black_hex_3">#33000000</item>
+        <item name="Black_transparent_black_hex_4" type="color" tools:keep="@color/Black_transparent_black_hex_4">#44000000</item>
+        <item name="Black_transparent_black_hex_5" type="color" tools:keep="@color/Black_transparent_black_hex_5">#55000000</item>
+        <item name="Black_transparent_black_hex_6" type="color" tools:keep="@color/Black_transparent_black_hex_6">#66000000</item>
+        <item name="Black_transparent_black_hex_7" type="color" tools:keep="@color/Black_transparent_black_hex_7">#77000000</item>
+        <item name="Black_transparent_black_hex_8" type="color" tools:keep="@color/Black_transparent_black_hex_8">#88000000</item>
+        <item name="Black_transparent_black_hex_9" type="color" tools:keep="@color/Black_transparent_black_hex_9">#99000000</item>
+
+        <item name="Black_transparent_black_percent_10" type="color" tools:keep="@color/Black_transparent_black_percent_10">#1A000000</item>
+        <item name="Black_transparent_black_percent_15" type="color" tools:keep="@color/Black_transparent_black_percent_15">#26000000</item>
+        <item name="Black_transparent_black_percent_20" type="color" tools:keep="@color/Black_transparent_black_percent_20">#33000000</item>
+        <item name="Black_transparent_black_percent_25" type="color" tools:keep="@color/Black_transparent_black_percent_25">#40000000</item>
+        <item name="Black_transparent_black_percent_30" type="color" tools:keep="@color/Black_transparent_black_percent_30">#4D000000</item>
+        <item name="Black_transparent_black_percent_35" type="color" tools:keep="@color/Black_transparent_black_percent_35">#59000000</item>
+        <item name="Black_transparent_black_percent_40" type="color" tools:keep="@color/Black_transparent_black_percent_40">#66000000</item>
+        <item name="Black_transparent_black_percent_45" type="color" tools:keep="@color/Black_transparent_black_percent_45">#73000000</item>
+        <item name="Black_transparent_black_percent_5" type="color" tools:keep="@color/Black_transparent_black_percent_5">#0D000000</item>
+        <item name="Black_transparent_black_percent_50" type="color" tools:keep="@color/Black_transparent_black_percent_50">#80000000</item>
+        <item name="Black_transparent_black_percent_55" type="color" tools:keep="@color/Black_transparent_black_percent_55">#8C000000</item>
+        <item name="Black_transparent_black_percent_60" type="color" tools:keep="@color/Black_transparent_black_percent_60">#99000000</item>
+        <item name="Black_transparent_black_percent_65" type="color" tools:keep="@color/Black_transparent_black_percent_65">#A6000000</item>
+        <item name="Black_transparent_black_percent_70" type="color" tools:keep="@color/Black_transparent_black_percent_70">#B3000000</item>
+        <item name="Black_transparent_black_percent_75" type="color" tools:keep="@color/Black_transparent_black_percent_75">#BF000000</item>
+        <item name="Black_transparent_black_percent_80" type="color" tools:keep="@color/Black_transparent_black_percent_80">#CC000000</item>
+        <item name="Black_transparent_black_percent_85" type="color" tools:keep="@color/Black_transparent_black_percent_85">#D9000000</item>
+        <item name="Black_transparent_black_percent_90" type="color" tools:keep="@color/Black_transparent_black_percent_90">#E6000000</item>
+        <item name="Black_transparent_black_percent_95" type="color" tools:keep="@color/Black_transparent_black_percent_95">#F2000000</item>
+
+        <item name="BlanchedAlmond" type="color" tools:keep="@color/BlanchedAlmond">#FFEBCD</item>
+        <item name="Blue_AliceBlue" type="color" tools:keep="@color/Blue_AliceBlue">#F0F8FF</item>
+        <item name="Blue_Aqua" type="color" tools:keep="@color/Blue_Aqua">#00FFFF</item>
+        <item name="Blue_Aquamarine" type="color" tools:keep="@color/Blue_Aquamarine">#7FFFD4</item>
+        <item name="Blue" type="color" tools:keep="@color/Blue">#0000FF</item>
+        <item name="Blue_BlueNavy" type="color" tools:keep="@color/Blue_BlueNavy">#000080</item>
+        <item name="Blue_BlueViolet" type="color" tools:keep="@color/Blue_BlueViolet">#8A2BE2</item>
+        <item name="Blue_CadetBlue" type="color" tools:keep="@color/Blue_CadetBlue">#5F9EA0</item>
+        <item name="Blue_CornflowerBlue" type="color" tools:keep="@color/Blue_CornflowerBlue">#6495ED</item>
+        <item name="Blue_DarkBlue" type="color" tools:keep="@color/Blue_DarkBlue">#00008B</item>
+        <item name="Blue_DarkSlateBlue" type="color" tools:keep="@color/Blue_DarkSlateBlue">#483D8B</item>
+        <item name="Blue_DeepSkyBlue" type="color" tools:keep="@color/Blue_DeepSkyBlue">#00BFFF</item>
+        <item name="Blue_DodgerBlue" type="color" tools:keep="@color/Blue_DodgerBlue">#1E90FF</item>
+        <item name="Blue_Lavender" type="color" tools:keep="@color/Blue_Lavender">#E6E6FA</item>
+        <item name="Blue_LavenderBlush" type="color" tools:keep="@color/Blue_LavenderBlush">#FFF0F5</item>
+        <item name="Blue_LightBlue" type="color" tools:keep="@color/Blue_LightBlue">#ADD8E6</item>
+        <item name="Blue_LightSkyBlue" type="color" tools:keep="@color/Blue_LightSkyBlue">#87CEFA</item>
+        <item name="Blue_LightSteelBlue" type="color" tools:keep="@color/Blue_LightSteelBlue">#B0C4DE</item>
+        <item name="Blue_MediumBlue" type="color" tools:keep="@color/Blue_MediumBlue">#0000CD</item>
+        <item name="Blue_MediumSlateBlue" type="color" tools:keep="@color/Blue_MediumSlateBlue">#7B68EE</item>
+        <item name="Blue_MidnightBlue" type="color" tools:keep="@color/Blue_MidnightBlue">#191970</item>
+        <item name="Blue_Navy" type="color" tools:keep="@color/Blue_Navy">#000080</item>
+        <item name="Blue_PowderBlue" type="color" tools:keep="@color/Blue_PowderBlue">#B0E0E6</item>
+        <item name="Blue_RoyalBlue" type="color" tools:keep="@color/Blue_RoyalBlue">#4169E1</item>
+        <item name="Blue_SkyBlue" type="color" tools:keep="@color/Blue_SkyBlue">#87CEEB</item>
+        <item name="Blue_SlateBlue" type="color" tools:keep="@color/Blue_SlateBlue">#6A5ACD</item>
+        <item name="Blue_SteelBlue" type="color" tools:keep="@color/Blue_SteelBlue">#4682B4</item>
+
+        <item name="Brown" type="color" tools:keep="@color/Brown">#A52A2A</item>
+        <item name="Brown_BurlyWood" type="color" tools:keep="@color/Brown_BurlyWood">#DEB887</item>
+        <item name="Brown_Chocolate" type="color" tools:keep="@color/Brown_Chocolate">#D2691E</item>
+        <item name="Brown_DarkKhaki" type="color" tools:keep="@color/Brown_DarkKhaki">#BDB76B</item>
+        <item name="Brown_RosyBrown" type="color" tools:keep="@color/Brown_RosyBrown">#BC8F8F</item>
+        <item name="Brown_SandyBrown" type="color" tools:keep="@color/Brown_SandyBrown">#F4A460</item>
+
+        <item name="Chartreuse" type="color" tools:keep="@color/Chartreuse">#7FFF00</item>
+        <item name="Coral" type="color" tools:keep="@color/Coral">#FF7F50</item>
+        <item name="Cornsilk" type="color" tools:keep="@color/Cornsilk">#FFF8DC</item>
+        <item name="Cyan" type="color" tools:keep="@color/Cyan">#00FFFF</item>
+        <item name="DarkMagenta" type="color" tools:keep="@color/DarkMagenta">#8B008B</item>
+        <item name="DarkOrchid" type="color" tools:keep="@color/DarkOrchid">#9932CC</item>
+        <item name="DarkSalmon" type="color" tools:keep="@color/DarkSalmon">#E9967A</item>
+        <item name="DarkTurquoise" type="color" tools:keep="@color/DarkTurquoise">#00CED1</item>
+        <item name="DarkViolet" type="color" tools:keep="@color/DarkViolet">#9400D3</item>
+        <item name="Fuchsia" type="color" tools:keep="@color/Fuchsia">#FF00FF</item>
+        <item name="Gainsboro" type="color" tools:keep="@color/Gainsboro">#DCDCDC</item>
+
+        <item name="Gray_DarkGray1" type="color" tools:keep="@color/Gray_DarkGray1">#A9A9A9</item>
+        <item name="Gray_DarkGray" type="color" tools:keep="@color/Gray_DarkGray">#2F4F4F</item>
+        <item name="Gray_DimGray" type="color" tools:keep="@color/Gray_DimGray">#696969</item>
+        <item name="Gray_LightGray" type="color" tools:keep="@color/Gray_LightGray">#D3D3D3</item>
+        <item name="Gray_LightSlateGray" type="color" tools:keep="@color/Gray_LightSlateGray">#778899</item>
+        <item name="Gray_SlateGray" type="color" tools:keep="@color/Gray_SlateGray">#708090</item>
+
+        <item name="Green" type="color" tools:keep="@color/Green">#008000</item>
+        <item name="Green_DarkGreen" type="color" tools:keep="@color/Green_DarkGreen">#006400</item>
+        <item name="Green_DarkOliveGreen" type="color" tools:keep="@color/Green_DarkOliveGreen">#556B2F</item>
+        <item name="Green_DarkSeaGreen" type="color" tools:keep="@color/Green_DarkSeaGreen">#8FBC8F</item>
+        <item name="Green_ForestGreen" type="color" tools:keep="@color/Green_ForestGreen">#228B22</item>
+        <item name="Green_GreenYellow" type="color" tools:keep="@color/Green_GreenYellow">#ADFF2F</item>
+        <item name="Green_LawnGreen" type="color" tools:keep="@color/Green_LawnGreen">#7CFC00</item>
+        <item name="Green_LightGreen" type="color" tools:keep="@color/Green_LightGreen">#90EE90</item>
+        <item name="Green_LightSeaGreen" type="color" tools:keep="@color/Green_LightSeaGreen">#20B2AA</item>
+        <item name="Green_LimeGreen" type="color" tools:keep="@color/Green_LimeGreen">#32CD32</item>
+        <item name="Green_MediumSeaGreen" type="color" tools:keep="@color/Green_MediumSeaGreen">#3CB371</item>
+        <item name="Green_MediumSpringGreen" type="color" tools:keep="@color/Green_MediumSpringGreen">#00FA9A</item>
+        <item name="Green_PaleGreen" type="color" tools:keep="@color/Green_PaleGreen">#98FB98</item>
+        <item name="Green_SeaGreen" type="color" tools:keep="@color/Green_SeaGreen">#2E8B57</item>
+        <item name="Green_SpringGreen" type="color" tools:keep="@color/Green_SpringGreen">#00FF7F</item>
+        <item name="Green_YellowGreen" type="color" tools:keep="@color/Green_YellowGreen">#9ACD32</item>
+
+        <item name="Indigo" type="color" tools:keep="@color/Indigo">#4B0082</item>
+        <item name="Khaki" type="color" tools:keep="@color/Khaki">#F0E68C</item>
+        <item name="LemonChiffon" type="color" tools:keep="@color/LemonChiffon">#FFFACD</item>
+        <item name="LightCoral" type="color" tools:keep="@color/LightCoral">#F08080</item>
+        <item name="LightGoldenrodYellow" type="color" tools:keep="@color/LightGoldenrodYellow">#FAFAD2</item>
+        <item name="LightSalmon" type="color" tools:keep="@color/LightSalmon">#FFA07A</item>
+        <item name="Lime" type="color" tools:keep="@color/Lime">#00FF00</item>
+        <item name="Linen" type="color" tools:keep="@color/Linen">#FAF0E6</item>
+        <item name="Magenta" type="color" tools:keep="@color/Magenta">#FF00FF</item>
+        <item name="Maroon" type="color" tools:keep="@color/Maroon">#800000</item>
+        <item name="MediumAquamarine" type="color" tools:keep="@color/MediumAquamarine">#66CDAA</item>
+        <item name="MediumOrchid" type="color" tools:keep="@color/MediumOrchid">#BA55D3</item>
+        <item name="MediumPurple" type="color" tools:keep="@color/MediumPurple">#9370DB</item>
+        <item name="MediumTurquoise" type="color" tools:keep="@color/MediumTurquoise">#48D1CC</item>
+        <item name="MintCream" type="color" tools:keep="@color/MintCream">#F5FFFA</item>
+        <item name="Moccasin" type="color" tools:keep="@color/Moccasin">#FFE4B5</item>
+        <item name="OldLace" type="color" tools:keep="@color/OldLace">#FDF5E6</item>
+        <item name="Olive" type="color" tools:keep="@color/Olive">#808000</item>
+        <item name="OliveDrab" type="color" tools:keep="@color/OliveDrab">#6B8E23</item>
+
+        <item name="Orange" type="color" tools:keep="@color/Orange">#FFA500</item>
+        <item name="Orange_DarkOrange" type="color" tools:keep="@color/Orange_DarkOrange">#FF8C00</item>
+        <item name="Orchid" type="color" tools:keep="@color/Orchid">#DA70D6</item>
+        <item name="PaleTurquoise" type="color" tools:keep="@color/PaleTurquoise">#AFEEEE</item>
+        <item name="PapayaWhip" type="color" tools:keep="@color/PapayaWhip">#FFEFD5</item>
+        <item name="PeachPuff" type="color" tools:keep="@color/PeachPuff">#FFDAB9</item>
+        <item name="Peru" type="color" tools:keep="@color/Peru">#CD853F</item>
+
+        <item name="Pink" type="color" tools:keep="@color/Pink">#FFC0CB</item>
+        <item name="Pink_DeepPink" type="color" tools:keep="@color/Pink_DeepPink">#FF1493</item>
+        <item name="Pink_HotPink" type="color" tools:keep="@color/Pink_HotPink">#FF69B4</item>
+        <item name="Pink_LightPink" type="color" tools:keep="@color/Pink_LightPink">#FFB6C1</item>
+
+        <item name="Plum" type="color" tools:keep="@color/Plum">#DDA0DD</item>
+        <item name="Purple" type="color" tools:keep="@color/Purple">#800080</item>
+
+        <item name="Red" type="color" tools:keep="@color/Red">#FF0000</item>
+        <item name="Red_Crimson" type="color" tools:keep="@color/Red_Crimson">#DC143C</item>
+        <item name="Red_DarkCyan" type="color" tools:keep="@color/Red_DarkCyan">#008B8B</item>
+        <item name="Red_DarkRed" type="color" tools:keep="@color/Red_DarkRed">#8B0000</item>
+        <item name="Red_FireBrick" type="color" tools:keep="@color/Red_FireBrick">#B22222</item>
+        <item name="Red_IndianRed" type="color" tools:keep="@color/Red_IndianRed">#CD5C5C</item>
+        <item name="Red_LightCyan" type="color" tools:keep="@color/Red_LightCyan">#E0FFFF</item>
+        <item name="Red_MediumVioletRed" type="color" tools:keep="@color/Red_MediumVioletRed">#C71585</item>
+        <item name="Red_MistyRose" type="color" tools:keep="@color/Red_MistyRose">#FFE4E1</item>
+        <item name="Red_OrangeRed" type="color" tools:keep="@color/Red_OrangeRed">#FF4500</item>
+        <item name="Red_PaleVioletRed" type="color" tools:keep="@color/Red_PaleVioletRed">#DB7093</item>
+        <item name="Red_Tomato" type="color" tools:keep="@color/Red_Tomato">#FF6347</item>
+
+        <item name="SaddleBrown" type="color" tools:keep="@color/SaddleBrown">#8B4513</item>
+        <item name="Salmon" type="color" tools:keep="@color/Salmon">#FA8072</item>
+        <item name="Seashell" type="color" tools:keep="@color/Seashell">#FFF5EE</item>
+        <item name="Sienna" type="color" tools:keep="@color/Sienna">#A0522D</item>
+        <item name="Silver" type="color" tools:keep="@color/Silver">#C0C0C0</item>
+        <item name="Tan" type="color" tools:keep="@color/Tan">#D2B48C</item>
+        <item name="Thistle" type="color" tools:keep="@color/Thistle">#D8BFD8</item>
+        <item name="Turquoise" type="color" tools:keep="@color/Turquoise">#40E0D0</item>
+        <item name="Violet" type="color" tools:keep="@color/Violet">#EE82EE</item>
+
+        <item name="White_AntiqueWhite" type="color" tools:keep="@color/White_AntiqueWhite">#FAEBD7</item>
+        <item name="White_Azure" type="color" tools:keep="@color/White_Azure">#F0FFFF</item>
+        <item name="White_Beige" type="color" tools:keep="@color/White_Beige">#F5F5DC</item>
+        <item name="White_Bisque" type="color" tools:keep="@color/White_Bisque">#FFE4C4</item>
+        <item name="White_FloralWhite" type="color" tools:keep="@color/White_FloralWhite">#FFFAF0</item>
+        <item name="White_GhostWhite" type="color" tools:keep="@color/White_GhostWhite">#F8F8FF</item>
+        <item name="White_Honeydew" type="color" tools:keep="@color/White_Honeydew">#F0FFF0</item>
+        <item name="White_Ivory" type="color" tools:keep="@color/White_Ivory">#FFFFF0</item>
+        <item name="White_NavajoWhite" type="color" tools:keep="@color/White_NavajoWhite">#FFDEAD</item>
+        <item name="White_Snow" type="color" tools:keep="@color/White_Snow">#FFFAFA</item>
+        <item name="White_Teal" type="color" tools:keep="@color/White_Teal">#008080</item>
+
+        <item name="White_transparent_white_hex_1" type="color" tools:keep="@color/White_transparent_white_hex_1">#11ffffff</item>
+        <item name="White_transparent_white_hex_10" type="color" tools:keep="@color/White_transparent_white_hex_10">#aaffffff</item>
+        <item name="White_transparent_white_hex_11" type="color" tools:keep="@color/White_transparent_white_hex_11">#bbffffff</item>
+        <item name="White_transparent_white_hex_12" type="color" tools:keep="@color/White_transparent_white_hex_12">#ccffffff</item>
+        <item name="White_transparent_white_hex_13" type="color" tools:keep="@color/White_transparent_white_hex_13">#ddffffff</item>
+        <item name="White_transparent_white_hex_14" type="color" tools:keep="@color/White_transparent_white_hex_14">#eeffffff</item>
+        <item name="White_transparent_white_hex_15" type="color" tools:keep="@color/White_transparent_white_hex_15">#ffffffff</item>
+        <item name="White_transparent_white_hex_2" type="color" tools:keep="@color/White_transparent_white_hex_2">#22ffffff</item>
+        <item name="White_transparent_white_hex_3" type="color" tools:keep="@color/White_transparent_white_hex_3">#33ffffff</item>
+        <item name="White_transparent_white_hex_4" type="color" tools:keep="@color/White_transparent_white_hex_4">#44ffffff</item>
+        <item name="White_transparent_white_hex_5" type="color" tools:keep="@color/White_transparent_white_hex_5">#55ffffff</item>
+        <item name="White_transparent_white_hex_6" type="color" tools:keep="@color/White_transparent_white_hex_6">#66ffffff</item>
+        <item name="White_transparent_white_hex_7" type="color" tools:keep="@color/White_transparent_white_hex_7">#77ffffff</item>
+        <item name="White_transparent_white_hex_8" type="color" tools:keep="@color/White_transparent_white_hex_8">#88ffffff</item>
+        <item name="White_transparent_white_hex_9" type="color" tools:keep="@color/White_transparent_white_hex_9">#99ffffff</item>
+
+        <item name="White_transparent_white_percent_10" type="color" tools:keep="@color/White_transparent_white_percent_10">#1Affffff</item>
+        <item name="White_transparent_white_percent_15" type="color" tools:keep="@color/White_transparent_white_percent_15">#26ffffff</item>
+        <item name="White_transparent_white_percent_20" type="color" tools:keep="@color/White_transparent_white_percent_20">#33ffffff</item>
+        <item name="White_transparent_white_percent_25" type="color" tools:keep="@color/White_transparent_white_percent_25">#40ffffff</item>
+        <item name="White_transparent_white_percent_30" type="color" tools:keep="@color/White_transparent_white_percent_30">#4Dffffff</item>
+        <item name="White_transparent_white_percent_35" type="color" tools:keep="@color/White_transparent_white_percent_35">#59ffffff</item>
+        <item name="White_transparent_white_percent_40" type="color" tools:keep="@color/White_transparent_white_percent_40">#66ffffff</item>
+        <item name="White_transparent_white_percent_45" type="color" tools:keep="@color/White_transparent_white_percent_45">#73ffffff</item>
+        <item name="White_transparent_white_percent_5" type="color" tools:keep="@color/White_transparent_white_percent_5">#0Dffffff</item>
+        <item name="White_transparent_white_percent_50" type="color" tools:keep="@color/White_transparent_white_percent_50">#80ffffff</item>
+        <item name="White_transparent_white_percent_55" type="color" tools:keep="@color/White_transparent_white_percent_55">#8Cffffff</item>
+        <item name="White_transparent_white_percent_60" type="color" tools:keep="@color/White_transparent_white_percent_60">#99ffffff</item>
+        <item name="White_transparent_white_percent_65" type="color" tools:keep="@color/White_transparent_white_percent_65">#A6ffffff</item>
+        <item name="White_transparent_white_percent_70" type="color" tools:keep="@color/White_transparent_white_percent_70">#B3ffffff</item>
+        <item name="White_transparent_white_percent_75" type="color" tools:keep="@color/White_transparent_white_percent_75">#BFffffff</item>
+        <item name="White_transparent_white_percent_80" type="color" tools:keep="@color/White_transparent_white_percent_80">#CCffffff</item>
+        <item name="White_transparent_white_percent_85" type="color" tools:keep="@color/White_transparent_white_percent_85">#D9ffffff</item>
+        <item name="White_transparent_white_percent_90" type="color" tools:keep="@color/White_transparent_white_percent_90">#E6ffffff</item>
+        <item name="White_transparent_white_percent_95" type="color" tools:keep="@color/White_transparent_white_percent_95">#F2ffffff</item>
+
+        <item name="White_Wheat" type="color" tools:keep="@color/White_Wheat">#F5DEB3</item>
+        <item name="White_White" type="color" tools:keep="@color/White_White">#FFFFFF</item>
+        <item name="White_WhiteSmoke" type="color" tools:keep="@color/White_WhiteSmoke">#F5F5F5</item>
+
+        <item name="Yellow" type="color" tools:keep="@color/Yellow">#FFFF00</item>
+        <item name="Yellow_DarkGoldenrod" type="color" tools:keep="@color/Yellow_DarkGoldenrod">#B8860B</item>
+        <item name="Yellow_Gold" type="color" tools:keep="@color/Yellow_Gold">#FFD700</item>
+        <item name="Yellow_GoldenRod" type="color" tools:keep="@color/Yellow_GoldenRod">#DAA520</item>
+        <item name="Yellow_LightYellow" type="color" tools:keep="@color/Yellow_LightYellow">#FFFFE0</item>
+        <item name="Yellow_PaleGoldenrod" type="color" tools:keep="@color/Yellow_PaleGoldenrod">#EEE8AA</item>
+
+
+        <item name="Gunmetal" type="color" tools:keep="@color/Gunmetal">#2C3539</item>
+        <item name="Midnight" type="color" tools:keep="@color/Midnight">#2B1B17</item>
+        <item name="Charcoal" type="color" tools:keep="@color/Charcoal">#34282C</item>
+        <item name="DarkSlateGrey" type="color" tools:keep="@color/DarkSlateGrey">#25383C</item>
+        <item name="Oil" type="color" tools:keep="@color/Oil">#3B3131</item>
+        <item name="BlackCat" type="color" tools:keep="@color/BlackCat">#413839</item>
+        <item name="BlackEel" type="color" tools:keep="@color/BlackEel">#463E3F</item>
+        <item name="BlackCow" type="color" tools:keep="@color/BlackCow">#4C4646</item>
+        <item name="GrayWolf" type="color" tools:keep="@color/GrayWolf">#504A4B</item>
+        <item name="VampireGray" type="color" tools:keep="@color/VampireGray">#565051</item>
+        <item name="GrayDolphin" type="color" tools:keep="@color/GrayDolphin">#5C5858</item>
+        <item name="CarbonGray" type="color" tools:keep="@color/CarbonGray">#625D5D</item>
+        <item name="AshGray" type="color" tools:keep="@color/AshGray">#666362</item>
+        <item name="CloudyGray" type="color" tools:keep="@color/CloudyGray">#6D6968</item>
+        <item name="SmokeyGray" type="color" tools:keep="@color/SmokeyGray">#726E6D</item>
+        <item name="Gray" type="color" tools:keep="@color/Gray">#736F6E</item>
+        <item name="Granite" type="color" tools:keep="@color/Granite">#837E7C</item>
+        <item name="BattleshipGray" type="color" tools:keep="@color/BattleshipGray">#848482</item>
+        <item name="GrayCloud" type="color" tools:keep="@color/GrayCloud">#B6B6B4</item>
+        <item name="GrayGoose" type="color" tools:keep="@color/GrayGoose">#D1D0CE</item>
+        <item name="Platinum" type="color" tools:keep="@color/Platinum">#E5E4E2</item>
+        <item name="MetallicSilver" type="color" tools:keep="@color/MetallicSilver">#BCC6CC</item>
+        <item name="BlueGray" type="color" tools:keep="@color/BlueGray">#98AFC7</item>
+        <item name="LightSlateGray" type="color" tools:keep="@color/LightSlateGray">#6D7B8D</item>
+        <item name="SlateGray" type="color" tools:keep="@color/SlateGray">#657383</item>
+        <item name="JetGray" type="color" tools:keep="@color/JetGray">#616D7E</item>
+        <item name="MistBlue" type="color" tools:keep="@color/MistBlue">#646D7E</item>
+        <item name="MarbleBlue" type="color" tools:keep="@color/MarbleBlue">#566D7E</item>
+        <item name="SteelBlue" type="color" tools:keep="@color/SteelBlue">#4863A0</item>
+        <item name="BlueJay" type="color" tools:keep="@color/BlueJay">#2B547E</item>
+        <item name="DarkSlateBlue" type="color" tools:keep="@color/DarkSlateBlue">#2B3856</item>
+        <item name="MidnightBlue" type="color" tools:keep="@color/MidnightBlue">#151B54</item>
+        <item name="NavyBlue" type="color" tools:keep="@color/NavyBlue">#000080</item>
+        <item name="BlueWhale" type="color" tools:keep="@color/BlueWhale">#342D7E</item>
+        <item name="LapisBlue" type="color" tools:keep="@color/LapisBlue">#15317E</item>
+        <item name="EarthBlue" type="color" tools:keep="@color/EarthBlue">#0000A0</item>
     </array>
 
 

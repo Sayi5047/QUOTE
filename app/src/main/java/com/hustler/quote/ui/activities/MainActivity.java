@@ -49,6 +49,7 @@ import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
 import com.hustler.quote.ui.database.QuotesDbHelper;
 import com.hustler.quote.ui.fragments.CategoriesFragment;
+import com.hustler.quote.ui.fragments.MainFragment;
 import com.hustler.quote.ui.fragments.UserFavuritesFragment;
 import com.hustler.quote.ui.fragments.UserWorkFragment;
 import com.hustler.quote.ui.fragments.WallpaperFragment;
@@ -65,7 +66,7 @@ import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, com.hustler.quote.ui.fragments.MainFragment.OnFragmentInteractionListener {
 
 
     final String IMAGES = "images";
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout linearLayout;
     ActionBarDrawerToggle drawerToggle;
     CoordinatorLayout main_view;
+    QuotesFragment quotesFragment;
+    public FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 header_name.setVisibility(View.VISIBLE);
             }
         }.start();
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void buildDialog_and_search() {
+    public void buildDialog_and_search() {
 
         final Dialog dialog = new Dialog(MainActivity.this, R.style.EditTextDialog_non_floater_2);
         dialog.setContentView(R.layout.search_chooser_layout);
@@ -394,12 +397,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, MainActivity.this);
-
                     dialog.dismiss();
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
+
             }
         });
         dialog.show();
@@ -527,7 +529,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            launchFragment(new MainFragment());
+            launchFragment(new QuotesFragment());
         } else if (id == R.id.nav_camera_2) {
             launchFragment(new CategoriesFragment());
         } else if (id == R.id.nav_gallery) {
@@ -550,7 +552,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void launchFragment(Fragment fragment) {
+    public void launchFragment(Fragment fragment) {
 
 //        Fade exitFade = new Fade();
 //        exitFade.setDuration(FADE_DEFAULT_TIME);
@@ -565,7 +567,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.setCustomAnimations(R.anim.slideup, R.anim.slidedown);
         transaction.replace(R.id.root, fragment);
 
-        transaction.addToBackStack(null);
+        transaction.addToBackStack("my_fragment");
         transaction.commitAllowingStateLoss();
     }
 
@@ -586,19 +588,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
 //            super.onBackPressed();
-            Toast_Snack_Dialog_Utils.createDialog(MainActivity.this, getString(R.string.warning), getString(R.string.are_you_sure_close), getString(R.string.cancel), getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
-                @Override
-                public void onPositiveselection() {
-                    finishAffinity();
-                    System.exit(0);
-                }
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                Toast_Snack_Dialog_Utils.createDialog(MainActivity.this, getString(R.string.warning), getString(R.string.are_you_sure_close), getString(R.string.cancel), getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+                    @Override
+                    public void onPositiveselection() {
+                        finishAffinity();
+                        System.exit(0);
+                    }
 
-                @Override
-                public void onNegativeSelection() {
+                    @Override
+                    public void onNegativeSelection() {
 
-                }
-            });
-
+                    }
+                });
+            }
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

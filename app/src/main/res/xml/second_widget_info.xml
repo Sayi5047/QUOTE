@@ -12,6 +12,7 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1000"
     android:widgetCategory="home_screen"
-    tools:targetApi="jelly_bean_mr1">
+    tools:targetApi="jelly_bean_mr1"
+    tools:keep="@xml/second_widget_info">
 
 </appwidget-provider>

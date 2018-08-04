@@ -1,33 +1,33 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Quotzy</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" tools:keep="@string/title_activity_main">MainActivity</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" tools:keep="@string/navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close" tools:keep="@string/navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="no_quotes_available">No Quotes Available</string>
-    <string name="search_quotes_by_author">Funny,gandhi..etc</string>
+    <string name="search_quotes_by_author" tools:keep="@string/search_quotes_by_author">Funny,gandhi..etc</string>
     <string name="quotes_body_transistion">quotebodytransistion</string>
     <string name="quotes_author_transistion">quoteauthortransistion</string>
     <string name="Unable_to_save_share_image">Error in sharing item</string>
-    <string name="image_saved">Congratulations,Image has been saved to sdcard/Pictures</string>
+    <string name="image_saved" tools:keep="@string/image_saved">Congratulations,Image has been saved to sdcard/Pictures</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="Quotes">Quotes</string>
-    <string name="Facts">Facts</string>
-    <string name="Poems">Poems</string>
-    <string name="meme">Meme</string>
+    <string name="Facts" tools:keep="@string/Facts">Facts</string>
+    <string name="Poems" tools:keep="@string/Poems">Poems</string>
+    <string name="meme" tools:keep="@string/meme">Meme</string>
     <string name="close">Close</string>
     <string name="warning">Warning</string>
-    <string name="select_what">Choose what you want to create</string>
+    <string name="select_what" tools:keep="@string/select_what">Choose what you want to create</string>
     <string name="background">Background</string>
     <string name="Text">Text</string>
     <string name="done">Done</string>
-    <string name="coming_soon">Coming Soon.</string>
+    <string name="coming_soon" tools:keep="@string/coming_soon">Coming Soon.</string>
     <string name="enter_text">Enter your text below</string>
     <string name="please_select_text">Please, select any text layer to apply features</string>
     <string name="please_select_text_to_delete">Please, select any text layer to delete</string>
@@ -60,9 +60,9 @@
     <string name="symbolic_fonts">Downloaded fonts</string>
     <string name="select_font">Select any font style to apply.</string>
     <string name="clear">Clear selection</string>
-    <string name="permission_comulsory">Permission is mandatory for editing pictures.</string>
-    <string name="permission_">Please,give permission to use features.</string>
-    <string name="operation_failed">Operation failed</string>
+    <string name="permission_comulsory" tools:keep="@string/permission_comulsory">Permission is mandatory for editing pictures.</string>
+    <string name="permission_" tools:keep="@string/permission_">Please,give permission to use features.</string>
+    <string name="operation_failed" tools:keep="@string/operation_failed">Operation failed</string>
     <string name="permissin_granted">Permission granted now you can use the feature.</string>
     <string name="no_work">No work done yet, click to start </string>
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
@@ -102,11 +102,11 @@
     <string name="strike">Strike through</string>
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
-    <string name="made_with_quotzy">Made with Quotzy</string>
+    <string name="made_with_quotzy" tools:keep="@string/made_with_quotzy">Made with Quotzy</string>
     <string name="bannerAdId">ca-app-pub-9653011938091807/9705197927</string>
     <!--OLD-->
     <string name="rewardAdId">ca-app-pub-9653011938091807/7917308260</string>
-    <string name="interstaialId">ca-app-pub-9653011938091807/3150683855</string>
+    <string name="interstaialId" tools:keep="@string/interstaialId">ca-app-pub-9653011938091807/3150683855</string>
     <!--OLD-->
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
@@ -122,7 +122,7 @@
     <string name="Select_how_to_fit">Please, selecte image fitype before apply image as background.</string>
     <string name="type_gra">Gradient Type</string>
     <string name="previewGra">Preview Gradient text</string>
-    <string name="selecte_gradient_to_apply">Select the gradient style to applt it.</string>
+    <string name="selecte_gradient_to_apply" tools:keep="@string/selecte_gradient_to_apply">Select the gradient style to applt it.</string>
     <string name="no_images">Sorry,No images are available</string>
     <string name="Image_search">Image Search</string>
     <string name="credits">Images are powered by www.pixabay.com</string>
@@ -147,8 +147,8 @@
     <string name="Hollow">Hollow Text</string>
     <string name="dash_width">Dash Width</string>
     <string name="Layout">Layout</string>
-    <string name="Look_and_feel">Look and feel</string>
-    <string name="Advanced">Advanced</string>
+    <string name="Look_and_feel" tools:keep="@string/Look_and_feel">Look and feel</string>
+    <string name="Advanced" tools:keep="@string/Advanced">Advanced</string>
     <string name="layout_changes">Configure how widget looks</string>
     <string name="layout">Layout</string>
     <string name="Widget_layout">Widget layout</string>
@@ -181,9 +181,9 @@
     <string name="writetous">Write to us</string>
     <string name="credits_menu">Credits</string>
     <string name="about">About us</string>
-    <string name="search_hint">Type here</string>
+    <string name="search_hint" tools:keep="@string/search_hint">Type here</string>
     <string name="where_to_search">Choose what search is for</string>
-    <string name="search">Search</string>
+    <string name="search" tools:keep="@string/search">Search</string>
     <string name="enter_something">Please,Enter something to search for</string>
     <string name="frequency">Frequency</string>
     <string name="DWL_key3">DWL_key3</string>
@@ -207,8 +207,8 @@
     <string name="Quote_confession">All quotes you can see in this app are Collected from internet</string>
     <string name="Icons">Icons</string>
     <string name="Icon_confession">All icons are downloaded from internet and Flaticon.com</string>
-    <string name="First_setup">Fitrst time setup</string>
-    <string name="please_wait">Please,wait getting and extracting all necessary files.This happens only for the first time</string>
+    <string name="First_setup" tools:keep="@string/First_setup">Fitrst time setup</string>
+    <string name="please_wait" tools:keep="@string/please_wait">Please,wait getting and extracting all necessary files.This happens only for the first time</string>
     <string name="loading_image">Loading Image from server</string>
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
@@ -300,16 +300,16 @@
     </string-array>
 
     <string name="file_provider_authority" translatable="false">com.hustler.quote.fileprovider</string>
-    <string name="start_your_first_wallpaper">Start Editing</string>
-    <string name="Click_to_start">Start editing your first text wallpaper</string>
-    <string name="explore_categories">Explore all categories</string>
-    <string name="read_from_more_than_100">Read quotes from more than 100 categories</string>
-    <string name="explore_images">Explore Hd wallpapers</string>
-    <string name="daily_get_new_wallpapers_with_categories">Get Everyday new wallpapers from Photographers around the world</string>
-    <string name="find_your_fav">Find your favourites</string>
-    <string name="All_your_fav_images_at_one_place">You can see all your favourite quotes and images at one place.</string>
-    <string name="find_your_works">Be proud of your work</string>
-    <string name="you_can_find_your_works_here">You can see all of your works here after you edit and save images.</string>
+    <string name="start_your_first_wallpaper" tools:keep="@string/start_your_first_wallpaper">Start Editing</string>
+    <string name="Click_to_start" tools:keep="@string/Click_to_start">Start editing your first text wallpaper</string>
+    <string name="explore_categories" tools:keep="@string/explore_categories">Explore all categories</string>
+    <string name="read_from_more_than_100" tools:keep="@string/read_from_more_than_100">Read quotes from more than 100 categories</string>
+    <string name="explore_images" tools:keep="@string/explore_images">Explore Hd wallpapers</string>
+    <string name="daily_get_new_wallpapers_with_categories" tools:keep="@string/daily_get_new_wallpapers_with_categories">Get Everyday new wallpapers from Photographers around the world</string>
+    <string name="find_your_fav" tools:keep="@string/find_your_fav">Find your favourites</string>
+    <string name="All_your_fav_images_at_one_place" tools:keep="@string/All_your_fav_images_at_one_place">You can see all your favourite quotes and images at one place.</string>
+    <string name="find_your_works" tools:keep="@string/find_your_works">Be proud of your work</string>
+    <string name="you_can_find_your_works_here" tools:keep="@string/you_can_find_your_works_here">You can see all of your works here after you edit and save images.</string>
     <string name="wallpapers">Curated</string>
     <string name="image_will_be_downloaded_to_sdCard">Image will be saved to sdcard/Quotzywallpapers</string>
     <string name="downloading_and_setting">Wallpaper will be set once it is downloaded.</string>
@@ -325,6 +325,11 @@
     <string name="share_text">#Quotzy. I made this wallpaper on Quotzy</string>
     <string name="share_description">Download Quotzy from playstore to make your own wallpapers #Quotzy</string>
     <string name="thanks_for_rating">Thanks for rating, If you already rated please ignore.Else, please provide rating by clicking below</string>
-    <string name="title_activity_new_home">NewHomeActivity</string>
-    <string name="others">Others</string>
+    <string name="title_activity_new_home" tools:keep="@string/title_activity_new_home">NewHomeActivity</string>
+    <string name="others" tools:keep="@string/others">Others</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create">Create</string>
+    <string name="follow_us">Follow us on</string>
 </resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:id="@+id/root"
+            android:layout_width="300dp"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/pagerImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_rect"
+                android:contentDescription="@string/app_name"
+                android:elevation="24dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.3"
+                android:elevation="24dp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:alpha="0.5"
+                android:background="@color/WHITE" />
+
+            <TextView
+                android:id="@+id/offer_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="start"
+                android:padding="8dp"
+                android:shadowColor="@android:color/black"
+                android:text=" SOME USEFULL OFFER FOR YOU OFFER FOR YOU"
+                android:textColor="@color/WHITE"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/offer_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="95dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:padding="8dp"
+                android:shadowColor="@android:color/black"
+                android:text="SOME USEFULL OFFER FOR YOU"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/WHITE"
+                android:textSize="10dp" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/offer_text"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:alpha="0.5"
+
+                android:background="@color/WHITE" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

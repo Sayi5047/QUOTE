@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -15,7 +15,7 @@
         <item name="android:textColorSecondary">@color/textColor</item>
     </style>
 
-    <style name="AppTheme.Transparent" parent="AppTheme">
+    <style name="AppTheme.Transparent" parent="AppTheme" tools:keep="@style/AppTheme_Transparent">
         <item name="android:windowNoTitle">true</item>
         <item name="actionBarItemBackground">@android:color/transparent</item>
         <item name="actionBarStyle">@style/TransparentActionBar</item>
@@ -25,7 +25,7 @@
 
     <style name="NoStatusBar" parent="AppTheme.NoActionBar"></style>
 
-    <style name="AppTheme.NoActionBar.coldscreen" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar.coldscreen" parent="AppTheme.NoActionBar" tools:keep="@style/AppTheme_NoActionBar_coldscreen">
         <item name="android:windowBackground">@drawable/coldscreen</item>
     </style>
 
@@ -46,11 +46,11 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="TransparentActionBar" parent="Widget.AppCompat.ActionBar">
+    <style name="TransparentActionBar" parent="Widget.AppCompat.ActionBar" tools:keep="@style/TransparentActionBar">
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="MyAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="MyAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert" tools:keep="@style/MyAlertDialog">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorAccent</item>
@@ -77,7 +77,7 @@
         <item name="android:windowExitAnimation">@anim/alpha_invisible</item>
     </style>
 
-    <style name="EditTextDialog_scaled" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="EditTextDialog_scaled" parent="Theme.AppCompat.Light.Dialog.Alert" tools:keep="@style/EditTextDialog_scaled">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/scaleup</item>

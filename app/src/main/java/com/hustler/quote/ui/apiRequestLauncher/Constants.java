@@ -63,129 +63,44 @@ public class Constants {
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
 
-    public static final String CATEGORIES_STRING =
-            "Alone\n" +
-                    "Angry\n" +
-                    "Architecture\n" +
-                    "Art\n" +
-                    "Attitude\n" +
-                    "Beauty\n" +
-                    "Belief\n" +
-                    "Bible\n" +
-                    "Books\n" +
-                    "Brave\n" +
-                    "Business\n" +
-                    "Cats\n" +
+    public static final String CATEGORIES_STRING = "Alone\n" + "Angry\n" + "Architecture\n" + "Art\n" + "Attitude\n" + "Beauty\n" + "Belief\n" + "Bible\n" + "Books\n" + "Brave\n" + "Business\n" + "Cats\n" +
 
 
-                    "Change\n" +
-                    "Character\n" +
-                    "Communication\n" +
-                    "Computers\n" +
-                    "Creativity\n" +
+            "Change\n" + "Character\n" + "Communication\n" + "Computers\n" + "Creativity\n" +
 
-                    "Dignity\n" +
-                    "Duty\n" +
-                    "Death\n" +
-                    "Design\n" +
-                    "Diet\n" +
-                    "Dreams\n" +
+            "Dignity\n" + "Duty\n" + "Death\n" + "Design\n" + "Diet\n" + "Dreams\n" +
 
-                    "Effort\n" +
-                    "Education\n" +
-                    "Environmental\n" +
-                    "Equality\n" +
-                    "Experience\n" +
+            "Effort\n" + "Education\n" + "Environmental\n" + "Equality\n" + "Experience\n" +
 
-                    "Failure\n" +
-                    "Faith\n" +
-                    "Family\n" +
-                    "Father\n" +
-                    "Fear\n" +
-                    "Food\n" +
-                    "Forgiveness\n" +
-                    "Freedom\n" +
-                    "Friendship\n" +
-                    "Future\n" +
+            "Failure\n" + "Faith\n" + "Family\n" + "Father\n" + "Fear\n" + "Food\n" + "Forgiveness\n" + "Freedom\n" + "Friendship\n" + "Future\n" +
 
-                    "Good\n" +
-                    "Government\n" +
-                    "Gratitude\n" +
-                    "Great\n" +
+            "Good\n" + "Government\n" + "Gratitude\n" + "Great\n" +
 
-                    "Happiness\n" +
-                    "Health\n" +
-                    "History\n" +
-                    "Home\n" +
-                    "Hope\n" +
-                    "Humor\n" +
+            "Happiness\n" + "Health\n" + "History\n" + "Home\n" + "Hope\n" + "Humor\n" +
 
-                    "Imagination\n" +
-                    "Independence\n" +
-                    "Inspirational\n" +
-                    "Intelligence\n" +
+            "Imagination\n" + "Independence\n" + "Inspirational\n" + "Intelligence\n" +
 
-                    "Joy\n" +
+            "Joy\n" +
 
-                    "Knowledge\n" +
-                    "Kindness\n" +
+            "Knowledge\n" + "Kindness\n" +
 
-                    "Leadership\n" +
-                    "Learning\n" +
-                    "Legacy\n" +
-                    "Life \n" +
-                    "Love \n" +
+            "Leadership\n" + "Learning\n" + "Legacy\n" + "Life \n" + "Love \n" +
 
-                    "Marriage\n" +
-                    "Medical\n" +
-                    "Memory\n" +
-                    "Men\n" +
-                    "Mom\n" +
-                    "Money\n" +
-                    "Mercy\n" +
-                    "Motivational \n" +
-                    "Morals\n" +
-                    "Music\n" +
+            "Marriage\n" + "Medical\n" + "Memory\n" + "Men\n" + "Mom\n" + "Money\n" + "Mercy\n" + "Motivational \n" + "Morals\n" + "Music\n" +
 
-                    "Nature\n" +
-                    "New Year\n" +
+            "Nature\n" + "New Year\n" +
 
-                    "Parenting\n" +
-                    "Patience\n" +
-                    "Patriotism\n" +
-                    "Peace\n" +
-                    "Poetry\n" +
-                    "Politics\n" +
-                    "Potential\n" +
-                    "Power\n" +
+            "Parenting\n" + "Patience\n" + "Patriotism\n" + "Peace\n" + "Poetry\n" + "Politics\n" + "Potential\n" + "Power\n" +
 
-                    "Reputation\n" +
-                    "Religion\n" +
-                    "Respect\n" +
-                    "Romantic\n" +
+            "Reputation\n" + "Religion\n" + "Respect\n" + "Romantic\n" +
 
-                    "Sad\n" +
-                    "Sex\n" +
-                    "Science\n" +
-                    "Smile\n" +
-                    "Society\n" +
-                    "Sports\n" +
-                    "Strength\n" +
-                    "Success \n" +
-                    "Sympathy\n" +
+            "Sad\n" + "Sex\n" + "Science\n" + "Smile\n" + "Society\n" + "Sports\n" + "Strength\n" + "Success \n" + "Sympathy\n" +
 
-                    "Teacher\n" +
-                    "Thankful\n" +
-                    "Time\n" +
-                    "Trust\n" +
-                    "Truth\n" +
+            "Teacher\n" + "Thankful\n" + "Time\n" + "Trust\n" + "Truth\n" +
 
-                    "War\n" +
-                    "Wisdom\n" +
-                    "Women\n" +
-                    "Work\n" +
+            "War\n" + "Wisdom\n" + "Women\n" + "Work\n" +
 
-                    "Youth\n"
+            "Youth\n"
 //                    DONE
             ;
 
@@ -236,5 +151,7 @@ public class Constants {
 
 
 //    UNSPLASH IDS
+
+public static String offlineQuote=" {\"data\":[\n" + "  {\n" + "      \"quoteAuthor\": \"Thomas Edison\",\n" + "      \"quoteText\": \"Genius is one percent inspiration and ninety-nine percent perspiration.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Yogi Berra\",\n" + "      \"quoteText\": \"You can observe a lot just by watching.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Abraham Lincoln\",\n" + "      \"quoteText\": \"A house divided against itself cannot stand.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Johann Wolfgang von Goethe\",\n" + "      \"quoteText\": \"Difficulties increase the nearer we get to the goal.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Byron Pulsifer\",\n" + "      \"quoteText\": \"Fate is in your hands and no one elses\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Lao Tzu\",\n" + "      \"quoteText\": \"Be the chief but never the lord.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Carl Sandburg\",\n" + "      \"quoteText\": \"Nothing happens unless first we dream.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Aristotle\",\n" + "      \"quoteText\": \"Well begun is half done.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Yogi Berra\",\n" + "      \"quoteText\": \"Life is a learning experience, only if you learn.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Margaret Sangster\",\n" + "      \"quoteText\": \"Self-complacency is fatal to progress.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Buddha\",\n" + "      \"quoteText\": \"Peace comes from within. Do not seek it without.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Byron Pulsifer\",\n" + "      \"quoteText\": \"What you give is what you get.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Iris Murdoch\",\n" + "      \"quoteText\": \"We can only learn to love by loving.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Karen Clark\",\n" + "      \"quoteText\": \"Life is change. Growth is optional. Choose wisely.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Wayne Dyer\",\n" + "      \"quoteText\": \"You'll see it when you believe it.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"Today is the tomorrow we worried about yesterday.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"It's easier to see the mistakes on someone else's paper.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"Every man dies. Not every man really lives.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Lao Tzu\",\n" + "      \"quoteText\": \"To lead people walk behind them.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"William Shakespeare\",\n" + "      \"quoteText\": \"Having nothing, nothing can he lose.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Henry J. Kaiser\",\n" + "      \"quoteText\": \"Trouble is only opportunity in work clothes.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Publilius Syrus\",\n" + "      \"quoteText\": \"A rolling stone gathers no moss.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Napoleon Hill\",\n" + "      \"quoteText\": \"Ideas are the beginning points of all fortunes.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Donald Trump\",\n" + "      \"quoteText\": \"Everything in life is luck.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Lao Tzu\",\n" + "      \"quoteText\": \"Doing nothing is better than being busy doing nothing.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Benjamin Spock\",\n" + "      \"quoteText\": \"Trust yourself. You know more than you think you do.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Confucius\",\n" + "      \"quoteText\": \"Study the past, if you would divine the future.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"The day is already blessed, find peace within it.\"\n" + "  }]}";
 
 }

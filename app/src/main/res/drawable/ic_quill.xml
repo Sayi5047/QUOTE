@@ -1,8 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="512dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
         android:height="512dp"
         android:viewportWidth="512.003"
-        android:viewportHeight="512.003">
+        android:viewportHeight="512.003"
+    tools:keep="@drawable/ic_quill">
     <path
         android:pathData="M449,8.1l-58.8,10c-15.3,2.6 -29.7,8.8 -42,18.2l-123.6,93.5v65l-36.9,-27.8L92.4,262.9c-9.1,9.1 -14.2,21.5 -14.2,34.4v122.2h122c13,0 25.5,-5.2 34.7,-14.4l39.1,-39.4l-33.5,-14l58.4,-11.1l158.2,-202.3c9.2,-11.8 15.6,-25.6 18.5,-40.2l10.5,-51.6C490.6,24.2 471.4,4.3 449,8.1z"
         android:fillColor="#EDEDEE"/>

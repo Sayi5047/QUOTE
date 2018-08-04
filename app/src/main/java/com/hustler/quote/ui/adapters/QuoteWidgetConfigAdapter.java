@@ -7,12 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentPagerAdapter;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.activities.MainFragment;
-import com.hustler.quote.ui.fragments.Advanced_config_fragment;
-import com.hustler.quote.ui.fragments.CategoriesFragment;
-import com.hustler.quote.ui.fragments.Look_and_feel_config_fragment;
-import com.hustler.quote.ui.fragments.UserFavuritesFragment;
-import com.hustler.quote.ui.fragments.UserWorkFragment;
 import com.hustler.quote.ui.fragments.widget_layout_config_fragment;
 
 /**

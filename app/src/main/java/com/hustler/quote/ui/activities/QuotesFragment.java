@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.LocalAdapter;
@@ -45,7 +44,7 @@ import java.util.List;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 //LoaderManager.LoaderCallbacks<List<Quote>>,
-public class MainFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class QuotesFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     RecyclerView rv;
     ProgressBar loader;
@@ -54,8 +53,8 @@ public class MainFragment extends Fragment implements SharedPreferences.OnShared
     private List<Quote> quotes;
 
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static QuotesFragment newInstance() {
+        return new QuotesFragment();
     }
 
     @Nullable

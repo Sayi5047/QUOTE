@@ -5,10 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
-import android.view.ViewGroup;
 
 import com.hustler.quote.R;
-import com.hustler.quote.ui.activities.MainFragment;
+import com.hustler.quote.ui.activities.QuotesFragment;
 import com.hustler.quote.ui.fragments.CategoriesFragment;
 import com.hustler.quote.ui.fragments.UserFavuritesFragment;
 import com.hustler.quote.ui.fragments.UserWorkFragment;
@@ -49,7 +48,7 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
             }
             break;
             case 1: {
-                returning_fragment = new MainFragment();
+                returning_fragment = new QuotesFragment();
             }
             break;
             case 2: {

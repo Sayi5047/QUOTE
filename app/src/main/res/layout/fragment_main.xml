@@ -1,0 +1,206 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hustler.quote.ui.fragments.MainFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/WHITE"
+            >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/carousel_pager"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+            <WebView
+                android:id="@+id/instagram"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/create"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/carousel_pager"
+                android:layout_margin="4dp"
+                android:background="@drawable/round_rect_grad4"
+                android:elevation="4dp"
+                android:text="@string/create"
+                android:textColor="@color/WHITE" />
+
+            <LinearLayout
+                android:id="@+id/qw_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/create"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/quotes"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect_grad3"
+                    android:elevation="4dp"
+                    android:text="@string/Quotes"
+                    android:textColor="@color/WHITE" />
+
+                <Button
+                    android:id="@+id/wallpapers"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect_grad2"
+                    android:elevation="4dp"
+                    android:text="@string/Wallpaper"
+                    android:textColor="@color/WHITE" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wf_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/qw_l"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/Works"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect_grad5"
+                    android:elevation="4dp"
+                    android:text="@string/Fav"
+                    android:textColor="@color/WHITE" />
+
+                <Button
+                    android:id="@+id/fav"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect_grad6"
+                    android:elevation="4dp"
+                    android:text="@string/Work"
+                    android:textColor="@color/WHITE" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/Search"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/wf_l"
+                android:layout_margin="4dp"
+                android:background="@drawable/round_rect_grad1"
+                android:elevation="4dp"
+                android:text="@string/search"
+                android:textColor="@color/WHITE" />
+
+            <TextView
+                android:id="@+id/follow_us"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Search"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/icon_gradient"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:text="@string/follow_us"
+                android:textAlignment="center"
+                android:textColor="@color/WHITE" />
+
+            <LinearLayout
+                android:id="@+id/share_layout_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/follow_us"
+                android:background="@color/trans_white_apple"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:id="@+id/facebook"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/cir_gradient_1"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_fb"
+                    android:tint="@android:color/white" />
+
+
+                <ImageView
+                    android:id="@+id/whatsapp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+
+                    android:background="@drawable/cir_gradient_2"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+
+                    android:src="@drawable/ic_whats"
+                    android:tint="@android:color/white" />
+
+
+                <ImageView
+                    android:id="@+id/instagram_acnt"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/cir_gradient_3"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+
+                    android:src="@drawable/ic_insta"
+                    android:tint="@android:color/white" />
+
+
+                <ImageView
+                    android:id="@+id/twitter"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/cir_gradient_4"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+
+                    android:src="@drawable/ic_twitte"
+                    android:tint="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/youtube"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/cir_gradient_5"
+                    android:elevation="4dp"
+                    android:padding="10dp"
+
+                    android:src="@drawable/ic_youtube"
+                    android:tint="@android:color/white" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+</FrameLayout>
