@@ -56,7 +56,7 @@ public class CarouselItemFragment extends Fragment {
         textView2 = view.findViewById(R.id.offer_text);
         root = view.findViewById(R.id.root);
         assert null != getActivity();
-//        TextUtils.findText_and_applyTypeface(root, getActivity());
+        TextUtils.findText_and_applyTypeface(root, getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imageView.setClipToOutline(true);
         }

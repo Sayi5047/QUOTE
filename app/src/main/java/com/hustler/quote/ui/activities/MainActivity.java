@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.setCustomAnimations(R.anim.slideup, R.anim.slidedown);
         transaction.replace(R.id.root, initialFragment);
         transaction.commit();
+        fab.setVisibility(GONE);
     }
 
 
@@ -569,6 +570,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         transaction.addToBackStack("my_fragment");
         transaction.commitAllowingStateLoss();
+        fab.setVisibility(View.VISIBLE);
+
     }
 
     public void taketoRate() {
@@ -590,6 +593,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            super.onBackPressed();
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStack();
+                if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.setVisibility(View.VISIBLE);
+                }
             } else {
                 Toast_Snack_Dialog_Utils.createDialog(MainActivity.this, getString(R.string.warning), getString(R.string.are_you_sure_close), getString(R.string.cancel), getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
                     @Override
