@@ -88,7 +88,7 @@ public class MainFeatureADapter extends RecyclerView.Adapter<MainFeatureADapter.
         public FeatureViewholder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text);
-            TextUtils.setFont(activity,textView, Constants.FONT_CIRCULAR2);
+            TextUtils.setFont(activity,textView, Constants.FONT_CIRCULAR);
             cardView = itemView.findViewById(R.id.card);
             cardView.setClipToPadding(true);
             cardView.setClipToOutline(true);

@@ -159,7 +159,7 @@ public class DailyWallpaperService extends IntentService {
         @Override
         protected Void doInBackground(final String... params) {
 
-            downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getFull(), unsplash_image.getId() + "SAYI.jpg", null);
+            downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getFull(), unsplash_image.getId() + "SAYI.jpg", null,getApplicationContext());
             try {
                 wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
             } catch (IOException ioe) {

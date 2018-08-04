@@ -41,12 +41,8 @@ public class Constants {
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos?client_id=" + UNSPLASH_CLIENT_ID;
 
 
-    //    public static final String FONT_NEVIS = "fonts/nevis.ttf";
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
-    //    public static final String FONT_multicolore = "fonts/multicolore.otf";
-//    public static final String FONT_Roboto_regular = "fonts/robot_regular.ttf";
     public static final String FONT_CIRCULAR = "fonts/cstd_reg.otf";
-    public static final String FONT_CIRCULAR2 = "fonts/web.ttf";
 
 
     public static final String INTENT_QUOTE_OBJECT_KEY = "QUOTE_OBJECT_TRAVELLER_KEY";

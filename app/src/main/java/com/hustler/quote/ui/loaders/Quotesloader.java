@@ -24,6 +24,7 @@ import java.util.List;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
+@Deprecated
 public class Quotesloader extends AsyncTaskLoader<List<Quote>> {
     Context context;
     List<Quote> quotes;

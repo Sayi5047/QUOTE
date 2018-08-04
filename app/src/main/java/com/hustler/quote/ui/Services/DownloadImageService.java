@@ -6,14 +6,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.app.WallpaperManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Environment;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import static android.os.Build.VERSION_CODES.O;
+import static com.hustler.quote.ui.utils.FileUtils.getImageContent;
 
 /**
  * Created by Sayi on 28-01-2018.
@@ -58,12 +60,8 @@ public class DownloadImageService extends Service {
     android.support.v4.app.NotificationCompat.Builder mNotification_Builder;
     NotificationManager mNotificationManager;
     NotifcationReciever mNotification_Reciever;
-    int id = 1;
-    int counter = 0;
-    String mUrl_To_Download;
     String mFileName;
     boolean is_to_set_wallpaper;
-    AsyncTask<String, String, Void> mDownload_Async_Task;
     public File downloading_File;
     ImageDownloader imageDownloader;
     private static final String CHANNEL_ID = "QUOTZY";
@@ -77,12 +75,10 @@ public class DownloadImageService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String url = null;
-//        GET DATA FROM THE INTENT
+        String url;
         url = intent.getStringExtra(Constants.ImageUrl_to_download);
         mFileName = intent.getStringExtra(Constants.Image_Name_to_save_key);
         is_to_set_wallpaper = intent.getBooleanExtra(Constants.is_to_setWallpaper_fromActivity, false);
-//        PREPARE notification to build
 
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -108,16 +104,6 @@ public class DownloadImageService extends Service {
         // Start a image download operation in a background thread
         imageDownloader = new ImageDownloader();
         imageDownloader.execute(url);
-// Check for notification settings
-//        ContentResolver contentResolver = getContentResolver();
-//        String enabledNotifications = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
-//        String packageName = getPackageName();
-//        if (enabledNotifications == null || (enabledNotifications.contains(packageName) == false)) {
-//            Intent intent1 = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-//            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent1);
-//        }
-//Start the notification recieer
         mNotification_Reciever = new NotifcationReciever();
         IntentFilter filter = new IntentFilter();
         filter.addAction(NotificationCustomListener_Service.NOTIFICATION_TAG);
@@ -161,26 +147,16 @@ public class DownloadImageService extends Service {
 
         @Override
         protected Void doInBackground(final String... params) {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    downloading_File = FileUtils.downloadImageToSd_Card(params[0], mFileName + ".jpg", ImageDownloader.this);
-//                }
-//            }).run();
 
-            FileOutputStream fileOutputStream = null;
-            InputStream inputStream = null;
+            FileOutputStream fileOutputStream;
+            InputStream inputStream;
 
             try {
-//                GET URL
                 URL url = new URL(params[0]);
-//                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
-                String SdCard = Environment.getExternalStorageDirectory().toString();
                 File destination_downloading_directory = new File(Constants.APP_WALLPAPERS_FOLDER);
                 if (!destination_downloading_directory.exists()) {
                     destination_downloading_directory.mkdirs();
                 }
-//                NOW CREATE ONE MORE FILE INSIDE THE DIRECTORY THAT BEEN MADE
                 downloading_File = new File(destination_downloading_directory + File.separator + mFileName + ".jpg");
                 if (downloading_File.exists()) {
                     downloading_File.delete();
@@ -188,17 +164,14 @@ public class DownloadImageService extends Service {
                 }
 
                 try {
-//                    OPEN A URL CONNECTION AND ATTACH TO HTTPURLCONNECTION
                     URLConnection urlConnection = url.openConnection();
                     HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
                     httpURLConnection.setRequestMethod("GET");
                     httpURLConnection.connect();
                     int lengthOfFile = httpURLConnection.getContentLength();
 
-//                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
                     inputStream = httpURLConnection.getInputStream();
                     fileOutputStream = new FileOutputStream(downloading_File);
-//                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
                     byte[] buffer = new byte[2048];
                     int bufferLength = 0;
                     long total = 0;
@@ -216,11 +189,12 @@ public class DownloadImageService extends Service {
 
                     inputStream.close();
                     fileOutputStream.close();
+                    ContentValues contentValues = getImageContent(downloading_File);
+                    getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                     Log.d("IMAGE SAVED", "Image Saved in sd card");
 
                 } catch (IOException e) {
-                    inputStream = null;
-                    fileOutputStream = null;
+
                     e.printStackTrace();
                     return null;
                 }
@@ -235,8 +209,6 @@ public class DownloadImageService extends Service {
         @Override
 
         protected void onPostExecute(Void aVoid) throws NullPointerException {
-//            Log.d("ON POST EXEC", String.valueOf("COMPLETED"));
-//            Log.d("ON POST EXEC LOC", String.valueOf(FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File))));
             Intent intent_gallery = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), (downloading_File)));
             intent_gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), NOTIFY_ID, intent_gallery, PendingIntent.FLAG_ONE_SHOT);

@@ -88,7 +88,7 @@ public class SplashActivity extends BaseActivity {
         if (sharedPreferences.getBoolean(Constants.IS_USER_SAW_INRODUCTION, false)) {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
         } else {
-            startActivity(new Intent(SplashActivity.this, LanderActivty.class));
+            startActivity(new Intent(SplashActivity.this, OnBoardingActivity.class));
         }
 
     }

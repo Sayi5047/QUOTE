@@ -45,7 +45,7 @@ import com.hustler.quote.ui.utils.TextUtils;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class LanderActivty extends BaseActivity {
+public class OnBoardingActivity extends BaseActivity {
     ViewPager viewPager;
     RelativeLayout relativeLayout;
     AnimationDrawable animationDrawable;
@@ -73,17 +73,17 @@ public class LanderActivty extends BaseActivity {
 
         viewPager = findViewById(R.id.view_pager);
         relativeLayout = findViewById(R.id.root_layout);
-        colors = new int[]{ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400), ContextCompat.getColor(LanderActivty.this, R.color.green_300), ContextCompat.getColor(LanderActivty.this, R.color.orange_300), ContextCompat.getColor(LanderActivty.this, R.color.pink_400), ContextCompat.getColor(LanderActivty.this, R.color.purple_400),};
-        colors2 = new int[]{ContextCompat.getColor(LanderActivty.this, android.R.color.white), ContextCompat.getColor(LanderActivty.this, R.color.orange_300), ContextCompat.getColor(LanderActivty.this, R.color.pink_400), ContextCompat.getColor(LanderActivty.this, R.color.purple_400), ContextCompat.getColor(LanderActivty.this, R.color.light_blue_400),
+        colors = new int[]{ContextCompat.getColor(OnBoardingActivity.this, R.color.light_blue_400), ContextCompat.getColor(OnBoardingActivity.this, R.color.green_300), ContextCompat.getColor(OnBoardingActivity.this, R.color.orange_300), ContextCompat.getColor(OnBoardingActivity.this, R.color.pink_400), ContextCompat.getColor(OnBoardingActivity.this, R.color.purple_400),};
+        colors2 = new int[]{ContextCompat.getColor(OnBoardingActivity.this, android.R.color.white), ContextCompat.getColor(OnBoardingActivity.this, R.color.orange_300), ContextCompat.getColor(OnBoardingActivity.this, R.color.pink_400), ContextCompat.getColor(OnBoardingActivity.this, R.color.purple_400), ContextCompat.getColor(OnBoardingActivity.this, R.color.light_blue_400),
 
         };
         relativeLayout1 = findViewById(R.id.bt_launch_layout);
         skip = findViewById(R.id.bt_skip);
         bt_next = findViewById(R.id.bt_next);
         bt_launch = findViewById(R.id.bt_launch_button);
-        TextUtils.findText_and_applyTypeface(relativeLayout1, LanderActivty.this);
+        TextUtils.findText_and_applyTypeface(relativeLayout1, OnBoardingActivity.this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        viewPager.setAdapter(new landerAdapter(getSupportFragmentManager(), LanderActivty.this));
+        viewPager.setAdapter(new landerAdapter(getSupportFragmentManager(), OnBoardingActivity.this));
 //relativeLayout1.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.geometry_2));
         parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card, R.id.on_board_image, R.id.on_board_title, R.id.on_board_image_circle, R.id.on_board_descriptiom);
 //        parrallaxPageTransformer.setBorder(2);
@@ -93,8 +93,8 @@ public class LanderActivty extends BaseActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, LanderActivty.this);
-                currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, LanderActivty.this);
+                currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, OnBoardingActivity.this);
+                currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, OnBoardingActivity.this);
                 rotation = positionOffset;
                 viewPager.setBackgroundColor(currentcolor);
 //                bt_next.setBackgroundColor(currentcolor);
@@ -138,8 +138,8 @@ public class LanderActivty extends BaseActivity {
             @Override
             public void onClick(View v) {
                 updateSharedPreferences();
-                Intent intent = new Intent(LanderActivty.this, MainActivity.class);
-                startActivity(new Intent(LanderActivty.this, MainActivity.class));
+                Intent intent = new Intent(OnBoardingActivity.this, MainActivity.class);
+                startActivity(new Intent(OnBoardingActivity.this, MainActivity.class));
 
             }
         });
@@ -150,7 +150,7 @@ public class LanderActivty extends BaseActivity {
                     viewPager.setCurrentItem(0, true);
                 } else {
                     updateSharedPreferences();
-                    startActivity(new Intent(LanderActivty.this, PreHome_Activity.class));
+                    startActivity(new Intent(OnBoardingActivity.this, MainActivity.class));
 
                 }
 

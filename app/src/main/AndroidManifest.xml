@@ -80,7 +80,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ui.activities.LanderActivty"
+            android:name=".ui.activities.OnBoardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoStatusBar" />
         <activity

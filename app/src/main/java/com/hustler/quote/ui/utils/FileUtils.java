@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
@@ -81,10 +83,6 @@ import java.util.zip.ZipInputStream;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class FileUtils {
-
-    public interface onSaveComplete {
-        void onImageSaveListner(File file);
-    }
 
     static String folderName = null;
 
@@ -180,19 +178,16 @@ public class FileUtils {
                         new File(source_font_paths_list[i]).renameTo(new File(finalLOcation + File.separator + zipContents.get(i)));
                     }
                     dialog1.cancel();
-                    Toast_Snack_Dialog_Utils.createDialog(activity,
-                            activity.getString(R.string.congratulations),
-                            activity.getString(R.string.font_installed)
-                            , null, activity.getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
-                                @Override
-                                public void onPositiveselection() {
-                                }
+                    Toast_Snack_Dialog_Utils.createDialog(activity, activity.getString(R.string.congratulations), activity.getString(R.string.font_installed), null, activity.getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
+                        @Override
+                        public void onPositiveselection() {
+                        }
 
-                                @Override
-                                public void onNegativeSelection() {
+                        @Override
+                        public void onNegativeSelection() {
 
-                                }
-                            });
+                        }
+                    });
                     dialog.dismiss();
                 }
             });
@@ -319,101 +314,69 @@ public class FileUtils {
                 btSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        File directoryChecker2;
+                        File savingFile2;
+                        Bitmap bitmap;
+
+                        directoryChecker2 = new File(Constants.APP_SAVED_PICTURES_FOLDER);
                         if (rbJpeg.getId() == rdGroup.getCheckedRadioButtonId()) {
                             format[0] = Constants.JPEG;
 
                         } else if (rbPng.getId() == rdGroup.getCheckedRadioButtonId()) {
                             format[0] = Constants.PNG;
                         }
-                        if (etProjectName.getText().length() <= 0 || etProjectName.getText() == null) {
+                        if ((etProjectName.getText().length() <= 0)) {
+                            etProjectName.setError(activity.getString(R.string.please_enter_project_name));
+                        } else if ((null == etProjectName.getText())) {
                             etProjectName.setError(activity.getString(R.string.please_enter_project_name));
                         } else {
                             name[0] = etProjectName.getText().toString();
-                            if (name[0] == null) {
+                            if (null == name[0]) {
                                 projectname[0] = "QUOTES--" + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2);
                             } else {
                                 projectname[0] = name[0];
                             }
-//        Bitmap bitmap = layout.getDrawingCache();
 
 
                             layout.buildDrawingCache(true);
-                            Bitmap bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+                            bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
                             layout.destroyDrawingCache();
-//        layout.setDrawingCacheEnabled(false);
 
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            if (format[0].equalsIgnoreCase(Constants.JPEG)) {
+                            if (Constants.JPEG.equalsIgnoreCase(format[0])) {
                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                             } else {
                                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                             }
 
-                            File directoryChecker, directoryChecker2;
-                            File savingFile, savingFile2 = null;
 
-//                            directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images));
-                            directoryChecker2 = new File(Constants.APP_SAVED_PICTURES_FOLDER);
-                            if (format[0].equalsIgnoreCase(Constants.JPEG)) {
+                            if (Constants.JPEG.equalsIgnoreCase(format[0])) {
                                 if (directoryChecker2.isDirectory()) {
-
-//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
-//                                            File.separator + projectname[0] + ".jpg");
-
-                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                                            + File.separator
-                                            + activity.getString(R.string.Quotzy)
-                                            +
-                                            File.separator + projectname[0] + ".jpg");
+                                    savingFile2 = getSavingFile(null, true, ".jpg", activity, projectname[0]);
                                 } else {
-//                                    directoryChecker.mkdirs();
-                                    directoryChecker2.mkdirs();
-//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
-//                                            File.separator + projectname[0] + ".jpg");
-
-                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                                            + File.separator
-                                            + activity.getString(R.string.Quotzy)
-                                            +
-                                            File.separator + projectname[0] + ".jpg");
+                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + activity.getString(R.string.Quotzy) + File.separator + projectname[0] + ".jpg");
                                 }
-
                             } else {
                                 if (directoryChecker2.isDirectory()) {
-//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
-//                                            File.separator + projectname[0] + ".png");
-
-                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                                            + File.separator
-                                            + activity.getString(R.string.Quotzy)
-                                            +
-                                            File.separator + projectname[0] + ".png");
+                                    savingFile2 = getSavingFile(null, true, ".png", activity, projectname[0]);
                                 } else {
-                                    directoryChecker2.mkdir();
-//                                    savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + activity.getString(R.string.images) +
-//                                            File.separator + projectname[0] + ".png");
-
-                                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                                            + File.separator
-                                            + activity.getString(R.string.Quotzy)
-                                            +
-                                            File.separator + projectname[0] + ".png");
+                                    savingFile2 = getSavingFile(directoryChecker2, false, ".png", activity, projectname[0]);
                                 }
-
                             }
 
                             filetoReturn[0] = savingFile2;
                             Log.d("ImageLocation -->", savingFile2.toString());
                             try {
-//                                savingFile.createNewFile();
                                 savingFile2.createNewFile();
-//                                FileOutputStream fileOutputStream = new FileOutputStream(savingFile);
                                 FileOutputStream fileOutputStream2 = new FileOutputStream(savingFile2);
-//                                fileOutputStream.write(byteArrayOutputStream.toByteArray());
                                 fileOutputStream2.write(byteArrayOutputStream.toByteArray());
-//                                fileOutputStream.close();
                                 fileOutputStream2.close();
-//                    App.showToast(QuoteDetailsctivity.this,getString(R.string.image_saved));
+
+                                ContentValues contentValues = getImageContent(savingFile2);
+                                Uri result = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                                Toast.makeText(activity.getApplicationContext(), "File is Saved in  " + savingFile2, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity.getApplicationContext(), "URI RESULT " + result, Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -450,6 +413,13 @@ public class FileUtils {
 
             }
         }).run();
+    }
+
+    private static File getSavingFile(File directoryChecker2, boolean b, String format, Activity activity, String name) {
+        if (!b) {
+            directoryChecker2.mkdir();
+        }
+        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + activity.getString(R.string.Quotzy) + File.separator + name + format);
     }
 
     public static void show_post_save_dialog(final Activity activity, final File savedFile) {
@@ -622,7 +592,6 @@ public class FileUtils {
         }
     }
 
-
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -655,7 +624,7 @@ public class FileUtils {
 
     // METHOD TOOK FROM INTERNET
     public static Uri getImageContentUri(Context context, File imageFile) {
-        Uri uri = null;
+        Uri uri;
         if (Build.VERSION.SDK_INT >= 24) {
             uri = FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), imageFile);
         } else {
@@ -695,15 +664,34 @@ public class FileUtils {
 
     }
 
+    public static ContentValues getImageContent(File parent) {
+        ContentValues image = new ContentValues();
+        image.put(MediaStore.Images.Media.TITLE, parent.getName());
+        image.put(MediaStore.Images.Media.DISPLAY_NAME, parent.getName());
+        image.put(MediaStore.Images.Media.DESCRIPTION, "Quotzy Image");
+        image.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis());
+        if (parent.getAbsolutePath().contains(".jpg")) {
+            image.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+        } else if (parent.getAbsolutePath().contains(".png")) {
+            image.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        } else {
+            image.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+        }
+        image.put(MediaStore.Images.Media.ORIENTATION, 0);
+        image.put(MediaStore.Images.ImageColumns.BUCKET_ID, parent.toString().toLowerCase().hashCode());
+        image.put(MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME, parent.getName().toLowerCase());
+        image.put(MediaStore.Images.Media.SIZE, parent.length());
+        image.put(MediaStore.Images.Media.DATA, parent.getAbsolutePath());
+        return image;
+    }
+
     public static UserWorkImages getImagesFromSdCard(Activity activity) {
         File file;
         String[] imagePaths;
         String[] imageNames;
         File[] files;
 
-        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                + File.separator
-                + activity.getString(R.string.Quotzy));
+        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + activity.getString(R.string.Quotzy));
         file.mkdir();
         if (file.isDirectory()) {
             files = file.listFiles();
@@ -742,8 +730,7 @@ public class FileUtils {
             shareIntent.putExtra(Intent.EXTRA_TITLE, imagePath);
             if (imagePath != null) {
                 if (Build.VERSION.SDK_INT >= 24) {
-                    shareIntent.putExtra(Intent.EXTRA_STREAM,
-                            FileProvider.getUriForFile(activity.getApplicationContext(), activity.getString(R.string.file_provider_authority), new File(imagePath)));
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(activity.getApplicationContext(), activity.getString(R.string.file_provider_authority), new File(imagePath)));
                 } else {
                     shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imagePath)));
                 }
@@ -760,11 +747,11 @@ public class FileUtils {
 
     }
 
-    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader) {
+    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader, Context applicationContext) {
 
         File downloading_File;
-        FileOutputStream fileOutputStream = null;
-        InputStream inputStream = null;
+        FileOutputStream fileOutputStream;
+        InputStream inputStream;
 
         try {
 //                GET URL
@@ -787,15 +774,13 @@ public class FileUtils {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.connect();
-                int lengthOfFile = httpURLConnection.getContentLength();
 
 //                    GET DATA FROM INPUT STREAM && ATTACH OOUTPUT STREAM OBJECT TO THE FILE TO BE DOWNLOADED FILE OUTPUT STRAM OBJECT
                 inputStream = httpURLConnection.getInputStream();
                 fileOutputStream = new FileOutputStream(downloading_File);
 //                    WRITE THE DATA TO BUFFER SO WE CAN COPY EVERYTHING AT ONCE TO MEMORY WHICH IMPROOVES EFFECIANCY
                 byte[] buffer = new byte[2048];
-                int bufferLength = 0;
-                long total = 0;
+                int bufferLength;
                 while ((bufferLength = inputStream.read(buffer)) > 0) {
 //                    if (imageDownloader != null) {
 //                        total += bufferLength;
@@ -808,6 +793,8 @@ public class FileUtils {
                 }
                 inputStream.close();
                 fileOutputStream.close();
+                ContentValues contentValues = getImageContent(downloading_File);
+                Uri result = applicationContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 Log.d("IMAGE SAVED", "Image Saved in sd card");
                 return downloading_File;
             } catch (IOException e) {
@@ -823,7 +810,6 @@ public class FileUtils {
 
 
     }
-
 
     private static void saveToShared(String folderName, Activity activity) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(activity).edit();
@@ -983,22 +969,18 @@ public class FileUtils {
                     directoryChecker = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy));
                     if (format[0].equalsIgnoreCase(Constants.JPEG)) {
                         if (directoryChecker.isDirectory()) {
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
-                                    File.separator + projectname[0] + ".jpg");
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + projectname[0] + ".jpg");
                         } else {
                             directoryChecker.mkdir();
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
-                                    File.separator + projectname[0] + ".jpg");
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + projectname[0] + ".jpg");
                         }
 
                     } else {
                         if (directoryChecker.isDirectory()) {
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
-                                    File.separator + projectname[0] + ".png");
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + projectname[0] + ".png");
                         } else {
                             directoryChecker.mkdir();
-                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) +
-                                    File.separator + projectname[0] + ".png");
+                            savingFile = new File(Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + projectname[0] + ".png");
                         }
 
                     }
@@ -1087,12 +1069,10 @@ public class FileUtils {
 
         file1 = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy");
         if (file1.isDirectory()) {
-            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
-                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
+            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" + File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
         } else {
             file1.mkdir();
-            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" +
-                    File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
+            file = new File(Environment.getExternalStorageDirectory() + File.separator + "Quotzy" + File.separator + "QUOTES--" + System.currentTimeMillis() + ".jpg");
         }
 
         filetoReturn[0] = file;
@@ -1110,6 +1090,10 @@ public class FileUtils {
         return filetoReturn[0];
 
 
+    }
+
+    public interface onSaveComplete {
+        void onImageSaveListner(File file);
     }
 
 }

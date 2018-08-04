@@ -9,7 +9,6 @@ import android.widget.RemoteViews;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.EditorActivity;
-import com.hustler.quote.ui.activities.HomeActivity;
 import com.hustler.quote.ui.activities.MainActivity;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 
