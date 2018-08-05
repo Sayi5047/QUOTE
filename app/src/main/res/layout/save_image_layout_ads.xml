@@ -63,11 +63,13 @@
         android:id="@+id/remove_watermark_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
         android:background="@drawable/rounded_rect"
         android:text="@string/watermark"
         android:textAllCaps="false"
-        android:textColor="@color/textColor" />
+        android:textColor="@color/textColor"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
     <LinearLayout
         android:id="@+id/bt_ll_watch_Ad_layout"

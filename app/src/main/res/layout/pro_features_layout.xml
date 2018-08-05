@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/wallpaper_fragment"
-        android:name="com.hustler.quote.ui.fragments.Wallpaper_preference_fragment"
+        android:name="com.hustler.quotzy.ui.fragments.Wallpaper_preference_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

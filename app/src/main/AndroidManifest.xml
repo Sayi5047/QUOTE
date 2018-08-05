@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!-- /*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/ -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hustler.quote">
+    package="com.hustler.quotzy">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name="com.hustler.quotzy.ui.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,19 +30,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.QuoteDetailsActivity"
+            android:name="com.hustler.quotzy.ui.activities.QuoteDetailsActivity"
             android:label=" "
-            android:parentActivityName=".ui.activities.HomeActivity"
+            android:parentActivityName="com.hustler.quotzy.ui.activities.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.FullscreenActivity"
+            android:name="com.hustler.quotzy.ui.activities.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".ui.activities.EditorActivity"
+            android:name="com.hustler.quotzy.ui.activities.EditorActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -63,7 +63,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.HomeActivity"
+            android:name="com.hustler.quotzy.ui.activities.HomeActivity"
             android:label=""
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -80,14 +80,14 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ui.activities.OnBoardingActivity"
+            android:name="com.hustler.quotzy.ui.activities.OnBoardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoStatusBar" />
         <activity
-            android:name=".ui.activities.MyPreferenceActivity"
+            android:name="com.hustler.quotzy.ui.activities.MyPreferenceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.Widgets.QuoteWidgetConfigurationActivity"
+            android:name="com.hustler.quotzy.ui.Widgets.QuoteWidgetConfigurationActivity"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
@@ -95,20 +95,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.WallpapersPagerActivity"
+            android:name="com.hustler.quotzy.ui.activities.WallpapersPagerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.ProfeaturesActivity"
+            android:name="com.hustler.quotzy.ui.activities.ProfeaturesActivity"
             android:label="@string/beta"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.PreHome_Activity"
+            android:name="com.hustler.quotzy.ui.activities.PreHome_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/lightstatusbar" />
 
         <receiver
-            android:name=".ui.Widgets.EditWidgetProvider"
+            android:name="com.hustler.quotzy.ui.Widgets.EditWidgetProvider"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -133,25 +133,25 @@
         <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <receiver android:name=".ui.Recievers.SystemBootReciever">
+        <receiver android:name="com.hustler.quotzy.ui.Recievers.SystemBootReciever">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".ui.Recievers.NotifcationReciever">
+        <receiver android:name="com.hustler.quotzy.ui.Recievers.NotifcationReciever">
             <intent-filter>
                 <action android:name="com.hustler.quote.ui.Services.NotificationCustomListener_Service.NOTIFICATION_TAG" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".ui.Recievers.AlarmReciever"
+            android:name="com.hustler.quotzy.ui.Recievers.AlarmReciever"
             tools:ignore="InnerclassSeparator" />
         <receiver
-            android:name=".ui.Recievers.NotifAlarmReciever"
+            android:name="com.hustler.quotzy.ui.Recievers.NotifAlarmReciever"
             tools:ignore="InnerclassSeparator" />
 
         <service
-            android:name=".ui.livewallpaper.MyWallpaperService"
+            android:name="com.hustler.quotzy.ui.livewallpaper.MyWallpaperService"
             android:enabled="false"
             android:label="My Wallpaper"
             android:permission="android.permission.BIND_WALLPAPER">
@@ -164,25 +164,25 @@
                 android:resource="@xml/mywallpaper" />
         </service>
         <service
-            android:name=".ui.Services.RandomQuoteUpdateService"
+            android:name="com.hustler.quotzy.ui.Services.RandomQuoteUpdateService"
             tools:ignore="InnerclassSeparator" />
         <service
-            android:name=".ui.Services.DownloadImageService"
+            android:name="com.hustler.quotzy.ui.Services.DownloadImageService"
             tools:ignore="InnerclassSeparator" />
         <service
-            android:name=".ui.Services.DailyWallpaperService"
+            android:name="com.hustler.quotzy.ui.Services.DailyWallpaperService"
             android:exported="false"
             tools:ignore="InnerclassSeparator" />
         <service
-            android:name=".ui.Services.DailyNotificationService"
+            android:name="com.hustler.quotzy.ui.Services.DailyNotificationService"
             tools:ignore="InnerclassSeparator" />
-        <service android:name=".ui.Services.QuoteLoaderService" />
-        <service android:name=".ui.Services.FbTokenService">
+        <service android:name="com.hustler.quotzy.ui.Services.QuoteLoaderService" />
+        <service android:name="com.hustler.quotzy.ui.Services.FbTokenService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".ui.Services.MyFirebase_Messaging_service">
+        <service android:name="com.hustler.quotzy.ui.Services.MyFirebase_Messaging_service">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -200,7 +200,7 @@
         </provider>
 
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="com.hustler.quotzy.ui.activities.MainActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/lightstatusbar" />

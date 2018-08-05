@@ -75,7 +75,7 @@
             android:layout_marginRight="18dp"
             android:layout_marginTop="8dp"
             android:layout_toLeftOf="@id/fab_delete"
-            android:src="@drawable/ic_menu_gallery"
+            android:src="@drawable/ic_gallery_bg"
             app:backgroundTint="@android:color/white" />
 
         <android.support.design.widget.FloatingActionButton

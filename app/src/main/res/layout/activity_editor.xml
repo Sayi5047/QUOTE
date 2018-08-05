@@ -16,9 +16,10 @@
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@android:color/transparent"
     android:orientation="vertical"
-    tools:context="com.hustler.quote.ui.activities.EditorActivity">
+    tools:context="com.hustler.quotzy.ui.activities.EditorActivity">
 
 
     <LinearLayout
@@ -48,6 +49,14 @@
             android:layout_weight="2"
             android:padding="@dimen/elevation4"
             android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@drawable/ic_apps_black_24dp" />
 
         <ImageView
             android:id="@+id/delete_view_button"
@@ -80,8 +89,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_save_and_share_bar"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="125dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center">
 
         <RelativeLayout
@@ -175,14 +185,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
                 android:elevation="4dp"
                 android:text="@string/Quotzy"
                 android:textAlignment="center"
                 android:textColor="@color/textColor"
-                android:visibility="visible"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:visibility="visible" />
 
             <ImageView
                 android:id="@+id/quotzy"
@@ -191,31 +201,35 @@
                 android:layout_above="@id/mark_quotzy_tv"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
+                android:elevation="4dp"
                 android:src="@mipmap/ic_launcher" />
         </RelativeLayout>
 
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/features_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/quote_parent"
-        android:layout_marginTop="-110dp"
+        android:layout_marginTop="-100dp"
+        android:background="@color/white_apple"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/content_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2" />
+            android:layout_weight="2.5"
+            android:padding="1dp" />
         <!--android:layout_above="@id/text_and_background_layout"-->
 
         <LinearLayout
             android:id="@+id/text_and_background_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="0.7"
+            android:layout_marginTop="6dp"
+            android:layout_weight="0.8"
             android:orientation="horizontal">
 
             <TextView
@@ -251,9 +265,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:orientation="horizontal"
-            android:padding="6dp"
             android:visibility="gone">
 
             <TextView
@@ -297,107 +310,11 @@
             android:max="360"
             android:padding="15dp"
             android:progress="180"
-            android:visibility="gone"
             android:progressDrawable="@drawable/seekbar_progressbar"
             android:thumb="@drawable/ic_sentiment_satisfied_black_24dp"
-            />
+            android:visibility="gone" />
 
     </LinearLayout>
-    <!--&lt;!&ndash;UN USED&ndash;&gt;-->
-    <!--<LinearLayout-->
-    <!--android:id="@+id/top_editor_navigaotor_level1"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="42dp"-->
-
-    <!--android:background="@android:color/transparent"-->
-    <!--android:padding="4dp"-->
-    <!--android:visibility="gone">-->
 
 
-    <!--<ImageView-->
-    <!--android:id="@+id/font_style_changer_module"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_weight="2"-->
-    <!--android:src="@drawable/ic_format_color_text_black_24dp" />-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/font_background_chnager_module"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_weight="2"-->
-    <!--android:padding="1dp"-->
-
-    <!--android:src="@drawable/ic_image_black_24dp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="2"-->
-    <!--android:padding="1dp"-->
-    <!--android:src="@drawable/ic_save_black_24dp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="2"-->
-    <!--android:padding="1dp"-->
-    <!--android:src="@drawable/ic_share_accent_24dp" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/fontsize_change_module"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:visibility="gone"-->
-
-    <!--&gt;-->
-
-
-    <!--<ImageView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="36dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_weight="1"-->
-    <!--android:src="@drawable/ic_done_black_24dp"-->
-    <!--android:visibility="gone" />-->
-
-    <!--</LinearLayout>-->
-    <!--&lt;!&ndash;UN USED&ndash;&gt;-->
-
-
-</RelativeLayout><!--DUMPING ZONE-->
-
-    <!--<android.support.v4.widget.NestedScrollView--><!--android:id="@+id/bottomsheet"--><!--android:layout_width="match_parent"--><!--android:layout_height="80dp"--><!--android:background="@color/textColor"--><!--android:clipToPadding="true"--><!--android:orientation="vertical"--><!--android:visibility="gone"--><!--app:layout_behavior="@string/bottom_sheet_behavior">-->
-
-
-    <!--</android.support.v4.widget.NestedScrollView>-->
-
-
-    <!--<LinearLayout--><!--android:id="@+id/editor_background_module"--><!--android:layout_width="match_parent"--><!--android:layout_height="40dp"--><!--android:layout_alignParentBottom="true"--><!--android:layout_gravity="top"-->
-
-    <!--android:elevation="@dimen/elevation4"--><!--android:orientation="horizontal"--><!--android:visibility="gone"--><!--&gt;-->
-
-
-    <!--<ImageView--><!--android:id="@+id/Editor_background_module_colored_backgrounds"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_gravity="center"--><!--android:layout_weight="3"--><!--android:padding="@dimen/elevation4"--><!--android:src="@drawable/ic_colors_bg" />-->
-
-    <!--<ImageView--><!--android:id="@+id/Editor_background_module_gallery_backgrounds"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_gravity="center"--><!--android:layout_weight="3"--><!--android:padding="@dimen/elevation4"--><!--android:src="@drawable/ic_gallery_bg" />-->
-
-    <!--<ImageView--><!--android:id="@+id/Editor_background_module_blurred_backgrounds"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="2"--><!--android:padding="@dimen/elevation2"-->
-
-    <!--android:src="@drawable/ic_blur_on_black_24dp" />-->
-
-    <!--<ImageView--><!--android:id="@+id/Editor_background_module_picture_filter_changer"-->
-
-    <!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="3"--><!--android:padding="@dimen/elevation2"--><!--android:src="@drawable/ic_filters" />-->
-
-    <!--</LinearLayout>-->
-
-
-    <!--<android.support.design.widget.CoordinatorLayout--><!--android:id="@+id/Editor_lead_screen"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_below="@id/editor_font_module">-->
-
+</RelativeLayout>

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hustler.quote.ui.fragments.MainFragment">
+    tools:context="com.hustler.quotzy.ui.fragments.MainFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,15 +12,14 @@
             android:id="@+id/root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/WHITE"
-            >
+            android:background="@color/WHITE">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/carousel_pager"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
 
             <WebView
                 android:id="@+id/instagram"
@@ -200,8 +199,20 @@
 
                     android:src="@drawable/ic_youtube"
                     android:tint="@android:color/white" />
+
             </LinearLayout>
 
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.8"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="@string/bannerAdId"
+                ads:layout_anchorGravity="bottom" />
 
         </RelativeLayout>
     </ScrollView>

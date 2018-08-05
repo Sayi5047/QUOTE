@@ -103,11 +103,10 @@
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
     <string name="made_with_quotzy" tools:keep="@string/made_with_quotzy">Made with Quotzy</string>
-    <string name="bannerAdId">ca-app-pub-9653011938091807/9705197927</string>
-    <!--OLD-->
-    <string name="rewardAdId">ca-app-pub-9653011938091807/7917308260</string>
-    <string name="interstaialId" tools:keep="@string/interstaialId">ca-app-pub-9653011938091807/3150683855</string>
-    <!--OLD-->
+    <string name="bannerAdId">ca-app-pub-9653011938091807/7068484156</string>
+
+    <string name="rewardAdId">ca-app-pub-9653011938091807/1957109345</string>
+    <string name="interstaialId" tools:keep="@string/interstaialId">ca-app-pub-9653011938091807/8015251238</string>
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>
@@ -213,31 +212,31 @@
     <!--SPLASH ACTIVITY-->
     <!--ca-app-pub-3940256099942544/6300978111-->
     <string-array name="Text_features">
-        <item>Add Text</item>
-        <item>Edit Text</item>
-        <item>Resize Text</item>
-        <item>Rotate Text</item>
+        <item>Add</item>
+        <item>Edit</item>
+        <item>Resize</item>
+        <item>Rotate</item>
         <item>Letter Space</item>
-        <item>Color Text</item>
-        <item>Line Space</item>
-        <item>Frame Width</item>
-        <item>Shadow Text</item>
-        <item>Change Font</item>
-        <item>Gradient Text</item>
-        <item>Canvas Size</item>
-        <item>Visual Fx</item>
+        <item>Color</item>
+        <item>Line</item>
+        <item>Width</item>
+        <item>Shadow</item>
+        <item>Font</item>
+        <item>Gradient</item>
+        <item>Size</item>
+        <item>Fx</item>
         <!--<item>Hollow Text</item>-->
 
     </string-array>
 
     <string-array name="Background_features">
-        <item>Bg image</item>
-        <item>Bg color</item>
+        <item>image</item>
+        <item>color</item>
         <item>Blurr</item>
-        <item>Black filter</item>
-        <item>White filter</item>
-        <item>Gradient Bg</item>
-        <item>Search Bg</item>
+        <item>Black</item>
+        <item>White</item>
+        <item>Gradient</item>
+        <item>Search</item>
         <!--<item>Vigenette</item>-->
         <!--<item>Add Emoji</item>-->
         <!--<item>Add Signature</item>-->

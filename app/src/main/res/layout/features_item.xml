@@ -26,6 +26,6 @@
         android:gravity="center"
         android:padding="@dimen/elevation4"
         android:textColor="@color/textColor"
-        android:textSize="12sp"
+        android:textSize="10sp"
         tools:text="Blurr text" />
 </LinearLayout>

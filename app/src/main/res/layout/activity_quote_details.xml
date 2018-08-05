@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:transitionName="@string/quotes_author_transistion"
 
-    tools:context="com.hustler.quote.ui.activities.QuoteDetailsActivity">
+    tools:context="com.hustler.quotzy.ui.activities.QuoteDetailsActivity">
 
     <include layout="@layout/half" />
 
@@ -206,9 +206,8 @@
             android:layout_weight="0.8"
             ads:adSize="SMART_BANNER"
             ads:adUnitId="@string/bannerAdId"
-            ads:layout_anchorGravity="bottom">
+            ads:layout_anchorGravity="bottom"/>
 
-        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
 
