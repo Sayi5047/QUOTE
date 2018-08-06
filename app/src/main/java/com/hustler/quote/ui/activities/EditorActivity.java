@@ -61,7 +61,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
-import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Widgets.RotationGestureDetector;
 import com.hustler.quote.ui.adapters.ColorsAdapter;
@@ -1364,7 +1363,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         try {
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         } catch (Exception e) {
-            FirebaseCrash.report(e);
             e.printStackTrace();
         }
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
