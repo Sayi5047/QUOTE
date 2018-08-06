@@ -29,8 +29,8 @@ android {
         applicationId "com.hustler.quote"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 10
-        versionName "1.000009"
+        versionCode 12
+        versionName "1.000011"
         resConfigs "en"
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true

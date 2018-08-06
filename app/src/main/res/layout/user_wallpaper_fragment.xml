@@ -27,13 +27,13 @@
 
         </android.support.design.widget.TabLayout>
 
-        <com.hustler.quotzy.ui.customviews.MyViewPager
+        <com.hustler.quote.ui.customviews.MyViewPager
             android:id="@+id/wall_viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="12">
 
-        </com.hustler.quotzy.ui.customviews.MyViewPager>
+        </com.hustler.quote.ui.customviews.MyViewPager>
 
 
     </LinearLayout>

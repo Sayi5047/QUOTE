@@ -19,7 +19,7 @@
     android:animateLayoutChanges="true"
     android:background="@android:color/transparent"
     android:orientation="vertical"
-    tools:context="com.hustler.quotzy.ui.activities.EditorActivity">
+    tools:context="com.hustler.quote.ui.activities.EditorActivity">
 
 
     <LinearLayout

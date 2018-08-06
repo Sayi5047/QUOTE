@@ -6,7 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hustler.quotzy.ui.activities.HomeActivity">
+    tools:context="com.hustler.quote.ui.activities.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
