@@ -6,7 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hustler.quote.ui.activities.HomeActivity">
+    tools:context="com.hustler.quotzy.ui.activities.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -34,6 +34,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/font3"
+                android:imeOptions="actionSearch"
                 android:textStyle="bold" />
 
         </android.support.v7.widget.Toolbar>

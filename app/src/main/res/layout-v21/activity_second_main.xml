@@ -6,7 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hustler.quote.ui.activities.HomeActivity">
+    tools:context="com.hustler.quotzy.ui.activities.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -30,10 +30,12 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:gravity="center"
+                android:imeOptions="actionSearch"
                 android:text="@string/app_name"
                 android:textAlignment="textStart"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/font3"
+
                 android:textStyle="bold" />
 
 
@@ -49,7 +51,7 @@
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
 
-           >
+            >
             <!--app:tabSelectedTextColor="@android:color/white"-->
 
         </android.support.design.widget.TabLayout>
@@ -59,21 +61,21 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
         app:backgroundTint="@android:color/white"
-        app:srcCompat="@drawable/ic_edit_black"
         app:layout_anchor="@+id/main_pager"
-        app:layout_anchorGravity="bottom|right" />
+        app:layout_anchorGravity="bottom|right"
+        app:srcCompat="@drawable/ic_edit_black" />
 
     <ImageView
         android:layout_width="34dp"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="25dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="38dp"
+        android:layout_marginBottom="25dp"
         android:elevation="4dp"
         android:src="@drawable/ic_mode_edit_white_24dp"
         android:visibility="gone"
@@ -91,8 +93,7 @@
 
     </android.support.v4.view.ViewPager>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto" 
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

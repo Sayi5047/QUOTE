@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:transitionName="@string/quotes_author_transistion"
 
-    tools:context="com.hustler.quote.ui.activities.QuoteDetailsActivity">
+    tools:context="com.hustler.quotzy.ui.activities.QuoteDetailsActivity">
 
     <include layout="@layout/half" />
 

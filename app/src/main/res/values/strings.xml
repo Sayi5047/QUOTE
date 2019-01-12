@@ -103,10 +103,10 @@
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
     <string name="made_with_quotzy" tools:keep="@string/made_with_quotzy">Made with Quotzy</string>
-    <string name="bannerAdId">ca-app-pub-9653011938091807/7068484156</string>
+    <string name="bannerAdId">ca-app-pub-9653011938091807/7323305103</string>
 
-    <string name="rewardAdId">ca-app-pub-9653011938091807/1957109345</string>
-    <string name="interstaialId" tools:keep="@string/interstaialId">ca-app-pub-9653011938091807/8015251238</string>
+    <string name="rewardAdId">ca-app-pub-9653011938091807/9302547281</string>
+    <string name="interstaialId" tools:keep="@string/interstaialId">ca-app-pub-9653011938091807/2162423862</string>
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>

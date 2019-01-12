@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context="com.hustler.quote.ui.activities.MainActivity">
+    tools:context="com.hustler.quotzy.ui.activities.MainActivity">
 
     <!--<android.support.design.widget.AppBarLayout-->
     <!--android:layout_width="match_parent"-->

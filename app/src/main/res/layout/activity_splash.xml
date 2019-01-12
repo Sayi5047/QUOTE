@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_weight="10"
         android:paddingTop="135dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher_foreground" />
 
     <TextView
         android:layout_width="match_parent"

@@ -19,7 +19,7 @@
     android:animateLayoutChanges="true"
     android:background="@android:color/transparent"
     android:orientation="vertical"
-    tools:context="com.hustler.quote.ui.activities.EditorActivity">
+    tools:context="com.hustler.quotzy.ui.activities.EditorActivity">
 
 
     <LinearLayout
@@ -213,7 +213,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/quote_parent"
         android:layout_marginTop="-100dp"
-        android:background="@color/white_apple"
+        android:background="@color/WHITE"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
