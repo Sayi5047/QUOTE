@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hustler.quotzy.ui.activities.MyPreferenceActivity"
+    tools:context="io.hustler.qtzy.ui.activities.MyPreferenceActivity"
     tools:keep="@layout/activity_my_preference">
 
 </android.support.constraint.ConstraintLayout>

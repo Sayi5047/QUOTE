@@ -28,7 +28,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "com.hustler.quotzy"
+        applicationId "io.hustler.qtzy"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 15
@@ -68,12 +68,12 @@ android {
 }
 ext {
     supportLibVersion = '27.1.1'
-    googleLibVersion = '15.0.0'
+    googleLibVersion = '17.1.1'
     SEPERATOR = '-'
     APK_EXTENSION = '.apk'
     RELEASE = 'release'
     DEBUG = 'debug'
-    APK_PREFIX = 'quotzy'
+    APK_PREFIX = 'qotzy'
 }
 
 
@@ -84,8 +84,8 @@ def getDate() {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation "com.google.firebase:firebase-messaging:$googleLibVersion"
-    implementation "com.google.firebase:firebase-crash:$googleLibVersion"
+    implementation "com.google.firebase:firebase-messaging:17.3.4"
+    implementation "com.google.firebase:firebase-crash:16.2.1"
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
     implementation "com.android.support:design:$supportLibVersion"
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
@@ -99,7 +99,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.8.0'
     implementation "com.android.support:customtabs:$supportLibVersion"
     implementation 'org.jetbrains:annotations-java5:15.0'
-    implementation "com.google.android.gms:play-services-ads:$googleLibVersion"
+    implementation "com.google.android.gms:play-services-ads:17.1.1"
     implementation 'com.pes.materialcolorpicker:library:1.2.0'
     implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'

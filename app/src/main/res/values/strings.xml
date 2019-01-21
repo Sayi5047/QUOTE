@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="app_name">Quotzy</string>
+    <string name="app_name">8quotes</string>
     <string name="title_activity_main" tools:keep="@string/title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open" tools:keep="@string/navigation_drawer_open">Open navigation drawer</string>
@@ -84,7 +84,7 @@
     <string name="are_you_sure_close">Do you want to close the app?</string>
     <string name="jpg">JPG</string>
     <string name="png">PNG</string>
-    <string name="Quotzy">Quotzy</string>
+    <string name="Qotzy">Qotzy</string>
     <string name="project">Save Project</string>
     <string name="save">Save</string>
     <string name="please_enter_project_name">Enter Project name to save</string>
@@ -103,10 +103,10 @@
     <string name="edit_text">Edit Text</string>
     <string name="format">Format Text</string>
     <string name="made_with_quotzy" tools:keep="@string/made_with_quotzy">Made with Quotzy</string>
-    <string name="bannerAdId">ca-app-pub-9653011938091807/7323305103</string>
+    <string name="bannerAdId">ca-app-pub-9653011938091807/9510392856</string>
 
     <string name="rewardAdId">ca-app-pub-9653011938091807/9302547281</string>
-    <string name="interstaialId" tools:keep="@string/interstaialId">ca-app-pub-9653011938091807/2162423862</string>
+    <string name="interstaialId">ca-app-pub-9653011938091807/2162423862</string>
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>
@@ -121,7 +121,7 @@
     <string name="Select_how_to_fit">Please, selecte image fitype before apply image as background.</string>
     <string name="type_gra">Gradient Type</string>
     <string name="previewGra">Preview Gradient text</string>
-    <string name="selecte_gradient_to_apply" tools:keep="@string/selecte_gradient_to_apply">Select the gradient style to applt it.</string>
+    <string name="selecte_gradient_to_apply" tools:keep="@string/selecte_gradient_to_apply">Select the gradient style to apply it.</string>
     <string name="no_images">Sorry,No images are available</string>
     <string name="Image_search">Image Search</string>
     <string name="credits">Images are powered by www.pixabay.com</string>
@@ -298,7 +298,7 @@
         <item>Hand It Over</item>
     </string-array>
 
-    <string name="file_provider_authority" translatable="false">com.hustler.quote.fileprovider</string>
+    <string name="file_provider_authority" translatable="false">io.hustler.qtzy.fileprovider</string>
     <string name="start_your_first_wallpaper" tools:keep="@string/start_your_first_wallpaper">Start Editing</string>
     <string name="Click_to_start" tools:keep="@string/Click_to_start">Start editing your first text wallpaper</string>
     <string name="explore_categories" tools:keep="@string/explore_categories">Explore all categories</string>

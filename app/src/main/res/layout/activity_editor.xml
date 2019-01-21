@@ -19,7 +19,7 @@
     android:animateLayoutChanges="true"
     android:background="@android:color/transparent"
     android:orientation="vertical"
-    tools:context="com.hustler.quotzy.ui.activities.EditorActivity">
+    tools:context="io.hustler.qtzy.ui.activities.EditorActivity">
 
 
     <LinearLayout
@@ -188,7 +188,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
                 android:elevation="4dp"
-                android:text="@string/Quotzy"
+                android:text="@string/Qotzy"
                 android:textAlignment="center"
                 android:textColor="@color/textColor"
                 android:textSize="16dp"
