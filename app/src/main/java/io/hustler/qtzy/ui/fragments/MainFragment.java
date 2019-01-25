@@ -7,9 +7,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +23,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Widgets.CarouselAdapter;
 import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.MainActivity;
 import io.hustler.qtzy.ui.activities.QuotesFragment;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
+import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
+import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.OffLineQuotes;
+import io.hustler.qtzy.ui.pojo.Quote;
+import io.hustler.qtzy.ui.superclasses.App;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -158,12 +166,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         Works.setOnClickListener(this);
         fav.setOnClickListener(this);
         Search.setOnClickListener(this);
+        followUs.setOnClickListener(this);
 
         facebook.setOnClickListener(this);
         whatsapp.setOnClickListener(this);
         instagramAcnt.setOnClickListener(this);
         twitter.setOnClickListener(this);
         youtube.setOnClickListener(this);
+
     }
 
     @Override
@@ -209,6 +219,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             launchTwitter();
         } else if (v == youtube) {
             launchYoutube();
+        } else if (v == followUs) {
+            uploadQuotes();
         }
     }
 
@@ -358,6 +370,42 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             }
         }, 0, i * 1000);
+    }
+
+
+    public void uploadQuotes() {
+//        Handler handler = new Handler();
+//        ArrayList<CategoriesFragment.Quotes> quotesForJson = new ArrayList<>();
+//        final CategoriesFragment.Data quotes = new CategoriesFragment.Data();
+//        for (Quote qs : new QuotesDbHelper(getActivity().getApplicationContext()).getAllQuotes()) {
+//            CategoriesFragment.Quotes quotes1 = new CategoriesFragment.Quotes(qs.getQuote_body(), qs.getQuote_author(), null, qs.getQuote_category());
+//            quotesForJson.add(quotes1);
+//        }
+//        quotes.setData(quotesForJson);
+////        String datas = new Gson().toJson(data, CategoriesFragment.Data.class);
+//        for (final CategoriesFragment.Quotes quotesy : quotes.getData()) {
+//            final int[] count = {1};
+//            /*UPLOAD QUOTES*/
+////            if (quotesy.getCategory().equalsIgnoreCase("Alone")) {
+//
+//            new Restutility(getActivity()).uploadQuotes(quotesy, new QuotzyApiResponseListener() {
+//                @Override
+//                public void onSuccess(String message) {
+//                    Log.d("Success", String.valueOf(count[0]));
+//                    followUs.setText(String.format("%s / %d", String.valueOf(count[0]), quotes.getData().size()));
+//                    count[0]++;
+//                }
+//
+//                @Override
+//                public void onError(String message) {
+//                    Log.d("Failure", String.valueOf(count[0]));
+//
+//                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), message);
+//                }
+//            }, getContext(), "http://192.168.1.11:8080/private/web/usage/uploadQuotes");
+//
+//
+//        }
     }
 
 }

@@ -18,8 +18,8 @@
                 android:id="@+id/carousel_pager"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
 
             <WebView
                 android:id="@+id/instagram"
@@ -119,10 +119,10 @@
                 android:background="@drawable/icon_gradient"
                 android:elevation="4dp"
                 android:gravity="center"
-                android:paddingBottom="2dp"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp"
                 android:paddingTop="2dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="2dp"
                 android:text="@string/follow_us"
                 android:textAlignment="center"
                 android:textColor="@color/WHITE" />
@@ -202,7 +202,8 @@
 
             </LinearLayout>
 
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

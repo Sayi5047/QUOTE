@@ -279,6 +279,34 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
     }
 
+//    public List<String> getallUniqueCategories() {
+//        List<Quote> categorised_Quotes = new ArrayList<>();
+//        SQLiteDatabase database = this.getReadableDatabase();
+//
+////        String select_by_language = "SELECT * FROM " + Contract.Quotes.TABLE_NAME + " WHERE " + Contract.Quotes.QUOTE_LANGUAGE + " = " + language_name;
+////        Cursor cursor = database.rawQuery(select_by_language, null);
+//        String[] pprojection = new String[]{
+//                (Contract.Quotes.QUOTE_CATEGORY)        };
+//
+//        Cursor cursor = database.query(Contract.Quotes.TABLE_NAME, pprojection, " quote_language = ?", new String[]{
+//                "English"
+//        }, null, null, null, null);
+//        while (cursor.moveToNext()) {
+//            Quote quote = new Quote();
+//            quote.setId(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.Quotes.COLUMN_ID)));
+//            quote.setQuote_body(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_BODY)));
+//            quote.setQuote_author(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_AUTHOR)));
+//            quote.setQuote_category(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_CATEGORY)));
+//            quote.setQuote_language(cursor.getString(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_LANGUAGE)));
+//            quote.setIsLiked(cursor.getInt(cursor.getColumnIndexOrThrow(Contract.Quotes.QUOTE_IS_LIKED)));
+//
+//            categorised_Quotes.add(quote);
+//        }
+//        cursor.close();
+//        database.close();
+//        return categorised_Quotes;
+//    }
+
 
     /*LIKE AND LIKE OPERATIONS*/
     public int addToFavourites(Quote quote) {

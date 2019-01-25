@@ -10,6 +10,11 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
@@ -158,6 +163,8 @@ public class QuoteLoaderService extends Service {
             Quote quote = new Quote(bodies[i], authors[i], categories[i], languages[0]);
             quotesFromdb[i] = quote;
         }
+//        String hs=new Gson().toJson(quotesFromdb);
+//        Log.d("JSON VALUE",hs);
 
     }
 

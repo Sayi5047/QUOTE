@@ -15,6 +15,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
+import com.google.gson.Gson;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
 import io.hustler.qtzy.ui.adapters.CategoriesAdapter;
@@ -96,7 +99,16 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
         } else {
             catgory_name = dialog.findViewById(R.id.tv_category_name);
-
+            ArrayList<Quote> quotes = (ArrayList<Quote>) new QuotesDbHelper(getActivity().getApplicationContext()).getAllQuotes();
+            ArrayList<Quotes> quotesForJson = new ArrayList<>();
+            Data data = new Data();
+            for (Quote qs : quotes) {
+                Quotes quotes1 = new Quotes(qs.getQuote_body(), qs.getQuote_author(), null, qs.getQuote_category());
+                quotesForJson.add(quotes1);
+            }
+            data.setData(quotesForJson);
+            String datas = new Gson().toJson(data, Data.class);
+            Log.e("JSON VALUES", datas);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     dialog.getWindow().setStatusBarColor(Color.WHITE);
@@ -173,6 +185,66 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             }
         });
     }
+
+    public static class Quotes {
+        private String quote, author, country, category;
+
+        public static Quote returnInstance(String quote, String author, String country, String category) {
+            return new Quote(quote, author, country, category);
+        }
+
+        public Quotes(String quote, String author, String country, String category) {
+            this.quote = quote;
+            this.author = author;
+            this.country = country;
+            this.category = category;
+        }
+
+        public String getQuote() {
+            return quote;
+        }
+
+        public void setQuote(String quote) {
+            this.quote = quote;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public void setCountry(String country) {
+            this.country = country;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+    }
+
+    public static class Data {
+        ArrayList<Quotes> data = new ArrayList<>();
+
+        public ArrayList<Quotes> getData() {
+            return data;
+        }
+
+        public void setData(ArrayList<Quotes> data) {
+            this.data = data;
+        }
+    }
 }
+
 
 

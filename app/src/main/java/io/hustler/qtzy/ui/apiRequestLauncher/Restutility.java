@@ -16,9 +16,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.networkhandler.MySingleton;
 import io.hustler.qtzy.ui.pojo.ImagesResponse;
+import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
 import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
@@ -28,6 +31,8 @@ import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Sayi on 07-10-2017.
@@ -217,6 +222,30 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, request1);
     }
 
+    public void uploadQuotes(CategoriesFragment.Quotes quotess, final QuotzyApiResponseListener listener, final Context context, String request) {
+        CategoriesFragment.Data quotes = new CategoriesFragment.Data();
+        ArrayList<CategoriesFragment.Quotes> quotes1 = new ArrayList<>();
+        quotes1.add(quotess);
+        quotes.setData(quotes1);
+        JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.POST, request, converttoJson(quotes),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        QuotzyBaseResponse imagesResponse = new Gson().fromJson(response.toString(), QuotzyBaseResponse.class);
+                        if (imagesResponse.getStatuscode() == 2000) {
+                            listener.onSuccess("SUCCESS");
+                        } else {
+                            listener.onError("FAILURE");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+            }
+        });
+        MySingleton.addJsonObjRequest(context, jsonObject);
+    }
 
     public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
         try {
@@ -247,5 +276,14 @@ public class Restutility {
         }
     }
 
-
+    public JSONObject converttoJson(Object o) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(o));
+        } catch (JSONException js) {
+            js.printStackTrace();
+        }
+        Log.e("JSON REQUEST", new Gson().toJson(o));
+        return jsonObject;
+    }
 }
