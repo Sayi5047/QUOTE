@@ -222,20 +222,38 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, request1);
     }
 
-    public void uploadQuotes(CategoriesFragment.Quotes quotess, final QuotzyApiResponseListener listener, final Context context, String request) {
-        CategoriesFragment.Data quotes = new CategoriesFragment.Data();
-        ArrayList<CategoriesFragment.Quotes> quotes1 = new ArrayList<>();
-        quotes1.add(quotess);
-        quotes.setData(quotes1);
-        JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.POST, request, converttoJson(quotes),
+    public void uploadQuotes(final QuotzyApiResponseListener listener, final Context context, String request) {
+//        CategoriesFragment.Data quotes = new CategoriesFragment.Data();
+//        ArrayList<CategoriesFragment.Quotes> quotes1 = new ArrayList<>();
+//        quotes1.add(quotess);
+//        quotes.setData(quotes1);
+        JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        QuotzyBaseResponse imagesResponse = new Gson().fromJson(response.toString(), QuotzyBaseResponse.class);
-                        if (imagesResponse.getStatuscode() == 2000) {
-                            listener.onSuccess("SUCCESS");
-                        } else {
-                            listener.onError("FAILURE");
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+            }
+        });
+        MySingleton.addJsonObjRequest(context, jsonObject);
+    }
+
+    public void getQuotes(final QuotzyApiResponseListener listener, final Context context, final String request) {
+//        CategoriesFragment.Data quotes = new CategoriesFragment.Data();
+//        ArrayList<CategoriesFragment.Quotes> quotes1 = new ArrayList<>();
+//        quotes1.add(quotess);
+//        quotes.setData(quotes1);
+        JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ResponseQuotesService responseQuotesService = new Gson().fromJson(response.toString(), ResponseQuotesService.class);
+                        if(responseQuotesService.data.size()>0){
+                            listener.onDataGet(responseQuotesService);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -246,6 +264,7 @@ public class Restutility {
         });
         MySingleton.addJsonObjRequest(context, jsonObject);
     }
+
 
     public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
         try {

@@ -39,7 +39,7 @@ public class Quotesloader extends AsyncTaskLoader<List<Quote>> {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                quotes = new QuotesDbHelper(context).getQuotesByCategory("Attitude");
+//                quotes = new QuotesDbHelper(context).getQuotesByCategory("Attitude");
             }
         }).run();
         return quotes;

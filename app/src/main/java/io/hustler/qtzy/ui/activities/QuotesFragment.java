@@ -20,9 +20,15 @@ import android.widget.ProgressBar;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
+import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
+import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
+import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.pojo.Quote;
+import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
 import io.hustler.qtzy.ui.utils.IntentConstants;
+import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +56,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
     ProgressBar loader;
     LocalAdapter localAdapter;
     SharedPreferences sharedPreferences;
-    private List<Quote> quotes;
+    private List<Quote> quotesList=new ArrayList<>();
 
 
     public static QuotesFragment newInstance() {
@@ -97,18 +103,47 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
     }
 
     public void loadQuotes() {
-        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
-//            getLoaderManager().initLoader(0, null, this);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    quotes = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
-                    setAdapter(new ArrayList<Quote>(quotes));
+        // TODO: 27-01-2019 ADD A REST UTILITY CALL FOR GET QUOTES BY CATEGORY ATTITUDE
+        new Restutility(getActivity()).getQuotes(new QuotzyApiResponseListener() {
+            @Override
+            public void onSuccess(String message) {
+
+            }
+
+            @Override
+            public void onDataGet(QuotzyBaseResponse response) {
+                ResponseQuotesService responseQuotesService = ((ResponseQuotesService) response);
+                for (CategoriesFragment.Quotes quotes : responseQuotesService.getData()) {
+                    Quote quote = new Quote();
+                    quote.setId(quotes.getId());
+                    quote.setQuote(quotes.getQuote());
+                    quote.setAuthor(quotes.getAuthor());
+                    quote.setCategory(quotes.getCategory());
+                    quote.setIsLiked(0);
+                    quotes.setCountry(null);
+                    quotesList.add(quote);
                 }
-            }).run();
-        } else {
-            loader.setVisibility(View.VISIBLE);
-        }
+                setAdapter(new ArrayList<Quote>(quotesList));
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "ERROR OCCURED");
+            }
+        }, getActivity(), Constants.QUOTZY_API_GET_QUOTES_BY_CATEGORY + "Attitude");
+
+//        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
+////            getLoaderManager().initLoader(0, null, this);
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    quotes = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
+//                    setAdapter(new ArrayList<Quote>(quotes));
+//                }
+//            }).run();
+//        } else {
+//            loader.setVisibility(View.VISIBLE);
+//        }
     }
 
     private void setAdapter(final ArrayList<Quote> quotes) {

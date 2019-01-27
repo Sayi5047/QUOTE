@@ -17,6 +17,7 @@ import org.json.JSONArray;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.Quote;
 
@@ -38,6 +39,7 @@ import java.util.ArrayList;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
+@Deprecated
 public class QuoteLoaderService extends Service {
     Quote[] quotesFromdb;
     String[] bodies;
@@ -112,6 +114,7 @@ public class QuoteLoaderService extends Service {
 
         @Override
         protected Void doInBackground(String... strings) {
+
             load_from_Arrays();
             load_to_database();
             return null;
@@ -132,7 +135,8 @@ public class QuoteLoaderService extends Service {
         }
         if (quotes != null) {
             for (int i = 0; i < quotes.size(); i++) {
-                new QuotesDbHelper(getApplicationContext()).addQuote(quotes.get(i));
+                // TODO: 27-01-2019 replace with rest call
+//                new QuotesDbHelper(getApplicationContext()).addQuote(quotes.get(i));
             }
             Log.d("Quotes list length", quotes.size() + "");
             SharedPreferences.Editor editor = sharedPreferences.edit();

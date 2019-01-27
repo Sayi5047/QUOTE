@@ -51,8 +51,8 @@ public class ResultantQuoteActivity extends BaseActivity {
         root = findViewById(R.id.root);
         mainWidgetLayout = findViewById(R.id.main_widget_layout);
         rootWidget = findViewById(R.id.root_widget);
-        quoteBody = findViewById(R.id.quote_body);
-        quoteAuthor = findViewById(R.id.quote_author);
+        quoteBody = findViewById(R.id.quote);
+        quoteAuthor = findViewById(R.id.author);
         widgetEditQuote = findViewById(R.id.widget_edit_quote);
         widgetEditRefresh = findViewById(R.id.widget_edit_refresh);
     }

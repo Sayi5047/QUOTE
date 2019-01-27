@@ -10,18 +10,18 @@ import java.io.Serializable;
 
 public class Quote implements Serializable {
     long id;
-    String quote_body;
-    String quote_author;
-    String quote_category;
-    String quote_language;
+    String quote;
+    String author;
+    String category;
+    String language;
     GradientDrawable color;
 
-    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, GradientDrawable color) {
+    public Quote(long id, String quote, String author, String category, String language, GradientDrawable color) {
         this.id = id;
-        this.quote_body = quote_body;
-        this.quote_author = quote_author;
-        this.quote_category = quote_category;
-        this.quote_language = quote_language;
+        this.quote = quote;
+        this.author = author;
+        this.category = category;
+        this.language = language;
         this.color = color;
     }
 
@@ -34,12 +34,12 @@ public class Quote implements Serializable {
     }
 
 
-    public Quote(long id, String quote_body, String quote_author, String quote_category, String quote_language, GradientDrawable color, int isLiked) {
+    public Quote(long id, String quote, String author, String category, String language, GradientDrawable color, int isLiked) {
         this.id = id;
-        this.quote_body = quote_body;
-        this.quote_author = quote_author;
-        this.quote_category = quote_category;
-        this.quote_language = quote_language;
+        this.quote = quote;
+        this.author = author;
+        this.category = category;
+        this.language = language;
         this.color = color;
         this.isLiked = isLiked;
     }
@@ -54,11 +54,11 @@ public class Quote implements Serializable {
 
     int isLiked;
 
-    public Quote(String quote_body, String quote_author, String quote_category, String quote_language) {
-        this.quote_body = quote_body;
-        this.quote_author = quote_author;
-        this.quote_category = quote_category;
-        this.quote_language = quote_language;
+    public Quote(String quote, String author, String category, String language) {
+        this.quote = quote;
+        this.author = author;
+        this.category = category;
+        this.language = language;
     }
 
     public Quote() {
@@ -72,42 +72,42 @@ public class Quote implements Serializable {
         this.id = id;
     }
 
-    public String getQuote_body() {
-        return quote_body;
+    public String getQuote() {
+        return quote;
     }
 
-    public void setQuote_body(String quote_body) {
-        this.quote_body = quote_body;
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 
-    public String getQuote_author() {
-        return quote_author;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setQuote_author(String quote_author) {
-        this.quote_author = quote_author;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getQuote_category() {
-        return quote_category;
+    public String getCategory() {
+        return category;
     }
 
-    public void setQuote_category(String quote_category) {
-        this.quote_category = quote_category;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getQuote_language() {
-        return quote_language;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setQuote_language(String quote_language) {
-        this.quote_language = quote_language;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
 
 //    @Override
 //    public int compareTo(@NonNull Object o) {
 //        Quote quote = (Quote) o;
-//        return quote_body.equals(quote.quote_body) ? 0 : 1  ;
+//        return quote.equals(quote.quote) ? 0 : 1  ;
 //    }
 }

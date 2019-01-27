@@ -46,6 +46,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
@@ -171,7 +172,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             TextUtils.findText_and_applyTypeface(((LinearLayout) navigationView.getHeaderView(i)), MainActivity.this);
         }
-
 
 
     }
@@ -337,7 +337,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
                     search_Query.clearFocus();
-                    InputMethodManager in = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     in.hideSoftInputFromWindow(search_Query.getWindowToken(), 0);
                     search.performClick();
                     return true;
@@ -499,11 +499,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         new Thread(new Runnable() {
             @Override
             public void run() {
-                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(MainActivity.this).getQuotesBystring(query);
-                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(MainActivity.this).getQuotesByCategory(query);
-                quoteslisttemp[1].remove(quoteslisttemp[0]);
-                finalArrayList.addAll(quoteslisttemp[0]);
-                finalArrayList.addAll(quoteslisttemp[1]);
+                // TODO: 27-01-2019 replace with rest call
+
+//                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(MainActivity.this).getQuotesBystring(query);
+//                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(MainActivity.this).getQuotesByCategory(query);
+//                quoteslisttemp[1].remove(quoteslisttemp[0]);
+//                finalArrayList.addAll(quoteslisttemp[0]);
+//                finalArrayList.addAll(quoteslisttemp[1]);
 
             }
         }).run();

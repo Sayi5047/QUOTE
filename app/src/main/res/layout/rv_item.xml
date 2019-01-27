@@ -34,7 +34,7 @@
             android:transitionName="@string/quotes_body_transistion" />
 
         <TextView
-            android:id="@+id/quote_author"
+            android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

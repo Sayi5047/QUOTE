@@ -101,13 +101,13 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         final Quote quote = dataFromNet.get(position);
         String genre;
 
-        genre = quote.getQuote_category();
+        genre = quote.getCategory();
 
-        holder.tv.setText(quote.getQuote_body());
+        holder.tv.setText(quote.getQuote());
         holder.tv.setTextColor(Color.WHITE);
         holder.tv2.setTextColor(Color.WHITE);
         holder.tv3.setTextColor(Color.WHITE);
-        holder.tv2.setText(quote.getQuote_author());
+        holder.tv2.setText(quote.getAuthor());
         holder.tv3.setText(genre);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +148,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
                 cardView.setClipToOutline(true);
             }
             tv = itemView.findViewById(R.id.main_quote);
-            tv2 = itemView.findViewById(R.id.quote_author);
+            tv2 = itemView.findViewById(R.id.author);
             tv3 = itemView.findViewById(R.id.quote_genre_end);
             TextUtils.setFont(activity, tv, Constants.FONT_CIRCULAR);
             TextUtils.setFont(activity, tv2, Constants.FONT_CIRCULAR);

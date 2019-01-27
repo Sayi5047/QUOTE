@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Services.QuoteLoaderService;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.utils.TextUtils;
 
@@ -59,12 +58,7 @@ public class SplashActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
-        if (sharedPreferences.getBoolean(Constants.IS_DB_LOADED_PREFERENCE, false)) {
-            setCounter_and_launch();
-        } else {
-            startService(new Intent(SplashActivity.this, QuoteLoaderService.class));
 
-        }
         setCounter_and_launch();
 
     }

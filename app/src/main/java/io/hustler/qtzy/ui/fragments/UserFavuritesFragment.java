@@ -107,7 +107,7 @@ public class UserFavuritesFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                arrayLists[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes();
+//                arrayLists[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes();
                 imageLists[0] = new ImagesDbHelper(getActivity()).getAllFav();
             }
         }).run();

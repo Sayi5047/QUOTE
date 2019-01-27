@@ -110,8 +110,8 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
         root = findViewById(R.id.root);
         mainWidgetLayout = findViewById(R.id.main_widget_layout);
         rootWidget = findViewById(R.id.root_widget);
-        quoteBody = findViewById(R.id.quote_body);
-        quoteAuthor = findViewById(R.id.quote_author);
+        quoteBody = findViewById(R.id.quote);
+        quoteAuthor = findViewById(R.id.author);
         btLayout = findViewById(R.id.bt_layout);
         widgetEditQuote = findViewById(R.id.widget_edit_quote);
         widgetEditRefresh = findViewById(R.id.widget_edit_refresh);
@@ -151,8 +151,8 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
         PendingIntent pendingIntent_edit = PendingIntent.getActivity(this, 0, intent_edit, 0);
 
         remoteViews.setOnClickPendingIntent(R.id.root_widget, pendingIntent_edit);
-        remoteViews.setTextViewText(R.id.quote_body, quote.getQuote_body());
-        remoteViews.setTextViewText(R.id.quote_author, quote.getQuote_author());
+        remoteViews.setTextViewText(R.id.quote, quote.getQuote());
+        remoteViews.setTextViewText(R.id.author, quote.getAuthor());
 
         appWidgetManager.updateAppWidget(mAppWidgetId, remoteViews);
 
@@ -205,10 +205,10 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
             Boolean val = sharedPreferences.getBoolean(key, true);
             if (val == true) {
                 quoteAuthor.setVisibility(View.GONE);
-                remoteViews.setViewVisibility(R.id.quote_author, View.GONE);
+                remoteViews.setViewVisibility(R.id.author, View.GONE);
             } else {
                 quoteAuthor.setVisibility(View.VISIBLE);
-                remoteViews.setViewVisibility(R.id.quote_author, View.VISIBLE);
+                remoteViews.setViewVisibility(R.id.author, View.VISIBLE);
             }
 
         } else if (key.equals(getString(R.string.widget_shared_prefs_show_quotes_mark_key))) {
@@ -231,8 +231,8 @@ public class QuoteWidgetConfigurationActivity extends BaseActivity implements Vi
                     public void onColorChosen(@ColorInt int color) {
                         quoteBody.setTextColor(color);
                         quoteAuthor.setTextColor(color);
-                        remoteViews.setTextColor(R.id.quote_body, color);
-                        remoteViews.setTextColor(R.id.quote_author, color);
+                        remoteViews.setTextColor(R.id.quote, color);
+                        remoteViews.setTextColor(R.id.author, color);
                         colorPicker.cancel();
                     }
 

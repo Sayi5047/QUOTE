@@ -522,11 +522,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesBystring(query);
-                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
-                quoteslisttemp[1].remove(quoteslisttemp[0]);
-                finalArrayList.addAll(quoteslisttemp[0]);
-                finalArrayList.addAll(quoteslisttemp[1]);
+//                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesBystring(query);
+//                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
+//                quoteslisttemp[1].remove(quoteslisttemp[0]);
+//                finalArrayList.addAll(quoteslisttemp[0]);
+//                finalArrayList.addAll(quoteslisttemp[1]);
 
             }
         }).run();

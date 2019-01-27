@@ -378,7 +378,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 //        ArrayList<CategoriesFragment.Quotes> quotesForJson = new ArrayList<>();
 //        final CategoriesFragment.Data quotes = new CategoriesFragment.Data();
 //        for (Quote qs : new QuotesDbHelper(getActivity().getApplicationContext()).getAllQuotes()) {
-//            CategoriesFragment.Quotes quotes1 = new CategoriesFragment.Quotes(qs.getQuote_body(), qs.getQuote_author(), null, qs.getQuote_category());
+//            CategoriesFragment.Quotes quotes1 = new CategoriesFragment.Quotes(qs.getQuote(), qs.getAuthor(), null, qs.getCategory());
 //            quotesForJson.add(quotes1);
 //        }
 //        quotes.setData(quotesForJson);

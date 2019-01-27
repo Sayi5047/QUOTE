@@ -94,8 +94,8 @@ public class DailyNotificationService extends IntentService {
 
         @Override
         protected Void doInBackground(String... strings) {
-
-            quotes = new QuotesDbHelper(getApplicationContext()).getQuotesByCategory("Motivational ");
+// TODO: 27-01-2019 replace with rest call
+//            quotes = new QuotesDbHelper(getApplicationContext()).getQuotesByCategory("Motivational ");
             return null;
         }
 
@@ -114,7 +114,7 @@ public class DailyNotificationService extends IntentService {
                 mNotification_Builder = new NotificationCompat.Builder(getApplicationContext());
                 mNotification_Builder
                         .setContentTitle("QUOTZY")
-                        .setContentText(quotes.get(val).getQuote_body() + " -- " + quotes.get(val).getQuote_author())
+                        .setContentText(quotes.get(val).getQuote() + " -- " + quotes.get(val).getAuthor())
                         .setContentIntent(pendingIntent)
                         .setSmallIcon(R.drawable.ic_launcher);
                 mNotificationManager.notify(1, mNotification_Builder.build());

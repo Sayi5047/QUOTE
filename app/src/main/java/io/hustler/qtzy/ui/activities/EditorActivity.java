@@ -305,7 +305,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
             if (quote != null) {
-                int length = quote.getQuote_body().length();
+                int length = quote.getQuote().length();
                 root_layout.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_light_transparent));
 //            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
                 if (length > 230) {
@@ -327,8 +327,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                 }
 
-                quote_editor_body.setText(quote.getQuote_body());
-                quote_editor_author.setText(quote.getQuote_author());
+                quote_editor_body.setText(quote.getQuote());
+                quote_editor_author.setText(quote.getAuthor());
                 DisplayMetrics displayMetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 quote_editor_body.setMaxWidth(displayMetrics.widthPixels);

@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
@@ -30,14 +31,20 @@ import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
 import io.hustler.qtzy.ui.adapters.CategoriesAdapter;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
+import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
+import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.Quote;
+import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.IntentConstants;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.util.ArrayList;
+
+import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
 
 /**
  * Created by Sayi Manoj Sugavasi on 20/12/2017.
@@ -59,6 +66,7 @@ import java.util.ArrayList;
 public class CategoriesFragment extends android.support.v4.app.Fragment {
     RecyclerView categories_rv;
     CategoriesAdapter categoriesAdapter;
+    ArrayList<Quote> quotesList;
 
     @Nullable
     @Override
@@ -75,7 +83,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             @Override
             public void onCategoryClicked(String category, String cat2, int position, GradientDrawable gradientDrawable) {
 //                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(),category+" "+position);
-                bringupQuotes(category, cat2, gradientDrawable);
+                loadQuotes(category, cat2, gradientDrawable);
             }
         }));
     }
@@ -87,28 +95,16 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
 
 
-        TextView catgory_name = null;
+        TextView catgory_name;
         AdView adView;
         FloatingActionButton close_button;
-        ArrayList<Quote> quoteslist = new ArrayList<>();
         dialog.show();
 
-        quoteslist = (ArrayList<Quote>) new QuotesDbHelper(getActivity().getApplicationContext()).getQuotesByCategory(category);
-        if (quoteslist.size() <= 0) {
+        if (quotesList.size() <= 0) {
             dialog.cancel();
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
         } else {
             catgory_name = dialog.findViewById(R.id.tv_category_name);
-            ArrayList<Quote> quotes = (ArrayList<Quote>) new QuotesDbHelper(getActivity().getApplicationContext()).getAllQuotes();
-            ArrayList<Quotes> quotesForJson = new ArrayList<>();
-            Data data = new Data();
-            for (Quote qs : quotes) {
-                Quotes quotes1 = new Quotes(qs.getQuote_body(), qs.getQuote_author(), null, qs.getQuote_category());
-                quotesForJson.add(quotes1);
-            }
-            data.setData(quotesForJson);
-            String datas = new Gson().toJson(data, Data.class);
-            Log.e("JSON VALUES", datas);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     dialog.getWindow().setStatusBarColor(Color.WHITE);
@@ -144,16 +140,14 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
             }
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {
+            categories_rv.setAdapter(new LocalAdapter(getActivity(), quotesList, new LocalAdapter.OnQuoteClickListener() {
                 @Override
                 public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
+                    Bundle bundle = makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-
-                    } else {
 
                     }
                     startActivity(intent, bundle);
@@ -186,18 +180,61 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         });
     }
 
+    public ArrayList<Quote> loadQuotes(final String category, final String cat2, final GradientDrawable gradientDrawable) {
+        quotesList = new ArrayList<>();
+        final ProgressBar progressBar = new ProgressBar(getContext());
+        progressBar.setVisibility(View.VISIBLE);
+        // TODO: 27-01-2019 ADD A REST UTILITY CALL FOR GET QUOTES BY CATEGORY ATTITUDE
+        new Restutility(getActivity()).getQuotes(new QuotzyApiResponseListener() {
+            @Override
+            public void onSuccess(String message) {
+
+            }
+
+            @Override
+            public void onDataGet(QuotzyBaseResponse response) {
+                progressBar.setVisibility(View.GONE);
+
+                ResponseQuotesService responseQuotesService = ((ResponseQuotesService) response);
+                for (CategoriesFragment.Quotes quotes : responseQuotesService.getData()) {
+                    Quote quote = new Quote();
+                    quote.setId(quotes.getId());
+                    quote.setQuote(quotes.getQuote());
+                    quote.setAuthor(quotes.getAuthor());
+                    quote.setCategory(quotes.getCategory());
+                    quote.setIsLiked(0);
+                    quotes.setCountry(null);
+                    quotesList.add(quote);
+                }
+                bringupQuotes(category, cat2, gradientDrawable);
+            }
+
+            @Override
+            public void onError(String message) {
+                progressBar.setVisibility(View.GONE);
+                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "ERROR OCCURED");
+            }
+        }, getActivity(), Constants.QUOTZY_API_GET_QUOTES_BY_CATEGORY + category);
+        return quotesList;
+
+
+    }
+
     public static class Quotes {
         private String quote, author, country, category;
+        private Long id;
 
-        public static Quote returnInstance(String quote, String author, String country, String category) {
-            return new Quote(quote, author, country, category);
-        }
+//        public static Quote returnInstance(String quote, String author, String country, String category, Long id) {
+//            return new Quote(quote, author, country, category, id);
+//        }
 
-        public Quotes(String quote, String author, String country, String category) {
+        public Quotes(String quote, String author, String country, String category, Long id) {
             this.quote = quote;
             this.author = author;
             this.country = country;
             this.category = category;
+            this.id
+                    = id;
         }
 
         public String getQuote() {
@@ -230,6 +267,14 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
         public void setCategory(String category) {
             this.category = category;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
         }
     }
 

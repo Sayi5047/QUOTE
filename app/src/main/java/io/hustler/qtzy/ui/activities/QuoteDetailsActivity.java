@@ -159,7 +159,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void getIntentData() {
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
-        int length = quote.getQuote_body().length();
+        int length = quote.getQuote().length();
         color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
         if (color1 != null) {
             quote_layout.setBackground(createDrawable(color1));
@@ -193,8 +193,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             tv_Quote_Body.setTextSize(48.0f);
 
         }
-        tv_Quote_Body.setText(quote.getQuote_body());
-        tv_Quote_Author.setText(quote.getQuote_author());
+        tv_Quote_Body.setText(quote.getQuote());
+        tv_Quote_Author.setText(quote.getAuthor());
         tv_Quote_Body.setTextColor(Color.WHITE);
         tv_Quote_Author.setTextColor(Color.WHITE);
         if (quote.getIsLiked() == 1) {
@@ -247,18 +247,18 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void removeFavourite() {
-        new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
-        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
-        IS_LIKED_FLAG = false;
+//        new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
+//        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+//        IS_LIKED_FLAG = false;
     }
 
     private void addFavourite() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
-                fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
-                IS_LIKED_FLAG = true;
+//                new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
+//                fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+//                IS_LIKED_FLAG = true;
             }
         }).run();
 

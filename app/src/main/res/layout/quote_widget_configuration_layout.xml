@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/quote_body"
+                android:id="@+id/quote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -30,7 +30,7 @@
                 android:textSize="@dimen/font4" />
 
             <TextView
-                android:id="@+id/quote_author"
+                android:id="@+id/author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
