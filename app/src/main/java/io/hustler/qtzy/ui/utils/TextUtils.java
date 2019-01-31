@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.firebase.crash.FirebaseCrash;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.CustomSpan.CustomTypefaceSpan;
+import io.hustler.qtzy.ui.customviews.Sticker.StickerTextView;
 
 import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
@@ -47,6 +48,11 @@ public class TextUtils {
         }
     }
 
+    public static void setFont(Activity activity, StickerTextView tv, String fontname) {
+        if (null != activity) {
+            tv.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
+        }
+    }
     public static void setEdit_Font(Activity activity, EditText et, String fontname) {
         et.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
     }

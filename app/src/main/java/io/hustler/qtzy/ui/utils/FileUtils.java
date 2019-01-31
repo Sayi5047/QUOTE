@@ -1120,4 +1120,15 @@ public class FileUtils {
         void onImageSaveListner(File file);
     }
 
+    public static Bitmap drawable_from_url(String url) throws java.net.MalformedURLException, java.io.IOException {
+
+        HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
+        connection.setRequestProperty("User-agent","Mozilla/4.0");
+
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        return BitmapFactory.decodeStream(input);
+    }
+
 }

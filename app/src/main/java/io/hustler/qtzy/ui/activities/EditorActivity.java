@@ -3,12 +3,14 @@ package io.hustler.qtzy.ui.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -59,8 +61,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
+
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Widgets.RotationGestureDetector;
 import io.hustler.qtzy.ui.adapters.ColorsAdapter;
@@ -70,6 +76,7 @@ import io.hustler.qtzy.ui.adapters.SizesAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.ImagesApiResponceListner;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
+import io.hustler.qtzy.ui.customviews.Sticker.StickerImageView;
 import io.hustler.qtzy.ui.pojo.ImagesFromPixaBay;
 import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.superclasses.BaseActivity;
@@ -128,6 +135,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     int prevX, prevY;
     //    VIEWS FOR CURRENTLY SELECTED AND PREVIOUS
     View selectedView;
+    StickerImageView selected_sticker, previous_sticker;
     View previousSelcted_View;
     View previousstate;
     SpannableString spannableString;
@@ -254,11 +262,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         done_layout = findViewById(R.id.done_tv);
         mark_quotzy = findViewById(R.id.mark_quotzy_tv);
         core_editor_layout = findViewById(R.id.arena_text_layout);
+//        core_editor_layout.setOnTouchListener(this);
         clear_button = findViewById(R.id.bt_clear);
         features_layout = findViewById(R.id.features_layout);
         setText_Features_rv();
         scaleGestureDetector = new ScaleGestureDetector(getApplicationContext(), new SimpleOnscaleGestureListener());
-/*setting on click listners */
+        /*setting on click listners */
 //        font_module.setOnClickListener(this);
 //        background_image_module.setOnClickListener(this);
         text_layout.setOnClickListener(this);
@@ -507,13 +516,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.bt_clear: {
                 if (selectedView == null) {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text_to_delete));
                 } else {
                     selectedView.setBackground(null);
                     previousSelcted_View = null;
                     selectedView = null;
-                    clear_button.setVisibility(GONE);
                 }
+                if (selected_sticker == null) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text_to_delete));
+                } else {
+                    selected_sticker.setControlItemsHidden(true);
+                    selected_sticker = null;
+                    previous_sticker = null;
+                }
+                clear_button.setVisibility(GONE);
+
             }
             case R.id.text_field: {
                 setText_Features_rv();
@@ -631,6 +647,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.options: {
+//                StickerView stickerView = new StickerView(EditorActivity.this);
+//                try {
+//                    stickerView.addSticker(new DrawableSticker(new BitmapDrawable(FileUtils.drawable_from_url("http://drive.google.com/uc?export=view&id=1tDf8pd2C_FNKQOVc7dZL2LTYp2-sPyQB;"))));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                core_editor_layout.addView(stickerView);
                 if (features_layout.getVisibility() == View.VISIBLE) {
                     features_layout.setVisibility(GONE);
                 } else {
@@ -1020,6 +1043,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         selected_picture = Biglink;
                         imageView_background.setBackground(null);
                         Glide.with(getApplicationContext()).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+                        addSticker("http://drive.google.com/uc?export=view&id=1tDf8pd2C_FNKQOVc7dZL2LTYp2-sPyQB");
                         dialog.dismiss();
                     }
                 }));
@@ -1030,6 +1054,24 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, message);
             }
         }, request);
+    }
+
+    private void addSticker(String Biglink) {
+        final StickerImageView stickerImageView = new StickerImageView(EditorActivity.this);
+        Glide.with(EditorActivity.this).load(Biglink).asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        stickerImageView.setImageBitmap(resource);
+                    }
+                });
+        core_editor_layout.addView(stickerImageView);
+        if (null != selected_sticker) {
+            selected_sticker.setControlItemsHidden(true);
+            previousSelcted_View = selected_sticker;
+        }
+        selected_sticker = stickerImageView;
+        selected_sticker.setOnTouchListener(this);
     }
 
     private void handle_gallery_dialog(EditorActivity editorActivity) {
@@ -1601,7 +1643,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void resizeText(String[] array) {
-         /*RESIZE*/
+        /*RESIZE*/
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
@@ -1617,7 +1659,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void rotateText(String[] array) {
-         /*RESIZE*/
+        /*RESIZE*/
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
@@ -1633,7 +1675,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void spaceText(String[] array) {
-         /*RESIZE*/
+        /*RESIZE*/
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
@@ -1649,7 +1691,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void spaceLine(String[] array) {
-         /*RESIZE*/
+        /*RESIZE*/
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
@@ -2058,7 +2100,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
-/*Permission related Methods*/
+    /*Permission related Methods*/
 
     private void requestAppPermissions() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART));
@@ -2092,6 +2134,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 imageView_background.destroyDrawingCache();
             }
             selected_picture = picturepath;
+//            try {
+//                Intent cropIntent = new Intent("com.android.camera.action.CROP");
+//                cropIntent.setDataAndType(fileurl, "image/*");
+//                cropIntent.putExtra("crop", "true");
+//                cropIntent.putExtra("aspectX", 2);
+//                cropIntent.putExtra("aspectY", 2);
+//                cropIntent.putExtra("outputX", 512);
+//                cropIntent.putExtra("outputY", 512);
+//                cropIntent.putExtra("return-data", true);
+//                startActivityForResult(cropIntent, 2);
+//            } catch (ActivityNotFoundException anfe) {
+//                Toast_Snack_Dialog_Utils.show_ShortToast(this, "ACTIVITY NOT FOUND");
+//            }
+
             if (imagefittype == 3) {
                 Glide.with(getApplicationContext()).load(picturepath).asBitmap().crossFade().into(imageView_background);
 
@@ -2109,6 +2165,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 ////            imageView.setMaxHeight(600);
 //            core_editor_layout.addView(imageView);
 //            imageView_background.setImageResource(picturepath);
+        } else if (requestCode == 2) {
+            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+
+            Bitmap bitmap = data.getExtras().getParcelable("data");
+//            ImageView im_crop = (ImageView) findViewById(R.id.im_crop);
+//            im_crop.setImageBitmap(bitmap);
+//            Glide.with(getApplicationContext()).load(bitmap).asBitmap().crossFade().into(imageView_background);
+            imageView_background.setImageBitmap(bitmap);
+
         }
     }
 
@@ -2163,17 +2228,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
-        selectedView = v;
         final int INAVALID_POINTER_ID = -1;
-        if (previousSelcted_View != null) {
-            previousSelcted_View.setBackground(null);
-            previousSelcted_View = v;
-            clear_button.setVisibility(View.VISIBLE);
-            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
-        } else {
-            clear_button.setVisibility(View.VISIBLE);
-            previousSelcted_View = v;
-            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+
+        if (v instanceof TextView) {
+            selectedView = v;
+            handleTouchForTextView(v);
+        } else if (v instanceof StickerImageView) {
+            selected_sticker = (StickerImageView) v;
+            handleTouchForStickerView((StickerImageView) v);
+        } else if (v instanceof RelativeLayout && v.getId() == R.id.arena_text_layout) {
+            clear_button.performClick();
         }
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
@@ -2264,6 +2328,35 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         return false;
     }
 
+    private void handleTouchForStickerView(StickerImageView v) {
+        if (selected_sticker != null) {
+            selected_sticker.setControlItemsHidden(true);
+            previousSelcted_View = selected_sticker;
+            selected_sticker = v;
+            clear_button.setVisibility(View.VISIBLE);
+            ((StickerImageView) selected_sticker).setControlItemsHidden(false);
+            selected_sticker.bringToFront();
+        } else {
+            clear_button.setVisibility(View.VISIBLE);
+            selected_sticker = v;
+            ((StickerImageView) selectedView).setControlItemsHidden(false);
+
+        }
+    }
+
+    private void handleTouchForTextView(View v) {
+        if (previousSelcted_View != null) {
+            previousSelcted_View.setBackground(null);
+            previousSelcted_View = v;
+            clear_button.setVisibility(View.VISIBLE);
+            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+        } else {
+            clear_button.setVisibility(View.VISIBLE);
+            previousSelcted_View = v;
+            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+        }
+    }
+
 
     @Override
     public boolean onLongClick(View v) {
@@ -2313,3 +2406,4 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 }
+

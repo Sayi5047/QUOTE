@@ -30,7 +30,7 @@
     <string name="coming_soon" tools:keep="@string/coming_soon">Coming Soon.</string>
     <string name="enter_text">Enter your text below</string>
     <string name="please_select_text">Please, select any text layer to apply features</string>
-    <string name="please_select_text_to_delete">Please, select any text layer to delete</string>
+    <string name="please_select_text_to_delete">Please, select any layer to delete</string>
     <string name="are_you_sure">Alert </string>
     <string name="this_will_delete">Are you sure want to delete the selected item permenantly</string>
     <string name="cancel">Cancel</string>
@@ -224,7 +224,7 @@
         <item>Font</item>
         <item>Gradient</item>
         <item>Size</item>
-        <item>Fx</item>
+        <!--<item>Fx</item>-->
         <!--<item>Hollow Text</item>-->
 
     </string-array>
