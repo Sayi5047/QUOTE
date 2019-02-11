@@ -18,11 +18,19 @@ android {
     signingConfigs {
         releaseconfig {
             def props = new Properties()
-            file("Cred.properties").withInputStream { props.load(it) }
+            new File("Cred.properties").withInputStream { props.load(it) }
             keyAlias props.getProperty("keyAlias")
             keyPassword props.getProperty("keyPassword")
             storeFile file(props.getProperty("storeFile"))
             storePassword props.getProperty("storePassword")
+        }
+        debugconfig {
+            def propes = new Properties()
+            new File("Debug.properties").withInputStream { propes.load(it) }
+            keyAlias propes.getProperty("keyAlias")
+            keyPassword propes.getProperty("keyPassword")
+            storeFile file(propes.getProperty("storeFile"))
+            storePassword propes.getProperty("storePassword")
         }
     }
     compileSdkVersion 27
@@ -40,31 +48,26 @@ android {
     }
     buildTypes {
         release {
-            debuggable false
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            proguardFiles fileTree('proguard').asList().toArray()
-            shrinkResources true
+            debuggable true
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            proguardFiles fileTree('proguard').asList().toArray()
+//            shrinkResources true
             signingConfig signingConfigs.releaseconfig
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debugconfig
         }
     }
     applicationVariants.all {
         variant ->
             variant.outputs.all { output ->
-//                output.outputFileName = new File(
-//                        output.outputFileName.parent,
-//                        output.outputFileName.name.replace("$APK_EXTENSION", "$APK_PREFIX" + "$SEPERATOR" + getDate() + "$APK_EXTENSION"))
                 outputFileName = "${variant.name}-${variant.versionName}.apk"
             }
     }
-//    splits {
-//        abi {
-//            enable true
-//            reset()
-//            include 'x86', 'armeabi', 'armeabi-v7a', 'mips'
-//            universalApk false
-//        }
-//    }
+
 }
 ext {
     supportLibVersion = '27.1.1'
@@ -102,6 +105,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-ads:17.1.1"
     implementation 'com.pes.materialcolorpicker:library:1.2.0'
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
     testImplementation 'junit:junit:4.12'
 //    implementation 'com.flying.xiaopo:sticker:1.6.0'
 }

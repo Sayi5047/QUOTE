@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -180,9 +181,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private int pointer_Id_1, pointer_ID_2;
     private float fx;
     private float fy;
-    private float sx;
-    private float sy;
-    Activity activity;
+    //    private float sx;
+//    private float sy;
     private LinearLayout features_layout;
 
 //    final int INVALIDPOINTERID = -1;
@@ -191,13 +191,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
-            getWindow().setClipToOutline(true);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+//            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+//            getWindow().setClipToOutline(true);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-        activity = EditorActivity.this;
 
         String called_from = getIntent().getStringExtra("called");
         if (!"add".equalsIgnoreCase(called_from)) {
@@ -206,8 +205,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             setViews();
             rotationGestureDetector = new RotationGestureDetector(EditorActivity.this);
         } else {
-            Toast.makeText(activity, "ACTIVITY IS NULL", Toast.LENGTH_SHORT).show();
-            activity.finish();
+            Toast.makeText(EditorActivity.this, "ACTIVITY IS NULL", Toast.LENGTH_SHORT).show();
+            EditorActivity.this.finish();
         }
 
     }
@@ -295,7 +294,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public void onWindowFocusChanged(boolean hasFocus) {
         if (isHeightMeasured) {
         } else {
-
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
             editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
             editor.apply();
@@ -931,26 +929,30 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 }
             } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[3])) {
                 current_Bg_feature = bgfeaturesArray[3];
-                applyBlackFilter();
-
+//                applyBlackFilter();
+                bringGradients();
             } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[4])) {
                 current_Bg_feature = bgfeaturesArray[4];
-                applyWhiteFilter();
-            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
-                current_Bg_feature = bgfeaturesArray[5];
-//            selected_picture = null;
-                bringGradients();
-            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
-                current_Bg_feature = bgfeaturesArray[6];
-//            selected_picture = null;
+//                applyWhiteFilter();
                 if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
-                    seachImages();
+//                    seachImages();
+                    addSticker("http://drive.google.com/uc?export=view&id=1tDf8pd2C_FNKQOVc7dZL2LTYp2-sPyQB");
+
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));
                 }
-            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
-
             }
+// else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
+//                current_Bg_feature = bgfeaturesArray[5];
+////            selected_picture = null;
+////                bringGradients();
+//            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
+//                current_Bg_feature = bgfeaturesArray[6];
+////            selected_picture = null;
+//
+//            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
+//
+//            }
         } else {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.please_select_feature_again));
         }
@@ -997,7 +999,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 if (searchBox.getText() == null) {
                     searchBox.setError(getString(R.string.please_enter));
                 } else {
-                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar, dialog);
+//                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar, dialog);
+
                 }
             }
         });
@@ -1043,7 +1046,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         selected_picture = Biglink;
                         imageView_background.setBackground(null);
                         Glide.with(getApplicationContext()).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
-                        addSticker("http://drive.google.com/uc?export=view&id=1tDf8pd2C_FNKQOVc7dZL2LTYp2-sPyQB");
                         dialog.dismiss();
                     }
                 }));
@@ -1135,7 +1137,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void handle_bg_seekbar(SeekBar seekBar) throws NullPointerException {
         String[] featuresLocalArray = getResources().getStringArray(R.array.Background_features);
         if (current_module == null) {
-            Toast_Snack_Dialog_Utils.show_ShortToast(activity, getString(R.string.we_missed_bg));
+            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.we_missed_bg));
         } else {
             if (Constants.BG.equalsIgnoreCase(current_module)) {
                 if (current_Bg_feature.equalsIgnoreCase(featuresLocalArray[2]) && seekBar.getProgress() >= 0) {

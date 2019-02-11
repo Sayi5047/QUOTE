@@ -9,13 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
-import com.google.gson.Gson;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
@@ -34,9 +31,8 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.Quote;
-import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
+import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.IntentConstants;
 import io.hustler.qtzy.ui.utils.TextUtils;
@@ -192,7 +188,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             }
 
             @Override
-            public void onDataGet(QuotzyBaseResponse response) {
+            public void onDataGet(BaseResponse response) {
                 progressBar.setVisibility(View.GONE);
 
                 ResponseQuotesService responseQuotesService = ((ResponseQuotesService) response);

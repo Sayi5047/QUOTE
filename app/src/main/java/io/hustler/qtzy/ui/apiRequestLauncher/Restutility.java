@@ -18,10 +18,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.fragments.CategoriesFragment;
+import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
+import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.ResponseListener;
+import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserGoogleSignup;
+import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserLogin;
+import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserSignup;
+import io.hustler.qtzy.ui.apiRequestLauncher.response.ResLoginUser;
 import io.hustler.qtzy.ui.networkhandler.MySingleton;
 import io.hustler.qtzy.ui.pojo.ImagesResponse;
-import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
 import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
@@ -32,7 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.QUOTZY_API_GOOGLE_LOGIN_USER;
 
 /**
  * Created by Sayi on 07-10-2017.
@@ -96,6 +100,9 @@ public class Restutility {
 //        MySingleton.addJsonObjRequest(activity, jsonObjectRequest);
 //    }
 
+    /**
+     * UNSPLASH METHODS
+     */
     public void getRandomImages(final Context context, final ImagesApiResponceListner listner, final String request) {
         JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
@@ -180,7 +187,8 @@ public class Restutility {
         MySingleton.addJsonArrayObjRequest(context, request1);
     }
 
-    public void getUnsplash_Collections_Images(final Context context, final Unsplash_Image_collection_response_listener listener, final String request) {
+    public void getUnsplash_Collections_Images(final Context context, final Unsplash_Image_collection_response_listener listener,
+                                               final String request) {
         logtheRequest(request);
         JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
@@ -201,7 +209,8 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, request1);
     }
 
-    public void getImages_for_service(final Context context, final Unsplash_Image_collection_response_listener listener, final String request) {
+    public void getImages_for_service(final Context context,
+                                      final Unsplash_Image_collection_response_listener listener, final String request) {
         logtheRequest(request);
         JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
             @Override
@@ -222,6 +231,9 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, request1);
     }
 
+    /**
+     * QOUTE METHODS
+     */
     public void uploadQuotes(final QuotzyApiResponseListener listener, final Context context, String request) {
 //        CategoriesFragment.Data quotes = new CategoriesFragment.Data();
 //        ArrayList<CategoriesFragment.Quotes> quotes1 = new ArrayList<>();
@@ -243,16 +255,13 @@ public class Restutility {
     }
 
     public void getQuotes(final QuotzyApiResponseListener listener, final Context context, final String request) {
-//        CategoriesFragment.Data quotes = new CategoriesFragment.Data();
-//        ArrayList<CategoriesFragment.Quotes> quotes1 = new ArrayList<>();
-//        quotes1.add(quotess);
-//        quotes.setData(quotes1);
+
         JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         ResponseQuotesService responseQuotesService = new Gson().fromJson(response.toString(), ResponseQuotesService.class);
-                        if(responseQuotesService.data.size()>0){
+                        if (responseQuotesService.data.size() > 0) {
                             listener.onDataGet(responseQuotesService);
                         }
                     }
@@ -265,6 +274,96 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, jsonObject);
     }
 
+    /**
+     * AUTH METHODS
+     */
+    public void signUp(final ResponseListener listener, final Context context, final ReqUserSignup reqUserSignup) {
+        JSONObject requestPbject = convertToJson(reqUserSignup);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constants.QUOTZY_API_EMAIL_SIGNUP_USER,
+                requestPbject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+//                BaseResponse baseResponse = getBaseResponseFromResponseJsonObject(response);
+                ResLoginUser baseResponse=new Gson().fromJson(response.toString(),ResLoginUser.class);
+                if (baseResponse.isApiSuccess()) {
+                    listener.onSuccess(baseResponse);
+                } else {
+                    listener.onError(baseResponse.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (null != listener) {
+                    listener.onError(getRelevantVolleyErrorMessage(context, error));
+                }
+            }
+        });
+        MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public void gSignup(final ResponseListener listener, final Context context, ReqUserGoogleSignup reqUserSignup) {
+        JSONObject jsonObject = convertToJson(reqUserSignup);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                Constants.QUOTZY_API_GOOGLE_SIGNUP_USER,
+                jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ResLoginUser baseResponse=new Gson().fromJson(response.toString(),ResLoginUser.class);
+
+                        if (baseResponse.isApiSuccess()) {
+                            listener.onSuccess(baseResponse);
+                        } else {
+                            listener.onError(baseResponse.getMessage());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (null != listener) {
+                    listener.onError(getRelevantVolleyErrorMessage(context, error));
+                }
+            }
+        });
+        MySingleton.addJsonObjRequest(context, jsonObjectRequest);
+
+
+    }
+
+    public void gLogin(final ResponseListener listener, final Context context, ReqUserLogin reqUserSignup) {
+        JSONObject jsonObject = convertToJson(reqUserSignup);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+                QUOTZY_API_GOOGLE_LOGIN_USER, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        BaseResponse baseResponse = getBaseResponseFromResponseJsonObject(response);
+                        if (null != listener) {
+                            listener.onSuccess(baseResponse);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (null != listener) {
+                    listener.onError(getRelevantVolleyErrorMessage(context, error));
+                }
+            }
+        });
+        MySingleton.addJsonObjRequest(context, request);
+
+    }
+
+
+    /**
+     * Util Methods
+     */
+    private BaseResponse getBaseResponseFromResponseJsonObject(JSONObject response) {
+        logtheResponse(response);
+        return new Gson().fromJson(response.toString(), BaseResponse.class);
+    }
 
     public String getRelevantVolleyErrorMessage(Context context, VolleyError volleyError) {
         try {
@@ -295,7 +394,7 @@ public class Restutility {
         }
     }
 
-    public JSONObject converttoJson(Object o) {
+    public JSONObject convertToJson(Object o) {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(new Gson().toJson(o));

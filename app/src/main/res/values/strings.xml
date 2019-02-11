@@ -233,8 +233,8 @@
         <item>image</item>
         <item>color</item>
         <item>Blurr</item>
-        <item>Black</item>
-        <item>White</item>
+        <!--<item>Black</item>-->
+        <!--<item>White</item>-->
         <item>Gradient</item>
         <item>Search</item>
         <!--<item>Vigenette</item>-->
@@ -331,4 +331,25 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create">Create</string>
     <string name="follow_us">Follow us on</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="name">Name</string>
+    <string name="dob">Date of birth</string>
+    <string name="server_client_id">535054917176-ltsp1ma8rbl4qnbu1t5phi0j5rdda4oc.apps.googleusercontent.com</string>
+    <string name="country">Country</string>
+    <string name="gender">Gender</string>
+    <string name="Authorising">Authorising</string>
+    <string name="Iam_here_before">Iam here before</string>
+    <string name="Iam_never_here_before">I\'m never here before</string>
 </resources>

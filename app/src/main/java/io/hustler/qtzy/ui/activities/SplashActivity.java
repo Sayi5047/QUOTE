@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.activities.v1.OnBoardActivity;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.utils.TextUtils;
 
@@ -80,9 +81,9 @@ public class SplashActivity extends BaseActivity {
 
     private void gotoSecondmain() {
         if (sharedPreferences.getBoolean(Constants.IS_USER_SAW_INRODUCTION, false)) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            startActivity(new Intent(SplashActivity.this, OnBoardActivity.class));
         } else {
-            startActivity(new Intent(SplashActivity.this, OnBoardingActivity.class));
+            startActivity(new Intent(SplashActivity.this, OnBoardActivity.class));
         }
 
     }

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.pojo.Quote;
-import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
+import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
 
-public class ResponseQuotesService extends QuotzyBaseResponse {
+public class ResponseQuotesService extends BaseResponse {
     public static class Quotes {
         private String quote, author, country, category;
         private Long id;

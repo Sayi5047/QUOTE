@@ -1,6 +1,6 @@
-package io.hustler.qtzy.ui.pojo;
+package io.hustler.qtzy.ui.apiRequestLauncher.Base;
 
-public class QuotzyBaseResponse {
+public class BaseResponse {
     private boolean apiSuccess;
     private String message;
     private int statuscode;
@@ -10,7 +10,7 @@ public class QuotzyBaseResponse {
     }
 
     public void setApiSuccess(boolean apiSuccess) {
-        apiSuccess = apiSuccess;
+        this.apiSuccess = apiSuccess;
     }
 
     public String getMessage() {
@@ -28,4 +28,5 @@ public class QuotzyBaseResponse {
     public void setStatuscode(int statuscode) {
         this.statuscode = statuscode;
     }
+
 }

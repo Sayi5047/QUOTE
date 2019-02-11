@@ -23,10 +23,9 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.pojo.Quote;
-import io.hustler.qtzy.ui.pojo.QuotzyBaseResponse;
+import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
 import io.hustler.qtzy.ui.utils.IntentConstants;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -111,7 +110,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
             }
 
             @Override
-            public void onDataGet(QuotzyBaseResponse response) {
+            public void onDataGet(BaseResponse response) {
                 ResponseQuotesService responseQuotesService = ((ResponseQuotesService) response);
                 for (CategoriesFragment.Quotes quotes : responseQuotesService.getData()) {
                     Quote quote = new Quote();
