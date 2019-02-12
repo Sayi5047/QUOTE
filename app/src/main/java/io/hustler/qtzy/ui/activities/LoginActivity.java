@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +58,7 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserGoogleSignup;
 import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserSignup;
 import io.hustler.qtzy.ui.apiRequestLauncher.response.ResLoginUser;
+import io.hustler.qtzy.ui.utils.PreferenceUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -221,11 +223,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     case (Constants.USER_CREATED):
                         // TODO: 10-02-2019 Save in shared preferences and log the user in
                         Toast_Snack_Dialog_Utils.show_ShortToast(LoginActivity.this, (resLoginUser.getName()));
-
+                        saveUserData(resLoginUser, false);
+                        // TODO: 12-02-2019 login user in Firebase
                         break;
                     case (Constants.USER_ALREADY_EXISTS):
                         Toast_Snack_Dialog_Utils.show_ShortToast(LoginActivity.this, (Constants.USER_ALREADY_EXISTS) + "");
-
                         break;
                     default:
                         Toast_Snack_Dialog_Utils.show_ShortToast(LoginActivity.this, resLoginUser.getMessage());
@@ -239,6 +241,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Toast_Snack_Dialog_Utils.show_ShortToast(LoginActivity.this, message);
             }
         }, LoginActivity.this, reqUserSignup);
+    }
+
+    private void saveUserData(ResLoginUser resLoginUser, boolean b) {
+        PreferenceUtils preferenceUtils = new PreferenceUtils(LoginActivity.this);
+        preferenceUtils.setUSER_NAME(resLoginUser.getName());
+        preferenceUtils.setEMAIL(resLoginUser.getEmail());
+        preferenceUtils.setAGE(resLoginUser.getAge());
+        preferenceUtils.setDOB(resLoginUser.getDob());
+        preferenceUtils.setGENDER(resLoginUser.getGender());
+        preferenceUtils.setLOCALE(resLoginUser.getLocale());
+        preferenceUtils.setIS_GOOGLE_LOGIN(b);
+        preferenceUtils.setIS_USER_LOGGED_IN(true);
+        preferenceUtils.setSYS_AUTH_TOKEN(resLoginUser.getSysAuthToken());
+        preferenceUtils.setFB_AUTH_TOKEN(resLoginUser.getFbAuthToken());
     }
 
     private void googleSignInOrSignup() {
@@ -275,7 +291,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     switch (baseResponse.getStatuscode()) {
                         case (Constants.USER_CREATED):
                             // TODO: 10-02-2019 Save in shared preferences and log the user in
+                            saveUserData(resLoginUser, true);
                             Toast_Snack_Dialog_Utils.show_ShortToast(LoginActivity.this, (resLoginUser.getName()));
+                            Toast_Snack_Dialog_Utils.show_ShortToast(LoginActivity.this, "User Logged-In");
+
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                             break;
                         case (Constants.USER_ALREADY_EXISTS):

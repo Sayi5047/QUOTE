@@ -17,6 +17,6 @@ public class OnBoardActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
-        getSupportFragmentManager().beginTransaction().add(R.id.frame, SplashFragment.getInstance()).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.frame, SplashFragment.getInstance()).commit();
     }
 }

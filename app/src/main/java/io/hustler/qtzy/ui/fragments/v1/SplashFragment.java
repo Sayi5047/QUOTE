@@ -34,7 +34,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout rootView;
     private TextView textViewHead;
     private ImageView icon;
-    private MyViewPager mPager;
+    private ViewPager mPager;
     private Button mLogin;
     private Button mSignup;
     ParrallaxPageTransformer parrallaxPageTransformer;
@@ -44,7 +44,6 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
     public static int currentcolor2 = Color.WHITE;
     SharedPreferences sharedPreferences;
     private float rotation;
-    private View viewPager;
 
     public static SplashFragment getInstance() {
         return new SplashFragment();
@@ -59,7 +58,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
     }
 
     private void findViews(View view) {
-        rootView = view.findViewById(0);
+        rootView = view.findViewById(R.id.root);
         textViewHead = view.findViewById(R.id.textView_head);
         icon = view.findViewById(R.id.icon);
         mPager = view.findViewById(R.id.m_pager);
@@ -84,7 +83,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
                 currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, getActivity());
                 currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, getActivity());
                 rotation = positionOffset;
-                viewPager.setBackgroundColor(currentcolor);
+                mPager.setBackgroundColor(currentcolor);
 //                bt_next.setBackgroundColor(currentcolor);
 //                skip.setBackgroundColor(currentcolor);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

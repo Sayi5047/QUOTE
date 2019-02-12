@@ -7,15 +7,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.v1.OnBoardActivity;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.utils.PreferenceUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 
 
@@ -61,7 +68,10 @@ public class SplashActivity extends BaseActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
 
         setCounter_and_launch();
-
+// TODO: 12-02-2019 check if google user already exists
+        PreferenceUtils preferenceUtils = new PreferenceUtils(SplashActivity.this);
+        if (preferenceUtils.isIS_USER_LOGGED_IN() && preferenceUtils.isIS_GOOGLE_LOGIN()) {
+        }
     }
 
 
