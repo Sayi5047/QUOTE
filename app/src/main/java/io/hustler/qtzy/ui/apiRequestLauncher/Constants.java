@@ -150,7 +150,7 @@ public final class Constants {
     public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED = "VIEW_PAGER_INTRO_COMPLETETION_KEY";
 
     /*END POINTS*/
-    public static final String END_POINT = "http://192.168.1.20:8080";
+    public static final String END_POINT = "http://192.168.1.6:8080";
     /*PATHS FOR FINDING METHODS*/
     public static final String PATH_QUOTES = END_POINT + "/private/mobile/quotes/";
     public static final String PATH_AUTH = END_POINT + "/private/onBoard/v0/";
