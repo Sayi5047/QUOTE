@@ -19,10 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Timer;
+
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.LoginActivity;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.customviews.MyViewPager;
@@ -31,7 +35,7 @@ import io.hustler.qtzy.ui.utils.ColorUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 
 public class SplashFragment extends Fragment implements View.OnClickListener {
-    private RelativeLayout rootView;
+    private LinearLayout rootView;
     private TextView textViewHead;
     private ImageView icon;
     private ViewPager mPager;
@@ -44,6 +48,12 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
     public static int currentcolor2 = Color.WHITE;
     SharedPreferences sharedPreferences;
     private float rotation;
+
+    int current_page = 0;
+    int totalNumberOfpagesOriginal = 25;
+    int MULTIPLIER = 25;
+    int numberInOneSlides = totalNumberOfpagesOriginal * MULTIPLIER;
+    Timer pagerTimer;
 
     public static SplashFragment getInstance() {
         return new SplashFragment();
@@ -76,18 +86,24 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
 
         mPager.setAdapter(new landerAdapter(getActivity().getSupportFragmentManager(), getActivity()));
         parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card, R.id.on_board_image, R.id.on_board_title, R.id.on_board_image_circle, R.id.on_board_descriptiom);
-        mPager.setPageTransformer(false, parrallaxPageTransformer);
+        PagerTransformer transformer = new PagerTransformer(R.id.root_container);
+
+        mPager.setPageTransformer(false, transformer);
+        mPager.setCurrentItem(0);
+        mPager.setOffscreenPageLimit(2);
+        MULTIPLIER = totalNumberOfpagesOriginal = 5;
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, getActivity());
                 currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, getActivity());
-                rotation = positionOffset;
-                mPager.setBackgroundColor(currentcolor);
+//                rotation = positionOffset;
+//                ((View)mPager.getChildAt(position)).setBackgroundColor(currentcolor);
 //                bt_next.setBackgroundColor(currentcolor);
 //                skip.setBackgroundColor(currentcolor);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(Constants.COLOUR_KEY, currentcolor2);
+                editor.putInt(Constants.PREVIOUS_COLOR, currentcolor);
                 editor.apply();
 
             }
@@ -201,9 +217,13 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
             imageView = view.findViewById(R.id.on_board_image_circle);
             linearLayout = view.findViewById(R.id.linear_bg_layout);
             TextUtils.findText_and_applyTypeface(linearLayout, getActivity());
+//            TextUtils.findText_and_applycolor(linearLayout, getActivity(), null);
             animationDrawable = (AnimationDrawable) linearLayout.getBackground();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
             sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
 //            imageView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.scaleup));
 //            animationDrawable.setEnterFadeDuration(2000);
 //            animationDrawable.setExitFadeDuration(2000);
@@ -243,6 +263,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (key.equals(Constants.COLOUR_KEY)) {
                 imageView.getDrawable().setColorFilter(sharedPreferences.getInt(Constants.COLOUR_KEY, Color.WHITE), PorterDuff.Mode.SRC_IN);
+                image.getBackground().setColorFilter(sharedPreferences.getInt(Constants.PREVIOUS_COLOR, Color.WHITE), PorterDuff.Mode.SRC_IN);
             }
         }
 

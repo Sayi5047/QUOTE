@@ -60,6 +60,7 @@ public final class Constants {
     public static final String HOME_SCREEN_NUMBER = "home_screen_number_object";
     public static final String APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy";
     public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
+    public static final String PREVIOUS_COLOR = "previous_color";
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
 
@@ -150,7 +151,7 @@ public final class Constants {
     public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED = "VIEW_PAGER_INTRO_COMPLETETION_KEY";
 
     /*END POINTS*/
-    public static final String END_POINT = "http://192.168.1.6:8080";
+    public static final String END_POINT = "http://192.168.1.12:8080";
     /*PATHS FOR FINDING METHODS*/
     public static final String PATH_QUOTES = END_POINT + "/private/mobile/quotes/";
     public static final String PATH_AUTH = END_POINT + "/private/onBoard/v0/";

@@ -13,9 +13,9 @@ public class PagerTransformer implements ViewPager.PageTransformer {
 
     //    private final int id2, id3, id4, id5;
     int id;
-    private int border = 0;
-    private float speed = 0.2f;
-    private static final float MIN_SCALE = 0.45f;
+    private int border = -10;
+    private float speed = 0.8f;
+    private static final float MIN_SCALE = 0.85f;
     private static final float MIN_ALPHA = 0.85f;
 
     public PagerTransformer(int id) {

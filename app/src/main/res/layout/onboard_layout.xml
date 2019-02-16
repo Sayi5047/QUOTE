@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:clipToPadding="true">
+    android:id="@+id/root_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/rounded_white_rect"
+        android:backgroundTint="@color/light_blue_400"
+        android:backgroundTintMode="src_in"
+        android:clipToPadding="true"
+        android:elevation="16dp"
         android:orientation="vertical">
 
         <ImageView
@@ -17,8 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.3"
-            android:scaleType="centerCrop"
-            android:src="@drawable/geometry_2" />
+            android:elevation="4dp"
+
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:id="@+id/linear_bg_layout"
@@ -54,8 +62,8 @@
 
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_vertical"
                 android:elevation="4dp"
                 android:padding="16dp"
@@ -67,8 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/on_board_image_circle"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="-20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="Welcome to Quotzy"
                 android:textAlignment="center"
