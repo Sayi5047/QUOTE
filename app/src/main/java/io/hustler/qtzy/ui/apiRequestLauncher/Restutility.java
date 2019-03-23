@@ -404,4 +404,28 @@ public class Restutility {
         Log.e("JSON REQUEST", new Gson().toJson(o));
         return jsonObject;
     }
+
+
+    public void testAuth(final Context context, final Unsplash_Image_collection_response_listener listener,
+                                               final String request) {
+        logtheRequest(request);
+        String requests="http://104.199.168.71:9001/oauth/token?grant_type=password&username=dealer&password=User1d@Dealer";
+        JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.POST, requests, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+//                        UnsplashImages_Collection_Response unspalshImage = new Gson().fromJson(response.toString(), UnsplashImages_Collection_Response.class);
+//                        listener.onSuccess(unspalshImage);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+
+            }
+        });
+        MySingleton.addJsonObjRequest(context, request1);
+    }
 }

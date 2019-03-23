@@ -37,6 +37,9 @@ public class JsonObjectRequestwithAuthHeader extends JsonObjectRequest {
         hashMap.put("content-type", "application/json");
         hashMap.put("accept-version", "v1");
         hashMap.put("Authorization", Constants.UNSPLASH_APP_ID);
+        hashMap.put("Authorization", "Basic  U1RBUlBBWTpDbGllbnQxZEBEZWFsZXI=");
         return hashMap;
     }
+
+
 }

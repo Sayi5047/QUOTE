@@ -29,10 +29,14 @@ import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.LoginActivity;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.customviews.MyViewPager;
 import io.hustler.qtzy.ui.customviews.ParrallaxPageTransformer;
+import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
+import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.utils.ColorUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
+import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 public class SplashFragment extends Fragment implements View.OnClickListener {
     private LinearLayout rootView;
@@ -139,10 +143,22 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
             startActivity(intent);
         } else if (v == mSignup) {
             // Handle clicks for mSignup
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
+//            Intent intent = new Intent(getActivity(), LoginActivity.class);
+//
+//            intent.putExtra("IS_LOGIN", false);
+//            startActivity(intent);
+            new Restutility(getActivity()).testAuth(getActivity(), new Unsplash_Image_collection_response_listener() {
+                @Override
+                public void onSuccess(UnsplashImages_Collection_Response response) {
+                    Toast_Snack_Dialog_Utils.show_LongToast(getActivity(), response.toString());
+                }
 
-            intent.putExtra("IS_LOGIN", false);
-            startActivity(intent);
+                @Override
+                public void onError(String error) {
+                    Toast_Snack_Dialog_Utils.show_LongToast(getActivity(), error.toString());
+
+                }
+            }, "");
 
         }
     }
