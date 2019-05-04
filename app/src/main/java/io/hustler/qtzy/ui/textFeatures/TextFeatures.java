@@ -375,9 +375,9 @@ public class TextFeatures {
                 fontSelected.setDownloaded(isDownloaded[0]);
             }
         });
-        final String finalLOcation = Environment.getExternalStorageDirectory() + File.separator + editorActivity.getString(R.string.Qotzy) + File.separator + editorActivity.getString(R.string.Fonts);
+        final String finalLOcation = Environment.getExternalStorageDirectory() + File.separator + editorActivity.getString(R.string.Quotzy) + File.separator + editorActivity.getString(R.string.Fonts);
 
-        downloadedFontAdapter = new DownloadedFontAdapter(false, editorActivity, getDownloadedFonts(editorActivity,
+        downloadedFontAdapter = new DownloadedFontAdapter(false, editorActivity, getDownloadedFonts(
                 new File(finalLOcation)), new DownloadedFontAdapter.onFontClickListner() {
             @Override
             public void onFontClicked(String font, int isDownloadFont) {
@@ -508,10 +508,10 @@ public class TextFeatures {
 //        dialog.setContentView(R.layout.activity_symbol_fonts);
 //    }
 
-    public static String[] getDownloadedFonts(Activity activity, File file) {
+    public static String[] getDownloadedFonts(File file) {
         String[] FilePathStrings = new String[0];
         String[] FileNameStrings = new String[0];
-        File[] listFile, listFile0, listFile1;
+        File[] listFile;
         file.mkdir();
 //        GET TTF FILES AND COLLECT IN LIST1
         if (file.isDirectory()) {

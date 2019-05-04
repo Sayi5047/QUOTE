@@ -28,7 +28,6 @@
     <item name="orange_300" type="color">#ffb74d</item>
     <item name="pink_400" type="color">#ec407a</item>
     <item name="purple_400" type="color">#ab47bc</item>
-    <item name="quotzy_background" type="color">#fdf4eb</item>
 </resources><!--<color name="colorPrimary">#F4F4f4</color>--><!--<color name="colorPrimaryDark">#Dcd0c0</color>--><!--<color name="colorAccent">#78909c</color>--><!--<color name="textColor">#373737</color>-->
 
     <!--<color name="black_overlay">#66000000</color>--><!--<color name="bg">#F5F5F5</color>--><!--<item name="red_100" type="color">#80deea</item>-->

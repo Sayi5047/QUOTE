@@ -178,7 +178,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private boolean isHeightMeasured = false;
     private String geust_image;
     private RotationGestureDetector rotationGestureDetector;
-    private int pointer_Id_1, pointer_ID_2;
+    private int pointer_Id_1;
     private float fx;
     private float fy;
     //    private float sx;
@@ -457,12 +457,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         File file;
         String path = null;
-
+        String filePath = null;
         String action = intent.getAction();
         if (Objects.equals(action, Intent.ACTION_VIEW)) {
             try {
-                path = intent.getData().getPath();
-                Log.d("ACTION_VIEW", path);
+                filePath = intent.getData().getPath();
+                Log.d("ACTION_VIEW", filePath);
             } catch (NullPointerException ne) {
                 finish();
                 ne.printStackTrace();
@@ -477,14 +477,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             if (bundle != null) {
                 uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
             }
-            if (uri != null) {
-                path = uri.getPath();
-                Log.d("ACTION_SEND", path);
+
+
+            if (uri != null && "content".equals(uri.getScheme())) {
+                Cursor cursor = this.getContentResolver().query(uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+                cursor.moveToFirst();
+                filePath = cursor.getString(0);
+                cursor.close();
+            } else {
+                filePath = uri.getPath();
             }
         }
         try {
-            if (path != null) {
-                file = new File(path);
+            if (filePath != null) {
+                file = new File(filePath);
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
                 FileUtils.unzipandSave(file, EditorActivity.this, action);
             }
@@ -2321,7 +2327,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //            }
 
             case MotionEvent.ACTION_CANCEL: {
-                pointer_ID_2 = pointer_Id_1 = INAVALID_POINTER_ID;
+                int pointer_ID_2 = pointer_Id_1 = INAVALID_POINTER_ID;
                 Log.d("ACTION CANCEL", pointer_ID_2 + " <--2,1--> " + pointer_Id_1);
 
                 return true;

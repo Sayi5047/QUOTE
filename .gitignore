@@ -13,3 +13,9 @@
 *.xml
 .idea/modules.xml
 .idea/misc.xml
+Cred.properties
+Debug.properties
+app/Cred.properties
+app/Debug.properties
+app/Cred.properties
+app/Debug.properties

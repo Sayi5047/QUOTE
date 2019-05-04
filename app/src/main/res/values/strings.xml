@@ -85,6 +85,7 @@
     <string name="jpg">JPG</string>
     <string name="png">PNG</string>
     <string name="Qotzy">Qotzy</string>
+    <string name="Quotzy">Quotzy</string>
     <string name="project">Save Project</string>
     <string name="save">Save</string>
     <string name="please_enter_project_name">Enter Project name to save</string>
@@ -346,7 +347,7 @@
     </string>
     <string name="name">Name</string>
     <string name="dob">Date of birth</string>
-    <string name="server_client_id">535054917176-ltsp1ma8rbl4qnbu1t5phi0j5rdda4oc.apps.googleusercontent.com</string>
+    <string name="server_client_id">422621870113-sj6e0r7n88p36dhr09huro8ieu4vnmg2.apps.googleusercontent.com</string>
     <string name="country">Country</string>
     <string name="gender">Gender</string>
     <string name="Authorising">Authorising</string>

@@ -272,6 +272,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+        }else {
+            Log.e("G_SIGNIN_RESULT_CODE",String.valueOf(resultCode));
         }
     }
 

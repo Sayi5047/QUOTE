@@ -42,6 +42,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.crash.FirebaseCrash;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Services.DownloadImageService;
 import io.hustler.qtzy.ui.adapters.InstallFontAdapter;
@@ -119,24 +120,26 @@ public class FileUtils {
                 } else if (currentEntry.endsWith(".OTF")) {
                     zipContents.add(currentEntry);
 
-                } else {
                 }
             }
 
-            String targetLocationPath = Environment.getExternalStorageDirectory() + File.separator + "Fonts";
+            String targetLocationPath = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + "Fonts";
             String tempTargetLocationPath = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Temp);
-            final String temporarly_Saved_fonts_Path;
+            final String recentlySavedFontsFolderPath;
 
-            File targetLocationFile = null;
-            File tempTargetLocationFile = null;
-            targetLocationFile = new File(targetLocationPath);
-            tempTargetLocationFile = new File(tempTargetLocationPath);
+            File tempTargetLocationFile = new File(tempTargetLocationPath);
+
             if (tempTargetLocationFile.isDirectory()) {
-                temporarly_Saved_fonts_Path = doUnZIP(activity, sourcezipLocation, tempTargetLocationPath);
+                recentlySavedFontsFolderPath = doUnZIP(activity, sourcezipLocation, tempTargetLocationPath);
 
             } else {
                 tempTargetLocationFile.mkdirs();
-                temporarly_Saved_fonts_Path = doUnZIP(activity, sourcezipLocation, tempTargetLocationPath);
+                recentlySavedFontsFolderPath = doUnZIP(activity, sourcezipLocation, tempTargetLocationPath);
+            }
+
+            final File targetDirectory = new File(targetLocationPath);
+            if (!targetDirectory.isDirectory()) {
+                targetDirectory.mkdirs();
             }
 
             final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
@@ -152,21 +155,16 @@ public class FileUtils {
             Button btClose, btInstall;
             AdView adView = null;
             recyclerView = dialog.findViewById(R.id.font_recycler);
-            headTv = dialog.findViewById(R.id.head_tv);
-            etProjectName = dialog.findViewById(R.id.et_project_name);
-            btLlLayout = dialog.findViewById(R.id.bt_ll_layout);
-            root = dialog.findViewById(R.id.root_Lo);
             btClose = dialog.findViewById(R.id.bt_close);
             btInstall = dialog.findViewById(R.id.bt_save);
             adView = dialog.findViewById(R.id.adView);
             AdUtils.loadBannerAd(adView, activity);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-            final String finalLOcation = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Qotzy) + File.separator + activity.getString(R.string.Fonts);
 
-            final String[] source_font_paths_list = TextFeatures.getDownloadedFonts(activity, new File(temporarly_Saved_fonts_Path));
+            final String[] source_font_paths_list = TextFeatures.getDownloadedFonts(new File(recentlySavedFontsFolderPath));
 
-            recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, temporarly_Saved_fonts_Path, finalLOcation, source_font_paths_list));
+            recyclerView.setAdapter(new InstallFontAdapter(activity, zipContents, recentlySavedFontsFolderPath, targetLocationPath, source_font_paths_list));
             dialog.show();
             btInstall.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,7 +173,7 @@ public class FileUtils {
                     dialog1.setTitle(activity.getString(R.string.installing_Fonts));
                     dialog1.show();
                     for (int i = 0; i < zipContents.size(); i++) {
-                        new File(source_font_paths_list[i]).renameTo(new File(finalLOcation + File.separator + zipContents.get(i)));
+                        new File(source_font_paths_list[i]).renameTo(new File(targetDirectory + File.separator + zipContents.get(i)));
                     }
                     dialog1.cancel();
                     Toast_Snack_Dialog_Utils.createDialog(activity, activity.getString(R.string.congratulations), activity.getString(R.string.font_installed), null, activity.getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
@@ -1122,8 +1120,8 @@ public class FileUtils {
 
     public static Bitmap drawable_from_url(String url) throws java.net.MalformedURLException, java.io.IOException {
 
-        HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
-        connection.setRequestProperty("User-agent","Mozilla/4.0");
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestProperty("User-agent", "Mozilla/4.0");
 
         connection.connect();
         InputStream input = connection.getInputStream();
