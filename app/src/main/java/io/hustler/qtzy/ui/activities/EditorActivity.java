@@ -125,7 +125,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private static final int MY_PERMISSION_REQUEST_Launch_gallery = 1007;
     public File savedFile;
     //    private LinearLayout main_editor_layout;
-    public int deviceHeight;
     Window windowManager;
     RecyclerView features_recyclerview;
     Features_adapter features_adapter;
@@ -144,21 +143,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     float nsx, nsy, nfx, nfy;
     private ImageView light_effect_filter_IV;
     private RelativeLayout root_layout;
-    //    private ImageView font_module;
-//    private ImageView background_image_module;
-    private ImageView font_size_changer;
-    private ImageView close_text_size;
-    private ImageView save_work_button;
-    private ImageView share_work_button;
-    private ImageView delete_view_button, options;
     private ImageView imageView_background;
-    private TextView quote_editor_body;
-    private TextView quote_editor_author;
     private TextView text_layout;
     private TextView background_layout;
-    private TextView close_layout;
-    private TextView done_layout;
-    private TextView mark_quotzy;
     private Quote quote;
     private RelativeLayout quoteLayout;
     private RelativeLayout core_editor_layout;
@@ -172,7 +159,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private String current_Text_feature;
     private String current_Bg_feature;
     private String current_module = null;
-    private AdView mAdView;
     private int isFromEdit_Activity;
     private String selected_picture;
     private boolean isHeightMeasured = false;
@@ -214,9 +200,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onStart() {
         super.onStart();
-        if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
-
-        } else {
+        if (!PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
             requestAppPermissions();
         }
     }
@@ -236,18 +220,20 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //      level 1 top bar buttons
 //        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
 //        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
-        save_work_button = findViewById(R.id.save_work_button);
-        share_work_button = findViewById(R.id.font_share_module);
-        delete_view_button = findViewById(R.id.delete_view_button);
-        options = findViewById(R.id.options);
+        ImageView save_work_button = findViewById(R.id.save_work_button);
+        ImageView share_work_button = findViewById(R.id.font_share_module);
+        ImageView delete_view_button = findViewById(R.id.delete_view_button);
+        ImageView options = findViewById(R.id.options);
 
-        font_size_changer = findViewById(R.id.spacer_in_top);
+        //    private ImageView font_module;
+        //    private ImageView background_image_module;
+        ImageView font_size_changer = findViewById(R.id.spacer_in_top);
         light_effect_filter_IV = findViewById(R.id.iv_light_effect);
 
 
         seekBar = findViewById(R.id.progress_slider_bar);
         seekBar.setContentDescription("Slide to Rotate");
-        close_text_size = findViewById(R.id.close_editor_button);
+        ImageView close_text_size = findViewById(R.id.close_editor_button);
 
         features_recyclerview = findViewById(R.id.content_rv);
         features_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -257,9 +243,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         text_layout = findViewById(R.id.text_field);
         background_layout = findViewById(R.id.background_and_Image_field);
-        close_layout = findViewById(R.id.close_tv);
-        done_layout = findViewById(R.id.done_tv);
-        mark_quotzy = findViewById(R.id.mark_quotzy_tv);
+        TextView close_layout = findViewById(R.id.close_tv);
+        TextView done_layout = findViewById(R.id.done_tv);
+        TextView mark_quotzy = findViewById(R.id.mark_quotzy_tv);
         core_editor_layout = findViewById(R.id.arena_text_layout);
 //        core_editor_layout.setOnTouchListener(this);
         clear_button = findViewById(R.id.bt_clear);
@@ -292,8 +278,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (isHeightMeasured) {
-        } else {
+        if (!isHeightMeasured) {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
             editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
             editor.apply();
@@ -303,8 +288,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void setViews() {
         if (isFromEdit_Activity == 1) {
-            quote_editor_body = new TextView(getApplicationContext());
-            quote_editor_author = new TextView(getApplicationContext());
+            TextView quote_editor_body = new TextView(getApplicationContext());
+            TextView quote_editor_author = new TextView(getApplicationContext());
             quote_editor_body.setId(addedTextIds);
             addedTextIds++;
             quote_editor_author.setId(addedTextIds);
@@ -341,19 +326,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_body.setMaxWidth(displayMetrics.widthPixels);
                 quote_editor_author.setMaxWidth(displayMetrics.widthPixels);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
-                }
+                quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 quote_editor_body.setGravity(Gravity.CENTER);
                 quote_editor_author.setGravity(Gravity.CENTER);
 
-                quote_editor_body.setY(core_editor_layout.getHeight() / 2);
-                quote_editor_author.setX(core_editor_layout.getWidth() / 2);
+                quote_editor_body.setY(core_editor_layout.getHeight() >> 1);
+                quote_editor_author.setX(core_editor_layout.getWidth() >> 1);
 
                 core_editor_layout.addView(quote_editor_body);
                 core_editor_layout.addView(quote_editor_author);
@@ -407,7 +387,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 String action = intent.getAction();
                 if (Objects.equals(action, Intent.ACTION_VIEW)) {
                     try {
-                        path = intent.getData().getPath();
+                        path = Objects.requireNonNull(intent.getData()).getPath();
                         Log.d("ACTION_VIEW", path);
                     } catch (NullPointerException ne) {
                         finish();
@@ -477,10 +457,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             if (bundle != null) {
                 uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
             }
-
+//            uri = Uri.parse(uri.toString().contains("com.android.chrome.FileProvider/downloads") ? uri.toString().replace("com.android.chrome.FileProvider/downloads", "com.android.chrome.FileProvider/Download") : uri.toString());
 
             if (uri != null && "content".equals(uri.getScheme())) {
-                Cursor cursor = this.getContentResolver().query(uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+                Cursor cursor = this.getContentResolver().query(uri, new String[]{android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
                 cursor.moveToFirst();
                 filePath = cursor.getString(0);
                 cursor.close();
@@ -519,8 +499,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_clear: {
-                if (selectedView == null) {
-                } else {
+                if (selectedView != null) {
                     selectedView.setBackground(null);
                     previousSelcted_View = null;
                     selectedView = null;
@@ -778,16 +757,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void setCanvasSize(String[] array, final int deviceHeight) {
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.canvas_size_dialog_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
         LinearLayout root;
-        TextView canvasSizeHeader;
         RecyclerView sizesRv;
 
 
         root = dialog.findViewById(R.id.root);
-        canvasSizeHeader = dialog.findViewById(R.id.canvas_size_header);
         sizesRv = dialog.findViewById(R.id.sizes_rv);
         AdView adView;
         adView = dialog.findViewById(R.id.adView);
@@ -821,7 +798,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     }
                     break;
                     case 1: {
-                        int singlepart = Math.round(totalval / 5);
+                        int singlepart = Math.round(5 / totalval);
                         int new_Width = 2 * singlepart > deviceWidth ? deviceWidth : 2 * singlepart;
                         int new_Height = 3 * singlepart > deviceHeight ? deviceHeight : 3 * singlepart;
                         setLayout(new_Width, new_Height, dialog);
@@ -900,7 +877,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         relativeLayout = new RelativeLayout.LayoutParams(deviceWidth, deviceHeight);
         relativeLayout.addRule(RelativeLayout.CENTER_IN_PARENT);
         relativeLayout.setMargins(0, 125, 0, 105);
+
         quoteLayout.setLayoutParams(relativeLayout);
+
         quoteLayout.setGravity(Gravity.CENTER);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quoteLayout.setElevation(4f);
@@ -942,7 +921,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //                applyWhiteFilter();
                 if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
 //                    seachImages();
-                    addSticker("http://drive.google.com/uc?export=view&id=1tDf8pd2C_FNKQOVc7dZL2LTYp2-sPyQB");
+                    addSticker("https://firebasestorage.googleapis.com/v0/b/nimble-card-239502.appspot.com/o/stickers%2F1.png?alt=media&token=87c9262c-ad8e-4bb1-b7f0-d741df62c1ba");
 
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));

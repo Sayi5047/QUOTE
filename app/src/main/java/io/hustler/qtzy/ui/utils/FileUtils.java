@@ -99,6 +99,8 @@ public class FileUtils {
             } else if (action.equals(Intent.ACTION_SEND)) {
                 zipLocation = sourcezipLocation.getAbsolutePath();
             }
+
+
             Log.d("ZIP Location " + action, zipLocation);
             ZipFile zipToRead = new ZipFile(zipLocation);
 
