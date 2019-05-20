@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
@@ -22,8 +24,6 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.utils.IntentConstants;
-
-import java.util.ArrayList;
 
 /**
  * Created by Sayi Manoj Sugavasi on 02/02/2018.
@@ -53,7 +53,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
 
         iv_no_fav = view.findViewById(R.id.iv);
         rv_imag_no_fv = view.findViewById(R.id.rv);
-        rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         setAdapter(rv_imag_no_fv);
         return view;
     }
@@ -64,7 +64,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                arrayLists[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes();
+                arrayLists[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes();
             }
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {

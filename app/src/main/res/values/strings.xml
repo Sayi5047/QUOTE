@@ -237,7 +237,7 @@
         <!--<item>Black</item>-->
         <!--<item>White</item>-->
         <item>Gradient</item>
-        <item>Search</item>
+        <!--<item>Search</item>-->
         <!--<item>Vigenette</item>-->
         <!--<item>Add Emoji</item>-->
         <!--<item>Add Signature</item>-->
@@ -310,7 +310,7 @@
     <string name="All_your_fav_images_at_one_place" tools:keep="@string/All_your_fav_images_at_one_place">You can see all your favourite quotes and images at one place.</string>
     <string name="find_your_works" tools:keep="@string/find_your_works">Be proud of your work</string>
     <string name="you_can_find_your_works_here" tools:keep="@string/you_can_find_your_works_here">You can see all of your works here after you edit and save images.</string>
-    <string name="wallpapers">Curated</string>
+    <string name="wallpapers">Wallpaper</string>
     <string name="image_will_be_downloaded_to_sdCard">Image will be saved to sdcard/Quotzywallpapers</string>
     <string name="downloading_and_setting">Wallpaper will be set once it is downloaded.</string>
     <string name="image_will_be_set_wall">As soon as image get downloaded wallpaper will be set. Check progress in notification bar.</string>
@@ -353,4 +353,5 @@
     <string name="Authorising">Authorising</string>
     <string name="Iam_here_before">Iam here before</string>
     <string name="Iam_never_here_before">I\'m never here before</string>
+    <string name="continues">Continue</string>
 </resources>

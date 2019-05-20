@@ -365,7 +365,7 @@ public abstract class StickerView extends FrameLayout {
         }
     }
 
-    private static int convertDpToPixel(float dp, Context context){
+    public static int convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float px = dp * (metrics.densityDpi / 160f);

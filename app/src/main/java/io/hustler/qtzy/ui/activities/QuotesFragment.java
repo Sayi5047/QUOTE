@@ -17,20 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.adapters.LocalAdapter;
-import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
-import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
-import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.fragments.CategoriesFragment;
-import io.hustler.qtzy.ui.pojo.Quote;
-import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
-import io.hustler.qtzy.ui.utils.IntentConstants;
-import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Services.QuoteLoaderService;
+import io.hustler.qtzy.ui.adapters.LocalAdapter;
+import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.database.QuotesDbHelper;
+import io.hustler.qtzy.ui.pojo.Quote;
+import io.hustler.qtzy.ui.utils.IntentConstants;
 
 /**
  * Created by Sayi on 07-10-2017.
@@ -55,7 +52,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
     ProgressBar loader;
     LocalAdapter localAdapter;
     SharedPreferences sharedPreferences;
-    private List<Quote> quotesList=new ArrayList<>();
+    private List<Quote> quotesList = new ArrayList<>();
 
 
     public static QuotesFragment newInstance() {
@@ -71,30 +68,20 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
         loader = view.findViewById(R.id.loader);
         loader.setVisibility(View.VISIBLE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (!sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
+            getActivity().startService(new Intent(getActivity(), QuoteLoaderService.class));
+        }
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
             public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    getActivity().getWindow().setEnterTransition(new Slide());
-//                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-//                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-//                    ActivityOptionsCompat options = ActivityOptionsCompat.
-//                            makeSceneTransitionAnimation(getActivity(),
-//                                    view,
-//                                    getString(R.string.quotes_author_transistion));
-//                    startActivity(intent, options.toBundle());
-//                } else {
+
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-
-                } else {
-
                 }
                 startActivity(intent, bundle);
-//                }
             }
         });
         loadQuotes();
@@ -103,46 +90,46 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 
     public void loadQuotes() {
         // TODO: 27-01-2019 ADD A REST UTILITY CALL FOR GET QUOTES BY CATEGORY ATTITUDE
-        new Restutility(getActivity()).getQuotes(new QuotzyApiResponseListener() {
-            @Override
-            public void onSuccess(String message) {
-
-            }
-
-            @Override
-            public void onDataGet(BaseResponse response) {
-                ResponseQuotesService responseQuotesService = ((ResponseQuotesService) response);
-                for (CategoriesFragment.Quotes quotes : responseQuotesService.getData()) {
-                    Quote quote = new Quote();
-                    quote.setId(quotes.getId());
-                    quote.setQuote(quotes.getQuote());
-                    quote.setAuthor(quotes.getAuthor());
-                    quote.setCategory(quotes.getCategory());
-                    quote.setIsLiked(0);
-                    quotes.setCountry(null);
-                    quotesList.add(quote);
-                }
-                setAdapter(new ArrayList<Quote>(quotesList));
-            }
-
-            @Override
-            public void onError(String message) {
-                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "ERROR OCCURED");
-            }
-        }, getActivity(), Constants.QUOTZY_API_GET_QUOTES_BY_CATEGORY + "Attitude");
-
-//        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
-////            getLoaderManager().initLoader(0, null, this);
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    quotes = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
-//                    setAdapter(new ArrayList<Quote>(quotes));
+//        new Restutility(getActivity()).getQuotes(new QuotzyApiResponseListener() {
+//            @Override
+//            public void onSuccess(String message) {
+//
+//            }
+//
+//            @Override
+//            public void onDataGet(BaseResponse response) {
+//                ResponseQuotesService responseQuotesService = ((ResponseQuotesService) response);
+//                for (CategoriesFragment.Quotes quotes : responseQuotesService.getData()) {
+//                    Quote quote = new Quote();
+//                    quote.setId(quotes.getId());
+//                    quote.setQuote(quotes.getQuote());
+//                    quote.setAuthor(quotes.getAuthor());
+//                    quote.setCategory(quotes.getCategory());
+//                    quote.setIsLiked(0);
+//                    quotes.setCountry(null);
+//                    quotesList.add(quote);
 //                }
-//            }).run();
-//        } else {
-//            loader.setVisibility(View.VISIBLE);
-//        }
+//                setAdapter(new ArrayList<Quote>(quotesList));
+//            }
+//
+//            @Override
+//            public void onError(String message) {
+//                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "ERROR OCCURED");
+//            }
+//        }, getActivity(), Constants.QUOTZY_API_GET_QUOTES_BY_CATEGORY + "Attitude");
+        loader.setVisibility(View.GONE);
+        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
+//            getLoaderManager().initLoader(0, null, this);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    quotesList = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
+                    setAdapter(new ArrayList<Quote>(quotesList));
+                }
+            }).run();
+        } else {
+            loader.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setAdapter(final ArrayList<Quote> quotes) {
@@ -154,6 +141,27 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
             loader.setVisibility(View.GONE);
 
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (Objects.equals(key, Constants.IS_QUOTES_LOADED_KEY)) {
+            loadQuotes();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
+        super.onStop();
     }
 
 //
@@ -173,39 +181,6 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 //    public void onLoaderReset(Loader<List<Quote>> loader) {
 ////        setAdapter(null);
 //    }
-
-    /**
-     * Called when a shared preference is changed, added, or removed. This
-     * may be called even if a preference is set to its existing value.
-     * <p>
-     * <p>This callback will be run on your main thread.
-     *
-     * @param sharedPreferences The {@link SharedPreferences} that received
-     *                          the change.
-     * @param key               The key of the preference that was changed, added, or
-     */
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key == Constants.IS_QUOTES_LOADED_KEY) {
-            loadQuotes();
-        }
-    }
-
-    @Override
-    public void onStart() {
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-
-        super.onStop();
-    }
-
-
     //    @Override
 //    public void onResume() {
 //        super.onResume();

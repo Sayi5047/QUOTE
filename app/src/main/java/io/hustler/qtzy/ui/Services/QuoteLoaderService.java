@@ -39,7 +39,6 @@ import java.util.ArrayList;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-@Deprecated
 public class QuoteLoaderService extends Service {
     Quote[] quotesFromdb;
     String[] bodies;
@@ -81,7 +80,7 @@ public class QuoteLoaderService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false) == false) {
+        if (!sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
             new QuoteLoadTask().execute();
         } else {
 
@@ -93,19 +92,7 @@ public class QuoteLoaderService extends Service {
     public class QuoteLoadTask extends AsyncTask<String, String, Void> {
 
 
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
+
         @Override
         protected void onPreExecute() {
 
@@ -136,7 +123,7 @@ public class QuoteLoaderService extends Service {
         if (quotes != null) {
             for (int i = 0; i < quotes.size(); i++) {
                 // TODO: 27-01-2019 replace with rest call
-//                new QuotesDbHelper(getApplicationContext()).addQuote(quotes.get(i));
+                new QuotesDbHelper(getApplicationContext()).addQuote(quotes.get(i));
             }
             Log.d("Quotes list length", quotes.size() + "");
             SharedPreferences.Editor editor = sharedPreferences.edit();

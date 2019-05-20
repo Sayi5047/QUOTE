@@ -23,7 +23,7 @@
 
 -keep class com.opentok.** { *; }
 -keep class org.webrtc.** { *; }
--keep  class com.hustler.quote.ui** { *; }
+-keep  class io.hustler.qtzy.ui** { *; }
 -dontwarn  com.google.gms.**
 #-dontwarn org.gradle.api.**
 #-dontwarn groovy.lang.**

@@ -28,8 +28,8 @@ import java.util.Timer;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.LoginActivity;
+import io.hustler.qtzy.ui.activities.MainActivity;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.customviews.MyViewPager;
 import io.hustler.qtzy.ui.customviews.ParrallaxPageTransformer;
 import io.hustler.qtzy.ui.utils.ColorUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
@@ -47,6 +47,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
     public static int currentcolor = Color.WHITE;
     public static int currentcolor2 = Color.WHITE;
     SharedPreferences sharedPreferences;
+    Button continueButton;
     private float rotation;
 
     int current_page = 0;
@@ -74,6 +75,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
         mPager = view.findViewById(R.id.m_pager);
         mLogin = view.findViewById(R.id.mLogin);
         mSignup = view.findViewById(R.id.mSignup);
+        continueButton = view.findViewById(R.id.continueBtn);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         TextUtils.findText_and_applyTypeface(rootView, getActivity());
         TextUtils.findText_and_applyamim_slideup(rootView, getActivity());
@@ -110,22 +112,30 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onPageSelected(int position) {
-//                if (position == 4) {
-//                    bt_next.setVisibility(View.GONE);
-//                    bt_launch.setVisibility(View.VISIBLE);
-//                    skip.setText(getString(R.string.Previous));
-//
-//                } else {
-//                    bt_launch.setVisibility(View.GONE);
-//                    bt_next.setVisibility(View.VISIBLE);
-//                    skip.setText(getString(R.string.Skip));
-//
-//                }
+                if (position == 4) {
+                    continueButton.setVisibility(View.VISIBLE);
+
+                } else {
+                    continueButton.setVisibility(View.GONE);
+
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(Constants.IS_USER_SAW_INRODUCTION, true);
+                editor.commit();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("IS_LOGIN", true);
+                startActivity(intent);
             }
         });
     }

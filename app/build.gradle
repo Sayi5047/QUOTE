@@ -49,11 +49,11 @@ android {
     }
     buildTypes {
         release {
-            debuggable true
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            proguardFiles fileTree('proguard').asList().toArray()
-//            shrinkResources true
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles fileTree('proguard').asList().toArray()
+            shrinkResources true
             signingConfig signingConfigs.releaseconfig
         }
         debug {
@@ -107,7 +107,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-ads:17.2.0"
     implementation 'com.pes.materialcolorpicker:library:1.2.0'
     implementation 'com.android.support:support-v4:27.1.1'
-
+    implementation 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     testImplementation 'junit:junit:4.12'
 //    implementation 'com.flying.xiaopo:sticker:1.6.0'
 }

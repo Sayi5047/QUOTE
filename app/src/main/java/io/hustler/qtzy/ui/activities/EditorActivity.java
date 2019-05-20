@@ -1,9 +1,7 @@
 package io.hustler.qtzy.ui.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -67,6 +64,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Widgets.RotationGestureDetector;
@@ -90,11 +91,6 @@ import io.hustler.qtzy.ui.utils.InternetUtils;
 import io.hustler.qtzy.ui.utils.PermissionUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import static android.view.View.GONE;
 import static io.hustler.qtzy.ui.utils.FileUtils.savetoDeviceWithAds;

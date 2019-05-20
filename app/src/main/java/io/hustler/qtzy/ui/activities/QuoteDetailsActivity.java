@@ -247,18 +247,18 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void removeFavourite() {
-//        new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
-//        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
-//        IS_LIKED_FLAG = false;
+        new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
+        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+        IS_LIKED_FLAG = false;
     }
 
     private void addFavourite() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
-//                fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
-//                IS_LIKED_FLAG = true;
+                new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
+                fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+                IS_LIKED_FLAG = true;
             }
         }).run();
 
