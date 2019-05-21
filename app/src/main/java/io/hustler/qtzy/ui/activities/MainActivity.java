@@ -659,7 +659,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @OnClick({R.id.fab, R.id.quotes_iv, R.id.wallpaer_iv, R.id.create_iv, R.id.like_iv, R.id.works_iv})
     public void onViewClicked(View view) {
-        int currentPixels;
+        int currentPixels,imageSizePixles;
         switch (view.getId()) {
             case R.id.fab:
 
@@ -739,5 +739,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
 
+    }
+
+    private void increaseimagesizeAnimation(final float start, float end, final ImageView imageView) {
+        valueAnimator = ValueAnimator.ofFloat(start, end);
+        valueAnimator.setDuration(600);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+                layoutParams.height = (int) valueAnimator.getAnimatedValue();
+
+
+            }
+        });
     }
 }
