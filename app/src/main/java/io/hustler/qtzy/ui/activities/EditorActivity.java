@@ -15,6 +15,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -114,67 +115,69 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         View.OnTouchListener,
         View.OnLongClickListener,
         RotationGestureDetector.OnRotateGestureListener {
+
     private static final int RESULT_LOAD_IMAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART = 1002;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS = 1004;
     private static final int MY_PERMISSION_REQUEST_Launch_gallery = 1007;
-    public File savedFile;
-    //    private LinearLayout main_editor_layout;
-    Window windowManager;
-    RecyclerView features_recyclerview;
-    Features_adapter features_adapter;
-    String[] itemsTo;
-    //    Varaible to give ids to  newly added items
+    private int imageFitType;
+    private int backPressCount = 0;
+    private int isFromEdit_Activity;
     int addedTextIds = 0;
-    //    Variables for moving items onTouch
     int prevX, prevY;
-    //    VIEWS FOR CURRENTLY SELECTED AND PREVIOUS
-    View selectedView;
-    StickerImageView selected_sticker, previous_sticker;
-    View previousSelcted_View;
-    View previousstate;
-    SpannableString spannableString;
-    ScaleGestureDetector scaleGestureDetector;
+    private int pointer_Id_1;
+
     float nsx, nsy, nfx, nfy;
-    private ImageView light_effect_filter_IV;
-    private RelativeLayout root_layout;
-    private ImageView imageView_background;
-    private TextView text_layout;
-    private TextView background_layout;
+    private float fx;
+    private float fy;
+
+    private boolean isHeightMeasured = false;
+
+
+    public File savedFile;
     private Quote quote;
-    private RelativeLayout quoteLayout;
-    private RelativeLayout core_editor_layout;
-    private LinearLayout text_and_bg_layout;
-    private LinearLayout close_and_done_layout;
-    private SeekBar seekBar;
-    private Button clear_button;
-    private int imagefittype;
-    private int backpressCount = 0;
+    SpannableString spannableString;
+
     private String newly_Added_Text;
     private String current_Text_feature;
     private String current_Bg_feature;
     private String current_module = null;
-    private int isFromEdit_Activity;
     private String selected_picture;
-    private boolean isHeightMeasured = false;
-    private String geust_image;
-    private RotationGestureDetector rotationGestureDetector;
-    private int pointer_Id_1;
-    private float fx;
-    private float fy;
-    //    private float sx;
-//    private float sy;
-    private LinearLayout features_layout;
+    private String guestImage;
 
-//    final int INVALIDPOINTERID = -1;
-//    int mActivePointerId = INVALIDPOINTERID;
-//    in
+
+    Window windowManager;
+    Features_adapter features_adapter;
+
+    RecyclerView featuresRecyclerview;
+    View selectedView;
+    StickerImageView selected_sticker, previous_sticker;
+    View previousselctedView;
+    View previousState;
+
+    private ImageView light_effect_filter_IV;
+    private ImageView imageView_background;
+    private TextView text_layout;
+    private TextView background_layout;
+    private SeekBar seekBar;
+    private Button clear_button;
+
+    private RelativeLayout root_layout;
+    private LinearLayout features_layout;
+    private RelativeLayout quoteLayout;
+    private RelativeLayout core_editor_layout;
+    private LinearLayout text_and_bg_layout;
+    private LinearLayout close_and_done_layout;
+
+    private RotationGestureDetector rotationGestureDetector;
+    ScaleGestureDetector scaleGestureDetector;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-//            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
+//            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(EditorActivity.this, R.drawable.rounded_rect));
 //            getWindow().setClipToOutline(true);
 //        }
         super.onCreate(savedInstanceState);
@@ -231,8 +234,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         seekBar.setContentDescription("Slide to Rotate");
         ImageView close_text_size = findViewById(R.id.close_editor_button);
 
-        features_recyclerview = findViewById(R.id.content_rv);
-        features_recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        featuresRecyclerview = findViewById(R.id.content_rv);
+        featuresRecyclerview.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
         imageView_background = findViewById(R.id.imageView_background);
 
@@ -247,7 +250,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         clear_button = findViewById(R.id.bt_clear);
         features_layout = findViewById(R.id.features_layout);
         setText_Features_rv();
-        scaleGestureDetector = new ScaleGestureDetector(getApplicationContext(), new SimpleOnscaleGestureListener());
+        scaleGestureDetector = new ScaleGestureDetector(EditorActivity.this, new SimpleOnscaleGestureListener());
         /*setting on click listners */
 //        font_module.setOnClickListener(this);
 //        background_image_module.setOnClickListener(this);
@@ -275,7 +278,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if (!isHeightMeasured) {
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).edit();
             editor.putInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, quoteLayout.getHeight());
             editor.apply();
             isHeightMeasured = true;
@@ -284,8 +287,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void setViews() {
         if (isFromEdit_Activity == 1) {
-            TextView quote_editor_body = new TextView(getApplicationContext());
-            TextView quote_editor_author = new TextView(getApplicationContext());
+            TextView quote_editor_body = new TextView(EditorActivity.this);
+            TextView quote_editor_author = new TextView(EditorActivity.this);
             quote_editor_body.setId(addedTextIds);
             addedTextIds++;
             quote_editor_author.setId(addedTextIds);
@@ -294,7 +297,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             if (quote != null) {
                 int length = quote.getQuote().length();
-                root_layout.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_light_transparent));
+                root_layout.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
 //            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
                 if (length > 230) {
                     quote_editor_body.setTextSize(20.0f);
@@ -341,13 +344,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 quote_editor_body.setOnTouchListener(EditorActivity.this);
             }
         } else if (isFromEdit_Activity == 2) {
-            if (geust_image == null) {
+            if (guestImage == null) {
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
             } else {
                 imageView_background.setBackground(null);
-                final ProgressBar progressBar = new ProgressBar(getApplicationContext());
+                final ProgressBar progressBar = new ProgressBar(EditorActivity.this);
                 progressBar.setVisibility(View.VISIBLE);
-                Glide.with(getApplicationContext()).load(geust_image).listener(new RequestListener<String, GlideDrawable>() {
+                Glide.with(EditorActivity.this).load(guestImage).listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                         progressBar.setVisibility(GONE);
@@ -361,7 +364,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         return false;
                     }
                 }).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
-                selected_picture = geust_image;
+                selected_picture = guestImage;
             }
         }
     }
@@ -419,7 +422,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             break;
             case 2: {
                 isFromEdit_Activity = 2;
-                geust_image = getIntent().getStringExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY);
+                guestImage = getIntent().getStringExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY);
 
             }
             break;
@@ -432,7 +435,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         isFromEdit_Activity = 0;
 
         File file;
-        String path = null;
         String filePath = null;
         String action = intent.getAction();
         if (Objects.equals(action, Intent.ACTION_VIEW)) {
@@ -477,9 +479,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void convertFeatures(String[] valueArray) {
-        itemsTo = valueArray;
-    }
 
     /*TOUCH LISTNER*/
     @Override
@@ -497,7 +496,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.bt_clear: {
                 if (selectedView != null) {
                     selectedView.setBackground(null);
-                    previousSelcted_View = null;
+                    previousselctedView = null;
                     selectedView = null;
                 }
                 if (selected_sticker == null) {
@@ -521,7 +520,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.close_tv: {
                 close_and_done_layout.setVisibility(GONE);
                 text_and_bg_layout.setVisibility(View.VISIBLE);
-                features_recyclerview.setVisibility(View.VISIBLE);
+                featuresRecyclerview.setVisibility(View.VISIBLE);
                 seekBar.setProgress(180);
                 seekBar.setVisibility(GONE);
                 handle_close_Feature();
@@ -532,7 +531,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.done_tv: {
                 close_and_done_layout.setVisibility(GONE);
                 text_and_bg_layout.setVisibility(View.VISIBLE);
-                features_recyclerview.setVisibility(View.VISIBLE);
+                featuresRecyclerview.setVisibility(View.VISIBLE);
                 seekBar.setVisibility(GONE);
             }
             break;
@@ -541,7 +540,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (selectedView != null) {
                         selectedView.setBackground(null);
                         clear_button.setVisibility(GONE);
-                        previousSelcted_View = null;
+                        previousselctedView = null;
                         selectedView = null;
 
                     }
@@ -549,13 +548,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void onImageSaveListner(File file) {
                             savedFile = file;
-                            Toast.makeText(getApplicationContext(), "File Saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditorActivity.this, "File Saved", Toast.LENGTH_SHORT).show();
                             show_post_save_dialog(EditorActivity.this, savedFile);
 
                         }
                     });
                     if (savedFile != null) {
-                        Toast.makeText(getApplicationContext(), "File Already Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditorActivity.this, "File Already Saved", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     requestAppPermissions_to_save_to_gallery();
@@ -573,7 +572,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 Uri uri = null;
                 if (savedFile != null) {
                     if (Build.VERSION.SDK_INT >= 24) {
-                        uri = FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), savedFile);
+                        uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), savedFile);
                     } else {
                         uri = Uri.fromFile(savedFile);
                     }
@@ -586,7 +585,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                             savedFile = file;
                             Uri uri1 = null;
                             if (Build.VERSION.SDK_INT >= 24) {
-                                uri1 = FileProvider.getUriForFile(getApplicationContext(), getString(R.string.file_provider_authority), savedFile);
+                                uri1 = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), savedFile);
                             } else {
                                 uri1 = Uri.fromFile(savedFile);
                             }
@@ -604,7 +603,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         public void onPositiveselection() {
                             close_and_done_layout.setVisibility(GONE);
                             text_and_bg_layout.setVisibility(View.VISIBLE);
-                            features_recyclerview.setVisibility(View.VISIBLE);
+                            featuresRecyclerview.setVisibility(View.VISIBLE);
                             seekBar.setProgress(180);
                             seekBar.setVisibility(GONE);
                             core_editor_layout.removeView(selectedView);
@@ -647,13 +646,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void setBackground_features_rv() {
         current_module = Constants.BG;
         text_layout.setTextColor(getResources().getColor(R.color.black_overlay));
-        background_layout.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        background_layout.setTextColor(ContextCompat.getColor(EditorActivity.this, R.color.colorPrimary));
         background_layout.setTextSize(16.0f);
         text_layout.setTextSize(12.0f);
-        features_recyclerview.setAdapter(null);
-        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
+        featuresRecyclerview.setAdapter(null);
+        featuresRecyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
 
-        convertFeatures(getResources().getStringArray(R.array.Background_features));
         features_adapter = new Features_adapter(this, "Background_features", getResources().getStringArray(R.array.Background_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
             public void onItemClick(String clickedItem) {
@@ -663,8 +661,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
         }, false);
 
-        features_recyclerview.setAdapter(features_adapter);
-        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
+        featuresRecyclerview.setAdapter(features_adapter);
+        featuresRecyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
 
     }
 
@@ -675,11 +673,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         background_layout.setTextSize(12.0f);
 
         background_layout.setTextColor(getResources().getColor(R.color.black_overlay));
-        text_layout.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        text_layout.setTextColor(ContextCompat.getColor(EditorActivity.this, R.color.colorPrimary));
 
-        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
-        convertFeatures(getResources().getStringArray(R.array.Background_features));
-        features_recyclerview.setAdapter(null);
+        featuresRecyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
+        featuresRecyclerview.setAdapter(null);
 
 
         features_adapter = new Features_adapter(this, "Text_features", getResources().getStringArray(R.array.Text_features).length, new Features_adapter.OnFeature_ItemClickListner() {
@@ -689,8 +686,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
         }, true);
 
-        features_recyclerview.setAdapter(features_adapter);
-        features_recyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
+        featuresRecyclerview.setAdapter(features_adapter);
+        featuresRecyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slideup));
 
     }
 
@@ -735,7 +732,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[10])) {
             gradienteText(array);
         } else if (feature.equalsIgnoreCase(array[11])) {
-            setCanvasSize(array, PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
+            setCanvasSize(array, PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
         } else if (feature.equalsIgnoreCase(array[12])) {
             final TextView selectedTextView = (TextView) selectedView;
 
@@ -766,7 +763,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
-        sizesRv.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+        sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this, 3));
         ArrayList<Integer> myImageList = new ArrayList<>();
         myImageList.add(R.drawable.ic_1_1);
         myImageList.add(R.drawable.ic_2_3);
@@ -882,12 +879,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
         if (selected_picture != null) {
             imageView_background.setBackground(null);
-            Glide.with(getApplicationContext()).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+            Glide.with(EditorActivity.this).load(selected_picture).asBitmap().crossFade().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
         }
         dialog.dismiss();
     }
 
-    private void enable_Selected_Background_Features(String clickedItem, String[] bgfeaturesArray) {
+    private void enable_Selected_Background_Features(String clickedItem, final String[] bgfeaturesArray) {
         if (clickedItem != null) {
             if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
                 current_Bg_feature = bgfeaturesArray[0];
@@ -899,7 +896,16 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[1])) {
                 current_Bg_feature = bgfeaturesArray[1];
                 selected_picture = null;
-                colorbg(bgfeaturesArray);
+                final Handler handler = new Handler();
+                Runnable backGroundColorTask = new Runnable() {
+                    @Override
+                    public void run() {
+                        colorbg(bgfeaturesArray);
+
+                    }
+                };
+                handler.removeCallbacks(backGroundColorTask);
+                handler.post(backGroundColorTask);
 
             } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[2])) {
                 current_Bg_feature = bgfeaturesArray[2];
@@ -1007,7 +1013,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(null);
         recyclerView.setVisibility(GONE);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(EditorActivity.this, 2));
 
         String request;
         if (word == null) {
@@ -1016,7 +1022,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150" + "&order=popular";
 
         }
-        new Restutility(EditorActivity.this).getRandomImages(getApplicationContext(), new ImagesApiResponceListner() {
+        new Restutility(EditorActivity.this).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
             @Override
             public void onSuccess(List<ImagesFromPixaBay> images) {
                 progressBar.setVisibility(GONE);
@@ -1026,7 +1032,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     public void onImageClicked(String previreLink, String Biglink) {
                         selected_picture = Biglink;
                         imageView_background.setBackground(null);
-                        Glide.with(getApplicationContext()).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+                        Glide.with(EditorActivity.this).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
                         dialog.dismiss();
                     }
                 }));
@@ -1051,7 +1057,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         core_editor_layout.addView(stickerImageView);
         if (null != selected_sticker) {
             selected_sticker.setControlItemsHidden(true);
-            previousSelcted_View = selected_sticker;
+            previousselctedView = selected_sticker;
         }
         selected_sticker = stickerImageView;
         selected_sticker.setOnTouchListener(this);
@@ -1084,11 +1090,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 if (crop.getId() == radioGroup.getCheckedRadioButtonId()) {
-                    imagefittype = 1;
+                    imageFitType = 1;
                 } else if (fit.getId() == radioGroup.getCheckedRadioButtonId()) {
-                    imagefittype = 2;
+                    imageFitType = 2;
                 } else {
-                    imagefittype = 3;
+                    imageFitType = 3;
                 }
                 launchGallery();
                 dialog.cancel();
@@ -1122,9 +1128,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else {
             if (Constants.BG.equalsIgnoreCase(current_module)) {
                 if (current_Bg_feature.equalsIgnoreCase(featuresLocalArray[2]) && seekBar.getProgress() >= 0) {
-                    Glide.with(getApplicationContext()).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+                    Glide.with(EditorActivity.this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
                     if (seekBar.getProgress() == 0) {
-                        Glide.with(getApplicationContext()).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+                        Glide.with(EditorActivity.this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
                     } else {
                         imageView_background.setDrawingCacheEnabled(true);
                         imageView_background.buildDrawingCache();
@@ -1226,7 +1232,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             } else if (current_module.equalsIgnoreCase(Constants.BG)) {
                 if (current_Bg_feature.equalsIgnoreCase(getResources().getStringArray(R.array.Background_features)[2])) {
                     if (selected_picture != null) {
-                        Glide.with(getApplicationContext()).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
+                        Glide.with(EditorActivity.this).load(selected_picture).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView_background);
 
                     } else {
 
@@ -1334,13 +1340,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (newly_Added_Text.length() <= 0) {
                         addingText.setError(getString(R.string.please_enter));
                     } else {
-                        final TextView textView = new TextView(getApplicationContext());
+                        final TextView textView = new TextView(EditorActivity.this);
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
                         TextUtils.setFont(EditorActivity.this, textView, Constants.FONT_CIRCULAR);
 
-                        textView.setText(newly_Added_Text + " ");
+                        textView.setText(new StringBuilder().append(newly_Added_Text).append(" ").toString());
 
                         textView.setX(core_editor_layout.getWidth() - (core_editor_layout.getWidth() - 100));
 //                        textView.setY(core_editor_layout.getHeight() / 2);
@@ -1348,7 +1354,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, " " + textView.getId() + " ");
+                                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, new StringBuilder().append(" ").append(textView.getId()).append(" ").toString());
                             }
                         });
                         set_text_alignment(alignment[0], textView);
@@ -1408,7 +1414,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         previewText = dialog.findViewById(R.id.bt_add_bg);
         recyclerView = dialog.findViewById(R.id.color_rv);
         adView = dialog.findViewById(R.id.adView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayout.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayout.HORIZONTAL, false));
         AdUtils.loadBannerAd(adView, EditorActivity.this);
         bold = dialog.findViewById(R.id.bt_bold);
         underline = dialog.findViewById(R.id.bt_underline);
@@ -1563,7 +1569,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     if (newly_Added_Text.length() <= 0) {
                         addingText.setError(getString(R.string.please_enter));
                     } else {
-                        final TextView textView = new TextView(getApplicationContext());
+                        final TextView textView = new TextView(EditorActivity.this);
                         textView.setTextSize(20.0f);
                         textView.setTextColor(getResources().getColor(R.color.textColor));
                         textView.setMaxWidth(core_editor_layout.getWidth());
@@ -1630,11 +1636,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(GONE);
+            featuresRecyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
             text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[2];
 
 
@@ -1646,11 +1652,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(GONE);
+            featuresRecyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
             text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[3];
 
 
@@ -1662,11 +1668,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(GONE);
+            featuresRecyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
             text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[4];
 
 
@@ -1678,11 +1684,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(GONE);
+            featuresRecyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
             text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[6];
 
 
@@ -1693,11 +1699,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            features_recyclerview.setVisibility(GONE);
+            featuresRecyclerview.setVisibility(GONE);
             seekBar.setVisibility(View.VISIBLE);
             text_and_bg_layout.setVisibility(GONE);
             close_and_done_layout.setVisibility(View.VISIBLE);
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[7];
 
 
@@ -1777,7 +1783,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[8];
             TextFeatures.apply_Text_Shadow(EditorActivity.this, selectedTextView);
 
@@ -1792,7 +1798,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
             if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
-                previousstate = selectedView;
+                previousState = selectedView;
                 current_Text_feature = array[9];
                 TextFeatures.apply_font(EditorActivity.this, selectedTextView);
             } else {
@@ -1808,7 +1814,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[10];
             TextFeatures.setGradients(EditorActivity.this, selectedTextView);
         }
@@ -1819,7 +1825,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[12];
             TextFeatures.setVfx(EditorActivity.this, selectedTextView);
         }
@@ -1830,7 +1836,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         if (selectedView == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
-            previousstate = selectedView;
+            previousState = selectedView;
             current_Text_feature = array[13];
             TextFeatures.setHollowText(EditorActivity.this, selectedTextView);
         }
@@ -1862,10 +1868,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
-        final boolean[] isShadowApplied = new boolean[1];
         final TextView head_tv, demo_tv;
         RecyclerView colors_rv;
-        Button close, choose, shadow;
+        Button close, choose;
         ColorsAdapter colorsAdapter;
         final int[] choosen_color = new int[1];
 
@@ -1875,7 +1880,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         colors_rv = dialog.findViewById(R.id.colors_rv);
         close = dialog.findViewById(R.id.bt_color_close);
         choose = dialog.findViewById(R.id.bt_color_choose);
-        shadow = dialog.findViewById(R.id.bt_color_shadow);
         adView = dialog.findViewById(R.id.adView);
         TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
@@ -1956,7 +1960,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
         AdUtils.loadBannerAd(adView, EditorActivity.this);
-        colorsRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
         TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
         colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {
             @Override
@@ -2050,23 +2054,23 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void blurrImage(String[] bgfeaturesArray) {
-        features_recyclerview.setVisibility(GONE);
+        featuresRecyclerview.setVisibility(GONE);
         seekBar.setVisibility(View.VISIBLE);
         text_and_bg_layout.setVisibility(GONE);
         close_and_done_layout.setVisibility(View.VISIBLE);
     }
 
     private void applyBlackFilter() {
-        light_effect_filter_IV.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_dark_transparent));
-        features_recyclerview.setVisibility(GONE);
+        light_effect_filter_IV.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_dark_transparent));
+        featuresRecyclerview.setVisibility(GONE);
         seekBar.setVisibility(View.VISIBLE);
         text_and_bg_layout.setVisibility(GONE);
         close_and_done_layout.setVisibility(View.VISIBLE);
     }
 
     private void applyWhiteFilter() {
-        light_effect_filter_IV.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.screen_background_light_transparent));
-        features_recyclerview.setVisibility(GONE);
+        light_effect_filter_IV.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
+        featuresRecyclerview.setVisibility(GONE);
         seekBar.setVisibility(View.VISIBLE);
         text_and_bg_layout.setVisibility(GONE);
         close_and_done_layout.setVisibility(View.VISIBLE);
@@ -2077,7 +2081,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //        if (selectedView == null) {
 //            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
 //        } else {
-//            previousstate = selectedView;
+//            previousState = selectedView;
 //        }
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
@@ -2131,14 +2135,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //                Toast_Snack_Dialog_Utils.show_ShortToast(this, "ACTIVITY NOT FOUND");
 //            }
 
-            if (imagefittype == 3) {
-                Glide.with(getApplicationContext()).load(picturepath).asBitmap().crossFade().into(imageView_background);
+            if (imageFitType == 3) {
+                Glide.with(EditorActivity.this).load(picturepath).asBitmap().crossFade().into(imageView_background);
 
-            } else if (imagefittype == 2) {
-                Glide.with(getApplicationContext()).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
+            } else if (imageFitType == 2) {
+                Glide.with(EditorActivity.this).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
 
             } else {
-                Glide.with(getApplicationContext()).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
+                Glide.with(EditorActivity.this).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
 
             }
 //            ImageView imageView = new ImageView(EditorActivity.this);
@@ -2154,7 +2158,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             Bitmap bitmap = data.getExtras().getParcelable("data");
 //            ImageView im_crop = (ImageView) findViewById(R.id.im_crop);
 //            im_crop.setImageBitmap(bitmap);
-//            Glide.with(getApplicationContext()).load(bitmap).asBitmap().crossFade().into(imageView_background);
+//            Glide.with(EditorActivity.this).load(bitmap).asBitmap().crossFade().into(imageView_background);
             imageView_background.setImageBitmap(bitmap);
 
         }
@@ -2196,9 +2200,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        backpressCount++;
+        backPressCount++;
 
-        if (backpressCount >= 2) {
+        if (backPressCount >= 2) {
             this.finish();
             overridePendingTransition(R.anim.slideup, R.anim.slidedown);
         } else {
@@ -2314,7 +2318,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void handleTouchForStickerView(StickerImageView v) {
         if (selected_sticker != null) {
             selected_sticker.setControlItemsHidden(true);
-            previousSelcted_View = selected_sticker;
+            previousselctedView = selected_sticker;
             selected_sticker = v;
             clear_button.setVisibility(View.VISIBLE);
             ((StickerImageView) selected_sticker).setControlItemsHidden(false);
@@ -2328,15 +2332,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void handleTouchForTextView(View v) {
-        if (previousSelcted_View != null) {
-            previousSelcted_View.setBackground(null);
-            previousSelcted_View = v;
+        if (previousselctedView != null) {
+            previousselctedView.setBackground(null);
+            previousselctedView = v;
             clear_button.setVisibility(View.VISIBLE);
-            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
         } else {
             clear_button.setVisibility(View.VISIBLE);
-            previousSelcted_View = v;
-            selectedView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_bg));
+            previousselctedView = v;
+            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
         }
     }
 

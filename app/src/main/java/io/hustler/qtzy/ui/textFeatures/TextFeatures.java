@@ -46,6 +46,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.CustomSpan.HollowSpan;
 import io.hustler.qtzy.ui.activities.EditorActivity;
@@ -60,11 +66,6 @@ import io.hustler.qtzy.ui.utils.AnimUtils;
 import io.hustler.qtzy.ui.utils.InternetUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static android.view.View.GONE;
 
@@ -290,14 +291,9 @@ public class TextFeatures {
         AdView adView;
 
         ScrollView root;
-        TextView tvAppFonts;
         final TextView demoText;
         RecyclerView rvAppFont;
-        LinearLayout root2;
-        TextView tvSymbolFonts;
         RecyclerView rvDownloadedFont;
-        LinearLayout root3;
-        TextView tvDownloadedFonts;
         RecyclerView rvGoogleFont;
         Button btShadowClose;
         final AutoCompleteTextView searchBox;
@@ -312,13 +308,8 @@ public class TextFeatures {
 
 
         root = dialog.findViewById(R.id.root);
-        root2 = dialog.findViewById(R.id.root2);
-        root3 = dialog.findViewById(R.id.root3);
 
-        tvAppFonts = dialog.findViewById(R.id.tv_app_fonts);
         demoText = dialog.findViewById(R.id.tv_demo_text);
-        tvSymbolFonts = dialog.findViewById(R.id.tv_symbol_fonts);
-        tvDownloadedFonts = dialog.findViewById(R.id.tv_downloaded_fonts);
         adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, editorActivity);
         rvGoogleFont = dialog.findViewById(R.id.rv_downloaded_font);

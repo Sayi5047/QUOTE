@@ -58,7 +58,6 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
     @Override
     public void onBindViewHolder(final GoogleFontsAdapter.FontItemViewHolder holder, final int position) {
 
-//        holder.tv.setTypeface(Typeface.createFromFile(items[position]));
         holder.tv.setText(items[position]);
 
 
