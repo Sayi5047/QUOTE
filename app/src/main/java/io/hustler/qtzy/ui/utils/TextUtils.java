@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -44,7 +46,7 @@ import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class TextUtils {
-    public static void setFont(final Activity activity, final TextView tv, final String fontname) {
+    public static void setFont(@Nullable final Activity activity, @NonNull final TextView tv, final String fontname) {
         if (null != activity) {
             final android.os.Handler mHideHandler = new Handler();
             Runnable fontRunner = new Runnable() {
@@ -59,7 +61,7 @@ public class TextUtils {
         }
     }
 
-    public static void setFont(Activity activity, StickerTextView tv, String fontname) {
+    public static void setFont(@Nullable Activity activity, @NonNull StickerTextView tv, String fontname) {
         if (null != activity) {
             tv.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
         }
@@ -73,6 +75,7 @@ public class TextUtils {
         et.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
     }
 
+    @Nullable
     public static String getArrayItem_of_String(Activity activity, String name, int index) {
         int arrayid;
         arrayid = activity.getResources().getIdentifier(name, "array", activity.getApplicationContext().getPackageName());
@@ -88,25 +91,32 @@ public class TextUtils {
         tv.setShadowLayer(raduis, x, y, color);
     }
 
-    public static void findText_and_applyTypeface(ViewGroup viewGroup, Activity activity) {
-        int childcount = viewGroup.getChildCount();
-        for (int i = 0; i < childcount; i++) {
-            View view = viewGroup.getChildAt(i);
-            if (view instanceof ViewGroup) {
-                findText_and_applyTypeface((ViewGroup) view, activity);
-            } else if (view instanceof TextView) {
-                setFont(activity, ((TextView) view), FONT_CIRCULAR);
-            } else if (view instanceof EditText) {
-                setEdit_Font(activity, ((EditText) view), FONT_CIRCULAR);
-            } else if (view instanceof Button) {
-                setFont(activity, ((TextView) view), FONT_CIRCULAR);
-            } else if (view instanceof RadioButton) {
-                set_Radio_font(activity, ((RadioButton) view), FONT_CIRCULAR);
+    public static void findText_and_applyTypeface(final ViewGroup viewGroup, @NonNull final Activity activity) {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+
+
+                int childcount = viewGroup.getChildCount();
+                for (int i = 0; i < childcount; i++) {
+                    View view = viewGroup.getChildAt(i);
+                    if (view instanceof ViewGroup) {
+                        findText_and_applyTypeface((ViewGroup) view, activity);
+                    } else if (view instanceof TextView) {
+                        setFont(activity, ((TextView) view), FONT_CIRCULAR);
+                    } else if (view instanceof EditText) {
+                        setEdit_Font(activity, ((EditText) view), FONT_CIRCULAR);
+                    } else if (view instanceof Button) {
+                        setFont(activity, ((TextView) view), FONT_CIRCULAR);
+                    } else if (view instanceof RadioButton) {
+                        set_Radio_font(activity, ((RadioButton) view), FONT_CIRCULAR);
+                    }
+                }
             }
-        }
+        });
     }
 
-    public static void findText_and_applycolor(ViewGroup viewGroup, Activity activity, Palette.Swatch swatch) {
+    public static void findText_and_applycolor(ViewGroup viewGroup, Activity activity, @Nullable Palette.Swatch swatch) {
         int childcount = viewGroup.getChildCount();
         for (int i = 0; i < childcount; i++) {
             View view = viewGroup.getChildAt(i);
@@ -194,7 +204,7 @@ public class TextUtils {
         }
     }
 
-    private static void setFont_For_menu(MenuItem subMenu, Activity activity) {
+    private static void setFont_For_menu(@NonNull MenuItem subMenu, @Nullable Activity activity) {
         try {
             if (null != activity) {
                 Typeface typeface = Typeface.createFromAsset(activity.getResources().getAssets(), FONT_CIRCULAR);

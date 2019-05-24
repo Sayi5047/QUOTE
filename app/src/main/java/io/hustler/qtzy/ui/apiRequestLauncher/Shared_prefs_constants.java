@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.apiRequestLauncher;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Sayi on 23-02-2018.
  */
@@ -18,6 +20,8 @@ package io.hustler.qtzy.ui.apiRequestLauncher;
    limitations under the License.*/
 public class Shared_prefs_constants {
 
+    @NonNull
     public static String SHARED_PREFS_IMAGE_SERVICES_RUNNING_KEY = "sahred_prefs_image_service_running_key";
+    @NonNull
     public static String SHARED_PREFS_NOTIFICATION_SERVICES_RUNNING_KEY = "sahred_prefs_notification_service_running_key";
 }

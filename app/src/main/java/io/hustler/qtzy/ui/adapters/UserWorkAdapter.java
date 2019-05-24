@@ -3,6 +3,8 @@ package io.hustler.qtzy.ui.adapters;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -42,13 +44,16 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
     String[] paths;
     String[] imageNames;
     OnImageClickListner onImageClickListner;
+    @Nullable
     Palette.Swatch swatch;
 
 
+    @NonNull
     ArrayList<String> pathsList = new ArrayList<>();
+    @NonNull
     ArrayList<String> namespathsList = new ArrayList<>();
 
-    public UserWorkAdapter(Activity activity, String[] paths, String[] imageNames, OnImageClickListner onImageClickListner) {
+    public UserWorkAdapter(Activity activity, @NonNull String[] paths, @NonNull String[] imageNames, OnImageClickListner onImageClickListner) {
         this.activity = activity;
         this.paths = paths;
         this.imageNames = imageNames;
@@ -83,13 +88,14 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
         void onImageClickListneer( int position, String imageName, String imagepath);
     }
 
+    @NonNull
     @Override
     public UserWorkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new UserWorkViewHolder(activity.getLayoutInflater().inflate(R.layout.user_work_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(UserWorkViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull UserWorkViewHolder holder, final int position) {
         Glide.with(activity).load(paths[position]).asBitmap().centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.iv);
 //        updateBgColors(holder, position);
         holder.tv.setText(imageNames[position]);
@@ -103,12 +109,13 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
         });
     }
 
-    private Palette.Swatch updateBgColors(final UserWorkViewHolder holder, final int position) {
+    @Nullable
+    private Palette.Swatch updateBgColors(@NonNull final UserWorkViewHolder holder, final int position) {
         swatch = new Palette.Swatch(0, 0);
 
         Palette.from(BitmapFactory.decodeFile(pathsList.get(position))).generate(new Palette.PaletteAsyncListener() {
             @Override
-            public void onGenerated(Palette palette) {
+            public void onGenerated(@NonNull Palette palette) {
                 swatch = palette.getVibrantSwatch();
                 if (swatch == null) {
                     swatch = palette.getDominantSwatch();
@@ -142,7 +149,7 @@ public class UserWorkAdapter extends RecyclerView.Adapter<UserWorkAdapter.UserWo
         TextView tv;
         CardView rootCard;
 
-        public UserWorkViewHolder(View itemView) {
+        public UserWorkViewHolder(@NonNull View itemView) {
             super(itemView);
             iv = itemView.findViewById(R.id.user_work_iv);
             tv = itemView.findViewById(R.id.user_work_name_tv);

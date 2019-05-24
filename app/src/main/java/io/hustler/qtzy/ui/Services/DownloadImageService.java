@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -58,6 +59,7 @@ import static io.hustler.qtzy.ui.utils.FileUtils.getImageContent;
 public class DownloadImageService extends Service {
 
     android.support.v4.app.NotificationCompat.Builder mNotification_Builder;
+    @Nullable
     NotificationManager mNotificationManager;
     NotifcationReciever mNotification_Reciever;
     String mFileName;
@@ -74,7 +76,7 @@ public class DownloadImageService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(@NonNull Intent intent, int flags, int startId) {
         String url;
         url = intent.getStringExtra(Constants.ImageUrl_to_download);
         mFileName = intent.getStringExtra(Constants.Image_Name_to_save_key);
@@ -145,6 +147,7 @@ public class DownloadImageService extends Service {
 
         }
 
+        @Nullable
         @Override
         protected Void doInBackground(final String... params) {
 

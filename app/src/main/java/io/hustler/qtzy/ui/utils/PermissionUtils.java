@@ -3,6 +3,7 @@ package io.hustler.qtzy.ui.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
 /**
@@ -22,7 +23,7 @@ import android.support.v4.content.ContextCompat;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class PermissionUtils {
-    public static boolean isPermissionAvailable(Activity activity) {
+    public static boolean isPermissionAvailable(@NonNull Activity activity) {
         return !((ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
                 &&
                 (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED));

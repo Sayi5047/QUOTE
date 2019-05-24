@@ -1,6 +1,7 @@
 package io.hustler.qtzy.ui.adapters;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +35,7 @@ public class Font_pager_adapter extends FragmentPagerAdapter {
         this.activity = activity;
     }
 
+    @Nullable
     @Override
     public Fragment getItem(int position) {
         DialogFragment return_fragment = null;

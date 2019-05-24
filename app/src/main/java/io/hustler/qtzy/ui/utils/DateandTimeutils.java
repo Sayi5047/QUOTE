@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.utils;
 
+import android.support.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -26,7 +28,7 @@ public class DateandTimeutils {
     public static final String DATE_FORMAT_3 = "dd-MMM-yyyy";
     public static final String DATE_FORMAT_4 = "dd MMM yyyy";
 
-    public static String convertDate(long timestamp, String format) {
+    public static String convertDate(long timestamp, @NonNull String format) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateformat = new SimpleDateFormat(format, Locale.getDefault());
         calendar.setTimeInMillis(timestamp);

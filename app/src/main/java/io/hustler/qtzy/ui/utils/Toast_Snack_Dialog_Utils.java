@@ -3,6 +3,7 @@ package io.hustler.qtzy.ui.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 /**
@@ -39,17 +40,17 @@ public class Toast_Snack_Dialog_Utils {
 
     }
 
-    public static void createDialog(Activity activity, String title, String message, String negative, String positive, final Alertdialoglistener alertdialoglistener) {
+    public static void createDialog(Activity activity, String title, String message, String negative, String positive, @NonNull final Alertdialoglistener alertdialoglistener) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity)
                 .setTitle(title).setMessage(message).setPositiveButton(positive, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(@NonNull DialogInterface dialog, int which) {
                         alertdialoglistener.onPositiveselection();
                         dialog.dismiss();
                     }
                 }).setNegativeButton(negative, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(@NonNull DialogInterface dialog, int which) {
                         alertdialoglistener.onNegativeSelection();
                         dialog.dismiss();
                     }

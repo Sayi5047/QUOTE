@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo.unspalsh;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -157,6 +159,7 @@ public class User implements Serializable {
         this.twitter_username = twitter_username;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ClassPojo [location = " + location + ", portfolio_url = " + portfolio_url + ", profile_image = " + profile_image + ", links = " + links + ", total_photos = " + total_photos + ", total_likes = " + total_likes + ", id = " + id + ", first_name = " + first_name + ", username = " + username + ", updated_at = " + updated_at + ", bio = " + bio + ", name = " + name + ", total_collections = " + total_collections + ", last_name = " + last_name + ", twitter_username = " + twitter_username + "]";

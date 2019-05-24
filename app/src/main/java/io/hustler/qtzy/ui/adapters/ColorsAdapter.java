@@ -3,6 +3,7 @@ package io.hustler.qtzy.ui.adapters;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -51,13 +52,14 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorViewH
         void onColorClick(int color);
     }
 
+    @NonNull
     @Override
     public ColorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ColorViewHolder(activity.getLayoutInflater().inflate((R.layout.color_layout), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ColorViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ColorViewHolder holder, final int position) {
 //        DrawableCompat.setTint(holder.imageView.getDrawable(), ContextCompat.getColor(activity,colors[position]));
 //        holder.imageView.setBackground(new ColorDrawable(colors[position]));
         holder.imageView.setColorFilter(colors[position], PorterDuff.Mode.SRC_ATOP);
@@ -90,7 +92,7 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorViewH
     public class ColorViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        public ColorViewHolder(View itemView) {
+        public ColorViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.bt_color);
         }

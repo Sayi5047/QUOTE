@@ -67,7 +67,7 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
 
         rv_imag_no_fv.setAdapter(new FavWallpaperAdapter(getActivity(), imageLists[0], new FavWallpaperAdapter.OnWallpaperClickListener() {
             @Override
-            public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+            public void onWallpaperClicked(int position, @NonNull Unsplash_Image wallpaper) {
                 ArrayList<Unsplash_Image> images1=new ArrayList<Unsplash_Image>();
                 for (int i = 0; i < imageLists[0].size(); i++) {
                     images1.add(imageLists[0].get(i));

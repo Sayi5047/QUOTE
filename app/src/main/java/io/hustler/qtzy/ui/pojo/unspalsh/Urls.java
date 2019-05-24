@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo.unspalsh;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -67,6 +69,7 @@ public class Urls implements Serializable {
         this.small = small;
     }
 
+    @NonNull
     @Override
     public String toString()
     {

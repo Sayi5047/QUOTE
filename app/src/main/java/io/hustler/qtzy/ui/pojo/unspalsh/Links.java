@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo.unspalsh;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -66,6 +68,7 @@ public class Links implements Serializable {
         this.self = self;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ClassPojo [download_location = " + download_location + ", download = " + download + ", html = " + html + ", self = " + self + "]";

@@ -162,6 +162,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
         android.support.v4.app.FragmentManager fragmentManager;
         Context context;
         String[] titles;
+        @NonNull
         int[] images = {R.mipmap.ic_launcher, R.drawable.ic_collection, R.drawable.ic_canvas, R.drawable.ic_font_size, R.drawable.ic_infinite};
 
         String[] descriptions;
@@ -179,11 +180,13 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
             return 5;
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return getOnBoardFragment(position);
         }
 
+        @NonNull
         private Fragment getOnBoardFragment(int position) {
             OnBoardFragment onBoardFragment = new OnBoardFragment();
             onBoardFragment.title = titles[position];
@@ -211,7 +214,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
             View view = inflater.inflate(R.layout.onboard_layout, container, false);
             if (imageresource != 0) {
@@ -270,7 +273,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences, @NonNull String key) {
             if (key.equals(Constants.COLOUR_KEY)) {
                 imageView.getDrawable().setColorFilter(sharedPreferences.getInt(Constants.COLOUR_KEY, Color.WHITE), PorterDuff.Mode.SRC_IN);
                 image.getBackground().setColorFilter(sharedPreferences.getInt(Constants.PREVIOUS_COLOR, Color.WHITE), PorterDuff.Mode.SRC_IN);

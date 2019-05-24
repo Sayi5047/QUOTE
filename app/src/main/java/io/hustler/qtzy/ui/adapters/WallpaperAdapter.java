@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,11 +42,12 @@ import java.util.ArrayList;
 public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Adapter<WallpaperAdapter.WallpaperViewholder> {
     Activity context;
     private boolean isLoadingAdded = false;
+    @NonNull
     static ArrayList<Unsplash_Image> m_AL_Images = new ArrayList<>();
     Unsplash_Image[] images;
     OnWallpaperClickListener onimageClickListener;
 
-    public WallpaperAdapter(Activity context, Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener, int from_which_activity) {
+    public WallpaperAdapter(Activity context, @NonNull Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener, int from_which_activity) {
         this.context = context;
         this.images = images;
         this.onimageClickListener = onimageClickListener;
@@ -55,7 +57,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
 
     int from_which_activity;
 
-    public WallpaperAdapter(Activity context, Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
+    public WallpaperAdapter(Activity context, @NonNull Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
         this.context = context;
         this.images = images;
         this.onimageClickListener = onimageClickListener;
@@ -63,7 +65,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         convertToArraYList(images);
     }
 
-    public void addItems(Unsplash_Image[] images) {
+    public void addItems(@NonNull Unsplash_Image[] images) {
         for (int i = 0; i < images.length; i++) {
             m_AL_Images.add(images[i]);
         }
@@ -88,6 +90,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
 
     }
 
+    @NonNull
     @Override
     public WallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (from_which_activity == 3) {
@@ -100,7 +103,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
     }
 
     @Override
-    public void onBindViewHolder(final WallpaperAdapter.WallpaperViewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull final WallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
         if (null != context) {
             Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
@@ -194,7 +197,7 @@ public class WallpaperAdapter extends android.support.v7.widget.RecyclerView.Ada
         ImageView wallpaper, photographer;
         TextView photoGrapher_name;
 
-        public WallpaperViewholder(View itemView) {
+        public WallpaperViewholder(@NonNull View itemView) {
             super(itemView);
             wallpaper = itemView.findViewById(R.id.wallpaper_preview);
             photographer = itemView.findViewById(R.id.photographer_image);

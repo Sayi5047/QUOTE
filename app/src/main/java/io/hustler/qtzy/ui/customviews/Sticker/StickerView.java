@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -42,17 +43,17 @@ public abstract class StickerView extends FrameLayout {
 
 
 
-    public StickerView(Context context) {
+    public StickerView(@NonNull Context context) {
         super(context);
         init(context);
     }
 
-    public StickerView(Context context, AttributeSet attrs) {
+    public StickerView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public StickerView(Context context, AttributeSet attrs, int defStyle) {
+    public StickerView(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
@@ -155,9 +156,10 @@ public abstract class StickerView extends FrameLayout {
 
     protected abstract View getMainView();
 
+    @NonNull
     private OnTouchListener mTouchListener = new OnTouchListener() {
         @Override
-        public boolean onTouch(View view, MotionEvent event) {
+        public boolean onTouch(View view, @NonNull MotionEvent event) {
 
             if(view.getTag().equals("DraggableViewGroup")) {
                 switch (event.getAction()) {
@@ -294,6 +296,7 @@ public abstract class StickerView extends FrameLayout {
         return Math.sqrt(Math.pow(y2-y1, 2)+Math.pow(x2-x1, 2));
     }
 
+    @NonNull
     private float[] getRelativePos(float absX, float absY){
         Log.v("ken", "getRelativePos getX:"+((View)this.getParent()).getX());
         Log.v("ken", "getRelativePos getY:"+((View)this.getParent()).getY());
@@ -343,7 +346,7 @@ public abstract class StickerView extends FrameLayout {
         }
 
         @Override
-        protected void onDraw(Canvas canvas) {
+        protected void onDraw(@NonNull Canvas canvas) {
             super.onDraw(canvas);
             // Draw sticker border
 
@@ -352,10 +355,10 @@ public abstract class StickerView extends FrameLayout {
             Log.v(TAG,"params.leftMargin: "+params.leftMargin);
 
             Rect border = new Rect();
-            border.left = (int)this.getLeft()-params.leftMargin;
-            border.top = (int)this.getTop()-params.topMargin;
-            border.right = (int)this.getRight()-params.rightMargin;
-            border.bottom = (int)this.getBottom()-params.bottomMargin;
+            border.left = this.getLeft() -params.leftMargin;
+            border.top = this.getTop() -params.topMargin;
+            border.right = this.getRight() -params.rightMargin;
+            border.bottom = this.getBottom() -params.bottomMargin;
             Paint borderPaint = new Paint();
             borderPaint.setStrokeWidth(6);
             borderPaint.setColor(Color.WHITE);

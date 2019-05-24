@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -29,7 +30,7 @@ import io.hustler.qtzy.R;
    limitations under the License.*/
 public class AnimUtils {
 
-    public static void revealCircular(FloatingActionButton floatingActionButton, final DialogInterface dialog, View dialog_layout, boolean isDialog_Starting) {
+    public static void revealCircular(FloatingActionButton floatingActionButton, @NonNull final DialogInterface dialog, View dialog_layout, boolean isDialog_Starting) {
 
         final View view = dialog_layout.findViewById(R.id.dialog);
         int width = view.getWidth();
@@ -68,6 +69,7 @@ public class AnimUtils {
         }
     }
 
+    @NonNull
     public static GradientDrawable createDrawable(int color1, int color2, Activity activity){
         int defaultcolor=activity.getResources().getColor(android.R.color.transparent);
         color1=color1==0?defaultcolor:color1;

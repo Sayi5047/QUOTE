@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.Widgets;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -32,7 +33,7 @@ public class RotationGestureDetector {
         pointer_ID_2 = INVALID_POINTER_ID;
     }
 
-    public boolean onTouchEvent(MotionEvent motionEvent) {
+    public boolean onTouchEvent(@NonNull MotionEvent motionEvent) {
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
                 pointer_Id_1 = motionEvent.getPointerId(motionEvent.getActionIndex());

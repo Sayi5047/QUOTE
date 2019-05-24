@@ -16,6 +16,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -105,12 +107,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     final String QUOTES = "quotes";
     private AdView mAdView;
     String query;
+    @Nullable
     LocalAdapter adapter;
     Menu menu;
     Intent alarm_intent, notif_alarm_intent;
+    @Nullable
     AlarmManager alarmManager;
     boolean service_Started;
     PendingIntent pendingIntent, notif_pending_intent;
+    @NonNull
     int[] icons = new int[]{R.drawable.ic_library, R.drawable.ic_launcher, R.drawable.ic_picture,
 
             R.drawable.ic_lover, R.drawable.ic_canvas2};
@@ -164,7 +169,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tabLayout.getTabAt(4).getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(@NonNull TabLayout.Tab tab) {
                 tab.getIcon().clearColorFilter();
 //                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(60, 60); //set new width & Height
 //                params.gravity = Gravity.CENTER;
@@ -173,7 +178,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public void onTabUnselected(@NonNull TabLayout.Tab tab) {
                 tab.getIcon().setColorFilter(ContextCompat.getColor(HomeActivity.this, R.color.black_overlay), PorterDuff.Mode.DST_IN);
             }
 
@@ -281,7 +286,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void onNewIntent(@NonNull Intent intent) {
         getIntentData(intent);
     }
 
@@ -438,7 +443,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         });
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
 
@@ -454,13 +459,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, final RadioGroup radioGroup, final LinearLayout search_header, final TextView search_term) {
+    private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, @NonNull final RadioGroup radioGroup, @NonNull final LinearLayout search_header, @NonNull final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
         final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
         new Restutility(HomeActivity.this).getUnsplash_Collections_Images(HomeActivity.this, new Unsplash_Image_collection_response_listener() {
             @Override
-            public void onSuccess(final UnsplashImages_Collection_Response response) {
+            public void onSuccess(@NonNull final UnsplashImages_Collection_Response response) {
 
                 loader.setVisibility(GONE);
                 rv.setAdapter(null);
@@ -510,7 +515,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, RadioGroup radioGroup, LinearLayout search_header, TextView searchTerm) {
+    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -537,7 +542,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             loader.setVisibility(GONE);
             adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
@@ -610,7 +615,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search: {
@@ -684,7 +689,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         TextUtils.findText_and_applyamim_slideup(root, HomeActivity.this);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, HomeActivity.this);
                     dialog.dismiss();

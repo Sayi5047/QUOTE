@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -63,7 +64,7 @@ public class UserFavuritesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_fav_layout, container, false);
         viewPager = view.findViewById(R.id.fav_viewPager);
         tabLayout = view.findViewById(R.id.fav_tabLayout);
@@ -113,7 +114,7 @@ public class UserFavuritesFragment extends Fragment {
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+            public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))
                        ).toBundle();
@@ -134,7 +135,7 @@ public class UserFavuritesFragment extends Fragment {
         }));
         rv_imag_no_fv.setAdapter(new FavWallpaperAdapter(getActivity(), imageLists[0], new FavWallpaperAdapter.OnWallpaperClickListener() {
             @Override
-            public void onWallpaperClicked(int position, Unsplash_Image wallpaper) {
+            public void onWallpaperClicked(int position, @NonNull Unsplash_Image wallpaper) {
                 images[0] = new Unsplash_Image[imageLists[0].size()];
                 for (int i = 0; i < images[0].length; i++) {
                     images[0][i] = imageLists[0].get(i);

@@ -58,6 +58,7 @@ public class MainFeatureADapter extends RecyclerView.Adapter<MainFeatureADapter.
         });
     }
 
+    @NonNull
     private GradientDrawable createDrawable(FeatureViewholder holder) {
         int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
         int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
@@ -85,7 +86,7 @@ public class MainFeatureADapter extends RecyclerView.Adapter<MainFeatureADapter.
         TextView textView;
         CardView cardView;
 
-        public FeatureViewholder(View itemView) {
+        public FeatureViewholder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text);
             TextUtils.setFont(activity,textView, Constants.FONT_CIRCULAR);

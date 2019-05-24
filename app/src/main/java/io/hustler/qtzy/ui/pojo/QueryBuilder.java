@@ -31,11 +31,13 @@ public class QueryBuilder {
         mFamilyName = familyName;
     }
 
+    @NonNull
     public QueryBuilder withFamilyName(@NonNull String familyName) {
         mFamilyName = familyName;
         return this;
     }
 
+    @NonNull
     public  QueryBuilder withWidth(float width) {
         if (width <= Constants.WIDTH_MIN) {
             throw new IllegalArgumentException("Width must be more than 0");
@@ -44,6 +46,7 @@ public class QueryBuilder {
         return this;
     }
 
+    @NonNull
     public QueryBuilder withWeight(int weight) {
         if (weight <= Constants.WEIGHT_MIN || weight >= Constants.WEIGHT_MAX) {
             throw new IllegalArgumentException(
@@ -53,6 +56,7 @@ public class QueryBuilder {
         return this;
     }
 
+    @NonNull
     public  QueryBuilder withItalic(float italic) {
         if (italic < Constants.ITALIC_MIN || italic > Constants.ITALIC_MAX) {
             throw new IllegalArgumentException("Italic must be between 0 and 1 (inclusive)");
@@ -61,11 +65,13 @@ public class QueryBuilder {
         return this;
     }
 
+    @NonNull
     public  QueryBuilder withBestEffort(boolean bestEffort) {
         mBesteffort = bestEffort;
         return this;
     }
 
+    @NonNull
     public  String build() {
         if (mWeight == null && mWidth == null && mItalic == null && mBesteffort == null) {
             return mFamilyName;

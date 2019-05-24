@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import io.hustler.qtzy.R;
@@ -39,7 +41,9 @@ public class ProfeaturesActivity extends BaseActivity implements SharedPreferenc
     public SharedPreferences sharedPreferences;
     Intent alarm_intent, notif_alarm_intent;
     PendingIntent pendingIntent, notif_pending_intent;
+    @Nullable
     AlarmManager alarmManager;
+    @Nullable
     JobScheduler mJobScheduler;
 
     @Override
@@ -77,7 +81,7 @@ public class ProfeaturesActivity extends BaseActivity implements SharedPreferenc
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences, @NonNull String key) {
         if (key.equals(getString(R.string.DWL_key1))) {
             boolean val = sharedPreferences.getBoolean(key, false);
             if (val) {

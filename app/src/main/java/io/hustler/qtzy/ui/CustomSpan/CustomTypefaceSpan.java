@@ -2,6 +2,7 @@ package io.hustler.qtzy.ui.CustomSpan;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
 
@@ -19,16 +20,16 @@ public class CustomTypefaceSpan extends TypefaceSpan {
     }
 
     @Override
-    public void updateDrawState(TextPaint ds) {
+    public void updateDrawState(@NonNull TextPaint ds) {
         applyCustomTypeFace(ds, newType);
     }
 
     @Override
-    public void updateMeasureState(TextPaint paint) {
+    public void updateMeasureState(@NonNull TextPaint paint) {
         applyCustomTypeFace(paint, newType);
     }
 
-    private static void applyCustomTypeFace(Paint paint, Typeface tf) {
+    private static void applyCustomTypeFace(Paint paint, @NonNull Typeface tf) {
         int oldStyle;
         Typeface old = paint.getTypeface();
         if (old == null) {

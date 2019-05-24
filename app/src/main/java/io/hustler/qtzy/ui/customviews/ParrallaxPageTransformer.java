@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.customviews;
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ public class ParrallaxPageTransformer implements ViewPager.PageTransformer {
 
 
     @Override
-    public void transformPage(View page, float position) {
+    public void transformPage(@NonNull View page, float position) {
         View parralexView = page.findViewById(id);
         View parralexView2 = page.findViewById(id2);
         View parralexView3 = page.findViewById(id3);

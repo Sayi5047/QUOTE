@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -48,12 +49,12 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(@NonNull SQLiteDatabase db) {
         db.execSQL(Contract.Quotes.SQL_CREATE_ENTRIES);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(Contract.Quotes.SQL_DELETE_TABLE);
         onCreate(db);
     }
@@ -64,7 +65,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     }
 
     /*ADD QUOTE ONE BY ONE*/
-    public void addQuote(Quote quote) {
+    public void addQuote(@NonNull Quote quote) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -81,6 +82,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     }
 
     /*GETTING ALL QUOTES AT ONCE*/
+    @NonNull
     public List<Quote> getAllQuotes() {
         List<Quote> allQuotes = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -103,6 +105,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         return allQuotes;
     }
 
+    @NonNull
     public List<Quote> getAllQuotesLimited() {
         List<Quote> allQuotes = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -133,6 +136,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     }
 
     /*GETTER METHODS FOR SEARCH QURIES*/
+    @NonNull
     public List<Quote> getQuotesByCategory(String category) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -169,6 +173,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
     }
 
+    @NonNull
     public List<Quote> getQuotesBystring(String query) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -207,6 +212,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
     }
 
+    @NonNull
     public List<Quote> getQuotesByAuthor(String author_Name) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -244,6 +250,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
     }
 
+    @NonNull
     public List<Quote> getQuotesByLanguage(String language_name) {
         List<Quote> categorised_Quotes = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -309,7 +316,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
 
 
     /*LIKE AND LIKE OPERATIONS*/
-    public int addToFavourites(Quote quote) {
+    public int addToFavourites(@NonNull Quote quote) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -325,7 +332,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
         return rows_Affected;
     }
 
-    public int removeFromFavorites(Quote quote) {
+    public int removeFromFavorites(@NonNull Quote quote) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Contract.Quotes.QUOTE_IS_LIKED, 0);
@@ -342,6 +349,7 @@ public class QuotesDbHelper extends SQLiteOpenHelper {
     }
 
     /*METHOD TO GET ALL FAVOURITE QUOTES OF USER*/
+    @NonNull
     public List<Quote> getAllFav_Quotes() {
         AbstractList<Quote> favourite_Quotes = new ArrayList<>();
 

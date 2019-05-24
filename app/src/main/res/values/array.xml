@@ -1440,7 +1440,7 @@
 
     <string-array name="allfonts">
         <item>fonts/zingcursive.otf</item>
-        <item>fonts/cstd_reg.otf</item>
+        <item>fonts/qanelasm.otf</item>
     </string-array>
     <string-array name="allfeatures">
         <item>TEXT EDITOR</item>

@@ -1,6 +1,8 @@
 package io.hustler.qtzy.ui.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,6 +33,7 @@ import io.hustler.qtzy.ui.fragments.WallpaperFragment;
    limitations under the License.*/
 public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
     Context context;
+    @NonNull
     SparseArray<Fragment> registeredFragments =new SparseArray<>();
 
     public TabsFragmentPagerAdapter(Context mContext, FragmentManager fm) {
@@ -38,6 +41,7 @@ public class TabsFragmentPagerAdapter extends FragmentPagerAdapter {
         context = mContext;
     }
 
+    @Nullable
     @Override
     public Fragment getItem(int position) {
         Fragment returning_fragment = null;

@@ -7,6 +7,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -43,7 +45,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     RelativeLayout relativeLayout;
+    @Nullable
     private String mParam1;
+    @Nullable
     private String mParam2;
 
     private RelativeLayout root;
@@ -63,6 +67,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private ImageView instagramAcnt;
     private ImageView twitter;
     private ImageView youtube;
+    @Nullable
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
     private CarouselAdapter pagerAdapter;
@@ -79,6 +84,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    @NonNull
     public static MainFragment newInstance(String param1, String param2) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
@@ -103,7 +109,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         relativeLayout = view.findViewById(R.id.root);
         findViews(view);
@@ -308,7 +314,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         return app_installed;
     }
 
-    private void setUpCarousel(ArrayList<OffLineQuotes> banners) {
+    private void setUpCarousel(@NonNull ArrayList<OffLineQuotes> banners) {
         DisplayMetrics metrics = new DisplayMetrics();
 
         if (getActivity() != null) {

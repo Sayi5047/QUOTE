@@ -28,9 +28,11 @@ public class CarouselItemFragment extends Fragment {
     ImageView imageView;
     TextView textView1, textView2;
     RelativeLayout root;
+    @Nullable
     OffLineQuotes banners;
 
 
+    @NonNull
     public static CarouselItemFragment newInstance(OffLineQuotes banners) {
         CarouselItemFragment fragment = new CarouselItemFragment();
         Bundle arguments = new Bundle();

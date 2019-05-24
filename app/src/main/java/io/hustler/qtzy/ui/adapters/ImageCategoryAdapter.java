@@ -3,6 +3,7 @@ package io.hustler.qtzy.ui.adapters;
 import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +45,13 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
     }
 
 
+    @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new CategoryViewHolder(activity.getLayoutInflater().inflate(R.layout.image_category_item, parent, false));
     }
 
+    @NonNull
     private GradientDrawable createDrawable(CategoryViewHolder holder) {
         int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
         int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
@@ -68,7 +71,7 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, final int position) {
 
         final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
         createDrawable(holder);
@@ -99,7 +102,7 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView category;
 
-        public CategoryViewHolder(View itemView) {
+        public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             category = itemView.findViewById(R.id.category);
         }

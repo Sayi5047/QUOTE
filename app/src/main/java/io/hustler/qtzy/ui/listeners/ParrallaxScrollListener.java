@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.listeners;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 /**
@@ -21,7 +22,7 @@ import android.support.v7.widget.RecyclerView;
 public class ParrallaxScrollListener extends RecyclerView.OnScrollListener {
 
     @Override
-    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         for(int i=0;i<recyclerView.getChildCount();i++){
 

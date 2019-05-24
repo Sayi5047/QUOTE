@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
+    @Nullable
     private UserLoginTask mAuthTask = null;
     int age;
 
@@ -106,10 +108,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 //        populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -121,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -220,7 +222,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         progressDialog.show();
         new Restutility(LoginActivity.this).signUp(new ResponseListener() {
             @Override
-            public void onSuccess(BaseResponse baseResponse) {
+            public void onSuccess(@NonNull BaseResponse baseResponse) {
                 progressDialog.hide();
                 ResLoginUser resLoginUser = ((ResLoginUser) baseResponse);
                 switch (baseResponse.getStatuscode()) {
@@ -291,7 +293,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             progressDialog.show();
             new Restutility(LoginActivity.this).gSignup(new ResponseListener() {
                 @Override
-                public void onSuccess(BaseResponse baseResponse) {
+                public void onSuccess(@NonNull BaseResponse baseResponse) {
                     progressDialog.cancel();
                     ResLoginUser resLoginUser = ((ResLoginUser) baseResponse);
                     switch (baseResponse.getStatuscode()) {
@@ -471,6 +473,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
@@ -489,7 +492,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+    public void onLoadFinished(Loader<Cursor> cursorLoader, @NonNull Cursor cursor) {
         List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -505,7 +508,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+    private void addEmailsToAutoComplete(@NonNull List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,

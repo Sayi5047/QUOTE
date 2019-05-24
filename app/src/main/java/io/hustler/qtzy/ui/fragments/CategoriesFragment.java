@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -68,7 +69,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.quote_categories_layout, container, false);
         findViews(view);
         return view;
@@ -79,7 +80,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         categories_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         categories_rv.setAdapter(new CategoriesAdapter(getActivity(), new CategoriesAdapter.OnCategoryClickListener() {
             @Override
-            public void onCategoryClicked(String category, String cat2, int position, GradientDrawable gradientDrawable) {
+            public void onCategoryClicked(String category, String cat2, int position, @NonNull GradientDrawable gradientDrawable) {
 //                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(),category+" "+position);
 //                loadQuotes(category, cat2, gradientDrawable);
                 bringupQuotesOLD(category, cat2, gradientDrawable);
@@ -87,7 +88,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         }));
     }
 
-    private void bringupQuotes(String category, String cat2, GradientDrawable gradientDrawable) {
+    private void bringupQuotes(String category, String cat2, @NonNull GradientDrawable gradientDrawable) {
         final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.dialog_category_layout);
 //        dialog.getWindow().setBA(gradientDrawable);
@@ -141,7 +142,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             categories_rv.setAdapter(new LocalAdapter(getActivity(), quotesList, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                     Bundle bundle = makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
@@ -166,7 +167,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
@@ -177,7 +178,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         });
     }
 
-    public ArrayList<Quote> loadQuotes(final String category, final String cat2, final GradientDrawable gradientDrawable) {
+    public ArrayList<Quote> loadQuotes(final String category, final String cat2, @NonNull final GradientDrawable gradientDrawable) {
         quotesList = new ArrayList<>();
         final ProgressBar progressBar = new ProgressBar(getContext());
         progressBar.setVisibility(View.VISIBLE);
@@ -287,7 +288,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    private void bringupQuotesOLD(String category, String cat2, GradientDrawable gradientDrawable) {
+    private void bringupQuotesOLD(String category, String cat2, @NonNull GradientDrawable gradientDrawable) {
         final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.dialog_category_layout);
 //        dialog.getWindow().setBA(gradientDrawable);
@@ -344,7 +345,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
             categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
@@ -371,7 +372,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
 
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;

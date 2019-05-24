@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo.unspalsh;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -151,6 +153,7 @@ public class Unsplash_Image implements Serializable {
         this.liked_by_user = liked_by_user;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ClassPojo [current_user_collections = " + current_user_collections + ", urls = " + urls + ", width = " + width + ", links = " + links + ", id = " + id + ", updated_at = " + updated_at + ", height = " + height + ", color = " + color + ", description = " + description + ", likes = " + likes + ", created_at = " + created_at + ", categories = " + categories + ", sponsored = " + sponsored + ", user = " + user + ", liked_by_user = " + liked_by_user + "]";

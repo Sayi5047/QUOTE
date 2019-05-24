@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
         void onImageClicked(String previreLink, String Biglink);
     }
 
+    @NonNull
     @Override
     public ImageviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ImageviewHolder(activity.getLayoutInflater().inflate(R.layout.pixabay_image_layout, parent, false));
@@ -53,7 +55,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
     }
 
     @Override
-    public void onBindViewHolder(ImageviewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageviewHolder holder, int position) {
         final ImagesFromPixaBay imagesFromPixaBay = imagesFromPixaBays.get(position);
         Glide.with(activity)
                 .load(imagesFromPixaBay.getPreviewURL())
@@ -81,7 +83,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
     public class ImageviewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        public ImageviewHolder(View itemView) {
+        public ImageviewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
         }

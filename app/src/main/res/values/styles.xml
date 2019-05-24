@@ -9,6 +9,10 @@
         <item name="android:textColorSecondary">@color/textColor</item>
     </style>
 
+    <style name="AppTheme." parent="Theme.AppCompat.DayNight">
+
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

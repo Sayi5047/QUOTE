@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
+import android.support.annotation.NonNull;
 import android.view.SurfaceHolder;
 
 import io.hustler.qtzy.R;
@@ -28,6 +29,7 @@ import io.hustler.qtzy.R;
    limitations under the License.*/
 @Deprecated
 public class MyWallpaperService extends WallpaperService {
+    @NonNull
     @Override
     public Engine onCreateEngine() {
         return new MyWallpaperEngine();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,15 +13,15 @@ public class StickerImageView extends StickerView {
 
     private String owner_id;
     private ImageView iv_main;
-    public StickerImageView(Context context) {
+    public StickerImageView(@NonNull Context context) {
         super(context);
     }
 
-    public StickerImageView(Context context, AttributeSet attrs) {
+    public StickerImageView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public StickerImageView(Context context, AttributeSet attrs, int defStyle) {
+    public StickerImageView(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

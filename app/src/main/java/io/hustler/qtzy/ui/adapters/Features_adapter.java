@@ -2,6 +2,8 @@ package io.hustler.qtzy.ui.adapters;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -36,8 +38,11 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     OnFeature_ItemClickListner listner;
     int itemsfromActivity_Count;
     String arrayName;
+    @NonNull
     ArrayList<String> itemstobe_used = new ArrayList<>();
+    @NonNull
     ArrayList<Drawable> itemstobe_used_images = new ArrayList<>();
+    @Nullable
     String current_item = null;
     boolean isText;
 
@@ -81,6 +86,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
         }
     }
 
+    @Nullable
     private Drawable getDrawable(int drawable) {
         return ContextCompat.getDrawable(activity, drawable);
     }
@@ -91,6 +97,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
         }
     }
 
+    @NonNull
     @Override
     public FeaturesViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (isText) {
@@ -103,7 +110,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
     }
 
     @Override
-    public void onBindViewHolder(final FeaturesViewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull final FeaturesViewholder holder, final int position) {
         holder.feature_name.setText(itemstobe_used.get(position));
         holder.feature_item.setImageDrawable(itemstobe_used_images.get(position));
         current_item = itemstobe_used.get(position);
@@ -164,7 +171,7 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
         ImageView feature_item;
         TextView feature_name;
 
-        public FeaturesViewholder(View itemView) {
+        public FeaturesViewholder(@NonNull View itemView) {
             super(itemView);
             feature_item = itemView.findViewById(R.id.feature_item);
             feature_name = itemView.findViewById(R.id.feature_name);

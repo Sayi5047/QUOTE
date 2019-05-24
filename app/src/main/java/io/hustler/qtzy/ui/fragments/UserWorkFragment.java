@@ -64,6 +64,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     RecyclerView rv;
     ProgressBar loader;
     UserWorkAdapter adapter;
+    @Nullable
     UserWorkImages userWorkImages;
     private LinearLayout dataView;
     private RelativeLayout quoteOfDayLl;
@@ -75,7 +76,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_work_fragment, container, false);
         rv = view.findViewById(R.id.main_rv);
         loader = view.findViewById(R.id.loader);
@@ -125,7 +126,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 //            rv.setAdapter(null);
             userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
                 @Override
-                public void onImageClickListneer(int position, String imageName, String imagepath) {
+                public void onImageClickListneer(int position, String imageName, @NonNull String imagepath) {
                     try {
                         android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
                         buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
@@ -147,7 +148,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         }
     }
 
-    private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, final String imagepath) {
+    private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, @NonNull final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, @NonNull final String imagepath) {
         final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(View.inflate(getActivity().getApplicationContext(), R.layout.user_work_show_item, null));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
@@ -200,7 +201,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
         Palette.from(BitmapFactory.decodeFile(imagepath)).generate(new Palette.PaletteAsyncListener() {
             @Override
-            public void onGenerated(Palette palette) {
+            public void onGenerated(@NonNull Palette palette) {
                 swatches.add(0, palette.getVibrantSwatch());
                 if (swatches.get(0) == null) {
                     swatches.set(0, palette.getDominantSwatch());
@@ -272,7 +273,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         });
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     dialog.dismiss();
                 }
@@ -302,7 +303,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(@NonNull View v) {
         switch (v.getId()) {
             case R.id.message: {
                 checkPermission_and_proceed();
@@ -353,6 +354,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
          */
 
 
+        @Nullable
         @Override
         protected Void doInBackground(String... strings) {
             return null;

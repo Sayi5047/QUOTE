@@ -3,6 +3,8 @@ package io.hustler.qtzy.ui.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Locale;
 
@@ -30,15 +32,23 @@ public class PreferenceUtils {
     public static final String KEY_IS_USER_LOGGED_IN = "KEY_IS_USER_LOGGED_IN";
     /*KEYS*/
     /*VALUES*/
+    @NonNull
     public String USER_NAME = "USER_NAME";
+    @NonNull
     public String EMAIL = "EMAIL";
     public int AGE = 0;
+    @NonNull
     public String GENDER = "GENDER";
+    @NonNull
     public String DOB = "DOB";
+    @NonNull
     public String LOCALE = "LOCALE";
+    @NonNull
     public String FB_AUTH_TOKEN = "FB_AUTH_TOKEN";
+    @NonNull
     public String SYS_AUTH_TOKEN = "SYS_AUTH_TOKEN";
     public boolean IS_GOOGLE_LOGIN = false;
+    @NonNull
     public String PROFILE_IMAGE = "PROFILE_IMAGE";
     public boolean IS_USER_LOGGED_IN = false;
 
@@ -68,6 +78,7 @@ public class PreferenceUtils {
         editor.apply();
     }
 
+    @Nullable
     private String getStringPreferences(String key, String dv) {
         return sharedPreferences.getString(key, dv);
     }
@@ -133,10 +144,12 @@ public class PreferenceUtils {
 
     /*GETTERS*/
 
+    @Nullable
     public String getUSER_NAME() {
         return getStringPreferences(KEY_USER_NAME, DEFAULT_STRING);
     }
 
+    @Nullable
     public String getEMAIL() {
         return getStringPreferences(KEY_EMAIL, DEFAULT_STRING);
     }
@@ -145,22 +158,27 @@ public class PreferenceUtils {
         return getIntPreferences(KEY_EMAIL, DEFAULT_INT);
     }
 
+    @Nullable
     public String getGENDER() {
         return getStringPreferences(KEY_GENDER, DEFAULT_STRING);
     }
 
+    @Nullable
     public String getDOB() {
         return getStringPreferences(KEY_DOB, DEFAULT_STRING);
     }
 
+    @Nullable
     public String getLOCALE() {
         return getStringPreferences(KEY_LOCALE, DEFAULT_STRING);
     }
 
+    @Nullable
     public String getFB_AUTH_TOKEN() {
         return getStringPreferences(KEY_FB_AUTH_TOKEN, DEFAULT_STRING);
     }
 
+    @Nullable
     public String getSYS_AUTH_TOKEN() {
         return getStringPreferences(KEY_SYS_AUTH_TOKEN, DEFAULT_STRING);
     }
@@ -169,6 +187,7 @@ public class PreferenceUtils {
         return getBooleanPreferences(KEY_IS_GOOGLE_LOGIN, FALSE);
     }
 
+    @Nullable
     public String getPROFILE_IMAGE() {
         return getStringPreferences(KEY_PROFILE_IMAGE, DEFAULT_STRING);
     }

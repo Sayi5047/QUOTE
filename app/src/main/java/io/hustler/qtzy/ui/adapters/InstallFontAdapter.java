@@ -3,6 +3,7 @@ package io.hustler.qtzy.ui.adapters;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.
     String sourcePath;
     String destinationPath;
 
-    public InstallFontAdapter(Activity activity, List<String> zip_File_Contents_list, String sourcePath, String destinationPath, String[] font_Paths_from_source_location) {
+    public InstallFontAdapter(Activity activity, List<String> zip_File_Contents_list, String sourcePath, @NonNull String destinationPath, String[] font_Paths_from_source_location) {
         this.activity = activity;
         this.zip_File_Contents_list = zip_File_Contents_list;
         this.sourcePath = sourcePath;
@@ -46,7 +47,7 @@ public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.
         this.font_Paths_from_source_location=font_Paths_from_source_location;
     }
 
-    private void checkDirectory(String finalLOcation) {
+    private void checkDirectory(@NonNull String finalLOcation) {
         if(new File(finalLOcation).isDirectory()){
 
         }else {
@@ -55,13 +56,14 @@ public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.
     }
 
 
+    @NonNull
     @Override
     public FontViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new FontViewHolder(activity.getLayoutInflater().inflate(R.layout.install_font_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(FontViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull FontViewHolder holder, final int position) {
         holder.textView.setText(zip_File_Contents_list.get(position));
         holder.textView.setTypeface(Typeface.createFromFile(font_Paths_from_source_location[position]));
         holder.installText.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +100,7 @@ public class InstallFontAdapter extends RecyclerView.Adapter<InstallFontAdapter.
         TextView textView;
         TextView installText;
 
-        public FontViewHolder(View itemView) {
+        public FontViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.tv);
             installText = itemView.findViewById(R.id.install_text);

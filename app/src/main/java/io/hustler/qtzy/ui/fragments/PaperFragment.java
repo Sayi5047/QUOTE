@@ -48,12 +48,14 @@ import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 public class PaperFragment extends Fragment {
 
     ImageView imageView;
+    @Nullable
     Unsplash_Image textView;
     RadioGroup radioGroup;
     RadioButton rd1, rd2, rd3;
     SharedPreferences sharedPreferences;
     LinearLayout loading_layout;
 
+    @NonNull
     public static PaperFragment newInstance(Unsplash_Image textView) {
 
         PaperFragment wallpaperFragmente = new PaperFragment();

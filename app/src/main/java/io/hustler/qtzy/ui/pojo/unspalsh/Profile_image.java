@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo.unspalsh;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -37,6 +39,7 @@ public class Profile_image implements Serializable {
         this.medium = medium;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ClassPojo [small = " + small + ", large = " + large + ", medium = " + medium + "]";

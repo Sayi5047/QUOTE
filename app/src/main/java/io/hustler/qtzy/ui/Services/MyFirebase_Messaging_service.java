@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.Services;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -14,7 +15,7 @@ import static android.content.ContentValues.TAG;
 public class MyFirebase_Messaging_service extends FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         // ...
 
         // TODO(developer): Handle FCM messages here.

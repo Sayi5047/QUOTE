@@ -1,6 +1,8 @@
 package io.hustler.qtzy.ui.loaders;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
@@ -27,9 +29,10 @@ import java.util.List;
 @Deprecated
 public class Quotesloader extends AsyncTaskLoader<List<Quote>> {
     Context context;
+    @Nullable
     List<Quote> quotes;
 
-    public Quotesloader(Context context) {
+    public Quotesloader(@NonNull Context context) {
         super(context);
         this.context = context;
     }
@@ -96,7 +99,7 @@ public class Quotesloader extends AsyncTaskLoader<List<Quote>> {
         }
     }
 
-    protected void onReleaseResources(List<Quote> quotes) {
+    protected void onReleaseResources(@Nullable List<Quote> quotes) {
         // For a simple List<> there is nothing to do.  For something
         // like a Cursor, we would close it here.
         if (quotes != null) {

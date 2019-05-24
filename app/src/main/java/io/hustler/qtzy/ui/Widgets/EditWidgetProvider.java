@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import io.hustler.qtzy.R;
@@ -31,7 +32,7 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 public class EditWidgetProvider extends AppWidgetProvider {
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(@NonNull Context context, @NonNull AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }

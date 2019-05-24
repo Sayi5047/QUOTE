@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Sayi on 17-01-2018.
  */
@@ -204,6 +206,7 @@ public class ImagesFromPixaBay {
         this.comments = comments;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "ClassPojo [tags = " + tags + ", imageHeight = " + imageHeight + ", webformatHeight = " + webformatHeight + ", previewHeight = " + previewHeight + ", previewURL = " + previewURL + ", favorites = " + favorites + ", type = " + type + ", previewWidth = " + previewWidth + ", downloads = " + downloads + ", userImageURL = " + userImageURL + ", pageURL = " + pageURL + ", id = " + id + ", views = " + views + ", likes = " + likes + ", user_id = " + user_id + ", webformatWidth = " + webformatWidth + ", webformatURL = " + webformatURL + ", user = " + user + ", imageWidth = " + imageWidth + ", comments = " + comments + "]";

@@ -2,6 +2,7 @@ package io.hustler.qtzy.ui.Recievers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
@@ -27,7 +28,7 @@ public class NotifAlarmReciever extends WakefulBroadcastReceiver {
     Intent downloadIntent;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, Intent intent) {
         downloadIntent = new Intent(context, DailyNotificationService.class);
         startWakefulService(context, downloadIntent);
         Log.i("NOTIF RECIVER", "RECEIVED");

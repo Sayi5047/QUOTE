@@ -33,6 +33,7 @@ public class QuoteWidgetConfigAdapter extends FragmentPagerAdapter {
         this.context = context;
     }
 
+    @Nullable
     @Override
     public Fragment getItem(int position) {
         Fragment returning_fragment = null;

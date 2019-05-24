@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import io.hustler.qtzy.ui.Services.NotificationCustomListener_Service;
@@ -27,7 +28,7 @@ import io.hustler.qtzy.ui.Services.NotificationCustomListener_Service;
 public class NotifcationReciever extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         String evet = intent.getStringExtra(NotificationCustomListener_Service.NOTIFICATION_EVENT_KEY);
         Log.i(" NOTIFICATIOn DETAILS", evet);
         if (evet.trim().equalsIgnoreCase(NotificationCustomListener_Service.NOTIFICATION_POSTED_REMOVED_FLAG_VALUE)) {

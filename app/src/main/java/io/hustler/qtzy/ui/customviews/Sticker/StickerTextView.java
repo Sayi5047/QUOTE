@@ -3,6 +3,8 @@ package io.hustler.qtzy.ui.customviews.Sticker;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -13,15 +15,15 @@ import android.widget.FrameLayout;
 public class StickerTextView extends StickerView {
     private AutoResizeTextView tv_main;
 
-    public StickerTextView(Context context) {
+    public StickerTextView(@NonNull Context context) {
         super(context);
     }
 
-    public StickerTextView(Context context, AttributeSet attrs) {
+    public StickerTextView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public StickerTextView(Context context, AttributeSet attrs, int defStyle) {
+    public StickerTextView(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -54,6 +56,7 @@ public class StickerTextView extends StickerView {
     }
 
 
+    @Nullable
     public String getText() {
         if (tv_main != null)
             return tv_main.getText().toString();

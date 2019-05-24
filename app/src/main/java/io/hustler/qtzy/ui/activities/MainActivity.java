@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -27,6 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,6 +84,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     final String IMAGES = "images";
     final String QUOTES = "quotes";
+    @Nullable
     LocalAdapter adapter;
     private static final long MOVE_DEFAULT_TIME = 1000;
     private static final long FADE_DEFAULT_TIME = 300;
@@ -91,24 +95,34 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     LinearLayout linearLayout;
     RelativeLayout main_view;
 
+    @Nullable
     @BindView(R.id.root)
     FrameLayout root;
+    @Nullable
     @BindView(R.id.fab)
     public FloatingActionButton fab;
+    @Nullable
     @BindView(R.id.quotes_iv)
     ImageView quotesIv;
+    @Nullable
     @BindView(R.id.wallpaer_iv)
     ImageView wallpaerIv;
+    @Nullable
     @BindView(R.id.create_iv)
     ImageView createIv;
+    @Nullable
     @BindView(R.id.like_iv)
     ImageView likeIv;
+    @Nullable
     @BindView(R.id.works_iv)
     ImageView worksIv;
+    @Nullable
     @BindView(R.id.bottom)
     LinearLayout bottom;
+    @Nullable
     @BindView(R.id.nav_view)
     NavigationView navView;
+    @Nullable
     @BindView(R.id.topCrown)
     ImageView crownView;
 
@@ -146,7 +160,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public void run() {
                 header_name.setVisibility(View.VISIBLE);
             }
-        }, 2000);
+        }, 1000);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -161,7 +175,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 main_view.setTranslationX(slideOffset * drawerView.getWidth());
 //                main_view.setTranslationY(slideOffset * drawerView.getWidth());
@@ -211,7 +225,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search: {
@@ -276,7 +290,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         TextUtils.findText_and_applyamim_slideup(root, MainActivity.this);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, MainActivity.this);
                     dialog.dismiss();
@@ -429,7 +443,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         });
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, MainActivity.this);
                     dialog.dismiss();
@@ -444,13 +458,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, final RadioGroup radioGroup, final LinearLayout search_header, final TextView search_term) {
+    private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, @NonNull final RadioGroup radioGroup, @NonNull final LinearLayout search_header, @NonNull final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
         final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
         new Restutility(MainActivity.this).getUnsplash_Collections_Images(MainActivity.this, new Unsplash_Image_collection_response_listener() {
             @Override
-            public void onSuccess(final UnsplashImages_Collection_Response response) {
+            public void onSuccess(@NonNull final UnsplashImages_Collection_Response response) {
 
                 loader.setVisibility(GONE);
                 rv.setAdapter(null);
@@ -500,14 +514,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, RadioGroup radioGroup, LinearLayout search_header, TextView searchTerm) {
+    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
 
         final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
-        final ArrayList<Quote> finalArrayList;
-        finalArrayList = new ArrayList<>();
+
+        final ArrayList<Quote> finalArrayList = new ArrayList<>();
 
         new Thread(new Runnable() {
             @Override
@@ -529,7 +543,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             loader.setVisibility(GONE);
             adapter = (new LocalAdapter(MainActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
                 @Override
-                public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
                     Intent intent = new Intent(MainActivity.this, QuoteDetailsActivity.class);
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                     intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
@@ -561,7 +575,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -658,7 +672,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @OnClick({R.id.fab, R.id.quotes_iv, R.id.wallpaer_iv, R.id.create_iv, R.id.like_iv, R.id.works_iv})
-    public void onViewClicked(View view) {
+    public void onViewClicked(@NonNull View view) {
         int currentPixels,imageSizePixles;
         switch (view.getId()) {
             case R.id.fab:
@@ -734,19 +748,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         valueAnimator.setDuration(600);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
                 crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
             }
         });
 
     }
 
-    private void increaseimagesizeAnimation(final float start, float end, final ImageView imageView) {
+    private void increaseimagesizeAnimation(final float start, float end, @NonNull final ImageView imageView) {
         valueAnimator = ValueAnimator.ofFloat(start, end);
         valueAnimator.setDuration(600);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
                 layoutParams.height = (int) valueAnimator.getAnimatedValue();
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,7 +52,7 @@ public class Categoris_wallpaper_fragment extends android.support.v4.app.Fragmen
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wallcategories_layout, container, false);
         catgories = view.findViewById(R.id.catgories);
         catgories.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -128,7 +129,7 @@ public class Categoris_wallpaper_fragment extends android.support.v4.app.Fragmen
 
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     TextUtils.findText_and_applyamim_slidedown(root, getActivity());
 
@@ -144,11 +145,11 @@ public class Categoris_wallpaper_fragment extends android.support.v4.app.Fragmen
 
     }
 
-    public void load_searched_images(String category, final int pagePosition, final RecyclerView rv, final ProgressBar loader, final Dialog dialog) {
+    public void load_searched_images(String category, final int pagePosition, @NonNull final RecyclerView rv, @NonNull final ProgressBar loader, @NonNull final Dialog dialog) {
         final String request = Constants.API_GET_Collections_FROM_UNSPLASH + Constants.QUERY + category + Constants.PER_PAGE + Constants.PAGE_NUMBER + pagePosition;
         new Restutility(getActivity()).getUnsplash_Collections_Images(getActivity(), new Unsplash_Image_collection_response_listener() {
             @Override
-            public void onSuccess(final UnsplashImages_Collection_Response response) {
+            public void onSuccess(@NonNull final UnsplashImages_Collection_Response response) {
                 IS_CATEGORY_FLAG = true;
 
 //                if (pagePosition > 1) {

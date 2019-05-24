@@ -99,6 +99,7 @@ public class QuoteLoaderService extends Service {
         }
 
 
+        @Nullable
         @Override
         protected Void doInBackground(String... strings) {
 

@@ -2,6 +2,8 @@ package io.hustler.qtzy.ui.fragments.HomeHolderFragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,10 +27,13 @@ import io.hustler.qtzy.ui.fragments.WallpaperFragment;
 public class WallpapersHolderFragment extends Fragment {
 
 
+    @Nullable
     @BindView(R.id.holderFrame)
     FrameLayout holderFrame;
+    @Nullable
     @BindView(R.id.rd_btn1)
     RadioButton rdBtn1;
+    @Nullable
     @BindView(R.id.rd_btn2)
     RadioButton rdBtn2;
     Unbinder unbinder;
@@ -39,6 +44,7 @@ public class WallpapersHolderFragment extends Fragment {
     }
 
 
+    @NonNull
     public static WallpapersHolderFragment newInstance(String param1, String param2) {
         WallpapersHolderFragment fragment = new WallpapersHolderFragment();
         Bundle args = new Bundle();
@@ -54,7 +60,7 @@ public class WallpapersHolderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quotes_holder, container, false);
         unbinder = ButterKnife.bind(this, view);
@@ -90,7 +96,7 @@ public class WallpapersHolderFragment extends Fragment {
     }
 
     @OnClick({R.id.rd_btn1, R.id.rd_btn2})
-    public void onViewClicked(View view) {
+    public void onViewClicked(@NonNull View view) {
         switch (view.getId()) {
             case R.id.rd_btn1:
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

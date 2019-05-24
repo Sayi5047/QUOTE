@@ -28,6 +28,7 @@ public class WallpaperPagerAdapter extends FragmentPagerAdapter {
         return 1;
     }
 
+    @Nullable
     @Override
     public Fragment getItem(int position) {
         Fragment returning_fragment = null;

@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import io.hustler.qtzy.R;
@@ -26,14 +27,14 @@ import io.hustler.qtzy.R;
    limitations under the License.*/
 public class EditWidgetProvider2 extends AppWidgetProvider {
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(@NonNull Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Log.d("ON UPDATE","TRUE");
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(context.getString(R.string.widget_added_key),true).apply();
 
     }
 
     @Override
-    public void onEnabled(Context context) {
+    public void onEnabled(@NonNull Context context) {
         super.onEnabled(context);
         Log.d("ON ENABLED","TRUE");
 
@@ -42,7 +43,7 @@ public class EditWidgetProvider2 extends AppWidgetProvider {
     }
 
     @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
+    public void onDeleted(@NonNull Context context, int[] appWidgetIds) {
         Log.d("ON DELETED","FALSE");
 
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(context.getString(R.string.widget_added_key),false).apply();
@@ -50,7 +51,7 @@ public class EditWidgetProvider2 extends AppWidgetProvider {
     }
 
     @Override
-    public void onDisabled(Context context) {
+    public void onDisabled(@NonNull Context context) {
         Log.d("ON DISABLED","FALSE");
 
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(context.getString(R.string.widget_added_key),false).apply();

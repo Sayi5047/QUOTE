@@ -37,6 +37,7 @@ import java.util.Random;
    limitations under the License.*/
 public class DailyNotificationService extends IntentService {
     android.support.v4.app.NotificationCompat.Builder mNotification_Builder;
+    @Nullable
     NotificationManager mNotificationManager;
     List<Quote> quotes;
     int val;
@@ -92,6 +93,7 @@ public class DailyNotificationService extends IntentService {
          */
 
 
+        @Nullable
         @Override
         protected Void doInBackground(String... strings) {
 // TODO: 27-01-2019 replace with rest call

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -46,6 +47,7 @@ import java.util.Random;
    limitations under the License.*/
 public class DailyWallpaperService extends IntentService {
     List<Unsplash_Image> images;
+    @Nullable
     File downloading_File;
     SharedPreferences sharedPreferences;
     int image;
@@ -112,11 +114,11 @@ public class DailyWallpaperService extends IntentService {
 
     }
 
-    private void callApi(SharedPreferences sharedPreferences, final SharedPreferences.Editor editor, String query, final Intent intent) {
+    private void callApi(SharedPreferences sharedPreferences, @NonNull final SharedPreferences.Editor editor, String query, final Intent intent) {
         request = Constants.API_GET_Collections_FROM_UNSPLASH + "&orientation=portrait&featured=true&count=30&query=" + query + "&page=" + new Random().nextInt(8);
         new Restutility().getImages_for_service(getApplicationContext(), new Unsplash_Image_collection_response_listener() {
             @Override
-            public void onSuccess(UnsplashImages_Collection_Response response) {
+            public void onSuccess(@NonNull UnsplashImages_Collection_Response response) {
                 Gson gson = new Gson();
                 String imagess = gson.toJson(response.getResults());
                 editor.putString(Constants.Shared_prefs_loaded_images_for_service_key, imagess);
@@ -156,6 +158,7 @@ public class DailyWallpaperService extends IntentService {
 
         }
 
+        @Nullable
         @Override
         protected Void doInBackground(final String... params) {
 

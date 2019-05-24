@@ -2,6 +2,7 @@ package io.hustler.qtzy.ui.apiRequestLauncher;
 
 import android.graphics.Color;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 
@@ -42,7 +43,7 @@ public final class Constants {
 
 
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
-    public static final String FONT_CIRCULAR = "fonts/cstd_reg.otf";
+    public static final String FONT_CIRCULAR = "fonts/qanelasm.otf";
 
 
     public static final String INTENT_QUOTE_OBJECT_KEY = "QUOTE_OBJECT_TRAVELLER_KEY";
@@ -61,6 +62,7 @@ public final class Constants {
     public static final String APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy";
     public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
     public static final String PREVIOUS_COLOR = "previous_color";
+    @NonNull
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
 
@@ -127,27 +129,48 @@ public final class Constants {
 
 
     //    INTENT KEYS
+    @NonNull
     public static String TEMP_FILE_NAME_KEY = "File_temporary_name_key";
+    @NonNull
     public static String FONTS_LOCATION = "File_temporary_name_key";
+    @NonNull
     public static String FONTS_TEMP_LOCATIONS = "File_temporary_name_key";
     public static final String COLOUR_KEY = "colour_key";
+    @NonNull
     public static String Widget_current_object = "WIDGET_CURRENT_OBJECT";
+    @NonNull
     public static String Pager_position = "PAGER_POSITION_KEY";
+    @NonNull
     public static String PAGER_LIST_WALL_OBKHECTS = "PAGER_LIST_OBJECTS_KEY";
+    @NonNull
     public static String Shared_prefs_image_resol_key = "Shared_prefs_image_res_key";
+    @NonNull
     public static String ImageUrl_to_download = "IMAGE_TO_DOWNLOAD_KEY";
+    @NonNull
     public static String Wallpapers = "WallPapers";
+    @NonNull
     public static String Image_Name_to_save_key = "Intent_wallpaper_name_key";
+    @NonNull
     public static String is_to_setWallpaper_fromActivity = "is_to_set_wallpaper_from_activity";
+    @NonNull
     public static String is_from_fav = "IS_FROM_FAVOURITE";
+    @NonNull
     public static String Shared_prefs_Images_loaded_for_first_time = "shared_prefs_image_loaded_-for_first_key";
+    @NonNull
     public static String Shared_prefs_loaded_images = "shared_prefs_images_loaded_key";
+    @NonNull
     public static String Shared_prefs_loaded_images_for_service_key = "shared_prefs_images_loaded_for_service_key";
+    @NonNull
     public static String Shared_prefs_images_loaded_times = "shared_prefs_images_loaded_times_key";
+    @NonNull
     public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
+    @NonNull
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
+    @NonNull
     public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG = "is_download_intent_alarm_key";
+    @NonNull
     public static String IS_QUOTES_LOADED_KEY = "is_quotes_loaded_to_db_key";
+    @NonNull
     public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED = "VIEW_PAGER_INTRO_COMPLETETION_KEY";
 
     /*END POINTS*/

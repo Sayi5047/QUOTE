@@ -28,6 +28,9 @@ import android.widget.Toolbar;
 
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.crash.FirebaseCrash;
+
+import java.io.File;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
@@ -38,8 +41,6 @@ import io.hustler.qtzy.ui.utils.FileUtils;
 import io.hustler.qtzy.ui.utils.IntentConstants;
 import io.hustler.qtzy.ui.utils.PermissionUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
-
-import java.io.File;
 
 import static io.hustler.qtzy.ui.utils.FileUtils.savetoDevice;
 import static io.hustler.qtzy.ui.utils.FileUtils.show_post_save_dialog;
@@ -141,6 +142,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    @NonNull
     private GradientDrawable createDrawable(int[] colors) {
 
         int[] color = {colors[0], colors[1]};
@@ -208,7 +210,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(@NonNull View v) {
         switch (v.getId()) {
             case R.id.fab_set_like: {
                 if (IS_LIKED_FLAG) {
@@ -268,7 +270,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     public void setWallPaer() {
         checkandRetrieveUri(quote_layout, new OnImageSaveListner() {
             @Override
-            public void onImageSaved(Uri uri) {
+            public void onImageSaved(@NonNull Uri uri) {
                 try {
                     File file = new File(uri.getPath());
                     Intent intent = new Intent(WallpaperManager.
@@ -398,7 +400,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private Uri checkandRetrieveUri(ViewGroup rootview, final OnImageSaveListner OnImageSaveListner) {
+    private Uri checkandRetrieveUri(@NonNull ViewGroup rootview, @NonNull final OnImageSaveListner OnImageSaveListner) {
         final Uri[] uri = {null};
         if (savedFile != null) {
             if (Build.VERSION.SDK_INT >= 24) {

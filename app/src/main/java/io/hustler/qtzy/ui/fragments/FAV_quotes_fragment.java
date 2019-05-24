@@ -69,7 +69,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
         }).run();
         recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+            public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);

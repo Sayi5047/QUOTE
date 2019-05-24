@@ -9,6 +9,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -169,6 +170,7 @@ public class OnBoardingActivity extends BaseActivity {
         android.support.v4.app.FragmentManager fragmentManager;
         Context context;
         String[] titles;
+        @NonNull
         int[] images = {R.mipmap.ic_launcher, R.drawable.ic_collection, R.drawable.ic_canvas, R.drawable.ic_font_size, R.drawable.ic_infinite};
 
         String[] descriptions;
@@ -186,11 +188,13 @@ public class OnBoardingActivity extends BaseActivity {
             return 5;
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return getOnBoardFragment(position);
         }
 
+        @NonNull
         private Fragment getOnBoardFragment(int position) {
             OnBoardFragment onBoardFragment = new OnBoardFragment();
             onBoardFragment.title = titles[position];
@@ -235,7 +239,7 @@ public class OnBoardingActivity extends BaseActivity {
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
             View view = inflater.inflate(R.layout.onboard_layout, container, false);
             if (imageresource != 0) {
@@ -290,7 +294,7 @@ public class OnBoardingActivity extends BaseActivity {
         }
 
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences, @NonNull String key) {
             if (key.equals(Constants.COLOUR_KEY)) {
                 imageView.getDrawable().setColorFilter(sharedPreferences.getInt(Constants.COLOUR_KEY, Color.WHITE), PorterDuff.Mode.SRC_IN);
             }

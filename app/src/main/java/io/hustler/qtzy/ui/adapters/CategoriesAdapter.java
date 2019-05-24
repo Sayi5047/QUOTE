@@ -2,6 +2,7 @@ package io.hustler.qtzy.ui.adapters;
 
 import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     Activity activity;
     String categoriesString = Constants.CATEGORIES_STRING;
     String[] categoriesListArray;
+    @NonNull
     ArrayList<String> categoryArrayList = new ArrayList<>();
     OnCategoryClickListener categoryClickListener;
 
@@ -69,13 +71,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
 
+    @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new CategoryViewHolder(activity.getLayoutInflater().inflate(R.layout.category_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final CategoryViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final CategoryViewHolder holder, final int position) {
         final GradientDrawable gradientDrawable = createDrawable(holder);
         holder.textView.setText(categoryArrayList.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +93,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     }
 
+    @NonNull
     private GradientDrawable createDrawable(CategoryViewHolder holder) {
         int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
         int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
@@ -121,7 +125,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         TextView textView;
         ImageView imageView;
 
-        public CategoryViewHolder(View itemView) {
+        public CategoryViewHolder(@NonNull View itemView) {
 
             super(itemView);
             textView = itemView.findViewById(R.id.bt_category);

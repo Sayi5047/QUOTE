@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -50,8 +51,10 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 
     RecyclerView rv;
     ProgressBar loader;
+    @Nullable
     LocalAdapter localAdapter;
     SharedPreferences sharedPreferences;
+    @NonNull
     private List<Quote> quotesList = new ArrayList<>();
 
 
@@ -61,7 +64,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mainfragmentlayout, container, false);
         rv = view.findViewById(R.id.main_rv);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -73,7 +76,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
         }
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view) {
+            public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
 
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
@@ -132,7 +135,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
         }
     }
 
-    private void setAdapter(final ArrayList<Quote> quotes) {
+    private void setAdapter(@Nullable final ArrayList<Quote> quotes) {
         if (quotes == null) {
         } else {
             localAdapter.addData(quotes);

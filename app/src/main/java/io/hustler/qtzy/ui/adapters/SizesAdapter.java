@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -39,6 +40,7 @@ public class SizesAdapter extends RecyclerView.Adapter<SizesAdapter.SizeViewHold
     }
 
 
+    @NonNull
     @Override
     public SizeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SizeViewHolder(editorActivity.getLayoutInflater().inflate(R.layout.size_image, parent,false));
@@ -46,7 +48,7 @@ public class SizesAdapter extends RecyclerView.Adapter<SizesAdapter.SizeViewHold
     }
 
     @Override
-    public void onBindViewHolder(SizeViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull SizeViewHolder holder, final int position) {
         holder.imageView.setImageDrawable(ContextCompat.getDrawable(editorActivity,imagesList.get(position)));
 //        Glide.with(editorActivity).load(ContextCompat.getDrawable(editorActivity,imagesList.get(position))).asBitmap().into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +75,7 @@ public class SizesAdapter extends RecyclerView.Adapter<SizesAdapter.SizeViewHold
     public class SizeViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        public SizeViewHolder(View itemView) {
+        public SizeViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
         }

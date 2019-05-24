@@ -47,7 +47,7 @@ public class HollowSpan extends ReplacementSpan {
 
     @Override
     public void draw(@NonNull Canvas canvas,
-                     CharSequence text,
+                     @NonNull CharSequence text,
                      @IntRange(from = 0) int start,
                      @IntRange(from = 0) int end,
                      float x,

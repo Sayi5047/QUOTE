@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +37,7 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
     String[] items;
     onFontClickListner onFontClickListner;
     boolean isDownlodedFonts;
+    @Nullable
     private static Handler mHandler = null;
 
     public GoogleFontsAdapter(Boolean isDownlodedFonts, Activity activity, String[] items, GoogleFontsAdapter.onFontClickListner onFontClickListner) {
@@ -48,6 +51,7 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
         void onFontClicked(String fontName_Path, int isDownlodedFonts);
     }
 
+    @NonNull
     @Override
     public GoogleFontsAdapter.FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new GoogleFontsAdapter.FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
@@ -56,7 +60,7 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
 
 
     @Override
-    public void onBindViewHolder(final GoogleFontsAdapter.FontItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final GoogleFontsAdapter.FontItemViewHolder holder, final int position) {
 
         holder.tv.setText(items[position]);
 
@@ -104,6 +108,7 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
 
     }
 
+    @Nullable
     private static Handler getHandlerThreadHandler() {
         if (mHandler == null) {
             HandlerThread handlerThread = new HandlerThread("fonts");
@@ -126,7 +131,7 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
     public class FontItemViewHolder extends RecyclerView.ViewHolder {
         Button tv;
 
-        public FontItemViewHolder(View itemView) {
+        public FontItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }

@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.apiRequestLauncher;
 
+import android.support.annotation.NonNull;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -31,6 +33,7 @@ public class JsonObjectRequestwithAuthHeader extends JsonObjectRequest {
     }
 
 
+    @NonNull
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         HashMap<String, String> hashMap = new HashMap<>();

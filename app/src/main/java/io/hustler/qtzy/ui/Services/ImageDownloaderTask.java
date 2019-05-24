@@ -1,6 +1,7 @@
 package io.hustler.qtzy.ui.Services;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 
 /**
  * Created by Sayi on 05-02-2018.
@@ -29,6 +30,7 @@ public class ImageDownloaderTask extends AsyncTask<String, String, Void> {
         super.onPostExecute(aVoid);
     }
 
+    @Nullable
     @Override
     protected Void doInBackground(String... params) {
         return null;

@@ -2,6 +2,7 @@ package io.hustler.qtzy.ui.networkhandler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -47,13 +48,13 @@ public class MySingleton {
                             cache = new LruCache<String, Bitmap>(20);
 
                     @Override
-                    public Bitmap getBitmap(String url) {
+                    public Bitmap getBitmap(@NonNull String url) {
                         return cache.get(url);
 
                     }
 
                     @Override
-                    public void putBitmap(String url, Bitmap bitmap) {
+                    public void putBitmap(@NonNull String url, @NonNull Bitmap bitmap) {
                         cache.put(url, bitmap);
                     }
                 });
@@ -93,7 +94,7 @@ public class MySingleton {
         return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> req) {
+    public <T> void addToRequestQueue(@NonNull Request<T> req) {
         getRequestQueue().add(req);
     }
 

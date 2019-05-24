@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -75,6 +76,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     TextView profile_name, profile_desc;
     Window window;
     boolean isfromFav = false;
+    @NonNull
     ArrayList<String> likedArray_list = new ArrayList<>();
     boolean is_image_liked;
 
@@ -228,7 +230,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         }
     }
 
-    private void showUserDetails(final Unsplash_Image image) {
+    private void showUserDetails(@NonNull final Unsplash_Image image) {
         final Dialog dialog = new Dialog(WallpapersPagerActivity.this, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.show_photographer_dialog_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
@@ -308,7 +310,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         } else {
             new Restutility(WallpapersPagerActivity.this).getUnsplashUSERImages(WallpapersPagerActivity.this, new ImagesFromUnsplashResponse() {
                 @Override
-                public void onSuccess(final Unsplash_Image[] unsplash_images) {
+                public void onSuccess(@NonNull final Unsplash_Image[] unsplash_images) {
                     userPics.setAdapter(new WallpaperAdapter(WallpapersPagerActivity.this, unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> images, ImageView itemView) {
@@ -331,7 +333,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         }
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;

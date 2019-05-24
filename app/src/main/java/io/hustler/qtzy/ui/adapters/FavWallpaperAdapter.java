@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -79,13 +80,14 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
 
     }
 
+    @NonNull
     @Override
     public FavWallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_fav_rv_item_layout, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(FavWallpaperAdapter.WallpaperViewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull FavWallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
         Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
         Glide.with(context).load(image.getUser().getProfile_image().getLarge()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
@@ -121,7 +123,7 @@ public class FavWallpaperAdapter extends android.support.v7.widget.RecyclerView.
         ImageView wallpaper, photographer;
         TextView photoGrapher_name;
 
-        public WallpaperViewholder(View itemView) {
+        public WallpaperViewholder(@NonNull View itemView) {
             super(itemView);
             wallpaper = itemView.findViewById(R.id.wallpaper_preview);
             photographer = itemView.findViewById(R.id.photographer_image);

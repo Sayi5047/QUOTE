@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,18 +42,19 @@ import java.util.ArrayList;
 public class CollectionsWallpaperAdapter extends android.support.v7.widget.RecyclerView.Adapter<CollectionsWallpaperAdapter.WallpaperViewholder> {
     Activity context;
     private boolean isLoadingAdded = false;
+    @NonNull
     static ArrayList<Unsplash_Image> m_AL_Images = new ArrayList<>();
     Unsplash_Image[] images;
     OnWallpaperClickListener onimageClickListener;
 
-    public CollectionsWallpaperAdapter(Activity context, Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
+    public CollectionsWallpaperAdapter(Activity context, @NonNull Unsplash_Image[] images, OnWallpaperClickListener onimageClickListener) {
         this.context = context;
         this.images = images;
         this.onimageClickListener = onimageClickListener;
         convertToArraYList(images);
     }
 
-    public void addItems(Unsplash_Image[] images) {
+    public void addItems(@NonNull Unsplash_Image[] images) {
         for (int i = 0; i < images.length; i++) {
             m_AL_Images.add(images[i]);
         }
@@ -80,13 +82,14 @@ public class CollectionsWallpaperAdapter extends android.support.v7.widget.Recyc
 
     }
 
+    @NonNull
     @Override
     public CollectionsWallpaperAdapter.WallpaperViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new WallpaperViewholder(context.getLayoutInflater().inflate(R.layout.wallpaper_rv_item_layout_search, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(CollectionsWallpaperAdapter.WallpaperViewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull CollectionsWallpaperAdapter.WallpaperViewholder holder, final int position) {
         final Unsplash_Image image = m_AL_Images.get(position);
         Glide.with(context).load(image.getUrls().getRegular()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.wallpaper);
         Glide.with(context).load(image.getUser().getProfile_image().getSmall()).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.photographer);
@@ -121,7 +124,7 @@ public class CollectionsWallpaperAdapter extends android.support.v7.widget.Recyc
         ImageView wallpaper, photographer;
         TextView photoGrapher_name;
 
-        public WallpaperViewholder(View itemView) {
+        public WallpaperViewholder(@NonNull View itemView) {
             super(itemView);
             wallpaper = itemView.findViewById(R.id.wallpaper_preview);
             photographer = itemView.findViewById(R.id.photographer_image);

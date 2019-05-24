@@ -1,6 +1,7 @@
 package io.hustler.qtzy.ui.adapters;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
         void onFontClicked(String fontName_Path, int isDownlodedFonts);
     }
 
+    @NonNull
     @Override
     public FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
@@ -50,7 +52,7 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
 
 
     @Override
-    public void onBindViewHolder(FontItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull FontItemViewHolder holder, final int position) {
         TextUtils.setFont(activity, holder.tv, items[position]);
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +77,7 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
     public class FontItemViewHolder extends RecyclerView.ViewHolder {
         Button tv;
 
-        public FontItemViewHolder(View itemView) {
+        public FontItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }

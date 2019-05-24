@@ -63,12 +63,13 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view);
     }
 
+    @NonNull
     @Override
     public LocalViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new LocalViewholder(activity.getLayoutInflater().inflate(R.layout.rv_item, parent, false));
     }
 
-    public void addData(ArrayList<Quote> extraData) {
+    public void addData(@NonNull ArrayList<Quote> extraData) {
         dataFromNet = new ArrayList<>();
         for (int i = 0; i < extraData.size(); i++) {
             dataFromNet.add(extraData.get(i));
@@ -77,6 +78,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         notifyDataSetChanged();
     }
 
+    @NonNull
     private GradientDrawable createDrawable(LocalViewholder holder) {
         int color1 = TextUtils.getMatColor(activity, "mdcolor_500");
         int color2 = TextUtils.getMatColor(activity, "mdcolor_500");
@@ -96,7 +98,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     }
 
     @Override
-    public void onBindViewHolder(final LocalViewholder holder, final int position) {
+    public void onBindViewHolder(@NonNull final LocalViewholder holder, final int position) {
         final GradientDrawable gradientDrawable = createDrawable(holder);
         final Quote quote = dataFromNet.get(position);
         String genre;
@@ -137,7 +139,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         LinearLayout rootView;
         CardView cardView;
 
-        public LocalViewholder(View itemView) {
+        public LocalViewholder(@NonNull View itemView) {
             super(itemView);
             rootView = itemView.findViewById(R.id.root_layout);
             cardView = itemView.findViewById(R.id.iv_quote_card_root);

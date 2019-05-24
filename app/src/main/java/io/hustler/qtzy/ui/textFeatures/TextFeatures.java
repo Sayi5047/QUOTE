@@ -21,6 +21,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.FontRequest;
 import android.support.v4.provider.FontsContractCompat;
@@ -88,11 +90,13 @@ import static android.view.View.GONE;
 public class TextFeatures {
 
 
+    @Nullable
     private static Handler mHandler = null;
+    @Nullable
     static Typeface downloadedTypeface = null;
     public static final String[] selected_type_face = new String[1];
 
-    public static void apply_Text_Shadow(final Activity activity, final TextView selectedTextView) {
+    public static void apply_Text_Shadow(@NonNull final Activity activity, final TextView selectedTextView) {
 
         final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.shadow_text_layout);
@@ -280,7 +284,8 @@ public class TextFeatures {
     }
 
     //  METHOD TO APLLY FONT
-    public static FontSelected apply_font(final EditorActivity editorActivity, final TextView selectedTextView) {
+    @NonNull
+    public static FontSelected apply_font(@NonNull final EditorActivity editorActivity, @NonNull final TextView selectedTextView) {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.apply_font_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
@@ -343,7 +348,7 @@ public class TextFeatures {
 
             }
 
-            private boolean checkFamilyValid(String familyName) {
+            private boolean checkFamilyValid(@Nullable String familyName) {
                 return (familyName != null && familyNameSet.contains(familyName));
             }
         });
@@ -384,7 +389,7 @@ public class TextFeatures {
         String[] familyNames = editorActivity.getResources().getStringArray(R.array.family_names);
         googleFontsAdapter = new GoogleFontsAdapter(true, editorActivity, familyNames, new GoogleFontsAdapter.onFontClickListner() {
             @Override
-            public void onFontClicked(String font, int isDownloadFont) {
+            public void onFontClicked(@NonNull String font, int isDownloadFont) {
                 selected_type_face[0] = font;
                 isDownloaded[2] = isDownloadFont;
                 if (InternetUtils.isConnectedtoNet(editorActivity)) {
@@ -409,7 +414,7 @@ public class TextFeatures {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_font));
                 } else {
                     if (isDownloaded[0] == 1) {
-                        if (selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/cstd_reg.otf")) {
+                        if (selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/qanelasm.otf")) {
                             TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
                         }
 
@@ -446,7 +451,7 @@ public class TextFeatures {
 
     }
 
-    private static void requestDownload(Activity activity, String familyName, TextView selectedTextView, final TextView demoText) {
+    private static void requestDownload(@NonNull Activity activity, @NonNull String familyName, TextView selectedTextView, @NonNull final TextView demoText) {
 
 
         QueryBuilder queryBuilder = new QueryBuilder(familyName)
@@ -482,6 +487,7 @@ public class TextFeatures {
                         getHandlerThreadHandler());
     }
 
+    @Nullable
     private static Handler getHandlerThreadHandler() {
         if (mHandler == null) {
             HandlerThread handlerThread = new HandlerThread("fonts");
@@ -499,6 +505,7 @@ public class TextFeatures {
 //        dialog.setContentView(R.layout.activity_symbol_fonts);
 //    }
 
+    @NonNull
     public static String[] getDownloadedFonts(File file) {
         String[] FilePathStrings = new String[0];
         String[] FileNameStrings = new String[0];
@@ -508,7 +515,7 @@ public class TextFeatures {
         if (file.isDirectory()) {
             listFile = file.listFiles(new FilenameFilter() {
                 @Override
-                public boolean accept(File dir, String name) {
+                public boolean accept(File dir, @NonNull String name) {
                     if (name.endsWith(".ttf")) {
                         return true;
                     } else if (name.endsWith(".otf")) {
@@ -552,17 +559,19 @@ public class TextFeatures {
     }
 
 
+    @NonNull
     private static String[] getSymbolFonts(Activity activity) {
         String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);
         return localFonts;
     }
 
+    @NonNull
     private static String[] getLocalFonts(Activity activity) {
         String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);
         return localFonts;
     }
 
-    public static void setGradients(final EditorActivity editorActivity, final TextView selectedTextView) {
+    public static void setGradients(@NonNull final EditorActivity editorActivity, @NonNull final TextView selectedTextView) {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.geadient_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
@@ -817,7 +826,7 @@ public class TextFeatures {
         dialog.show();
     }
 
-    public static void setVfx(EditorActivity editorActivity, final TextView selectedTextView) {
+    public static void setVfx(@NonNull EditorActivity editorActivity, final TextView selectedTextView) {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.vfx_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
@@ -1104,7 +1113,7 @@ public class TextFeatures {
         textView.getPaint().setMaskFilter(filter);
     }
 
-    public static void setHollowText(final EditorActivity editorActivity, final TextView selectedTextView) {
+    public static void setHollowText(@NonNull final EditorActivity editorActivity, final TextView selectedTextView) {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog);
         dialog.setContentView(R.layout.hollow_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
@@ -1217,6 +1226,7 @@ public class TextFeatures {
                 PathDashPathEffect.Style.ROTATE);
     }
 
+    @NonNull
     public static Path getTriangle(float size) {
         Path path = new Path();
         float half = size / 2;

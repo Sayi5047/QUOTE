@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -142,7 +143,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private String newly_Added_Text;
     private String current_Text_feature;
     private String current_Bg_feature;
+    @Nullable
     private String current_module = null;
+    @Nullable
     private String selected_picture;
     private String guestImage;
 
@@ -151,9 +154,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     Features_adapter features_adapter;
 
     RecyclerView featuresRecyclerview;
+    @Nullable
     View selectedView;
+    @Nullable
     StickerImageView selected_sticker, previous_sticker;
+    @Nullable
     View previousselctedView;
+    @Nullable
     View previousState;
 
     private ImageView light_effect_filter_IV;
@@ -431,7 +438,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void onNewIntent(@NonNull Intent intent) {
         isFromEdit_Activity = 0;
 
         File file;
@@ -482,7 +489,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     /*TOUCH LISTNER*/
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
         rotationGestureDetector.onTouchEvent(event);
         return true;
@@ -491,7 +498,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     /*CLICK LISTNERS*/
     //LEVEL 1
     @Override
-    public void onClick(View v) {
+    public void onClick(@NonNull View v) {
         switch (v.getId()) {
             case R.id.bt_clear: {
                 if (selectedView != null) {
@@ -681,7 +688,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         features_adapter = new Features_adapter(this, "Text_features", getResources().getStringArray(R.array.Text_features).length, new Features_adapter.OnFeature_ItemClickListner() {
             @Override
-            public void onItemClick(String clickedItem) {
+            public void onItemClick(@NonNull String clickedItem) {
                 enable_Selected_Text_Feature(clickedItem, getResources().getStringArray(R.array.Text_features));
             }
         }, true);
@@ -850,7 +857,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }));
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
@@ -865,7 +872,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-    private void setLayout(int deviceWidth, int deviceHeight, Dialog dialog) {
+    private void setLayout(int deviceWidth, int deviceHeight, @NonNull Dialog dialog) {
         RelativeLayout.LayoutParams relativeLayout;
         relativeLayout = new RelativeLayout.LayoutParams(deviceWidth, deviceHeight);
         relativeLayout.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -884,7 +891,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.dismiss();
     }
 
-    private void enable_Selected_Background_Features(String clickedItem, final String[] bgfeaturesArray) {
+    private void enable_Selected_Background_Features(@Nullable String clickedItem, final String[] bgfeaturesArray) {
         if (clickedItem != null) {
             if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
                 current_Bg_feature = bgfeaturesArray[0];
@@ -998,7 +1005,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.show();
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                     dialog.dismiss();
                     return true;
@@ -1009,7 +1016,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         });
     }
 
-    public void getRandomImages(String word, final RecyclerView recyclerView, final ProgressBar progressBar, final Dialog dialog) {
+    public void getRandomImages(@Nullable String word, @NonNull final RecyclerView recyclerView, @NonNull final ProgressBar progressBar, @NonNull final Dialog dialog) {
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(null);
         recyclerView.setVisibility(GONE);
@@ -1107,7 +1114,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     /*Seekbar methods*/
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    public void onProgressChanged(@NonNull SeekBar seekBar, int progress, boolean fromUser) {
         handle_seekbar_value(seekBar);
 
     }
@@ -1117,11 +1124,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
+    public void onStopTrackingTouch(@NonNull SeekBar seekBar) {
         handle_bg_seekbar(seekBar);
     }
 
-    private void handle_bg_seekbar(SeekBar seekBar) throws NullPointerException {
+    private void handle_bg_seekbar(@NonNull SeekBar seekBar) throws NullPointerException {
         String[] featuresLocalArray = getResources().getStringArray(R.array.Background_features);
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.we_missed_bg));
@@ -1618,7 +1625,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.show();
     }
 
-    public void setSpan(Object styleSpan, EditText addingText) {
+    public void setSpan(Object styleSpan, @NonNull EditText addingText) {
         spannableString = new SpannableString(addingText.getText().toString());
         spannableString.setSpan(styleSpan, 0, addingText.getText().toString().length(), 0);
         setSpannableText(addingText, spannableString);
@@ -1843,7 +1850,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void set_text_alignment(int position, TextView textView) {
+    public void set_text_alignment(int position, @NonNull TextView textView) {
         switch (position) {
             case 1:
                 textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
@@ -2106,7 +2113,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri fileurl = data.getData();
@@ -2213,7 +2220,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     /*Methods to handle view movements*/
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
         RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         final int INAVALID_POINTER_ID = -1;
 
@@ -2321,7 +2328,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             previousselctedView = selected_sticker;
             selected_sticker = v;
             clear_button.setVisibility(View.VISIBLE);
-            ((StickerImageView) selected_sticker).setControlItemsHidden(false);
+            selected_sticker.setControlItemsHidden(false);
             selected_sticker.bringToFront();
         } else {
             clear_button.setVisibility(View.VISIBLE);
@@ -2346,7 +2353,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
 
     @Override
-    public boolean onLongClick(View v) {
+    public boolean onLongClick(@NonNull View v) {
 
         v.bringToFront();
         core_editor_layout.forceLayout();
@@ -2360,14 +2367,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void onRotate(RotationGestureDetector rotationGestureDetector) {
+    public void onRotate(@NonNull RotationGestureDetector rotationGestureDetector) {
         if (selectedView != null) {
             View selected = selectedView;
             if (selected instanceof TextView) {
                 TextView selectedText = ((TextView) selected);
                 selectedText.setRotation(rotationGestureDetector.getmAngle());
 
-                Log.d("RotationGestureDetector", "Rotation: " + Float.toString(rotationGestureDetector.getmAngle()));
+                Log.d("RotationGestureDetector", "Rotation: " + rotationGestureDetector.getmAngle());
             }
 
         }
@@ -2375,7 +2382,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
-        public boolean onScale(ScaleGestureDetector detector) {
+        public boolean onScale(@NonNull ScaleGestureDetector detector) {
             if (selectedView != null) {
                 View selected = selectedView;
                 if (selected instanceof TextView) {

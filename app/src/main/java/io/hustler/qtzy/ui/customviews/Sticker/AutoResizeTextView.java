@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.RectF;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -26,9 +27,10 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
          *         text, it takes less space than {@code availableSpace}, > 0
          *         otherwise
          */
-        public int onTestSize(int suggestedSize, RectF availableSpace);
+        int onTestSize(int suggestedSize, RectF availableSpace);
     }
 
+    @NonNull
     private RectF mTextRect = new RectF();
 
     private RectF mAvailableSpaceRect;
@@ -53,17 +55,17 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
     private boolean mEnableSizeCache = true;
     private boolean mInitiallized;
 
-    public AutoResizeTextView(Context context) {
+    public AutoResizeTextView(@NonNull Context context) {
         super(context);
         initialize();
     }
 
-    public AutoResizeTextView(Context context, AttributeSet attrs) {
+    public AutoResizeTextView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize();
     }
 
-    public AutoResizeTextView(Context context, AttributeSet attrs, int defStyle) {
+    public AutoResizeTextView(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initialize();
     }
@@ -81,7 +83,7 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
     }
 
     @Override
-    public void setText(final CharSequence text, BufferType type) {
+    public void setText(@NonNull final CharSequence text, BufferType type) {
         super.setText(text, type);
         adjustTextSize(text.toString());
     }
@@ -185,7 +187,7 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
     private final SizeTester mSizeTester = new SizeTester() {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
-        public int onTestSize(int suggestedSize, RectF availableSPace) {
+        public int onTestSize(int suggestedSize, @NonNull RectF availableSPace) {
             mPaint.setTextSize(suggestedSize);
             String text = getText().toString();
             boolean singleline = getMaxLines() == 1;
@@ -238,7 +240,7 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
     }
 
     private int efficientTextSizeSearch(int start, int end,
-                                        SizeTester sizeTester, RectF availableSpace) {
+                                        @NonNull SizeTester sizeTester, RectF availableSpace) {
         if (!mEnableSizeCache) {
             return binarySearch(start, end, sizeTester, availableSpace);
         }
@@ -253,7 +255,7 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
         return size;
     }
 
-    private static int binarySearch(int start, int end, SizeTester sizeTester,
+    private static int binarySearch(int start, int end, @NonNull SizeTester sizeTester,
                                     RectF availableSpace) {
         int lastBest = start;
         int lo = start;

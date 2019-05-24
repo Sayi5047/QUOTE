@@ -16,6 +16,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
@@ -85,9 +87,10 @@ import java.util.zip.ZipInputStream;
    limitations under the License.*/
 public class FileUtils {
 
+    @Nullable
     static String folderName = null;
 
-    public static void unzipandSave(File file, final Activity activity, String action) {
+    public static void unzipandSave(File file, @NonNull final Activity activity, String action) {
         int Buffer = 2048;
         File sourcezipLocation = file;
         final List<String> zipContents = new ArrayList<>();
@@ -199,7 +202,7 @@ public class FileUtils {
             });
             dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                     if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                         dialog.dismiss();
                         return true;
@@ -216,7 +219,7 @@ public class FileUtils {
 
     }
 
-    private static String doUnZIP(final Activity activity, final File sourcezipLocation, final String tempTargetLocationPath) {
+    private static String doUnZIP(final Activity activity, @NonNull final File sourcezipLocation, final String tempTargetLocationPath) {
 
         try {
 //            TEMPORARY FILES
@@ -273,7 +276,7 @@ public class FileUtils {
 
     }
 
-    public static void savetoDevice(final ViewGroup layout, final Activity activity, final onSaveComplete listneer) {
+    public static void savetoDevice(@NonNull final ViewGroup layout, @NonNull final Activity activity, @NonNull final onSaveComplete listneer) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -401,7 +404,7 @@ public class FileUtils {
                 dialog.show();
                 dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
-                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                             dialog.dismiss();
                             return true;
@@ -415,14 +418,14 @@ public class FileUtils {
         }).run();
     }
 
-    private static File getSavingFile(File directoryChecker2, boolean b, String format, Activity activity, String name) {
+    private static File getSavingFile(@NonNull File directoryChecker2, boolean b, String format, @NonNull Activity activity, String name) {
         if (!b) {
             directoryChecker2.mkdir();
         }
         return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + activity.getString(R.string.Qotzy) + File.separator + name + format);
     }
 
-    public static void show_post_save_dialog(final Activity activity, final File savedFile) {
+    public static void show_post_save_dialog(@NonNull final Activity activity, @Nullable final File savedFile) {
 
         new Thread(new Runnable() {
             @Override
@@ -523,7 +526,7 @@ public class FileUtils {
                 dialog.show();
                 dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
-                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                             dialog.dismiss();
                             return true;
@@ -537,7 +540,7 @@ public class FileUtils {
         }).run();
     }
 
-    private static void rate_in_playstore(Activity activity, SharedPreferences.Editor editor) {
+    private static void rate_in_playstore(Activity activity, @NonNull SharedPreferences.Editor editor) {
 
         final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity  object
         try {
@@ -551,7 +554,7 @@ public class FileUtils {
 
     }
 
-    private static void setListeners(ImageView facebook, final String packageName, final Activity activity, final File savedFile) {
+    private static void setListeners(ImageView facebook, @NonNull final String packageName, @NonNull final Activity activity, final File savedFile) {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -560,7 +563,7 @@ public class FileUtils {
         });
     }
 
-    private static void launchSpecificApp(String s, Activity activity, File savedFile) {
+    private static void launchSpecificApp(@NonNull String s, Activity activity, @Nullable File savedFile) {
         Intent fbIntent = activity.getPackageManager().getLaunchIntentForPackage(s);
         if (fbIntent != null) {
             Intent shareIntent = new Intent();
@@ -623,7 +626,7 @@ public class FileUtils {
     }
 
     // METHOD TOOK FROM INTERNET
-    public static Uri getImageContentUri(Context context, File imageFile) {
+    public static Uri getImageContentUri(@NonNull Context context, @NonNull File imageFile) {
         Uri uri;
         if (Build.VERSION.SDK_INT >= 24) {
             uri = FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), imageFile);
@@ -664,6 +667,7 @@ public class FileUtils {
 
     }
 
+    @NonNull
     public static ContentValues getImageContent(File parent) {
         ContentValues image = new ContentValues();
         image.put(MediaStore.Images.Media.TITLE, parent.getName());
@@ -709,7 +713,7 @@ public class FileUtils {
 
     }
 
-    public static void setwallpaper(Activity activity, String imagepath) {
+    public static void setwallpaper(@NonNull Activity activity, @NonNull String imagepath) {
         try {
             Intent intent = new Intent(WallpaperManager.getInstance(activity).
                     getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));
@@ -722,7 +726,7 @@ public class FileUtils {
 
     }
 
-    public static void shareImage(Activity activity, String imagePath) {
+    public static void shareImage(@Nullable Activity activity, @Nullable String imagePath) {
         if (activity != null) {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
@@ -747,7 +751,7 @@ public class FileUtils {
 
     }
 
-    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader, Context applicationContext) {
+    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader, @NonNull Context applicationContext) {
 
         File downloading_File;
         FileOutputStream fileOutputStream;
@@ -817,12 +821,13 @@ public class FileUtils {
         editor.apply();
     }
 
+    @Nullable
     private static String getSavedShared(Activity activity) {
         return PreferenceManager.getDefaultSharedPreferences(activity).getString(Constants.TEMP_FILE_NAME_KEY, null);
     }
 
     // Will implement once I reach more than 1000 users.
-    public static void savetoDeviceWithAds(final ViewGroup layout, final Activity activity, final onSaveComplete listneer) {
+    public static void savetoDeviceWithAds(@NonNull final ViewGroup layout, @NonNull final Activity activity, @NonNull final onSaveComplete listneer) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -892,7 +897,7 @@ public class FileUtils {
                     }
 
                     @Override
-                    public void onRewarded(RewardItem rewardItem) {
+                    public void onRewarded(@NonNull RewardItem rewardItem) {
                         Toast.makeText(activity, "onRewarded! currency: " + rewardItem.getType() + "  amount: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
                         layout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
                     }
@@ -1028,7 +1033,7 @@ public class FileUtils {
                 dialog.show();
                 dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
-                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
                         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
                             dialog.dismiss();
                             return true;
@@ -1120,7 +1125,7 @@ public class FileUtils {
         void onImageSaveListner(File file);
     }
 
-    public static Bitmap drawable_from_url(String url) throws java.net.MalformedURLException, java.io.IOException {
+    public static Bitmap drawable_from_url(String url) throws java.io.IOException {
 
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setRequestProperty("User-agent", "Mozilla/4.0");

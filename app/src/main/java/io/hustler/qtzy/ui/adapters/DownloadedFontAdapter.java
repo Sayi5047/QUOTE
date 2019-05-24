@@ -2,6 +2,7 @@ package io.hustler.qtzy.ui.adapters;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
         void onFontClicked(String fontName_Path, int isDownlodedFonts);
     }
 
+    @NonNull
     @Override
     public DownloadedFontAdapter.FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new DownloadedFontAdapter.FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
@@ -50,7 +52,7 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
 
 
     @Override
-    public void onBindViewHolder(DownloadedFontAdapter.FontItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull DownloadedFontAdapter.FontItemViewHolder holder, final int position) {
         holder.tv.setTypeface(Typeface.createFromFile(items[position]));
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +77,7 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
     public class FontItemViewHolder extends RecyclerView.ViewHolder {
         Button tv;
 
-        public FontItemViewHolder(View itemView) {
+        public FontItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }

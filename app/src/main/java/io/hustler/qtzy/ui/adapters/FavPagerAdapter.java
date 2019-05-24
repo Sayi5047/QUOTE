@@ -40,6 +40,7 @@ public class FavPagerAdapter extends FragmentPagerAdapter {
         return 2;
     }
 
+    @Nullable
     @Override
     public Fragment getItem(int position) {
         Fragment returning_fragment = null;

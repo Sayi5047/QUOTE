@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import io.hustler.qtzy.ui.pojo.unspalsh.Links;
@@ -56,12 +57,12 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(@NonNull SQLiteDatabase db) {
         db.execSQL(Contract.Images.CREATE_ENTRIES);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(Contract.Images.SQL_DELETE_TABLE);
         onCreate(db);
     }
@@ -72,7 +73,7 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addFav(final Unsplash_Image image) {
+    public void addFav(@NonNull final Unsplash_Image image) {
         final SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         final ContentValues contentValues = new ContentValues();
 
@@ -96,7 +97,7 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
         }).run();
     }
 
-    public void removeFav(final Unsplash_Image image) {
+    public void removeFav(@NonNull final Unsplash_Image image) {
         final SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         final ContentValues contentValues = new ContentValues();
 
@@ -110,6 +111,7 @@ public class ImagesDbHelper extends SQLiteOpenHelper {
         }).run();
     }
 
+    @NonNull
     public List<Unsplash_Image> getAllFav() {
 
         final List<Unsplash_Image> allQuotes = new ArrayList<>();
