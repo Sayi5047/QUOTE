@@ -10,6 +10,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -162,17 +163,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private void getIntentData() {
         quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
         int length = quote.getQuote().length();
-        color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
-        if (color1 != null) {
-            quote_layout.setBackground(createDrawable(color1));
-        } else {
-            int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-            int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-            quote_layout.setBackground(createDrawable(new int[]{color1, color2}));
+        SetBackGroundTask();
 
-        }
-//        quote_bottom.setBackground(createDrawable(color1));
-//        wallpaper_layout.setBackground(createDrawable(color1));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
         }
@@ -207,6 +199,26 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
 
         }
+    }
+
+    private void SetBackGroundTask() {
+        Handler handler = new Handler();
+        Runnable setBgClorTask = new Runnable() {
+            @Override
+            public void run() {
+                color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
+                if (color1 != null) {
+                    quote_layout.setBackground(createDrawable(color1));
+                } else {
+                    int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+                    int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+                    quote_layout.setBackground(createDrawable(new int[]{color1, color2}));
+
+                }
+            }
+        };
+        handler.removeCallbacks(setBgClorTask);
+        handler.post(setBgClorTask);
     }
 
     @Override

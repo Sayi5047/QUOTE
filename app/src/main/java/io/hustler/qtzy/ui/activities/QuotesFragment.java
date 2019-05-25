@@ -3,6 +3,7 @@ package io.hustler.qtzy.ui.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,6 +30,7 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.utils.IntentConstants;
+import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 /**
  * Created by Sayi on 07-10-2017.
@@ -72,7 +74,11 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
         loader.setVisibility(View.VISIBLE);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (!sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
-            getActivity().startService(new Intent(getActivity(), QuoteLoaderService.class));
+            Objects.requireNonNull(getActivity()).startService(new Intent(getActivity(), QuoteLoaderService.class));
+            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "QuotesNotLoaded");
+        } else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Quotes Loaded");
+
         }
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {
             @Override
@@ -92,6 +98,13 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
     }
 
     public void loadQuotes() {
+
+        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
+            new QuotesloadTask().execute();
+        } else {
+            loader.setVisibility(View.VISIBLE);
+        }
+
         // TODO: 27-01-2019 ADD A REST UTILITY CALL FOR GET QUOTES BY CATEGORY ATTITUDE
 //        new Restutility(getActivity()).getQuotes(new QuotzyApiResponseListener() {
 //            @Override
@@ -120,28 +133,15 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 //                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "ERROR OCCURED");
 //            }
 //        }, getActivity(), Constants.QUOTZY_API_GET_QUOTES_BY_CATEGORY + "Attitude");
-        loader.setVisibility(View.GONE);
-        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
-//            getLoaderManager().initLoader(0, null, this);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    quotesList = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
-                    setAdapter(new ArrayList<Quote>(quotesList));
-                }
-            }).run();
-        } else {
-            loader.setVisibility(View.VISIBLE);
-        }
     }
 
     private void setAdapter(@Nullable final ArrayList<Quote> quotes) {
         if (quotes == null) {
         } else {
+            loader.setVisibility(View.GONE);
             localAdapter.addData(quotes);
             localAdapter.notifyDataSetChanged();
             rv.setAdapter(localAdapter);
-            loader.setVisibility(View.GONE);
 
         }
     }
@@ -149,7 +149,8 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Objects.equals(key, Constants.IS_QUOTES_LOADED_KEY)) {
-            loadQuotes();
+            new QuotesloadTask().execute();
+            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "RECEIVED CALL BACK");
         }
     }
 
@@ -166,6 +167,33 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 
         super.onStop();
     }
+
+
+    class QuotesloadTask extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            quotesList = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setAdapter(new ArrayList<>(quotesList));
+
+        }
+    }
+
 
 //
 //    @Override

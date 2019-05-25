@@ -10,6 +10,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,13 +30,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -61,7 +63,6 @@ import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.customviews.Sticker.StickerView;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.FavouritesHolderFragment;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.QuotesHolderFragment;
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     ImageView worksIv;
     @Nullable
     @BindView(R.id.bottom)
-    LinearLayout bottom;
+    RelativeLayout bottom;
     @Nullable
     @BindView(R.id.nav_view)
     NavigationView navView;
@@ -128,7 +129,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     ValueAnimator valueAnimator;
     int previousPixles;
-    short currentPixels;
+    int currentPixels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,13 +194,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
         TextUtils.setMenu_Font(navigationView.getMenu(), MainActivity.this);
-//        TextUtils.findText_and_applyTypeface(linearLayout, MainActivity.this);
-//        navigationView.getHeaderView(0);
-        loadInitialFragment();
         for (int i = 0; i < navigationView.getHeaderCount(); i++) {
-
             TextUtils.findText_and_applyTypeface(((LinearLayout) navigationView.getHeaderView(i)), MainActivity.this);
         }
+        launchFragment(new QuotesHolderFragment());
 
 
     }
@@ -353,8 +351,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }
-//        setImages(result_rv, query, loader, radioGroup, search_header, search_term);
-//        setQuotes(result_rv, query, loader);
+//        setImagesFirSearchQuery(result_rv, query, loader, radioGroup, search_header, search_term);
+//        setQuotesForSearchQuery(result_rv, query, loader);
 //        search_Query.setText(query);
         TextUtils.findText_and_applyTypeface(root, MainActivity.this);
         TextUtils.findText_and_applyamim_slideup(root, MainActivity.this);
@@ -377,13 +375,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_images: {
-//                        setImages(result_rv, query, loader);
+//                        setImagesFirSearchQuery(result_rv, query, loader);
                         selected_type[0] = IMAGES;
                         search.performClick();
                     }
                     break;
                     case R.id.rb_quotes: {
-//                        setQuotes(result_rv, query, loader);
+//                        setQuotesForSearchQuery(result_rv, query, loader);
                         selected_type[0] = QUOTES;
                         search.performClick();
 
@@ -402,11 +400,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 } else {
                     switch (selected_type[0]) {
                         case IMAGES: {
-                            setImages(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
+                            setImagesFirSearchQuery(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
                         }
                         break;
                         case QUOTES: {
-                            setQuotes(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
+                            setQuotesForSearchQuery(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
                         }
                         break;
 
@@ -458,7 +456,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, @NonNull final RadioGroup radioGroup, @NonNull final LinearLayout search_header, @NonNull final TextView search_term) {
+    private void setImagesFirSearchQuery(final RecyclerView rv, final String query,
+                                         final ProgressBar loader, @NonNull final RadioGroup radioGroup,
+                                         @NonNull final LinearLayout search_header,
+                                         @NonNull final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
         final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
@@ -514,7 +515,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
+    private void setQuotesForSearchQuery(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -576,25 +577,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-//            launchFragment(new QuotesFragment());
             quotesIv.performClick();
         } else if (id == R.id.nav_camera_2) {
             quotesIv.performClick();
-
-//            launchFragment(new CategoriesFragment());
         } else if (id == R.id.nav_gallery) {
             wallpaerIv.performClick();
-//            launchFragment(new WallpaperFragment());
         } else if (id == R.id.nav_slideshow) {
             likeIv.performClick();
-//            launchFragment(new UserFavuritesFragment());
         } else if (id == R.id.nav_manage) {
             worksIv.performClick();
-//            launchFragment(new UserWorkFragment());
         } else if (id == R.id.nav_share) {
             taketoRate();
         } else if (id == R.id.nav_send) {
@@ -673,85 +667,103 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @OnClick({R.id.fab, R.id.quotes_iv, R.id.wallpaer_iv, R.id.create_iv, R.id.like_iv, R.id.works_iv})
     public void onViewClicked(@NonNull View view) {
-        int currentPixels,imageSizePixles;
         switch (view.getId()) {
-            case R.id.fab:
-
-                break;
             case R.id.quotes_iv:
-                launchFragment(new QuotesHolderFragment());
-                cancelPrevious();
-                quotesIv.setTranslationY(-10);
-                currentPixels = StickerView.convertDpToPixel(15, this);
-                seTValueAnimation(previousPixles, currentPixels);
-                previousPixles = currentPixels;
-                valueAnimator.start();
+                launchFragmentAndAnimate(previousPixles, quotesIv, new QuotesHolderFragment());
                 break;
             case R.id.wallpaer_iv:
-                launchFragment(new WallpapersHolderFragment());
-                cancelPrevious();
-                wallpaerIv.setTranslationY(-10);
-                currentPixels = StickerView.convertDpToPixel(95, this);
-                seTValueAnimation(previousPixles, currentPixels);
-                previousPixles = currentPixels;
-                valueAnimator.start();
-
-                break;
-            case R.id.create_iv:
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
-                intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+                launchFragmentAndAnimate(previousPixles, wallpaerIv, new WallpapersHolderFragment());
                 break;
             case R.id.like_iv:
-                launchFragment(new FavouritesHolderFragment());
-                cancelPrevious();
-                likeIv.setTranslationY(-10);
-                currentPixels = StickerView.convertDpToPixel(230, this);
-                seTValueAnimation(previousPixles, currentPixels);
-                previousPixles = currentPixels;
-                valueAnimator.start();
-
+                launchFragmentAndAnimate(previousPixles, likeIv, new FavouritesHolderFragment());
                 break;
             case R.id.works_iv:
-                launchFragment(new SavedHolderFragment());
-                cancelPrevious();
-                worksIv.setTranslationY(-10);
-                currentPixels = StickerView.convertDpToPixel(310, this);
-                seTValueAnimation(previousPixles, currentPixels);
-                previousPixles = currentPixels;
-                valueAnimator.start();
-
-
+                launchFragmentAndAnimate(previousPixles, worksIv, new SavedHolderFragment());
+                break;
+            case R.id.create_iv:
+                startActivity(new Intent(MainActivity.this, EditorActivity.class).putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1));
+                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
                 break;
         }
+    }
+
+    private int[] getXlocationOfView(final ImageView imageView) {
+
+        crownView.setVisibility(View.VISIBLE);
+        imageView.setTranslationY(-10);
+        int[] locationValues = new int[2];
+        imageView.getLocationOnScreen(locationValues);
+        return locationValues;
+
     }
 
     private void cancelPrevious() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.root);
         if (fragment instanceof QuotesHolderFragment) {
-            quotesIv.setTranslationY(0);
+            scaleIcon(quotesIv, 1);
         } else if (fragment instanceof WallpapersHolderFragment) {
-            wallpaerIv.setTranslationY(0);
-
+            scaleIcon(wallpaerIv, 1);
         } else if (fragment instanceof FavouritesHolderFragment) {
-            likeIv.setTranslationY(0);
-
+            scaleIcon(likeIv, 1);
         } else {
-            worksIv.setTranslationY(0);
+            scaleIcon(worksIv, 1);
 
         }
     }
 
-    private void seTValueAnimation(float start, float end) {
-        valueAnimator = ValueAnimator.ofFloat(start, end);
-        valueAnimator.setDuration(600);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    private void scaleIcon(final ImageView worksIv, final float i) {
+        Handler scaleHandler = new Handler();
+        Runnable scaleTask = new Runnable() {
             @Override
-            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
-                crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
+            public void run() {
+
+                if (i <= 1) {
+                    worksIv.setColorFilter(null);
+                } else {
+                    worksIv.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.primary));
+                }
+                worksIv.animate().scaleX(i).scaleY(i).setDuration(300).start();
             }
-        });
+        };
+        scaleHandler.removeCallbacks(scaleTask);
+        scaleHandler.post(scaleTask);
+    }
+
+    private void TranslateAnimation(ImageView worksIv, int start, int end) {
+        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, start, end);
+        translateAnimation.setDuration(600);
+        translateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        worksIv.startAnimation(translateAnimation);
+    }
+
+    private void launchFragmentAndAnimate(final float start, final ImageView imageView, final Fragment fragment) {
+        Fragment currentClass = getSupportFragmentManager().findFragmentById(R.id.root);
+        assert currentClass != null;
+        if (fragment.getClass().getName().equals(fragment.getClass().getName())) {
+            Runnable translationTask = new Runnable() {
+                @Override
+                public void run() {
+                    launchFragment(fragment);
+                    cancelPrevious();
+                    scaleIcon(imageView, 1.8f);
+                    currentPixels = getXlocationOfView(imageView)[0];
+                    valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
+                    valueAnimator.setDuration(300);
+                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
+                            assert crownView != null;
+                            crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
+                        }
+                    });
+                    previousPixles = currentPixels;
+                    valueAnimator.start();
+                }
+            };
+            Handler handler = new Handler();
+            handler.removeCallbacks(translationTask);
+            handler.post(translationTask);
+        }
 
     }
 
