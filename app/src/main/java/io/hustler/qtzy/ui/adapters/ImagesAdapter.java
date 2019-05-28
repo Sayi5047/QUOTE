@@ -46,7 +46,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
 
 
     public interface ImagesOnClickListner {
-        void onImageClicked(String stillImage, String gifImage);
+        void onImageClicked(String stillImage, String gifImage, int frameCount);
     }
 
     @NonNull
@@ -71,7 +71,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
             public void onClick(View v) {
                 if (listner != null) {
                     listner.onImageClicked(giphySticker.getImages().getOriginalStill().getUrl(),
-                            giphySticker.getImages().getOriginal().getUrl());
+                            giphySticker.getImages().getOriginal().getUrl(), Integer.parseInt(giphySticker.getImages().getOriginal().getFrames()));
                 }
             }
         });

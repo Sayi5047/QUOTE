@@ -127,6 +127,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     int addedTextIds = 0;
     int prevX, prevY;
     private int pointer_Id_1;
+    int gifFrameCount = 0;
 
     float nsx, nsy, nfx, nfy;
     private float fx;
@@ -333,6 +334,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         selectedView = null;
 
                     }
+
                     savetoDeviceWithAds(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
                         @Override
                         public void onImageSaveListner(File file) {
@@ -341,7 +343,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                             show_post_save_dialog(EditorActivity.this, savedFile);
 
                         }
-                    });
+                    }, gifFrameCount);
                     if (savedFile != null) {
                         Toast.makeText(EditorActivity.this, "File Already Saved", Toast.LENGTH_SHORT).show();
                     }
@@ -381,7 +383,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                             shareIntent.putExtra(Intent.EXTRA_STREAM, uri1);
                             startActivity(Intent.createChooser(shareIntent, "send"));
                         }
-                    });
+                    },gifFrameCount);
                 }
             }
             break;
@@ -650,7 +652,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         public void onImageSaveListner(File file) {
                             savedFile = file;
                         }
-                    });
+                    }, gifFrameCount);
                 }
             }
             break;
@@ -1302,9 +1304,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setAdapter(new ImagesAdapter(EditorActivity.this, data.getData(), new ImagesAdapter.ImagesOnClickListner() {
                     @Override
-                    public void onImageClicked(String stillImage, String gifImage) {
+                    public void onImageClicked(String stillImage, String gifImage, int frameCount) {
 //                        selected_picture = stillImage;
-                        addSticker(gifImage);
+                        addSticker(gifImage, frameCount);
 //                        imageView_background.setBackground(null);
 //                        Glide.with(EditorActivity.this)
 //                                .load(stillImage)
@@ -1325,10 +1327,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }, word);
     }
 
-    private void addSticker(String Biglink) {
+    private void addSticker(String Biglink, int frameCount) {
         final StickerImageView stickerImageView = new StickerImageView(EditorActivity.this);
         Glide.with(EditorActivity.this).load(Biglink).asGif().into(((ImageView) stickerImageView.getMainView()));
         core_editor_layout.addView(stickerImageView);
+        if (gifFrameCount <= 0) {
+            gifFrameCount = frameCount;
+        } else if (gifFrameCount <= frameCount) {
+            gifFrameCount = frameCount;
+        }
         if (null != selected_sticker) {
             selected_sticker.setControlItemsHidden(true);
             previousselctedView = selected_sticker;

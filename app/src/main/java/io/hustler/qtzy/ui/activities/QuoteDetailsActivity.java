@@ -317,7 +317,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     savedFile = file;
                     show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
                 }
-            });
+            },0);
         } else {
             requestAppPermissions();
         }
@@ -357,7 +357,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                             show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
 
                         }
-                    });
+                    },0);
                 }
             }
             break;
@@ -435,7 +435,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
                 }
-            });
+            },0);
         }
         return uri[0];
     }

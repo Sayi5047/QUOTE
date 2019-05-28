@@ -12,8 +12,10 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -30,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -38,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.gifencoder.AnimatedGifEncoder;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -45,16 +49,10 @@ import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.crash.FirebaseCrash;
 
-import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Services.DownloadImageService;
-import io.hustler.qtzy.ui.adapters.InstallFontAdapter;
-import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.pojo.UserWorkImages;
-import io.hustler.qtzy.ui.textFeatures.TextFeatures;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,9 +63,17 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+
+import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Services.DownloadImageService;
+import io.hustler.qtzy.ui.adapters.InstallFontAdapter;
+import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.pojo.UserWorkImages;
+import io.hustler.qtzy.ui.textFeatures.TextFeatures;
 
 /**
  * Created by Sayi on 30-11-2017.
@@ -276,7 +282,10 @@ public class FileUtils {
 
     }
 
-    public static void savetoDevice(@NonNull final ViewGroup layout, @NonNull final Activity activity, @NonNull final onSaveComplete listneer) {
+    public static void savetoDevice(@NonNull final ViewGroup sourceLayout,
+                                    @NonNull final Activity activity,
+                                    @NonNull final onSaveComplete listneer,
+                                    final int gifFrameCount) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -296,23 +305,71 @@ public class FileUtils {
                 final RadioGroup rdGroup;
                 final RadioButton rbJpeg;
                 final RadioButton rbPng;
-                LinearLayout btLlLayout;
                 LinearLayout root;
-                Button btClose, btSave;
+                Button btClose, btSave, gifBtn;
 
 
-                headTv = dialog.findViewById(R.id.head_tv);
                 etProjectName = dialog.findViewById(R.id.et_project_name);
                 rdGroup = dialog.findViewById(R.id.rd_group);
                 rbJpeg = dialog.findViewById(R.id.rb_jpeg);
                 rbPng = dialog.findViewById(R.id.rb_png);
-                btLlLayout = dialog.findViewById(R.id.bt_ll_layout);
                 root = dialog.findViewById(R.id.root_Lo);
                 btClose = dialog.findViewById(R.id.bt_close);
                 btSave = dialog.findViewById(R.id.bt_save);
                 adView = dialog.findViewById(R.id.adView);
+                gifBtn = dialog.findViewById(R.id.gif_btn);
                 AdUtils.loadBannerAd(adView, activity);
                 TextUtils.findText_and_applyTypeface(root, activity);
+                gifBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ProgressBar progressBar = new ProgressBar(activity);
+                        progressBar.setVisibility(View.VISIBLE);
+                        final ArrayList<File> savedFilesList = new ArrayList<>();
+                        for (int i = 0; i < gifFrameCount; i++) {
+                            /*this should returns a value for every 100 milliseconds. so if there are 14 frames* then gif will be of length 1.4 sec/                             */
+
+                            Handler handler = new Handler();
+                            final int finalI = i;
+                            Runnable runnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    savedFilesList.add(savetempGifFrame(activity, sourceLayout, finalI));
+                                }
+                            };
+                            handler.removeCallbacks(runnable);
+                            handler.postDelayed(runnable, 100);
+                        }
+
+                        AnimatedGifEncoder animatedGifEncoder = new AnimatedGifEncoder();
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+                        animatedGifEncoder.start(byteArrayOutputStream);
+                        for (File currentFrame : savedFilesList) {
+                            animatedGifEncoder.addFrame(BitmapFactory.decodeFile(currentFrame.getAbsoluteFile().getAbsolutePath()));
+                        }
+                        animatedGifEncoder.finish();
+
+                        File file = new File(Constants.APP_SAVED_PICTURES_FOLDER + File.separator + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2) + ".gif");
+                        try {
+                            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath());
+                            fileOutputStream.write(byteArrayOutputStream.toByteArray());
+                            fileOutputStream.close();
+                            listneer.onImageSaveListner(file);
+                            dialog.dismiss();
+                            progressBar.setVisibility(View.GONE);
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+
+                        }
+
+                    }
+                });
 
                 btSave.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -342,9 +399,9 @@ public class FileUtils {
                             }
 
 
-                            layout.buildDrawingCache(true);
-                            bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
-                            layout.destroyDrawingCache();
+                            sourceLayout.buildDrawingCache(true);
+                            bitmap = sourceLayout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+                            sourceLayout.destroyDrawingCache();
 
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                             if (Constants.JPEG.equalsIgnoreCase(format[0])) {
@@ -827,7 +884,10 @@ public class FileUtils {
     }
 
     // Will implement once I reach more than 1000 users.
-    public static void savetoDeviceWithAds(@NonNull final ViewGroup layout, @NonNull final Activity activity, @NonNull final onSaveComplete listneer) {
+    public static void savetoDeviceWithAds(@NonNull final ViewGroup sourceLayout,
+                                           @NonNull final Activity activity,
+                                           @NonNull final onSaveComplete listneer,
+                                           final int gifFrameCount) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -851,7 +911,7 @@ public class FileUtils {
                 final LinearLayout btLlLayout, adLayout;
                 LinearLayout root;
                 final RewardedVideoAd mRewardedVideoAd;
-                final Button btClose, btSave, remove_watermark, watch_ad, buy_pro;
+                final Button btClose, btSave, remove_watermark, watch_ad, buy_pro, gifBtn;
 
 
                 headTv = dialog.findViewById(R.id.head_tv);
@@ -869,6 +929,7 @@ public class FileUtils {
                 watch_ad = dialog.findViewById(R.id.bt_watch_ad);
                 buy_pro = dialog.findViewById(R.id.bt_buy_pro);
                 adView = dialog.findViewById(R.id.adView);
+                gifBtn = dialog.findViewById(R.id.gif_btn);
                 AdUtils.loadBannerAd(adView, activity);
                 TextUtils.findText_and_applyTypeface(root, activity);
 
@@ -899,7 +960,7 @@ public class FileUtils {
                     @Override
                     public void onRewarded(@NonNull RewardItem rewardItem) {
                         Toast.makeText(activity, "onRewarded! currency: " + rewardItem.getType() + "  amount: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
-                        layout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
+                        sourceLayout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
                     }
 
                     @Override
@@ -923,8 +984,8 @@ public class FileUtils {
                     @Override
                     public void onClick(View v) {
 //                adLayout.setVisibility(View.VISIBLE);
-                        layout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
-                        layout.findViewById(R.id.quotzy).setVisibility(View.GONE);
+                        sourceLayout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
+                        sourceLayout.findViewById(R.id.quotzy).setVisibility(View.GONE);
                         remove_watermark.setVisibility(View.GONE);
 
                     }
@@ -941,6 +1002,13 @@ public class FileUtils {
                     @Override
                     public void onClick(View v) {
                         // TODO: 07-01-2018 need to implement the PRO VERSION OF APP LINK
+                    }
+                });
+                gifBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new FrameSavingTask(gifFrameCount, dialog, activity, sourceLayout, listneer).execute();
+
                     }
                 });
                 btSave.setOnClickListener(new View.OnClickListener() {
@@ -971,9 +1039,9 @@ public class FileUtils {
                             }
 
 
-                            layout.buildDrawingCache(true);
-                            bitmap = layout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
-                            layout.destroyDrawingCache();
+                            sourceLayout.buildDrawingCache(true);
+                            bitmap = sourceLayout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+                            sourceLayout.destroyDrawingCache();
 
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                             if (Constants.JPEG.equalsIgnoreCase(format[0])) {
@@ -1045,6 +1113,113 @@ public class FileUtils {
 
             }
         }).run();
+    }
+
+
+    private static class FrameSavingTask extends AsyncTask<String, String, Void> {
+        int framecount;
+        Dialog dialog;
+        Activity activity;
+        ViewGroup sourceLayout;
+        private onSaveComplete listneer;
+
+        public FrameSavingTask(int framecount, Dialog dialog, Activity activity, ViewGroup sourceLayout, onSaveComplete listneer) {
+            this.framecount = framecount;
+            this.dialog = dialog;
+            this.activity = activity;
+            this.sourceLayout = sourceLayout;
+            this.listneer = listneer;
+        }
+
+        final ArrayList<File> savedFilesList = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            for (int i = 0; i < framecount; i++) {
+                /*this should returns a value for every 100 milliseconds. so if there are 14 frames* then gif will be of length 1.4 sec/                             */
+                Objects.requireNonNull(savedFilesList).add(savetempGifFrame(activity, sourceLayout, i));
+
+//               new Thread(new Runnable() {
+//                   @Override
+//                   public void run() {
+//                       try {
+//                           Thread.sleep(10);
+//                       } catch (InterruptedException e) {
+//                           e.printStackTrace();
+//                       }
+//                   }
+//               }).run();
+
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            AnimatedGifEncoder animatedGifEncoder = new AnimatedGifEncoder();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            animatedGifEncoder.start(byteArrayOutputStream);
+            animatedGifEncoder.setDelay(100);
+            for (File currentFrame : savedFilesList) {
+                animatedGifEncoder.addFrame(BitmapFactory.decodeFile(currentFrame.getAbsoluteFile().getAbsolutePath()));
+            }
+            animatedGifEncoder.finish();
+            File file = new File(Constants.APP_SAVED_PICTURES_FOLDER + File.separator
+                    + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2) + ".gif");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(byteArrayOutputStream.toByteArray());
+                fileOutputStream.close();
+                listneer.onImageSaveListner(file);
+                dialog.dismiss();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            super.onPostExecute(aVoid);
+        }
+    }
+
+    private static File savetempGifFrame(Activity activity, ViewGroup sourceLayout, int frameNumber) {
+        File framesFolder = new File(Constants.TEMP_GIF_APP_SAVED_PICTURES_FOLDER);
+        if (!framesFolder.isDirectory()) {
+            framesFolder.mkdirs();
+        }
+        String destinationFilePath = null;
+        String fileName = "Frame " + frameNumber + "-" + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2);
+        final File currentFrameImage = new File(framesFolder + File.separator + fileName + ".png");
+
+        try {
+            if (currentFrameImage.createNewFile()) {
+
+                sourceLayout.buildDrawingCache(true);
+                Bitmap bitmap = sourceLayout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+                sourceLayout.destroyDrawingCache();
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                FileOutputStream fileOutputStream2 = new FileOutputStream(currentFrameImage);
+                fileOutputStream2.write(byteArrayOutputStream.toByteArray());
+                fileOutputStream2.close();
+                ContentValues contentValues = getImageContent(currentFrameImage);
+                Uri result = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            } else {
+                Log.e("FILEUTILS", "File Creation Failed");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return currentFrameImage;
+
+    }
+
+    public interface OnFinishListener {
+        void onfinish(File file);
     }
 
     public static File savetoDeviceCustom(final ViewGroup layout) {

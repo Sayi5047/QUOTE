@@ -88,7 +88,13 @@
             android:text="@string/save"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
-
+    <Button
+        android:id="@+id/gif_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_rect"
+        android:layout_margin="16dp"
+        android:text="save as GIF" />
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"

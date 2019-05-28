@@ -62,6 +62,7 @@ public final class Constants {
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static final String HOME_SCREEN_NUMBER = "home_screen_number_object";
     public static final String APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy";
+    public static final String TEMP_GIF_APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy"+File.separator+"Gifframes";
     public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
     public static final String PREVIOUS_COLOR = "previous_color";
     @NonNull

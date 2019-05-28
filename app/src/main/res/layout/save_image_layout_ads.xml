@@ -63,13 +63,13 @@
         android:id="@+id/remove_watermark_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/rounded_rect"
         android:text="@string/watermark"
         android:textAllCaps="false"
-        android:textColor="@color/textColor"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:textColor="@color/textColor" />
 
     <LinearLayout
         android:id="@+id/bt_ll_watch_Ad_layout"
@@ -130,6 +130,14 @@
             android:text="@string/save"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/gif_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_rect"
+        android:layout_margin="16dp"
+        android:text="save as GIF" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
