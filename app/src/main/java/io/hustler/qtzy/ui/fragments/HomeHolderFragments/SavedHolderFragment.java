@@ -22,6 +22,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.fragments.UserWorkFragment;
+import io.hustler.qtzy.ui.utils.TextUtils;
+
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
 
 public class SavedHolderFragment extends Fragment {
@@ -71,6 +74,8 @@ public class SavedHolderFragment extends Fragment {
         fragmentTransaction.commit();
         rdBtn1.setText(getString(R.string.images));
         rdBtn2.setText(getString(R.string.wallpapers));
+        TextUtils.set_Radio_font(getActivity(), rdBtn1, FONT_CIRCULAR);
+        TextUtils.set_Radio_font(getActivity(), rdBtn2, FONT_CIRCULAR);
         return view;
     }
 

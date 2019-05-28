@@ -285,7 +285,7 @@ public class TextFeatures {
 
     //  METHOD TO APLLY FONT
     @NonNull
-    public static FontSelected apply_font(@NonNull final EditorActivity editorActivity, @NonNull final TextView selectedTextView) {
+    public static FontSelected apply_font(@NonNull final Activity editorActivity, @NonNull final TextView selectedTextView) {
         final Dialog dialog = new Dialog(editorActivity, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.apply_font_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
@@ -337,7 +337,7 @@ public class TextFeatures {
                 String familyName = searchBox.getText().toString();
                 if (checkFamilyValid(familyName)) {
                     if (InternetUtils.isConnectedtoNet(editorActivity)) {
-                        requestDownload(editorActivity, familyName, selectedTextView, demoText);
+                        requestDownload(editorActivity, familyName, demoText);
                     } else {
                         Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.internet_required));
                     }
@@ -353,8 +353,8 @@ public class TextFeatures {
             }
         });
 
-        btShadowClose.setOnClickListener(editorActivity);
-        btShadowApply.setOnClickListener(editorActivity);
+        btShadowClose.setOnClickListener((View.OnClickListener) editorActivity);
+        btShadowApply.setOnClickListener((View.OnClickListener) editorActivity);
         TextUtils.findText_and_applyTypeface(root, editorActivity);
 
         rvAppFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
@@ -393,7 +393,7 @@ public class TextFeatures {
                 selected_type_face[0] = font;
                 isDownloaded[2] = isDownloadFont;
                 if (InternetUtils.isConnectedtoNet(editorActivity)) {
-                    requestDownload(editorActivity, font, selectedTextView, demoText);
+                    requestDownload(editorActivity, font, demoText);
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.internet_required));
                 }
@@ -451,7 +451,7 @@ public class TextFeatures {
 
     }
 
-    private static void requestDownload(@NonNull Activity activity, @NonNull String familyName, TextView selectedTextView, @NonNull final TextView demoText) {
+    private static void requestDownload(@NonNull Activity activity, @NonNull String familyName, @NonNull final TextView demoText) {
 
 
         QueryBuilder queryBuilder = new QueryBuilder(familyName)

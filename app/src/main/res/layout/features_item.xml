@@ -12,6 +12,7 @@
         android:layout_height="48dp"
         android:layout_marginLeft="@dimen/elevation16"
         android:background="@drawable/circular_button"
+        android:backgroundTint="@color/deep_orange_50"
         android:elevation="@dimen/elevation4"
         android:gravity="center"
         android:padding="@dimen/elevation16"

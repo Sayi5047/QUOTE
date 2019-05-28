@@ -23,6 +23,9 @@ import butterknife.Unbinder;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.QuotesFragment;
 import io.hustler.qtzy.ui.fragments.CategoriesFragment;
+import io.hustler.qtzy.ui.utils.TextUtils;
+
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
 
 public class QuotesHolderFragment extends Fragment {
@@ -80,6 +83,8 @@ public class QuotesHolderFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         setValueAnimationsForButtons();
+        TextUtils.set_Radio_font(getActivity(),rdBtn1,FONT_CIRCULAR);
+        TextUtils.set_Radio_font(getActivity(),rdBtn2,FONT_CIRCULAR);
 
         return view;
     }

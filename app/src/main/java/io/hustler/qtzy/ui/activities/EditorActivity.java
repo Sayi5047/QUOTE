@@ -61,14 +61,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.ads.AdView;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.hustler.qtzy.R;
@@ -78,10 +76,11 @@ import io.hustler.qtzy.ui.adapters.Features_adapter;
 import io.hustler.qtzy.ui.adapters.ImagesAdapter;
 import io.hustler.qtzy.ui.adapters.SizesAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.apiRequestLauncher.ImagesApiResponceListner;
+import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.StickerResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
+import io.hustler.qtzy.ui.apiRequestLauncher.response.Data;
 import io.hustler.qtzy.ui.customviews.Sticker.StickerImageView;
-import io.hustler.qtzy.ui.pojo.ImagesFromPixaBay;
+import io.hustler.qtzy.ui.customviews.Sticker.StickerView;
 import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.superclasses.BaseActivity;
 import io.hustler.qtzy.ui.textFeatures.TextFeatures;
@@ -211,77 +210,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void findViews() {
-//        All layouts
-        root_layout = findViewById(R.id.root_Lo);
-        windowManager = getWindow();
-        windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-        quoteLayout = findViewById(R.id.quote_layout);
-        text_and_bg_layout = findViewById(R.id.text_and_background_layout);
-//        main_editor_layout = (LinearLayout) findViewById(R.id.Main_editor_arena);
-        close_and_done_layout = findViewById(R.id.close_and_done_layout);
-
-//      level 1 top bar buttons
-//        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
-//        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
-        ImageView save_work_button = findViewById(R.id.save_work_button);
-        ImageView share_work_button = findViewById(R.id.font_share_module);
-        ImageView delete_view_button = findViewById(R.id.delete_view_button);
-        ImageView options = findViewById(R.id.options);
-
-        //    private ImageView font_module;
-        //    private ImageView background_image_module;
-        ImageView font_size_changer = findViewById(R.id.spacer_in_top);
-        light_effect_filter_IV = findViewById(R.id.iv_light_effect);
-
-
-        seekBar = findViewById(R.id.progress_slider_bar);
-        seekBar.setContentDescription("Slide to Rotate");
-        ImageView close_text_size = findViewById(R.id.close_editor_button);
-
-        featuresRecyclerview = findViewById(R.id.content_rv);
-        featuresRecyclerview.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
-
-        imageView_background = findViewById(R.id.imageView_background);
-
-
-        text_layout = findViewById(R.id.text_field);
-        background_layout = findViewById(R.id.background_and_Image_field);
-        TextView close_layout = findViewById(R.id.close_tv);
-        TextView done_layout = findViewById(R.id.done_tv);
-        TextView mark_quotzy = findViewById(R.id.mark_quotzy_tv);
-        core_editor_layout = findViewById(R.id.arena_text_layout);
-//        core_editor_layout.setOnTouchListener(this);
-        clear_button = findViewById(R.id.bt_clear);
-        features_layout = findViewById(R.id.features_layout);
-        setText_Features_rv();
-        scaleGestureDetector = new ScaleGestureDetector(EditorActivity.this, new SimpleOnscaleGestureListener());
-        /*setting on click listners */
-//        font_module.setOnClickListener(this);
-//        background_image_module.setOnClickListener(this);
-        text_layout.setOnClickListener(this);
-        background_layout.setOnClickListener(this);
-        seekBar.setOnSeekBarChangeListener(this);
-        font_size_changer.setOnClickListener(this);
-        close_text_size.setOnClickListener(this);
-        save_work_button.setOnClickListener(this);
-        share_work_button.setOnClickListener(this);
-        delete_view_button.setOnClickListener(this);
-        options.setOnClickListener(this);
-        close_layout.setOnClickListener(this);
-        done_layout.setOnClickListener(this);
-        clear_button.setOnClickListener(this);
-        TextUtils.setFont(EditorActivity.this, mark_quotzy, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(EditorActivity.this, text_layout, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(EditorActivity.this, background_layout, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(EditorActivity.this, close_layout, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(EditorActivity.this, done_layout, Constants.FONT_CIRCULAR);
-
-
-    }
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if (!isHeightMeasured) {
@@ -290,151 +218,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             editor.apply();
             isHeightMeasured = true;
         }
-    }
-
-    private void setViews() {
-        if (isFromEdit_Activity == 1) {
-            TextView quote_editor_body = new TextView(EditorActivity.this);
-            TextView quote_editor_author = new TextView(EditorActivity.this);
-            quote_editor_body.setId(addedTextIds);
-            addedTextIds++;
-            quote_editor_author.setId(addedTextIds);
-            addedTextIds++;
-
-
-            if (quote != null) {
-                int length = quote.getQuote().length();
-                root_layout.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
-//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
-                if (length > 230) {
-                    quote_editor_body.setTextSize(20.0f);
-                } else if (length < 230 && length > 150) {
-                    quote_editor_body.setTextSize(25.0f);
-
-                } else if (length > 100 && length < 150) {
-                    quote_editor_body.setTextSize(30.0f);
-
-                } else if (length > 50 && length < 100) {
-                    quote_editor_body.setTextSize(35.0f);
-
-                } else if (length > 2 && length < 50) {
-                    quote_editor_body.setTextSize(40.0f);
-
-                } else {
-                    quote_editor_body.setTextSize(45.0f);
-
-                }
-
-                quote_editor_body.setText(quote.getQuote());
-                quote_editor_author.setText(quote.getAuthor());
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                quote_editor_body.setMaxWidth(displayMetrics.widthPixels);
-                quote_editor_author.setMaxWidth(displayMetrics.widthPixels);
-
-                quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
-                quote_editor_body.setGravity(Gravity.CENTER);
-                quote_editor_author.setGravity(Gravity.CENTER);
-
-                quote_editor_body.setY(core_editor_layout.getHeight() >> 1);
-                quote_editor_author.setX(core_editor_layout.getWidth() >> 1);
-
-                core_editor_layout.addView(quote_editor_body);
-                core_editor_layout.addView(quote_editor_author);
-                quote_editor_author.setLongClickable(true);
-                quote_editor_author.setOnLongClickListener(EditorActivity.this);
-                quote_editor_body.setLongClickable(true);
-                quote_editor_body.setOnLongClickListener(EditorActivity.this);
-                quote_editor_author.setOnTouchListener(EditorActivity.this);
-                quote_editor_body.setOnTouchListener(EditorActivity.this);
-            }
-        } else if (isFromEdit_Activity == 2) {
-            if (guestImage == null) {
-                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
-            } else {
-                imageView_background.setBackground(null);
-                final ProgressBar progressBar = new ProgressBar(EditorActivity.this);
-                progressBar.setVisibility(View.VISIBLE);
-                Glide.with(EditorActivity.this).load(guestImage).listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        progressBar.setVisibility(GONE);
-                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progressBar.setVisibility(GONE);
-                        return false;
-                    }
-                }).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
-                selected_picture = guestImage;
-            }
-        }
-    }
-
-    private void getIntentData() {
-        int value = getIntent().getIntExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
-        switch (value) {
-            case 1: {
-                isFromEdit_Activity = 1;
-                quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
-            }
-            break;
-            case 0: {
-                isFromEdit_Activity = 0;
-                Intent intent = getIntent();
-                File file;
-                String path = null;
-
-                String action = intent.getAction();
-                if (Objects.equals(action, Intent.ACTION_VIEW)) {
-                    try {
-                        path = Objects.requireNonNull(intent.getData()).getPath();
-                        Log.d("ACTION_VIEW", path);
-                    } catch (NullPointerException ne) {
-                        finish();
-                        ne.printStackTrace();
-                    }
-//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
-//                    path = uri.getPath();
-//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
-
-                } else if (Objects.equals(action, Intent.ACTION_SEND)) {
-                    Bundle bundle = intent.getExtras();
-                    Uri uri = null;
-                    if (bundle != null) {
-                        uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
-                    }
-                    if (uri != null) {
-                        path = uri.getPath();
-                        Log.d("ACTION_SEND", path);
-                    }
-                }
-                try {
-                    if (path != null) {
-                        file = new File(path);
-                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
-                        FileUtils.unzipandSave(file, EditorActivity.this, action);
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            break;
-            case 2: {
-                isFromEdit_Activity = 2;
-                guestImage = getIntent().getStringExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY);
-
-            }
-            break;
-        }
-
     }
 
     @Override
@@ -486,8 +269,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
-    /*TOUCH LISTNER*/
+    /*TOUCH LISTENERS*/
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
@@ -495,7 +277,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         return true;
     }
 
-    /*CLICK LISTNERS*/
+    /*CLICK LISTENERS*/
     //LEVEL 1
     @Override
     public void onClick(@NonNull View v) {
@@ -649,6 +431,490 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    /*Seekbar methods*/
+    @Override
+    public void onProgressChanged(@NonNull SeekBar seekBar, int progress, boolean fromUser) {
+        handle_seekbar_value(seekBar);
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
+    @Override
+    public void onStopTrackingTouch(@NonNull SeekBar seekBar) {
+        handle_bg_seekbar(seekBar);
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPressCount++;
+
+        if (backPressCount >= 2) {
+            this.finish();
+            overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+        } else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Press again to discard the image and exit");
+        }
+
+    }
+
+    /*Methods to handle view movements*/
+    @Override
+    public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
+        RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
+        final int INAVALID_POINTER_ID = -1;
+
+        if (v instanceof TextView) {
+            selectedView = v;
+            handleTouchForTextView(v);
+        } else if (v instanceof StickerImageView) {
+            selected_sticker = (StickerImageView) v;
+            handleTouchForStickerView((StickerImageView) v);
+        } else if (v instanceof RelativeLayout && v.getId() == R.id.arena_text_layout) {
+            if (null != selectedView)
+                clearButKeepView();
+//                clear_button.performClick();
+        }
+
+        if (selectedView instanceof TextView || selected_sticker instanceof StickerView) {
+
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN: {
+                    pointer_Id_1 = event.getPointerId(event.getActionIndex());
+                    Log.d("ACTION DOWN", pointer_Id_1 + "");
+//                prevX = (int) event.getRawX();
+//                prevY = (int) event.getRawY();
+//                selected_text_view_parameters.bottomMargin = -2 * v.getHeight();
+//                selected_text_view_parameters.rightMargin = -2 * v.getWidth();
+////                v.setLayoutParams(selected_text_view_parameters);
+                    try {
+                        fx = event.getX(event.findPointerIndex(pointer_Id_1));
+                        fy = event.getY(event.findPointerIndex(pointer_Id_1));
+                    } catch (IllegalArgumentException iae) {
+                        iae.printStackTrace();
+                    }
+                    return true;
+                }
+//            case MotionEvent.ACTION_POINTER_DOWN: {
+//                pointer_ID_2 = event.getPointerId(event.getActionIndex());
+//                Log.d("ACTION POINTER DOWN", pointer_ID_2 + "");
+//
+////                sx = event.getX(event.findPointerIndex(pointer_Id_1));
+////                sy = event.getY(event.findPointerIndex(pointer_Id_1));
+//
+//                return true;
+//            }
+                case MotionEvent.ACTION_MOVE: {
+
+                    if (pointer_Id_1 != INAVALID_POINTER_ID) {
+//                        nsx = event.getX(event.findPointerIndex(pointer_Id_1));
+//                        nsy = event.getY(event.findPointerIndex(pointer_Id_1));
+
+                        Log.d("ACTION move x POINTE", pointer_Id_1 + "");
+                        try {
+                            nfx = event.getX(event.findPointerIndex(pointer_Id_1));
+                            nfy = event.getY(event.findPointerIndex(pointer_Id_1));
+                        } catch (IllegalArgumentException iae) {
+                            iae.printStackTrace();
+                        }
+
+
+                        selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
+                        prevY = (int) nfy;
+                        selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
+                        prevX = (int) nfx;
+                        v.setLayoutParams(selected_text_view_parameters);
+                        Log.d("ACTION MOVE", "TRUE RETURNED");
+
+                        return true;
+                    } else {
+                        Log.d("ACTION MOVE", "FALSE RETURNED");
+
+                        return false;
+                    }
+
+
+                }
+
+                case MotionEvent.ACTION_UP: {
+
+                    pointer_Id_1 = INAVALID_POINTER_ID;
+                    Log.d("ACTION UP", pointer_Id_1 + "");
+
+//                selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
+//                selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
+//
+////                selected_text_view_parameters.topMargin += (int) event.getRawY() - prevY;
+////                selected_text_view_parameters.leftMargin += (int) event.getRawX() - prevX;
+//                v.setLayoutParams(selected_text_view_parameters);
+                    return true;
+                }
+
+//            case MotionEvent.ACTION_POINTER_UP: {
+////                pointer_ID_2 = INAVALID_POINTER_ID;
+//                Log.d("ACTION POINTER UP", pointer_ID_2 + "");
+//
+//                return true;
+//            }
+
+                case MotionEvent.ACTION_CANCEL: {
+                    int pointer_ID_2 = pointer_Id_1 = INAVALID_POINTER_ID;
+                    Log.d("ACTION CANCEL", pointer_ID_2 + " <--2,1--> " + pointer_Id_1);
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void clearButKeepView() {
+        clear_button.setVisibility(GONE);
+        assert selectedView != null;
+        selectedView.setBackground(null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri fileurl = data.getData();
+            String[] filePaths = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(fileurl, filePaths, null, null, null);
+            cursor.moveToFirst();
+            int coloumnIndex = cursor.getColumnIndex(filePaths[0]);
+            String picturepath = cursor.getString(coloumnIndex);
+            cursor.close();
+//           imageView_background.setImageBitmap(BitmapFactory.decodeFile(picturepath));
+            if (imageView_background.getDrawingCache() != null) {
+                imageView_background.destroyDrawingCache();
+            }
+            selected_picture = picturepath;
+//            try {
+//                Intent cropIntent = new Intent("com.android.camera.action.CROP");
+//                cropIntent.setDataAndType(fileurl, "image/*");
+//                cropIntent.putExtra("crop", "true");
+//                cropIntent.putExtra("aspectX", 2);
+//                cropIntent.putExtra("aspectY", 2);
+//                cropIntent.putExtra("outputX", 512);
+//                cropIntent.putExtra("outputY", 512);
+//                cropIntent.putExtra("return-data", true);
+//                startActivityForResult(cropIntent, 2);
+//            } catch (ActivityNotFoundException anfe) {
+//                Toast_Snack_Dialog_Utils.show_ShortToast(this, "ACTIVITY NOT FOUND");
+//            }
+
+            if (imageFitType == 3) {
+                Glide.with(EditorActivity.this).load(picturepath).asBitmap().crossFade().into(imageView_background);
+
+            } else if (imageFitType == 2) {
+                Glide.with(EditorActivity.this).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
+
+            } else {
+                Glide.with(EditorActivity.this).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
+
+            }
+//            ImageView imageView = new ImageView(EditorActivity.this);
+//            imageView.setImageURI(fileurl);
+//            imageView.setOnTouchListener(this);
+////            imageView.setMaxWidth(600);
+////            imageView.setMaxHeight(600);
+//            core_editor_layout.addView(imageView);
+//            imageView_background.setImageResource(picturepath);
+        } else if (requestCode == 2) {
+            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+
+            Bitmap bitmap = data.getExtras().getParcelable("data");
+//            ImageView im_crop = (ImageView) findViewById(R.id.im_crop);
+//            im_crop.setImageBitmap(bitmap);
+//            Glide.with(EditorActivity.this).load(bitmap).asBitmap().crossFade().into(imageView_background);
+            imageView_background.setImageBitmap(bitmap);
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                }
+            }
+            break;
+            case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    savetoDeviceWithAds(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
+                        @Override
+                        public void onImageSaveListner(File file) {
+                            savedFile = file;
+                        }
+                    });
+                }
+            }
+            break;
+            case MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.permissin_granted));
+                }
+            }
+            break;
+            case MY_PERMISSION_REQUEST_Launch_gallery: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    handle_gallery_dialog(EditorActivity.this);
+                }
+            }
+            break;
+        }
+    }
+
+
+    private void findViews() {
+//        All layouts
+        root_layout = findViewById(R.id.root_Lo);
+        windowManager = getWindow();
+        windowManager.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+        quoteLayout = findViewById(R.id.quote_layout);
+        text_and_bg_layout = findViewById(R.id.text_and_background_layout);
+//        main_editor_layout = (LinearLayout) findViewById(R.id.Main_editor_arena);
+        close_and_done_layout = findViewById(R.id.close_and_done_layout);
+
+//      level 1 top bar buttons
+//        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
+//        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
+        ImageView save_work_button = findViewById(R.id.save_work_button);
+        ImageView share_work_button = findViewById(R.id.font_share_module);
+        ImageView delete_view_button = findViewById(R.id.delete_view_button);
+        ImageView options = findViewById(R.id.options);
+
+        //    private ImageView font_module;
+        //    private ImageView background_image_module;
+        ImageView font_size_changer = findViewById(R.id.spacer_in_top);
+        light_effect_filter_IV = findViewById(R.id.iv_light_effect);
+
+
+        seekBar = findViewById(R.id.progress_slider_bar);
+        seekBar.setContentDescription("Slide to Rotate");
+        ImageView close_text_size = findViewById(R.id.close_editor_button);
+
+        featuresRecyclerview = findViewById(R.id.content_rv);
+        featuresRecyclerview.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+        imageView_background = findViewById(R.id.imageView_background);
+
+
+        text_layout = findViewById(R.id.text_field);
+        background_layout = findViewById(R.id.background_and_Image_field);
+        TextView close_layout = findViewById(R.id.close_tv);
+        TextView done_layout = findViewById(R.id.done_tv);
+        TextView mark_quotzy = findViewById(R.id.mark_quotzy_tv);
+        core_editor_layout = findViewById(R.id.arena_text_layout);
+//        core_editor_layout.setOnTouchListener(this);
+        clear_button = findViewById(R.id.bt_clear);
+        features_layout = findViewById(R.id.features_layout);
+        setText_Features_rv();
+        scaleGestureDetector = new ScaleGestureDetector(EditorActivity.this, new SimpleOnscaleGestureListener());
+        /*setting on click listners */
+//        font_module.setOnClickListener(this);
+//        background_image_module.setOnClickListener(this);
+        text_layout.setOnClickListener(this);
+        background_layout.setOnClickListener(this);
+        seekBar.setOnSeekBarChangeListener(this);
+        font_size_changer.setOnClickListener(this);
+        close_text_size.setOnClickListener(this);
+        save_work_button.setOnClickListener(this);
+        share_work_button.setOnClickListener(this);
+        delete_view_button.setOnClickListener(this);
+        options.setOnClickListener(this);
+        close_layout.setOnClickListener(this);
+        done_layout.setOnClickListener(this);
+        clear_button.setOnClickListener(this);
+        TextUtils.setFont(EditorActivity.this, mark_quotzy, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, text_layout, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, background_layout, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, close_layout, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(EditorActivity.this, done_layout, Constants.FONT_CIRCULAR);
+//        core_editor_layout.setOnTouchListener(this);
+
+    }
+
+    private void setViews() {
+        if (isFromEdit_Activity == 1) {
+            TextView quote_editor_body = new TextView(EditorActivity.this);
+            TextView quote_editor_author = new TextView(EditorActivity.this);
+            quote_editor_body.setId(addedTextIds);
+            addedTextIds++;
+            quote_editor_author.setId(addedTextIds);
+            addedTextIds++;
+
+
+            if (quote != null) {
+                int length = quote.getQuote().length();
+                root_layout.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
+//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
+                if (length > 230) {
+                    quote_editor_body.setTextSize(20.0f);
+                } else if (length < 230 && length > 150) {
+                    quote_editor_body.setTextSize(25.0f);
+
+                } else if (length > 100 && length < 150) {
+                    quote_editor_body.setTextSize(30.0f);
+
+                } else if (length > 50 && length < 100) {
+                    quote_editor_body.setTextSize(35.0f);
+
+                } else if (length > 2 && length < 50) {
+                    quote_editor_body.setTextSize(40.0f);
+
+                } else {
+                    quote_editor_body.setTextSize(45.0f);
+
+                }
+
+                quote_editor_body.setText(quote.getQuote());
+                quote_editor_author.setText(quote.getAuthor());
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                quote_editor_body.setMaxWidth(displayMetrics.widthPixels);
+                quote_editor_author.setMaxWidth(displayMetrics.widthPixels);
+
+                quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                quote_editor_body.setGravity(Gravity.CENTER);
+                quote_editor_author.setGravity(Gravity.CENTER);
+
+                quote_editor_body.setY(core_editor_layout.getHeight() >> 1);
+                quote_editor_author.setX(core_editor_layout.getWidth() >> 1);
+
+                core_editor_layout.addView(quote_editor_body);
+                core_editor_layout.addView(quote_editor_author);
+                quote_editor_author.setLongClickable(true);
+                quote_editor_author.setOnLongClickListener(EditorActivity.this);
+                quote_editor_body.setLongClickable(true);
+                quote_editor_body.setOnLongClickListener(EditorActivity.this);
+                quote_editor_author.setOnTouchListener(EditorActivity.this);
+                quote_editor_body.setOnTouchListener(EditorActivity.this);
+            }
+        } else if (isFromEdit_Activity == 2) {
+            if (guestImage == null) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
+            } else {
+                imageView_background.setBackground(null);
+                final ProgressBar progressBar = new ProgressBar(EditorActivity.this);
+                progressBar.setVisibility(View.VISIBLE);
+                Glide.with(EditorActivity.this).load(guestImage).listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        progressBar.setVisibility(GONE);
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(GONE);
+                        return false;
+                    }
+                }).centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+                selected_picture = guestImage;
+            }
+        }
+    }
+
+    private void getIntentData() {
+        int value = getIntent().getIntExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 0);
+        switch (value) {
+            case 1: {
+                isFromEdit_Activity = 1;
+                quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
+            }
+            break;
+            case 0: {
+                isFromEdit_Activity = 0;
+                Intent intent = getIntent();
+                File file;
+                String path = null;
+
+                String action = intent.getAction();
+                if (Objects.equals(action, Intent.ACTION_VIEW)) {
+                    try {
+                        path = Objects.requireNonNull(intent.getData()).getPath();
+                        Log.d("ACTION_VIEW", path);
+                    } catch (NullPointerException ne) {
+                        finish();
+                        ne.printStackTrace();
+                    }
+//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
+//                    path = uri.getPath();
+//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
+
+                } else if (Objects.equals(action, Intent.ACTION_SEND)) {
+                    Bundle bundle = intent.getExtras();
+                    Uri uri = null;
+                    if (bundle != null) {
+                        uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
+                    }
+                    if (uri != null) {
+                        path = uri.getPath();
+                        Log.d("ACTION_SEND", path);
+                    }
+                }
+                try {
+                    if (path != null) {
+                        file = new File(path);
+                        Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, file.getAbsolutePath());
+                        FileUtils.unzipandSave(file, EditorActivity.this, action);
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            break;
+            case 2: {
+                isFromEdit_Activity = 2;
+                guestImage = getIntent().getStringExtra(Constants.INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY);
+
+            }
+            break;
+        }
+
+    }
+
+
+    @Override
+    public boolean onLongClick(@NonNull View v) {
+
+        v.bringToFront();
+        core_editor_layout.forceLayout();
+        core_editor_layout.invalidate();
+
+        SparseArrayCompat<TextView> sparseArrayCompat = new SparseArrayCompat<TextView>();
+        sparseArrayCompat.put(v.getId(), (TextView) v);
+        Log.d("SPARSE ARRAY", String.valueOf(sparseArrayCompat.get(v.getId())));
+        return true;
+
+    }
+
+    @Override
+    public void onRotate(@NonNull RotationGestureDetector rotationGestureDetector) {
+        if (selectedView != null) {
+            View selected = selectedView;
+            if (selected instanceof TextView) {
+                TextView selectedText = ((TextView) selected);
+                selectedText.setRotation(rotationGestureDetector.getmAngle());
+
+                Log.d("RotationGestureDetector", "Rotation: " + rotationGestureDetector.getmAngle());
+            }
+
+        }
+    }
+
     /*COLONY BACKGROUND*/
     private void setBackground_features_rv() {
         current_module = Constants.BG;
@@ -739,7 +1005,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[10])) {
             gradienteText(array);
         } else if (feature.equalsIgnoreCase(array[11])) {
-            setCanvasSize(array, PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
+            setCanvasSize(PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
         } else if (feature.equalsIgnoreCase(array[12])) {
             final TextView selectedTextView = (TextView) selectedView;
 
@@ -754,7 +1020,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void setCanvasSize(String[] array, final int deviceHeight) {
+    private void setCanvasSize(final int deviceHeight) {
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
         dialog.setContentView(R.layout.canvas_size_dialog_layout);
         Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.EditTextDialog;
@@ -927,10 +1193,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 bringGradients();
             } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[4])) {
                 current_Bg_feature = bgfeaturesArray[4];
-//                applyWhiteFilter();
                 if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
-//                    seachImages();
-                    addSticker("https://firebasestorage.googleapis.com/v0/b/nimble-card-239502.appspot.com/o/stickers%2F1.png?alt=media&token=87c9262c-ad8e-4bb1-b7f0-d741df62c1ba");
+                    seachImages();
+//                    addSticker("https://firebasestorage.googleapis.com/v0/b/nimble-card-239502.appspot.com/o/stickers%2F1.png?alt=media&token=87c9262c-ad8e-4bb1-b7f0-d741df62c1ba");
 
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));
@@ -986,14 +1251,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         imagesRecycler = dialog.findViewById(R.id.images_recycler);
         adView = dialog.findViewById(R.id.adView);
         diclaimer = dialog.findViewById(R.id.diclaimer);
-        getRandomImages(null, imagesRecycler, progressBar, dialog);
+        getRandomImages("Hello", imagesRecycler, progressBar, dialog);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (searchBox.getText() == null) {
                     searchBox.setError(getString(R.string.please_enter));
                 } else {
-//                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar, dialog);
+                    getRandomImages(searchBox.getText().toString(), imagesRecycler, progressBar, dialog);
 
                 }
             }
@@ -1022,24 +1287,32 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         recyclerView.setVisibility(GONE);
         recyclerView.setLayoutManager(new GridLayoutManager(EditorActivity.this, 2));
 
-        String request;
-        if (word == null) {
-            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&per_page=150" + "&order=popular";
-        } else {
-            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150" + "&order=popular";
-
-        }
-        new Restutility(EditorActivity.this).getRandomImages(EditorActivity.this, new ImagesApiResponceListner() {
+        String request = null;
+//        if (word == null) {
+//            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&per_page=150" + "&order=popular";
+//        } else {
+//            request = Constants.API_GET_IMAGES_FROM_PIXABAY + "&q=" + word + "&per_page=150" + "&order=popular";
+//
+//        }
+        new Restutility(EditorActivity.this).getStickersByQuery(EditorActivity.this, new StickerResponseListener() {
             @Override
-            public void onSuccess(List<ImagesFromPixaBay> images) {
+            public void onSuccess(String responseJson) {
+                Data data = new Gson().fromJson(responseJson, Data.class);
                 progressBar.setVisibility(GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-                recyclerView.setAdapter(new ImagesAdapter(EditorActivity.this, (ArrayList<ImagesFromPixaBay>) images, new ImagesAdapter.ImagesOnClickListner() {
+                recyclerView.setAdapter(new ImagesAdapter(EditorActivity.this, data.getData(), new ImagesAdapter.ImagesOnClickListner() {
                     @Override
-                    public void onImageClicked(String previreLink, String Biglink) {
-                        selected_picture = Biglink;
-                        imageView_background.setBackground(null);
-                        Glide.with(EditorActivity.this).load(Biglink).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.RESULT).into(imageView_background);
+                    public void onImageClicked(String stillImage, String gifImage) {
+//                        selected_picture = stillImage;
+                        addSticker(gifImage);
+//                        imageView_background.setBackground(null);
+//                        Glide.with(EditorActivity.this)
+//                                .load(stillImage)
+//                                .asBitmap()
+//                                .centerCrop()
+//                                .placeholder(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_quotation_mark)))
+//                                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                                .into(imageView_background);
                         dialog.dismiss();
                     }
                 }));
@@ -1049,27 +1322,22 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             public void onError(String message) {
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, message);
             }
-        }, request);
+        }, word);
     }
 
     private void addSticker(String Biglink) {
         final StickerImageView stickerImageView = new StickerImageView(EditorActivity.this);
-        Glide.with(EditorActivity.this).load(Biglink).asBitmap()
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        stickerImageView.setImageBitmap(resource);
-                    }
-                });
+        Glide.with(EditorActivity.this).load(Biglink).asGif().into(((ImageView) stickerImageView.getMainView()));
         core_editor_layout.addView(stickerImageView);
         if (null != selected_sticker) {
             selected_sticker.setControlItemsHidden(true);
             previousselctedView = selected_sticker;
         }
         selected_sticker = stickerImageView;
-        selected_sticker.setOnTouchListener(this);
+        stickerImageView.setOnTouchListener(this);
     }
 
+    /*HNADLER METHODS*/
     private void handle_gallery_dialog(EditorActivity editorActivity) {
 
         final Dialog dialog = new Dialog(EditorActivity.this, R.style.EditTextDialog);
@@ -1110,22 +1378,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         });
         dialog.show();
 
-    }
-
-    /*Seekbar methods*/
-    @Override
-    public void onProgressChanged(@NonNull SeekBar seekBar, int progress, boolean fromUser) {
-        handle_seekbar_value(seekBar);
-
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-    }
-
-    @Override
-    public void onStopTrackingTouch(@NonNull SeekBar seekBar) {
-        handle_bg_seekbar(seekBar);
     }
 
     private void handle_bg_seekbar(@NonNull SeekBar seekBar) throws NullPointerException {
@@ -1212,7 +1464,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
     private void handle_close_Feature() throws NullPointerException {
         if (current_module == null) {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.click_text));
@@ -1253,6 +1504,35 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void handleTouchForStickerView(StickerImageView v) {
+        if (selected_sticker != null) {
+            selected_sticker.setControlItemsHidden(true);
+            previousselctedView = selected_sticker;
+            selected_sticker = v;
+            clear_button.setVisibility(View.VISIBLE);
+            selected_sticker.setControlItemsHidden(false);
+            selected_sticker.bringToFront();
+        } else {
+            clear_button.setVisibility(View.VISIBLE);
+            selected_sticker = v;
+            ((StickerImageView) selectedView).setControlItemsHidden(false);
+
+        }
+    }
+
+    private void handleTouchForTextView(View v) {
+        if (previousselctedView != null) {
+            previousselctedView.setBackground(null);
+            previousselctedView = v;
+            clear_button.setVisibility(View.VISIBLE);
+            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
+        } else {
+            clear_button.setVisibility(View.VISIBLE);
+            previousselctedView = v;
+            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
+        }
+    }
+    /*HANDLER METHODS*/
 
     //    FEATURES
 // THIS MEHOD CAN't be moved outside becuase it has lot of dependies in this page.
@@ -1294,33 +1574,21 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 alignment[0] = 1;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
-                }
+                addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             }
         });
         center.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alignment[0] = 2;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
-                }
+                addingText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             }
         });
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alignment[0] = 3;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-                } else {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.sorry));
-                }
+                addingText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
             }
         });
 
@@ -2094,7 +2362,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
-    /*Permission related Methods*/
+    /*PERMISSION REQUEST METHODS*/
 
     private void requestAppPermissions() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART));
@@ -2111,274 +2379,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void requestAppPermissions_for_launch_gallery() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, (MY_PERMISSION_REQUEST_Launch_gallery));
     }
+    /*PERMISSION REQUEST METHODS*/
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri fileurl = data.getData();
-            String[] filePaths = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(fileurl, filePaths, null, null, null);
-            cursor.moveToFirst();
-            int coloumnIndex = cursor.getColumnIndex(filePaths[0]);
-            String picturepath = cursor.getString(coloumnIndex);
-            cursor.close();
-//           imageView_background.setImageBitmap(BitmapFactory.decodeFile(picturepath));
-            if (imageView_background.getDrawingCache() != null) {
-                imageView_background.destroyDrawingCache();
-            }
-            selected_picture = picturepath;
-//            try {
-//                Intent cropIntent = new Intent("com.android.camera.action.CROP");
-//                cropIntent.setDataAndType(fileurl, "image/*");
-//                cropIntent.putExtra("crop", "true");
-//                cropIntent.putExtra("aspectX", 2);
-//                cropIntent.putExtra("aspectY", 2);
-//                cropIntent.putExtra("outputX", 512);
-//                cropIntent.putExtra("outputY", 512);
-//                cropIntent.putExtra("return-data", true);
-//                startActivityForResult(cropIntent, 2);
-//            } catch (ActivityNotFoundException anfe) {
-//                Toast_Snack_Dialog_Utils.show_ShortToast(this, "ACTIVITY NOT FOUND");
-//            }
-
-            if (imageFitType == 3) {
-                Glide.with(EditorActivity.this).load(picturepath).asBitmap().crossFade().into(imageView_background);
-
-            } else if (imageFitType == 2) {
-                Glide.with(EditorActivity.this).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
-
-            } else {
-                Glide.with(EditorActivity.this).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
-
-            }
-//            ImageView imageView = new ImageView(EditorActivity.this);
-//            imageView.setImageURI(fileurl);
-//            imageView.setOnTouchListener(this);
-////            imageView.setMaxWidth(600);
-////            imageView.setMaxHeight(600);
-//            core_editor_layout.addView(imageView);
-//            imageView_background.setImageResource(picturepath);
-        } else if (requestCode == 2) {
-            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-            Bitmap bitmap = data.getExtras().getParcelable("data");
-//            ImageView im_crop = (ImageView) findViewById(R.id.im_crop);
-//            im_crop.setImageBitmap(bitmap);
-//            Glide.with(EditorActivity.this).load(bitmap).asBitmap().crossFade().into(imageView_background);
-            imageView_background.setImageBitmap(bitmap);
-
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSION_REQUEST_STORAGE_FROM_ONSTART: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                }
-            }
-            break;
-            case MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    savetoDeviceWithAds(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
-                        @Override
-                        public void onImageSaveListner(File file) {
-                            savedFile = file;
-                        }
-                    });
-                }
-            }
-            break;
-            case MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.permissin_granted));
-                }
-            }
-            break;
-            case MY_PERMISSION_REQUEST_Launch_gallery: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    handle_gallery_dialog(EditorActivity.this);
-                }
-            }
-            break;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        backPressCount++;
-
-        if (backPressCount >= 2) {
-            this.finish();
-            overridePendingTransition(R.anim.slideup, R.anim.slidedown);
-        } else {
-            Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Press again to discard the image and exit");
-        }
-
-    }
-
-    /*Methods to handle view movements*/
-    @Override
-    public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
-        RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
-        final int INAVALID_POINTER_ID = -1;
-
-        if (v instanceof TextView) {
-            selectedView = v;
-            handleTouchForTextView(v);
-        } else if (v instanceof StickerImageView) {
-            selected_sticker = (StickerImageView) v;
-            handleTouchForStickerView((StickerImageView) v);
-        } else if (v instanceof RelativeLayout && v.getId() == R.id.arena_text_layout) {
-            clear_button.performClick();
-        }
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN: {
-                pointer_Id_1 = event.getPointerId(event.getActionIndex());
-                Log.d("ACTION DOWN", pointer_Id_1 + "");
-//                prevX = (int) event.getRawX();
-//                prevY = (int) event.getRawY();
-//                selected_text_view_parameters.bottomMargin = -2 * v.getHeight();
-//                selected_text_view_parameters.rightMargin = -2 * v.getWidth();
-////                v.setLayoutParams(selected_text_view_parameters);
-                try {
-                    fx = event.getX(event.findPointerIndex(pointer_Id_1));
-                    fy = event.getY(event.findPointerIndex(pointer_Id_1));
-                } catch (IllegalArgumentException iae) {
-                    iae.printStackTrace();
-                }
-                return true;
-            }
-//            case MotionEvent.ACTION_POINTER_DOWN: {
-//                pointer_ID_2 = event.getPointerId(event.getActionIndex());
-//                Log.d("ACTION POINTER DOWN", pointer_ID_2 + "");
-//
-////                sx = event.getX(event.findPointerIndex(pointer_Id_1));
-////                sy = event.getY(event.findPointerIndex(pointer_Id_1));
-//
-//                return true;
-//            }
-            case MotionEvent.ACTION_MOVE: {
-
-                if (pointer_Id_1 != INAVALID_POINTER_ID) {
-//                        nsx = event.getX(event.findPointerIndex(pointer_Id_1));
-//                        nsy = event.getY(event.findPointerIndex(pointer_Id_1));
-
-                    Log.d("ACTION move x POINTE", pointer_Id_1 + "");
-                    try {
-                        nfx = event.getX(event.findPointerIndex(pointer_Id_1));
-                        nfy = event.getY(event.findPointerIndex(pointer_Id_1));
-                    } catch (IllegalArgumentException iae) {
-                        iae.printStackTrace();
-                    }
-
-
-                    selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
-                    prevY = (int) nfy;
-                    selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
-                    prevX = (int) nfx;
-                    v.setLayoutParams(selected_text_view_parameters);
-                    Log.d("ACTION MOVE", "TRUE RETURNED");
-
-                    return true;
-                } else {
-                    Log.d("ACTION MOVE", "FALSE RETURNED");
-
-                    return false;
-                }
-
-
-            }
-
-            case MotionEvent.ACTION_UP: {
-
-                pointer_Id_1 = INAVALID_POINTER_ID;
-                Log.d("ACTION UP", pointer_Id_1 + "");
-
-//                selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
-//                selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
-//
-////                selected_text_view_parameters.topMargin += (int) event.getRawY() - prevY;
-////                selected_text_view_parameters.leftMargin += (int) event.getRawX() - prevX;
-//                v.setLayoutParams(selected_text_view_parameters);
-                return true;
-            }
-
-//            case MotionEvent.ACTION_POINTER_UP: {
-////                pointer_ID_2 = INAVALID_POINTER_ID;
-//                Log.d("ACTION POINTER UP", pointer_ID_2 + "");
-//
-//                return true;
-//            }
-
-            case MotionEvent.ACTION_CANCEL: {
-                int pointer_ID_2 = pointer_Id_1 = INAVALID_POINTER_ID;
-                Log.d("ACTION CANCEL", pointer_ID_2 + " <--2,1--> " + pointer_Id_1);
-
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void handleTouchForStickerView(StickerImageView v) {
-        if (selected_sticker != null) {
-            selected_sticker.setControlItemsHidden(true);
-            previousselctedView = selected_sticker;
-            selected_sticker = v;
-            clear_button.setVisibility(View.VISIBLE);
-            selected_sticker.setControlItemsHidden(false);
-            selected_sticker.bringToFront();
-        } else {
-            clear_button.setVisibility(View.VISIBLE);
-            selected_sticker = v;
-            ((StickerImageView) selectedView).setControlItemsHidden(false);
-
-        }
-    }
-
-    private void handleTouchForTextView(View v) {
-        if (previousselctedView != null) {
-            previousselctedView.setBackground(null);
-            previousselctedView = v;
-            clear_button.setVisibility(View.VISIBLE);
-            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
-        } else {
-            clear_button.setVisibility(View.VISIBLE);
-            previousselctedView = v;
-            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
-        }
-    }
-
-
-    @Override
-    public boolean onLongClick(@NonNull View v) {
-
-        v.bringToFront();
-        core_editor_layout.forceLayout();
-        core_editor_layout.invalidate();
-
-        SparseArrayCompat<TextView> sparseArrayCompat = new SparseArrayCompat<TextView>();
-        sparseArrayCompat.put(v.getId(), (TextView) v);
-        Log.d("SPARSE ARRAY", String.valueOf(sparseArrayCompat.get(v.getId())));
-        return true;
-
-    }
-
-    @Override
-    public void onRotate(@NonNull RotationGestureDetector rotationGestureDetector) {
-        if (selectedView != null) {
-            View selected = selectedView;
-            if (selected instanceof TextView) {
-                TextView selectedText = ((TextView) selected);
-                selectedText.setRotation(rotationGestureDetector.getmAngle());
-
-                Log.d("RotationGestureDetector", "Rotation: " + rotationGestureDetector.getmAngle());
-            }
-
-        }
-    }
 
     private class SimpleOnscaleGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override

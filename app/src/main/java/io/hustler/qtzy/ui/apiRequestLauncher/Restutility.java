@@ -19,9 +19,16 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
+import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.ImagesApiResponceListner;
+import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.QuotzyApiResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.ResponseListener;
+import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.StickerResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserGoogleSignup;
 import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserLogin;
 import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserSignup;
@@ -33,10 +40,6 @@ import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
 import io.hustler.qtzy.ui.pojo.unspalsh.UnsplashImageResponse;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.QUOTZY_API_GOOGLE_LOGIN_USER;
 
@@ -105,6 +108,25 @@ public class Restutility {
     /**
      * UNSPLASH METHODS
      */
+    public void getStickersByQuery(@NonNull final Context context, @NonNull final StickerResponseListener listner, final String request) {
+        String REQUEST = Constants.API_GET_Stickers_FROM_GIPHY.replace("@QUERY", request.trim().replace(" ", "+")).replace("@LIMIT", "20");
+        JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, REQUEST, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(@NonNull JSONObject response) {
+
+                        listner.onSuccess(response.toString());
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(@NonNull VolleyError error) {
+                listner.onError(getRelevantVolleyErrorMessage(context, error));
+            }
+        });
+        MySingleton.addJsonObjRequest(context, jsonObject);
+    }
+
     public void getRandomImages(@NonNull final Context context, @NonNull final ImagesApiResponceListner listner, final String request) {
         JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
@@ -286,7 +308,7 @@ public class Restutility {
             @Override
             public void onResponse(@NonNull JSONObject response) {
 //                BaseResponse baseResponse = getBaseResponseFromResponseJsonObject(response);
-                ResLoginUser baseResponse=new Gson().fromJson(response.toString(),ResLoginUser.class);
+                ResLoginUser baseResponse = new Gson().fromJson(response.toString(), ResLoginUser.class);
                 if (baseResponse.isApiSuccess()) {
                     listener.onSuccess(baseResponse);
                 } else {
@@ -312,7 +334,7 @@ public class Restutility {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(@NonNull JSONObject response) {
-                        ResLoginUser baseResponse=new Gson().fromJson(response.toString(),ResLoginUser.class);
+                        ResLoginUser baseResponse = new Gson().fromJson(response.toString(), ResLoginUser.class);
 
                         if (baseResponse.isApiSuccess()) {
                             listener.onSuccess(baseResponse);

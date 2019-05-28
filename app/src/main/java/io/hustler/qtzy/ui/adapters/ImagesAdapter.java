@@ -8,11 +8,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.activities.EditorActivity;
-import io.hustler.qtzy.ui.pojo.ImagesFromPixaBay;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.activities.EditorActivity;
+import io.hustler.qtzy.ui.apiRequestLauncher.response.DataItem;
 
 /**
  * Created by Sayi on 17-01-2018.
@@ -33,18 +35,18 @@ import java.util.ArrayList;
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewHolder> {
 
     EditorActivity activity;
-    ArrayList<ImagesFromPixaBay> imagesFromPixaBays = new ArrayList<>();
+    List<DataItem> giphyStickerItems = new ArrayList<>();
     ImagesOnClickListner listner;
 
-    public ImagesAdapter(EditorActivity activity, ArrayList<ImagesFromPixaBay> imagesFromPixaBays, ImagesOnClickListner listner) {
+    public ImagesAdapter(EditorActivity activity, List<DataItem> giphyStickerItems, ImagesOnClickListner listner) {
         this.activity = activity;
-        this.imagesFromPixaBays = imagesFromPixaBays;
+        this.giphyStickerItems = giphyStickerItems;
         this.listner = listner;
     }
 
 
     public interface ImagesOnClickListner {
-        void onImageClicked(String previreLink, String Biglink);
+        void onImageClicked(String stillImage, String gifImage);
     }
 
     @NonNull
@@ -56,9 +58,9 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
 
     @Override
     public void onBindViewHolder(@NonNull ImageviewHolder holder, int position) {
-        final ImagesFromPixaBay imagesFromPixaBay = imagesFromPixaBays.get(position);
+        final DataItem giphySticker = giphyStickerItems.get(position);
         Glide.with(activity)
-                .load(imagesFromPixaBay.getPreviewURL())
+                .load(giphySticker.getImages().getOriginalStill().getUrl())
                 .asBitmap()
                 .centerCrop()
                 .crossFade()
@@ -68,7 +70,8 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
             @Override
             public void onClick(View v) {
                 if (listner != null) {
-                    listner.onImageClicked(imagesFromPixaBay.getPreviewURL(), imagesFromPixaBay.getWebformatURL());
+                    listner.onImageClicked(giphySticker.getImages().getOriginalStill().getUrl(),
+                            giphySticker.getImages().getOriginal().getUrl());
                 }
             }
         });
@@ -77,7 +80,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageviewH
 
     @Override
     public int getItemCount() {
-        return imagesFromPixaBays.size() <= 0 ? 0 : imagesFromPixaBays.size();
+        return giphyStickerItems.size() <= 0 ? 0 : giphyStickerItems.size();
     }
 
     public class ImageviewHolder extends RecyclerView.ViewHolder {

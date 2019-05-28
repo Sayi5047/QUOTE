@@ -11,8 +11,7 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
@@ -100,9 +99,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="8"
+            android:animateLayoutChanges="true"
             android:background="@android:color/white"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true">
+            android:orientation="vertical">
 
 
             <!--COLORED FILTER-->
@@ -186,14 +185,16 @@
                 android:id="@+id/mark_quotzy_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginEnd="16dp"
                 android:elevation="4dp"
                 android:text="@string/Qotzy"
                 android:textAlignment="center"
                 android:textColor="@color/textColor"
                 android:textSize="16dp"
+                android:textStyle="bold"
+
                 android:visibility="visible" />
 
             <ImageView
@@ -222,6 +223,7 @@
             android:id="@+id/content_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="2.5"
             android:padding="1dp" />
         <!--android:layout_above="@id/text_and_background_layout"-->
@@ -313,7 +315,8 @@
             android:padding="15dp"
             android:progress="180"
             android:progressDrawable="@drawable/seekbar_progressbar"
-            android:thumb="@drawable/ic_sentiment_satisfied_black_24dp"
+            android:thumb="@drawable/ic_quotation_mark"
+            android:thumbTint="@color/deep_orange_50"
             android:visibility="gone" />
 
     </LinearLayout>

@@ -39,7 +39,7 @@ public abstract class StickerView extends FrameLayout {
     private double centerX, centerY;
 
     private final static int BUTTON_SIZE_DP = 30;
-    private final static int SELF_SIZE_DP = 100;
+    private final static int SELF_SIZE_DP = 120;
 
 
 

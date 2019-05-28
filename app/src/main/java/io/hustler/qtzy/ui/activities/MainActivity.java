@@ -615,10 +615,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        enterFade.setStartDelay(2 * FADE_DEFAULT_TIME);
 //        enterFade.setDuration(FADE_DEFAULT_TIME);
 //        fragment.setEnterTransition(fragment);
-        transaction.setCustomAnimations(R.anim.slideup, R.anim.slidedown);
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         transaction.replace(R.id.root, fragment);
-
-        transaction.addToBackStack("my_fragment");
+        transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
 
     }
@@ -640,7 +639,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             drawer.closeDrawer(GravityCompat.START);
         } else {
 //            super.onBackPressed();
-            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
                 getSupportFragmentManager().popBackStack();
 
             } else {

@@ -1,4 +1,4 @@
-package io.hustler.qtzy.ui.apiRequestLauncher;
+package io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces;
 
 import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
 

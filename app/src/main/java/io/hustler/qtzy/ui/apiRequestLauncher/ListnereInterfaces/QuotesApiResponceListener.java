@@ -1,11 +1,11 @@
-package io.hustler.qtzy.ui.apiRequestLauncher;
+package io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces;
 
-import io.hustler.qtzy.ui.pojo.ImagesFromPixaBay;
+import io.hustler.qtzy.ui.pojo.QuotesFromFC;
 
 import java.util.List;
 
 /**
- * Created by Sayi on 17-01-2018.
+ * Created by Sayi on 07-10-2017.
  */
 /*   Copyright [2018] [Sayi Manoj Sugavasi]
 
@@ -20,8 +20,7 @@ import java.util.List;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public interface ImagesApiResponceListner {
-    void onSuccess(List<ImagesFromPixaBay> images);
-
+public interface QuotesApiResponceListener {
+    void onSuccess(List<QuotesFromFC> quotes);
     void onError(String message);
 }

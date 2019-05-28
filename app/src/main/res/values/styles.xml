@@ -62,7 +62,7 @@
 
     <style name="EditTextDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowIsFloating">true</item>
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/deep_orange_50</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
         <item name="android:windowExitAnimation">@anim/slidedown</item>
     </style>

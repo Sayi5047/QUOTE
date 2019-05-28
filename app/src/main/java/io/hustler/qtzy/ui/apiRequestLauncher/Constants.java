@@ -27,6 +27,7 @@ public final class Constants {
     public static final String API_IMAGES_TOKEN = "7732312-2d2304a57655fc65d52bde5f1";
     public static final String UNSPLASH_APP_ID = "52c825a0d098b74e51389bf4d6e1e94c5b37f1a8232918b576f69cb2931c806c";
     public static final String UNSPLASH_CLIENT_ID = "1f3500dc54aacab31fab3b357f463479adcfd856fbcb559f37e0e755f46da7e6";
+    public static final String GIPHY_API_KEY = "RnMnyAaqEAofrSYV1AI7UHHUbG3fKqHJ";
 
 
     public static final String API_FAVQ_RANDOM_QUOTES = "https://favqs.com/api/quotes/";
@@ -40,6 +41,7 @@ public final class Constants {
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
     public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos?client_id=" + UNSPLASH_CLIENT_ID + PER_PAGE;
     public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos?client_id=" + UNSPLASH_CLIENT_ID;
+    public static final String API_GET_Stickers_FROM_GIPHY = "http://api.giphy.com/v1/stickers/search?q=@QUERY&api_key="+GIPHY_API_KEY+"&limit=@LIMIT" ;
 
 
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";

@@ -33,7 +33,7 @@ import io.hustler.qtzy.ui.adapters.CategoriesAdapter;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.apiRequestLauncher.QuotzyApiResponseListener;
+import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.QuotzyApiResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.database.QuotesDbHelper;
