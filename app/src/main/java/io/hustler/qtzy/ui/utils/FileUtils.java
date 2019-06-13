@@ -1,7 +1,11 @@
 package io.hustler.qtzy.ui.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ContentValues;
@@ -21,6 +25,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.media.ExifInterface;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +54,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.crash.FirebaseCrash;
+import com.waynejo.androidndkgif.GifEncoder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -74,6 +81,8 @@ import io.hustler.qtzy.ui.adapters.InstallFontAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.pojo.UserWorkImages;
 import io.hustler.qtzy.ui.textFeatures.TextFeatures;
+
+import static android.os.Build.VERSION_CODES.O;
 
 /**
  * Created by Sayi on 30-11-2017.
@@ -1007,7 +1016,7 @@ public class FileUtils {
                 gifBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new FrameSavingTask(gifFrameCount, dialog, activity, sourceLayout, listneer).execute();
+                        new FrameSavingTask(gifFrameCount, dialog, activity, sourceLayout, listneer,sourceLayout.getWidth(),sourceLayout.getHeight()).execute();
 
                     }
                 });
@@ -1119,72 +1128,172 @@ public class FileUtils {
     private static class FrameSavingTask extends AsyncTask<String, String, Void> {
         int framecount;
         Dialog dialog;
+        @SuppressLint("StaticFieldLeak")
         Activity activity;
+        @SuppressLint("StaticFieldLeak")
         ViewGroup sourceLayout;
         private onSaveComplete listneer;
+        File file;
+        private static final int NOTIFY_ID = 5004;
 
-        public FrameSavingTask(int framecount, Dialog dialog, Activity activity, ViewGroup sourceLayout, onSaveComplete listneer) {
+        private static final String CHANNEL_ID = "QUOTZY";
+        NotificationChannel channel;
+        android.support.v4.app.NotificationCompat.Builder mNotification_Builder;
+        NotificationManager mNotificationManager;
+
+        int width;
+        int height;
+
+        FrameSavingTask(int framecount, Dialog dialog, Activity activity, ViewGroup sourceLayout, onSaveComplete listneer, int width, int height) {
             this.framecount = framecount;
             this.dialog = dialog;
             this.activity = activity;
             this.sourceLayout = sourceLayout;
             this.listneer = listneer;
+            this.width = width;
+            this.height = height;
         }
 
         final ArrayList<File> savedFilesList = new ArrayList<>();
 
+        @SuppressLint("WrongThread")
         @Override
         protected Void doInBackground(String... strings) {
+            mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= O) {
+                CharSequence name = "Gif Builder";
+                String description = activity.getString(R.string.notication_channel_desc);
+                int importance = NotificationManager.IMPORTANCE_HIGH;
 
-            for (int i = 0; i < framecount; i++) {
-                /*this should returns a value for every 100 milliseconds. so if there are 14 frames* then gif will be of length 1.4 sec/                             */
-                Objects.requireNonNull(savedFilesList).add(savetempGifFrame(activity, sourceLayout, i));
+                channel = new NotificationChannel(CHANNEL_ID, name, importance);
+                channel.setDescription(description);
+                assert mNotificationManager != null;
+                mNotificationManager.createNotificationChannel(channel);
+                mNotification_Builder = new NotificationCompat.Builder(activity, CHANNEL_ID);
+                mNotification_Builder.setContentTitle("Building Gif images...").setContentText("Gif in progress")
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher))
+                        .setBadgeIconType(R.drawable.ic_launcher)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText("Gif in progress"))
+                        .setColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.colorAccent))
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setProgress(0, 0, true).setAutoCancel(true).setOngoing(true);
+                mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
 
-//               new Thread(new Runnable() {
-//                   @Override
-//                   public void run() {
-//                       try {
-//                           Thread.sleep(10);
-//                       } catch (InterruptedException e) {
-//                           e.printStackTrace();
-//                       }
-//                   }
-//               }).run();
-
+            } else {
+                listneer.onImageSaveListner(null);
+                dialog.dismiss();
+                mNotification_Builder = new NotificationCompat.Builder(activity);
+                mNotification_Builder.setContentTitle("Building Gif images...")
+                        .setContentText("GIf in progress")
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher))
+                        .setBadgeIconType(R.drawable.ic_launcher).setStyle(new NotificationCompat.BigTextStyle().bigText("Gif in progress"))
+                        .setColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.colorAccent))
+                        .setPriority(NotificationCompat.PRIORITY_HIGH).setProgress(0, 0, true)
+                        .setAutoCancel(true)
+                        .setOngoing(true);
+                mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
 
             }
-            return null;
-        }
+            for (int i = 0; i < framecount; i++) {
+//                Toast_Snack_Dialog_Utils.show_ShortToast(activity, String.valueOf(framecount * 10));
+                /*this should returns a value for every 100 milliseconds. so if there are 14 frames* then gif will be of length 1.4 sec/                             */
+                Objects.requireNonNull(savedFilesList).add(savetempGifFrame(activity, sourceLayout, i));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(83);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).run();
+            }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
             AnimatedGifEncoder animatedGifEncoder = new AnimatedGifEncoder();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
             animatedGifEncoder.start(byteArrayOutputStream);
-            animatedGifEncoder.setDelay(100);
+            animatedGifEncoder.setDelay(83);
+            animatedGifEncoder.setFrameRate(12);
             for (File currentFrame : savedFilesList) {
                 animatedGifEncoder.addFrame(BitmapFactory.decodeFile(currentFrame.getAbsoluteFile().getAbsolutePath()));
             }
             animatedGifEncoder.finish();
-            File file = new File(Constants.APP_SAVED_PICTURES_FOLDER + File.separator
+            file = new File(Constants.APP_SAVED_PICTURES_FOLDER + File.separator
                     + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2) + ".gif");
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(byteArrayOutputStream.toByteArray());
                 fileOutputStream.close();
-                listneer.onImageSaveListner(file);
-                dialog.dismiss();
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+//            GifEncoder gifEncoder = new GifEncoder();
+//            try {
+//                gifEncoder.init(width, height, file.getPath(), GifEncoder.EncodingType.ENCODING_TYPE_NORMAL_LOW_MEMORY);
+//                for (File currentFrame : savedFilesList) {
+//
+//                    gifEncoder.encodeFrame(BitmapFactory.decodeFile(currentFrame.getPath()), 100);
+//                }
+//
+//
+//                gifEncoder.close();
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
-            super.onPostExecute(aVoid);
+// Bitmap is MUST ARGB_8888.
+
+            return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+
+            Intent intent_gallery = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(activity.getApplicationContext(), activity.getString(R.string.file_provider_authority), (file)));
+            intent_gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            PendingIntent pendingIntent = PendingIntent.getActivity(activity.getApplicationContext(), NOTIFY_ID, intent_gallery, PendingIntent.FLAG_ONE_SHOT);
+            mNotification_Builder.setContentTitle("Completed");
+            mNotification_Builder.setContentIntent(pendingIntent);
+            mNotification_Builder.setContentText("GIF Successfully downloaded to SD card").setProgress(100, 100, false);// Removes the progress bar
+            mNotification_Builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Click to open"));
+
+            mNotificationManager.notify(NOTIFY_ID, mNotification_Builder.build());
+
+            if (file != null) {
+                try {
+
+                    Intent intent = new Intent(WallpaperManager.getInstance(activity.getApplicationContext()).
+                            getCropAndSetWallpaperIntent(FileProvider.getUriForFile(activity.getApplicationContext(), "com.hustler.quote.fileprovider", (file))));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    FirebaseCrash.log(e.getMessage());
+                }
+
+            } else {
+                try {
+                    Toast_Snack_Dialog_Utils.show_ShortToast((Activity) activity.getApplicationContext(), "Failed to Show Image");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            listneer.onImageSaveListner(file);
+            dialog.dismiss();
+        }
+
     }
+
 
     private static File savetempGifFrame(Activity activity, ViewGroup sourceLayout, int frameNumber) {
         File framesFolder = new File(Constants.TEMP_GIF_APP_SAVED_PICTURES_FOLDER);
@@ -1298,6 +1407,7 @@ public class FileUtils {
 
     public interface onSaveComplete {
         void onImageSaveListner(File file);
+
     }
 
     public static Bitmap drawable_from_url(String url) throws java.io.IOException {

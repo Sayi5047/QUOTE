@@ -57,7 +57,6 @@ import static io.hustler.qtzy.ui.utils.FileUtils.getImageContent;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class DownloadImageService extends Service {
-
     android.support.v4.app.NotificationCompat.Builder mNotification_Builder;
     @Nullable
     NotificationManager mNotificationManager;

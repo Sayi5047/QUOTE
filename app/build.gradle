@@ -109,6 +109,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'com.waynejo:androidndkgif:0.3.3'
     testImplementation 'junit:junit:4.12'
 //    implementation 'com.flying.xiaopo:sticker:1.6.0'
 }
