@@ -472,8 +472,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             selectedView = v;
             handleTouchForTextView(v);
         } else if (v instanceof StickerImageView) {
-            selected_sticker = (StickerImageView) v;
             handleTouchForStickerView((StickerImageView) v);
+            selected_sticker = (StickerImageView) v;
+
         } else if (v instanceof RelativeLayout && v.getId() == R.id.arena_text_layout) {
             if (null != selectedView)
                 clearButKeepView();
@@ -1161,15 +1162,15 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void enable_Selected_Background_Features(@Nullable String clickedItem, final String[] bgfeaturesArray) {
         if (clickedItem != null) {
-            if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
-                current_Bg_feature = bgfeaturesArray[0];
+            if (clickedItem.equalsIgnoreCase(bgfeaturesArray[1])) {
+                current_Bg_feature = bgfeaturesArray[1];
                 if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
                     handle_gallery_dialog(EditorActivity.this);
                 } else {
                     requestAppPermissions_for_launch_gallery();
                 }
-            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[1])) {
-                current_Bg_feature = bgfeaturesArray[1];
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[2])) {
+                current_Bg_feature = bgfeaturesArray[2];
                 selected_picture = null;
                 final Handler handler = new Handler();
                 Runnable backGroundColorTask = new Runnable() {
@@ -1182,19 +1183,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 handler.removeCallbacks(backGroundColorTask);
                 handler.post(backGroundColorTask);
 
-            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[2])) {
-                current_Bg_feature = bgfeaturesArray[2];
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[3])) {
+                current_Bg_feature = bgfeaturesArray[3];
                 if (selected_picture != null) {
                     blurrImage(bgfeaturesArray);
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.please_select_image));
                 }
-            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[3])) {
-                current_Bg_feature = bgfeaturesArray[3];
-//                applyBlackFilter();
-                bringGradients();
             } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[4])) {
                 current_Bg_feature = bgfeaturesArray[4];
+                applyBlackFilter();
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[0])) {
+                current_Bg_feature = bgfeaturesArray[0];
                 if (InternetUtils.isConnectedtoNet(EditorActivity.this) == true) {
                     seachImages();
 //                    addSticker("https://firebasestorage.googleapis.com/v0/b/nimble-card-239502.appspot.com/o/stickers%2F1.png?alt=media&token=87c9262c-ad8e-4bb1-b7f0-d741df62c1ba");
@@ -1202,18 +1202,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 } else {
                     Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.internet_required_images));
                 }
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
+                current_Bg_feature = bgfeaturesArray[5];
+                applyWhiteFilter();
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
+                selected_picture = null;
+                current_Bg_feature = bgfeaturesArray[6];
+                bringGradients();
+
+
+            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
+
             }
-// else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[5])) {
-//                current_Bg_feature = bgfeaturesArray[5];
-////            selected_picture = null;
-////                bringGradients();
-//            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[6])) {
-//                current_Bg_feature = bgfeaturesArray[6];
-////            selected_picture = null;
-//
-//            } else if (clickedItem.equalsIgnoreCase(bgfeaturesArray[7])) {
-//
-//            }
         } else {
             Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.please_select_feature_again));
         }
@@ -1306,7 +1306,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onImageClicked(String stillImage, String gifImage, int frameCount) {
 //                        selected_picture = stillImage;
-                        addSticker(gifImage, frameCount);
+                        addSticker(stillImage, frameCount);
 //                        imageView_background.setBackground(null);
 //                        Glide.with(EditorActivity.this)
 //                                .load(stillImage)

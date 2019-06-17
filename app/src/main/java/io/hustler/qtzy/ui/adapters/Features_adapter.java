@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.utils.TextUtils;
-
-import java.util.ArrayList;
 
 /**
  * Created by anvaya5 on 07/12/2017.
@@ -75,13 +75,13 @@ public class Features_adapter extends RecyclerView.Adapter<Features_adapter.Feat
             itemstobe_used_images.add(getDrawable(R.drawable.ic_text_fx));
 
         } else {
+            itemstobe_used_images.add(getDrawable(R.drawable.ic_search_black_24dp));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_gallery_bg));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_colors_bg));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_blur_on_black_24dp));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_filter_b_and_w_black_24dp));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_filter_white));
             itemstobe_used_images.add(getDrawable(R.drawable.ic_gradient));
-            itemstobe_used_images.add(getDrawable(R.drawable.ic_search_black_24dp));
 
         }
     }

@@ -77,7 +77,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
             Objects.requireNonNull(getActivity()).startService(new Intent(getActivity(), QuoteLoaderService.class));
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "QuotesNotLoaded");
         } else {
-            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Quotes Loaded");
+//            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Quotes Loaded");
 
         }
         localAdapter = new LocalAdapter(getActivity(), null, new LocalAdapter.OnQuoteClickListener() {

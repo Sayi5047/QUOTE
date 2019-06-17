@@ -78,6 +78,8 @@ public class WallpapersHolderFragment extends Fragment {
         rdBtn2.setText(getString(R.string.categories));
         TextUtils.set_Radio_font(getActivity(),rdBtn1,FONT_CIRCULAR);
         TextUtils.set_Radio_font(getActivity(),rdBtn2,FONT_CIRCULAR);
+        rdBtn2.setVisibility(View.VISIBLE);
+
         return view;
     }
 

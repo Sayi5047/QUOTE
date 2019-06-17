@@ -37,7 +37,7 @@ public class StickerImageView extends StickerView {
     public View getMainView() {
         if(this.iv_main == null) {
             this.iv_main = new ImageView(getContext());
-            this.iv_main.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            this.iv_main.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
         return iv_main;
     }

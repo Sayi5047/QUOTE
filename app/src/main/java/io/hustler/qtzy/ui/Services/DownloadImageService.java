@@ -23,10 +23,6 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
-import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Recievers.NotifcationReciever;
-import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,6 +32,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Recievers.NotifcationReciever;
+import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 import static android.os.Build.VERSION_CODES.O;
 import static io.hustler.qtzy.ui.utils.FileUtils.getImageContent;
@@ -86,7 +87,7 @@ public class DownloadImageService extends Service {
         }
 
         if (Build.VERSION.SDK_INT >= O) {
-            CharSequence name = "Iamge Downloader";
+            CharSequence name = "Image Downloader";
             String description = getString(R.string.notication_channel_desc);
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);

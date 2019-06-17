@@ -54,7 +54,6 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.crash.FirebaseCrash;
-import com.waynejo.androidndkgif.GifEncoder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -76,7 +75,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Services.DownloadImageService;
 import io.hustler.qtzy.ui.adapters.InstallFontAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.pojo.UserWorkImages;
@@ -817,7 +815,7 @@ public class FileUtils {
 
     }
 
-    public static File downloadImageToSd_Card(String param, String download_image_name, DownloadImageService.ImageDownloader imageDownloader, @NonNull Context applicationContext) {
+    public static File downloadImageToSd_Card(String param, String download_image_name, @NonNull Context applicationContext) {
 
         File downloading_File;
         FileOutputStream fileOutputStream;

@@ -231,13 +231,13 @@
     </string-array>
 
     <string-array name="Background_features">
+        <item>Stickers</item>
         <item>image</item>
         <item>color</item>
         <item>Blurr</item>
-        <!--<item>Black</item>-->
-        <!--<item>White</item>-->
+        <item>Black</item>
+        <item>White</item>
         <item>Gradient</item>
-        <item>Search</item>
         <!--<item>Vigenette</item>-->
         <!--<item>Add Emoji</item>-->
         <!--<item>Add Signature</item>-->
@@ -355,4 +355,5 @@
     <string name="Iam_never_here_before">I\'m never here before</string>
     <string name="continues">Continue</string>
     <string name="giphyKey">RnMnyAaqEAofrSYV1AI7UHHUbG3fKqHJ</string>
+    <string name="WALLPAPER_JOB_TAG">DAILYWALLTAG</string>
 </resources>

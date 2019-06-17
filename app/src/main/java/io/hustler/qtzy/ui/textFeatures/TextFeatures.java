@@ -414,7 +414,7 @@ public class TextFeatures {
                     Toast_Snack_Dialog_Utils.show_ShortToast(editorActivity, editorActivity.getString(R.string.select_font));
                 } else {
                     if (isDownloaded[0] == 1) {
-                        if (selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/qanelasm.otf")) {
+                        if (selected_type_face[0].equalsIgnoreCase("fonts/zingcursive.otf") || selected_type_face[0].equalsIgnoreCase("fonts/regulaer2.otf")) {
                             TextUtils.setFont(editorActivity, selectedTextView, selected_type_face[0]);
                         }
 

@@ -6,11 +6,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -50,6 +52,14 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -59,6 +69,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Services.JobServices.WallaperFirebaseJobService;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
@@ -130,6 +141,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     ValueAnimator valueAnimator;
     int previousPixles;
     int currentPixels;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    FirebaseJobDispatcher firebaseJobDispatcher;
+    Driver driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +213,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             TextUtils.findText_and_applyTypeface(((LinearLayout) navigationView.getHeaderView(i)), MainActivity.this);
         }
         launchFragment(new QuotesHolderFragment());
-
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
 
     }
 
@@ -228,6 +244,32 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (id) {
             case R.id.action_search: {
                 buildDialog_and_search();
+                driver = new GooglePlayDriver(this);
+                firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
+
+                boolean isActivated = sharedPreferences.getBoolean(Constants.DAILY_WALLS_ACTIVATED, false);
+                if (isActivated) {
+                    // TODO: 16-06-2019 disable the job
+                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Deactivated");
+                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, false).apply();
+                    firebaseJobDispatcher.cancel(getString(R.string.WALLPAPER_JOB_TAG));
+
+                } else {
+                    // TODO: 16-06-2019 enable the job
+                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Activated");
+                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, true).apply();
+                    Job wallJob = firebaseJobDispatcher.newJobBuilder().setService(WallaperFirebaseJobService.class)
+                            .setLifetime(Lifetime.FOREVER)
+                            .setRecurring(true)
+                            .setTrigger(Trigger.executionWindow(0, 300))
+                            .setReplaceCurrent(true)
+                            .setTag(getString(R.string.WALLPAPER_JOB_TAG))
+                            .setConstraints(Constraint.ON_UNMETERED_NETWORK)
+                            .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).build();
+                    firebaseJobDispatcher.schedule(wallJob);
+
+
+                }
             }
             break;
             case R.id.action_rate: {

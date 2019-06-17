@@ -111,6 +111,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     implementation 'com.waynejo:androidndkgif:0.3.3'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.6'
 //    implementation 'com.flying.xiaopo:sticker:1.6.0'
 }
 apply plugin: 'com.google.gms.google-services'

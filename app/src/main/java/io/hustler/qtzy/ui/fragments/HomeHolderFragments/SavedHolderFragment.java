@@ -74,6 +74,7 @@ public class SavedHolderFragment extends Fragment {
         fragmentTransaction.commit();
         rdBtn1.setText(getString(R.string.images));
         rdBtn2.setText(getString(R.string.wallpapers));
+        rdBtn2.setVisibility(View.GONE);
         TextUtils.set_Radio_font(getActivity(), rdBtn1, FONT_CIRCULAR);
         TextUtils.set_Radio_font(getActivity(), rdBtn2, FONT_CIRCULAR);
         return view;
@@ -112,11 +113,11 @@ public class SavedHolderFragment extends Fragment {
                 fragmentTransaction.commit();
                 break;
             case R.id.rd_btn2:
-                FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
-                fragmentTransaction2.setCustomAnimations(R.anim.slide_in_right, 0);
-                fragmentTransaction2.replace(R.id.holderFrame, new UserWorkFragment());
-                fragmentTransaction2.addToBackStack(null);
-                fragmentTransaction2.commit();
+//                FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+//                fragmentTransaction2.setCustomAnimations(R.anim.slide_in_right, 0);
+//                fragmentTransaction2.replace(R.id.holderFrame,  new UserWorkFragment();
+//                fragmentTransaction2.addToBackStack(null);
+//                fragmentTransaction2.commit();
                 break;
         }
     }

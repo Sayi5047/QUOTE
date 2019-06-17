@@ -314,8 +314,6 @@
             android:max="360"
             android:padding="15dp"
             android:progress="180"
-            android:progressDrawable="@drawable/seekbar_progressbar"
-            android:thumb="@drawable/ic_quotation_mark"
             android:thumbTint="@color/deep_orange_50"
             android:visibility="gone" />
 
