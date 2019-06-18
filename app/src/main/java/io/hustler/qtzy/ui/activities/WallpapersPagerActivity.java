@@ -25,8 +25,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.RetryStrategy;
+
+import java.util.ArrayList;
+
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Services.DownloadImageService;
+import io.hustler.qtzy.ui.Services.DownloadImageJobService;
 import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
 import io.hustler.qtzy.ui.adapters.WallpaperSliderAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
@@ -38,8 +47,6 @@ import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.InternetUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.util.ArrayList;
 
 import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.UNSPLASH_CLIENT_ID;
 
@@ -359,18 +366,25 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     }
 
     private void downloadImage() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
+        bundle.putString(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
+        bundle.putBoolean(Constants.is_to_setWallpaper_fromActivity, false);
+        Driver driver = new GooglePlayDriver(this);
+        FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
+        Job downloadjob = firebaseJobDispatcher.newJobBuilder().setService(DownloadImageJobService.class)
+                .setRecurring(false)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).setExtras(bundle)
+                .setConstraints(Constraint.ON_ANY_NETWORK).setTag(Constants.DONWLOADIMAGE_IMAGE_JOB_TAG).build();
+        firebaseJobDispatcher.mustSchedule(downloadjob);
         Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_downloaded_to_sdCard));
-        Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
-        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
-        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
-        intent.putExtra(Constants.is_to_setWallpaper_fromActivity, false);
-        startService(intent);
+
     }
 
     public void setWallPaer() {
         Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_set_wall));
 
-        Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageService.class);
+        Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageJobService.class);
         intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
         intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
         intent.putExtra(Constants.is_to_setWallpaper_fromActivity, true);

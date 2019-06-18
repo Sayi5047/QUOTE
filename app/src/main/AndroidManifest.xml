@@ -169,8 +169,9 @@
             android:name=".ui.Services.RandomQuoteUpdateService"
             tools:ignore="InnerclassSeparator" />
         <service
-            android:name=".ui.Services.DownloadImageService"
-            tools:ignore="InnerclassSeparator" />
+            android:name=".ui.Services.DownloadImageJobService"
+            tools:ignore="InnerclassSeparator"
+            android:exported="false"/>
         <service
             android:name=".ui.Services.DailyWallpaperService"
             android:exported="false"

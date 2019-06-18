@@ -2,11 +2,14 @@ package io.hustler.qtzy.ui.activities;
 
 import android.animation.ValueAnimator;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -22,6 +25,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
@@ -64,6 +68,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,6 +150,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     SharedPreferences.Editor editor;
     FirebaseJobDispatcher firebaseJobDispatcher;
     Driver driver;
+    NotificationManager mNotificationManager;
+    NotificationCompat.Builder mNotification_Builder;
+
+    private static int BUNDLENOTIFICATIONID = 5005;
+    private static int SINGLENOTIFICATIONID = 5005;
+    private String CHANNEL_ID = "DAILY_WALL_CHANNEL";
+    private String BUNDLECHANNEL_ID = "BUNDLE_DAILY_WALL_CHANNEL";
+    private String GROUP_ID = "DAILY_WALL_GROUP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +181,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         header_name.setVisibility(GONE);
         fab.setVisibility(GONE);
-
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        }
 
         TextUtils.setFont(MainActivity.this, header_name, Constants.FONT_CIRCULAR);
         header_name.postDelayed(new Runnable() {
@@ -238,6 +253,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+    private void setBuilder(NotificationManager mNotificationManager, NotificationCompat.Builder mNotification_builder, String bundleNotificationId, int notificationID) {
+        Notification notification = mNotification_builder
+                .setContentTitle("Changed Wallpaper...")
+                .setContentText("Wallpaper changed")
+                .setGroup(GROUP_ID)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
+                .setBadgeIconType(R.drawable.ic_launcher)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("New Wallpaper applied"))
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent))
+                .setGroup(bundleNotificationId)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(false).build();
+        mNotificationManager.notify(notificationID, notification);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -261,12 +294,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Job wallJob = firebaseJobDispatcher.newJobBuilder().setService(WallaperFirebaseJobService.class)
                             .setLifetime(Lifetime.FOREVER)
                             .setRecurring(true)
-                            .setTrigger(Trigger.executionWindow(0, 300))
+                            .setTrigger(Trigger.executionWindow(0, (int) TimeUnit.MINUTES.toSeconds(60)))
                             .setReplaceCurrent(true)
                             .setTag(getString(R.string.WALLPAPER_JOB_TAG))
-                            .setConstraints(Constraint.ON_UNMETERED_NETWORK)
+                            .setConstraints(Constraint.ON_ANY_NETWORK)
                             .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).build();
-                    firebaseJobDispatcher.schedule(wallJob);
+                    firebaseJobDispatcher.mustSchedule(wallJob);
 
 
                 }
@@ -274,7 +307,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             break;
             case R.id.action_rate: {
                 taketoRate();
-
             }
             break;
             case R.id.action_Pro_features: {

@@ -66,6 +66,7 @@ public final class Constants {
     public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
     public static final String PREVIOUS_COLOR = "previous_color";
     public static final String DAILY_WALLS_ACTIVATED = "DAILY_WALL_SERVICE_ACTIVATION_KEY";
+    public static final String DONWLOADIMAGE_IMAGE_JOB_TAG = "DOWNLOAD_IMAGE_TAG";
     @NonNull
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 

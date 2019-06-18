@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.Services.JobServices;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.WallpaperManager;
@@ -38,7 +39,8 @@ import io.hustler.qtzy.ui.utils.FileUtils;
 import static android.os.Build.VERSION_CODES.O;
 
 public class WallaperFirebaseJobService extends JobService {
-    private static final int DAILY_WALL_NOTIFY_ID = 5005;
+    private static int BUNDLENOTIFICATIONID = 5005;
+    private static int SINGLENOTIFICATIONID = 5005;
     List<Unsplash_Image> images;
     @Nullable
     File downloading_File;
@@ -49,7 +51,7 @@ public class WallaperFirebaseJobService extends JobService {
     Unsplash_Image unsplash_image;
     WallpaperManager wallpaperManager;
     ImageDownloaderTask imageDownloaderTask;
-    private String CHANNEL_ID = "DAILY_WALL_CHANNEL";
+    private String BUNDLECHANNEL_ID = "BUNDLE_DAILY_WALL_CHANNEL";
     private String GROUP_ID = "io.hustler.qtzy.DAILY_WALL_GROUP";
 
     @Override
@@ -110,12 +112,12 @@ public class WallaperFirebaseJobService extends JobService {
         @Nullable
         @Override
         protected Void doInBackground(final String... params) {
-            if (sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature").equals("Favourites")) {
+            if (sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Space").equals("Favourites")) {
                 images = new ImagesDbHelper(getApplicationContext()).getAllFav();
 //            IF USER SELECTS FAV BUT HE HAS NO FAV LIST IN DB THEN WE CALL API WITH NATURE IMAGES
                 if (images == null || images.size() <= 0) {
-                    callApi(editor, "Nature");
-                    editor.putString(getResources().getString(R.string.DWL_key3), "Nature");
+                    callApi(editor, "Space");
+                    editor.putString(getResources().getString(R.string.DWL_key3), "Space");
                 } else {
                     image = new Random().nextInt(images.size()) + 0;
                     unsplash_image = images.get(image);
@@ -126,7 +128,7 @@ public class WallaperFirebaseJobService extends JobService {
 
             } else {
                 if (sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0) <= 0) {
-                    callApi(editor, sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature"));
+                    callApi(editor, sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Space"));
                 } else {
                     Type type = new TypeToken<Unsplash_Image[]>() {
                     }.getType();
@@ -162,23 +164,33 @@ public class WallaperFirebaseJobService extends JobService {
                 mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             }
 
+            /*CREATE A BUNDLE*/
             if (Build.VERSION.SDK_INT >= O) {
-                CharSequence name = "Image Downloader";
+                /*DWN -- Daily wallpaper notification*/
+                CharSequence bundleChannelName = "DWN_bundle_channel";
                 String description = getString(R.string.notication_channel_desc);
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-                if (mNotificationManager.getNotificationChannel(CHANNEL_ID) == null) {
-                    NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-                    channel.setDescription(description);
-                    mNotificationManager.createNotificationChannel(channel);
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+                if (mNotificationManager.getNotificationChannel(BUNDLECHANNEL_ID) == null) {
+                    NotificationChannel groupChannel = new NotificationChannel(BUNDLECHANNEL_ID, bundleChannelName, importance);
+                    groupChannel.setDescription(description);
+                    mNotificationManager.createNotificationChannel(groupChannel);
+
                 }
-                mNotification_Builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
-                setBuilder(mNotificationManager, mNotification_Builder);
+                BUNDLENOTIFICATIONID += 100;
+                String bundle_group_notification_id = BUNDLENOTIFICATIONID + BUNDLECHANNEL_ID;
+
+                mNotification_Builder = new NotificationCompat.Builder(getApplicationContext(), BUNDLECHANNEL_ID);
+                setBuilder(mNotificationManager, mNotification_Builder, bundle_group_notification_id, BUNDLENOTIFICATIONID);
+
 
             } else {
                 mNotification_Builder = new NotificationCompat.Builder(getApplicationContext());
-                setBuilder(mNotificationManager, mNotification_Builder);
+                setBuilder(mNotificationManager, mNotification_Builder, "bundle_group_notification_id", BUNDLENOTIFICATIONID);
 
             }
+            /*ADD NOTIFICATION TO THE BUNDLE*/
+
 
             jobFinished(jobParameters, false);
 
@@ -187,7 +199,7 @@ public class WallaperFirebaseJobService extends JobService {
 
     private void downloadAndSetWallpaper() {
         wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-        downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getRegular(), unsplash_image.getId() + "SAYI.jpg", getApplicationContext());
+        downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getRaw(), unsplash_image.getId() + "DW.jpg", getApplicationContext());
         try {
             wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
         } catch (IOException ioe) {
@@ -198,16 +210,21 @@ public class WallaperFirebaseJobService extends JobService {
         }
     }
 
-    private void setBuilder(NotificationManager mNotificationManager, NotificationCompat.Builder mNotification_Builder) {
-        mNotification_Builder.setContentTitle("Changed Wallpaper...").setContentText("Wallpaper changed")
+    private void setBuilder(NotificationManager mNotificationManager, NotificationCompat.Builder mNotification_builder, String bundleNotificationId, int notificationID) {
+        Notification notification = mNotification_builder
+                .setContentTitle("Changed Wallpaper...")
+                .setContentText("Wallpaper changed")
+                .setGroup(GROUP_ID)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
                 .setBadgeIconType(R.drawable.ic_launcher)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("New Wallpaper applied"))
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setGroup(GROUP_ID).setAutoCancel(false)
-        ;
-        mNotificationManager.notify(DAILY_WALL_NOTIFY_ID+1, mNotification_Builder.build());
+                .setGroup(bundleNotificationId)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(false).build();
+        mNotificationManager.notify(notificationID, notification);
 
     }
 }
