@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,11 +21,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +47,9 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Recievers.NotifAlarmReciever;
 import io.hustler.qtzy.ui.Services.DailyNotificationService;
@@ -60,19 +59,13 @@ import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.apiRequestLauncher.Shared_prefs_constants;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
-import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
 import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.ColorUtils;
-import io.hustler.qtzy.ui.utils.IntentConstants;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import static android.view.View.GONE;
 
@@ -406,7 +399,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         }
                         break;
                         case QUOTES: {
-                            setQuotes(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
+//                            setQuotes(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
                         }
                         break;
 
@@ -515,62 +508,62 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
-        loader.setVisibility(View.VISIBLE);
-        result_rv.setAdapter(null);
-        result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
-
-        final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
-        final ArrayList<Quote> finalArrayList;
-        finalArrayList = new ArrayList<>();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-//                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesBystring(query);
-//                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
-//                quoteslisttemp[1].remove(quoteslisttemp[0]);
-//                finalArrayList.addAll(quoteslisttemp[0]);
-//                finalArrayList.addAll(quoteslisttemp[1]);
-
-            }
-        }).run();
-        if (finalArrayList.size() <= 0) {
-            loader.setVisibility(GONE);
-            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
-        } else {
-            loader.setVisibility(GONE);
-            adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
-                @Override
-                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
-                    Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
-                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-
-                    } else {
-
-                    }
-                    startActivity(intent, bundle);
-                }
-            }));
-            adapter.addData(finalArrayList);
-            adapter.notifyDataSetChanged();
-            result_rv.setAdapter(adapter);
-            radioGroup.setVisibility(GONE);
-            search_header.setVisibility(GONE);
-            search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-            radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-            result_rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-
-            searchTerm.setText(query);
-            searchTerm.setVisibility(View.VISIBLE);
-            searchTerm.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-
-        }
-
-    }
+//    private void setQuotes(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
+//        loader.setVisibility(View.VISIBLE);
+//        result_rv.setAdapter(null);
+//        result_rv.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false));
+//
+//        final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
+//        final ArrayList<Quote> finalArrayList;
+//        finalArrayList = new ArrayList<>();
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+////                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesBystring(query);
+////                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(HomeActivity.this).getQuotesByCategory(query);
+////                quoteslisttemp[1].remove(quoteslisttemp[0]);
+////                finalArrayList.addAll(quoteslisttemp[0]);
+////                finalArrayList.addAll(quoteslisttemp[1]);
+//
+//            }
+//        }).run();
+//        if (finalArrayList.size() <= 0) {
+//            loader.setVisibility(GONE);
+//            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
+//        } else {
+//            loader.setVisibility(GONE);
+//            adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
+//                @Override
+//                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
+//                    Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
+//                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
+//                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+//
+//                    } else {
+//
+//                    }
+//                    startActivity(intent, bundle);
+//                }
+//            }));
+//            adapter.addData(finalArrayList);
+//            adapter.notifyDataSetChanged();
+//            result_rv.setAdapter(adapter);
+//            radioGroup.setVisibility(GONE);
+//            search_header.setVisibility(GONE);
+//            search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+//            radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+//            result_rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+//
+//            searchTerm.setText(query);
+//            searchTerm.setVisibility(View.VISIBLE);
+//            searchTerm.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+//
+//        }
+//
+//    }
 
     private void loadAds() {
 //        AdRequest adRequest = new AdRequest.Builder().build();
@@ -713,7 +706,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(final View v) {
 ////        DIALOG FOR EDITORS
 //        if (v == floatingActionButton) {
-//            Button quote, meme, close;
+//            Button quoteId, meme, close;
 //            TextView quote_tv, meme_tv, close_tv, select_tv;
 //
 //
@@ -723,7 +716,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //            dialog.setContentView(view);
 //
-//            quote = (Button) dialog.findViewById(R.id.Quotes);
+//            quoteId = (Button) dialog.findViewById(R.id.Quotes);
 //            meme = (Button) dialog.findViewById(R.id.meme);
 //            close = (Button) dialog.findViewById(R.id.close);
 //
@@ -757,7 +750,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //            });
 //
 //
-//            quote.setOnClickListener(new View.OnClickListener() {
+//            quoteId.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    // TODO: 02-12-2017 implement to go quotes editor

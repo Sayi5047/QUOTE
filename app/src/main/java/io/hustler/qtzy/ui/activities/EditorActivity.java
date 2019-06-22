@@ -757,7 +757,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             if (quote != null) {
                 int length = quote.getQuote().length();
                 root_layout.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
-//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quote.getColor()));
+//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quoteId.getColor()));
                 if (length > 230) {
                     quote_editor_body.setTextSize(20.0f);
                 } else if (length < 230 && length > 150) {

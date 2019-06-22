@@ -13,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.pojo.Quote;
-import io.hustler.qtzy.ui.utils.TextUtils;
-
 import java.util.ArrayList;
+
+import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
+import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.utils.TextUtils;
 
 /**
  * Created by anvaya5 on 27/12/2017.
@@ -38,29 +38,18 @@ import java.util.ArrayList;
    limitations under the License.*/
 public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewholder> {
     Activity activity;
-    ArrayList<Quote> dataFromNet;
-    OnQuoteClickListener onQuoteClickListener;
+    private ArrayList<QuotesTable> dataFromNet;
+    private OnQuoteClickListener onQuoteClickListener;
 
-    public LocalAdapter(Activity activity, ArrayList<Quote> dataFromNet, OnQuoteClickListener onQuoteClickListener) {
+    public LocalAdapter(Activity activity, ArrayList<QuotesTable> dataFromNet, OnQuoteClickListener onQuoteClickListener) {
         this.activity = activity;
         this.dataFromNet = dataFromNet;
         this.onQuoteClickListener = onQuoteClickListener;
     }
 
-    public LocalAdapter(Activity activity, ArrayList<Quote> dataFromNet) {
-        this.activity = activity;
-        this.dataFromNet = dataFromNet;
-        this.dataFromNet = new ArrayList<>();
-    }
-
-    public LocalAdapter(Activity activity, OnQuoteClickListener onQuoteClickListener) {
-        this.activity = activity;
-        this.onQuoteClickListener = onQuoteClickListener;
-        dataFromNet = new ArrayList<Quote>();
-    }
 
     public interface OnQuoteClickListener {
-        void onQuoteClicked(int position, GradientDrawable color, Quote quote, View view);
+        void onQuoteClicked(int position, GradientDrawable color, QuotesTable quote, View view);
     }
 
     @NonNull
@@ -69,11 +58,11 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
         return new LocalViewholder(activity.getLayoutInflater().inflate(R.layout.rv_item, parent, false));
     }
 
-    public void addData(@NonNull ArrayList<Quote> extraData) {
+    public void addData(@NonNull ArrayList<QuotesTable> extraData) {
+        dataFromNet = null;
+        notifyDataSetChanged();
         dataFromNet = new ArrayList<>();
-        for (int i = 0; i < extraData.size(); i++) {
-            dataFromNet.add(extraData.get(i));
-        }
+        dataFromNet.addAll(extraData);
         notifyItemRangeInserted(0, dataFromNet.size());
         notifyDataSetChanged();
     }
@@ -100,12 +89,12 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
     @Override
     public void onBindViewHolder(@NonNull final LocalViewholder holder, final int position) {
         final GradientDrawable gradientDrawable = createDrawable(holder);
-        final Quote quote = dataFromNet.get(position);
+        final QuotesTable quote = dataFromNet.get(position);
         String genre;
 
         genre = quote.getCategory();
 
-        holder.tv.setText(quote.getQuote());
+        holder.tv.setText(quote.getQuotes());
         holder.tv.setTextColor(Color.WHITE);
         holder.tv2.setTextColor(Color.WHITE);
         holder.tv3.setTextColor(Color.WHITE);
@@ -119,7 +108,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
                 }
             }
         });
-        int visibility = quote.getIsLiked() == 1 ? View.VISIBLE : View.GONE;
+        int visibility = quote.isIsliked() ? View.VISIBLE : View.GONE;
         holder.imageView.setVisibility(visibility);
     }
 

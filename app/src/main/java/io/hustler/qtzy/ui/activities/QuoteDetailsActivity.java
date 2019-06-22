@@ -3,6 +3,8 @@ package io.hustler.qtzy.ui.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.WallpaperManager;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -10,8 +12,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -21,11 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.crash.FirebaseCrash;
@@ -33,9 +33,10 @@ import com.google.firebase.crash.FirebaseCrash;
 import java.io.File;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
+import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
-import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.superclasses.BaseActivity;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.FileUtils;
@@ -62,23 +63,20 @@ import static io.hustler.qtzy.ui.utils.FileUtils.show_post_save_dialog;
 public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_WALLPAPER = 1003;
-    Quote quote;
-    RelativeLayout root;
-    LinearLayout quote_layout;
-    LinearLayout quote_bottom;
-    TextView tv_Quote_Body, tv_Quote_Author, image_saved_message;
-    FloatingActionButton fab_save, fab_edit, fab_share, fab_set_wall, fab_set_like;
-    ImageView quote_anim;
-    File savedFile;
-    Window window;
-    int val = 1001;
+    int quoteId;
+    private LinearLayout quote_layout;
+    private LinearLayout quote_bottom;
+    private TextView tv_Quote_Body;
+    private TextView tv_Quote_Author;
+    private FloatingActionButton fab_set_like;
+    private File savedFile;
     boolean IS_LIKED_FLAG;
-    private RelativeLayout wallpaper_layout;
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
-    private AdView mAdView;
-    Toolbar toolbar;
-    GradientDrawable gradientDrawable;
-    int[] color1, color2;
+    int[] color1;
+    QuotesTable quoteFromTable;
+
+    private AppDatabase appDatabase;
+    private AppExecutor appExecutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +84,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
+        appDatabase = AppDatabase.getmAppDatabaseInstance(this);
+        appExecutor = AppExecutor.getInstance();
         setToolbar(this);
         initView();
         getIntentData();
@@ -106,21 +106,19 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
-        root = findViewById(R.id.root);
-        mAdView = findViewById(R.id.adView);
+        RelativeLayout root = findViewById(R.id.root);
+        AdView mAdView = findViewById(R.id.adView);
         tv_Quote_Author = findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = findViewById(R.id.tv_Quote_Body);
 
         quote_layout = findViewById(R.id.quote_layout);
-        wallpaper_layout = findViewById(R.id.wallpaper_layout);
         quote_bottom = findViewById(R.id.quote_bottom);
-        quote_anim = findViewById(R.id.quote_anim);
         TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
 
-        fab_edit = findViewById(R.id.fab_edit);
-        fab_save = findViewById(R.id.fab_download);
-        fab_share = findViewById(R.id.fab_share);
-        fab_set_wall = findViewById(R.id.fab_set_wall);
+        FloatingActionButton fab_edit = findViewById(R.id.fab_edit);
+        FloatingActionButton fab_save = findViewById(R.id.fab_download);
+        FloatingActionButton fab_share = findViewById(R.id.fab_share);
+        FloatingActionButton fab_set_wall = findViewById(R.id.fab_set_wall);
         fab_set_like = findViewById(R.id.fab_set_like);
 
         fab_edit.setOnClickListener(this);
@@ -136,7 +134,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setToolbar(Activity activity) {
         super.setToolbar(activity);
-        window = this.getWindow();
+        Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -145,29 +143,47 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @NonNull
     private GradientDrawable createDrawable(int[] colors) {
-
-        int[] color = {colors[0], colors[1]};
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BR_TL, colors);
         gradientDrawable.setGradientRadius(135);
-//        gradientDrawable.setCornerRadius(20f);
         return gradientDrawable;
-//        holder.imageView.layout(0,0,100,100);
-//
-//        holder.imageView.setDrawingCacheEnabled(true);
-//        holder.imageView.buildDrawingCache();
-//        Bitmap bitmap=holder.imageView.getDrawingCache();
-//        Bitmap finalbitmap =ImageProcessingUtils.create_blur(bitmap,5.0f,activity);
-//        holder.imageView.setImageBitmap(finalbitmap);
     }
 
     private void getIntentData() {
-        quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
-        int length = quote.getQuote().length();
-        SetBackGroundTask();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
         }
+        quoteId = getIntent().getIntExtra(Constants.INTENT_QUOTE_OBJECT_KEY, -1);
+        appExecutor.getMainThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
+                if (color1 != null) {
+                    quote_layout.setBackground(createDrawable(color1));
+                } else {
+                    int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+                    int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
+                    quote_layout.setBackground(createDrawable(new int[]{color1, color2}));
+
+                }
+            }
+        });
+        LiveData<QuotesTable> quotesTableLiveData = appDatabase.quotesDao().getQuotesById(quoteId);
+        quoteFromTable = quotesTableLiveData.getValue();
+        quotesTableLiveData.observe(this, new Observer<QuotesTable>() {
+            @Override
+            public void onChanged(@Nullable QuotesTable quotesTable) {
+                quoteFromTable = quotesTable;
+                setUiData(quoteFromTable);
+
+            }
+        });
+
+
+    }
+
+    private void setUiData(QuotesTable quoteId) {
+        int length = quoteId.getQuotes().length();
+
 
         if (length > 230) {
             tv_Quote_Body.setTextSize(25.0f);
@@ -187,11 +203,11 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             tv_Quote_Body.setTextSize(48.0f);
 
         }
-        tv_Quote_Body.setText(quote.getQuote());
-        tv_Quote_Author.setText(quote.getAuthor());
+        tv_Quote_Body.setText(quoteId.getQuotes());
+        tv_Quote_Author.setText(quoteId.getAuthor());
         tv_Quote_Body.setTextColor(Color.WHITE);
         tv_Quote_Author.setTextColor(Color.WHITE);
-        if (quote.getIsLiked() == 1) {
+        if (quoteId.isIsliked()) {
             IS_LIKED_FLAG = true;
             fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
         } else {
@@ -201,25 +217,6 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void SetBackGroundTask() {
-        Handler handler = new Handler();
-        Runnable setBgClorTask = new Runnable() {
-            @Override
-            public void run() {
-                color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
-                if (color1 != null) {
-                    quote_layout.setBackground(createDrawable(color1));
-                } else {
-                    int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-                    int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-                    quote_layout.setBackground(createDrawable(new int[]{color1, color2}));
-
-                }
-            }
-        };
-        handler.removeCallbacks(setBgClorTask);
-        handler.post(setBgClorTask);
-    }
 
     @Override
     public void onClick(@NonNull View v) {
@@ -231,7 +228,6 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     addFavourite();
 
                 }
-//                root.setBackgroundDrawable(gradientDrawable);
             }
             break;
             case R.id.fab_download:
@@ -248,7 +244,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                         setWallPaer();
                     } else {
-                        setWallPaerCompat();
+                        setCompatWallpaper();
                     }
                 } else {
                     requestFirstAppPermissions_Wall();
@@ -261,20 +257,40 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void removeFavourite() {
-        new QuotesDbHelper(QuoteDetailsActivity.this).removeFromFavorites(quote);
-        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
-        IS_LIKED_FLAG = false;
+
+        appExecutor.getDiskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                quoteFromTable.setIsliked(false);
+                appDatabase.quotesDao().updateUser(quoteFromTable);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
+                        IS_LIKED_FLAG = false;
+                    }
+                });
+            }
+        });
+
     }
 
     private void addFavourite() {
-        new Thread(new Runnable() {
+        appExecutor.getDiskExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                new QuotesDbHelper(QuoteDetailsActivity.this).addToFavourites(quote);
-                fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
-                IS_LIKED_FLAG = true;
+                quoteFromTable.setIsliked(true);
+                appDatabase.quotesDao().updateUser(quoteFromTable);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
+                        IS_LIKED_FLAG = true;
+                    }
+                });
             }
-        }).run();
+        });
+
 
     }
 
@@ -299,7 +315,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void setWallPaerCompat() {
+    private void setCompatWallpaper() {
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
         try {
 
@@ -317,7 +333,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     savedFile = file;
                     show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
                 }
-            },0);
+            }, 0);
         } else {
             requestAppPermissions();
         }
@@ -357,7 +373,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                             show_post_save_dialog(QuoteDetailsActivity.this, savedFile);
 
                         }
-                    },0);
+                    }, 0);
                 }
             }
             break;
@@ -371,7 +387,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                         setWallPaer();
                     } else {
-                        setWallPaerCompat();
+                        setCompatWallpaper();
                     }
                 }
             }
@@ -435,14 +451,14 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
                 }
-            },0);
+            }, 0);
         }
         return uri[0];
     }
 
     private void edit() {
         Intent intent = new Intent(this, EditorActivity.class);
-        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+        intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quoteId);
         intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         startActivity(intent);
     }

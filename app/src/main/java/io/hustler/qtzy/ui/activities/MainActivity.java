@@ -4,6 +4,8 @@ import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -68,24 +70,26 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
+import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.Services.JobServices.WallaperFirebaseJobService;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.FavouritesHolderFragment;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.QuotesHolderFragment;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.SavedHolderFragment;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.WallpapersHolderFragment;
 import io.hustler.qtzy.ui.fragments.MainFragment;
-import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
 import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
@@ -143,6 +147,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.topCrown)
     ImageView crownView;
 
+    private AppDatabase appDatabase;
+    private AppExecutor appExecutor;
+
     ValueAnimator valueAnimator;
     int previousPixles;
     int currentPixels;
@@ -179,6 +186,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+        appDatabase = AppDatabase.getmAppDatabaseInstance(getApplicationContext());
+        appExecutor = AppExecutor.getInstance();
         header_name.setVisibility(GONE);
         fab.setVisibility(GONE);
         if (mNotificationManager == null) {
@@ -594,57 +603,63 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
 
-        final ArrayList<Quote>[] quoteslisttemp = new ArrayList[]{new ArrayList<>(), new ArrayList<>()};
 
-        final ArrayList<Quote> finalArrayList = new ArrayList<>();
+        final ArrayList<QuotesTable> finalArrayList = new ArrayList<>();
 
-        new Thread(new Runnable() {
+//        final LiveData<List<QuotesTable>> quotesLiveData1 = appDatabase.quotesDao().findQuotesByQuery(query);
+        final LiveData<List<QuotesTable>> quotesLiveData1 = appDatabase.quotesDao().findQuotesByQuery("Attitude");
+        quotesLiveData1.observe(this, new Observer<List<QuotesTable>>() {
             @Override
-            public void run() {
-                // TODO: 27-01-2019 replace with rest call
-
-                quoteslisttemp[0] = (ArrayList<Quote>) new QuotesDbHelper(MainActivity.this).getQuotesBystring(query);
-                quoteslisttemp[1] = (ArrayList<Quote>) new QuotesDbHelper(MainActivity.this).getQuotesByCategory(query);
-                quoteslisttemp[1].remove(quoteslisttemp[0]);
-                finalArrayList.addAll(quoteslisttemp[0]);
-                finalArrayList.addAll(quoteslisttemp[1]);
+            public void onChanged(@Nullable List<QuotesTable> quotesTables) {
+                finalArrayList.addAll(quotesTables);
 
             }
-        }).run();
-        if (finalArrayList.size() <= 0) {
-            loader.setVisibility(GONE);
-            Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, getString(R.string.no_quotes_available));
-        } else {
-            loader.setVisibility(GONE);
-            adapter = (new LocalAdapter(MainActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
-                @Override
-                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
-                    Intent intent = new Intent(MainActivity.this, QuoteDetailsActivity.class);
-                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+        });
+//        final LiveData<List<QuotesTable>> quotesLiveData2 = appDatabase.quotesDao().findQuotesByQuery(query);
+        final LiveData<List<QuotesTable>> quotesLiveData2 = appDatabase.quotesDao().loadAllbyCategory("Attitude");
+        quotesLiveData2.observe(this, new Observer<List<QuotesTable>>() {
+            @Override
+            public void onChanged(@Nullable List<QuotesTable> quotesTables) {
+                finalArrayList.addAll(quotesTables);
+                if (finalArrayList.size() <= 0) {
+                    loader.setVisibility(GONE);
+                    Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, getString(R.string.no_quotes_available));
+                } else {
+                    loader.setVisibility(GONE);
+                    adapter = (new LocalAdapter(MainActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
+                        @Override
+                        public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
+                            Intent intent = new Intent(MainActivity.this, QuoteDetailsActivity.class);
+                            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
+                            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId()
+                            );
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
 
-                    } else {
+                            } else {
 
-                    }
-                    startActivity(intent, bundle);
+                            }
+                            startActivity(intent, bundle);
+                        }
+                    }));
+                    adapter.addData(finalArrayList);
+                    adapter.notifyDataSetChanged();
+                    result_rv.setAdapter(adapter);
                 }
-            }));
-            adapter.addData(finalArrayList);
-            adapter.notifyDataSetChanged();
-            result_rv.setAdapter(adapter);
-            radioGroup.setVisibility(GONE);
-            search_header.setVisibility(GONE);
-            search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-            radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
-            result_rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+            }
+        });
 
-            searchTerm.setText(query);
-            searchTerm.setVisibility(View.VISIBLE);
-            searchTerm.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
 
-        }
+        radioGroup.setVisibility(GONE);
+        search_header.setVisibility(GONE);
+        search_header.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+        radioGroup.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+        result_rv.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
+        searchTerm.setText(query);
+        searchTerm.setVisibility(View.VISIBLE);
+        searchTerm.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slideup));
+
 
     }
 
@@ -742,16 +757,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onViewClicked(@NonNull View view) {
         switch (view.getId()) {
             case R.id.quotes_iv:
-                launchFragmentAndAnimate(previousPixles, quotesIv, new QuotesHolderFragment());
+                launchFragmentAndAnimate(previousPixles, quotesIv, QuotesHolderFragment.newInstance());
                 break;
             case R.id.wallpaer_iv:
-                launchFragmentAndAnimate(previousPixles, wallpaerIv, new WallpapersHolderFragment());
+                launchFragmentAndAnimate(previousPixles, wallpaerIv, WallpapersHolderFragment.newInstance(null, null));
                 break;
             case R.id.like_iv:
-                launchFragmentAndAnimate(previousPixles, likeIv, new FavouritesHolderFragment());
+                launchFragmentAndAnimate(previousPixles, likeIv, FavouritesHolderFragment.newInstance(null, null));
                 break;
             case R.id.works_iv:
-                launchFragmentAndAnimate(previousPixles, worksIv, new SavedHolderFragment());
+                launchFragmentAndAnimate(previousPixles, worksIv, SavedHolderFragment.newInstance(null, null));
                 break;
             case R.id.create_iv:
                 startActivity(new Intent(MainActivity.this, EditorActivity.class).putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1));
@@ -813,29 +828,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Fragment currentClass = getSupportFragmentManager().findFragmentById(R.id.root);
         assert currentClass != null;
         if (fragment.getClass().getName().equals(fragment.getClass().getName())) {
-            Runnable translationTask = new Runnable() {
+
+            launchFragment(fragment);
+            cancelPrevious();
+            scaleIcon(imageView, 1.8f);
+            currentPixels = getXlocationOfView(imageView)[0];
+            valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
+            valueAnimator.setDuration(300);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
-                public void run() {
-                    launchFragment(fragment);
-                    cancelPrevious();
-                    scaleIcon(imageView, 1.8f);
-                    currentPixels = getXlocationOfView(imageView)[0];
-                    valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
-                    valueAnimator.setDuration(300);
-                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
-                            assert crownView != null;
-                            crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
-                        }
-                    });
-                    previousPixles = currentPixels;
-                    valueAnimator.start();
+                public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
+                    assert crownView != null;
+                    crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
                 }
-            };
-            Handler handler = new Handler();
-            handler.removeCallbacks(translationTask);
-            handler.post(translationTask);
+            });
+            previousPixles = currentPixels;
+            valueAnimator.start();
+
         }
 
     }

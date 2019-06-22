@@ -1,6 +1,8 @@
 package io.hustler.qtzy.ui.fragments;
 
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,9 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -26,8 +26,13 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
+import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
 import io.hustler.qtzy.ui.adapters.CategoriesAdapter;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
@@ -36,14 +41,11 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.QuotzyApiResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.ResponseQuotesService;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
 import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.IntentConstants;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
 
 /**
  * Created by Sayi Manoj Sugavasi on 20/12/2017.
@@ -64,13 +66,17 @@ import static android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAn
    limitations under the License.*/
 public class CategoriesFragment extends android.support.v4.app.Fragment {
     RecyclerView categories_rv;
-    CategoriesAdapter categoriesAdapter;
     ArrayList<Quote> quotesList;
+
+    AppDatabase appDatabase;
+    AppExecutor appExecutor;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.quote_categories_layout, container, false);
+        appDatabase = AppDatabase.getmAppDatabaseInstance(getContext());
+        appExecutor = AppExecutor.getInstance();
         findViews(view);
         return view;
     }
@@ -78,20 +84,127 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
     private void findViews(View view) {
         categories_rv = view.findViewById(R.id.rv_categories);
         categories_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+
         categories_rv.setAdapter(new CategoriesAdapter(getActivity(), new CategoriesAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClicked(String category, String cat2, int position, @NonNull GradientDrawable gradientDrawable) {
 //                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(),category+" "+position);
-//                loadQuotes(category, cat2, gradientDrawable);
+//                loadQuotesToUi(category, cat2, gradientDrawable);
                 bringupQuotesOLD(category, cat2, gradientDrawable);
             }
         }));
     }
 
+
+    private void bringupQuotesOLD(String category, String cat2, @NonNull final GradientDrawable gradientDrawable) {
+        final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
+        dialog.setContentView(R.layout.dialog_category_layout);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        TextView catgory_name = null;
+        AdView adView;
+        FloatingActionButton close_button;
+        final LiveData<List<QuotesTable>> quoteslist;
+        dialog.show();
+        categories_rv = dialog.findViewById(R.id.rv_category_list);
+        close_button = dialog.findViewById(R.id.bt_close);
+        adView = dialog.findViewById(R.id.adView);
+        AdUtils.loadBannerAd(adView, getActivity());
+        TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
+        if (cat2 == " ") {
+            catgory_name.setText(String.format("%s", category));
+
+        } else {
+            catgory_name.setText(String.format("%s & %s", cat2, category));
+
+        }
+        categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+
+        quoteslist = appDatabase.quotesDao().loadAllbyCategory(category);
+        quoteslist.observe(this, new Observer<List<QuotesTable>>() {
+            @Override
+            public void onChanged(@Nullable List<QuotesTable> quotesTables) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setQuotesAdapter(gradientDrawable, dialog, quoteslist);
+
+                    }
+                });
+            }
+        });
+        setQuotesAdapter(gradientDrawable, dialog, quoteslist);
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categories_rv.setAdapter(null);
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(false);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+                    dialog.dismiss();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+
+    private void setQuotesAdapter(@NonNull GradientDrawable gradientDrawable, Dialog dialog, LiveData<List<QuotesTable>> quoteslist) {
+        TextView catgory_name;
+        if (Objects.requireNonNull(quoteslist.getValue()).size() <= 0) {
+            dialog.cancel();
+            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
+        } else {
+            catgory_name = dialog.findViewById(R.id.tv_category_name);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Objects.requireNonNull(dialog.getWindow()).setStatusBarColor(Color.WHITE);
+                    catgory_name.setBackgroundColor(Color.WHITE);
+                    catgory_name.setBackgroundColor(Objects.requireNonNull(gradientDrawable.getColors())[1]);
+
+                } else {
+                    Objects.requireNonNull(dialog.getWindow()).setStatusBarColor(Color.WHITE);
+                    catgory_name.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorAccent));
+
+                }
+
+            }
+
+
+            categories_rv.setAdapter(new LocalAdapter(getActivity(), (ArrayList<QuotesTable>) quoteslist.getValue(), new LocalAdapter.OnQuoteClickListener() {
+                @Override
+                public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
+                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+
+                    } else {
+
+                    }
+                    startActivity(intent);
+                }
+            }));
+
+
+        }
+    }
+
+
+
+
+    /*REST API CALLs*/
     private void bringupQuotes(String category, String cat2, @NonNull GradientDrawable gradientDrawable) {
         final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.dialog_category_layout);
-//        dialog.getWindow().setBA(gradientDrawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
 
 
@@ -100,68 +213,68 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         FloatingActionButton close_button;
         dialog.show();
 
-        if (quotesList.size() <= 0) {
-            dialog.cancel();
-            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
-        } else {
-            catgory_name = dialog.findViewById(R.id.tv_category_name);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    dialog.getWindow().setStatusBarColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(gradientDrawable.getColors()[1]);
-
-
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    dialog.getWindow().setStatusBarColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
-                }
-
-//                } else {
-//                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
-//                    }
+//        if (quotesList.size() <= 0) {
+//            dialog.cancel();
+//            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
+//        } else {
+//            catgory_name = dialog.findViewById(R.id.tv_category_name);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    dialog.getWindow().setStatusBarColor(Color.WHITE);
+//                    catgory_name.setBackgroundColor(Color.WHITE);
+//                    catgory_name.setBackgroundColor(gradientDrawable.getColors()[1]);
+//
+//
+//                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    dialog.getWindow().setStatusBarColor(Color.WHITE);
+//                    catgory_name.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+//
 //                }
-            }
-
-            categories_rv = dialog.findViewById(R.id.rv_category_list);
-            close_button = dialog.findViewById(R.id.bt_close);
-            adView = dialog.findViewById(R.id.adView);
-            AdUtils.loadBannerAd(adView, getActivity());
-            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
-            if (cat2 == " ") {
-                catgory_name.setText(String.format("%s", category));
-
-            } else {
-                catgory_name.setText(String.format("%s & %s", cat2, category));
-
-            }
-            categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            categories_rv.setAdapter(new LocalAdapter(getActivity(), quotesList, new LocalAdapter.OnQuoteClickListener() {
-                @Override
-                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
-                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                    Bundle bundle = makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-
-                    }
-                    startActivity(intent, bundle);
-                }
-            }));
-            close_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    categories_rv.setAdapter(null);
-                    dialog.dismiss();
-                }
-            });
-
-        }
+//
+////                } else {
+////                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+////                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+////                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+////                        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
+////                    }
+////                }
+//            }
+//
+//            categories_rv = dialog.findViewById(R.id.rv_category_list);
+//            close_button = dialog.findViewById(R.id.bt_close);
+//            adView = dialog.findViewById(R.id.adView);
+//            AdUtils.loadBannerAd(adView, getActivity());
+//            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
+//            if (cat2 == " ") {
+//                catgory_name.setText(String.format("%s", category));
+//
+//            } else {
+//                catgory_name.setText(String.format("%s & %s", cat2, category));
+//
+//            }
+//            categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+//            categories_rv.setAdapter(new LocalAdapter(getActivity(), quotesList, new LocalAdapter.OnQuoteClickListener() {
+//                @Override
+//                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
+//                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+//                    Bundle bundle = makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
+//                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+//
+//                    }
+//                    startActivity(intent, bundle);
+//                }
+//            }));
+//            close_button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    categories_rv.setAdapter(null);
+//                    dialog.dismiss();
+//                }
+//            });
+//
+//        }
 
         dialog.setCancelable(false);
 
@@ -178,6 +291,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         });
     }
 
+    /*REST API CALLS*/
     public ArrayList<Quote> loadQuotes(final String category, final String cat2, @NonNull final GradientDrawable gradientDrawable) {
         quotesList = new ArrayList<>();
         final ProgressBar progressBar = new ProgressBar(getContext());
@@ -204,7 +318,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
                     quotes.setCountry(null);
                     quotesList.add(quote);
                 }
-                bringupQuotes(category, cat2, gradientDrawable);
+//                bringupQuotes(category, cat2, gradientDrawable);
             }
 
             @Override
@@ -288,100 +402,6 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    private void bringupQuotesOLD(String category, String cat2, @NonNull GradientDrawable gradientDrawable) {
-        final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
-        dialog.setContentView(R.layout.dialog_category_layout);
-//        dialog.getWindow().setBA(gradientDrawable);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
-
-
-        TextView catgory_name = null;
-        AdView adView;
-        FloatingActionButton close_button;
-        ArrayList<Quote> quoteslist = new ArrayList<>();
-        dialog.show();
-
-        quoteslist = (ArrayList<Quote>) new QuotesDbHelper(getActivity().getApplicationContext()).getQuotesByCategory(category);
-        if (quoteslist.size() <= 0) {
-            dialog.cancel();
-            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
-        } else {
-            catgory_name = dialog.findViewById(R.id.tv_category_name);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    dialog.getWindow().setStatusBarColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(gradientDrawable.getColors()[1]);
-
-
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    dialog.getWindow().setStatusBarColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-
-                }
-
-//                } else {
-//                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(), android.R.color.transparent));
-//                    }
-//                }
-            }
-
-            categories_rv = dialog.findViewById(R.id.rv_category_list);
-            close_button = dialog.findViewById(R.id.bt_close);
-            adView = dialog.findViewById(R.id.adView);
-            AdUtils.loadBannerAd(adView, getActivity());
-            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
-            if (cat2 == " ") {
-                catgory_name.setText(String.format("%s", category));
-
-            } else {
-                catgory_name.setText(String.format("%s & %s", cat2, category));
-
-            }
-            categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            categories_rv.setAdapter(new LocalAdapter(getActivity(), quoteslist, new LocalAdapter.OnQuoteClickListener() {
-                @Override
-                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
-                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-
-                    } else {
-
-                    }
-                    startActivity(intent, bundle);
-                }
-            }));
-            close_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    categories_rv.setAdapter(null);
-                    dialog.dismiss();
-                }
-            });
-
-        }
-
-        dialog.setCancelable(false);
-
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-                    dialog.dismiss();
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-    }
 }
 
 

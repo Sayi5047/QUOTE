@@ -1,13 +1,13 @@
 package io.hustler.qtzy.ui.fragments;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,13 +16,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
+import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.database.QuotesDbHelper;
-import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.utils.IntentConstants;
 
 /**
@@ -45,6 +47,8 @@ import io.hustler.qtzy.ui.utils.IntentConstants;
 public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
     ImageView iv_no_fav;
     RecyclerView rv_imag_no_fv;
+    AppDatabase appDatabase;
+    AppExecutor appExecutor;
 
     @Nullable
     @Override
@@ -54,46 +58,52 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
         iv_no_fav = view.findViewById(R.id.iv);
         rv_imag_no_fv = view.findViewById(R.id.rv);
         rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        appDatabase = AppDatabase.getmAppDatabaseInstance(getContext());
+        appExecutor = AppExecutor.getInstance();
         setAdapter(rv_imag_no_fv);
         return view;
     }
 
-    private void setAdapter(RecyclerView recyclerView) {
+    private void setAdapter(final RecyclerView recyclerView) {
         recyclerView.setAdapter(null);
-        final ArrayList<Quote>[] arrayLists = new ArrayList[]{new ArrayList<>()};
-        new Thread(new Runnable() {
+        final LiveData<List<QuotesTable>> liveData = appDatabase.quotesDao().getlikedQuotes(true);
+        liveData.observe(getActivity(), new Observer<List<QuotesTable>>() {
             @Override
-            public void run() {
-                arrayLists[0] = (ArrayList<Quote>) new QuotesDbHelper(getActivity()).getAllFav_Quotes();
+            public void onChanged(@Nullable final List<QuotesTable> quotesTables) {
+                appExecutor.getMainThreadExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        setAdapterData(recyclerView, quotesTables);
+
+                    }
+                });
             }
-        }).run();
-        recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
+        });
+        setAdapterData(recyclerView, liveData.getValue());
+
+
+    }
+
+    private void setAdapterData(RecyclerView recyclerView, List<QuotesTable> liveData) {
+        recyclerView.setAdapter(new LocalAdapter(getActivity(), (ArrayList<QuotesTable>) liveData, new LocalAdapter.OnQuoteClickListener() {
             @Override
-            public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
+            public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
                 Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
-                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
+                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
 
-                } else {
-
                 }
-                startActivity(intent, bundle);
-//                Intent intent = new Intent(
-//                        WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-//                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-//                        new ComponentName(getActivity(), MyWallpaperService.class));
-//                startActivity(intent);
+                startActivity(intent);
+
+
             }
         }));
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        setAdapter(rv_imag_no_fv);
 
     }
 }
