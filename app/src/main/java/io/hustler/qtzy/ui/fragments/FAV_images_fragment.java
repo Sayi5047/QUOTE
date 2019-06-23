@@ -11,17 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.activities.WallpapersPagerActivity;
 import io.hustler.qtzy.ui.adapters.FavWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.database.ImagesDbHelper;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Sayi Manoj Sugavasi on 02/02/2018.
@@ -43,6 +45,8 @@ import java.util.List;
 public class FAV_images_fragment extends android.support.v4.app.Fragment {
     ImageView iv_no_fav;
     RecyclerView rv_imag_no_fv;
+    AppDatabase appDatabase;
+    AppExecutor appExecutor;
 
     @Nullable
     @Override
@@ -51,12 +55,16 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
 
         iv_no_fav = view.findViewById(R.id.iv_no_fav);
         rv_imag_no_fv = view.findViewById(R.id.rv_imag_no_fv);
-        rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        appDatabase = AppDatabase.getmAppDatabaseInstance(getActivity());
+        appExecutor = AppExecutor.getInstance();
         setAdapter();
         return view;
     }
 
     private void setAdapter() {
+
+
         final List<Unsplash_Image>[] imageLists = new List[]{new LinkedList()};
         new Thread(new Runnable() {
             @Override
@@ -68,7 +76,7 @@ public class FAV_images_fragment extends android.support.v4.app.Fragment {
         rv_imag_no_fv.setAdapter(new FavWallpaperAdapter(getActivity(), imageLists[0], new FavWallpaperAdapter.OnWallpaperClickListener() {
             @Override
             public void onWallpaperClicked(int position, @NonNull Unsplash_Image wallpaper) {
-                ArrayList<Unsplash_Image> images1=new ArrayList<Unsplash_Image>();
+                ArrayList<Unsplash_Image> images1 = new ArrayList<Unsplash_Image>();
                 for (int i = 0; i < imageLists[0].size(); i++) {
                     images1.add(imageLists[0].get(i));
                 }

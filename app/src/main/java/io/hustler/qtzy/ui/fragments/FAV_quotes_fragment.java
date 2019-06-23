@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Executors.AppExecutor;
@@ -65,21 +66,18 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
     }
 
     private void setAdapter(final RecyclerView recyclerView) {
-        recyclerView.setAdapter(null);
         final LiveData<List<QuotesTable>> liveData = appDatabase.quotesDao().getlikedQuotes(true);
-        liveData.observe(getActivity(), new Observer<List<QuotesTable>>() {
+        liveData.observe(Objects.requireNonNull(getActivity()), new Observer<List<QuotesTable>>() {
             @Override
             public void onChanged(@Nullable final List<QuotesTable> quotesTables) {
-                appExecutor.getMainThreadExecutor().execute(new Runnable() {
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         setAdapterData(recyclerView, quotesTables);
-
                     }
                 });
             }
         });
-        setAdapterData(recyclerView, liveData.getValue());
 
 
     }
@@ -94,16 +92,11 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
                     intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
 
                 }
-                startActivity(intent);
+                Objects.requireNonNull(getActivity()).startActivity(intent);
 
 
             }
         }));
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
 }

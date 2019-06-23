@@ -27,7 +27,7 @@ import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
-import io.hustler.qtzy.ui.Services.QuoteLoaderService;
+import io.hustler.qtzy.ui.ViewModels.MainViewModel;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.utils.IntentConstants;
@@ -50,7 +50,7 @@ import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 //LoaderManager.LoaderCallbacks<List<Quote>>,
-public class QuotesFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class QuotesFragment extends Fragment {
 
     private RecyclerView rv;
     private ProgressBar loader;
@@ -60,6 +60,7 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
     private SharedPreferences sharedPreferences;
     private AppDatabase appDatabase;
     private AppExecutor appExecutor;
+    private MainViewModel mainViewModel;
 
     private String TAG = "QUOTESFRAGMENT";
 
@@ -77,53 +78,62 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
         loader.setVisibility(View.VISIBLE);
         appDatabase = AppDatabase.getmAppDatabaseInstance(getActivity());
         appExecutor = AppExecutor.getInstance();
+        mainViewModel = new MainViewModel(Objects.requireNonNull(getActivity()).getApplication());
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        loadQuotesToDatabase();
+        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
+            loadQuotesToUi();
+        } else {
+            loadQuotesToDatabase();
+        }
         Log.i(TAG, "ON CREATEVIEW CALLED");
-
-
         return view;
     }
 
     private void loadQuotesToDatabase() {
-        if (!sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
-            Objects.requireNonNull(getActivity()).startService(new Intent(getActivity(), QuoteLoaderService.class));
-
-            appExecutor.getDiskExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    load_from_Arrays();
-                    for (QuotesTable quotesTable : quotesTableArrayList) {
-                        appDatabase.quotesDao().insertUser(quotesTable);
-                    }
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(Constants.IS_DB_LOADED_PREFERENCE, true);
-                    editor.apply();
+        appExecutor.getDiskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                load_from_Arrays();
+                for (QuotesTable quotesTable : quotesTableArrayList) {
+                    Log.i(TAG, quotesTable.getQuotes() + "-->" + " Addded");
+                    appDatabase.quotesDao().insertUser(quotesTable);
                 }
-            });
-        } else {
-            loadQuotesToUi();
-        }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(Constants.IS_QUOTES_LOADED_KEY, true);
+                editor.apply();
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadQuotesToUi();
+                    }
+                });
+            }
+        });
+
     }
 
     public void loadQuotesToUi() {
 
         if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
             loader.setVisibility(View.GONE);
-            LiveData<List<QuotesTable>> listLiveData = appDatabase.quotesDao().loadAllbyCategory("Attitude");
-            listLiveData.observe(this, new Observer<List<QuotesTable>>() {
+            final LiveData<List<QuotesTable>> data = mainViewModel.getMainFragmentQuotes();
+            final Observer<List<QuotesTable>> observer = new Observer<List<QuotesTable>>() {
                 @Override
                 public void onChanged(@Nullable final List<QuotesTable> quotesTables) {
-                    getActivity().runOnUiThread(new Runnable() {
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            data.removeObservers(getActivity());
                             setAdapter(quotesTables);
+
+                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Change Occured");
                         }
                     });
                 }
-            });
+            };
+            data.observe(this, observer);
         } else {
             loader.setVisibility(View.VISIBLE);
             loadQuotesToDatabase();
@@ -131,13 +141,14 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
 
     }
 
+
     private void setAdapter(@Nullable final List<QuotesTable> quotes) {
         if (quotes == null) {
             loader.setVisibility(View.VISIBLE);
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Quotes are null");
         } else {
             loader.setVisibility(View.GONE);
-            rv.setAdapter(null);
+
             localAdapter = new LocalAdapter(getActivity(), (ArrayList<QuotesTable>) quotes, new LocalAdapter.OnQuoteClickListener() {
                 @Override
                 public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
@@ -155,50 +166,28 @@ public class QuotesFragment extends Fragment implements SharedPreferences.OnShar
         }
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (Objects.equals(key, Constants.IS_QUOTES_LOADED_KEY)) {
-            loadQuotesToUi();
-        }
-    }
+//    @Override
+//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+//        if (Objects.equals(key, Constants.IS_QUOTES_LOADED_KEY)) {
+//            loadQuotesToUi();
+//        }
+//    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-        Log.i(TAG, "ON RESUME CALLED");
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-        Log.i(TAG, "ON PAUSE CALLED");
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.i(TAG, "ON START CALLED");
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.i(TAG, "ON STOP CALLED");
-
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.i(TAG, "ON CREATE CALLED");
-
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+//        Log.i(TAG, "ON RESUME CALLED");
+//
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//
+//        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+//        Log.i(TAG, "ON PAUSE CALLED");
+//    }
 
     private void load_from_Arrays() {
 

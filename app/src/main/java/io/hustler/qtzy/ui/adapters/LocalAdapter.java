@@ -114,11 +114,8 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.LocalViewhol
 
     @Override
     public int getItemCount() {
-        if (dataFromNet.size() < 0) {
-            return 0;
-        } else {
-            return dataFromNet.size();
-        }
+        dataFromNet.size();
+        return dataFromNet.size();
     }
 
 

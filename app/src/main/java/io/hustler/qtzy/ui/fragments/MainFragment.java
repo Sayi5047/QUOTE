@@ -31,6 +31,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.ViewModels.SearchQuotesViewModel;
 import io.hustler.qtzy.ui.Widgets.CarouselAdapter;
 import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.MainActivity;
@@ -207,7 +208,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         } else if (v == fav) {
             mainActivity.launchFragment(new UserFavuritesFragment());
         } else if (v == Search) {
-            mainActivity.buildDialog_and_search();
+            mainActivity.buildDialog_and_search(new SearchQuotesViewModel(getActivity().getApplication(),"something"));
         } else if (v == facebook) {
             startActivity(newFacebookIntent(getActivity().getPackageManager(), "https://www.facebook.com/quotzy/"));
         } else if (v == whatsapp) {

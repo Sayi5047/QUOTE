@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +66,7 @@ import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class CategoriesFragment extends android.support.v4.app.Fragment {
+    private final String TAG = this.getClass().getSimpleName();
     RecyclerView categories_rv;
     ArrayList<Quote> quotesList;
 
@@ -96,7 +98,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
     }
 
 
-    private void bringupQuotesOLD(String category, String cat2, @NonNull final GradientDrawable gradientDrawable) {
+    private void bringupQuotesOLD(final String category, final String cat2, @NonNull final GradientDrawable gradientDrawable) {
         final Dialog dialog = new Dialog(getContext(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.dialog_category_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
@@ -104,13 +106,14 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         AdView adView;
         FloatingActionButton close_button;
         final LiveData<List<QuotesTable>> quoteslist;
-        dialog.show();
         categories_rv = dialog.findViewById(R.id.rv_category_list);
         close_button = dialog.findViewById(R.id.bt_close);
         adView = dialog.findViewById(R.id.adView);
         AdUtils.loadBannerAd(adView, getActivity());
+        catgory_name = dialog.findViewById(R.id.tv_category_name);
         TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
-        if (cat2 == " ") {
+
+        if (Objects.equals(cat2, " ")) {
             catgory_name.setText(String.format("%s", category));
 
         } else {
@@ -119,21 +122,22 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         }
         categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-
         quoteslist = appDatabase.quotesDao().loadAllbyCategory(category);
+        final TextView finalCatgory_name = catgory_name;
         quoteslist.observe(this, new Observer<List<QuotesTable>>() {
             @Override
             public void onChanged(@Nullable List<QuotesTable> quotesTables) {
-                getActivity().runOnUiThread(new Runnable() {
+                Log.i(TAG, "ON CHAGE CALLED");
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setQuotesAdapter(gradientDrawable, dialog, quoteslist);
+
+                        setQuotesAdapter(gradientDrawable, dialog, quoteslist, finalCatgory_name);
 
                     }
                 });
             }
         });
-        setQuotesAdapter(gradientDrawable, dialog, quoteslist);
         close_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,25 +158,26 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
                 }
             }
         });
+
+        dialog.show();
+
     }
 
-    private void setQuotesAdapter(@NonNull GradientDrawable gradientDrawable, Dialog dialog, LiveData<List<QuotesTable>> quoteslist) {
-        TextView catgory_name;
+    private void setQuotesAdapter(@NonNull GradientDrawable gradientDrawable, Dialog dialog, LiveData<List<QuotesTable>> quoteslist, TextView categoryname) {
         if (Objects.requireNonNull(quoteslist.getValue()).size() <= 0) {
             dialog.cancel();
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
         } else {
-            catgory_name = dialog.findViewById(R.id.tv_category_name);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Objects.requireNonNull(dialog.getWindow()).setStatusBarColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(Objects.requireNonNull(gradientDrawable.getColors())[1]);
+                    categoryname.setBackgroundColor(Color.WHITE);
+                    categoryname.setBackgroundColor(Objects.requireNonNull(gradientDrawable.getColors())[1]);
 
                 } else {
                     Objects.requireNonNull(dialog.getWindow()).setStatusBarColor(Color.WHITE);
-                    catgory_name.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorAccent));
+                    categoryname.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorAccent));
 
                 }
 
@@ -194,11 +199,10 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
                 }
             }));
 
+            Log.i(TAG, "ADAPTER SET");
 
         }
     }
-
-
 
 
     /*REST API CALLs*/

@@ -77,10 +77,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.Services.JobServices.WallaperFirebaseJobService;
+import io.hustler.qtzy.ui.ViewModels.SearchQuotesViewModel;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     ImageView crownView;
 
     private AppDatabase appDatabase;
-    private AppExecutor appExecutor;
+    private SearchQuotesViewModel searchQuotesViewModel;
 
     ValueAnimator valueAnimator;
     int previousPixles;
@@ -186,8 +186,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        appDatabase = AppDatabase.getmAppDatabaseInstance(getApplicationContext());
-        appExecutor = AppExecutor.getInstance();
+
         header_name.setVisibility(GONE);
         fab.setVisibility(GONE);
         if (mNotificationManager == null) {
@@ -285,7 +284,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search: {
-                buildDialog_and_search();
+                buildDialog_and_search(searchQuotesViewModel);
                 driver = new GooglePlayDriver(this);
                 firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
@@ -391,7 +390,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    public void buildDialog_and_search() {
+    public void buildDialog_and_search(SearchQuotesViewModel searchQuotesViewModel) {
 
         final Dialog dialog = new Dialog(MainActivity.this, R.style.EditTextDialog_non_floater_2);
         dialog.setContentView(R.layout.search_chooser_layout);
@@ -599,6 +598,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void setQuotesForSearchQuery(final RecyclerView result_rv, final String query, final ProgressBar loader, @NonNull RadioGroup radioGroup, @NonNull LinearLayout search_header, @NonNull TextView searchTerm) {
+        searchQuotesViewModel = new SearchQuotesViewModel(getApplication(), query);
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
         result_rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -606,8 +606,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         final ArrayList<QuotesTable> finalArrayList = new ArrayList<>();
 
-//        final LiveData<List<QuotesTable>> quotesLiveData1 = appDatabase.quotesDao().findQuotesByQuery(query);
-        final LiveData<List<QuotesTable>> quotesLiveData1 = appDatabase.quotesDao().findQuotesByQuery("Attitude");
+        final LiveData<List<QuotesTable>> quotesLiveData1 = searchQuotesViewModel.getQuotesbyCategorySearchResultLiveData();
         quotesLiveData1.observe(this, new Observer<List<QuotesTable>>() {
             @Override
             public void onChanged(@Nullable List<QuotesTable> quotesTables) {
@@ -615,8 +614,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
         });
-//        final LiveData<List<QuotesTable>> quotesLiveData2 = appDatabase.quotesDao().findQuotesByQuery(query);
-        final LiveData<List<QuotesTable>> quotesLiveData2 = appDatabase.quotesDao().loadAllbyCategory("Attitude");
+        final LiveData<List<QuotesTable>> quotesLiveData2 = searchQuotesViewModel.getQuotesbyQuerySearchResultLiveData();
         quotesLiveData2.observe(this, new Observer<List<QuotesTable>>() {
             @Override
             public void onChanged(@Nullable List<QuotesTable> quotesTables) {
