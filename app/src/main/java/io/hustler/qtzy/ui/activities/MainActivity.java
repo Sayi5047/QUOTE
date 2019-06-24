@@ -58,20 +58,14 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.RetryStrategy;
-import com.firebase.jobdispatcher.Trigger;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +73,6 @@ import butterknife.OnClick;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
-import io.hustler.qtzy.ui.Services.JobServices.WallaperFirebaseJobService;
 import io.hustler.qtzy.ui.ViewModels.SearchQuotesViewModel;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
@@ -91,7 +84,7 @@ import io.hustler.qtzy.ui.fragments.HomeHolderFragments.SavedHolderFragment;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.WallpapersHolderFragment;
 import io.hustler.qtzy.ui.fragments.MainFragment;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
-import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
+import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.IntentConstants;
@@ -288,29 +281,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 driver = new GooglePlayDriver(this);
                 firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-                boolean isActivated = sharedPreferences.getBoolean(Constants.DAILY_WALLS_ACTIVATED, false);
-                if (isActivated) {
-                    // TODO: 16-06-2019 disable the job
-                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Deactivated");
-                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, false).apply();
-                    firebaseJobDispatcher.cancel(getString(R.string.WALLPAPER_JOB_TAG));
-
-                } else {
-                    // TODO: 16-06-2019 enable the job
-                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Activated");
-                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, true).apply();
-                    Job wallJob = firebaseJobDispatcher.newJobBuilder().setService(WallaperFirebaseJobService.class)
-                            .setLifetime(Lifetime.FOREVER)
-                            .setRecurring(true)
-                            .setTrigger(Trigger.executionWindow(0, (int) TimeUnit.MINUTES.toSeconds(60)))
-                            .setReplaceCurrent(true)
-                            .setTag(getString(R.string.WALLPAPER_JOB_TAG))
-                            .setConstraints(Constraint.ON_ANY_NETWORK)
-                            .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).build();
-                    firebaseJobDispatcher.mustSchedule(wallJob);
-
-
-                }
+//                boolean isActivated = sharedPreferences.getBoolean(Constants.DAILY_WALLS_ACTIVATED, false);
+//                if (isActivated) {
+//                    // TODO: 16-06-2019 disable the job
+//                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Deactivated");
+//                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, false).apply();
+//                    firebaseJobDispatcher.cancel(getString(R.string.WALLPAPER_JOB_TAG));
+//
+//                } else {
+//                    // TODO: 16-06-2019 enable the job
+//                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Activated");
+//                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, true).apply();
+//                    Job wallJob = firebaseJobDispatcher.newJobBuilder().setService(WallaperFirebaseJobService.class)
+//                            .setLifetime(Lifetime.FOREVER)
+//                            .setRecurring(true)
+//                            .setTrigger(Trigger.executionWindow(0, (int) TimeUnit.MINUTES.toSeconds(60)))
+//                            .setReplaceCurrent(true)
+//                            .setTag(getString(R.string.WALLPAPER_JOB_TAG))
+//                            .setConstraints(Constraint.ON_ANY_NETWORK)
+//                            .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).build();
+////                    firebaseJobDispatcher.mustSchedule(wallJob);
+//
+//
+//                }
             }
             break;
             case R.id.action_rate: {
@@ -433,7 +426,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }
-//        setImagesFirSearchQuery(result_rv, query, loader, radioGroup, search_header, search_term);
+//        getImagesForQuery(result_rv, query, loader, radioGroup, search_header, search_term);
 //        setQuotesForSearchQuery(result_rv, query, loader);
 //        search_Query.setText(query);
         TextUtils.findText_and_applyTypeface(root, MainActivity.this);
@@ -457,7 +450,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_images: {
-//                        setImagesFirSearchQuery(result_rv, query, loader);
+//                        getImagesForQuery(result_rv, query, loader);
                         selected_type[0] = IMAGES;
                         search.performClick();
                     }
@@ -482,7 +475,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 } else {
                     switch (selected_type[0]) {
                         case IMAGES: {
-                            setImagesFirSearchQuery(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
+                            getImagesForQuery(result_rv, search_Query.getText().toString(), loader, radioGroup, search_header, search_term);
                         }
                         break;
                         case QUOTES: {
@@ -538,14 +531,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void setImagesFirSearchQuery(final RecyclerView rv, final String query,
-                                         final ProgressBar loader, @NonNull final RadioGroup radioGroup,
-                                         @NonNull final LinearLayout search_header,
-                                         @NonNull final TextView search_term) {
+    private void getImagesForQuery(final RecyclerView rv, final String query,
+                                   final ProgressBar loader, @NonNull final RadioGroup radioGroup,
+                                   @NonNull final LinearLayout search_header,
+                                   @NonNull final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
-        final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
-        new Restutility(MainActivity.this).getUnsplash_Collections_Images(MainActivity.this, new Unsplash_Image_collection_response_listener() {
+        final String request = Constants.UNSPLASH_SEARCH_IMAGES_API + "&query=" + query + "&per_page=30";
+        new Restutility(MainActivity.this).getUnsplashImagesForSearchQuery(MainActivity.this, new SearchImagesResponseListener() {
             @Override
             public void onSuccess(@NonNull final UnsplashImages_Collection_Response response) {
 
@@ -553,13 +546,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 rv.setAdapter(null);
                 rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 
-                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().length));
-                if (response.getResults().length <= 0) {
+                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().size()));
+                if (response.getResults().size() <= 0) {
 //                    dataView.setVisibility(View.GONE);
                     Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, getString(R.string.Currently_no_wallpaper));
                 } else {
 //                    dataView.setVisibility(View.VISIBLE);
-                    rv.setAdapter(new SearchWallpaperAdapter(MainActivity.this, response.getResults(), new SearchWallpaperAdapter.OnWallpaperClickListener() {
+                    rv.setAdapter(new SearchWallpaperAdapter(MainActivity.this, (Unsplash_Image[]) response.getResults().toArray(), new SearchWallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, ImageView itemView) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, wallpaper.getUser().getFirst_name());

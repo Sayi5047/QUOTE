@@ -7,10 +7,17 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.ArrayList;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.pojo.unspalsh.ResGetCollectionsDto;
 import io.hustler.qtzy.ui.utils.TextUtils;
 
 /**
@@ -30,15 +37,17 @@ import io.hustler.qtzy.ui.utils.TextUtils;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdapter.CategoryViewHolder> {
-    OnImageClickLitner litner;
-    String[] cats;
+    private OnImageClickLitner litner;
+    private String[] cats;
     Activity activity;
+    private ArrayList<ResGetCollectionsDto> resGetCollectionsDto;
 
-    public ImageCategoryAdapter(Activity activity, OnImageClickLitner litner) {
+    public ImageCategoryAdapter(Activity activity, ArrayList<ResGetCollectionsDto> resGetCollectionsDto, OnImageClickLitner litner) {
         this.activity = activity;
         this.litner = litner;
-        bringAllTheQuotes();
+        this.resGetCollectionsDto = resGetCollectionsDto;
     }
+
 
     private void bringAllTheQuotes() {
         cats = activity.getResources().getStringArray(R.array.images_categories);
@@ -71,11 +80,11 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final CategoryViewHolder holder, int position) {
 
-        final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
-        createDrawable(holder);
-        holder.category.setText(cats[position]);
+//        final int color = TextUtils.getMainMatColor("mdcolor_400", activity);
+//        createDrawable(holder);
+        holder.category.setText(resGetCollectionsDto.get(position).getTitle());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.itemView.setClipToOutline(true);
         }
@@ -84,27 +93,31 @@ public class ImageCategoryAdapter extends RecyclerView.Adapter<ImageCategoryAdap
             @Override
             public void onClick(View v) {
                 if (litner != null) {
-                    litner.onCategoryClicked(position, cats[position]);
+                    litner.onCategoryClicked(holder.getAdapterPosition(), resGetCollectionsDto.get(holder.getAdapterPosition()).getId());
                 }
+
             }
         });
+        Glide.with(activity).load(resGetCollectionsDto.get(position).getCoverPhoto().getUrls().getRegular()).diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().centerCrop().into(holder.collectionImage);
     }
 
     @Override
     public int getItemCount() {
-        return cats.length <= 0 ? 0 : cats.length;
+        return resGetCollectionsDto.size() <= 0 ? 0 : resGetCollectionsDto.size();
     }
 
     public interface OnImageClickLitner {
-        void onCategoryClicked(int position, String category);
+        void onCategoryClicked(int position, long id);
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView category;
+        ImageView collectionImage;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             category = itemView.findViewById(R.id.category);
+            collectionImage = itemView.findViewById(R.id.collectionImage);
         }
     }
 }

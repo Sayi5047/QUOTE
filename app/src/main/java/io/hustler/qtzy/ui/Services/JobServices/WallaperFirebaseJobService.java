@@ -29,10 +29,7 @@ import java.util.Random;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
-import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.database.ImagesDbHelper;
-import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
-import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.FileUtils;
 
@@ -72,26 +69,26 @@ public class WallaperFirebaseJobService extends JobService {
     }
 
     private void callApi(@NonNull final SharedPreferences.Editor editor, String query) {
-        request = Constants.API_GET_Collections_FROM_UNSPLASH + "&orientation=portrait&featured=true&count=30&query=" + query + "&page=" + new Random().nextInt(8);
-        new Restutility().getImages_for_service(getApplicationContext(), new Unsplash_Image_collection_response_listener() {
-            @Override
-            public void onSuccess(@NonNull UnsplashImages_Collection_Response response) {
-                Gson gson = new Gson();
-                String imagess = gson.toJson(response.getResults());
-                editor.putString(Constants.Shared_prefs_loaded_images_for_service_key, imagess);
-                editor.putInt(Constants.Shared_prefs_current_service_image_key, 1);
-                editor.putInt(Constants.Shared_prefs_current_service_image_Size_key, response.getResults().length);
-                editor.apply();
-                unsplash_image = response.getResults()[0];
-                downloadAndSetWallpaper();
-
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        }, request);
+//      query  request = Constants.UNSPLASH_SEARCH_IMAGES_API + "&orientation=portrait&featured=true&count=30&query=" + query + "&page=" + new Random().nextInt(8);
+//        new Restutility().getImages_for_service(getApplicationContext(), new SearchImagesResponseListener() {
+//            @Override
+//            public void onSuccess(@NonNull UnsplashImages_Collection_Response response) {
+//                Gson gson = new Gson();
+//                String imagess = gson.toJson(response.getResults());
+//                editor.putString(Constants.Shared_prefs_loaded_images_for_service_key, imagess);
+//                editor.putInt(Constants.Shared_prefs_current_service_image_key, 1);
+//                editor.putInt(Constants.Shared_prefs_current_service_image_Size_key, response.getResults().length);
+//                editor.apply();
+//                unsplash_image = response.getResults()[0];
+//                downloadAndSetWallpaper();
+//
+//            }
+//
+//            @Override
+//            public void onError(String error) {
+//
+//            }
+//        }, request);
 
     }
 

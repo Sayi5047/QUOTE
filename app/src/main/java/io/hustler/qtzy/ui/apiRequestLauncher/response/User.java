@@ -2,7 +2,7 @@ package io.hustler.qtzy.ui.apiRequestLauncher.response;
 
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("com.robohorse.robopojogenerator")
+//
 public class User{
 
 	@SerializedName("avatar_url")

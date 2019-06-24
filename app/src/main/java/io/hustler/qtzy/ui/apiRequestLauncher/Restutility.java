@@ -23,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
+import io.hustler.qtzy.BuildConfig;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.apiRequestLauncher.Base.BaseResponse;
 import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.ImagesApiResponceListner;
@@ -36,8 +39,10 @@ import io.hustler.qtzy.ui.apiRequestLauncher.response.ResLoginUser;
 import io.hustler.qtzy.ui.networkhandler.MySingleton;
 import io.hustler.qtzy.ui.pojo.ImagesResponse;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
-import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
-import io.hustler.qtzy.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
+import io.hustler.qtzy.ui.pojo.listeners.GetCollectionsResponseListener;
+import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
+import io.hustler.qtzy.ui.pojo.unspalsh.FeaturedImagesRespoonseListener;
+import io.hustler.qtzy.ui.pojo.unspalsh.ResGetCollectionsDto;
 import io.hustler.qtzy.ui.pojo.unspalsh.UnsplashImageResponse;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 
@@ -78,7 +83,7 @@ public class Restutility {
         Log.d("API REQUEST --> ", val);
     }
 
-//
+    //
 //    public void getRandomQuotes(final Context context, final QuotesApiResponceListener listener) {
 //        logtheRequest(Shared_prefs_constants.API_FAVQ_RANDOM_QUOTES);
 //        JsonObjectRequest jsonObjectRequest = new JsonArrayRequestwithAuthHeader(Request.Method.GET, Shared_prefs_constants.API_FAVQ_RANDOM_QUOTES, null,
@@ -105,10 +110,8 @@ public class Restutility {
 //                });
 //        MySingleton.addJsonObjRequest(activity, jsonObjectRequest);
 //    }
-
-    /**
-     * UNSPLASH METHODS
-     */
+    /*========*/
+    /*GIPHY METHODS*/
     public void getStickersByQuery(@NonNull final Context context, @NonNull final StickerResponseListener listner, final String request) {
         String REQUEST = Constants.API_GET_Stickers_FROM_GIPHY.replace("@QUERY", request.trim().replace(" ", "+")).replace("@LIMIT", "20");
         JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, REQUEST, null,
@@ -128,6 +131,8 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, jsonObject);
     }
 
+    /*=================*/
+    /*UNSPLASH*/
     public void getRandomImages(@NonNull final Context context, @NonNull final ImagesApiResponceListner listner, final String request) {
         JsonObjectRequest jsonObject = new JsonObjectRequest(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
@@ -149,19 +154,62 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, jsonObject);
     }
 
-    public void getUnsplashRandomImages(@NonNull final Context context, @NonNull final ImagesFromUnsplashResponse listener, final String request) {
-        logtheRequest(request);
+    public void getUnsplashUserImages(@NonNull final Context context, @NonNull final FeaturedImagesRespoonseListener listener, final String request) {
+        if (BuildConfig.DEBUG) {
+            logtheRequest(request);
+        }
         JsonArrayRequest request1 = new JsonArrayRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(@NonNull JSONArray response) {
                 UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
                 imagesFromUnsplashResponse.Value = new Unsplash_Image[response.length()];
-                Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                if (BuildConfig.DEBUG) {
+                    Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                }
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         Unsplash_Image unspalshImage = new Gson().fromJson(response.get(i).toString(), Unsplash_Image.class);
                         imagesFromUnsplashResponse.Value[i] = unspalshImage;
-                        Log.d("JSON ARRAY NAME", unspalshImage.getWidth());
+                        if (BuildConfig.DEBUG) {
+                            Log.d("JSON ARRAY NAME", unspalshImage.getWidth());
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                listener.onSuccess(imagesFromUnsplashResponse.Value);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(@NonNull VolleyError error) {
+
+                listener.onError(getRelevantVolleyErrorMessage(context, error));
+
+            }
+        });
+        MySingleton.addJsonArrayObjRequest(context, request1);
+    }
+
+    public void getUnsplashFeaturedImages(@NonNull final Context context, @NonNull final FeaturedImagesRespoonseListener listener, final String request) {
+        if (BuildConfig.DEBUG) {
+            logtheRequest(request);
+        }
+        JsonArrayRequest request1 = new JsonArrayRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(@NonNull JSONArray response) {
+                UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
+                imagesFromUnsplashResponse.Value = new Unsplash_Image[response.length()];
+                if (BuildConfig.DEBUG) {
+                    Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                }
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        Unsplash_Image unspalshImage = new Gson().fromJson(response.get(i).toString(), Unsplash_Image.class);
+                        imagesFromUnsplashResponse.Value[i] = unspalshImage;
+                        if (BuildConfig.DEBUG) {
+                            Log.d("JSON ARRAY NAME", unspalshImage.getWidth());
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -181,45 +229,18 @@ public class Restutility {
         MySingleton.addJsonArrayObjRequest(context, request1);
     }
 
-    public void getUnsplashUSERImages(@NonNull final Context context, @NonNull final ImagesFromUnsplashResponse listener, final String request) {
-        logtheRequest(request);
-        JsonArrayRequest request1 = new JsonArrayRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(@NonNull JSONArray response) {
-                UnsplashImageResponse imagesFromUnsplashResponse = new UnsplashImageResponse();
-                imagesFromUnsplashResponse.Value = new Unsplash_Image[response.length()];
-                Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        Unsplash_Image unspalshImage = new Gson().fromJson(response.get(i).toString(), Unsplash_Image.class);
-                        imagesFromUnsplashResponse.Value[i] = unspalshImage;
-                        Log.d("JSON ARRAY NAME", unspalshImage.getWidth());
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                listener.onSuccess(imagesFromUnsplashResponse.Value);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(@NonNull VolleyError error) {
-
-                listener.onError(getRelevantVolleyErrorMessage(context, error));
-
-            }
-        });
-        MySingleton.addJsonArrayObjRequest(context, request1);
-    }
-
-    public void getUnsplash_Collections_Images(@NonNull final Context context, @NonNull final Unsplash_Image_collection_response_listener listener,
-                                               final String request) {
-        logtheRequest(request);
+    public void getUnsplashImagesForSearchQuery(@NonNull final Context context, @NonNull final SearchImagesResponseListener listener,
+                                                final String request) {
+        if (BuildConfig.DEBUG) {
+            logtheRequest(request);
+        }
         JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(@NonNull JSONObject response) {
-                        Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                        if (BuildConfig.DEBUG) {
+                            Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
+                        }
                         UnsplashImages_Collection_Response unspalshImage = new Gson().fromJson(response.toString(), UnsplashImages_Collection_Response.class);
                         listener.onSuccess(unspalshImage);
                     }
@@ -234,27 +255,45 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, request1);
     }
 
-    public void getImages_for_service(@NonNull final Context context,
-                                      @NonNull final Unsplash_Image_collection_response_listener listener, final String request) {
-        logtheRequest(request);
-        JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONObject>() {
+    public void getUnsplashImageCollections(@NonNull final Context context, @NonNull final GetCollectionsResponseListener listener, final String request) {
+        if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
+                logtheRequest(request);
+            }
+        }
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequestwithAuthHeader(Request.Method.GET, request, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(@NonNull JSONObject response) {
-                Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
-                UnsplashImages_Collection_Response unspalshImage = new Gson().fromJson(response.toString(), UnsplashImages_Collection_Response.class);
-                listener.onSuccess(unspalshImage);
+            public void onResponse(JSONArray response) {
+                if (BuildConfig.DEBUG) {
+                    logtheRequest(response.toString());
+                }
+                ArrayList<ResGetCollectionsDto> resGetCollectionsDtoArrayList = new ArrayList<>();
+                for (int t = 0; t < response.length(); t++) {
+                    try {
+                        ResGetCollectionsDto resGetCollectionsDto = new Gson().fromJson(response.get(t).toString(), ResGetCollectionsDto.class);
+                        resGetCollectionsDtoArrayList.add(resGetCollectionsDto);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                listener.onSuccess(resGetCollectionsDtoArrayList);
+
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(@NonNull VolleyError error) {
-                Log.e("ERROR LENGTGH", String.valueOf(error));
-
+            public void onErrorResponse(VolleyError error) {
                 listener.onError(getRelevantVolleyErrorMessage(context, error));
-
             }
         });
-        MySingleton.addJsonObjRequest(context, request1);
+        MySingleton.addJsonArrayObjRequest(context, jsonObjectRequest);
     }
+
+
+
+    /*UNSPLASH*/
+    /*=====================*/
+    /*QUOTZY*/
 
     /**
      * QOUTE METHODS
@@ -380,7 +419,8 @@ public class Restutility {
         MySingleton.addJsonObjRequest(context, request);
 
     }
-
+    /*QUOTZY*/
+    /*=======================*/
 
     /**
      * Util Methods

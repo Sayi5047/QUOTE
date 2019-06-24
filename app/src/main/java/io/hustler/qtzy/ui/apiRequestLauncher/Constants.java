@@ -37,11 +37,18 @@ public final class Constants {
     public static final String PER_PAGE = "&per_page=30";
     public static final String QUERY = "&query=";
     public static final String PAGE_NUMBER = "&page=";
+    public static final String END = UNSPLASH_CLIENT_ID + "&orientation=portrait&featured=true&order_by=popular" + PER_PAGE;
+
 
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
-    public static final String API_GET_IMAGES_FROM_UNSPLASH = "https://api.unsplash.com/photos?client_id=" + UNSPLASH_CLIENT_ID + PER_PAGE;
-    public static final String API_GET_Collections_FROM_UNSPLASH = "https://api.unsplash.com/search/photos?client_id=" + UNSPLASH_CLIENT_ID;
-    public static final String API_GET_Stickers_FROM_GIPHY = "http://api.giphy.com/v1/stickers/search?q=@QUERY&api_key="+GIPHY_API_KEY+"&limit=@LIMIT" ;
+
+    public static final String UNSPLASH_GET_CURATED_IMAGES = "https://api.unsplash.com/photos?client_id=" + END;
+    public static final String UNSPLASH_SEARCH_IMAGES_API = "https://api.unsplash.com/search/photos?client_id=" + END;
+
+    public static final String UNSPLASH_GET_FEATURED_COLLECTIONS = "https://api.unsplash.com/collections/featured?client_id=" + UNSPLASH_CLIENT_ID + PER_PAGE;
+    public static final String UNSPLASH_GET_COLLECTIONS_PHOTOS = "https://api.unsplash.com/collections/:id/photos?client_id=" + UNSPLASH_CLIENT_ID + PER_PAGE;
+
+    public static final String API_GET_Stickers_FROM_GIPHY = "http://api.giphy.com/v1/stickers/search?q=@QUERY&api_key=" + GIPHY_API_KEY + "&limit=@LIMIT";
 
 
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
@@ -62,7 +69,7 @@ public final class Constants {
     public static final String INTENT_UNSPLASH_IMAGE_FOR_EDIOTR_KEY = "Intent_unsplash_image_editor_key";
     public static final String HOME_SCREEN_NUMBER = "home_screen_number_object";
     public static final String APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy";
-    public static final String TEMP_GIF_APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy"+File.separator+"Gifframes";
+    public static final String TEMP_GIF_APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy" + File.separator + "Gifframes";
     public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
     public static final String PREVIOUS_COLOR = "previous_color";
     public static final String DAILY_WALLS_ACTIVATED = "DAILY_WALL_SERVICE_ACTIVATION_KEY";
@@ -193,7 +200,6 @@ public final class Constants {
     public static final String offlineQuote = " {\"data\":[\n" + "  {\n" + "      \"quoteAuthor\": \"Thomas Edison\",\n" + "      \"quoteText\": \"Genius is one percent inspiration and ninety-nine percent perspiration.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Yogi Berra\",\n" + "      \"quoteText\": \"You can observe a lot just by watching.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Abraham Lincoln\",\n" + "      \"quoteText\": \"A house divided against itself cannot stand.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Johann Wolfgang von Goethe\",\n" + "      \"quoteText\": \"Difficulties increase the nearer we get to the goal.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Byron Pulsifer\",\n" + "      \"quoteText\": \"Fate is in your hands and no one elses\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Lao Tzu\",\n" + "      \"quoteText\": \"Be the chief but never the lord.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Carl Sandburg\",\n" + "      \"quoteText\": \"Nothing happens unless first we dream.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Aristotle\",\n" + "      \"quoteText\": \"Well begun is half done.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Yogi Berra\",\n" + "      \"quoteText\": \"Life is a learning experience, only if you learn.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Margaret Sangster\",\n" + "      \"quoteText\": \"Self-complacency is fatal to progress.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Buddha\",\n" + "      \"quoteText\": \"Peace comes from within. Do not seek it without.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Byron Pulsifer\",\n" + "      \"quoteText\": \"What you give is what you get.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Iris Murdoch\",\n" + "      \"quoteText\": \"We can only learn to love by loving.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Karen Clark\",\n" + "      \"quoteText\": \"Life is change. Growth is optional. Choose wisely.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Wayne Dyer\",\n" + "      \"quoteText\": \"You'll see it when you believe it.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"Today is the tomorrow we worried about yesterday.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"It's easier to see the mistakes on someone else's paper.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"Every man dies. Not every man really lives.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Lao Tzu\",\n" + "      \"quoteText\": \"To lead people walk behind them.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"William Shakespeare\",\n" + "      \"quoteText\": \"Having nothing, nothing can he lose.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Henry J. Kaiser\",\n" + "      \"quoteText\": \"Trouble is only opportunity in work clothes.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Publilius Syrus\",\n" + "      \"quoteText\": \"A rolling stone gathers no moss.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Napoleon Hill\",\n" + "      \"quoteText\": \"Ideas are the beginning points of all fortunes.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Donald Trump\",\n" + "      \"quoteText\": \"Everything in life is luck.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Lao Tzu\",\n" + "      \"quoteText\": \"Doing nothing is better than being busy doing nothing.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Benjamin Spock\",\n" + "      \"quoteText\": \"Trust yourself. You know more than you think you do.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Confucius\",\n" + "      \"quoteText\": \"Study the past, if you would divine the future.\"\n" + "  },\n" + "  {\n" + "      \"quoteAuthor\": \"Unknown\",\n" + "      \"quoteText\": \"The day is already blessed, find peace within it.\"\n" + "  }]}";
 
 
-
     public static final short USER_UNAVAILABLE = -4000;
     public static final short API_SUCCESS = 2000;
     public static final short API_FAILURE = -2000;
@@ -203,6 +209,6 @@ public final class Constants {
     public static final short QUOTES_UPLOAD_FAILURE = -3000;
     public static final short PASSWORD_MISMATCH = -5001;
 
-    public static  final short USER_ALREADY_EXISTS=-4000;
-    public static  final short USER_CREATED=4000;
+    public static final short USER_ALREADY_EXISTS = -4000;
+    public static final short USER_CREATED = 4000;
 }

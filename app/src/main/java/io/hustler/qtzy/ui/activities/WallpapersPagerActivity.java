@@ -42,7 +42,7 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.customviews.WallpaperPageTransformer;
 import io.hustler.qtzy.ui.database.ImagesDbHelper;
-import io.hustler.qtzy.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
+import io.hustler.qtzy.ui.pojo.unspalsh.FeaturedImagesRespoonseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.InternetUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
@@ -315,7 +315,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         if (image.getUser().getLinks().getPortfolio() == null || image.getUser().getLinks().getPortfolio().length() <= 0) {
 
         } else {
-            new Restutility(WallpapersPagerActivity.this).getUnsplashUSERImages(WallpapersPagerActivity.this, new ImagesFromUnsplashResponse() {
+            new Restutility(WallpapersPagerActivity.this).getUnsplashUserImages(WallpapersPagerActivity.this, new FeaturedImagesRespoonseListener() {
                 @Override
                 public void onSuccess(@NonNull final Unsplash_Image[] unsplash_images) {
                     userPics.setAdapter(new WallpaperAdapter(WallpapersPagerActivity.this, unsplash_images, new WallpaperAdapter.OnWallpaperClickListener() {

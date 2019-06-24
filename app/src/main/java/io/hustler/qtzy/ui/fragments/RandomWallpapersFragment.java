@@ -22,21 +22,25 @@ import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
+
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.activities.WallpapersPagerActivity;
 import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.listeners.InfiniteScrolListener;
 import io.hustler.qtzy.ui.pojo.UserWorkImages;
-import io.hustler.qtzy.ui.pojo.unspalsh.ImagesFromUnsplashResponse;
+import io.hustler.qtzy.ui.pojo.unspalsh.FeaturedImagesRespoonseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.InternetUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Sayi on 18-03-2018.
@@ -53,7 +57,8 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
     Unsplash_Image[] unsplash_images_loaded;
     SharedPreferences sharedPreferences;
     Unsplash_Image[] unsplash_images;
-
+    AppDatabase appDatabase;
+    AppExecutor appExecutor;
 
     @Nullable
     @Override
@@ -64,6 +69,8 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
 //        dataView = view.findViewById(R.id.data_views);
         loader.setVisibility(View.GONE);
         rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        appDatabase = AppDatabase.getmAppDatabaseInstance(getContext());
+        appExecutor = AppExecutor.getInstance();
         //        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //        });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
@@ -90,7 +97,7 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
     }
 
     private void checkPermission_and_proceed() {
-        if (InternetUtils.isConnectedtoNet(getActivity())) {
+        if (InternetUtils.isConnectedtoNet(Objects.requireNonNull(getActivity()))) {
 //            dataView.setVisibility(View.VISIBLE);
             setRecyclerview();
 //            setCategoriesRecyclerView();
@@ -103,6 +110,12 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
 //        clearEverything();
 
         if (sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times, 0) > 5) {
+            appExecutor.getNetworkExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
             getRandomIMages(new Random().nextInt(30));
         } else {
             if (sharedPreferences.getBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, false)) {
@@ -121,8 +134,8 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
         loader.setVisibility(View.VISIBLE);
 
 
-        String request = Constants.API_GET_IMAGES_FROM_UNSPLASH + "&page=" + pagePosition;
-        new Restutility(getActivity()).getUnsplashRandomImages(getActivity(), new ImagesFromUnsplashResponse() {
+        String request = Constants.UNSPLASH_GET_CURATED_IMAGES + "&page=" + pagePosition;
+        new Restutility(getActivity()).getUnsplashFeaturedImages(getActivity(), new FeaturedImagesRespoonseListener() {
             @Override
             public void onSuccess(final Unsplash_Image[] unsplash_images) {
 //                IS_CATEGORY_FLAG = false;
@@ -204,20 +217,6 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
             super.onPreExecute();
         }
 
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @param strings The parameters of the task.
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
 
         @Nullable
         @Override
@@ -243,20 +242,6 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
             super.onPreExecute();
         }
 
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @param strings The parameters of the task.
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
 
         @Nullable
         @Override

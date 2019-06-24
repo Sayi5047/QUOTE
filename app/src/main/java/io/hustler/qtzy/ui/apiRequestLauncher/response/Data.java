@@ -3,7 +3,7 @@ package io.hustler.qtzy.ui.apiRequestLauncher.response;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("com.robohorse.robopojogenerator")
+//
 public class Data{
 
 	@SerializedName("pagination")

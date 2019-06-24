@@ -1,5 +1,7 @@
 package io.hustler.qtzy.ui.pojo;
 
+import java.util.ArrayList;
+
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 
 /**
@@ -7,16 +9,14 @@ import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
  */
 
 public class UnsplashImages_Collection_Response {
-     int total;
-     int totalpages;
 
-    public Unsplash_Image[] getResults() {
+    public ArrayList<Unsplash_Image[]> getResults() {
         return results;
     }
 
-    public void setResults(Unsplash_Image[] results) {
+    public void setResults(ArrayList<Unsplash_Image[]> results) {
         this.results = results;
     }
 
-    Unsplash_Image[] results;
+    ArrayList<Unsplash_Image[]> results;
 }

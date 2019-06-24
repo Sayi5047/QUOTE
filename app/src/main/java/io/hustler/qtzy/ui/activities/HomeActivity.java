@@ -60,7 +60,7 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.apiRequestLauncher.Shared_prefs_constants;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
-import io.hustler.qtzy.ui.pojo.Unsplash_Image_collection_response_listener;
+import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.ColorUtils;
@@ -455,8 +455,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private void setImages(final RecyclerView rv, final String query, final ProgressBar loader, @NonNull final RadioGroup radioGroup, @NonNull final LinearLayout search_header, @NonNull final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
-        final String request = Constants.API_GET_Collections_FROM_UNSPLASH + "&query=" + query + "&per_page=30";
-        new Restutility(HomeActivity.this).getUnsplash_Collections_Images(HomeActivity.this, new Unsplash_Image_collection_response_listener() {
+        final String request = Constants.UNSPLASH_SEARCH_IMAGES_API + "&query=" + query + "&per_page=30";
+        new Restutility(HomeActivity.this).getUnsplashImagesForSearchQuery(HomeActivity.this, new SearchImagesResponseListener() {
             @Override
             public void onSuccess(@NonNull final UnsplashImages_Collection_Response response) {
 
@@ -464,13 +464,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 rv.setAdapter(null);
                 rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 
-                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().length));
-                if (response.getResults().length <= 0) {
+                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().size()));
+                if (response.getResults().size() <= 0) {
 //                    dataView.setVisibility(View.GONE);
                     Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.Currently_no_wallpaper));
                 } else {
 //                    dataView.setVisibility(View.VISIBLE);
-                    rv.setAdapter(new WallpaperAdapter(HomeActivity.this, response.getResults(), new WallpaperAdapter.OnWallpaperClickListener() {
+                    rv.setAdapter(new WallpaperAdapter(HomeActivity.this, (Unsplash_Image[]) response.getResults().toArray(), new WallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, ImageView itemView) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, wallpaper.getUser().getFirst_name());
