@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.activities.SecondActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -170,8 +173,8 @@
             tools:ignore="InnerclassSeparator" />
         <service
             android:name=".ui.Services.DownloadImageJobService"
-            tools:ignore="InnerclassSeparator"
-            android:exported="false"/>
+            android:exported="false"
+            tools:ignore="InnerclassSeparator" />
         <service
             android:name=".ui.Services.DailyWallpaperService"
             android:exported="false"
@@ -197,6 +200,7 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="@string/file_provider_authority"

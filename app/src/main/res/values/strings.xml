@@ -75,7 +75,7 @@
     <string name="deleted">Image has been deleted</string>
     <string name="image_unavailable">Image not available</string>
     <string name="categories">Category</string>
-    <string name="Fav">Fav</string>
+    <string name="Fav">Likes</string>
     <string name="Work">Works</string>
     <string name="please_select_image">Please add any image as background to apply blurr feature.</string>
     <string name="Gradient">Gradients</string>
@@ -357,4 +357,5 @@
     <string name="giphyKey">RnMnyAaqEAofrSYV1AI7UHHUbG3fKqHJ</string>
     <string name="WALLPAPER_JOB_TAG">DAILYWALLTAG</string>
     <string name="collections">Collections</string>
+    <string name="library">Library</string>
 </resources>

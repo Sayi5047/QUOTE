@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.QuotesFragment;
-import io.hustler.qtzy.ui.fragments.Categoris_wallpaper_fragment;
+import io.hustler.qtzy.ui.fragments.FAV_quotes_fragment;
 import io.hustler.qtzy.ui.fragments.UserWorkFragment;
 import io.hustler.qtzy.ui.fragments.WallpaperFragment;
 
@@ -35,7 +35,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             }
             break;
             case 2: {
-                returning_fragment = new Categoris_wallpaper_fragment();
+                returning_fragment = new FAV_quotes_fragment();
             }
             break;
 //            case 3: {

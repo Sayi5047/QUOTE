@@ -106,6 +106,7 @@ public class CategoriesFragment extends android.support.v4.app.Fragment {
         AdView adView;
         FloatingActionButton close_button;
         final LiveData<List<QuotesTable>> quoteslist;
+        categories_rv.setNestedScrollingEnabled(true);
         categories_rv = dialog.findViewById(R.id.rv_category_list);
         close_button = dialog.findViewById(R.id.bt_close);
         adView = dialog.findViewById(R.id.adView);

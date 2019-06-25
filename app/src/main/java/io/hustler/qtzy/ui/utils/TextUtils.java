@@ -7,9 +7,11 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.graphics.Palette;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -211,6 +213,23 @@ public class TextUtils {
                 SpannableString spannableString = new SpannableString(subMenu.getTitle());
                 spannableString.setSpan(new CustomTypefaceSpan("", typeface), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 subMenu.setTitle(spannableString);
+            }
+        } catch (RuntimeException rte) {
+            FirebaseCrash.log(rte.getStackTrace().toString());
+        }
+    }
+
+    public static void setFont_For_Ctl(@NonNull CollapsingToolbarLayout collapsingToolbarLayout, @Nullable Activity activity, String title) {
+        try {
+            if (null != activity) {
+                Typeface typeface = Typeface.createFromAsset(activity.getResources().getAssets(), FONT_CIRCULAR);
+                SpannableString spannableString = new SpannableString(title);
+                CustomTypefaceSpan customTypefaceSpan = new CustomTypefaceSpan("", typeface);
+
+                spannableString.setSpan(customTypefaceSpan, 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+                ;
+                collapsingToolbarLayout.setTitle(spannableString);
             }
         } catch (RuntimeException rte) {
             FirebaseCrash.log(rte.getStackTrace().toString());

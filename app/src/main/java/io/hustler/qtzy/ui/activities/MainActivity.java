@@ -689,23 +689,30 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_quotes) {
             Objects.requireNonNull(quotesIv).performClick();
 
-        } else if (id == R.id.nav_camera_2) {
+        } else if (id == R.id.nav_quote_category) {
             assert quotesIv != null;
-            quotesIv.performClick();
-        } else if (id == R.id.nav_gallery) {
+            sendToNextActivity(1);
+        } else if (id == R.id.nav_collections) {
+            assert quotesIv != null;
+            sendToNextActivity(2);
+        } else if (id == R.id.nav_wallpapers) {
             assert wallpaerIv != null;
             wallpaerIv.performClick();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_favourites) {
             assert likeIv != null;
             likeIv.performClick();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_works) {
             assert worksIv != null;
             worksIv.performClick();
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_rate) {
             taketoRate();
+        } else if (id == R.id.nav_settings) {
+            takeToSettings();
+        } else if (id == R.id.nav_about) {
+            teakeToAbout();
         } else if (id == R.id.nav_send) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "quotzyapp@gmail.com", null));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
@@ -716,6 +723,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void takeToSettings() {
+        // TODO: 25-06-2019 send to Settings activity
+
+    }
+
+    private void teakeToAbout() {
+
+        // TODO: 25-06-2019 send to about activity
+    }
+
+    private void sendToNextActivity(int i) {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra(Constants.INTENT_SECONDACTIVITY_CONSTANT, i);
+        startActivity(intent);
     }
 
     public void launchFragment(Fragment fragment) {

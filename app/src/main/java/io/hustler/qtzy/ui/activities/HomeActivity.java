@@ -83,6 +83,7 @@ import static android.view.View.GONE;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 @Deprecated
+/*V!*/
 public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private AppBarLayout appBar;
     private FloatingActionButton floatingActionButton;
