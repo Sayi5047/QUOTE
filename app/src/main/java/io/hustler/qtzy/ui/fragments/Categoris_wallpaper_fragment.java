@@ -1,6 +1,8 @@
 package io.hustler.qtzy.ui.fragments;
 
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -28,12 +30,12 @@ import java.util.Random;
 
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ViewModels.CollectionViewModel;
 import io.hustler.qtzy.ui.activities.WallpapersPagerActivity;
 import io.hustler.qtzy.ui.adapters.CollectionsWallpaperAdapter;
 import io.hustler.qtzy.ui.adapters.ImageCategoryAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.pojo.listeners.GetCollectionsResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.FeaturedImagesRespoonseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.ResGetCollectionsDto;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
@@ -53,6 +55,7 @@ public class Categoris_wallpaper_fragment extends android.support.v4.app.Fragmen
     long collection_category = 0;
     boolean IS_CATEGORY_FLAG = false;
     AppExecutor appExecutor;
+    CollectionViewModel collectionViewModel;
 
     @Nullable
     @Override
@@ -61,47 +64,39 @@ public class Categoris_wallpaper_fragment extends android.support.v4.app.Fragmen
         catgories = view.findViewById(R.id.catgories);
         catgories.setLayoutManager(new LinearLayoutManager(getActivity(), VERTICAL, false));
         appExecutor = AppExecutor.getInstance();
+        collectionViewModel = new CollectionViewModel(getActivity().getApplication());
         getCategories();
         return view;
     }
 
     private void getCategories() {
 
-        appExecutor.getNetworkExecutor().execute(new Runnable() {
+        final LiveData<ArrayList<ResGetCollectionsDto>> resGetCollectionsDto = collectionViewModel.getResGetCollections();
+        resGetCollectionsDto.observe(Objects.requireNonNull(getActivity()), new Observer<ArrayList<ResGetCollectionsDto>>() {
             @Override
-            public void run() {
-                final ArrayList<ResGetCollectionsDto> collectionsDtoArrayList = null;
-                String request = Constants.UNSPLASH_GET_FEATURED_COLLECTIONS.replace("30", "100");
-                new Restutility(getActivity()).getUnsplashImageCollections(Objects.requireNonNull(getContext()), new GetCollectionsResponseListener() {
-                    @Override
-                    public void onSuccess(final ArrayList<ResGetCollectionsDto> resGetCollectionsDto) {
-                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                catgories.setAdapter(new ImageCategoryAdapter(getActivity(), resGetCollectionsDto, new ImageCategoryAdapter.OnImageClickLitner() {
-                                    @Override
-                                    public void onCategoryClicked(int position, long id) {
-                                        collection_category = id;
-                                        buildDialog_and_search(collection_category, appExecutor);
-                                    }
-                                }));
-                            }
-                        });
-                    }
+            public void onChanged(@Nullable final ArrayList<ResGetCollectionsDto> resGetCollectionsDtos) {
 
-                    @Override
-                    public void onError(final String errorMessage) {
-                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.e(Objects.requireNonNull(getActivity()).getClass().getSimpleName(), errorMessage);
-                                Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), errorMessage);
-                            }
-                        });
-                    }
-                }, request);
+
+                if (null != resGetCollectionsDto) {
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            catgories.setAdapter(new ImageCategoryAdapter(getActivity(), resGetCollectionsDtos, new ImageCategoryAdapter.OnImageClickLitner() {
+                                @Override
+                                public void onCategoryClicked(int position, long id) {
+                                    collection_category = id;
+                                    buildDialog_and_search(collection_category, appExecutor);
+                                }
+                            }));
+                        }
+                    });
+                } else {
+
+                    Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Categories are null");
+                }
             }
         });
+
 
     }
 

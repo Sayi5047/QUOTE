@@ -31,6 +31,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,22 +67,20 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.ViewModels.SearchQuotesViewModel;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
+import io.hustler.qtzy.ui.adapters.MainPagerAdapter;
 import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
-import io.hustler.qtzy.ui.fragments.HomeHolderFragments.FavouritesHolderFragment;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.QuotesHolderFragment;
-import io.hustler.qtzy.ui.fragments.HomeHolderFragments.SavedHolderFragment;
-import io.hustler.qtzy.ui.fragments.HomeHolderFragments.WallpapersHolderFragment;
 import io.hustler.qtzy.ui.fragments.MainFragment;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
 import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
@@ -139,9 +138,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Nullable
     @BindView(R.id.topCrown)
     ImageView crownView;
+    @BindView(R.id.myViewPager)
+    ViewPager myViewPager;
 
-    private AppDatabase appDatabase;
     private SearchQuotesViewModel searchQuotesViewModel;
+    private MainPagerAdapter mainPagerAdapter;
 
     ValueAnimator valueAnimator;
     int previousPixles;
@@ -151,7 +152,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     FirebaseJobDispatcher firebaseJobDispatcher;
     Driver driver;
     NotificationManager mNotificationManager;
-    NotificationCompat.Builder mNotification_Builder;
+    ImageView previousImageView;
 
     private static int BUNDLENOTIFICATIONID = 5005;
     private static int SINGLENOTIFICATIONID = 5005;
@@ -179,8 +180,40 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-
+        mainPagerAdapter = new MainPagerAdapter(getApplicationContext(), getSupportFragmentManager());
+        myViewPager.setAdapter(mainPagerAdapter);
         header_name.setVisibility(GONE);
+        myViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch (position) {
+                    case 0:
+                        launchFragmentAndAnimate(previousPixles, quotesIv);
+                        break;
+                    case 1:
+                        launchFragmentAndAnimate(previousPixles, wallpaerIv);
+                        break;
+                    case 2:
+                        launchFragmentAndAnimate(previousPixles, likeIv);
+                        break;
+                    case 3:
+                        launchFragmentAndAnimate(previousPixles, worksIv);
+                        break;
+
+
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         fab.setVisibility(GONE);
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -247,9 +280,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        if (this != null) {
-            TextUtils.setMenu_Font(menu, MainActivity.this);
-        }
+        TextUtils.setMenu_Font(menu, MainActivity.this);
 
         return true;
     }
@@ -654,20 +685,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            quotesIv.performClick();
+            Objects.requireNonNull(quotesIv).performClick();
+
         } else if (id == R.id.nav_camera_2) {
+            assert quotesIv != null;
             quotesIv.performClick();
         } else if (id == R.id.nav_gallery) {
+            assert wallpaerIv != null;
             wallpaerIv.performClick();
         } else if (id == R.id.nav_slideshow) {
+            assert likeIv != null;
             likeIv.performClick();
         } else if (id == R.id.nav_manage) {
+            assert worksIv != null;
             worksIv.performClick();
         } else if (id == R.id.nav_share) {
             taketoRate();
@@ -748,16 +783,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onViewClicked(@NonNull View view) {
         switch (view.getId()) {
             case R.id.quotes_iv:
-                launchFragmentAndAnimate(previousPixles, quotesIv, QuotesHolderFragment.newInstance());
+                myViewPager.setCurrentItem(0);
+                launchFragmentAndAnimate(previousPixles, quotesIv);
                 break;
             case R.id.wallpaer_iv:
-                launchFragmentAndAnimate(previousPixles, wallpaerIv, WallpapersHolderFragment.newInstance(null, null));
+                myViewPager.setCurrentItem(1);
+                launchFragmentAndAnimate(previousPixles, wallpaerIv);
                 break;
             case R.id.like_iv:
-                launchFragmentAndAnimate(previousPixles, likeIv, FavouritesHolderFragment.newInstance(null, null));
+                myViewPager.setCurrentItem(2);
+                launchFragmentAndAnimate(previousPixles, likeIv);
                 break;
             case R.id.works_iv:
-                launchFragmentAndAnimate(previousPixles, worksIv, SavedHolderFragment.newInstance(null, null));
+                myViewPager.setCurrentItem(3);
+                launchFragmentAndAnimate(previousPixles, worksIv);
                 break;
             case R.id.create_iv:
                 startActivity(new Intent(MainActivity.this, EditorActivity.class).putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1));
@@ -776,19 +815,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void cancelPrevious() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.root);
-        if (fragment instanceof QuotesHolderFragment) {
-            scaleIcon(quotesIv, 1);
-        } else if (fragment instanceof WallpapersHolderFragment) {
-            scaleIcon(wallpaerIv, 1);
-        } else if (fragment instanceof FavouritesHolderFragment) {
-            scaleIcon(likeIv, 1);
-        } else {
-            scaleIcon(worksIv, 1);
-
-        }
-    }
 
     private void scaleIcon(final ImageView worksIv, final float i) {
         Handler scaleHandler = new Handler();
@@ -815,28 +841,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         worksIv.startAnimation(translateAnimation);
     }
 
-    private void launchFragmentAndAnimate(final float start, final ImageView imageView, final Fragment fragment) {
-        Fragment currentClass = getSupportFragmentManager().findFragmentById(R.id.root);
-        assert currentClass != null;
-        if (fragment.getClass().getName().equals(fragment.getClass().getName())) {
+    private void launchFragmentAndAnimate(final float start, final ImageView imageView) {
 
-            launchFragment(fragment);
-            cancelPrevious();
-            scaleIcon(imageView, 1.8f);
-            currentPixels = getXlocationOfView(imageView)[0];
-            valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
-            valueAnimator.setDuration(300);
-            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
-                    assert crownView != null;
-                    crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
-                }
-            });
-            previousPixles = currentPixels;
-            valueAnimator.start();
-
+        if (previousImageView == null) {
+            previousImageView = imageView;
+            return;
+        } else {
+            scaleIcon(previousImageView, 1);
+            previousImageView = imageView;
         }
+        scaleIcon(imageView, 1.8f);
+        currentPixels = getXlocationOfView(imageView)[0];
+        valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
+//        valueAnimator.setDuration(300);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
+                assert crownView != null;
+                crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
+            }
+        });
+        previousPixles = currentPixels;
+        valueAnimator.start();
+
 
     }
 

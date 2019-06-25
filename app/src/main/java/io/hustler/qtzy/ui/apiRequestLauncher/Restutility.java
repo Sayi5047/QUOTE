@@ -1,6 +1,7 @@
 package io.hustler.qtzy.ui.apiRequestLauncher;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -72,7 +73,7 @@ public class Restutility {
         this.activity = activity;
     }
 
-    public Restutility() {
+    public Restutility(Application application) {
     }
 
     public void logtheResponse(@NonNull JSONObject response) {
