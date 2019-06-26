@@ -224,9 +224,9 @@ public class TextUtils {
             if (null != activity) {
                 Typeface typeface = Typeface.createFromAsset(activity.getResources().getAssets(), FONT_CIRCULAR);
                 SpannableString spannableString = new SpannableString(title);
-                CustomTypefaceSpan customTypefaceSpan = new CustomTypefaceSpan("", typeface);
+//                CustomTypefaceSpan customTypefaceSpan = new CustomTypefaceSpan("", typeface);
 
-                spannableString.setSpan(customTypefaceSpan, 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+//                spannableString.setSpan(customTypefaceSpan, 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE)
                 ;
                 collapsingToolbarLayout.setTitle(spannableString);

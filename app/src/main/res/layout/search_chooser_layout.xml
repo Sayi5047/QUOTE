@@ -4,6 +4,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@android:color/white">
 
     <ImageView
@@ -12,10 +13,10 @@
         android:layout_height="36dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="-10dp"
         android:layout_marginStart="15dp"
-        android:alpha="0.4"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="-10dp"
+        android:alpha="0.4"
         android:padding="4dp"
         android:src="@drawable/ic_close_black_24dp" />
 
@@ -31,16 +32,14 @@
         android:gravity="center"
         android:padding="4dp"
         android:visibility="visible"
-        tools:text="SOME SEARCH TERM"
-        />
+        tools:text="SOME SEARCH TERM" />
 
     <LinearLayout
         android:id="@+id/search_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_btn"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,8 +57,8 @@
                 android:background="@drawable/transparent_drawable"
                 android:hint="@string/where_to_search"
                 android:imeOptions="actionSearch"
-                android:padding="8dp"
                 android:inputType="text"
+                android:padding="8dp"
                 android:textColor="@color/textColor"
                 android:textColorHint="@color/black_overlay"
                 android:textSize="@dimen/font"
@@ -76,6 +75,7 @@
                 android:padding="4dp"
                 android:src="@drawable/ic_search_black2_24dp" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/line"
             android:layout_width="match_parent"
@@ -84,10 +84,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:alpha="0.2"
-            android:background="@color/textColor"
-            />
+            android:background="@color/textColor" />
     </LinearLayout>
-
 
 
     <RadioGroup

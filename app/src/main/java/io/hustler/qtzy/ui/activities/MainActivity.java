@@ -29,6 +29,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -65,6 +66,7 @@ import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -132,9 +134,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Nullable
     @BindView(R.id.bottom)
     RelativeLayout bottom;
-    @Nullable
-    @BindView(R.id.nav_view)
-    NavigationView navView;
+    @BindView((R.id.scalelayout))
+    LinearLayout scaleLayout;
+
     @Nullable
     @BindView(R.id.topCrown)
     ImageView crownView;
@@ -178,14 +180,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         header_name = findViewById(R.id.header_name);
         fab = findViewById(R.id.fab);
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
 
         mainPagerAdapter = new MainPagerAdapter(getApplicationContext(), getSupportFragmentManager());
+        launchFragmentAndAnimate(previousPixles, quotesIv);
+
         myViewPager.setAdapter(mainPagerAdapter);
+        myViewPager.setNestedScrollingEnabled(true);
         header_name.setVisibility(GONE);
         myViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
                         launchFragmentAndAnimate(previousPixles, quotesIv);
@@ -202,11 +212,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
                 }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
             }
 
             @Override
@@ -244,11 +249,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 super.onDrawerSlide(drawerView, slideOffset);
                 main_view.setTranslationX(slideOffset * drawerView.getWidth());
 //                main_view.setTranslationY(slideOffset * drawerView.getWidth());
-                main_view.setTranslationZ(slideOffset * drawerView.getWidth() * 20);
-                drawer.bringChildToFront(drawerView);
-                drawerView.setBackgroundResource(R.color.white_apple);
-                drawerView.bringToFront();
-                main_view.setElevation(16);
+                main_view.setTranslationZ(-slideOffset * drawerView.getWidth() * 20);
+                Log.d("SLIDEOFFSET", String.valueOf(slideOffset));
+                navigationView.bringChildToFront(scaleLayout);
+                Float val = 1 - Math.abs(Float.valueOf(new DecimalFormat("0.00").format(slideOffset)));
+                if (val > 0.75) {
+                    main_view.setScaleX(val);
+                    main_view.setScaleY(val);
+                }
+                Log.d("SLIVAL", String.valueOf(val));
+
+                int color = ColorUtils.blendARGB(getResources().getColor(R.color.white_apple), getResources().getColor(R.color.WHITE), val);
+                getWindow().setStatusBarColor(color
+                );
+                navigationView.setBackgroundColor(color);
+                scaleLayout.setBackgroundColor(color);
                 drawer.requestLayout();
 
             }
@@ -420,11 +435,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         dialog.setContentView(R.layout.search_chooser_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater_2;
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(andro));
-        dialog.setCancelable(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, android.R.color.white));
-        }
+        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, android.R.color.white));
+
+        dialog.setCancelable(true);
 
 
         final RelativeLayout root;

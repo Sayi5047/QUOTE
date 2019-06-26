@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.activities;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,12 +12,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,8 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.fragments.Categoris_wallpaper_fragment;
 import io.hustler.qtzy.ui.utils.TextUtils;
+
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
 public class SecondActivity extends AppCompatActivity {
     @BindView(R.id.root)
@@ -46,17 +49,15 @@ public class SecondActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
-            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         ButterKnife.bind(this);
         fragmentManager = getSupportFragmentManager();
 
-        Integer val = getIntent().getIntExtra(Constants.INTENT_SECONDACTIVITY_CONSTANT, 0);
         TextUtils.setFont(this, headerNae, Constants.FONT_CIRCULAR);
         fragmentTransaction = fragmentManager.beginTransaction();
-        switch (val) {
+        switch (getIntent().getIntExtra(Constants.INTENT_SECONDACTIVITY_CONSTANT, 0)) {
             case 1:
                 fragmentTransaction.replace(R.id.root, new CategoriesFragment());
                 fragmentTransaction.addToBackStack(null);
@@ -77,48 +78,42 @@ public class SecondActivity extends AppCompatActivity {
         }
     }
 
-    protected void setCollapsingToolbar(String title) {
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(title);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-    }
 
     protected void setCollapsingToolbar(final String title, final CollapsingToolbarLayout ctl) {
         setSupportActionBar(toolbar);
-
-        final int color1 = TextUtils.getMatColor(this, "mdcolor_500");
-        final int color2 = TextUtils.getMatColor(this, "mdcolor_500");
-        Log.d("VERTICALOFFSERTcolor1", String.valueOf(color1));
-        Log.d("VERTICALOFFSERTcolor2", String.valueOf(color2));
-        int high = color2;
-        int low = color1;
-        if (color1 > color2) {
-            high = color1;
-            low = color2;
-        }
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_white_24dp)));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        final int color1 = TextUtils.getMatColor(this, "mdcolor_800");
+        final int color2 = TextUtils.getMatColor(this, "mdcolor_800");
         int[] colors = {color1, color2};
-        final GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-        gradientDrawable.setGradientRadius(90);
-        ctl.setBackground(gradientDrawable);
+        final GradientDrawable gradientDrawable;
+        gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+        gradientDrawable.setGradientRadius(135);
         getWindow().setStatusBarColor(color1);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitle("");
+        ctl.setBackground(gradientDrawable);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         TextUtils.setFont_For_Ctl(ctl, SecondActivity.this, title);
         if (ColorUtils.calculateLuminance(color2) > 0.5) {
             ctl.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
             ctl.setCollapsedTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-
             headerNae.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-            ;
+            Objects.requireNonNull(toolbar.getNavigationIcon()).setTint(getResources().getColor(R.color.colorAccent));
+
         } else {
             ctl.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
             ctl.setCollapsedTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
             headerNae.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
+            Objects.requireNonNull(toolbar.getNavigationIcon()).setTint(getResources().getColor(R.color.WHITE));
+
 
         }
+        ctl.setCollapsedTitleTypeface(Typeface.createFromAsset(this.getResources().getAssets(), FONT_CIRCULAR));
+        ctl.setExpandedTitleTypeface(Typeface.createFromAsset(this.getResources().getAssets(), FONT_CIRCULAR));
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int scrollrange = -1;
 
@@ -139,7 +134,6 @@ public class SecondActivity extends AppCompatActivity {
                 if (scrollrange + verticalOffset == 0) {
                     ctl.setTitleEnabled(false);
                     headerNae.setVisibility(View.VISIBLE);
-//                    ctl.setBackgroundColor(color2);
                     ctl.setBackgroundColor(color);
 
                 } else {
