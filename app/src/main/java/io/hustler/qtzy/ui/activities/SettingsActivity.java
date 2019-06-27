@@ -9,13 +9,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.Driver;
@@ -26,14 +34,21 @@ import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Recievers.DailyNotificationAlarmReceiver;
 import io.hustler.qtzy.ui.Services.JobServices.WallaperFirebaseJobService;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Shared_prefs_constants;
+import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
+
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
 
 /**
  * Created by anvaya5 on 06/02/2018.
@@ -51,18 +66,24 @@ import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class SettingsActivity extends SecondActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsActivity extends BaseActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public SharedPreferences sharedPreferences;
-    Intent alarm_intent, notif_alarm_intent;
-    PendingIntent pendingIntent, notif_pending_intent;
+    Intent notif_alarm_intent;
+    PendingIntent notif_pending_intent;
     @Nullable
     AlarmManager alarmManager;
     @Nullable
     JobScheduler mJobScheduler;
     FirebaseJobDispatcher firebaseJobDispatcher;
     Driver driver;
-    NotificationManager mNotificationManager;
-
+    @BindView(R.id.header_name)
+    TextView headerNae;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.ctl)
+    CollapsingToolbarLayout ctl;
+    @BindView(R.id.app_bar)
+    AppBarLayout appBarLayout;
     private static int BUNDLENOTIFICATIONID = 5005;
     private static int SINGLENOTIFICATIONID = 5005;
     private String CHANNEL_ID = "DAILY_WALL_CHANNEL";
@@ -74,7 +95,10 @@ public class SettingsActivity extends SecondActivity implements SharedPreference
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pro_features_layout);
+        ButterKnife.bind(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+        setCollapsingToolbar("Settings", ctl);
         alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         mJobScheduler = (JobScheduler) getApplicationContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
@@ -97,6 +121,76 @@ public class SettingsActivity extends SecondActivity implements SharedPreference
     protected void onStop() {
         super.onStop();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
+    }
+
+    protected void setCollapsingToolbar(final String title, final CollapsingToolbarLayout ctl) {
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_white_24dp)));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        final int color1 = TextUtils.getMatColor(this, "mdcolor_800");
+        final int color2 = TextUtils.getMatColor(this, "mdcolor_800");
+        int[] colors = {color1, color2};
+        final GradientDrawable gradientDrawable;
+        gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+        gradientDrawable.setGradientRadius(135);
+        getWindow().setStatusBarColor(color1);
+        ctl.setBackground(gradientDrawable);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        TextUtils.setFont_For_Ctl(ctl, SettingsActivity.this, title);
+        if (ColorUtils.calculateLuminance(color2) > 0.5) {
+            ctl.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+            ctl.setCollapsedTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+            headerNae.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+            Objects.requireNonNull(toolbar.getNavigationIcon()).setTint(getResources().getColor(R.color.colorAccent));
+
+        } else {
+            ctl.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
+            ctl.setCollapsedTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
+            headerNae.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
+            Objects.requireNonNull(toolbar.getNavigationIcon()).setTint(getResources().getColor(R.color.WHITE));
+
+
+        }
+        ctl.setCollapsedTitleTypeface(Typeface.createFromAsset(this.getResources().getAssets(), FONT_CIRCULAR));
+        ctl.setExpandedTitleTypeface(Typeface.createFromAsset(this.getResources().getAssets(), FONT_CIRCULAR));
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            int scrollrange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollrange == -1) {
+                    scrollrange = appBarLayout.getTotalScrollRange();
+                }
+                Float val = Math.abs(Float.valueOf(new DecimalFormat("0.00").format((float) verticalOffset / scrollrange)));
+                int color = ColorUtils.blendARGB(color1, color2, val);
+                getWindow().setStatusBarColor(color);
+                if (val < 0.65) {
+                    ctl.setBackgroundColor(color);
+                } else {
+                    ctl.setBackground(gradientDrawable);
+                }
+                ctl.setBackground(gradientDrawable);
+                if (scrollrange + verticalOffset == 0) {
+                    ctl.setTitleEnabled(false);
+                    headerNae.setVisibility(View.VISIBLE);
+                    ctl.setBackgroundColor(color);
+
+                } else {
+
+                    ctl.setTitleEnabled(true);
+                    headerNae.setVisibility(View.GONE);
+
+
+                }
+            }
+        });
+
 
     }
 

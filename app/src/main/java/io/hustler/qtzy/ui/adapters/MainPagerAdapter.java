@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.activities.QuotesFragment;
+import io.hustler.qtzy.ui.fragments.QuotesFragment;
 import io.hustler.qtzy.ui.fragments.FAV_quotes_fragment;
 import io.hustler.qtzy.ui.fragments.UserWorkFragment;
 import io.hustler.qtzy.ui.fragments.WallpaperFragment;

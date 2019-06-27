@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.activities.QuotesFragment;
+import io.hustler.qtzy.ui.fragments.QuotesFragment;
 import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.utils.TextUtils;
 

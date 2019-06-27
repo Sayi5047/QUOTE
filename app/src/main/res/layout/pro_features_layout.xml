@@ -18,7 +18,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/ctl"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             app:collapsedTitleTextAppearance="@style/uber_collapsed_text_style"
             app:expandedTitleGravity="center"
             app:expandedTitleMarginStart="15dp"

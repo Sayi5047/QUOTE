@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.activities.QuotesFragment;
+import io.hustler.qtzy.ui.fragments.QuotesFragment;
 import io.hustler.qtzy.ui.fragments.CategoriesFragment;
 import io.hustler.qtzy.ui.fragments.UserFavuritesFragment;
 import io.hustler.qtzy.ui.fragments.UserWorkFragment;

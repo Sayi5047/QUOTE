@@ -1,4 +1,4 @@
-package io.hustler.qtzy.ui.activities;
+package io.hustler.qtzy.ui.fragments;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -28,6 +28,7 @@ import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.ViewModels.MainViewModel;
+import io.hustler.qtzy.ui.activities.QuoteDetailsActivity;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.utils.IntentConstants;

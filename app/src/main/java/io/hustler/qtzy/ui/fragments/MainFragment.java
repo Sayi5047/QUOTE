@@ -35,7 +35,6 @@ import io.hustler.qtzy.ui.ViewModels.SearchQuotesViewModel;
 import io.hustler.qtzy.ui.Widgets.CarouselAdapter;
 import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.MainActivity;
-import io.hustler.qtzy.ui.activities.QuotesFragment;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.pojo.OffLineQuotes;
 import io.hustler.qtzy.ui.utils.TextUtils;
