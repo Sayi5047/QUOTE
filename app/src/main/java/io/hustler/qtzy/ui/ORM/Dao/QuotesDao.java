@@ -37,6 +37,9 @@ public interface QuotesDao {
     @Query("SELECT * FROM mstr_quotes WHERE quote_category = :category")
     LiveData<List<QuotesTable>> loadAllbyCategory(String category);
 
+    @Query("SELECT * FROM mstr_quotes WHERE quote_category = :category")
+    List<QuotesTable> loadAllbyCategoryNONLIVEDATA(String category);
+
     @Query("SELECT * FROM mstr_quotes WHERE quote_body Like  '%' || :query || '%' ")
     LiveData<List<QuotesTable>> findQuotesByQuery(String query);
 

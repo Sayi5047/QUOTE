@@ -1,12 +1,14 @@
 package io.hustler.qtzy.ui.Recievers;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-import io.hustler.qtzy.ui.Services.DailyNotificationService;
+import io.hustler.qtzy.ui.Services.DailyNotificationJobService;
+
+import static android.support.v4.content.WakefulBroadcastReceiver.startWakefulService;
 
 /**
  * Created by Sayi on 22-02-2018.
@@ -24,13 +26,11 @@ import io.hustler.qtzy.ui.Services.DailyNotificationService;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class NotifAlarmReciever extends WakefulBroadcastReceiver {
-    Intent downloadIntent;
+public class DailyNotificationAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(@NonNull Context context, Intent intent) {
-        downloadIntent = new Intent(context, DailyNotificationService.class);
-        startWakefulService(context, downloadIntent);
+        startWakefulService(context, new Intent(context, DailyNotificationJobService.class));
         Log.i("NOTIF RECIVER", "RECEIVED");
     }
 }

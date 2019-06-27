@@ -51,8 +51,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Recievers.NotifAlarmReciever;
-import io.hustler.qtzy.ui.Services.DailyNotificationService;
+import io.hustler.qtzy.ui.Recievers.DailyNotificationAlarmReceiver;
+import io.hustler.qtzy.ui.Services.DailyNotificationJobService;
 import io.hustler.qtzy.ui.adapters.LocalAdapter;
 import io.hustler.qtzy.ui.adapters.TabsFragmentPagerAdapter;
 import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
@@ -145,7 +145,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 10);
         calendar.set(Calendar.MINUTE, 30);
-        notif_alarm_intent = new Intent(getApplicationContext(), NotifAlarmReciever.class);
+        notif_alarm_intent = new Intent(getApplicationContext(), DailyNotificationAlarmReceiver.class);
         notif_alarm_intent.putExtra(Constants.ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG, false);
         notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24 * 60 * 60 * 1000, notif_pending_intent);
@@ -191,7 +191,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         for (ActivityManager.RunningServiceInfo service : am.getRunningServices(Integer.MAX_VALUE)) {
             String serv = service.service.getClassName();
-            if (serv.equals(DailyNotificationService.class)) {
+            if (serv.equals(DailyNotificationJobService.class)) {
                 service_Started = true;
                 break;
             } else {
@@ -622,14 +622,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             }
             break;
             case R.id.action_Pro_features: {
-                Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slideup, R.anim.slidedown);
             }
             break;
 
             case R.id.action_Pro_about: {
-                Intent intent = new Intent(HomeActivity.this, ProfeaturesActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slideup, R.anim.slidedown);
 

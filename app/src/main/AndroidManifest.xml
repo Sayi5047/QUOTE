@@ -105,9 +105,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.ProfeaturesActivity"
+            android:name=".ui.activities.SettingsActivity"
             android:label="@string/beta"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.PreHome_Activity"
             android:screenOrientation="portrait"
@@ -152,7 +153,7 @@
             android:name=".ui.Recievers.AlarmReciever"
             tools:ignore="InnerclassSeparator" />
         <receiver
-            android:name=".ui.Recievers.NotifAlarmReciever"
+            android:name=".ui.Recievers.DailyNotificationAlarmReceiver"
             tools:ignore="InnerclassSeparator" />
 
         <service
@@ -180,7 +181,7 @@
             android:exported="false"
             tools:ignore="InnerclassSeparator" />
         <service
-            android:name=".ui.Services.DailyNotificationService"
+            android:name=".ui.Services.DailyNotificationJobService"
             tools:ignore="InnerclassSeparator" />
         <service android:name=".ui.Services.QuoteLoaderService" />
         <service android:name=".ui.Services.FbTokenService">

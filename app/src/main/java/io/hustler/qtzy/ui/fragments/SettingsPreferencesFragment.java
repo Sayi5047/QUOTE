@@ -23,7 +23,7 @@ import io.hustler.qtzy.R;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class Wallpaper_preference_fragment extends PreferenceFragment {
+public class SettingsPreferencesFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

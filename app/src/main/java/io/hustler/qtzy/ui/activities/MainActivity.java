@@ -25,7 +25,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -45,9 +44,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -62,7 +59,6 @@ import android.widget.TextView;
 
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -83,7 +79,6 @@ import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.QuotesHolderFragment;
-import io.hustler.qtzy.ui.fragments.MainFragment;
 import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
 import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
@@ -94,18 +89,16 @@ import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
 import static android.view.View.GONE;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    final String IMAGES = "images";
-    final String QUOTES = "quotes";
+    private final String IMAGES = "images";
+    private final String QUOTES = "quotes";
     @Nullable
     LocalAdapter adapter;
-    private static final long MOVE_DEFAULT_TIME = 1000;
-    private static final long FADE_DEFAULT_TIME = 300;
+
     FragmentTransaction transaction;
-    FragmentManager fragmentManager;
-    Fragment initialFragment;
+
     TextView header_name;
     LinearLayout linearLayout;
     RelativeLayout main_view;
@@ -144,23 +137,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     ViewPager myViewPager;
 
     private SearchQuotesViewModel searchQuotesViewModel;
-    private MainPagerAdapter mainPagerAdapter;
 
-    ValueAnimator valueAnimator;
-    int previousPixles;
-    int currentPixels;
+    private int previousPixles;
+    private ImageView previousImageView;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    FirebaseJobDispatcher firebaseJobDispatcher;
-    Driver driver;
-    NotificationManager mNotificationManager;
-    ImageView previousImageView;
-
-    private static int BUNDLENOTIFICATIONID = 5005;
-    private static int SINGLENOTIFICATIONID = 5005;
-    private String CHANNEL_ID = "DAILY_WALL_CHANNEL";
-    private String BUNDLECHANNEL_ID = "BUNDLE_DAILY_WALL_CHANNEL";
-    private String GROUP_ID = "DAILY_WALL_GROUP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +164,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
 
-        mainPagerAdapter = new MainPagerAdapter(getApplicationContext(), getSupportFragmentManager());
+        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getApplicationContext(), getSupportFragmentManager());
         launchFragmentAndAnimate(previousPixles, quotesIv);
 
         myViewPager.setAdapter(mainPagerAdapter);
@@ -220,9 +202,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
         fab.setVisibility(GONE);
-        if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        }
+
 
         TextUtils.setFont(MainActivity.this, header_name, Constants.FONT_CIRCULAR);
         header_name.postDelayed(new Runnable() {
@@ -282,14 +262,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void loadInitialFragment() {
-        initialFragment = new QuotesHolderFragment();
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slideup, R.anim.slidedown);
-        transaction.replace(R.id.root, initialFragment);
-        transaction.commit();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -300,23 +272,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
-    private void setBuilder(NotificationManager mNotificationManager, NotificationCompat.Builder mNotification_builder, String bundleNotificationId, int notificationID) {
-        Notification notification = mNotification_builder
-                .setContentTitle("Changed Wallpaper...")
-                .setContentText("Wallpaper changed")
-                .setGroup(GROUP_ID)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
-                .setBadgeIconType(R.drawable.ic_launcher)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("New Wallpaper applied"))
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent))
-                .setGroup(bundleNotificationId)
-                .setGroupSummary(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(false).build();
-        mNotificationManager.notify(notificationID, notification);
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -324,32 +279,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (id) {
             case R.id.action_search: {
                 buildDialog_and_search(searchQuotesViewModel);
-                driver = new GooglePlayDriver(this);
-                firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-//                boolean isActivated = sharedPreferences.getBoolean(Constants.DAILY_WALLS_ACTIVATED, false);
-//                if (isActivated) {
-//                    // TODO: 16-06-2019 disable the job
-//                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Deactivated");
-//                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, false).apply();
-//                    firebaseJobDispatcher.cancel(getString(R.string.WALLPAPER_JOB_TAG));
-//
-//                } else {
-//                    // TODO: 16-06-2019 enable the job
-//                    Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Activated");
-//                    editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, true).apply();
-//                    Job wallJob = firebaseJobDispatcher.newJobBuilder().setService(WallaperFirebaseJobService.class)
-//                            .setLifetime(Lifetime.FOREVER)
-//                            .setRecurring(true)
-//                            .setTrigger(Trigger.executionWindow(0, (int) TimeUnit.MINUTES.toSeconds(60)))
-//                            .setReplaceCurrent(true)
-//                            .setTag(getString(R.string.WALLPAPER_JOB_TAG))
-//                            .setConstraints(Constraint.ON_ANY_NETWORK)
-//                            .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).build();
-////                    firebaseJobDispatcher.mustSchedule(wallJob);
-//
-//
-//                }
             }
             break;
             case R.id.action_rate: {
@@ -357,14 +287,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
             break;
             case R.id.action_Pro_features: {
-                Intent intent = new Intent(MainActivity.this, ProfeaturesActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slideup, R.anim.slidedown);
             }
             break;
 
             case R.id.action_Pro_about: {
-                Intent intent = new Intent(MainActivity.this, ProfeaturesActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slideup, R.anim.slidedown);
 
@@ -391,6 +321,167 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         }
         return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_quotes) {
+            Objects.requireNonNull(quotesIv).performClick();
+
+        } else if (id == R.id.nav_quote_category) {
+            assert quotesIv != null;
+            sendToNextActivity(1);
+        } else if (id == R.id.nav_collections) {
+            assert quotesIv != null;
+            sendToNextActivity(2);
+        } else if (id == R.id.nav_wallpapers) {
+            assert wallpaerIv != null;
+            wallpaerIv.performClick();
+        } else if (id == R.id.nav_favourites) {
+            assert likeIv != null;
+            likeIv.performClick();
+        } else if (id == R.id.nav_works) {
+            assert worksIv != null;
+            worksIv.performClick();
+        } else if (id == R.id.nav_rate) {
+            taketoRate();
+        } else if (id == R.id.nav_settings) {
+            takeToSettings();
+        } else if (id == R.id.nav_about) {
+            teakeToAbout();
+        } else if (id == R.id.nav_send) {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "quotzyapp@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    @OnClick({R.id.fab, R.id.quotes_iv, R.id.wallpaer_iv, R.id.create_iv, R.id.like_iv, R.id.works_iv})
+    public void onViewClicked(@NonNull View view) {
+        switch (view.getId()) {
+            case R.id.quotes_iv:
+                myViewPager.setCurrentItem(0);
+                launchFragmentAndAnimate(previousPixles, quotesIv);
+                break;
+            case R.id.wallpaer_iv:
+                myViewPager.setCurrentItem(1);
+                launchFragmentAndAnimate(previousPixles, wallpaerIv);
+                break;
+            case R.id.like_iv:
+                myViewPager.setCurrentItem(2);
+                launchFragmentAndAnimate(previousPixles, likeIv);
+                break;
+            case R.id.works_iv:
+                myViewPager.setCurrentItem(3);
+                launchFragmentAndAnimate(previousPixles, worksIv);
+                break;
+            case R.id.create_iv:
+                startActivity(new Intent(MainActivity.this, EditorActivity.class).putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1));
+                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+                break;
+        }
+    }
+
+
+    private void takeToSettings() {
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slideup, R.anim.slidedown);
+
+    }
+
+    private void teakeToAbout() {
+
+        launch_credits_dialog();
+    }
+
+    private void sendToNextActivity(int i) {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra(Constants.INTENT_SECONDACTIVITY_CONSTANT, i);
+        startActivity(intent);
+    }
+
+    public void launchFragment(Fragment fragment) {
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        transaction.replace(R.id.root, fragment);
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
+
+    }
+
+    public void taketoRate() {
+        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity  object
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
+    private int[] getXlocationOfView(final ImageView imageView) {
+
+        crownView.setVisibility(View.VISIBLE);
+        imageView.setTranslationY(-10);
+        int[] locationValues = new int[2];
+        imageView.getLocationOnScreen(locationValues);
+        return locationValues;
+
+    }
+
+
+    private void scaleIcon(final ImageView worksIv, final float i) {
+        Handler scaleHandler = new Handler();
+        Runnable scaleTask = new Runnable() {
+            @Override
+            public void run() {
+
+                if (i <= 1) {
+                    worksIv.setColorFilter(null);
+                } else {
+                    worksIv.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.primary));
+                }
+                worksIv.animate().scaleX(i).scaleY(i).setDuration(300).start();
+            }
+        };
+        scaleHandler.removeCallbacks(scaleTask);
+        scaleHandler.post(scaleTask);
+    }
+
+
+    private void launchFragmentAndAnimate(final float start, final ImageView imageView) {
+
+        if (previousImageView == null) {
+            previousImageView = imageView;
+            return;
+        } else {
+            scaleIcon(previousImageView, 1);
+            previousImageView = imageView;
+        }
+        scaleIcon(imageView, 1.8f);
+        int currentPixels = getXlocationOfView(imageView)[0];
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
+//        valueAnimator.setDuration(300);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
+                assert crownView != null;
+                crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
+            }
+        });
+        previousPixles = currentPixels;
+        valueAnimator.start();
+
+
     }
 
     private void launch_credits_dialog() {
@@ -698,90 +789,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_quotes) {
-            Objects.requireNonNull(quotesIv).performClick();
-
-        } else if (id == R.id.nav_quote_category) {
-            assert quotesIv != null;
-            sendToNextActivity(1);
-        } else if (id == R.id.nav_collections) {
-            assert quotesIv != null;
-            sendToNextActivity(2);
-        } else if (id == R.id.nav_wallpapers) {
-            assert wallpaerIv != null;
-            wallpaerIv.performClick();
-        } else if (id == R.id.nav_favourites) {
-            assert likeIv != null;
-            likeIv.performClick();
-        } else if (id == R.id.nav_works) {
-            assert worksIv != null;
-            worksIv.performClick();
-        } else if (id == R.id.nav_rate) {
-            taketoRate();
-        } else if (id == R.id.nav_settings) {
-            takeToSettings();
-        } else if (id == R.id.nav_about) {
-            teakeToAbout();
-        } else if (id == R.id.nav_send) {
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "quotzyapp@gmail.com", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
-            startActivity(Intent.createChooser(emailIntent, "Send email..."));
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private void takeToSettings() {
-        // TODO: 25-06-2019 send to Settings activity
-
-    }
-
-    private void teakeToAbout() {
-
-        // TODO: 25-06-2019 send to about activity
-    }
-
-    private void sendToNextActivity(int i) {
-        Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra(Constants.INTENT_SECONDACTIVITY_CONSTANT, i);
-        startActivity(intent);
-    }
-
-    public void launchFragment(Fragment fragment) {
-
-//        Fade exitFade = new Fade();
-//        exitFade.setDuration(FADE_DEFAULT_TIME);
-////        Fragment prevFrag = getSupportFragmentManager().findFragmentById(R.id.root);
-//        initialFragment.setExitTransition(exitFade);
-
-        transaction = getSupportFragmentManager().beginTransaction();
-//        Fade enterFade = new Fade();
-//        enterFade.setStartDelay(2 * FADE_DEFAULT_TIME);
-//        enterFade.setDuration(FADE_DEFAULT_TIME);
-//        fragment.setEnterTransition(fragment);
-        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        transaction.replace(R.id.root, fragment);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
-
-    }
-
-    public void taketoRate() {
-        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity  object
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-        } catch (ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-        }
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -808,112 +815,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 });
             }
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @OnClick({R.id.fab, R.id.quotes_iv, R.id.wallpaer_iv, R.id.create_iv, R.id.like_iv, R.id.works_iv})
-    public void onViewClicked(@NonNull View view) {
-        switch (view.getId()) {
-            case R.id.quotes_iv:
-                myViewPager.setCurrentItem(0);
-                launchFragmentAndAnimate(previousPixles, quotesIv);
-                break;
-            case R.id.wallpaer_iv:
-                myViewPager.setCurrentItem(1);
-                launchFragmentAndAnimate(previousPixles, wallpaerIv);
-                break;
-            case R.id.like_iv:
-                myViewPager.setCurrentItem(2);
-                launchFragmentAndAnimate(previousPixles, likeIv);
-                break;
-            case R.id.works_iv:
-                myViewPager.setCurrentItem(3);
-                launchFragmentAndAnimate(previousPixles, worksIv);
-                break;
-            case R.id.create_iv:
-                startActivity(new Intent(MainActivity.this, EditorActivity.class).putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1));
-                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
-                break;
-        }
-    }
-
-    private int[] getXlocationOfView(final ImageView imageView) {
-
-        crownView.setVisibility(View.VISIBLE);
-        imageView.setTranslationY(-10);
-        int[] locationValues = new int[2];
-        imageView.getLocationOnScreen(locationValues);
-        return locationValues;
-
-    }
-
-
-    private void scaleIcon(final ImageView worksIv, final float i) {
-        Handler scaleHandler = new Handler();
-        Runnable scaleTask = new Runnable() {
-            @Override
-            public void run() {
-
-                if (i <= 1) {
-                    worksIv.setColorFilter(null);
-                } else {
-                    worksIv.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.primary));
-                }
-                worksIv.animate().scaleX(i).scaleY(i).setDuration(300).start();
-            }
-        };
-        scaleHandler.removeCallbacks(scaleTask);
-        scaleHandler.post(scaleTask);
-    }
-
-    private void TranslateAnimation(ImageView worksIv, int start, int end) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, start, end);
-        translateAnimation.setDuration(600);
-        translateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-        worksIv.startAnimation(translateAnimation);
-    }
-
-    private void launchFragmentAndAnimate(final float start, final ImageView imageView) {
-
-        if (previousImageView == null) {
-            previousImageView = imageView;
-            return;
-        } else {
-            scaleIcon(previousImageView, 1);
-            previousImageView = imageView;
-        }
-        scaleIcon(imageView, 1.8f);
-        currentPixels = getXlocationOfView(imageView)[0];
-        valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
-//        valueAnimator.setDuration(300);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
-                assert crownView != null;
-                crownView.setTranslationX((Float) valueAnimator.getAnimatedValue());
-            }
-        });
-        previousPixles = currentPixels;
-        valueAnimator.start();
-
-
-    }
-
-    private void increaseimagesizeAnimation(final float start, float end, @NonNull final ImageView imageView) {
-        valueAnimator = ValueAnimator.ofFloat(start, end);
-        valueAnimator.setDuration(600);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-                layoutParams.height = (int) valueAnimator.getAnimatedValue();
-
-
-            }
-        });
     }
 }

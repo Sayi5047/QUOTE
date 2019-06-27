@@ -109,12 +109,12 @@ public class WallaperFirebaseJobService extends JobService {
         @Nullable
         @Override
         protected Void doInBackground(final String... params) {
-            if (sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Space").equals("Favourites")) {
+            if (sharedPreferences.getString(getResources().getString(R.string.DWL_NETWORK_TYPE), "Space").equals("Favourites")) {
                 images = new ImagesDbHelper(getApplicationContext()).getAllFav();
 //            IF USER SELECTS FAV BUT HE HAS NO FAV LIST IN DB THEN WE CALL API WITH NATURE IMAGES
                 if (images == null || images.size() <= 0) {
                     callApi(editor, "Space");
-                    editor.putString(getResources().getString(R.string.DWL_key3), "Space");
+                    editor.putString(getResources().getString(R.string.DWL_NETWORK_TYPE), "Space");
                 } else {
                     image = new Random().nextInt(images.size()) + 0;
                     unsplash_image = images.get(image);
@@ -125,7 +125,7 @@ public class WallaperFirebaseJobService extends JobService {
 
             } else {
                 if (sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0) <= 0) {
-                    callApi(editor, sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Space"));
+                    callApi(editor, sharedPreferences.getString(getResources().getString(R.string.DWL_NETWORK_TYPE), "Space"));
                 } else {
                     Type type = new TypeToken<Unsplash_Image[]>() {
                     }.getType();
@@ -134,7 +134,7 @@ public class WallaperFirebaseJobService extends JobService {
                     Log.i("images length", String.valueOf(sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_Size_key, 0)));
 
                     if (sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_key, 0) >= sharedPreferences.getInt(Constants.Shared_prefs_current_service_image_Size_key, 0)) {
-                        callApi(editor, sharedPreferences.getString(getResources().getString(R.string.DWL_key3), "Nature"));
+                        callApi(editor, sharedPreferences.getString(getResources().getString(R.string.DWL_NETWORK_TYPE), "Nature"));
 
                     } else {
                         Unsplash_Image[] unsplash_images = new Gson().fromJson(sharedPreferences.getString(Constants.Shared_prefs_loaded_images_for_service_key, null), type);
