@@ -1,12 +1,12 @@
 package io.hustler.qtzy.ui.pojo.listeners;
 
-import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
+import io.hustler.qtzy.ui.pojo.ResGetSearchResultsDto;
 
 /**
  * Created by Sayi on 01-02-2018.
  */
 
 public interface SearchImagesResponseListener {
-    void onSuccess(UnsplashImages_Collection_Response response);
+    void onSuccess(ResGetSearchResultsDto response);
     void onError(String error);
 }

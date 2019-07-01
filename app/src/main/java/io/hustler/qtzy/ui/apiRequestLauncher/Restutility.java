@@ -39,7 +39,7 @@ import io.hustler.qtzy.ui.apiRequestLauncher.request.ReqUserSignup;
 import io.hustler.qtzy.ui.apiRequestLauncher.response.ResLoginUser;
 import io.hustler.qtzy.ui.networkhandler.MySingleton;
 import io.hustler.qtzy.ui.pojo.ImagesResponse;
-import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
+import io.hustler.qtzy.ui.pojo.ResGetSearchResultsDto;
 import io.hustler.qtzy.ui.pojo.listeners.GetCollectionsResponseListener;
 import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.FeaturedImagesRespoonseListener;
@@ -71,6 +71,9 @@ public class Restutility {
 
     public Restutility(Activity activity) {
         this.activity = activity;
+    }
+
+    public Restutility() {
     }
 
     public Restutility(Application application) {
@@ -242,7 +245,7 @@ public class Restutility {
                         if (BuildConfig.DEBUG) {
                             Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
                         }
-                        UnsplashImages_Collection_Response unspalshImage = new Gson().fromJson(response.toString(), UnsplashImages_Collection_Response.class);
+                        ResGetSearchResultsDto unspalshImage = new Gson().fromJson(response.toString(), ResGetSearchResultsDto.class);
                         listener.onSuccess(unspalshImage);
                     }
                 }, new Response.ErrorListener() {

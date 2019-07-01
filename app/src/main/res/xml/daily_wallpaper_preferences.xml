@@ -3,13 +3,17 @@
     <PreferenceCategory android:title="Daily Wallpaper">
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="@string/FALSE"
             android:key="@string/DAILY_WALLS_ACTIVATED"
-            android:summary="Enabled"
-            android:title="DailyWallpaper"
-            />
+            android:summary="@string/wallpaper_changes"
+            android:title="@string/Dailywalls" />
+        <SwitchPreference
+            android:defaultValue="@string/TRUE"
+            android:key="@string/DWL_WIFI_ENABLE"
+            android:summary="@string/download_over_wifi_desc"
+            android:title="@string/download_wifi" />
         <ListPreference
-            android:dialogTitle="@string/frequency"
+            android:dialogTitle="Frequency"
             android:entries="@array/Wallpaper_update_widget"
             android:entryValues="@array/Wallpaper_update_vals"
             android:key="@string/DWL_SERVICE_FREQUENCY"
@@ -19,26 +23,20 @@
             android:dialogTitle="@string/Personalise"
             android:entries="@array/wallpaper_keys"
             android:entryValues="@array/wallpaper_keys"
-            android:key="@string/DWL_NETWORK_TYPE"
+            android:key="@string/DWL_CATEGORIES"
             android:summary="@string/personalise_which_wall"
             android:title="@string/Personalise" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/DWL_WALL_CATEGORY"
-            android:summary="@string/download_over_wifi_desc"
-            android:title="@string/download_wifi" />
+
     </PreferenceCategory>
-    <PreferenceCategory android:title="Daily Notification"
-        android:shouldDisableView="true">
+    <PreferenceCategory android:title="@string/DailyNotifs">
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="@string/TRUE"
             android:key="@string/DNT_key1"
             android:summary="Enabled"
-            android:visibility="invisible"
-            android:shouldDisableView="true"
-            android:title="Dialy Notification" />
+            android:title="Daily Notification"
+            android:visibility="invisible" />
 
     </PreferenceCategory>
 

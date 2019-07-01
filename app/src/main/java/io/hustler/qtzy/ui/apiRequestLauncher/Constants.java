@@ -172,11 +172,11 @@ public final class Constants {
     @NonNull
     public static String Shared_prefs_loaded_images = "shared_prefs_images_loaded_key";
     @NonNull
-    public static String Shared_prefs_loaded_images_for_service_key = "shared_prefs_images_loaded_for_service_key";
+    public static String savedImagesJsonResponseforDailyWallpapers = "shared_prefs_images_loaded_for_service_key";
     @NonNull
     public static String Shared_prefs_images_loaded_times = "shared_prefs_images_loaded_times_key";
     @NonNull
-    public static String Shared_prefs_current_service_image_key = "shared_prefs_current_image_key";
+    public static String currentWallpaperIndexSharedPreferenceKey = "shared_prefs_current_image_key";
     @NonNull
     public static String Shared_prefs_current_service_image_Size_key = "shared_prefs_current_images_size_key";
     @NonNull

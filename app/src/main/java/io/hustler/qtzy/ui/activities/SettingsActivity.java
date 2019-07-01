@@ -37,6 +37,7 @@ import com.firebase.jobdispatcher.Trigger;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +68,7 @@ import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class SettingsActivity extends BaseActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+    private final String TAG = this.getClass().getSimpleName();
     public SharedPreferences sharedPreferences;
     Intent notif_alarm_intent;
     PendingIntent notif_pending_intent;
@@ -143,6 +145,7 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
         ctl.setBackground(gradientDrawable);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         TextUtils.setFont_For_Ctl(ctl, SettingsActivity.this, title);
+
         if (ColorUtils.calculateLuminance(color2) > 0.5) {
             ctl.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
             ctl.setCollapsedTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
@@ -167,7 +170,7 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
                 if (scrollrange == -1) {
                     scrollrange = appBarLayout.getTotalScrollRange();
                 }
-                Float val = Math.abs(Float.valueOf(new DecimalFormat("0.00").format((float) verticalOffset / scrollrange)));
+                float val = Math.abs(Float.valueOf(new DecimalFormat("0.00").format((float) verticalOffset / scrollrange)));
                 int color = ColorUtils.blendARGB(color1, color2, val);
                 getWindow().setStatusBarColor(color);
                 if (val < 0.65) {
@@ -197,48 +200,56 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
     @Override
     public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences, @NonNull String key) {
         if (key.equals(getString(R.string.DAILY_WALLS_ACTIVATED))) {
-            scheduleWallJob(sharedPreferences, sharedPreferences.getBoolean(key, false));
-        } else if (key.equals(getString(R.string.DWL_NETWORK_TYPE)) || (key.equals(getString(R.string.DWL_SERVICE_FREQUENCY))) || (key.equals(getString(R.string.DWL_WALL_CATEGORY)))) {
+            /*IF STARTED THEN SEND ISTOSTOP FALSE AND VICE VERSA*/
+            scheduleWallJob(sharedPreferences, !sharedPreferences.getBoolean(getString(R.string.DAILY_WALLS_ACTIVATED), false));
+        } else if (key.equals(getString(R.string.DWL_CATEGORIES)) || (key.equals(getString(R.string.DWL_SERVICE_FREQUENCY))) || (key.equals(getString(R.string.DWL_WIFI_ENABLE)))) {
+            /*IF ANY PARAMETER CHANGED CHECK IF JOB SCHEDULED AND IF YES THEN STOP THE JOB AND START THE JOB. IF NOT SCHEDULED JUST IGNORE NEXT WHEN THE JOB IS SCHEDULED IT WILL WOK*/
             if (sharedPreferences.getBoolean(getString(R.string.DAILY_WALLS_ACTIVATED), false)) {
-                scheduleWallJob(sharedPreferences, false);
                 scheduleWallJob(sharedPreferences, true);
+                scheduleWallJob(sharedPreferences, false);
             }
-        } else if (key.equals(getString(R.string.DNT_key1))) {
-            if (sharedPreferences.getBoolean(getString(R.string.DNT_key1), false)) {
-                startAlarmForNotifications();
-                Log.i("ALARM NOTIF SET", "SET");
-            } else {
-                stopAlarmForNotifications();
-                Log.i("ALARM NOTIF CANCEL", "CANCEL");
+        } else {
+            if (key.equals(getString(R.string.DNT_key1))) {
+                if (sharedPreferences.getBoolean(getString(R.string.DNT_key1), false)) {
+                    startAlarmForNotifications();
+                    Log.i("ALARM NOTIF SET", "SET");
+                } else {
+                    stopAlarmForNotifications();
+                    Log.i("ALARM NOTIF CANCEL", "CANCEL");
 
+                }
             }
         }
     }
 
 
-    private void scheduleWallJob(SharedPreferences sharedPreferences, boolean isActivated) {
+    private void scheduleWallJob(SharedPreferences sharedPreferences, boolean isToStopJob) {
         driver = new GooglePlayDriver(this);
         firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-        if (isActivated) {
-            Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Deactivated");
-            editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, false).apply();
+        if (isToStopJob) {
             firebaseJobDispatcher.cancel(getString(R.string.WALLPAPER_JOB_TAG));
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, "JOB Deactivated");
+            editor.putInt(Constants.currentWallpaperIndexSharedPreferenceKey, 0);
+            editor.putString(Constants.savedImagesJsonResponseforDailyWallpapers, null);
 
         } else {
-            Toast_Snack_Dialog_Utils.show_ShortToast(this, "Service Activated");
-            editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, true).apply();
-            Job wallJob = firebaseJobDispatcher.newJobBuilder().setService(WallaperFirebaseJobService.class)
+            Job wallJob = (firebaseJobDispatcher.newJobBuilder()
+                    .setService(WallaperFirebaseJobService.class)
                     .setLifetime(Lifetime.FOREVER)
                     .setRecurring(true)
-                    .setTrigger(Trigger.executionWindow(0, (sharedPreferences.getInt(getString(R.string.DWL_SERVICE_FREQUENCY), 60000))))
+                    .setTrigger(Trigger.executionWindow(0, Integer.parseInt(((sharedPreferences.getString(getString(R.string.DWL_SERVICE_FREQUENCY), String.valueOf(TimeUnit.HOURS.toSeconds(12))))))))
                     .setReplaceCurrent(true)
-                    .setTag(getString(R.string.WALLPAPER_JOB_TAG))
-                    .setConstraints(sharedPreferences.getBoolean(getString(R.string.DWL_NETWORK_TYPE), true) ? Constraint.ON_UNMETERED_NETWORK : Constraint.ON_ANY_NETWORK)
+                    .setTag(getString(R.string.WALLPAPER_JOB_TAG)))
+                    .setConstraints(sharedPreferences.getBoolean(getString(R.string.DWL_WIFI_ENABLE), true) ? Constraint.ON_UNMETERED_NETWORK : Constraint.ON_ANY_NETWORK)
                     .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).build();
             firebaseJobDispatcher.mustSchedule(wallJob);
-
-
+            editor.putBoolean(Constants.DAILY_WALLS_ACTIVATED, true).apply();
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, "JOB Activated");
+            Log.i(TAG, "scheduleWallJob: JOB ACTIVATED");
+            Log.i(TAG, "scheduleWallJob: " + sharedPreferences.getBoolean(getString(R.string.DWL_WIFI_ENABLE), true));
+            Log.i(TAG, "scheduleWallJob: " + "TIME WINDOW" + Integer.parseInt(((sharedPreferences.getString(getString(R.string.DWL_SERVICE_FREQUENCY), String.valueOf(TimeUnit.HOURS.toMillis(12)))))));
+            System.out.println("scheduleWallJob: " + "TIME WINDOW" + Integer.parseInt(((sharedPreferences.getString(getString(R.string.DWL_SERVICE_FREQUENCY), String.valueOf(TimeUnit.HOURS.toMillis(12)))))));
         }
     }
 
@@ -249,8 +260,8 @@ public class SettingsActivity extends BaseActivity implements SharedPreferences.
         notif_pending_intent = PendingIntent.getBroadcast(getApplicationContext(), 1, notif_alarm_intent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 27);
         assert alarmManager != null;
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),

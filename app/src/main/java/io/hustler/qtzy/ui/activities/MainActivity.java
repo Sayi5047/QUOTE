@@ -2,8 +2,6 @@ package io.hustler.qtzy.ui.activities;
 
 import android.animation.ValueAnimator;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.ActivityNotFoundException;
@@ -11,7 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -26,7 +23,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.util.Pair;
@@ -57,8 +53,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.firebase.jobdispatcher.Driver;
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -79,7 +73,7 @@ import io.hustler.qtzy.ui.adapters.SearchWallpaperAdapter;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.fragments.HomeHolderFragments.QuotesHolderFragment;
-import io.hustler.qtzy.ui.pojo.UnsplashImages_Collection_Response;
+import io.hustler.qtzy.ui.pojo.ResGetSearchResultsDto;
 import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.AdUtils;
@@ -672,22 +666,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                    @NonNull final TextView search_term) {
         rv.setAdapter(null);
         loader.setVisibility(View.VISIBLE);
-        final String request = Constants.UNSPLASH_SEARCH_IMAGES_API + "&query=" + query + "&per_page=30";
+        final String request = Constants.UNSPLASH_SEARCH_IMAGES_API + "&query=" + query;
         new Restutility(MainActivity.this).getUnsplashImagesForSearchQuery(MainActivity.this, new SearchImagesResponseListener() {
             @Override
-            public void onSuccess(@NonNull final UnsplashImages_Collection_Response response) {
+            public void onSuccess(@NonNull final ResGetSearchResultsDto response) {
 
                 loader.setVisibility(GONE);
                 rv.setAdapter(null);
                 rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 
-                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults().size()));
-                if (response.getResults().size() <= 0) {
+                Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults()));
+                if (response.getResults().length <= 0) {
 //                    dataView.setVisibility(View.GONE);
                     Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, getString(R.string.Currently_no_wallpaper));
                 } else {
 //                    dataView.setVisibility(View.VISIBLE);
-                    rv.setAdapter(new SearchWallpaperAdapter(MainActivity.this, (Unsplash_Image[]) response.getResults().toArray(), new SearchWallpaperAdapter.OnWallpaperClickListener() {
+                    rv.setAdapter(new SearchWallpaperAdapter(MainActivity.this, response.getResults(), new SearchWallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, ImageView itemView) {
 //                            Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, wallpaper.getUser().getFirst_name());

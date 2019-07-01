@@ -185,19 +185,22 @@
     <string name="where_to_search">Choose what search is for</string>
     <string name="search" tools:keep="@string/search">Search</string>
     <string name="enter_something">Please,Enter something to search for</string>
-    <string name="frequency">Frequency</string>
-    <string name="DWL_NETWORK_TYPE">DWL_key3</string>
+
+    <string name="DWL_CATEGORIES">DWL_key3</string>
     <string name="DWL_SERVICE_FREQUENCY">DWL_key2</string>
-    <string name="DWL_key1">DWL_key1</string>
+    <string name="DWL_WALL_CATEGORY">DWL_key4</string>
+    <string name="DWL_WIFI_ENABLE">DWL_key4</string>
     <string name="DNT_key1">DNT_key1</string>
+
+    <string name="DWL_key1">DWL_key1</string>
     <string name="Personalise">Personalise</string>
     <string name="personalise_which_wall">Choose which type of wallpapers to set</string>
-    <string name="download_over_wifi_desc">Images will be updated in presense of Wifi only</string>
+    <string name="download_over_wifi_desc">Images will be updated in presence of Wifi only</string>
     <string name="download_wifi">Download Over Wifi</string>
+    <string name="wallpaper_changes">Wallpaper will be changed automatically</string>
     <string name="change_wallpaper_at">Wallpaper change time gap</string>
-    <string name="DWL_WALL_CATEGORY">DWL_key4</string>
     <string name="remove_shadow">Remove shadow of the text to apply features</string>
-    <string name="cant_apply">Cant apply shadow</string>
+    <string name="cant_apply">Can not apply shadow</string>
     <string name="internet_required_images">Internet is required to download images</string>
     <string name="beta">Beta features</string>
     <string name="rate_us">Rate us</string>
@@ -359,4 +362,10 @@
     <string name="collections">Collections</string>
     <string name="library">Library</string>
     <string name="DAILY_WALLS_ACTIVATED">DAILY_WALL_KAEY</string>
+    <string name="frequency">Frequency</string>
+    <string name="Dailywalls">DailyWallpaper</string>
+    <string name="enabled">Enabled</string>
+    <string name="FALSE">false</string>
+    <string name="TRUE">true</string>
+    <string name="DailyNotifs">Daily Notification</string>
 </resources>
