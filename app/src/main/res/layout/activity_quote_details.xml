@@ -5,20 +5,41 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary1"
     android:orientation="vertical"
     android:transitionName="@string/quotes_author_transistion"
-
     tools:context="io.hustler.qtzy.ui.activities.QuoteDetailsActivity">
 
-    <include layout="@layout/half" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme"
+        app:elevation="0dp"
+        app:layout_collapseMode="pin"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        tools:targetApi="lollipop">
+
+        <TextView
+            android:id="@+id/header_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font2"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:orientation="vertical">
 
-        <include layout="@layout/app_bar_transparent" />
 
         <RelativeLayout
             android:id="@+id/wallpaper_layout"
@@ -81,10 +102,10 @@
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="16dp"
                         android:textAlignment="viewStart"
 
-                        android:textColor="@android:color/white"
+                        android:textColor="@android:color/black"
                         android:textIsSelectable="true"
 
                         android:textSize="@dimen/font3_5"
@@ -97,7 +118,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:background="@drawable/rect_black_border"
                         android:gravity="bottom"
                         android:orientation="vertical">
 
@@ -196,8 +216,7 @@
 
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -207,7 +226,7 @@
             android:layout_weight="0.8"
             ads:adSize="SMART_BANNER"
             ads:adUnitId="@string/bannerAdId"
-            ads:layout_anchorGravity="bottom"/>
+            ads:layout_anchorGravity="bottom" />
 
     </LinearLayout>
 

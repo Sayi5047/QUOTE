@@ -1,7 +1,6 @@
 package io.hustler.qtzy.ui.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.WallpaperManager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -19,10 +18,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +31,8 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.File;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.ORM.AppDatabase;
@@ -74,7 +75,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
     int[] color1;
     QuotesTable quoteFromTable;
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private AppDatabase appDatabase;
     private AppExecutor appExecutor;
 
@@ -86,10 +88,20 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_quote_details);
         appDatabase = AppDatabase.getmAppDatabaseInstance(this);
         appExecutor = AppExecutor.getInstance();
-        setToolbar(this);
+        ButterKnife.bind(this);
         initView();
         getIntentData();
-
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("");
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_black_24dp)));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setTitle("");
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary1));
     }
 
     @Override
@@ -128,16 +140,6 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         fab_set_like.setOnClickListener(this);
 
         AdUtils.loadBannerAd(mAdView, QuoteDetailsActivity.this);
-
-    }
-
-    @Override
-    public void setToolbar(Activity activity) {
-        super.setToolbar(activity);
-        Window window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -461,12 +463,5 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quoteId);
         intent.putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        finishAfterTransition();
     }
 }

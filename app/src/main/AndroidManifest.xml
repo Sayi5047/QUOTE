@@ -22,6 +22,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.activities.CreditsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.activities.SecondActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,9 +40,8 @@
         <activity
             android:name=".ui.activities.QuoteDetailsActivity"
             android:label=" "
-            android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/lightstatusbar" />
         <activity
             android:name=".ui.activities.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -56,10 +57,6 @@
             <intent-filter
                 android:scheme="http"
                 tools:ignore="AppLinkUrlError">
-
-                <!-- <action android:name="android.intent.action.VIEW" /> -->
-                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-                <!-- <data android:mimeType="application/x-zip-compressed" /> -->
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.SEND" />
 
@@ -103,7 +100,7 @@
         <activity
             android:name=".ui.activities.WallpapersPagerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/lightstatusbar" />
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/beta"
@@ -144,11 +141,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".ui.Recievers.NotifcationReciever">
-            <intent-filter>
-                <action android:name="com.hustler.quote.ui.Services.NotificationCustomListener_Service.NOTIFICATION_TAG" />
-            </intent-filter>
-        </receiver>
         <receiver
             android:name=".ui.Recievers.AlarmReciever"
             tools:ignore="InnerclassSeparator" />
@@ -175,7 +167,12 @@
         <service
             android:name=".ui.Services.DownloadImageJobService"
             android:exported="false"
-            tools:ignore="InnerclassSeparator" />
+            android:stopWithTask="false"
+            tools:ignore="InnerclassSeparator">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
         <service
             android:name=".ui.Services.DailyWallpaperService"
             android:exported="false"

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -39,11 +41,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -138,11 +138,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.WHITE));
         }
         super.onCreate(savedInstanceState);
@@ -195,7 +197,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
         });
-        fab.setVisibility(GONE);
+        if (fab != null) {
+            fab.setVisibility(GONE);
+        }
 
 
         TextUtils.setFont(MainActivity.this, header_name, Constants.FONT_CIRCULAR);
@@ -223,26 +227,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 super.onDrawerSlide(drawerView, slideOffset);
                 main_view.setTranslationX(slideOffset * drawerView.getWidth());
 //                main_view.setTranslationY(slideOffset * drawerView.getWidth());
-                main_view.setTranslationZ(-slideOffset * drawerView.getWidth() * 20);
+//                main_view.setTranslationZ(-slideOffset * drawerView.getWidth() * 20);
                 Log.d("SLIDEOFFSET", String.valueOf(slideOffset));
                 navigationView.bringChildToFront(scaleLayout);
                 Float val = 1 - Math.abs(Float.valueOf(new DecimalFormat("0.00").format(slideOffset)));
+
                 if (val > 0.75) {
                     main_view.setScaleX(val);
                     main_view.setScaleY(val);
                 }
                 Log.d("SLIVAL", String.valueOf(val));
+                main_view.setX(navigationView.getWidth() * slideOffset);
 
-                int color = ColorUtils.blendARGB(getResources().getColor(R.color.white_apple), getResources().getColor(R.color.WHITE), val);
+
+                int color = ColorUtils.blendARGB(getResources().getColor(R.color.colorPrimary1), getResources().getColor(R.color.WHITE), val);
                 getWindow().setStatusBarColor(color
                 );
                 navigationView.setBackgroundColor(color);
+                navigationView.setAlpha(1 - val);
                 scaleLayout.setBackgroundColor(color);
+                main_view.bringToFront();
                 drawer.requestLayout();
 
             }
         };
+        navigationView.setElevation(0);
+        drawer.setScrimColor(Color.TRANSPARENT);
         drawer.addDrawerListener(toggle);
+        drawer.setScrimColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
+        drawer.setElevation(0f);
+
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -479,47 +493,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void launch_credits_dialog() {
-        final Dialog dialog = new Dialog(MainActivity.this, R.style.EditTextDialog_non_floater);
-        dialog.setContentView(R.layout.credits_dialog_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
-//        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(andro));
-        dialog.setCancelable(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            dialog.getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
-        }
-        final RelativeLayout root = dialog.findViewById(R.id.root_Rl);
-        final Button bt_cose = dialog.findViewById(R.id.bt_close);
-        TextUtils.findText_and_applyTypeface(root, MainActivity.this);
-        dialog.show();
-        TextUtils.findText_and_applyamim_slideup(root, MainActivity.this);
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-                    TextUtils.findText_and_applyamim_slidedown(root, MainActivity.this);
-                    dialog.dismiss();
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-        bt_cose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextUtils.findText_and_applyamim_slidedown(root, MainActivity.this);
-                dialog.dismiss();
-            }
-        });
-
+        startActivity(new Intent(MainActivity.this, CreditsActivity.class));
     }
 
     public void buildDialog_and_search(SearchQuotesViewModel searchQuotesViewModel) {
 
         final Dialog dialog = new Dialog(MainActivity.this, R.style.EditTextDialog_non_floater_2);
         dialog.setContentView(R.layout.search_chooser_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater_2;
-        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.EditTextDialog_non_floater_2;
         dialog.getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, android.R.color.white));
 
         dialog.setCancelable(true);
@@ -555,9 +536,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }
-//        getImagesForQuery(result_rv, query, loader, radioGroup, search_header, search_term);
-//        setQuotesForSearchQuery(result_rv, query, loader);
-//        search_Query.setText(query);
         TextUtils.findText_and_applyTypeface(root, MainActivity.this);
         TextUtils.findText_and_applyamim_slideup(root, MainActivity.this);
 
@@ -579,13 +557,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_images: {
-//                        getImagesForQuery(result_rv, query, loader);
                         selected_type[0] = IMAGES;
                         search.performClick();
                     }
                     break;
                     case R.id.rb_quotes: {
-//                        setQuotesForSearchQuery(result_rv, query, loader);
                         selected_type[0] = QUOTES;
                         search.performClick();
 
@@ -677,14 +653,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 Log.i("VALUE FROM UNSPLASH", String.valueOf(response.getResults()));
                 if (response.getResults().length <= 0) {
-//                    dataView.setVisibility(View.GONE);
                     Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, getString(R.string.Currently_no_wallpaper));
                 } else {
-//                    dataView.setVisibility(View.VISIBLE);
                     rv.setAdapter(new SearchWallpaperAdapter(MainActivity.this, response.getResults(), new SearchWallpaperAdapter.OnWallpaperClickListener() {
                         @Override
                         public void onWallpaperClicked(int position, ArrayList<Unsplash_Image> unsplash_images, ImageView itemView) {
-//                            Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, wallpaper.getUser().getFirst_name());
                             Intent intent = new Intent(MainActivity.this, WallpapersPagerActivity.class);
 
                             intent.putExtra(Constants.Pager_position, position);
@@ -723,7 +696,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         searchQuotesViewModel = new SearchQuotesViewModel(getApplication(), query);
         loader.setVisibility(View.VISIBLE);
         result_rv.setAdapter(null);
-        result_rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+        result_rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
 
 
         final ArrayList<QuotesTable> finalArrayList = new ArrayList<>();

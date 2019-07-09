@@ -27,6 +27,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdView;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.activities.EditorActivity;
 import io.hustler.qtzy.ui.adapters.UserWorkAdapter;
@@ -37,10 +43,6 @@ import io.hustler.qtzy.ui.utils.FileUtils;
 import io.hustler.qtzy.ui.utils.PermissionUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Sayi on 17-12-2017.
@@ -73,6 +75,9 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     private TextView message;
     UserWorkAdapter userWorkAdapter;
 
+    public UserWorkFragment() {
+    }
+
 
     @Nullable
     @Override
@@ -92,7 +97,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
     }
 
     private void checkPermission_and_proceed() {
-        if (PermissionUtils.isPermissionAvailable(getActivity())) {
+        if (PermissionUtils.isPermissionAvailable(Objects.requireNonNull(getActivity()))) {
             noPermissionView.setVisibility(View.GONE);
             dataView.setVisibility(View.VISIBLE);
             setRecyclerview();
@@ -103,7 +108,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
 
     private void setRecyclerview() {
-        rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        rv.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(), LinearLayoutManager.VERTICAL, true));
         userWorkImages = FileUtils.getImagesFromSdCard(getActivity());
         setUpAdapter();
 //        new GetUserImagesTask().execute();
@@ -113,7 +118,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         if (userWorkImages == null || userWorkImages.getImageNames().length <= 0 || userWorkImages.getImagesPaths().length <= 0) {
             dataView.setVisibility(View.GONE);
             noPermissionView.setVisibility(View.VISIBLE);
-            message.setText(getActivity().getString(R.string.no_work));
+            message.setText(Objects.requireNonNull(getActivity()).getString(R.string.no_work));
             noPermissionView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -123,17 +128,12 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                 }
             });
         } else {
-//            rv.setAdapter(null);
             userWorkAdapter = new UserWorkAdapter(getActivity(), userWorkImages.getImagesPaths(), userWorkImages.getImageNames(), new UserWorkAdapter.OnImageClickListner() {
                 @Override
                 public void onImageClickListneer(int position, String imageName, @NonNull String imagepath) {
                     try {
                         android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
                         buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
-//                        Log.d("xval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "");
-//                        Log.d("yval", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH) + "");
-//                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_DATETIME) + "");
-//                        Log.d("date", exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION) + "");
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
@@ -143,8 +143,6 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
 
             rv.setAdapter(userWorkAdapter);
 
-//            rv.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slideup));
-
         }
     }
 
@@ -153,18 +151,15 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         dialog.setContentView(View.inflate(getActivity().getApplicationContext(), R.layout.user_work_show_item, null));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
-//        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE);
+
         final RelativeLayout rootLayout;
         final TextView header;
         ImageView closeIv;
         ImageView ivWork;
-        AdView adView1, adView2;
+        AdView adView2;
         FloatingActionButton fabDelete;
         FloatingActionButton fabWallpaper;
         FloatingActionButton fabShare;
-        TextView tvDelete;
-        TextView tvWallpaper;
-        TextView tvShare;
         TextView metaDataDateTv;
         TextView metaDataResolutionTv;
         TextView metaFileLocation, metaImageSize;
@@ -177,23 +172,17 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         fabDelete = dialog.findViewById(R.id.fab_delete);
         fabWallpaper = dialog.findViewById(R.id.fab_wallpaper);
         fabShare = dialog.findViewById(R.id.fab_share);
-        tvDelete = dialog.findViewById(R.id.tv_delete);
-        tvWallpaper = dialog.findViewById(R.id.tv_wallpaper);
-        tvShare = dialog.findViewById(R.id.tv_share);
         metaDataDateTv = dialog.findViewById(R.id.meta_data_date_tv);
         metaDataResolutionTv = dialog.findViewById(R.id.meta_data_resolution_tv);
         metaFileLocation = dialog.findViewById(R.id.meta_data_location_tv);
         metaImageSize = dialog.findViewById(R.id.meta_data_size_tv);
 
-        adView1 = dialog.findViewById(R.id.adView);
         adView2 = dialog.findViewById(R.id.adView2);
 
 
-        AdUtils.loadBannerAd(adView1, getActivity());
         AdUtils.loadBannerAd(adView2, getActivity());
 
         TextUtils.findText_and_applyTypeface(rootLayout, getActivity());
-//        TextUtils.findText_and_applyamim_slideup(rootLayout,getActivity());
 
         header.setText(imageName);
 
@@ -210,6 +199,8 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                 if (null != swatches.get(0)) {
                     header.setBackgroundColor(swatches.get(0).getRgb());
                     header.setTextColor(getActivity().getResources().getColor(android.R.color.white));
+                    dialog.getWindow().setStatusBarColor(swatches.get(0).getRgb());
+
                 }
 
             }

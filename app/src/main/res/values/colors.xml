@@ -5,7 +5,7 @@
     <!--<color name="colorAccent">#009688</color>-->
     <color name="colorAccent">#000000</color>
     <color name="textColor">#212121</color>
-    <color name="colorPrimary1">#dcd0c0</color>
+    <color name="colorPrimary1">#fbe9e7</color>
     <color name="black_overlay">#66000000</color>
     <color name="bg" tools:keep="@color/bg">#F5F5F5</color>
     <color name="red_100">#80deea</color>

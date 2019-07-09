@@ -81,6 +81,7 @@ import io.hustler.qtzy.ui.pojo.UserWorkImages;
 import io.hustler.qtzy.ui.textFeatures.TextFeatures;
 
 import static android.os.Build.VERSION_CODES.O;
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.APP_TEMP_FONTS_FOLDER;
 
 /**
  * Created by Sayi on 30-11-2017.
@@ -99,9 +100,6 @@ import static android.os.Build.VERSION_CODES.O;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class FileUtils {
-
-    @Nullable
-    static String folderName = null;
 
     public static void unzipandSave(File file, @NonNull final Activity activity, String action) {
         int Buffer = 2048;
@@ -141,8 +139,8 @@ public class FileUtils {
                 }
             }
 
-            String targetLocationPath = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Quotzy) + File.separator + "Fonts";
-            String tempTargetLocationPath = Environment.getExternalStorageDirectory() + File.separator + activity.getString(R.string.Temp);
+            String targetLocationPath = Constants.APP_FONTS_FOLDER;
+            String tempTargetLocationPath = APP_TEMP_FONTS_FOLDER;
             final String recentlySavedFontsFolderPath;
 
             File tempTargetLocationFile = new File(tempTargetLocationPath);
@@ -303,7 +301,7 @@ public class FileUtils {
                 AdView adView;
                 final Dialog dialog = new Dialog(activity, R.style.EditTextDialog);
                 dialog.setContentView(View.inflate(activity, R.layout.save_image_layout, null));
-                dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
                 dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
                 dialog.setCancelable(false);
 
@@ -826,7 +824,7 @@ public class FileUtils {
             URL url = new URL(param);
 //                CRETAE DIRECTORY IN SD CARD WITH GIVEN NAME
             String SdCard = Environment.getExternalStorageDirectory().toString();
-            File destination_downloading_directory = new File(SdCard + File.separator + Constants.APPFOLDER + Constants.Wallpapers);
+            File destination_downloading_directory = new File(Constants.APP_WALLPAPERS_FOLDER);
             if (!destination_downloading_directory.exists()) {
                 destination_downloading_directory.mkdirs();
             }
@@ -1014,7 +1012,7 @@ public class FileUtils {
                 gifBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new FrameSavingTask(gifFrameCount, dialog, activity, sourceLayout, listneer,sourceLayout.getWidth(),sourceLayout.getHeight()).execute();
+                        new FrameSavingTask(gifFrameCount, dialog, activity, sourceLayout, listneer, sourceLayout.getWidth(), sourceLayout.getHeight()).execute();
 
                     }
                 });

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,8 +55,6 @@ public class SplashActivity extends BaseActivity {
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         TextUtils.setFont(SplashActivity.this, tv, Constants.FONT_CIRCULAR);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
 
         setCounter_and_launch();

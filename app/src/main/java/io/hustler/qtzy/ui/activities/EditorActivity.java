@@ -2,6 +2,8 @@ package io.hustler.qtzy.ui.activities;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -70,6 +72,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
+import io.hustler.qtzy.ui.ORM.AppDatabase;
+import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.Widgets.RotationGestureDetector;
 import io.hustler.qtzy.ui.adapters.ColorsAdapter;
 import io.hustler.qtzy.ui.adapters.Features_adapter;
@@ -136,7 +141,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private boolean isHeightMeasured = false;
 
 
-    public File savedFile;
+    private File savedFile;
     private Quote quote;
     SpannableString spannableString;
 
@@ -183,10 +188,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-//            getWindow().setBackgroundDrawable(ContextCompat.getDrawable(EditorActivity.this, R.drawable.rounded_rect));
-//            getWindow().setClipToOutline(true);
-//        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
@@ -236,17 +238,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 finish();
                 ne.printStackTrace();
             }
-//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
-//                    path = uri.getPath();
-//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
-
         } else if (Objects.equals(action, Intent.ACTION_SEND)) {
             Bundle bundle = intent.getExtras();
             Uri uri = null;
             if (bundle != null) {
                 uri = (Uri) bundle.get(Intent.EXTRA_STREAM);
             }
-//            uri = Uri.parse(uri.toString().contains("com.android.chrome.FileProvider/downloads") ? uri.toString().replace("com.android.chrome.FileProvider/downloads", "com.android.chrome.FileProvider/Download") : uri.toString());
 
             if (uri != null && "content".equals(uri.getScheme())) {
                 Cursor cursor = this.getContentResolver().query(uri, new String[]{android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
@@ -332,7 +329,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         clear_button.setVisibility(GONE);
                         previousselctedView = null;
                         selectedView = null;
-
+                    }
+                    if (selected_sticker != null) {
+                        selected_sticker.setControlItemsHidden(true);
+                        previousselctedView = null;
+                        selected_sticker = null;
                     }
 
                     savetoDeviceWithAds(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
@@ -358,8 +359,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.setType("image/jpeg");
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
-//                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
                 Uri uri = null;
                 if (savedFile != null) {
                     if (Build.VERSION.SDK_INT >= 24) {
@@ -472,8 +471,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             selectedView = v;
             handleTouchForTextView(v);
         } else if (v instanceof StickerImageView) {
-            handleTouchForStickerView((StickerImageView) v);
             selected_sticker = (StickerImageView) v;
+            handleTouchForStickerView((StickerImageView) v);
 
         } else if (v instanceof RelativeLayout && v.getId() == R.id.arena_text_layout) {
             if (null != selectedView)
@@ -487,11 +486,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 case MotionEvent.ACTION_DOWN: {
                     pointer_Id_1 = event.getPointerId(event.getActionIndex());
                     Log.d("ACTION DOWN", pointer_Id_1 + "");
-//                prevX = (int) event.getRawX();
-//                prevY = (int) event.getRawY();
-//                selected_text_view_parameters.bottomMargin = -2 * v.getHeight();
-//                selected_text_view_parameters.rightMargin = -2 * v.getWidth();
-////                v.setLayoutParams(selected_text_view_parameters);
+
                     try {
                         fx = event.getX(event.findPointerIndex(pointer_Id_1));
                         fy = event.getY(event.findPointerIndex(pointer_Id_1));
@@ -500,20 +495,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     }
                     return true;
                 }
-//            case MotionEvent.ACTION_POINTER_DOWN: {
-//                pointer_ID_2 = event.getPointerId(event.getActionIndex());
-//                Log.d("ACTION POINTER DOWN", pointer_ID_2 + "");
-//
-////                sx = event.getX(event.findPointerIndex(pointer_Id_1));
-////                sy = event.getY(event.findPointerIndex(pointer_Id_1));
-//
-//                return true;
-//            }
+
                 case MotionEvent.ACTION_MOVE: {
 
                     if (pointer_Id_1 != INAVALID_POINTER_ID) {
-//                        nsx = event.getX(event.findPointerIndex(pointer_Id_1));
-//                        nsy = event.getY(event.findPointerIndex(pointer_Id_1));
 
                         Log.d("ACTION move x POINTE", pointer_Id_1 + "");
                         try {
@@ -546,20 +531,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                     pointer_Id_1 = INAVALID_POINTER_ID;
                     Log.d("ACTION UP", pointer_Id_1 + "");
 
-//                selected_text_view_parameters.topMargin = selected_text_view_parameters.topMargin + (int) nfy - (int) fy;
-//                selected_text_view_parameters.leftMargin = selected_text_view_parameters.leftMargin + (int) nfx - (int) fx;
-//
-////                selected_text_view_parameters.topMargin += (int) event.getRawY() - prevY;
-////                selected_text_view_parameters.leftMargin += (int) event.getRawX() - prevX;
-//                v.setLayoutParams(selected_text_view_parameters);
                     return true;
                 }
 
-//            case MotionEvent.ACTION_POINTER_UP: {
-////                pointer_ID_2 = INAVALID_POINTER_ID;
-//                Log.d("ACTION POINTER UP", pointer_ID_2 + "");
-//
-//                return true;
 //            }
 
                 case MotionEvent.ACTION_CANCEL: {
@@ -715,6 +689,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         TextView done_layout = findViewById(R.id.done_tv);
         TextView mark_quotzy = findViewById(R.id.mark_quotzy_tv);
         core_editor_layout = findViewById(R.id.arena_text_layout);
+        core_editor_layout.setClipChildren(false);
 //        core_editor_layout.setOnTouchListener(this);
         clear_button = findViewById(R.id.bt_clear);
         features_layout = findViewById(R.id.features_layout);
@@ -745,64 +720,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setViews() {
-        if (isFromEdit_Activity == 1) {
-            TextView quote_editor_body = new TextView(EditorActivity.this);
-            TextView quote_editor_author = new TextView(EditorActivity.this);
-            quote_editor_body.setId(addedTextIds);
-            addedTextIds++;
-            quote_editor_author.setId(addedTextIds);
-            addedTextIds++;
-
-
-            if (quote != null) {
-                int length = quote.getQuote().length();
-                root_layout.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
-//            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(quoteId.getColor()));
-                if (length > 230) {
-                    quote_editor_body.setTextSize(20.0f);
-                } else if (length < 230 && length > 150) {
-                    quote_editor_body.setTextSize(25.0f);
-
-                } else if (length > 100 && length < 150) {
-                    quote_editor_body.setTextSize(30.0f);
-
-                } else if (length > 50 && length < 100) {
-                    quote_editor_body.setTextSize(35.0f);
-
-                } else if (length > 2 && length < 50) {
-                    quote_editor_body.setTextSize(40.0f);
-
-                } else {
-                    quote_editor_body.setTextSize(45.0f);
-
-                }
-
-                quote_editor_body.setText(quote.getQuote());
-                quote_editor_author.setText(quote.getAuthor());
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                quote_editor_body.setMaxWidth(displayMetrics.widthPixels);
-                quote_editor_author.setMaxWidth(displayMetrics.widthPixels);
-
-                quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
-                quote_editor_body.setGravity(Gravity.CENTER);
-                quote_editor_author.setGravity(Gravity.CENTER);
-
-                quote_editor_body.setY(core_editor_layout.getHeight() >> 1);
-                quote_editor_author.setX(core_editor_layout.getWidth() >> 1);
-
-                core_editor_layout.addView(quote_editor_body);
-                core_editor_layout.addView(quote_editor_author);
-                quote_editor_author.setLongClickable(true);
-                quote_editor_author.setOnLongClickListener(EditorActivity.this);
-                quote_editor_body.setLongClickable(true);
-                quote_editor_body.setOnLongClickListener(EditorActivity.this);
-                quote_editor_author.setOnTouchListener(EditorActivity.this);
-                quote_editor_body.setOnTouchListener(EditorActivity.this);
-            }
-        } else if (isFromEdit_Activity == 2) {
+        if (isFromEdit_Activity == 2) {
             if (guestImage == null) {
                 Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.image_unavailable));
             } else {
@@ -833,7 +751,81 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         switch (value) {
             case 1: {
                 isFromEdit_Activity = 1;
-                quote = (Quote) getIntent().getSerializableExtra(Constants.INTENT_QUOTE_OBJECT_KEY);
+                int quoteId = getIntent().getIntExtra(Constants.INTENT_QUOTE_OBJECT_KEY, 0);
+                if (quoteId > 0) {
+                    AppExecutor appExecutor = AppExecutor.getInstance();
+                    final LiveData<QuotesTable> quotesTableLiveData = AppDatabase.getmAppDatabaseInstance(EditorActivity.this).quotesDao().getQuotesById(quoteId);
+                    quotesTableLiveData.observe(this, new Observer<QuotesTable>() {
+                        @Override
+                        public void onChanged(@Nullable QuotesTable quotesTable) {
+                            quote = new Quote();
+                            quote.setAuthor(quotesTable.getAuthor());
+                            quote.setQuote(quotesTable.getQuotes());
+                            quotesTableLiveData.removeObservers(EditorActivity.this);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    TextView quote_editor_body = new TextView(EditorActivity.this);
+                                    TextView quote_editor_author = new TextView(EditorActivity.this);
+                                    quote_editor_body.setId(addedTextIds);
+                                    addedTextIds++;
+                                    quote_editor_author.setId(addedTextIds);
+                                    addedTextIds++;
+
+
+                                    if (quote != null) {
+                                        int length = quote.getQuote().length();
+                                        root_layout.setBackground(ContextCompat.getDrawable(EditorActivity.this, android.R.drawable.screen_background_light_transparent));
+                                        if (length > 230) {
+                                            quote_editor_body.setTextSize(20.0f);
+                                        } else if (length < 230 && length > 150) {
+                                            quote_editor_body.setTextSize(25.0f);
+
+                                        } else if (length > 100 && length < 150) {
+                                            quote_editor_body.setTextSize(30.0f);
+
+                                        } else if (length > 50 && length < 100) {
+                                            quote_editor_body.setTextSize(35.0f);
+
+                                        } else if (length > 2 && length < 50) {
+                                            quote_editor_body.setTextSize(40.0f);
+
+                                        } else {
+                                            quote_editor_body.setTextSize(45.0f);
+
+                                        }
+
+                                        quote_editor_body.setText(quote.getQuote());
+                                        quote_editor_author.setText(quote.getAuthor());
+                                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                                        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                                        quote_editor_body.setMaxWidth(displayMetrics.widthPixels);
+                                        quote_editor_author.setMaxWidth(displayMetrics.widthPixels);
+
+                                        quote_editor_author.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                        quote_editor_body.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                                        quote_editor_body.setGravity(Gravity.CENTER);
+                                        quote_editor_author.setGravity(Gravity.CENTER);
+
+                                        quote_editor_body.setY(core_editor_layout.getHeight() >> 1);
+                                        quote_editor_author.setX(core_editor_layout.getWidth() >> 1);
+
+                                        core_editor_layout.addView(quote_editor_body);
+                                        core_editor_layout.addView(quote_editor_author);
+                                        quote_editor_author.setLongClickable(true);
+                                        quote_editor_author.setOnLongClickListener(EditorActivity.this);
+                                        quote_editor_body.setLongClickable(true);
+                                        quote_editor_body.setOnLongClickListener(EditorActivity.this);
+                                        quote_editor_author.setOnTouchListener(EditorActivity.this);
+                                        quote_editor_body.setOnTouchListener(EditorActivity.this);
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                }
             }
             break;
             case 0: {
@@ -851,10 +843,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         finish();
                         ne.printStackTrace();
                     }
-//                    Uri uri = FileProvider.getUriForFile(EditorActivity.this, getString(R.string.file_provider_authority), new File(path));
-//                    path = uri.getPath();
-//                    path=new File(Environment.getExternalStorageDirectory(),path).getAbsolutePath();
-
                 } else if (Objects.equals(action, Intent.ACTION_SEND)) {
                     Bundle bundle = intent.getExtras();
                     Uri uri = null;
@@ -1329,7 +1317,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private void addSticker(String Biglink, int frameCount) {
         final StickerImageView stickerImageView = new StickerImageView(EditorActivity.this);
-        Glide.with(EditorActivity.this).load(Biglink).asGif().into(((ImageView) stickerImageView.getMainView()));
+        Glide.with(EditorActivity.this).load(Biglink).into(((ImageView) stickerImageView.getMainView()));
         core_editor_layout.addView(stickerImageView);
         if (gifFrameCount <= 0) {
             gifFrameCount = frameCount;
@@ -1511,32 +1499,39 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void handleTouchForStickerView(StickerImageView v) {
-        if (selected_sticker != null) {
-            selected_sticker.setControlItemsHidden(true);
+    private void handleTouchForStickerView(StickerImageView currentlySelectedSticker) {
+        if (previousselctedView != null) {
+            if (previousselctedView instanceof StickerImageView) {
+                ((StickerImageView) previousselctedView).setControlItemsHidden(true);
+            } else {
+                previousselctedView.setBackground(null);
+            }
             previousselctedView = selected_sticker;
-            selected_sticker = v;
             clear_button.setVisibility(View.VISIBLE);
+            assert selected_sticker != null;
             selected_sticker.setControlItemsHidden(false);
             selected_sticker.bringToFront();
         } else {
             clear_button.setVisibility(View.VISIBLE);
-            selected_sticker = v;
-            ((StickerImageView) selectedView).setControlItemsHidden(false);
-
+            previousselctedView = currentlySelectedSticker;
+            Objects.requireNonNull(selected_sticker).setControlItemsHidden(false);
         }
     }
 
-    private void handleTouchForTextView(View v) {
+    private void handleTouchForTextView(View currentlySelectedTextView) {
         if (previousselctedView != null) {
-            previousselctedView.setBackground(null);
-            previousselctedView = v;
+            if (previousselctedView instanceof StickerImageView) {
+                ((StickerImageView) previousselctedView).setControlItemsHidden(true);
+            } else {
+                previousselctedView.setBackground(null);
+            }
+            previousselctedView = currentlySelectedTextView;
             clear_button.setVisibility(View.VISIBLE);
-            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
+            Objects.requireNonNull(selectedView).setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
         } else {
             clear_button.setVisibility(View.VISIBLE);
-            previousselctedView = v;
-            selectedView.setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
+            previousselctedView = currentlySelectedTextView;
+            Objects.requireNonNull(selectedView).setBackground(ContextCompat.getDrawable(EditorActivity.this, R.drawable.tv_bg));
         }
     }
     /*HANDLER METHODS*/

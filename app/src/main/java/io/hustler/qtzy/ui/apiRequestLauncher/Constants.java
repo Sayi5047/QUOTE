@@ -70,11 +70,14 @@ public final class Constants {
     public static final String HOME_SCREEN_NUMBER = "home_screen_number_object";
     public static final String APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy";
     public static final String TEMP_GIF_APP_SAVED_PICTURES_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy" + File.separator + "Gifframes";
-    public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "QuotzyWallPapers";
+    public static final String APP_WALLPAPERS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "Quotzy WallPapers";
+    public static final String APP_FONTS_FOLDER = Environment.getExternalStorageDirectory() + File.separator + "Quotzy" + File.separator + "Fonts";
+    public static final String APP_TEMP_FONTS_FOLDER = APP_FONTS_FOLDER + File.separator + "TempFonts";
     public static final String PREVIOUS_COLOR = "previous_color";
     public static final String DAILY_WALLS_ACTIVATED = "DAILY_WALL_SERVICE_ACTIVATION_KEY";
     public static final String DONWLOADIMAGE_IMAGE_JOB_TAG = "DOWNLOAD_IMAGE_TAG";
     public static final String INTENT_SECONDACTIVITY_CONSTANT = "INTENT_SECONDACTIVITY_CONSTANT";
+    public static final String SETWALLPAPER_IMAGE_TAG = "SET_WALLPAPER_IMAGE_TAG";
     @NonNull
     public static String INTENT_IS_FROM_EDIT_KEY = "is_From_Edit_Activity_intent_key";
 
