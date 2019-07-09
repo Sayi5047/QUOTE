@@ -3,49 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     tools:context=".ui.activities.SplashActivity">
 
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="512dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_weight="10"
-        android:paddingTop="135dp"
+        android:layout_weight="15"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_foreground" />
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/iv_logo"
-        android:layout_gravity="end"
-        android:layout_weight="3"
-        android:fontFamily="monospace"
-        android:gravity="end"
-        android:includeFontPadding="true"
-        android:textAlignment="center"
+        android:layout_weight="10"
+        android:elevation="@dimen/elevation8"
+        android:orientation="vertical">
 
-        android:textColor="@color/textColor" />
+        <TextView
+            android:id="@+id/tv_splash_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:fontFamily="monospace"
+            android:gravity="bottom"
+            android:padding="@dimen/elevation16"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/black_overlay"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_splash_name"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/iv_logo"
-        android:layout_gravity="end"
-        android:layout_weight="2"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:includeFontPadding="true"
-        android:text="@string/app_name"
+        <ProgressBar
+            android:id="@+id/mProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/elevation16"
+            android:progress="0" />
 
-        android:textAlignment="center"
-        android:textColor="@color/black_overlay"
-        android:textSize="35dp"
+        <TextView
+            android:id="@+id/mTvProgressUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/setting_up_things_for_first_time"
 
-        android:textStyle="bold" />
+            android:padding="@dimen/elevation8"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mTvProgressUpdate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:hint="@string/_00_completed"
+            android:padding="@dimen/elevation8"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
 </LinearLayout>

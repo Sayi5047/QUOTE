@@ -128,7 +128,6 @@ public class QuotesFragment extends Fragment {
                         public void run() {
                             data.removeObservers(getActivity());
                             setAdapter(quotesTables);
-
                             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Change Occured");
                         }
                     });

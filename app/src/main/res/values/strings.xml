@@ -368,4 +368,6 @@
     <string name="FALSE">false</string>
     <string name="TRUE">true</string>
     <string name="DailyNotifs">Daily Notification</string>
+    <string name="setting_up_things_for_first_time">Setting up things for first time</string>
+    <string name="_00_completed">!00% completed</string>
 </resources>
