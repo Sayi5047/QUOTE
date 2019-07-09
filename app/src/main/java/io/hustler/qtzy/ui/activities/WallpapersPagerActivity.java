@@ -7,13 +7,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.transition.Explode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -30,11 +28,15 @@ import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import io.hustler.qtzy.R;
+import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.Services.DownloadImageJobService;
 import io.hustler.qtzy.ui.adapters.WallpaperAdapter;
 import io.hustler.qtzy.ui.adapters.WallpaperSliderAdapter;
@@ -44,11 +46,13 @@ import io.hustler.qtzy.ui.customviews.WallpaperPageTransformer;
 import io.hustler.qtzy.ui.database.ImagesDbHelper;
 import io.hustler.qtzy.ui.pojo.unspalsh.FeaturedImagesRespoonseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
-import io.hustler.qtzy.ui.utils.InternetUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.DONWLOADIMAGE_IMAGE_JOB_TAG;
+import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.SETWALLPAPER_IMAGE_TAG;
 import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.UNSPLASH_CLIENT_ID;
+import static io.hustler.qtzy.ui.utils.InternetUtils.isConnectedtoNet;
 
 /**
  * Created by Sayi on 27-01-2018.
@@ -72,8 +76,6 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     int position;
     ArrayList<Unsplash_Image> unsplash_images;
     WallpaperSliderAdapter adapter;
-    private ViewPager imageViewer;
-    private LinearLayout buttonsLayout;
     private FloatingActionButton fabSetLike;
     private FloatingActionButton fabSetWall;
     private FloatingActionButton fabDownload;
@@ -83,29 +85,25 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     TextView profile_name, profile_desc;
     Window window;
     boolean isfromFav = false;
-    @NonNull
-    ArrayList<String> likedArray_list = new ArrayList<>();
+    Driver driver;
+    FirebaseJobDispatcher firebaseJobDispatcher;
     boolean is_image_liked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallpaper_viewer_activity);
-        window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         getIntentData();
         findViews();
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void setExplodeAnimation() {
-        Explode explode = new Explode();
-        explode.setDuration(300);
-        getWindow().setEnterTransition(explode);
-        getWindow().setExitTransition(explode);
-    }
 
     private void getIntentData() {
         position = getIntent().getIntExtra(Constants.Pager_position, 1);
@@ -121,8 +119,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     }
 
     private void findViews() {
-        imageViewer = findViewById(R.id.image_viewer);
-        buttonsLayout = findViewById(R.id.buttons_layout);
+        ViewPager imageViewer = findViewById(R.id.image_viewer);
+        LinearLayout buttonsLayout = findViewById(R.id.buttons_layout);
         fabSetLike = findViewById(R.id.fab_set_like);
         fabSetWall = findViewById(R.id.fab_set_wall);
         fabDownload = findViewById(R.id.fab_download);
@@ -159,8 +157,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
             @Override
             public void onPageSelected(int position) {
                 WallpapersPagerActivity.this.position = position;
-                if (isfromFav == false) {
-                    if (new ImagesDbHelper(WallpapersPagerActivity.this).check_Fav_Image_Exists(unsplash_images.get(position).getId()) == true) {
+                if (!isfromFav) {
+                    if (new ImagesDbHelper(WallpapersPagerActivity.this).check_Fav_Image_Exists(unsplash_images.get(position).getId())) {
                         fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
                         is_image_liked = true;
                     } else {
@@ -177,12 +175,12 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
             }
         });
 
-        if (isfromFav == true) {
+        if (isfromFav) {
             fabShare.setVisibility(View.GONE);
             fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
 
         } else {
-            if (new ImagesDbHelper(this).check_Fav_Image_Exists(unsplash_images.get(position).getId()) == true) {
+            if (new ImagesDbHelper(this).check_Fav_Image_Exists(unsplash_images.get(position).getId())) {
                 fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
                 is_image_liked = true;
 
@@ -201,7 +199,7 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == fabSetLike) {
-            if (isfromFav == true || (is_image_liked == true)) {
+            if (isfromFav || (is_image_liked)) {
                 fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_black_24dp));
                 new ImagesDbHelper(WallpapersPagerActivity.this).removeFav(unsplash_images.get(position));
             } else {
@@ -209,8 +207,13 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
                 fabSetLike.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
             }
         } else if (v == fabSetWall) {
-            if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
-                setWallPaer();
+            if (isConnectedtoNet(WallpapersPagerActivity.this)) {
+                AppExecutor.getInstance().getNetworkExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        setWallPaper();
+                    }
+                });
                 Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.downloading_and_setting));
 
             } else {
@@ -218,8 +221,13 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
             }
 
         } else if (v == fabDownload) {
-            if (InternetUtils.isConnectedtoNet(WallpapersPagerActivity.this) == true) {
-                downloadImage();
+            if (isConnectedtoNet(WallpapersPagerActivity.this)) {
+                AppExecutor.getInstance().getNetworkExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadImage();
+                    }
+                });
                 Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_downloaded_to_sdCard));
 
             } else {
@@ -240,21 +248,17 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
     private void showUserDetails(@NonNull final Unsplash_Image image) {
         final Dialog dialog = new Dialog(WallpapersPagerActivity.this, R.style.EditTextDialog_non_floater);
         dialog.setContentView(R.layout.show_photographer_dialog_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
-//        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
         }
         dialog.setCancelable(true);
-        LinearLayout root;
 
         RelativeLayout rootView;
-        RelativeLayout header;
         ImageView userCover;
         ImageView userImage;
-        RelativeLayout details;
         TextView name;
         TextView bio;
         TextView location;
@@ -265,10 +269,8 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
 
         Button visit_profile;
         rootView = dialog.findViewById(R.id.root);
-        header = dialog.findViewById(R.id.header);
         userCover = dialog.findViewById(R.id.user_cover);
         userImage = dialog.findViewById(R.id.user_image);
-        details = dialog.findViewById(R.id.details);
         name = dialog.findViewById(R.id.name);
         bio = dialog.findViewById(R.id.bio);
         location = dialog.findViewById(R.id.location);
@@ -370,31 +372,53 @@ public class WallpapersPagerActivity extends BaseActivity implements View.OnClic
         bundle.putString(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
         bundle.putString(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
         bundle.putBoolean(Constants.is_to_setWallpaper_fromActivity, false);
-        Driver driver = new GooglePlayDriver(this);
-        FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
-        Job downloadjob = firebaseJobDispatcher.newJobBuilder().setService(DownloadImageJobService.class)
+        if (null == driver) {
+            driver = new GooglePlayDriver(this);
+
+        }
+        if (null == firebaseJobDispatcher) {
+            firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
+
+        }
+        firebaseJobDispatcher.cancel(DONWLOADIMAGE_IMAGE_JOB_TAG);
+        Job downloadJob = firebaseJobDispatcher.
+                newJobBuilder().
+                setService(DownloadImageJobService.class)
                 .setRecurring(false)
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).setExtras(bundle)
-                .setConstraints(Constraint.ON_ANY_NETWORK).setTag(Constants.DONWLOADIMAGE_IMAGE_JOB_TAG).build();
-        firebaseJobDispatcher.mustSchedule(downloadjob);
-        Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_downloaded_to_sdCard));
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setExtras(bundle)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setTag(Constants.DONWLOADIMAGE_IMAGE_JOB_TAG)
+                .build();
+        firebaseJobDispatcher.mustSchedule(downloadJob);
 
     }
 
-    public void setWallPaer() {
-        Toast_Snack_Dialog_Utils.show_ShortToast(WallpapersPagerActivity.this, getString(R.string.image_will_be_set_wall));
+    public void setWallPaper() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
+        bundle.putString(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
+        bundle.putBoolean(Constants.is_to_setWallpaper_fromActivity, true);
+        if (null == driver) {
+            driver = new GooglePlayDriver(this);
+        }
+        if (null == firebaseJobDispatcher) {
+            firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-        Intent intent = new Intent(WallpapersPagerActivity.this, DownloadImageJobService.class);
-        intent.putExtra(Constants.ImageUrl_to_download, unsplash_images.get(position).getLinks().getDownload());
-        intent.putExtra(Constants.Image_Name_to_save_key, unsplash_images.get(position).getId());
-        intent.putExtra(Constants.is_to_setWallpaper_fromActivity, true);
-        startService(intent);
-//        Intent intent = new Intent(WallpaperManager.
-//                getInstance(getApplicationContext()).
-//                getCropAndSetWallpaperIntent());
-//
-//        startActivity(intent);
+        }
+        firebaseJobDispatcher.cancel(SETWALLPAPER_IMAGE_TAG);
+        Job downloadJob = firebaseJobDispatcher
+                .newJobBuilder()
+                .setService(DownloadImageJobService.class)
+                .setRecurring(false)
+                .setLifetime(Lifetime.FOREVER)
+                .setTrigger(Trigger.NOW)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setExtras(bundle)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setTag(Constants.SETWALLPAPER_IMAGE_TAG)
+                .build();
+        firebaseJobDispatcher.mustSchedule(downloadJob);
     }
-
 
 }
