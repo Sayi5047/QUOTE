@@ -17,13 +17,27 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_foreground" />
 
-
+    <TextView
+        android:id="@+id/tv_splash_name_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:fontFamily="monospace"
+        android:gravity="bottom"
+        android:padding="@dimen/elevation16"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/black_overlay"
+        android:textSize="35sp"
+        android:textStyle="bold" />
     <LinearLayout
+        android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:elevation="@dimen/elevation8"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_splash_name"

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -45,16 +46,13 @@ import io.hustler.qtzy.ui.utils.TextUtils;
    limitations under the License.*/
 public class SplashActivity extends BaseActivity {
     private final String TAG = this.getClass().getSimpleName();
-    TextView tv;
-    ImageView iv;
-    SharedPreferences sharedPreferences;
-
-    ProgressBar progressBar;
-    TextView mTvProgressUpdate;
-    TextView mTvProgressUpdate2;
+    private TextView tv_splash_name_new;
+    private SharedPreferences sharedPreferences;
+    private TextView mTvProgressUpdate2;
+    private LinearLayout loading_layout;
     private AppExecutor appExecutor;
     private AppDatabase appDatabase;
-    private String[] bodies;
+    private ArrayList<QuotesTable> quotesTableArrayList;
 
 
     @Override
@@ -65,20 +63,28 @@ public class SplashActivity extends BaseActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        tv = findViewById(R.id.tv_splash_name);
-        iv = findViewById(R.id.iv_logo);
-        progressBar = findViewById(R.id.mProgressBar);
-        mTvProgressUpdate = findViewById(R.id.mTvProgressUpdate);
-        mTvProgressUpdate2 = findViewById(R.id.mTvProgressUpdate2);
         appExecutor = AppExecutor.getInstance();
         appDatabase = AppDatabase.getmAppDatabaseInstance(SplashActivity.this);
+
+        TextView tv = findViewById(R.id.tv_splash_name);
+        loading_layout = findViewById(R.id.loading_layout);
+        tv_splash_name_new = findViewById(R.id.tv_splash_name_new);
+        ImageView iv = findViewById(R.id.iv_logo);
+        ProgressBar progressBar = findViewById(R.id.mProgressBar);
+        TextView mTvProgressUpdate = findViewById(R.id.mTvProgressUpdate);
+        mTvProgressUpdate2 = findViewById(R.id.mTvProgressUpdate2);
+
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         progressBar.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
+        tv_splash_name_new.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
+
         TextUtils.setFont(SplashActivity.this, tv, Constants.FONT_CIRCULAR);
         TextUtils.setFont(SplashActivity.this, mTvProgressUpdate, Constants.FONT_CIRCULAR);
         TextUtils.setFont(SplashActivity.this, mTvProgressUpdate2, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(SplashActivity.this, tv_splash_name_new, Constants.FONT_CIRCULAR);
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
 
         if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
@@ -95,9 +101,10 @@ public class SplashActivity extends BaseActivity {
 //        }
     }
 
-    private ArrayList<QuotesTable> quotesTableArrayList;
 
     private void loadQuotesToDatabase() {
+        tv_splash_name_new.setVisibility(View.GONE);
+        loading_layout.setVisibility(View.VISIBLE);
         appExecutor.getDiskExecutor().execute(new Runnable() {
             @Override
             public void run() {
@@ -110,12 +117,6 @@ public class SplashActivity extends BaseActivity {
                     final String percentage = new DecimalFormat("0.00").format((filledSize * 100 / (double) loadedSize));
                     Log.d(TAG, "run: Completed Percentage " + percentage);
                     mTvProgressUpdate2.setText(MessageFormat.format("Completed {0}  %", percentage));
-
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                        }
-//                    });
                 }
                 runOnUiThread(new Runnable() {
                     @Override
@@ -136,7 +137,7 @@ public class SplashActivity extends BaseActivity {
 
     private void load_from_Arrays() {
 
-        bodies = getResources().getStringArray(R.array.quote_bodies);
+        String[] bodies = getResources().getStringArray(R.array.quote_bodies);
         String[] authors = getResources().getStringArray(R.array.quote_authors);
         String[] categories = getResources().getStringArray(R.array.quote_categories);
         final String[] languages = getResources().getStringArray(R.array.quote_languages);
@@ -157,13 +158,13 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                gotoSecondmain();
+                goToSecondMain();
             }
         };
         countDownTimer.start();
     }
 
-    private void gotoSecondmain() {
+    private void goToSecondMain() {
         if (sharedPreferences.getBoolean(Constants.IS_USER_SAW_INRODUCTION, false)) {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
         } else {
