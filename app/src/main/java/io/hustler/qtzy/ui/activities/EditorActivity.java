@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -72,7 +73,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.ORM.AppDatabase;
 import io.hustler.qtzy.ui.ORM.Tables.QuotesTable;
 import io.hustler.qtzy.ui.Widgets.RotationGestureDetector;
@@ -84,8 +84,10 @@ import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
 import io.hustler.qtzy.ui.apiRequestLauncher.ListnereInterfaces.StickerResponseListener;
 import io.hustler.qtzy.ui.apiRequestLauncher.Restutility;
 import io.hustler.qtzy.ui.apiRequestLauncher.response.Data;
+import io.hustler.qtzy.ui.customviews.DoodleView;
 import io.hustler.qtzy.ui.customviews.Sticker.StickerImageView;
 import io.hustler.qtzy.ui.customviews.Sticker.StickerView;
+import io.hustler.qtzy.ui.listeners.DoodleViewTouchListener;
 import io.hustler.qtzy.ui.pojo.Quote;
 import io.hustler.qtzy.ui.superclasses.BaseActivity;
 import io.hustler.qtzy.ui.textFeatures.TextFeatures;
@@ -133,6 +135,18 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     int prevX, prevY;
     private int pointer_Id_1;
     int gifFrameCount = 0;
+    DoodleView doodleView;
+    ImageView doodleBtn,
+            doodle_erase_btn,
+            doodle_color_btn,
+            doodle_brush_size_btn,
+            doodle_shadow_btn,
+            doodle_undo_btn,
+            doodle_redo_btn;
+    ImageView save_work_button;
+    ImageView share_work_button;
+    ImageView delete_work_button;
+
 
     float nsx, nsy, nfx, nfy;
     private float fx;
@@ -184,6 +198,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
     private RotationGestureDetector rotationGestureDetector;
     ScaleGestureDetector scaleGestureDetector;
+    private boolean doodleEnabled = false;
+    private boolean doodleEraserEnabled = false;
+    private boolean doodleShadowEnabled = true;
 
 
     @Override
@@ -414,22 +431,106 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 super.onBackPressed();
             }
             break;
-            case R.id.options: {
-//                StickerView stickerView = new StickerView(EditorActivity.this);
-//                try {
-//                    stickerView.addSticker(new DrawableSticker(new BitmapDrawable(FileUtils.drawable_from_url("http://drive.google.com/uc?export=view&id=1tDf8pd2C_FNKQOVc7dZL2LTYp2-sPyQB;"))));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                core_editor_layout.addView(stickerView);
-                if (features_layout.getVisibility() == View.VISIBLE) {
-                    features_layout.setVisibility(GONE);
+            case R.id.doodle_btn: {
+                if (null == doodleView) {
+                    doodleView = new DoodleView(EditorActivity.this);
+                    doodleView.setOnTouchListener(new DoodleViewTouchListener());
+                    doodleView.setBrushSize(15);
+                    core_editor_layout.addView(doodleView);
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Doodle added");
+                    doodleBtn.setColorFilter(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_blue_bright), PorterDuff.Mode.SRC_IN);
+                    doodleEnabled = true;
+                    enableDoodleView();
                 } else {
-                    features_layout.setVisibility(View.VISIBLE);
+                    if (doodleEnabled) {
+                        disableDoodleView();
+                    } else {
+                        enableDoodleView();
+                    }
+                }
+
+            }
+            break;
+            case R.id.doodle_eraser_btn: {
+                if (doodleView != null) {
+                    doodleView.clear();
+                    doodleShadowEnabled=false;
+                    doodleView.EnableShadow(false);
+                    doodle_shadow_btn.setColorFilter(null);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Draw something to erase");
                 }
             }
             break;
+            case R.id.doodle_undo_btn: {
+                if (doodleView != null) {
+                    doodleView.removeLastPath();
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Draw something to erase");
+                }
+            }
+            break;
+            case R.id.doodle_redo_btn: {
+                if (doodleView != null) {
+                    doodleView.restoreLastRemovedPath();
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Draw something to erase");
+                }
+            }
+            break;
+            case R.id.doodle_color_btn: {
+                if (doodleView != null) {
+                    colorDoodle();
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Enable Doodle View first and then try");
+                }
+            }
+            break;
+            case R.id.doodle_shadow_btn: {
+                if (doodleView == null) {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Enable Doodle View first and then try");
+                } else {
+                    if (doodleShadowEnabled) {
+                        doodleView.EnableShadow(false);
+                        doodleShadowEnabled = false;
+                        doodle_shadow_btn.setColorFilter(null);
+
+                    } else {
+                        doodleView.EnableShadow(true);
+                        doodleShadowEnabled = true;
+                        doodle_shadow_btn.setColorFilter(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_blue_bright), PorterDuff.Mode.SRC_IN);
+
+                    }
+                }
+
+            }
+            break;
         }
+    }
+
+    private void enableDoodleView() {
+        doodleView.setOnTouchListener(new DoodleViewTouchListener());
+        doodleEnabled = true;
+        doodleBtn.setColorFilter(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_blue_bright), PorterDuff.Mode.SRC_IN);
+        enableDoodleOptions();
+    }
+
+    private void disableDoodleView() {
+        doodleView.setOnTouchListener(null);
+        doodleEnabled = false;
+        doodleBtn.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+        disableDoodleOptions();
+    }
+
+    private void enableEraserView() {
+        doodleEraserEnabled = true;
+        doodle_erase_btn.setColorFilter(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_blue_bright), PorterDuff.Mode.SRC_IN);
+    }
+
+    private void disableEraserView() {
+        doodleEraserEnabled = false;
+
+        doodle_erase_btn.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent), PorterDuff.Mode.SRC_IN);
     }
 
     /*Seekbar methods*/
@@ -466,10 +567,14 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     public boolean onTouch(@NonNull View v, @NonNull MotionEvent event) {
         RelativeLayout.LayoutParams selected_text_view_parameters = (RelativeLayout.LayoutParams) v.getLayoutParams();
         final int INAVALID_POINTER_ID = -1;
+        if (null != doodleView) {
+            disableDoodleView();
 
+        }
         if (v instanceof TextView) {
             selectedView = v;
             handleTouchForTextView(v);
+
         } else if (v instanceof StickerImageView) {
             selected_sticker = (StickerImageView) v;
             handleTouchForStickerView((StickerImageView) v);
@@ -662,14 +767,29 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 //      level 1 top bar buttons
 //        font_module = (ImageView) findViewById(R.id.font_style_changer_module);
 //        background_image_module = (ImageView) findViewById(R.id.font_background_chnager_module);
-        ImageView save_work_button = findViewById(R.id.save_work_button);
-        ImageView share_work_button = findViewById(R.id.font_share_module);
-        ImageView delete_view_button = findViewById(R.id.delete_view_button);
-        ImageView options = findViewById(R.id.options);
 
-        //    private ImageView font_module;
-        //    private ImageView background_image_module;
-        ImageView font_size_changer = findViewById(R.id.spacer_in_top);
+
+        save_work_button = findViewById(R.id.save_work_button);
+        share_work_button = findViewById(R.id.font_share_module);
+        delete_work_button = findViewById(R.id.delete_view_button);
+
+        doodleBtn = findViewById(R.id.doodle_btn);
+        doodle_erase_btn = findViewById(R.id.doodle_eraser_btn);
+        doodle_color_btn = findViewById(R.id.doodle_color_btn);
+        doodle_brush_size_btn = findViewById(R.id.doodle_brush_button);
+        doodle_shadow_btn = findViewById(R.id.doodle_shadow_btn);
+        doodle_undo_btn = findViewById(R.id.doodle_undo_btn);
+        doodle_redo_btn = findViewById(R.id.doodle_redo_btn);
+
+        doodleBtn.setOnClickListener(this);
+        doodle_erase_btn.setOnClickListener(this);
+        doodle_color_btn.setOnClickListener(this);
+        doodle_brush_size_btn.setOnClickListener(this);
+        doodle_shadow_btn.setOnClickListener(this);
+        doodle_undo_btn.setOnClickListener(this);
+        doodle_redo_btn.setOnClickListener(this);
+
+        ImageView font_size_changer = findViewById(R.id.doodle_btn);
         light_effect_filter_IV = findViewById(R.id.iv_light_effect);
 
 
@@ -705,8 +825,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_text_size.setOnClickListener(this);
         save_work_button.setOnClickListener(this);
         share_work_button.setOnClickListener(this);
-        delete_view_button.setOnClickListener(this);
-        options.setOnClickListener(this);
+        delete_work_button.setOnClickListener(this);
         close_layout.setOnClickListener(this);
         done_layout.setOnClickListener(this);
         clear_button.setOnClickListener(this);
@@ -753,7 +872,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 isFromEdit_Activity = 1;
                 int quoteId = getIntent().getIntExtra(Constants.INTENT_QUOTE_OBJECT_KEY, 0);
                 if (quoteId > 0) {
-                    AppExecutor appExecutor = AppExecutor.getInstance();
                     final LiveData<QuotesTable> quotesTableLiveData = AppDatabase.getmAppDatabaseInstance(EditorActivity.this).quotesDao().getQuotesById(quoteId);
                     quotesTableLiveData.observe(this, new Observer<QuotesTable>() {
                         @Override
@@ -813,6 +931,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                                         core_editor_layout.addView(quote_editor_body);
                                         core_editor_layout.addView(quote_editor_author);
+                                        if (null != doodleView) {
+                                            disableDoodleView();
+
+                                        }
                                         quote_editor_author.setLongClickable(true);
                                         quote_editor_author.setOnLongClickListener(EditorActivity.this);
                                         quote_editor_body.setLongClickable(true);
@@ -1319,6 +1441,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final StickerImageView stickerImageView = new StickerImageView(EditorActivity.this);
         Glide.with(EditorActivity.this).load(Biglink).into(((ImageView) stickerImageView.getMainView()));
         core_editor_layout.addView(stickerImageView);
+        if (null != doodleView) {
+            disableDoodleView();
+
+        }
         if (gifFrameCount <= 0) {
             gifFrameCount = frameCount;
         } else if (gifFrameCount <= frameCount) {
@@ -1643,6 +1769,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         textView.setGravity(Gravity.CENTER);
                         textView.setTextDirection(View.TEXT_DIRECTION_LOCALE);
                         core_editor_layout.addView(textView);
+                        if (null != doodleView) {
+                            disableDoodleView();
+
+                        }
                     }
 
 
@@ -1875,7 +2005,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
                         core_editor_layout.addView(textView);
 
+                        if (null != doodleView) {
+                            disableDoodleView();
 
+                        }
                     }
 
 
@@ -1903,7 +2036,6 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setSpannableText(EditText addingText, SpannableString spannableString) {
-
         addingText.setText("");
         addingText.setText(spannableString);
     }
@@ -2000,13 +2132,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
-            final boolean[] isShadowApplied = new boolean[1];
             final TextView head_tv, demo_tv;
             AdView adView;
             RecyclerView colors_rv;
-            Button close, choose, shadow;
+            Button close, choose;
             ColorsAdapter colorsAdapter;
-            final int[] choosen_color = new int[1];
+            final int[] chooser_color = new int[1];
 
 
             head_tv = dialog.findViewById(R.id.color_text);
@@ -2014,7 +2145,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             colors_rv = dialog.findViewById(R.id.colors_rv);
             close = dialog.findViewById(R.id.bt_color_close);
             choose = dialog.findViewById(R.id.bt_color_choose);
-            shadow = dialog.findViewById(R.id.bt_color_shadow);
+            dialog.findViewById(R.id.bt_color_shadow);
             adView = dialog.findViewById(R.id.adView);
             TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
@@ -2025,7 +2156,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
                 @Override
                 public void onColorClick(int color) {
-                    choosen_color[0] = color;
+                    chooser_color[0] = color;
                     demo_tv.setTextColor(color);
 
                 }
@@ -2039,13 +2170,73 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             choose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (choosen_color.length < 0) {
+                    if (chooser_color.length < 0) {
                         Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, getString(R.string.select_colors_apply));
                     } else {
                         dialog.dismiss();
                         selectedTextView.getPaint().setShader(null);
-                        selectedTextView.setTextColor(choosen_color[0]);
+                        selectedTextView.setTextColor(chooser_color[0]);
                     }
+
+                }
+            });
+            dialog.setCancelable(false);
+            colors_rv.setAdapter(colorsAdapter);
+            dialog.show();
+        }
+    }
+
+    private void colorDoodle() {
+//        RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) selectedTextView.getLayoutParams());
+        if (doodleView == null) {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        } else {
+            final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
+            dialog.setContentView(R.layout.colors_dialog_layout);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+
+            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+
+            final TextView head_tv, demo_tv;
+            AdView adView;
+            RecyclerView colors_rv;
+            Button close, choose;
+            ColorsAdapter colorsAdapter;
+            final int[] chooser_color = new int[1];
+
+
+            head_tv = dialog.findViewById(R.id.color_text);
+            demo_tv = dialog.findViewById(R.id._demo_color_text);
+            colors_rv = dialog.findViewById(R.id.colors_rv);
+            close = dialog.findViewById(R.id.bt_color_close);
+            choose = dialog.findViewById(R.id.bt_color_choose);
+            dialog.findViewById(R.id.bt_color_shadow);
+            adView = dialog.findViewById(R.id.adView);
+            TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
+            AdUtils.loadBannerAd(adView, EditorActivity.this);
+            colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
+
+            colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
+                @Override
+                public void onColorClick(int color) {
+                    chooser_color[0] = color;
+                    demo_tv.setTextColor(color);
+
+                }
+            });
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            choose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doodleView.setSetColor(chooser_color[0]);
+                    dialog.dismiss();
 
                 }
             });
@@ -2402,6 +2593,41 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             return false;
         }
 
+    }
+
+
+    private void enableDoodleOptions() {
+        disableView(save_work_button);
+        disableView(share_work_button);
+        disableView(delete_work_button);
+        enableView(doodle_undo_btn);
+        enableView(doodle_redo_btn);
+        enableView(doodle_shadow_btn);
+        enableView(doodle_color_btn);
+        enableView(doodle_brush_size_btn);
+        enableView(doodle_erase_btn);
+
+
+    }
+
+    private void disableDoodleOptions() {
+        disableView(doodle_undo_btn);
+        disableView(doodle_redo_btn);
+        disableView(doodle_shadow_btn);
+        disableView(doodle_color_btn);
+        disableView(doodle_brush_size_btn);
+        disableView(doodle_erase_btn);
+        enableView(save_work_button);
+        enableView(share_work_button);
+        enableView(delete_work_button);
+    }
+
+    private void disableView(ImageView view) {
+        view.setVisibility(GONE);
+    }
+
+    private void enableView(ImageView vIew) {
+        vIew.setVisibility(View.VISIBLE);
     }
 }
 

@@ -17,7 +17,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/select_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -47,7 +46,6 @@
                 <!--android:layout_weight="1" />-->
 
                 <Button
-                    android:id="@+id/Quotes"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
@@ -55,7 +53,6 @@
                     android:gravity="center" />
 
                 <TextView
-                    android:id="@+id/Quotes_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -79,7 +76,6 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/meme"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
@@ -87,7 +83,6 @@
                     android:background="@drawable/ic_image_black_24dp" />
 
                 <TextView
-                    android:id="@+id/meme_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"

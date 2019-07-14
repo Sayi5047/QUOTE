@@ -26,7 +26,6 @@
             android:transitionName="@string/wallpaper_transision_name"/>
 
         <View
-            android:id="@+id/layer"
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:background="@drawable/bwgradient" />

@@ -40,7 +40,6 @@
             android:elevation="4dp" />
 
         <RelativeLayout
-            android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

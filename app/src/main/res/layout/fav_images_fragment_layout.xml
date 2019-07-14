@@ -5,7 +5,6 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/images_fav"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">

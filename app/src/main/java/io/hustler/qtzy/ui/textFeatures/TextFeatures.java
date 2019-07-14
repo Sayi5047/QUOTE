@@ -103,17 +103,11 @@ public class TextFeatures {
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         AdView adView;
-        TextView tvHead;
         final TextView demoShadowText;
         AppCompatSeekBar opacitySeekbar;
-        TextView tvOpacity;
         AppCompatSeekBar shadowRadiusSeekbar;
-        TextView tvShadowRadius;
         AppCompatSeekBar posXSeekbar;
-        TextView tvXPos;
         AppCompatSeekBar posYSeekbar;
-        TextView tvYPos;
-        TextView tvShadowColor;
         RecyclerView rvShadowColor;
         Button btShadowClose;
         Button btShadowApply;
@@ -127,13 +121,7 @@ public class TextFeatures {
         final int[] shadow_color = {(int) checkFornull((float) selectedTextView.getShadowColor(), activity.getResources().getColor(R.color.black_overlay))};
         final float[] opacity = {checkFornull(selectedTextView.getAlpha(), 1.0f)};
 
-        tvHead = dialog.findViewById(R.id.tv_head);
         demoShadowText = dialog.findViewById(R.id.demo_shadow_text);
-        tvOpacity = dialog.findViewById(R.id.tv_opacity);
-        tvShadowRadius = dialog.findViewById(R.id.tv_shadow_radius);
-        tvXPos = dialog.findViewById(R.id.tv_x_pos);
-        tvYPos = dialog.findViewById(R.id.tv_y_pos);
-        tvShadowColor = dialog.findViewById(R.id.tv_shadow_color);
         adView = dialog.findViewById(R.id.adView);
         opacitySeekbar = dialog.findViewById(R.id.opacity_seekbar);
         shadowRadiusSeekbar = dialog.findViewById(R.id.shadow_radius_seekbar);
@@ -266,6 +254,7 @@ public class TextFeatures {
 
         dialog.show();
     }
+
 
     public static float checkFornull(float val, float default_Val) {
         if (val > 0) {

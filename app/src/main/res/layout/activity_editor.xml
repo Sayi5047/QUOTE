@@ -28,9 +28,9 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
-        android:layout_weight="0.5"
         android:background="@android:color/white"
         android:gravity="center"
+        android:animateLayoutChanges="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -42,21 +42,72 @@
             android:src="@drawable/ic_close_black_24dp" />
 
         <ImageView
-            android:id="@+id/spacer_in_top"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:padding="@dimen/elevation4"
-            android:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/options"
+            android:id="@+id/doodle_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
-            android:src="@drawable/ic_apps_black_24dp" />
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_doodle" />
+
+        <ImageView
+            android:id="@+id/doodle_brush_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:visibility="gone"
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_paintbrush" />
+
+        <ImageView
+            android:id="@+id/doodle_color_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:alpha="0.9"
+            android:visibility="gone"
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_palette" />
+
+        <ImageView
+            android:id="@+id/doodle_eraser_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:visibility="gone"
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_trash" />
+
+        <ImageView
+            android:id="@+id/doodle_shadow_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.8"
+
+            android:src="@drawable/ic_shadow"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/doodle_undo_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:visibility="gone"
+            android:src="@drawable/ic_undo" />
+
+        <ImageView
+            android:id="@+id/doodle_redo_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:visibility="gone"
+            android:src="@drawable/ic_redo" />
 
         <ImageView
             android:id="@+id/delete_view_button"
@@ -127,6 +178,7 @@
                 android:elevation="4dp"
                 android:orientation="vertical">
 
+
                 <TextView
                     android:id="@+id/tv_Quote_Body"
                     android:layout_width="match_parent"
@@ -170,7 +222,6 @@
                     tools:text="Spiderman" />
 
                 <ImageView
-                    android:id="@+id/quote_anim"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_above="@id/tv_Quote_Author"
@@ -209,6 +260,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/features_layout"

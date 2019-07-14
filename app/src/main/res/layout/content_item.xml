@@ -9,7 +9,6 @@
     tools:keep="@layout/content_item">
 
     <View
-        android:id="@+id/content_color_item"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerInParent="true"
@@ -17,7 +16,6 @@
         android:background="@drawable/alphawhite" />
 
     <TextView
-        android:id="@+id/content_font_item"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"

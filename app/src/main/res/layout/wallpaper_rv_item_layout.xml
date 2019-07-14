@@ -20,7 +20,6 @@
             android:src="@drawable/geometry_2" />
 
         <View
-            android:id="@+id/layer"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:background="@drawable/bwgradient" />

@@ -109,10 +109,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     AlarmManager alarmManager;
     boolean service_Started;
     PendingIntent pendingIntent, notif_pending_intent;
-    @NonNull
-    int[] icons = new int[]{R.drawable.ic_library, R.drawable.ic_launcher, R.drawable.ic_picture,
 
-            R.drawable.ic_lover, R.drawable.ic_canvas2};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

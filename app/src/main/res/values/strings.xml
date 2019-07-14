@@ -107,7 +107,6 @@
     <string name="bannerAdId">ca-app-pub-9653011938091807/9510392856</string>
 
     <string name="rewardAdId">ca-app-pub-9653011938091807/9302547281</string>
-    <string name="interstaialId">ca-app-pub-9653011938091807/2162423862</string>
     <string name="watermark">RemoveWatermark</string>
     <string name="WatchAd">Watch Ad</string>
     <string name="pro">Buy Pro</string>
@@ -131,7 +130,6 @@
     <string name="install_fonts">Install all fonts</string>
     <string name="dont_forget">Dont forget to read the font Licenses in your downloaded folder</string>
     <string name="Fonts">Fonts</string>
-    <string name="Temp">TempFonts</string>
     <string name="install">Install</string>
     <string name="font_installed">Congratulations, Font installed Start using it</string>
     <string name="congratulations">Congratulations!!</string>
@@ -188,11 +186,9 @@
 
     <string name="DWL_CATEGORIES">DWL_key3</string>
     <string name="DWL_SERVICE_FREQUENCY">DWL_key2</string>
-    <string name="DWL_WALL_CATEGORY">DWL_key4</string>
     <string name="DWL_WIFI_ENABLE">DWL_key4</string>
     <string name="DNT_key1">DNT_key1</string>
 
-    <string name="DWL_key1">DWL_key1</string>
     <string name="Personalise">Personalise</string>
     <string name="personalise_which_wall">Choose which type of wallpapers to set</string>
     <string name="download_over_wifi_desc">Images will be updated in presence of Wifi only</string>
@@ -316,7 +312,6 @@
     <string name="wallpapers">Wallpaper</string>
     <string name="image_will_be_downloaded_to_sdCard">Image will be saved to sdcard/Quotzywallpapers</string>
     <string name="downloading_and_setting">Wallpaper will be set once it is downloaded.</string>
-    <string name="image_will_be_set_wall">As soon as image get downloaded wallpaper will be set. Check progress in notification bar.</string>
     <string name="click_text">Oh, somehow we missed something to record . Please click text button at bottom try again.</string>
     <string name="please_select_feature_again">We missed it . Please,select the feature again</string>
     <string name="we_missed_bg">We missed your preference, Please click below Background button and try again</string>
@@ -357,14 +352,11 @@
     <string name="Iam_here_before">Iam here before</string>
     <string name="Iam_never_here_before">I\'m never here before</string>
     <string name="continues">Continue</string>
-    <string name="giphyKey">RnMnyAaqEAofrSYV1AI7UHHUbG3fKqHJ</string>
     <string name="WALLPAPER_JOB_TAG">DAILYWALLTAG</string>
     <string name="collections">Collections</string>
     <string name="library">Library</string>
     <string name="DAILY_WALLS_ACTIVATED">DAILY_WALL_KAEY</string>
-    <string name="frequency">Frequency</string>
     <string name="Dailywalls">DailyWallpaper</string>
-    <string name="enabled">Enabled</string>
     <string name="FALSE">false</string>
     <string name="TRUE">true</string>
     <string name="DailyNotifs">Daily Notification</string>
