@@ -85,14 +85,14 @@
 
 
     <style name="uber_expanded_text_style" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">38dp</item>
+        <item name="android:textSize">38sp</item>
         <item name="android:textStyle">bold</item>
 
         <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="uber_collapsed_text_style" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/textColor</item>
     </style>

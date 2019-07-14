@@ -17,8 +17,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@android:color/transparent"
-    android:orientation="vertical"
     tools:context="io.hustler.qtzy.ui.activities.EditorActivity">
 
 
@@ -28,9 +26,8 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
-        android:background="@android:color/white"
-        android:gravity="center"
         android:animateLayoutChanges="true"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -56,9 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
-            android:visibility="gone"
             android:padding="@dimen/elevation8"
-            android:src="@drawable/ic_paintbrush" />
+            android:src="@drawable/ic_paintbrush"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/doodle_color_btn"
@@ -67,9 +64,9 @@
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:alpha="0.9"
-            android:visibility="gone"
             android:padding="@dimen/elevation8"
-            android:src="@drawable/ic_palette" />
+            android:src="@drawable/ic_palette"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/doodle_eraser_btn"
@@ -77,9 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
-            android:visibility="gone"
             android:padding="@dimen/elevation8"
-            android:src="@drawable/ic_trash" />
+            android:src="@drawable/ic_trash"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/doodle_shadow_btn"
@@ -97,8 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
-            android:visibility="gone"
-            android:src="@drawable/ic_undo" />
+            android:src="@drawable/ic_undo"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/doodle_redo_btn"
@@ -106,8 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
-            android:visibility="gone"
-            android:src="@drawable/ic_redo" />
+            android:src="@drawable/ic_redo"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/delete_view_button"
@@ -138,12 +135,9 @@
     <RelativeLayout
         android:id="@+id/quote_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/top_save_and_share_bar"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="100dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/features_layout"
+        android:layout_below="@id/top_save_and_share_bar">
 
         <RelativeLayout
             android:id="@+id/quote_layout"
@@ -151,7 +145,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:animateLayoutChanges="true"
-            android:background="@android:color/white"
             android:orientation="vertical">
 
 
@@ -266,9 +259,7 @@
         android:id="@+id/features_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/quote_parent"
-        android:layout_marginTop="-100dp"
-        android:background="@color/WHITE"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
@@ -276,7 +267,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="2.5"
+            android:layout_weight="3"
             android:padding="1dp" />
         <!--android:layout_above="@id/text_and_background_layout"-->
 
@@ -284,8 +275,7 @@
             android:id="@+id/text_and_background_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="6dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1.5"
             android:orientation="horizontal">
 
             <TextView
@@ -295,8 +285,9 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/elevation4"
+                android:padding="@dimen/elevation8"
                 android:text="@string/Text"
+
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />
@@ -308,7 +299,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/elevation4"
+                android:padding="@dimen/elevation8"
 
                 android:text="@string/background"
                 android:textSize="@dimen/font1"
@@ -320,8 +311,7 @@
             android:id="@+id/close_and_done_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="0.8"
+            android:layout_weight="1.5"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -357,9 +347,6 @@
             android:id="@+id/progress_slider_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/text_and_background_layout"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:contentDescription="@string/action_settings"

@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <dimen name="elevation4">4dp</dimen>
-    <dimen name="elevation2">2dp</dimen>
-    <dimen name="elevation8">8dp</dimen>
-    <dimen name="elevation16">16dp</dimen>
+    <dimen name="elevation4">4sp</dimen>
+    <dimen name="elevation2">2sp</dimen>
+    <dimen name="elevation8">8sp</dimen>
+    <dimen name="elevation16">16sp</dimen>
 
-    <dimen name="padding1">16dp</dimen>
+    <dimen name="padding1">16sp</dimen>
 
-    <dimen name="font">12dp</dimen>
-    <dimen name="fontsmall">8dp</dimen>
+    <dimen name="font">12sp</dimen>
+    <dimen name="fontsmall">8sp</dimen>
 
-    <dimen name="font1">16dp</dimen>
-    <dimen name="font2">20dp</dimen>
-    <dimen name="font2_1">22dp</dimen>
-    <dimen name="font3">25dp</dimen>
-    <dimen name="font3_5">30dp</dimen>
-    <dimen name="font3_8">33dp</dimen>
-    <dimen name="font4">35dp</dimen>
-    <dimen name="font5">45dp</dimen>
+    <dimen name="font1">16sp</dimen>
+    <dimen name="font2">20sp</dimen>
+    <dimen name="font2_1">22sp</dimen>
+    <dimen name="font3">25sp</dimen>
+    <dimen name="font3_5">30sp</dimen>
+    <dimen name="font3_8">33sp</dimen>
+    <dimen name="font4">35sp</dimen>
+    <dimen name="font5">45sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_dpacing" tools:keep="@dimen/nav_header_vertical_dpacing">16dp
-    </dimen>
-    <dimen name="nav_header_height" tools:keep="@dimen/nav_header_height">160dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="standardPadding">16dp</dimen>
-    <dimen name="smallPadding">8dp</dimen>
-    <dimen name="standardMargin">8dp</dimen>
-    <dimen name="dashed_text_stroke_width" tools:keep="@dimen/dashed_text_stroke_width">8dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="activity_horizontal_margin">16sp</dimen>
+    <dimen name="activity_vertical_margin">16sp</dimen>
+    <dimen name="nav_header_vertical_dpacing" tools:keep="@dimen/nav_header_vertical_dpacing">16sp</dimen>
+    <dimen name="nav_header_height" tools:keep="@dimen/nav_header_height">160sp</dimen>
+    <dimen name="fab_margin">16sp</dimen>
+    <dimen name="standardPadding">16sp</dimen>
+    <dimen name="smallPadding">8sp</dimen>
+    <dimen name="standardMargin">8sp</dimen>
+    <dimen name="dashed_text_stroke_width" tools:keep="@dimen/dashed_text_stroke_width">8sp</dimen>
+    <dimen name="nav_header_vertical_spacing">8sp</dimen>
 </resources>
