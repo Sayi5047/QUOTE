@@ -17,6 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:background="@color/WHITE"
     tools:context="io.hustler.qtzy.ui.activities.EditorActivity">
 
 
@@ -138,6 +139,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/features_layout"
+        android:background="@color/WHITE"
         android:layout_below="@id/top_save_and_share_bar">
 
         <RelativeLayout
@@ -154,7 +156,6 @@
                 android:id="@+id/imageView_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:elevation="4dp" />
             <!--BLURR-->
             <ImageView

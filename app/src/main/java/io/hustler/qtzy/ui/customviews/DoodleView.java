@@ -232,7 +232,6 @@ public class DoodleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         assert null != paths;
         int i = 0;
         for (Path path : paths) {

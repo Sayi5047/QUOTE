@@ -353,6 +353,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                         selected_sticker = null;
                     }
 
+                    if (imageView_background.getBackground() == null) {
+                        imageView_background.setBackground(ContextCompat.getDrawable(getApplicationContext(), android.R.color.white));
+                    }
+
                     savetoDeviceWithAds(quoteLayout, EditorActivity.this, new FileUtils.onSaveComplete() {
                         @Override
                         public void onImageSaveListner(File file) {

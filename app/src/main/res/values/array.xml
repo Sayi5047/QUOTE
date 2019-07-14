@@ -109,18 +109,14 @@
         <item name="red_5001" type="color" tools:keep="@color/red_5001">#e51c23</item>
         <item name="pink_5001" type="color" tools:keep="@color/pink_5001">#e91e63</item>
         <item name="purple_5001" type="color" tools:keep="@color/purple_5001">#9c27b0</item>
-        <item name="deep_purple_5001" type="color" tools:keep="@color/deep_purple_5001">#673ab7
-        </item>
+        <item name="deep_purple_5001" type="color" tools:keep="@color/deep_purple_5001">#673ab7</item>
         <item name="indigo_5001" type="color" tools:keep="@color/indigo_5001">#3f51b5</item>
         <item name="blue_5001" type="color" tools:keep="@color/blue_5001">#5677fc</item>
         <item name="light_blue_5001" type="color" tools:keep="@color/light_blue_5001">#03a9f4</item>
         <item name="cyan_5001" type="color" tools:keep="@color/cyan_5001">#00bcd4</item>
         <item name="teal_5001" type="color" tools:keep="@color/teal_5001">#009688</item>
         <item name="green_5001" type="color" tools:keep="@color/green_5001">#259b24</item>
-        <item name="light_green_5001" type="color" tools:keep="@color/light_green_5001">#8bc34a
-        </item>
-        <item name="lime_5001" type="color" tools:keep="@color/lime_5001">#cddc39</item>
-        <item name="yellow_5001" type="color" tools:keep="@color/yellow_5001">#ffeb3b</item>
+        <item name="light_green_5001" type="color" tools:keep="@color/light_green_5001">#8bc34a</item>
         <item name="orange_5001" type="color" tools:keep="@color/orange_5001">#ff9800</item>
         <item name="deep_orange_5001" type="color" tools:keep="@color/deep_orange_5001">#ff5722
         </item>
