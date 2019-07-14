@@ -362,4 +362,5 @@
     <string name="DailyNotifs">Daily Notification</string>
     <string name="setting_up_things_for_first_time">Setting up things for first time</string>
     <string name="_00_completed">!00% completed</string>
+    <string name="slide_to_choose_width">Slide to increase brush size</string>
 </resources>

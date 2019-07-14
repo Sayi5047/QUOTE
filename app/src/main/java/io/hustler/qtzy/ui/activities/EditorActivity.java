@@ -428,7 +428,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             }
             break;
             case R.id.close_editor_button: {
-                super.onBackPressed();
+                if (doodleEnabled) {
+                    doodleBtn.performClick();
+                } else {
+                    super.onBackPressed();
+                }
             }
             break;
             case R.id.doodle_btn: {
@@ -454,7 +458,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             case R.id.doodle_eraser_btn: {
                 if (doodleView != null) {
                     doodleView.clear();
-                    doodleShadowEnabled=false;
+                    doodleShadowEnabled = false;
                     doodleView.EnableShadow(false);
                     doodle_shadow_btn.setColorFilter(null);
                 } else {
@@ -505,7 +509,82 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
             }
             break;
+
+            case R.id.doodle_brush_button: {
+                if (doodleView != null) {
+                    launchBrushWidthDialog(doodleView);
+                } else {
+                    Toast_Snack_Dialog_Utils.show_ShortToast(EditorActivity.this, "Enable Doodle View first and then try");
+                }
+            }
+            break;
         }
+    }
+
+    private void launchBrushWidthDialog(final DoodleView doodleView) {
+
+        final Dialog dialog = new Dialog(this, R.style.EditTextDialog);
+        dialog.setContentView(R.layout.brush_size_layout);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+
+        final TextView head_tv;
+        final ImageView demo_icon;
+        AdView adView;
+        SeekBar colors_rv;
+        Button close, choose;
+
+
+        head_tv = dialog.findViewById(R.id.color_text);
+        demo_icon = dialog.findViewById(R.id.demo_icon);
+        colors_rv = dialog.findViewById(R.id.size_scrollBar);
+        close = dialog.findViewById(R.id.bt_color_close);
+        choose = dialog.findViewById(R.id.bt_color_choose);
+        dialog.findViewById(R.id.bt_color_shadow);
+        adView = dialog.findViewById(R.id.adView);
+
+        TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
+        AdUtils.loadBannerAd(adView, EditorActivity.this);
+
+        colors_rv.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                demo_icon.setScaleX((float) seekBar.getProgress() / 25);
+                demo_icon.setScaleY((float) seekBar.getProgress() / 25);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                doodleView.setBrushSize(seekBar.getProgress());
+
+
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     private void enableDoodleView() {

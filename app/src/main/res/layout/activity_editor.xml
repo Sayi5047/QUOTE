@@ -68,15 +68,6 @@
             android:src="@drawable/ic_palette"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/doodle_eraser_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1.5"
-            android:padding="@dimen/elevation8"
-            android:src="@drawable/ic_trash"
-            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/doodle_shadow_btn"
@@ -104,6 +95,16 @@
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:src="@drawable/ic_redo"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/doodle_eraser_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:padding="@dimen/elevation8"
+            android:src="@drawable/ic_trash"
             android:visibility="gone" />
 
         <ImageView
