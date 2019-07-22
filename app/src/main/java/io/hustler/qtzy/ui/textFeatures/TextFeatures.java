@@ -16,7 +16,6 @@ import android.graphics.PathEffect;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -294,7 +293,7 @@ public class TextFeatures {
         Button btShadowApply;
         final ImageView searchButton;
         final ArraySet<String> familyNameSet;
-        LocalFontAdapter localFontAdapter1;
+        LocalFontAdapter localFontAdapter;
         DownloadedFontAdapter downloadedFontAdapter;
         GoogleFontsAdapter googleFontsAdapter;
         final int[] isDownloaded = new int[3];
@@ -332,7 +331,6 @@ public class TextFeatures {
                     }
                 } else {
                     searchBox.setError(editorActivity.getString(R.string.invalid_family_name));
-                    return;
                 }
 
             }
@@ -344,17 +342,16 @@ public class TextFeatures {
 
         btShadowClose.setOnClickListener((View.OnClickListener) editorActivity);
         btShadowApply.setOnClickListener((View.OnClickListener) editorActivity);
-        TextUtils.findText_and_applyTypeface(root, editorActivity);
 
         rvAppFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
         rvDownloadedFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
         rvGoogleFont.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
 
-        localFontAdapter1 = new LocalFontAdapter(false, editorActivity, getLocalFonts(editorActivity), new LocalFontAdapter.onFontClickListner() {
+        localFontAdapter = new LocalFontAdapter(editorActivity, getLocalFonts(editorActivity), new LocalFontAdapter.onFontClickListener() {
             @Override
-            public void onFontClicked(String font, int isDownloadFont) {
+            public void onFontClicked(String font, int isDownloadedFonts) {
                 selected_type_face[0] = font;
-                isDownloaded[0] = isDownloadFont;
+                isDownloaded[0] = isDownloadedFonts;
                 TextUtils.setFont(editorActivity, demoText, selected_type_face[0]);
                 fontSelected.setFontname_path(selected_type_face[0]);
                 fontSelected.setDownloaded(isDownloaded[0]);
@@ -362,12 +359,12 @@ public class TextFeatures {
         });
         final String finalLOcation = Environment.getExternalStorageDirectory() + File.separator + editorActivity.getString(R.string.Quotzy) + File.separator + editorActivity.getString(R.string.Fonts);
 
-        downloadedFontAdapter = new DownloadedFontAdapter(false, editorActivity, getDownloadedFonts(
+        downloadedFontAdapter = new DownloadedFontAdapter(editorActivity, getDownloadedFonts(
                 new File(finalLOcation)), new DownloadedFontAdapter.onFontClickListner() {
             @Override
-            public void onFontClicked(String font, int isDownloadFont) {
+            public void onFontClicked(String font, int isDownloadedFonts) {
                 selected_type_face[0] = font;
-                isDownloaded[1] = isDownloadFont;
+                isDownloaded[1] = isDownloadedFonts;
                 demoText.setTypeface(Typeface.createFromFile(font));
                 fontSelected.setFontname_path(selected_type_face[0]);
                 fontSelected.setDownloaded(isDownloaded[1]);
@@ -376,7 +373,7 @@ public class TextFeatures {
         });
 
         String[] familyNames = editorActivity.getResources().getStringArray(R.array.family_names);
-        googleFontsAdapter = new GoogleFontsAdapter(true, editorActivity, familyNames, new GoogleFontsAdapter.onFontClickListner() {
+        googleFontsAdapter = new GoogleFontsAdapter(editorActivity, familyNames, new GoogleFontsAdapter.onFontClickListner() {
             @Override
             public void onFontClicked(@NonNull String font, int isDownloadFont) {
                 selected_type_face[0] = font;
@@ -391,7 +388,7 @@ public class TextFeatures {
             }
         });
 
-        rvAppFont.setAdapter(localFontAdapter1);
+        rvAppFont.setAdapter(localFontAdapter);
         rvDownloadedFont.setAdapter(downloadedFontAdapter);
         rvGoogleFont.setAdapter(googleFontsAdapter);
 
@@ -505,11 +502,7 @@ public class TextFeatures {
             listFile = file.listFiles(new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, @NonNull String name) {
-                    if (name.endsWith(".ttf")) {
-                        return true;
-                    } else if (name.endsWith(".otf")) {
-                        return true;
-                    } else if (name.endsWith(".TTF")) {
+                    if (name.endsWith(".ttf") || name.endsWith(".otf") || name.endsWith(".TTF")) {
                         return true;
                     } else return name.endsWith(".OTF");
                 }
@@ -556,8 +549,7 @@ public class TextFeatures {
 
     @NonNull
     private static String[] getLocalFonts(Activity activity) {
-        String[] localFonts = activity.getResources().getStringArray(R.array.allfonts);
-        return localFonts;
+        return activity.getResources().getStringArray(R.array.allfonts);
     }
 
     public static void setGradients(@NonNull final EditorActivity editorActivity, @NonNull final TextView selectedTextView) {
@@ -568,17 +560,13 @@ public class TextFeatures {
         dialog.setCancelable(false);
 
         AdView adView;
-        LinearLayout root;
         final TextView gradientText;
         final TextView gradientPreviewText;
-        TextView gradientTypeText;
         final RadioGroup rdGroup;
         final RadioButton rbJpeg;
-        RadioButton rbPng;
         final Button preview;
         Button btCancel;
         Button btApply;
-        final TextView demoGradient;
         final ImageView demoColor1;
         final ImageView demoColor2;
         final ImageView demoColor5;
@@ -590,25 +578,20 @@ public class TextFeatures {
         final RecyclerView colorsRecycler;
         final ColorsAdapter colorsAdapter;
         final ColorsAdapter colorsAdapter2, colorsAdapter3, colorsAdapter4, colorsAdapter5;
-        final GradientDrawable[] output_drawable = new GradientDrawable[1];
         final Shader[] shader_gradient = new Shader[1];
         final int[] firstColor = {0};
         final int[] secondColor = {0};
         final int[] selected_color = {0};
         final int[] colors = new int[5];
 
-        root = dialog.findViewById(R.id.root);
         gradientText = dialog.findViewById(R.id.gradient_text);
         gradientPreviewText = dialog.findViewById(R.id.gradient_preview_text);
-        gradientTypeText = dialog.findViewById(R.id.gradient_type_text);
         rdGroup = dialog.findViewById(R.id.rd_group);
         rbJpeg = dialog.findViewById(R.id.rb_jpeg);
-        rbPng = dialog.findViewById(R.id.rb_png);
         preview = dialog.findViewById(R.id.preview);
         adView = dialog.findViewById(R.id.adView);
         btCancel = dialog.findViewById(R.id.bt_cancel);
         btApply = dialog.findViewById(R.id.bt_apply);
-        demoGradient = dialog.findViewById(R.id.demo_gradient);
         demoColor1 = dialog.findViewById(R.id.demo_color_1);
         demoColor2 = dialog.findViewById(R.id.demo_color_2);
         demoColor3 = dialog.findViewById(R.id.demo_color_3);

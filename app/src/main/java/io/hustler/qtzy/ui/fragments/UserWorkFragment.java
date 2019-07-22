@@ -133,7 +133,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
                 public void onImageClickListneer(int position, String imageName, @NonNull String imagepath) {
                     try {
                         android.support.media.ExifInterface exifInterface = new android.support.media.ExifInterface(imagepath);
-                        buildDialog(userWorkImages.getImagesPaths().length, position, userWorkAdapter, rv, exifInterface, imageName, imagepath);
+                        buildDialog(userWorkImages.getImagesPaths().length, rv, exifInterface, imageName, imagepath);
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
@@ -146,7 +146,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         }
     }
 
-    private void buildDialog(final int count, final int position, final UserWorkAdapter userWorkAdapter, @NonNull final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, @NonNull final String imagepath) {
+    private void buildDialog(final int count, @NonNull final RecyclerView rv, android.support.media.ExifInterface exifInterface, String imageName, @NonNull final String imagepath) {
         final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
         dialog.setContentView(View.inflate(getActivity().getApplicationContext(), R.layout.user_work_show_item, null));
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
@@ -247,7 +247,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         fabWallpaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FileUtils.setwallpaper(getActivity(), imagepath);
+                FileUtils.setwallpaper(Objects.requireNonNull(getActivity()).getApplicationContext(), imagepath);
             }
         });
         fabShare.setOnClickListener(new View.OnClickListener() {

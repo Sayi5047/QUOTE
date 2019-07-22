@@ -49,18 +49,8 @@ import static io.hustler.qtzy.ui.apiRequestLauncher.Constants.FONT_CIRCULAR;
    limitations under the License.*/
 public class TextUtils {
     public static void setFont(@Nullable final Activity activity, @NonNull final TextView tv, final String fontname) {
-        if (null != activity) {
-            final android.os.Handler mHideHandler = new Handler();
-            Runnable fontRunner = new Runnable() {
-                @Override
-                public void run() {
-                    tv.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
-
-                }
-            };
-            mHideHandler.removeCallbacks(fontRunner);
-            mHideHandler.post(fontRunner);
-        }
+        assert activity != null;
+        tv.setTypeface(Typeface.createFromAsset(activity.getApplicationContext().getAssets(), fontname));
     }
 
     public static void setFont(@Nullable Activity activity, @NonNull StickerTextView tv, String fontname) {

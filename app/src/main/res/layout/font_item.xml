@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center">
 
     <Button
         android:id="@+id/tv"
@@ -11,9 +12,9 @@
         android:layout_margin="4dp"
         android:background="@drawable/rounded_rect"
         android:elevation="4dp"
-        android:gravity="center"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textSize="@dimen/font" />
+
 
 </LinearLayout>

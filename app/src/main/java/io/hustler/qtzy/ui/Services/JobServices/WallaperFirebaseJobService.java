@@ -22,9 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import io.hustler.qtzy.R;
@@ -183,12 +183,10 @@ public class WallaperFirebaseJobService extends JobService {
             @Override
             public void run() {
                 downloading_File = FileUtils.downloadImageToSd_Card(unsplash_image.getUrls().getFull(), unsplash_image.getId() + "DW.jpg", getApplicationContext());
-                try {
-                    assert downloading_File != null;
-                    wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
+                assert downloading_File != null;
+                FileUtils.setwallpaper(Objects.requireNonNull(getApplicationContext()), downloading_File.getAbsolutePath());
+
+//                    wallpaperManager.setBitmap(BitmapFactory.decodeFile((downloading_File).getAbsolutePath()));
                 if (downloading_File != null)
                     downloading_File.delete();
 

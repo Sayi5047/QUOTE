@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.Objects;
+
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.pojo.QueryBuilder;
 
@@ -34,17 +36,15 @@ import io.hustler.qtzy.ui.pojo.QueryBuilder;
    limitations under the License.*/
 public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.FontItemViewHolder> {
     Activity activity;
-    String[] items;
-    onFontClickListner onFontClickListner;
-    boolean isDownlodedFonts;
+    private String[] items;
+    private onFontClickListner onFontClickListner;
     @Nullable
     private static Handler mHandler = null;
 
-    public GoogleFontsAdapter(Boolean isDownlodedFonts, Activity activity, String[] items, GoogleFontsAdapter.onFontClickListner onFontClickListner) {
+    public GoogleFontsAdapter(Activity activity, String[] items, GoogleFontsAdapter.onFontClickListner onFontClickListner) {
         this.activity = activity;
         this.items = items;
         this.onFontClickListner = onFontClickListner;
-        this.isDownlodedFonts = isDownlodedFonts;
     }
 
     public interface onFontClickListner {
@@ -53,19 +53,20 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
 
     @NonNull
     @Override
-    public GoogleFontsAdapter.FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GoogleFontsAdapter.FontItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new GoogleFontsAdapter.FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
 
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull final GoogleFontsAdapter.FontItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final GoogleFontsAdapter.FontItemViewHolder holder, int position) {
+        final String item = items[position];
 
-        holder.tv.setText(items[position]);
+        holder.tv.setText(item);
 
 
-        QueryBuilder queryBuilder = new QueryBuilder(items[position])
+        QueryBuilder queryBuilder = new QueryBuilder(item)
                 .withWidth(25)
                 .withWeight(500)
                 .withItalic(0)
@@ -91,17 +92,18 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
 
             }
 
+
         };
         FontsContractCompat
                 .requestFont(activity, request, callback,
-                        getHandlerThreadHandler());
+                        Objects.requireNonNull(getHandlerThreadHandler()));
 
 
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onFontClickListner != null) {
-                    onFontClickListner.onFontClicked(items[position], 3);
+                    onFontClickListner.onFontClicked(item, 3);
                 }
             }
         });
@@ -128,10 +130,10 @@ public class GoogleFontsAdapter extends RecyclerView.Adapter<GoogleFontsAdapter.
         }
     }
 
-    public class FontItemViewHolder extends RecyclerView.ViewHolder {
+    class FontItemViewHolder extends RecyclerView.ViewHolder {
         Button tv;
 
-        public FontItemViewHolder(@NonNull View itemView) {
+        FontItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }

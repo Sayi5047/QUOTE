@@ -11,8 +11,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -128,6 +130,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_SAVING_TO_GALLERY = 1003;
     private static final int MY_PERMISSION_REQUEST_STORAGE_FOR_FONTS = 1004;
     private static final int MY_PERMISSION_REQUEST_Launch_gallery = 1007;
+    boolean isForPhotoText = false;
     private int imageFitType;
     private int backPressCount = 0;
     private int isFromEdit_Activity;
@@ -745,56 +748,37 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri fileurl = data.getData();
+            Uri fileUrl = data.getData();
             String[] filePaths = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(fileurl, filePaths, null, null, null);
-            cursor.moveToFirst();
-            int coloumnIndex = cursor.getColumnIndex(filePaths[0]);
-            String picturepath = cursor.getString(coloumnIndex);
+            assert fileUrl != null;
+            Cursor cursor = getContentResolver().query(fileUrl, filePaths, null, null, null);
+            Objects.requireNonNull(cursor).moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePaths[0]);
+            String picturePath = cursor.getString(columnIndex);
             cursor.close();
-//           imageView_background.setImageBitmap(BitmapFactory.decodeFile(picturepath));
             if (imageView_background.getDrawingCache() != null) {
                 imageView_background.destroyDrawingCache();
             }
-            selected_picture = picturepath;
-//            try {
-//                Intent cropIntent = new Intent("com.android.camera.action.CROP");
-//                cropIntent.setDataAndType(fileurl, "image/*");
-//                cropIntent.putExtra("crop", "true");
-//                cropIntent.putExtra("aspectX", 2);
-//                cropIntent.putExtra("aspectY", 2);
-//                cropIntent.putExtra("outputX", 512);
-//                cropIntent.putExtra("outputY", 512);
-//                cropIntent.putExtra("return-data", true);
-//                startActivityForResult(cropIntent, 2);
-//            } catch (ActivityNotFoundException anfe) {
-//                Toast_Snack_Dialog_Utils.show_ShortToast(this, "ACTIVITY NOT FOUND");
-//            }
+            selected_picture = picturePath;
+            if (!isForPhotoText) {
+                if (imageFitType == 3) {
+                    Glide.with(EditorActivity.this).load(picturePath).asBitmap().crossFade().into(imageView_background);
 
-            if (imageFitType == 3) {
-                Glide.with(EditorActivity.this).load(picturepath).asBitmap().crossFade().into(imageView_background);
+                } else if (imageFitType == 2) {
+                    Glide.with(EditorActivity.this).load(picturePath).asBitmap().fitCenter().crossFade().into(imageView_background);
 
-            } else if (imageFitType == 2) {
-                Glide.with(EditorActivity.this).load(picturepath).asBitmap().fitCenter().crossFade().into(imageView_background);
+                } else {
+                    Glide.with(EditorActivity.this).load(picturePath).asBitmap().centerCrop().crossFade().into(imageView_background);
 
+                }
             } else {
-                Glide.with(EditorActivity.this).load(picturepath).asBitmap().centerCrop().crossFade().into(imageView_background);
-
+                Bitmap bitmap = BitmapFactory.decodeFile(selected_picture);
+                Shader shader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+                ((TextView) selectedView).getPaint().setShader(shader);
             }
-//            ImageView imageView = new ImageView(EditorActivity.this);
-//            imageView.setImageURI(fileurl);
-//            imageView.setOnTouchListener(this);
-////            imageView.setMaxWidth(600);
-////            imageView.setMaxHeight(600);
-//            core_editor_layout.addView(imageView);
-//            imageView_background.setImageResource(picturepath);
         } else if (requestCode == 2) {
             BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
             Bitmap bitmap = data.getExtras().getParcelable("data");
-//            ImageView im_crop = (ImageView) findViewById(R.id.im_crop);
-//            im_crop.setImageBitmap(bitmap);
-//            Glide.with(EditorActivity.this).load(bitmap).asBitmap().crossFade().into(imageView_background);
             imageView_background.setImageBitmap(bitmap);
 
         }
@@ -1199,10 +1183,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[9])) {
             applyFont(array);
         } else if (feature.equalsIgnoreCase(array[10])) {
-            gradienteText(array);
+            applyPhotoText(array);
         } else if (feature.equalsIgnoreCase(array[11])) {
-            setCanvasSize(PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
+            gradienteText(array);
         } else if (feature.equalsIgnoreCase(array[12])) {
+            setCanvasSize(PreferenceManager.getDefaultSharedPreferences(EditorActivity.this).getInt(Constants.SAHRED_PREFS_DEVICE_HEIGHT_KEY, 1080));
+        } else if (array[13].equalsIgnoreCase(feature)) {
             final TextView selectedTextView = (TextView) selectedView;
 
             if (selectedTextView != null && selectedTextView.getShadowDx() >= 1) {
@@ -1214,6 +1200,22 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         } else if (feature.equalsIgnoreCase(array[13])) {
 //            hollowText(array);
         }
+    }
+
+    private void applyPhotoText(String[] array) {
+        if (null != selectedView && selectedView instanceof TextView) {
+            if (PermissionUtils.isPermissionAvailable(EditorActivity.this)) {
+                previousState = selectedView;
+                current_Text_feature = array[9];
+                launchGallery(true);
+            } else {
+                requestAppPermissions_for_fonts();
+            }
+        } else {
+            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
+        }
+
+
     }
 
     private void setCanvasSize(final int deviceHeight) {
@@ -1575,7 +1577,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
                 } else {
                     imageFitType = 3;
                 }
-                launchGallery();
+                launchGallery(false);
                 dialog.cancel();
 
             }
@@ -2366,7 +2368,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
             previousState = selectedView;
-            current_Text_feature = array[10];
+            current_Text_feature = array[11];
             TextFeatures.setGradients(EditorActivity.this, selectedTextView);
         }
     }
@@ -2377,7 +2379,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
             previousState = selectedView;
-            current_Text_feature = array[12];
+            current_Text_feature = array[13];
             TextFeatures.setVfx(EditorActivity.this, selectedTextView);
         }
     }
@@ -2627,16 +2629,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close_and_done_layout.setVisibility(View.VISIBLE);
     }
 
-    private void launchGallery() {
-//        final ImageView selectedTextView = (ImageView) selectedView;
-//        if (selectedView == null) {
-//            Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
-//        } else {
-//            previousState = selectedView;
-//        }
+    private void launchGallery(boolean isForPhotoText) {
+        this.isForPhotoText = isForPhotoText;
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
+
+
 
     /*PERMISSION REQUEST METHODS*/
 

@@ -1,6 +1,7 @@
 package io.hustler.qtzy.ui.adapters;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.utils.TextUtils;
 
 /**
  * Created by anvaya5 on 15/12/2017.
@@ -28,37 +28,37 @@ import io.hustler.qtzy.ui.utils.TextUtils;
    limitations under the License.*/
 public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.FontItemViewHolder> {
     Activity activity;
-    String[] items;
-    onFontClickListner onFontClickListner;
-    boolean isDownlodedFonts;
+    private String[] fontsArray;
+    private onFontClickListener onFontClickListener;
 
-    public LocalFontAdapter(Boolean isDownlodedFonts, Activity activity, String[] items, onFontClickListner onFontClickListner) {
+    public LocalFontAdapter(Activity activity, String[] fontsArray, onFontClickListener onFontClickListener) {
         this.activity = activity;
-        this.items = items;
-        this.onFontClickListner = onFontClickListner;
-        this.isDownlodedFonts = isDownlodedFonts;
+        this.fontsArray = fontsArray;
+        this.onFontClickListener = onFontClickListener;
     }
 
-    public interface onFontClickListner {
-        void onFontClicked(String fontName_Path, int isDownlodedFonts);
+    public interface onFontClickListener {
+        void onFontClicked(String fontName_Path, int isDownloadedFonts);
     }
 
     @NonNull
     @Override
-    public FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FontItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
 
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull FontItemViewHolder holder, final int position) {
-        TextUtils.setFont(activity, holder.tv, items[position]);
+    public void onBindViewHolder(@NonNull FontItemViewHolder holder, int position) {
+        final String font = fontsArray[position];
+        holder.tv.setTypeface(Typeface.createFromAsset(holder.tv.getContext().getAssets(), font));
+
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onFontClickListner != null) {
-                    onFontClickListner.onFontClicked(items[position], 1);
+                if (onFontClickListener != null) {
+                    onFontClickListener.onFontClicked(font, 1);
                 }
             }
         });
@@ -67,17 +67,17 @@ public class LocalFontAdapter extends RecyclerView.Adapter<LocalFontAdapter.Font
 
     @Override
     public int getItemCount() {
-        if (items.length <= 0) {
+        if (fontsArray.length <= 0) {
             return 0;
         } else {
-            return items.length;
+            return fontsArray.length;
         }
     }
 
-    public class FontItemViewHolder extends RecyclerView.ViewHolder {
+    class FontItemViewHolder extends RecyclerView.ViewHolder {
         Button tv;
 
-        public FontItemViewHolder(@NonNull View itemView) {
+        FontItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }

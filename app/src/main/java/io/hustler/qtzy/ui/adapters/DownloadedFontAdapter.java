@@ -28,37 +28,37 @@ import io.hustler.qtzy.R;
    limitations under the License.*/
 public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAdapter.FontItemViewHolder> {
     Activity activity;
-    String[] items;
-    onFontClickListner onFontClickListner;
-    boolean isDownlodedFonts;
+    private String[] items;
+    private onFontClickListner onFontClickListner;
 
-    public DownloadedFontAdapter(Boolean isDownlodedFonts, Activity activity, String[] items, onFontClickListner onFontClickListner) {
+    public DownloadedFontAdapter(Activity activity, String[] items, onFontClickListner onFontClickListner) {
         this.activity = activity;
         this.items = items;
         this.onFontClickListner = onFontClickListner;
-        this.isDownlodedFonts = isDownlodedFonts;
     }
 
     public interface onFontClickListner {
-        void onFontClicked(String fontName_Path, int isDownlodedFonts);
+        void onFontClicked(String fontName_Path, int isDownloadedFonts);
     }
 
     @NonNull
     @Override
-    public DownloadedFontAdapter.FontItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DownloadedFontAdapter.FontItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new DownloadedFontAdapter.FontItemViewHolder(activity.getLayoutInflater().inflate(R.layout.font_item, parent, false));
 
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull DownloadedFontAdapter.FontItemViewHolder holder, final int position) {
-        holder.tv.setTypeface(Typeface.createFromFile(items[position]));
+    public void onBindViewHolder(@NonNull DownloadedFontAdapter.FontItemViewHolder holder, int position) {
+        final String item=items[position];
+        holder.tv.setTypeface(Typeface.createFromFile(item));
+
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onFontClickListner != null) {
-                    onFontClickListner.onFontClicked(items[position], 2);
+                    onFontClickListner.onFontClicked(item, 2);
                 }
             }
         });
@@ -74,10 +74,10 @@ public class DownloadedFontAdapter extends RecyclerView.Adapter<DownloadedFontAd
         }
     }
 
-    public class FontItemViewHolder extends RecyclerView.ViewHolder {
+    class FontItemViewHolder extends RecyclerView.ViewHolder {
         Button tv;
 
-        public FontItemViewHolder(@NonNull View itemView) {
+        FontItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }

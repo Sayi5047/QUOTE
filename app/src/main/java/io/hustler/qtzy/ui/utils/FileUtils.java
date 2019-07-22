@@ -775,7 +775,7 @@ public class FileUtils {
 
     }
 
-    public static void setwallpaper(@NonNull Activity activity, @NonNull String imagepath) {
+    public static void setwallpaper(@NonNull Context activity, @NonNull String imagepath) {
         try {
             Intent intent = new Intent(WallpaperManager.getInstance(activity).
                     getCropAndSetWallpaperIntent(FileUtils.getImageContentUri(activity, new File(imagepath))));

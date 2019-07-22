@@ -4,9 +4,15 @@
         name="user_works"
         path="Pictures/Quotzy" />
     <external-path
+        name="user_fonts"
+        path="Pictures/Quotzy/Fonts" />
+    <external-path
+        name="user_temp_fonts"
+        path="Pictures/Quotzy/Fonts/TempFonts" />
+    <external-path
         name="user_wallpapers"
         path="Pictures/QuotzyWallPapers" />
     <external-path
         name="external_files"
-        path="." />
+        path="io.hustler.qtzy" />
 </paths>
