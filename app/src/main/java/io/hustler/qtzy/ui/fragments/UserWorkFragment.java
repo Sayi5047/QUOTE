@@ -86,7 +86,7 @@ public class UserWorkFragment extends android.support.v4.app.Fragment implements
         rv = view.findViewById(R.id.main_rv);
         loader = view.findViewById(R.id.loader);
         dataView = view.findViewById(R.id.data_view);
-        noPermissionView = view.findViewById(R.id.no_permission_view);
+        noPermissionView = view.findViewById(R.id.error_message_layout);
         imageText = view.findViewById(R.id.image_text);
         message = view.findViewById(R.id.message);
         loader.setVisibility(View.GONE);

@@ -90,9 +90,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/no_permission_view"
+        android:id="@+id/error_message_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp">
@@ -100,8 +100,8 @@
         <ImageView
             android:id="@+id/image_text"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:src="@drawable/ic_gallery_bg"
+            android:layout_height="250dp"
+            android:src="@drawable/ic_no_work_found"
             android:textAlignment="center"
             android:textColor="@color/colorAccent" />
 
@@ -112,9 +112,10 @@
             android:padding="16dp"
             android:text="@string/no_work"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/font2_1"
 
-            android:textSize="@dimen/font1" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

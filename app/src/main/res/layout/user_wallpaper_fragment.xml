@@ -8,10 +8,26 @@
     android:gravity="top"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/crdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/red_100"
+        android:padding="8dp"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:text="Photos by Unsplash"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:id="@+id/pager_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/crdit"
         android:background="@android:color/white"
         android:orientation="vertical">
 
@@ -36,15 +52,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/crdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Photos by Unsplash"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold" />
+
 </RelativeLayout>
 
 

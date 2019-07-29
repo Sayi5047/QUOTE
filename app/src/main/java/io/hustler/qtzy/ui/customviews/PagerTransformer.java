@@ -1,4 +1,4 @@
-package io.hustler.qtzy.ui.Widgets;
+package io.hustler.qtzy.ui.customviews;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;

@@ -64,7 +64,7 @@
     <string name="permission_" tools:keep="@string/permission_">Please,give permission to use features.</string>
     <string name="operation_failed" tools:keep="@string/operation_failed">Operation failed</string>
     <string name="permissin_granted">Permission granted now you can use the feature.</string>
-    <string name="no_work">No work done yet, click to start </string>
+    <string name="no_work">Nothing found,Click to show your creativity</string>
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
     <string name="set_wallpaer">Wallpaper</string>
     <string name="share">Share</string>
@@ -367,4 +367,9 @@
     <string name="font_help">You can install your custom fonts in 2 ways.</string>
     <string name="font_install_way_one">1.Download fonts from internet and unzip your .ttf or .otf files to folder Quotzy / Fonts in your file manager</string>
     <string name="font_install_way_two">2.Second Way to do it is Download your font files from internet and from your download location share the zip folder to Quotzy application and rest app will take care.</string>
+    <string name="no_favourites_yet">No favourites available yet</string>
+    <string name="loading_awesome_images">Loading Awesome Images for you</string>
+    <string name="hi_welcome_to_quotzy_swipe_to_see_more">Hi, Welcome to Quotzy Swipe to see more</string>
+    <string name="welcome_to_quotzy">Welcome to Quotzy</string>
+    <string name="something_at_very_end">Something at very end</string>
 </resources>

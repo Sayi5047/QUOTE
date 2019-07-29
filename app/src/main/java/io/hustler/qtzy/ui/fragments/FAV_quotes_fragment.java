@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
     RecyclerView rv_imag_no_fv;
     AppDatabase appDatabase;
     AppExecutor appExecutor;
+    RelativeLayout error_layout, main_layout;
 
     @Nullable
     @Override
@@ -58,6 +60,9 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
 
         iv_no_fav = view.findViewById(R.id.iv);
         rv_imag_no_fv = view.findViewById(R.id.rv);
+        error_layout = view.findViewById(R.id.error_layout);
+        main_layout = view.findViewById(R.id.main_layout);
+        error_layout.setVisibility(View.GONE);
         rv_imag_no_fv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         appDatabase = AppDatabase.getmAppDatabaseInstance(getContext());
         appExecutor = AppExecutor.getInstance();
@@ -73,7 +78,16 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
                 Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setAdapterData(recyclerView, quotesTables);
+                        if (quotesTables.size() <= 0) {
+                            error_layout.setVisibility(View.VISIBLE);
+                            main_layout.setVisibility(View.GONE);
+                        } else {
+                            error_layout.setVisibility(View.GONE);
+                            main_layout.setVisibility(View.VISIBLE);
+                            setAdapterData(recyclerView, quotesTables);
+
+                        }
+
                     }
                 });
             }
@@ -90,7 +104,6 @@ public class FAV_quotes_fragment extends android.support.v4.app.Fragment {
                 intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-
                 }
                 Objects.requireNonNull(getActivity()).startActivity(intent);
 

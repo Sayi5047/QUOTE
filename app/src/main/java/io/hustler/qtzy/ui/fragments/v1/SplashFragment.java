@@ -26,11 +26,12 @@ import android.widget.TextView;
 import java.util.Timer;
 
 import io.hustler.qtzy.R;
-import io.hustler.qtzy.ui.Widgets.PagerTransformer;
 import io.hustler.qtzy.ui.activities.LoginActivity;
 import io.hustler.qtzy.ui.activities.MainActivity;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.customviews.PagerTransformer;
 import io.hustler.qtzy.ui.customviews.ParrallaxPageTransformer;
+import io.hustler.qtzy.ui.customviews.WallpaperPageTransformer;
 import io.hustler.qtzy.ui.utils.ColorUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 
@@ -88,17 +89,20 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
 
         mPager.setAdapter(new landerAdapter(getActivity().getSupportFragmentManager(), getActivity()));
         parrallaxPageTransformer = new ParrallaxPageTransformer(R.id.card, R.id.on_board_image, R.id.on_board_title, R.id.on_board_image_circle, R.id.on_board_descriptiom);
+        WallpaperPageTransformer wallpaperPageTransformer = new WallpaperPageTransformer(R.id.icon);
         PagerTransformer transformer = new PagerTransformer(R.id.root_container);
 
-        mPager.setPageTransformer(false, transformer);
+        mPager.setPageTransformer(false, parrallaxPageTransformer);
         mPager.setCurrentItem(0);
         mPager.setOffscreenPageLimit(2);
         MULTIPLIER = totalNumberOfpagesOriginal = 5;
+        getActivity().getWindow().setStatusBarColor(colors[0]);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, getActivity());
                 currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, getActivity());
+                getActivity().getWindow().setStatusBarColor(currentcolor);
 //                rotation = positionOffset;
 //                ((View)mPager.getChildAt(position)).setBackgroundColor(currentcolor);
 //                bt_next.setBackgroundColor(currentcolor);
@@ -163,13 +167,13 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
         Context context;
         String[] titles;
         @NonNull
-        int[] images = {R.mipmap.ic_launcher, R.drawable.ic_collection, R.drawable.ic_canvas, R.drawable.ic_font_size, R.drawable.ic_infinite};
+        int[] images2 = {R.mipmap.ic_launcher, R.drawable.ic_collection, R.drawable.ic_canvas, R.drawable.ic_font_size, R.drawable.ic_infinite};
+        int[] images = {R.drawable.ic_welcome_quotzy, R.drawable.ic_welcome_2, R.drawable.ic_welcome_3, R.drawable.ic_welcome_4, R.drawable.ic_welcome_5};
 
         String[] descriptions;
 
-        public landerAdapter(android.support.v4.app.FragmentManager fm, Context context) {
+        landerAdapter(android.support.v4.app.FragmentManager fm, Context context) {
             super(fm);
-            this.fragmentManager = fragmentManager;
             this.context = context;
             titles = context.getResources().getStringArray(R.array.lander_titles);
             descriptions = context.getResources().getStringArray(R.array.lander_descriptions);
@@ -231,7 +235,7 @@ public class SplashFragment extends Fragment implements View.OnClickListener {
             linearLayout = view.findViewById(R.id.linear_bg_layout);
             TextUtils.findText_and_applyTypeface(linearLayout, getActivity());
 //            TextUtils.findText_and_applycolor(linearLayout, getActivity(), null);
-            animationDrawable = (AnimationDrawable) linearLayout.getBackground();
+//            animationDrawable = (AnimationDrawable) linearLayout.getBackground();
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
             sharedPreferences.registerOnSharedPreferenceChangeListener(this);

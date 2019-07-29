@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
@@ -49,7 +48,7 @@ import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
     private static final int MY_PERMISSION_REQUEST_ = 1001;
     RecyclerView rv;
-    ProgressBar loader;
+    RelativeLayout loader;
     UserWorkImages userWorkImages;
     WallpaperAdapter wallAdapter;
     private RelativeLayout dataView;
@@ -110,12 +109,12 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
 //        clearEverything();
 
         if (sharedPreferences.getInt(Constants.Shared_prefs_images_loaded_times, 0) > 5) {
-            appExecutor.getNetworkExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
+//            appExecutor.getNetworkExecutor().execute(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            });
             getRandomIMages(new Random().nextInt(30));
         } else {
             if (sharedPreferences.getBoolean(Constants.Shared_prefs_Images_loaded_for_first_time, false)) {
@@ -150,6 +149,7 @@ public class RandomWallpapersFragment extends android.support.v4.app.Fragment {
 //                        }
 //                    }
 //                } else {
+                loader.setVisibility(View.GONE);
                 unsplash_images_loaded = unsplash_images;
 
                 new LoadImagestoSharedPrefsTask2().execute();

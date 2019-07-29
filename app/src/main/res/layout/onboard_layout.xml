@@ -10,32 +10,25 @@
         android:id="@+id/card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:background="@drawable/rounded_white_rect"
-        android:backgroundTint="@color/light_blue_400"
+        android:background="@drawable/rect_white_border"
         android:backgroundTintMode="src_in"
+        android:backgroundTint="@color/light_blue_400"
         android:clipToPadding="true"
-        android:elevation="16dp"
         android:orientation="vertical">
 
         <ImageView
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.3"
-            android:elevation="4dp"
-
             android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:id="@+id/linear_bg_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="8dp"
+            >
 
             <!--android:background="@drawable/animation_list"-->
 
@@ -43,43 +36,47 @@
                 android:id="@+id/on_board_image_circle"
                 android:layout_width="360dp"
                 android:layout_height="360dp"
-                android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.7"
-                android:src="@drawable/transparent_circle" />
-            <!--<ImageView-->
-            <!--android:id="@+id/on_board_image_circle_2"-->
+                android:src="@drawable/transparent_circle"
+                android:visibility="gone" />
 
-            <!--android:layout_width="360dp"-->
-            <!--android:layout_height="360dp"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:src="@drawable/geometry_final" -->
-            <!--android:scaleType="fitEnd"/>-->
+            <TextView
+                android:id="@+id/t1"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/t2"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/on_board_descriptiom"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/white" />
 
             <ImageView
                 android:id="@+id/on_board_image"
 
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
                 android:elevation="4dp"
-                android:padding="16dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/ic_welcome_quotzy" />
 
 
             <TextView
                 android:id="@+id/on_board_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/on_board_image_circle"
-                android:layout_marginTop="-20dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Welcome to Quotzy"
-                android:textAlignment="center"
+                android:layout_below="@id/t1"
+                android:text="@string/welcome_to_quotzy"
+                android:textAlignment="textStart"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white"
                 android:textSize="36sp"
@@ -89,13 +86,13 @@
                 android:id="@+id/on_board_descriptiom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/on_board_image_circle"
+                android:layout_below="@id/on_board_title"
                 android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text=""
-                android:textAlignment="center"
+
+                android:text="@string/something_at_very_end"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
+
 
         </RelativeLayout>
 
