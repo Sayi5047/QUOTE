@@ -9,7 +9,8 @@
     <color name="black_overlay">#66000000</color>
     <color name="bg" tools:keep="@color/bg">#F5F5F5</color>
     <color name="red_100">#80deea</color>
-    <color name="primary" tools:keep="@color/primary">#009688</color>
+    <color name="primary">#ec407a</color>
+    <!--<color name="primary" tools:keep="@color/primary">#009688</color>-->
     <color name="primary_dark" tools:keep="@color/primary_dark">#607D8B</color>
     <color name="primary_light" tools:keep="@color/primary_light">#B2DFDB</color>
     <color name="accent">#FFC107</color>

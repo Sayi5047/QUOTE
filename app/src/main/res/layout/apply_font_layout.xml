@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -25,7 +26,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -83,14 +84,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
-                android:padding="@dimen/smallPadding"
+                android:padding="@dimen/padding1"
                 android:text="@string/app_fonts"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
@@ -111,8 +111,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-
+            android:layout_marginTop="20dp"
+            android:layout_weight="3"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -123,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
-                    android:padding="@dimen/smallPadding"
+                    android:padding="@dimen/padding1"
                     android:text="@string/symbolic_fonts"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -132,16 +133,18 @@
                 </TextView>
 
                 <ImageView
+                    android:id="@+id/help_iv"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="4dp"
-                    android:src="@drawable/ic_ondemand_video_black_24dp"
+                    android:src="@drawable/ic_help_black_24dp"
                     android:tint="@android:color/white"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
             </RelativeLayout>
 
 
@@ -153,20 +156,55 @@
 
             </android.support.v7.widget.RecyclerView>
 
+            <LinearLayout
+                android:id="@+id/help_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/black"
+                    android:gravity="center"
+                    android:padding="@dimen/padding1"
+                    android:text="@string/font_help"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/elevation8"
+                    android:text="@string/font_install_way_one"
+                    android:textSize="@dimen/elevation16"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/elevation16"
+                    android:text="@string/font_install_way_two"
+                    android:textSize="@dimen/elevation16"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 ads:adSize="BANNER"
 
                 ads:adUnitId="@string/bannerAdId">

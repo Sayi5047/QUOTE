@@ -52,6 +52,7 @@ public class CreditsActivity extends AppCompatActivity {
 
     protected void setDailogCollapsinngToolBar(final CollapsingToolbarLayout ctl, Toolbar toolbar, final TextView header_name, AppBarLayout appBarLayout) {
         setSupportActionBar(toolbar);
+        toolbar.setTitle("");
         toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_white_24dp)));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

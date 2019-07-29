@@ -1,5 +1,6 @@
 package io.hustler.qtzy.ui.activities;
 
+import android.Manifest;
 import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.arch.lifecycle.LiveData;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -22,6 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -78,6 +81,7 @@ import io.hustler.qtzy.ui.pojo.listeners.SearchImagesResponseListener;
 import io.hustler.qtzy.ui.pojo.unspalsh.Unsplash_Image;
 import io.hustler.qtzy.ui.utils.AdUtils;
 import io.hustler.qtzy.ui.utils.IntentConstants;
+import io.hustler.qtzy.ui.utils.PermissionUtils;
 import io.hustler.qtzy.ui.utils.TextUtils;
 import io.hustler.qtzy.ui.utils.Toast_Snack_Dialog_Utils;
 
@@ -86,6 +90,7 @@ import static android.view.View.GONE;
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private static final int MY_PERMISSION_REQUEST_ = 9007;
     private final String IMAGES = "images";
     private final String QUOTES = "quotes";
     @Nullable
@@ -159,7 +164,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fab = findViewById(R.id.fab);
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
-
+        checkPermission_and_proceed();
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getApplicationContext(), getSupportFragmentManager());
         launchFragmentAndAnimate(previousPixles, quotesIv);
 
@@ -756,6 +761,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+    private void checkPermission_and_proceed() {
+        if (PermissionUtils.isPermissionAvailable(MainActivity.this)) {
+            return;
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSION_REQUEST_);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSION_REQUEST_: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+
+                }
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {

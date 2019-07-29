@@ -7,6 +7,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
+
 import io.hustler.qtzy.R;
 
 /**
@@ -30,7 +31,7 @@ public class AdUtils {
     public static void loadBannerAd(final AdView adView, final Activity activity) {
 //        adView.setVisibility(View.GONE);
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("593C5397F0180D04205C449F6C3D2352").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {

@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.WallpaperManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,7 @@ import java.util.Objects;
 import io.hustler.qtzy.R;
 import io.hustler.qtzy.ui.Executors.AppExecutor;
 import io.hustler.qtzy.ui.apiRequestLauncher.Constants;
+import io.hustler.qtzy.ui.utils.FileUtils;
 
 import static android.os.Build.VERSION_CODES.O;
 import static io.hustler.qtzy.ui.utils.FileUtils.getImageContent;
@@ -182,10 +182,11 @@ public class DownloadImageJobService extends JobService {
 
                         if (is_to_set_wallpaper) {
                             try {
-                                Intent intent = new Intent(WallpaperManager.getInstance(downloadImageJobService).
-                                        getCropAndSetWallpaperIntent(FileProvider.getUriForFile(downloadImageJobService, "io.hustler.qtzy.fileprovider", (downloading_File))));
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                downloadImageJobService.startActivity(intent);
+                                FileUtils.setwallpaper(downloadImageJobService, downloading_File.getPath());
+//                                Intent intent = new Intent(WallpaperManager.getInstance(downloadImageJobService).
+//                                        getCropAndSetWallpaperIntent(FileProvider.getUriForFile(downloadImageJobService, "io.hustler.qtzy.fileprovider", (downloading_File))));
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                downloadImageJobService.startActivity(intent);
                             } catch (Exception e) {
                                 e.printStackTrace();
 
@@ -221,7 +222,7 @@ public class DownloadImageJobService extends JobService {
     @Override
     public boolean onStopJob(@NonNull com.firebase.jobdispatcher.JobParameters jobParameters) {
         if (null != task) task.cancel(true);
-        NotificationManager notificationManager= (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         assert notificationManager != null;
         notificationManager.cancelAll();
         return true;

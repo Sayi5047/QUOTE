@@ -11,7 +11,7 @@
         path="Pictures/Quotzy/Fonts/TempFonts" />
     <external-path
         name="user_wallpapers"
-        path="Pictures/QuotzyWallPapers" />
+        path="Pictures/Quotzy WallPapers" />
     <external-path
         name="external_files"
         path="io.hustler.qtzy" />

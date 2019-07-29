@@ -357,11 +357,14 @@
     <string name="collections">Collections</string>
     <string name="library">Library</string>
     <string name="DAILY_WALLS_ACTIVATED">DAILY_WALL_KAEY</string>
-    <string name="Dailywalls">DailyWallpaper</string>
+    <string name="Dailywalls">Daily Wallpaper (Beta)</string>
     <string name="FALSE">false</string>
     <string name="TRUE">true</string>
     <string name="DailyNotifs">Daily Notification</string>
     <string name="setting_up_things_for_first_time">Setting up things for first time</string>
     <string name="_00_completed">!00% completed</string>
     <string name="slide_to_choose_width">Slide to increase brush size</string>
+    <string name="font_help">You can install your custom fonts in 2 ways.</string>
+    <string name="font_install_way_one">1.Download fonts from internet and unzip your .ttf or .otf files to folder Quotzy / Fonts in your file manager</string>
+    <string name="font_install_way_two">2.Second Way to do it is Download your font files from internet and from your download location share the zip folder to Quotzy application and rest app will take care.</string>
 </resources>

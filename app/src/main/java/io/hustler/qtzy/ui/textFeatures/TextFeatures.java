@@ -287,6 +287,7 @@ public class TextFeatures {
         final TextView demoText;
         RecyclerView rvAppFont;
         RecyclerView rvDownloadedFont;
+        final LinearLayout help_layout;
         RecyclerView rvGoogleFont;
         Button btShadowClose;
         final AutoCompleteTextView searchBox;
@@ -294,6 +295,7 @@ public class TextFeatures {
         final ImageView searchButton;
         final ArraySet<String> familyNameSet;
         LocalFontAdapter localFontAdapter;
+        ImageView hemplView;
         DownloadedFontAdapter downloadedFontAdapter;
         GoogleFontsAdapter googleFontsAdapter;
         final int[] isDownloaded = new int[3];
@@ -310,9 +312,11 @@ public class TextFeatures {
         rvDownloadedFont = dialog.findViewById(R.id.rv_symbol_font);
 
         btShadowClose = dialog.findViewById(R.id.bt_shadow_close);
+        help_layout = dialog.findViewById(R.id.help_layout);
         btShadowApply = dialog.findViewById(R.id.bt_shadow_apply);
         searchButton = dialog.findViewById(R.id.search_button);
         searchBox = dialog.findViewById(R.id.search_box);
+        hemplView = dialog.findViewById(R.id.help_iv);
         familyNameSet = new ArraySet<>();
         familyNameSet.addAll(Arrays.asList(editorActivity.getResources().getStringArray(R.array.family_names)));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(editorActivity,
@@ -340,6 +344,17 @@ public class TextFeatures {
             }
         });
 
+        hemplView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (help_layout.getVisibility() == View.VISIBLE) {
+                    help_layout.setVisibility(GONE);
+                } else {
+                    help_layout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         btShadowClose.setOnClickListener((View.OnClickListener) editorActivity);
         btShadowApply.setOnClickListener((View.OnClickListener) editorActivity);
 
