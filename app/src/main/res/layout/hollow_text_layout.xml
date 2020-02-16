@@ -21,14 +21,14 @@
             android:textSize="@dimen/font3"
             android:textStyle="italic" />
 
-        <android.support.v7.widget.AppCompatSpinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/fx_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/hollow_fx_list"
             android:padding="16dp">
 
-        </android.support.v7.widget.AppCompatSpinner>
+        </androidx.appcompat.widget.AppCompatSpinner>
 
         <TextView
             android:id="@+id/demo_shadow_text"
@@ -47,7 +47,7 @@
             android:padding="@dimen/smallPadding"
             android:visibility="gone">
 
-            <android.support.v7.widget.AppCompatSeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/opacity_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

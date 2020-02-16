@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_rect"
     android:clipToPadding="true"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/margin_8"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:padding="10dp"
-        android:text="@string/Fit"
+        android:text="@string/choose_gallery"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/font2"
@@ -97,8 +99,9 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
+
             android:text="@string/LaunchGa"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/WHITE" />
     </LinearLayout>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

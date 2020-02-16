@@ -33,19 +33,25 @@ android {
             storeFile file(properties.getProperty("storeFile"))
             storePassword properties.getProperty("storePassword")
         }
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
     }
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
     defaultConfig {
-        applicationId "io.hustler.qtzy"
+        applicationId "com.hustler.quote"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 29
         versionCode 15
         versionName "1.000014"
         resConfigs "en"
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -61,6 +67,10 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.debugconfig
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
     applicationVariants.all {
         variant ->
@@ -86,37 +96,39 @@ def getDate() {
     return new Date().format('ddMMMyy')
 }
 
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation "com.google.firebase:firebase-messaging:17.6.0"
+    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation "com.google.firebase:firebase-messaging:20.1.0"
     implementation "com.google.firebase:firebase-crash:16.2.1"
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.0'
-    implementation "com.android.support:design:$supportLibVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:cardview-v7:$supportLibVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:exifinterface:$supportLibVersion"
-    implementation "com.android.support:palette-v7:$supportLibVersion"
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'androidx.palette:palette:1.0.0'
     implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.android.support:support-v13:$supportLibVersion"
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
-    implementation "com.android.support:customtabs:$supportLibVersion"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'androidx.browser:browser:1.2.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
-    implementation "com.google.android.gms:play-services-ads:17.2.0"
+    implementation "com.google.android.gms:play-services-ads:18.3.0"
     implementation 'com.pes.materialcolorpicker:library:1.2.0'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'com.waynejo:androidndkgif:0.3.3'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.6'
 
 
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
-    implementation 'android.arch.lifecycle:livedata:1.1.1'
+    implementation 'androidx.room:room-runtime:2.2.3'
+    annotationProcessor 'androidx.room:room-compiler:2.2.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

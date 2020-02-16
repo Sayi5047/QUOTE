@@ -3,30 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/smallPadding"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/feature_item"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginLeft="@dimen/elevation16"
-        android:background="@drawable/cir_button_red"
-        android:backgroundTint="@color/deep_orange_50"
-        android:elevation="@dimen/elevation4"
         android:gravity="center"
-        android:padding="@dimen/elevation16"
+        android:padding="10dp"
         android:src="@drawable/ic_text_color" />
 
     <TextView
         android:id="@+id/feature_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/elevation16"
-        android:elevation="@dimen/elevation4"
         android:gravity="center"
         android:padding="@dimen/elevation4"
-        android:textColor="@color/textColor"
-        android:textSize="10sp"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
         tools:text="Blurr text" />
 </LinearLayout>

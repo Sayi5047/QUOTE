@@ -12,11 +12,11 @@
         <item name="android:textColorSecondary">@color/textColor</item>
     </style>
 
-    <style name="NoStatusBar" parent="AppTheme.NoActionBar">
+    <style name="NoStatusBar" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="lightstatusbar" parent="@style/Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="lightstatusbar" parent="@style/Theme.MaterialComponents.Light.NoActionBar"/>
 </resources>

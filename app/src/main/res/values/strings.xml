@@ -94,9 +94,9 @@
     <string name="Launch">Launch</string>
     <string name="Skip">Skip</string>
     <string name="Previous">Previous</string>
-    <string name="backgroundColor">Background color</string>
+    <string name="backgroundColor">BG color</string>
     <string name="bold">Bold</string>
-    <string name="underline">Underline</string>
+    <string name="underline">U-line</string>
     <string name="italic">Italic</string>
     <string name="color">Color</string>
     <string name="highlight">highlight</string>
@@ -225,7 +225,7 @@
         <item>Photo Text</item>
         <item>Gradient</item>
         <item>Size</item>
-        <item>Fx</item>
+<!--        <item>Fx</item>-->
         <!--<item>Hollow Text</item>-->
 
     </string-array>
@@ -262,8 +262,8 @@
     </string-array>
 
     <string-array name="fx_list">
-        <item>Emboss</item>
-        <item>Deboss</item>
+<!--        <item>Emboss</item>-->
+        <!--        <item>Deboss</item>-->
         <item>Blurr</item>
         <item>Solid</item>
         <item>Inner Glow</item>
@@ -299,7 +299,7 @@
         <item>Hand It Over</item>
     </string-array>
 
-    <string name="file_provider_authority" translatable="false">io.hustler.qtzy.fileprovider</string>
+    <string name="file_provider_authority" translatable="false">com.hustler.quote.fileprovider</string>
     <string name="start_your_first_wallpaper" tools:keep="@string/start_your_first_wallpaper">Start Editing</string>
     <string name="Click_to_start" tools:keep="@string/Click_to_start">Start editing your first text wallpaper</string>
     <string name="explore_categories" tools:keep="@string/explore_categories">Explore all categories</string>
@@ -372,4 +372,7 @@
     <string name="hi_welcome_to_quotzy_swipe_to_see_more">Hi, Welcome to Quotzy Swipe to see more</string>
     <string name="welcome_to_quotzy">Welcome to Quotzy</string>
     <string name="something_at_very_end">Something at very end</string>
+    <string name="enter_here">Enter here</string>
+    <string name="demo">Ab12</string>
+    <string name="choose_gallery">Choose Image from Gallery</string>
 </resources>

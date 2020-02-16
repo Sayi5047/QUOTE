@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.hustler.qtzy.ui.fragments.MainFragment">
+    tools:context="com.hustler.quote.com.hustler.quote.ui.fragments.MainFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:background="@color/WHITE">
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/carousel_pager"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"

@@ -73,7 +73,7 @@
         android:textColor="@color/black_overlay"
         android:textSize="@dimen/font2" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/colors_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,8 +86,8 @@
         android:layout_below="@id/colors_recycler"
         android:layout_centerHorizontal="true"
         android:layout_margin="4dp"
+        android:textColor="@color/WHITE"
         android:background="@drawable/rounded_rect"
-        android:padding="@dimen/padding1"
         android:text="@string/preview"
         android:textAllCaps="false" />
 
@@ -117,6 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
+            android:textColor="@color/WHITE"
             android:background="@drawable/rounded_rect"
             android:text="@string/cancel"
             android:textAllCaps="false" />
@@ -129,6 +130,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
             android:layout_weight="1"
+            android:textColor="@color/WHITE"
             android:background="@drawable/rounded_rect"
             android:text="@string/apply"
             android:textAllCaps="false" />

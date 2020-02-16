@@ -44,7 +44,7 @@
             android:background="@android:color/transparent" />
 
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_delete"
             android:layout_width="52dp"
             android:layout_height="52dp"
@@ -58,7 +58,7 @@
             android:textStyle="bold"
             app:backgroundTint="@android:color/white" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_wallpaper"
             android:layout_width="52dp"
             android:layout_height="52dp"
@@ -72,7 +72,7 @@
             android:textStyle="bold"
             app:backgroundTint="@android:color/white" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_share"
             android:layout_width="52dp"
             android:layout_height="52dp"

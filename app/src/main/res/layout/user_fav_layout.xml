@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/fav_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -15,15 +15,15 @@
         app:tabIndicatorHeight="1dp"
         app:tabSelectedTextColor="@color/orange_300">
 
-    </android.support.design.widget.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
-    <io.hustler.qtzy.ui.customviews.MyViewPager
+    <com.hustler.quote.ui.customviews.MyViewPager
         android:id="@+id/fav_viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="12">
 
-    </io.hustler.qtzy.ui.customviews.MyViewPager>
+    </com.hustler.quote.ui.customviews.MyViewPager>
 
 
 </LinearLayout>

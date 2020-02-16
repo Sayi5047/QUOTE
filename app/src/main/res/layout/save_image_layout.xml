@@ -30,7 +30,7 @@
         android:padding="16dp"
         android:textAlignment="textStart"
         android:textColor="@color/textColor"
-        android:textColorHint="@color/colorPrimary1" />
+        android:textColorHint="@color/colorPrimary" />
 
     <RadioGroup
         android:id="@+id/rd_group"
@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/cancel"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/WHITE" />
 
         <Button
             android:id="@+id/bt_save"
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/save"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/WHITE" />
     </LinearLayout>
     <Button
         android:id="@+id/gif_btn"

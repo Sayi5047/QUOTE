@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/smallPadding">
 
-            <android.support.v7.widget.AppCompatSeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/opacity_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
-                android:text="@string/opacity" />
+                android:text="@string/opacity"
+                android:textColor="@color/black_overlay" />
 
         </LinearLayout>
 
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/smallPadding">
 
-            <android.support.v7.widget.AppCompatSeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/shadow_radius_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
+                android:textColor="@color/black_overlay"
                 android:text="@string/radius" />
 
         </LinearLayout>
@@ -85,7 +87,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/smallPadding">
 
-            <android.support.v7.widget.AppCompatSeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/pos_x_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
+                android:textColor="@color/black_overlay"
                 android:text="@string/x_pos" />
 
         </LinearLayout>
@@ -109,7 +112,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/smallPadding">
 
-            <android.support.v7.widget.AppCompatSeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/pos_y_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
+                android:textColor="@color/black_overlay"
                 android:text="@string/y_pos" />
 
         </LinearLayout>
@@ -140,14 +144,14 @@
             android:textColor="@android:color/white"
             android:textStyle="italic" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_shadow_color"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_margin="@dimen/standardMargin"
             android:padding="@dimen/smallPadding">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
@@ -166,27 +170,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/standardPadding">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+
+            >
 
             <Button
                 android:id="@+id/bt_shadow_close"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/smallPadding"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/close"
-                android:textColor="@color/textColor" />
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/bt_shadow_apply"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standardMargin"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/apply"
-                android:textColor="@color/textColor" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

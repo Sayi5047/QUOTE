@@ -131,14 +131,14 @@
         android:layout_below="@id/rd_group">
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/result_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/adView"
             android:layout_marginTop="10dp">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <ProgressBar
             android:id="@+id/loader"

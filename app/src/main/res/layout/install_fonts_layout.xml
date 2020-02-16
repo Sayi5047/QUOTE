@@ -30,12 +30,12 @@
         android:textSize="@dimen/font2"
         android:textStyle="italic" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/font_recycler"
         android:layout_width="match_parent"
         android:layout_height="250dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/bt_ll_layout"

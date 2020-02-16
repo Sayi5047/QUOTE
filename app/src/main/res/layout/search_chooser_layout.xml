@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@android:color/white">
+    android:background="@color/textColor">
 
     <ImageView
         android:id="@+id/search_btn"
@@ -16,6 +16,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="-10dp"
+        android:tint="@color/WHITE"
         android:alpha="0.4"
         android:padding="4dp"
         android:src="@drawable/ic_close_black_24dp" />
@@ -30,6 +31,7 @@
         android:layout_marginTop="16dp"
         android:alpha="0.4"
         android:gravity="center"
+        android:textColor="@color/WHITE"
         android:padding="4dp"
         android:visibility="visible"
         tools:text="SOME SEARCH TERM" />
@@ -59,8 +61,8 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:padding="8dp"
-                android:textColor="@color/textColor"
-                android:textColorHint="@color/black_overlay"
+                android:textColor="@color/WHITE"
+                android:textColorHint="@color/WHITE"
                 android:textSize="@dimen/font"
                 android:textStyle="bold" />
 
@@ -83,7 +85,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:alpha="0.2"
-            android:background="@color/textColor" />
+            android:background="@color/WHITE" />
     </LinearLayout>
 
 
@@ -99,22 +101,26 @@
 
         <RadioButton
             android:id="@+id/rb_images"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
             android:background="@drawable/rd_category_selector"
             android:button="@null"
             android:checked="true"
             android:enabled="true"
             android:padding="4dp"
             android:text="@string/images"
-            android:textColor="@color/divider" />
+            android:textColor="@color/textColor" />
 
         <RadioButton
             android:id="@+id/rb_quotes"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:textAlignment="center"
             android:background="@drawable/rd_category_selector"
             android:button="@null"
             android:padding="4dp"
@@ -131,14 +137,14 @@
         android:layout_below="@id/rd_group">
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/result_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/adView"
             android:layout_marginTop="10dp">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <ProgressBar
             android:id="@+id/loader"

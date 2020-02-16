@@ -17,12 +17,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/WHITE"
-    tools:context="io.hustler.qtzy.ui.activities.EditorActivity">
+    tools:context=".ui.activities.EditorActivity">
 
 
     <LinearLayout
         android:id="@+id/top_save_and_share_bar"
+        android:background="@color/textColor"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
+            android:tint="@color/colorAccent"
             android:src="@drawable/ic_close_black_24dp" />
 
         <ImageView
@@ -44,6 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:tint="@color/colorAccent"
+
             android:layout_weight="1.5"
             android:padding="@dimen/elevation8"
             android:src="@drawable/ic_doodle" />
@@ -52,6 +55,8 @@
             android:id="@+id/doodle_brush_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:tint="@color/colorAccent"
+
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:padding="@dimen/elevation8"
@@ -65,6 +70,8 @@
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:alpha="0.9"
+            android:tint="@color/colorAccent"
+
             android:padding="@dimen/elevation8"
             android:src="@drawable/ic_palette"
             android:visibility="gone" />
@@ -76,6 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.8"
+            android:tint="@color/colorAccent"
 
             android:src="@drawable/ic_shadow"
             android:visibility="gone" />
@@ -86,6 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
+            android:tint="@color/colorAccent"
+
             android:src="@drawable/ic_undo"
             android:visibility="gone" />
 
@@ -95,6 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
+            android:tint="@color/colorAccent"
+
             android:src="@drawable/ic_redo"
             android:visibility="gone" />
 
@@ -104,6 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1.5"
+            android:tint="@color/colorAccent"
+
             android:padding="@dimen/elevation8"
             android:src="@drawable/ic_trash"
             android:visibility="gone" />
@@ -112,6 +126,8 @@
             android:id="@+id/delete_view_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:tint="@color/colorAccent"
+
             android:layout_gravity="center"
             android:layout_weight="1.5"
             android:src="@drawable/ic_delete_black_24dp" />
@@ -121,6 +137,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:tint="@color/colorAccent"
+
             android:layout_weight="1.5"
             android:src="@drawable/ic_save_black_24dp" />
 
@@ -128,6 +146,7 @@
             android:id="@+id/font_share_module"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:tint="@color/colorAccent"
 
             android:layout_weight="1.5"
             android:src="@drawable/ic_menu_share" />
@@ -139,7 +158,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/features_layout"
-        android:background="@color/WHITE"
+        android:background="@color/textColor"
+
         android:layout_below="@id/top_save_and_share_bar">
 
         <RelativeLayout
@@ -187,17 +207,18 @@
 
                 <Button
                     android:id="@+id/bt_clear"
-                    android:layout_width="80dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="end"
                     android:layout_margin="@dimen/fontsmall"
-                    android:alpha="0.5"
+                    android:alpha="0.3"
                     android:background="@drawable/rounded_rect"
                     android:elevation="8dp"
                     android:text="@string/clear"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="8sp"
+
                     android:visibility="gone" />
 
                 <TextView
@@ -262,22 +283,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/textColor"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/content_rv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="3"
+
             android:padding="1dp" />
         <!--android:layout_above="@id/text_and_background_layout"-->
 
         <LinearLayout
             android:id="@+id/text_and_background_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+
+
             android:orientation="horizontal">
 
             <TextView
@@ -290,7 +313,7 @@
                 android:padding="@dimen/elevation8"
                 android:text="@string/Text"
 
-                android:textColor="@color/textColor"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />
 
@@ -312,8 +335,7 @@
         <LinearLayout
             android:id="@+id/close_and_done_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone">
 

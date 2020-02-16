@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#000000</color>
+
+    <color name="primaryColor">#37474f</color>
+
+    <color name="primaryLightColor">#62727b</color>
+
+    <color name="primaryDarkColor">#102027</color>
+
+    <color name="secondaryColor">#00e676</color>
+
+    <color name="secondaryLightColor">#66ffa6</color>
+
+    <color name="secondaryDarkColor">#00b248</color>
+
+    <color name="primaryTextColor">#eeeeee</color>
+
+    <color name="secondaryTextColor">#212121</color>
+
+    <color name="colorPrimary">#95ADAA</color>
+    <color name="colorPrimaryDark">#916768</color>
     <!--<color name="colorAccent">#009688</color>-->
-    <color name="colorAccent">#000000</color>
-    <color name="textColor">#212121</color>
+    <color name="colorAccent">#95ADAA</color>
+    <color name="textColor">#3D3943</color>
     <color name="colorPrimary1">#fbe9e7</color>
     <color name="black_overlay">#66000000</color>
-    <color name="bg" tools:keep="@color/bg">#F5F5F5</color>
+    <color name="bg" tools:keep="@color/bg">@color/textColor</color>
     <color name="red_100">#80deea</color>
     <color name="primary">#ec407a</color>
     <!--<color name="primary" tools:keep="@color/primary">#009688</color>-->

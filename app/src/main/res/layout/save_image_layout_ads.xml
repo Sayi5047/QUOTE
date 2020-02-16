@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_rect"
     android:clipToPadding="true"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -43,20 +44,20 @@
 
         <RadioButton
             android:id="@+id/rb_jpeg"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
             android:text="@string/jpg"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/black_overlay" />
 
         <RadioButton
             android:id="@+id/rb_png"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/png"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/black_overlay" />
     </RadioGroup>
 
     <Button
@@ -69,7 +70,8 @@
         android:background="@drawable/rounded_rect"
         android:text="@string/watermark"
         android:textAllCaps="false"
-        android:textColor="@color/textColor" />
+        android:textSize="12sp"
+        android:textColor="@color/WHITE" />
 
     <LinearLayout
         android:id="@+id/bt_ll_watch_Ad_layout"
@@ -88,7 +90,8 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/WatchAd"
-            android:textColor="@color/colorAccent" />
+            android:textSize="12sp"
+            android:textColor="@color/WHITE" />
 
         <Button
             android:id="@+id/bt_buy_pro"
@@ -98,7 +101,8 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/pro"
-            android:textColor="@color/colorAccent" />
+            android:textSize="12sp"
+            android:textColor="@color/WHITE" />
     </LinearLayout>
 
     <LinearLayout
@@ -116,9 +120,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:background="@drawable/rounded_rect"
             android:text="@string/cancel"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/WHITE" />
 
         <Button
             android:id="@+id/bt_save"
@@ -128,7 +133,8 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/save"
-            android:textColor="@color/colorAccent" />
+            android:textSize="12sp"
+            android:textColor="@color/WHITE" />
     </LinearLayout>
 
     <Button
@@ -138,7 +144,8 @@
         android:background="@drawable/rounded_rect"
         android:layout_margin="16dp"
         android:text="save as GIF"
-        android:visibility="gone"/>
+        android:textSize="12sp"
+        android:visibility="gone" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"

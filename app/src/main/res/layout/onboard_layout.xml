@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rect_white_border"
-        android:backgroundTintMode="src_in"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_white_rect"
         android:backgroundTint="@color/light_blue_400"
         android:clipToPadding="true"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/bg_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.3"
-            android:scaleType="centerCrop" />
+            android:alpha="0.15"
+            android:fitsSystemWindows="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_welcome_quotzy" />
 
         <RelativeLayout
             android:id="@+id/linear_bg_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="8dp"
-            >
+            android:padding="8dp">
 
             <!--android:background="@drawable/animation_list"-->
 
@@ -44,55 +45,73 @@
             <TextView
                 android:id="@+id/t1"
                 android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="10dp"
+                android:layout_above="@id/on_board_title"
                 android:layout_marginBottom="16dp"
-
                 android:background="@android:color/white" />
-
-            <TextView
-                android:id="@+id/t2"
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_below="@id/on_board_descriptiom"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/on_board_image"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/transparent"
-                android:elevation="4dp"
-                android:src="@drawable/ic_welcome_quotzy" />
-
 
             <TextView
                 android:id="@+id/on_board_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/t1"
+                android:layout_above="@id/t2"
                 android:text="@string/welcome_to_quotzy"
                 android:textAlignment="textStart"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white"
-                android:textSize="36sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/on_board_descriptiom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/on_board_title"
+                android:id="@+id/t2"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_above="@id/on_board_image"
                 android:layout_marginTop="16dp"
+                android:background="@android:color/white" />
 
+
+            <ImageView
+                android:id="@+id/on_board_image"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_welcome_quotzy" />
+
+            <TextView
+                android:id="@+id/t3"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_below="@id/on_board_image"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/elevation16"
+                android:layout_marginBottom="16dp"
+
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/on_board_descriptiom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/t3"
+                android:layout_alignParentEnd="true"
                 android:text="@string/something_at_very_end"
+                android:textAlignment="textEnd"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
+
+            <TextView
+                android:id="@+id/t4"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_below="@id/on_board_descriptiom"
+
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/white" />
 
         </RelativeLayout>
 

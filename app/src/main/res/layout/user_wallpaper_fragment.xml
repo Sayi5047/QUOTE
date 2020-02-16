@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@android:color/white"
+    android:background="@color/textColor"
     android:gravity="top"
     android:orientation="vertical">
 
@@ -20,7 +20,7 @@
         android:shadowRadius="5"
         android:text="Photos by Unsplash"
         android:textAlignment="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/textColor"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -28,10 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/crdit"
-        android:background="@android:color/white"
+
         android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -39,15 +39,15 @@
             app:tabIndicatorColor="@color/orange_300"
             app:tabSelectedTextColor="@color/orange_300">
 
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
-        <io.hustler.qtzy.ui.customviews.MyViewPager
+        <com.hustler.quote.ui.customviews.MyViewPager
             android:id="@+id/wall_viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="12">
 
-        </io.hustler.qtzy.ui.customviews.MyViewPager>
+        </com.hustler.quote.ui.customviews.MyViewPager>
 
 
     </LinearLayout>

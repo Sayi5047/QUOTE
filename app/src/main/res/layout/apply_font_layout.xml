@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -20,13 +20,15 @@
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font2">
+            android:textSize="@dimen/font2"
+            android:layout_alignParentTop="true" />
 
-        </TextView>
 
         <LinearLayout
+            android:id="@+id/google_fonts_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_demo_text"
             android:orientation="vertical">
 
             <TextView
@@ -69,21 +71,21 @@
                     tools:ignore="ContentDescription" />
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_downloaded_font"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/smallPadding">
 
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
 
         <LinearLayout
-
+            android:id="@+id/app_fonts_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/google_fonts_layout"
             android:orientation="vertical">
 
             <TextView
@@ -94,25 +96,24 @@
                 android:text="@string/app_fonts"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font">
+                android:textSize="@dimen/font" />
 
-            </TextView>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_app_font"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_margin="@dimen/smallPadding">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smallPadding"
+                android:layout_gravity="center" />
 
-            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/user_fonts_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_fonts_layout"
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
@@ -148,24 +149,24 @@
             </RelativeLayout>
 
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_symbol_font"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_margin="@dimen/smallPadding">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smallPadding" />
 
-            </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
                 android:id="@+id/help_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/black"
+                    android:background="@color/colorPrimaryDark"
                     android:gravity="center"
                     android:padding="@dimen/padding1"
                     android:text="@string/font_help"
@@ -180,6 +181,7 @@
                     android:padding="@dimen/elevation8"
                     android:text="@string/font_install_way_one"
                     android:textSize="@dimen/elevation16"
+                    android:textColor="@color/black_overlay"
                     android:textStyle="normal" />
 
                 <TextView
@@ -187,6 +189,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="@dimen/elevation16"
+                    android:textColor="@color/black_overlay"
                     android:text="@string/font_install_way_two"
                     android:textSize="@dimen/elevation16"
                     android:textStyle="normal" />
@@ -197,8 +200,10 @@
 
 
         <LinearLayout
+            android:id="@+id/footer_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/user_fonts_layout"
             android:orientation="vertical">
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -215,23 +220,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/smallPadding">
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16">
 
                 <Button
                     android:id="@+id/bt_shadow_close"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_margin="@dimen/smallPadding"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_rect"
                     android:text="@string/close"
+                    android:layout_marginEnd="@dimen/margin_8"
                     android:textColor="@color/textColor" />
 
                 <Button
                     android:id="@+id/bt_shadow_apply"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_margin="@dimen/standardMargin"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_rect"
                     android:text="@string/apply"
@@ -241,6 +246,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>

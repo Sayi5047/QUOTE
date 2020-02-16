@@ -15,10 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="4sp"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="16sp"
             android:text="@string/enter_text"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -28,20 +28,23 @@
             android:id="@+id/et_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="4sp"
             android:background="@drawable/rounded_rect"
-            android:padding="16dp" />
+            android:textColor="@android:color/black"
+            android:hint="@string/enter_here"
+            android:textColorHint="@android:color/black"
+            android:padding="16sp" />
 
         <TextView
             android:id="@+id/tv_align_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="8sp"
             android:gravity="center"
             android:text="@string/align"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/font1" />
 
         <LinearLayout
@@ -52,44 +55,48 @@
             <Button
                 android:id="@+id/bt_start"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
+                android:textSize="12sp"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/start"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/bt_center"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/center"
+                android:textSize="12sp"
 
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/bt_end"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/end"
-                android:textColor="@color/colorAccent" />
+                android:textSize="12sp"
+
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <Button
             android:id="@+id/bt_add_bg"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:layout_weight="1"
             android:background="@drawable/rounded_rect"
             android:text="@string/backgroundColor"
-            android:textColor="@color/colorAccent"
+            android:textColor="@android:color/white"
             android:visibility="gone" />
 
         <LinearLayout
@@ -104,9 +111,10 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
+                android:textSize="12sp"
 
                 android:text="@string/close"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/bt_done"
@@ -116,16 +124,15 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/done"
+                android:textSize="12sp"
 
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
             ads:adSize="BANNER"
             ads:adUnitId="@string/bannerAdId"

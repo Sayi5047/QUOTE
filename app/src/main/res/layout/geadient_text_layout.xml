@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?> <!--/*   Copyright [2018] [Sayi Manoj Sugavasi]   Licensed under the Apache License, Version 2.0 (the "License");   you may not use this file except in compliance with the License.   You may obtain a copy of the License at       http://www.apache.org/licenses/LICENSE-2.0   Unless required by applicable law or agreed to in writing, software   distributed under the License is distributed on an "AS IS" BASIS,   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   See the License for the specific language governing permissions and   limitations under the License.*/-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
     <LinearLayout
         android:id="@+id/root"
@@ -38,6 +39,7 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="@string/type_gra"
+            android:padding="4dp"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/font1" />
@@ -46,8 +48,7 @@
             android:id="@+id/rd_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+
             android:orientation="horizontal"
             android:padding="16dp"
             android:textAlignment="center">
@@ -80,58 +81,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/demo_color_1"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_margin="4dp"
-                    android:background="@color/black_overlay"
+                    android:background="@drawable/circledrawable"
                     android:elevation="4dp"
+
                     android:src="@drawable/ic_add_white_24dp" />
 
                 <ImageView
                     android:id="@+id/demo_color_2"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
-                    android:layout_below="@id/demo_color_1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_margin="4dp"
-                    android:background="@color/black_overlay"
+                    android:background="@drawable/circledrawable"
+
                     android:elevation="4dp"
 
                     android:src="@drawable/ic_add_white_24dp" />
 
                 <ImageView
                     android:id="@+id/demo_color_3"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
-                    android:layout_below="@id/demo_color_1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_margin="4dp"
-                    android:background="@color/black_overlay"
+                    android:background="@drawable/circledrawable"
+
                     android:elevation="4dp"
 
                     android:src="@drawable/ic_add_white_24dp" />
 
                 <ImageView
                     android:id="@+id/demo_color_4"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
-                    android:layout_below="@id/demo_color_1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_margin="4dp"
-                    android:background="@color/black_overlay"
+                    android:background="@drawable/circledrawable"
+
                     android:elevation="4dp"
 
                     android:src="@drawable/ic_add_white_24dp" />
 
                 <ImageView
                     android:id="@+id/demo_color_5"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
-                    android:layout_below="@id/demo_color_1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_margin="4dp"
-                    android:background="@color/black_overlay"
+                    android:background="@drawable/circledrawable"
+
                     android:elevation="4dp"
 
                     android:src="@drawable/ic_add_white_24dp" />
@@ -160,7 +161,7 @@
                 android:textSize="@dimen/font2"
                 android:visibility="gone" />
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/colors_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,16 +170,12 @@
 
         <Button
             android:id="@+id/preview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/colors_recycler"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
             android:layout_margin="4dp"
             android:background="@drawable/rounded_rect"
-            android:padding="@dimen/padding1"
-            android:text="@string/previewGra"
-            android:textAllCaps="false" />
+            android:textColor="@color/WHITE"
+            android:text="@string/previewGra" />
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
@@ -195,7 +192,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/adView"
             android:orientation="horizontal"
             android:padding="4dp">
 
@@ -206,21 +202,17 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_rect"
                 android:text="@string/cancel"
-                android:textAllCaps="false" />
+                android:textColor="@color/WHITE" />
 
             <Button
                 android:id="@+id/bt_apply"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/preview"
-                android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_rect"
-                android:text="@string/apply"
-                android:textAllCaps="false" />
+                android:textColor="@color/WHITE"
+                android:text="@string/apply" />
         </LinearLayout>
 
     </LinearLayout>

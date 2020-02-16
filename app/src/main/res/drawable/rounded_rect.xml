@@ -6,5 +6,5 @@
         android:width="0.5dp"
         android:color="@color/colorAccent" />
 
-    <solid android:color="@android:color/white" />
+    <solid android:color="@color/deep_orange_50" />
 </shape>

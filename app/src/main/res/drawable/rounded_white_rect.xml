@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:shape="rectangle"
     tools:keep="@drawable/rounded_white_rect">
-    <corners android:radius="15dp" />
+    <corners android:radius="0dp" />
     <stroke
-        android:width="0.5dp"
+        android:width="0.0dp"
         android:color="#FFFFFF" />
 
 
