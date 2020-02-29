@@ -43,7 +43,6 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/t1"
                 android:layout_width="100dp"
                 android:layout_height="10dp"
                 android:layout_above="@id/on_board_title"
@@ -104,7 +103,6 @@
 
 
             <TextView
-                android:id="@+id/t4"
                 android:layout_width="100dp"
                 android:layout_height="10dp"
                 android:layout_below="@id/on_board_descriptiom"

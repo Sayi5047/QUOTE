@@ -9,14 +9,14 @@
     android:elevation="4dp"
     android:orientation="vertical"
     app:cardCornerRadius="8dp"
+    android:transitionName="root_quote"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:id="@id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:transitionName="quotedetailsTransition">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/main_quote"

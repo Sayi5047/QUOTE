@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:layout_height="wrap_content"
+    android:background="@color/black_overlay">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
                 android:background="@color/colorAccent"
                 android:padding="@dimen/smallPadding"
                 android:text="@string/download_fonts"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/font">
@@ -95,6 +96,7 @@
                 android:padding="@dimen/padding1"
                 android:text="@string/app_fonts"
                 android:textAlignment="center"
+                android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/font" />
 
@@ -126,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
                     android:padding="@dimen/padding1"
+                    android:textStyle="bold"
                     android:text="@string/symbolic_fonts"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -160,8 +163,7 @@
                 android:id="@+id/help_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -181,7 +183,7 @@
                     android:padding="@dimen/elevation8"
                     android:text="@string/font_install_way_one"
                     android:textSize="@dimen/elevation16"
-                    android:textColor="@color/black_overlay"
+                    android:textColor="@color/WHITE"
                     android:textStyle="normal" />
 
                 <TextView
@@ -189,7 +191,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="@dimen/elevation16"
-                    android:textColor="@color/black_overlay"
+                    android:textColor="@color/WHITE"
                     android:text="@string/font_install_way_two"
                     android:textSize="@dimen/elevation16"
                     android:textStyle="normal" />
@@ -200,21 +202,17 @@
 
 
         <LinearLayout
-            android:id="@+id/footer_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/user_fonts_layout"
             android:orientation="vertical">
 
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.startapp.android.publish.ads.banner.Banner
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                ads:adSize="BANNER"
+                android:layout_height="wrap_content">
 
-                ads:adUnitId="@string/bannerAdId">
-
-            </com.google.android.gms.ads.AdView>
+            </com.startapp.android.publish.ads.banner.Banner>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -223,24 +221,25 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
+
                     android:id="@+id/bt_shadow_close"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_rect"
                     android:text="@string/close"
                     android:layout_marginEnd="@dimen/margin_8"
-                    android:textColor="@color/textColor" />
 
-                <Button
+                    android:textColor="@color/colorAccent" />
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/bt_shadow_apply"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_rect"
                     android:text="@string/apply"
-                    android:textColor="@color/textColor" />
+                    android:textColor="@color/WHITE" />
             </LinearLayout>
 
 

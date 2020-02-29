@@ -46,8 +46,8 @@ android {
         applicationId "com.hustler.quote"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 15
-        versionName "1.000014"
+        versionCode 16
+        versionName "1.000015"
         resConfigs "en"
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
@@ -104,7 +104,7 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:20.1.0"
     implementation "com.google.firebase:firebase-crash:16.2.1"
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -129,6 +129,14 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.3'
     annotationProcessor 'androidx.room:room-compiler:2.2.3'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    /*ADS*/
+
+    implementation 'com.startapp:inapp-sdk:4.3.0'
+
+//    implementation 'com.facebook.android:audience-network-sdk:5.7.1'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -2,16 +2,17 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="420dp"
+    android:layout_height="440dp"
     android:layout_margin="4dp"
-    android:background="@android:color/white"
-    app:cardCornerRadius="10dp">
+    android:background="@color/bg"
+    app:cardCornerRadius="10dp"
+    android:layout_gravity="center">
 
     <RelativeLayout
         android:id="@+id/root_Rl"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:background="@android:color/white"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
         android:clipToPadding="true">
 
         <ImageView
@@ -35,10 +36,12 @@
             android:id="@+id/share_layout_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:background="@color/trans_white_apple"
+            android:background="@color/bg"
             android:orientation="horizontal"
-            android:padding="4dp">
+            android:padding="4dp"
+            android:layout_marginTop="200dp"
+
+            >
 
             <ImageView
                 android:id="@+id/facebook"
@@ -108,8 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/share_layout_image"
-            android:background="@color/trans_white_apple"
-
+            android:background="@color/bg"
             android:orientation="vertical">
 
             <TextView
@@ -119,7 +121,7 @@
                 android:padding="4dp"
                 android:text="@string/enjoying"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 

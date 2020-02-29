@@ -1,40 +1,38 @@
 package com.hustler.quote.ui.fragments;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.hustler.quote.ui.Executors.AppExecutor;
-import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.hustler.quote.R;
-
+import com.hustler.quote.ui.Executors.AppExecutor;
 import com.hustler.quote.ui.ORM.AppDatabase;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
 import com.hustler.quote.ui.ViewModels.MainViewModel;
 import com.hustler.quote.ui.activities.QuoteDetailsActivity;
-import com.hustler.quote.ui.adapters.LocalAdapter;
+import com.hustler.quote.ui.adapters.QuotesAdapter;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Sayi on 07-10-2017.
@@ -59,7 +57,7 @@ public class QuotesFragment extends Fragment {
     private ProgressBar loader;
     private ArrayList<QuotesTable> quotesTableArrayList;
     @Nullable
-    private LocalAdapter localAdapter;
+    private QuotesAdapter quotesAdapter;
     private SharedPreferences sharedPreferences;
     private AppDatabase appDatabase;
     private AppExecutor appExecutor;
@@ -81,10 +79,10 @@ public class QuotesFragment extends Fragment {
         loader.setVisibility(View.VISIBLE);
         appDatabase = AppDatabase.getmAppDatabaseInstance(getActivity());
         appExecutor = AppExecutor.getInstance();
-        mainViewModel = new MainViewModel(Objects.requireNonNull(getActivity()).getApplication());
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+        setQuotesAdapter();
         if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
             loadQuotesToUi();
         } else {
@@ -92,6 +90,25 @@ public class QuotesFragment extends Fragment {
         }
         Log.i(TAG, "ON CREATEVIEW CALLED");
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setEnterTransition(MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, false));
+        setExitTransition(MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true));
+    }
+
+    private void setQuotesAdapter() {
+        quotesAdapter = new QuotesAdapter(getActivity(), (position, color, quote, view) -> {
+            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
+            }
+            startActivity(intent);
+        });
+        rv.setAdapter(quotesAdapter);
     }
 
     private void loadQuotesToDatabase() {
@@ -104,7 +121,7 @@ public class QuotesFragment extends Fragment {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Constants.IS_QUOTES_LOADED_KEY, true);
             editor.apply();
-            Objects.requireNonNull(getActivity()).runOnUiThread(() -> loadQuotesToUi());
+            Objects.requireNonNull(getActivity()).runOnUiThread(this::loadQuotesToUi);
         });
 
     }
@@ -113,13 +130,9 @@ public class QuotesFragment extends Fragment {
 
         if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, true)) {
             loader.setVisibility(View.GONE);
-            final LiveData<List<QuotesTable>> data = mainViewModel.getMainFragmentQuotes();
-            final Observer<List<QuotesTable>> observer = quotesTables -> Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
-//                data.removeObservers(getActivity());
-                setAdapter(quotesTables);
-//                            Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Change Occured");
-            });
-            data.observe(this, observer);
+            mainViewModel.getQuotes(Objects.requireNonNull(getContext()).getApplicationContext());
+            mainViewModel.mainFragmentQuotesList.observe(getViewLifecycleOwner(), QuotesFragment.this::setAdapter);
+
         } else {
             loader.setVisibility(View.VISIBLE);
             loadQuotesToDatabase();
@@ -129,48 +142,17 @@ public class QuotesFragment extends Fragment {
 
 
     private void setAdapter(@Nullable final List<QuotesTable> quotes) {
+        Log.i(TAG, "setAdapter: ROOM DATA CHANGED");
         if (quotes == null) {
             loader.setVisibility(View.VISIBLE);
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), "Quotes are null");
         } else {
             loader.setVisibility(View.GONE);
-
-            localAdapter = new LocalAdapter(getActivity(), (ArrayList<QuotesTable>) quotes, (position, color, quote, view) -> {
-
-                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-                }
-                startActivity(intent);
-            });
-            rv.setAdapter(localAdapter);
-
+            assert quotesAdapter != null;
+            quotesAdapter.addData((ArrayList<QuotesTable>) quotes);
         }
     }
 
-//    @Override
-//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-//        if (Objects.equals(key, Constants.IS_QUOTES_LOADED_KEY)) {
-//            loadQuotesToUi();
-//        }
-//    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-//        Log.i(TAG, "ON RESUME CALLED");
-//
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//
-//        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-//        Log.i(TAG, "ON PAUSE CALLED");
-//    }
 
     private void load_from_Arrays() {
 
@@ -187,102 +169,4 @@ public class QuotesFragment extends Fragment {
 
     }
 
-//    class QuotesloadTask extends AsyncTask<String, String, Void> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//
-//        @Override
-//        protected Void doInBackground(String... strings) {
-//
-//            quotesList = new QuotesDbHelper(getActivity()).getQuotesByCategory("Attitude");
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            setAdapter(new ArrayList<>(quotesList));
-//
-//        }
-//    }
-
-//
-//    @Override
-//    public Loader<List<Quote>> onCreateLoader(int id, Bundle args) {
-////        return new Quotesloader(getActivity());
-//        return null
-//    }
-//
-//    @Override
-//    public void onLoadFinished(Loader<List<Quote>> loader, List<Quote> data) {
-////        this.loader.setVisibility(View.GONE);
-////        setAdapter(new ArrayList<Quote>(data));
-//    }
-//
-//    @Override
-//    public void onLoaderReset(Loader<List<Quote>> loader) {
-////        setAdapter(null);
-//    }
-    //    @Override
-//    public void onResume() {
-//        super.onResume();
-//        Log.d("MainAdapter","ON RESUME");
-//        rv.setAdapter(null);
-//        setAdapter(rv);
-//
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        Log.d("MainAdapter","ON DETACH");
-//
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        Log.d("MainAdapter","ON Attach");
-//
-//    }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        Log.d("MainAdapter","ON Start");
-//        rv.setAdapter(null);
-//        setAdapter(rv);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        Log.d("MainAdapter","ON STOP");
-//
-//    }
-    //    public void setLayout(int i) {
-//        if(rv!=null){
-//            switch (i){
-//                case 1:
-//                    rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                    getRandomQuotes();
-//
-//                    break;
-//                case 2:
-//                    rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
-//                    getRandomQuotes();
-//
-//                    break;
-//                case 3: rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-//                    getRandomQuotes();
-//
-//                    break;
-//            }
-//        }
-//    }
 }

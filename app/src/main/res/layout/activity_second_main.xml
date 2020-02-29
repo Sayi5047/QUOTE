@@ -86,17 +86,14 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.startapp.android.publish.ads.banner.Banner
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        android:visibility="gone"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/bannerAdId"
-        ads:layout_anchorGravity="bottom">
+        android:visibility="visible">
 
-    </com.google.android.gms.ads.AdView>
+    </com.startapp.android.publish.ads.banner.Banner>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

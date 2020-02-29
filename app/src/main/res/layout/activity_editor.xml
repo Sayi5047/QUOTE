@@ -22,13 +22,14 @@
 
     <LinearLayout
         android:id="@+id/top_save_and_share_bar"
-        android:background="@color/textColor"
+        android:background="@color/bg"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="42dp"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
         android:animateLayoutChanges="true"
         android:gravity="center"
+        android:padding="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -43,12 +44,11 @@
         <ImageView
             android:id="@+id/doodle_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:layout_gravity="center"
             android:tint="@color/colorAccent"
-
             android:layout_weight="1.5"
-            android:padding="@dimen/elevation8"
+            android:padding="2dp"
             android:src="@drawable/ic_doodle" />
 
         <ImageView
@@ -154,13 +154,11 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/quote_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/features_layout"
-        android:background="@color/textColor"
-
-        android:layout_below="@id/top_save_and_share_bar">
+        android:layout_below="@id/top_save_and_share_bar"
+        android:background="@color/black_overlay">
 
         <RelativeLayout
             android:id="@+id/quote_layout"
@@ -191,7 +189,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:elevation="4dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@android:color/transparent">
 
 
                 <TextView
@@ -216,7 +215,7 @@
                     android:background="@drawable/rounded_rect"
                     android:elevation="8dp"
                     android:text="@string/clear"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="8sp"
 
                     android:visibility="gone" />
@@ -283,7 +282,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/textColor"
+        android:background="@color/bg"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -300,7 +299,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-
             android:orientation="horizontal">
 
             <TextView
@@ -312,7 +310,6 @@
                 android:gravity="center"
                 android:padding="@dimen/elevation8"
                 android:text="@string/Text"
-
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />
@@ -337,7 +334,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:id="@+id/close_tv"
@@ -346,6 +344,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:padding="@dimen/elevation8"
                 android:text="@string/close"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/font1"
@@ -356,9 +355,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="@dimen/elevation8"
                 android:gravity="center"
                 android:text="@string/done"
-                android:textColor="@color/textColor"
                 android:textSize="@dimen/font1"
                 android:textStyle="bold" />
 
@@ -375,7 +374,7 @@
             android:layout_marginRight="15dp"
             android:contentDescription="@string/action_settings"
             android:max="360"
-            android:padding="15dp"
+            android:padding="@dimen/standardPadding"
             android:progress="180"
             android:thumbTint="@color/deep_orange_50"
             android:visibility="gone" />

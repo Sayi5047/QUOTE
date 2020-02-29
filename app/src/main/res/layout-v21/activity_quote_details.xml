@@ -5,10 +5,10 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary1"
+    android:background="@color/bg"
     android:orientation="vertical"
-    android:transitionName="@string/quotes_author_transistion"
-    tools:context="com.hustler.quote.com.hustler.quote.ui.activities.QuoteDetailsActivity">
+    android:transitionName="@string/root_quote"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         app:elevation="0dp"
         app:layout_collapseMode="pin"
-        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationIcon="@drawable/ic_keyboard_backspace_white_24dp"
         tools:targetApi="lollipop">
 
         <TextView
@@ -26,7 +26,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:gravity="center"
-            android:text="@string/app_name"
             android:textColor="@color/textColor"
             android:textSize="@dimen/font2"
             android:textStyle="bold" />
@@ -100,7 +99,6 @@
                         android:layout_weight="2"
                         android:gravity="center"
                         android:padding="16dp"
-                        android:textAlignment="viewStart"
 
                         android:textColor="@android:color/black"
                         android:textIsSelectable="true"
@@ -121,21 +119,21 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_gravity="end"
+                            android:layout_gravity="center"
                             android:layout_margin="16dp"
+
                             android:src="@mipmap/ic_launcher" />
 
                         <TextView
                             android:id="@+id/tv_Quote_Author"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="20dp"
                             android:gravity="top"
                             android:padding="8dp"
 
-                            android:textAlignment="viewEnd"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/textColor"
                             android:textSize="@dimen/font2"
                             tools:text="hdsjkdsfsdhfhdjhfsjhf" />
                     </LinearLayout>
@@ -212,17 +210,14 @@
 
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            android:layout_weight="0.8"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="@string/bannerAdId"
-            ads:layout_anchorGravity="bottom" />
+            android:layout_weight="0.8" />
 
     </LinearLayout>
 

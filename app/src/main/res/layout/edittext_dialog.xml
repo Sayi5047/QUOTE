@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
             android:id="@+id/et_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4sp"
+            android:layout_margin="8dp"
             android:background="@drawable/rounded_rect"
             android:textColor="@android:color/black"
             android:text="demotext"
@@ -208,7 +209,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_rect"
                 android:text="@string/cancel"
-                android:textColor="@color/colorPrimaryDark" />
+               android:textColor="@color/colorAccent" />
 
             <Button
                 android:id="@+id/bt_done"
@@ -222,17 +223,16 @@
                 android:textColor="@color/black_overlay" />
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/bannerAdId"
+
             ads:layout_anchorGravity="bottom">
 
-        </com.google.android.gms.ads.AdView>
+        </com.startapp.android.publish.ads.banner.Banner>
     </LinearLayout>
 </ScrollView>

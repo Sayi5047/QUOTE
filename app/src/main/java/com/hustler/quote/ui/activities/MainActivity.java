@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -35,7 +36,6 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -57,10 +57,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
 import com.hustler.quote.ui.ViewModels.SearchQuotesViewModel;
-import com.hustler.quote.ui.adapters.LocalAdapter;
+import com.hustler.quote.ui.adapters.QuotesAdapter;
 import com.hustler.quote.ui.adapters.MainPagerAdapter;
 import com.hustler.quote.ui.adapters.SearchWallpaperAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
@@ -93,7 +94,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private final String IMAGES = "images";
     private final String QUOTES = "quotes";
     @Nullable
-    LocalAdapter adapter;
+    QuotesAdapter adapter;
 
     FragmentTransaction transaction;
 
@@ -140,14 +141,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
-            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.textColor));
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg));
         }
+
+        getWindow().setExitTransition(MaterialSharedAxis.create(this, MaterialSharedAxis.X, true).addTarget(R.id.main_view));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -235,7 +238,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 main_view.setX(navigationView.getWidth() * slideOffset);
 
 
-                int color = ColorUtils.blendARGB(getResources().getColor(R.color.primary_text), getResources().getColor(R.color.textColor), val);
+                int color = ColorUtils.blendARGB(getResources().getColor(R.color.primary_text), getResources().getColor(R.color.bg), val);
                 getWindow().setStatusBarColor(color);
                 navigationView.setBackgroundColor(color);
                 navigationView.setAlpha(1 - val);
@@ -489,7 +492,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final Dialog dialog = new Dialog(MainActivity.this, R.style.EditTextDialog_non_floater_2);
         dialog.setContentView(R.layout.search_chooser_layout);
         Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.EditTextDialog_non_floater_2;
-        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.textColor));
+        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.bg));
 
         dialog.setCancelable(true);
 
@@ -504,7 +507,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final ProgressBar loader;
         final String[] selected_type = new String[1];
         selected_type[0] = IMAGES;
-        AdView adView;
+        // AdView // AdView;
         final TextView search_term;
 
 
@@ -518,9 +521,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         loader = dialog.findViewById(R.id.loader);
         loader.setVisibility(GONE);
 
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         search_term = dialog.findViewById(R.id.search_term);
-        AdUtils.loadBannerAd(adView, MainActivity.this);
+        // AdUtils.loadBannerAd(adView, MainActivity.this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }
@@ -707,15 +710,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Toast_Snack_Dialog_Utils.show_ShortToast(MainActivity.this, getString(R.string.no_quotes_available));
                 } else {
                     loader.setVisibility(GONE);
-                    adapter = (new LocalAdapter(MainActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
+                    adapter = (new QuotesAdapter(MainActivity.this, null, new QuotesAdapter.OnQuoteClickListener() {
                         @Override
-                        public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
+                        public void onQuoteClicked(int position, int color, QuotesTable quote, View view) {
                             Intent intent = new Intent(MainActivity.this, QuoteDetailsActivity.class);
                             Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
                             intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId()
                             );
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+                                intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
 
                             } else {
 

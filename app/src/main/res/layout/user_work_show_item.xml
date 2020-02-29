@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/bg"
+    android:layout_gravity="center"
     android:theme="@style/EditTextDialog">
 
     <RelativeLayout
@@ -20,35 +22,36 @@
             android:layout_alignParentEnd="true"
             android:elevation="4dp"
             android:padding="4dp"
-
+            android:layout_below="@id/adView2"
             android:src="@drawable/ic_close_black_24dp" />
+
+
+        <ImageView
+            android:id="@+id/iv_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/adView2"
+            android:background="@android:color/transparent" />
 
         <TextView
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:elevation="4dp"
+            android:background="@color/bg"
             android:padding="16dp"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            tool:text="some_text" />
-
-        <ImageView
-            android:id="@+id/iv_work"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/header"
-            android:layout_marginBottom="10dp"
-            android:background="@android:color/transparent" />
+            tool:text="some_text"
+            android:layout_below="@id/iv_work" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_delete"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_below="@id/iv_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="8dp"
@@ -60,41 +63,41 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_wallpaper"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_below="@id/iv_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="8dp"
-            android:layout_toLeftOf="@id/fab_delete"
+            android:layout_toStartOf="@id/fab_delete"
             android:src="@drawable/ic_image_black_24dp"
             android:textStyle="bold"
             app:backgroundTint="@android:color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_share"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_below="@id/iv_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="8dp"
-            android:layout_toRightOf="@id/fab_delete"
+            android:layout_toEndOf="@id/fab_delete"
             android:src="@drawable/ic_share_accent_24dp"
             android:textStyle="bold"
             app:backgroundTint="@android:color/white" />
 
 
         <TextView
-            android:layout_width="52dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fab_delete"
             android:layout_centerHorizontal="true"
             android:text="@string/delete"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
 
             />
@@ -107,18 +110,18 @@
             android:layout_marginStart="-10dp"
             android:text="@string/set_wallpaer"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_share"
-            android:layout_width="52dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fab_share"
             android:layout_alignStart="@id/fab_share"
             android:text="@string/share"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold" />
 
 
@@ -126,10 +129,11 @@
             android:id="@+id/meta_data_date_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/adView2"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_below="@id/tv_share"
             android:padding="@dimen/smallPadding"
-            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             tool:text="Date: 26 Dec 2017" />
 
@@ -139,7 +143,8 @@
             android:layout_height="match_parent"
             android:layout_below="@id/meta_data_date_tv"
             android:padding="@dimen/smallPadding"
-            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             tool:text="Resolution:1280 x 720" />
 
@@ -149,7 +154,8 @@
             android:layout_height="match_parent"
             android:layout_below="@id/meta_data_resolution_tv"
             android:padding="@dimen/smallPadding"
-            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             tool:text="Size: 504kb" />
 
@@ -159,20 +165,18 @@
             android:layout_height="match_parent"
             android:layout_below="@id/meta_data_size_tv"
             android:padding="@dimen/smallPadding"
-            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             tool:text="Size: 504kb" />
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner
             android:id="@+id/adView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_share"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
             android:layout_marginTop="10dp"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/bannerAdId" />
+            android:layout_alignParentTop="true" />
     </RelativeLayout>
 
 

@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -15,18 +14,20 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.hustler.quote.ui.activities.v1.OnBoardActivity;
-import com.hustler.quote.ui.apiRequestLauncher.Constants;
-
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
-import java.util.ArrayList;
+import androidx.core.content.ContextCompat;
 
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Executors.AppExecutor;
 import com.hustler.quote.ui.ORM.AppDatabase;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
+import com.hustler.quote.ui.activities.v1.OnBoardActivity;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.utils.TextUtils;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
+
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 
 
 /**
@@ -61,9 +62,18 @@ public class SplashActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
+            getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg));
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        StartAppSDK.init(this, getString(R.string.ADS_ID_STARTAPPS), true);
+        if (true) {
+            userAcceptedAds();
+        } else {
+            userRejectedAds();
+        }
+
         appExecutor = AppExecutor.getInstance();
         appDatabase = AppDatabase.getmAppDatabaseInstance(SplashActivity.this);
 
@@ -102,6 +112,21 @@ public class SplashActivity extends BaseActivity {
 //        }
     }
 
+    private void userAcceptedAds() {
+        StartAppSDK.setUserConsent(this,
+                "pas",
+                System.currentTimeMillis(),
+                true);
+
+    }
+
+    private void userRejectedAds() {
+        StartAppSDK.setUserConsent(this,
+                "pas",
+                System.currentTimeMillis(),
+                false);
+
+    }
 
     private void loadQuotesToDatabase() {
         tv_splash_name_new.setVisibility(View.GONE);
@@ -109,15 +134,19 @@ public class SplashActivity extends BaseActivity {
         appExecutor.getDiskExecutor().execute(() -> {
             load_from_Arrays();
             int filledSize = 0;
+            String percentage = "NA";
+
             int loadedSize = quotesTableArrayList.size();
             for (QuotesTable quotesTable : quotesTableArrayList) {
                 appDatabase.quotesDao().insertUser(quotesTable);
                 filledSize++;
-                final String percentage = new DecimalFormat("0.00").format((filledSize * 100 / (double) loadedSize));
+                percentage = new DecimalFormat("0.00").format((filledSize * 100 / (double) loadedSize));
                 Log.d(TAG, "run: Completed Percentage " + percentage);
-                mTvProgressUpdate2.setText(MessageFormat.format("Completed {0}  %", percentage));
             }
+            String finalPercentage = percentage;
             runOnUiThread(() -> {
+                mTvProgressUpdate2.setText(MessageFormat.format("Completed {0}  %", finalPercentage));
+
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(Constants.IS_QUOTES_LOADED_KEY, true);
                 editor.apply();

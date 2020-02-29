@@ -202,7 +202,7 @@
 
             </LinearLayout>
 
-            <com.google.android.gms.ads.AdView
+            <com.startapp.android.publish.ads.banner.Banner
                 xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
@@ -211,9 +211,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom"
                 android:layout_weight="0.8"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="@string/bannerAdId"
-                ads:layout_anchorGravity="bottom" />
+                />
 
         </RelativeLayout>
     </ScrollView>

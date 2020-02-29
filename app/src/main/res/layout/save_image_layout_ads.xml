@@ -3,13 +3,12 @@
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_rect"
+    android:background="@color/bg"
     android:clipToPadding="true"
     android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/head_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -48,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
+            android:gravity="center"
             android:text="@string/jpg"
             android:textColor="@color/black_overlay" />
 
@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/png"
+            android:gravity="center"
             android:textColor="@color/black_overlay" />
     </RadioGroup>
 
@@ -102,11 +103,11 @@
             android:background="@drawable/rounded_rect"
             android:text="@string/pro"
             android:textSize="12sp"
+            android:visibility="gone"
             android:textColor="@color/WHITE" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/bt_ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -147,16 +148,15 @@
         android:textSize="12sp"
         android:visibility="gone" />
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.startapp.android.publish.ads.banner.Banner xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/bannerAdId"
+
         ads:layout_anchorGravity="bottom">
 
-    </com.google.android.gms.ads.AdView>
+    </com.startapp.android.publish.ads.banner.Banner>
 </LinearLayout>

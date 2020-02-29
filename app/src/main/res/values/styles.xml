@@ -54,21 +54,21 @@
         <item name="android:windowBackground">@color/colorAccent</item>
     </style>
 
-    <style name="EditTextDialog" parent="Theme.MaterialComponents.DayNight">
+    <style name="EditTextDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/deep_orange_50</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
         <item name="android:windowExitAnimation">@anim/slidedown</item>
     </style>
 
-    <style name="EditTextDialog_non_floater" parent="Theme.MaterialComponents.DayNight">
+    <style name="EditTextDialog_non_floater" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/slideup</item>
         <item name="android:windowExitAnimation">@anim/slidedown</item>
     </style>
 
-    <style name="EditTextDialog_non_floater_2" parent="Theme.MaterialComponents.DayNight">
+    <style name="EditTextDialog_non_floater_2" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@color/WHITE</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
@@ -76,7 +76,7 @@
         <item name="android:windowExitAnimation">@anim/alpha_invisible</item>
     </style>
 
-    <style name="EditTextDialog_scaled" parent="Theme.MaterialComponents.DayNight.Dialog" tools:keep="@style/EditTextDialog_scaled">
+    <style name="EditTextDialog_scaled" parent="Theme.MaterialComponents.Dialog" tools:keep="@style/EditTextDialog_scaled">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:windowEnterAnimation">@anim/scaleup</item>

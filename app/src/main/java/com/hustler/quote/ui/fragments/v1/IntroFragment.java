@@ -8,13 +8,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +17,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.hustler.quote.R;
+import com.hustler.quote.ui.activities.LoginActivity;
 import com.hustler.quote.ui.activities.MainActivity;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.customviews.PagerTransformer;
 import com.hustler.quote.ui.customviews.ParallaxViewsPagerTransformer;
 import com.hustler.quote.ui.customviews.ScalePagerTransformer;
-
-import java.util.Timer;
-
-import com.hustler.quote.R;
-import com.hustler.quote.ui.activities.LoginActivity;
 import com.hustler.quote.ui.utils.ColorUtils;
 import com.hustler.quote.ui.utils.TextUtils;
+
+import java.util.Timer;
 
 public class IntroFragment extends Fragment implements View.OnClickListener {
     private LinearLayout rootView;
@@ -96,17 +96,18 @@ public class IntroFragment extends Fragment implements View.OnClickListener {
 
         mPager.setPageTransformer(false, parallaxViewsPagerTransformer);
         mPager.setCurrentItem(0);
-        mPager.setOffscreenPageLimit(2);
-        MULTIPLIER = totalNumberOfpagesOriginal = 5;
+        MULTIPLIER = totalNumberOfpagesOriginal = 4;
         getActivity().getWindow().setStatusBarColor(colors[0]);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 currentcolor = ColorUtils.getHEaderColor(colors, position, positionOffset, getActivity());
-//                currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, getActivity());
+                currentcolor2 = ColorUtils.getHEaderColor(colors2, position, positionOffset, getActivity());
                 getActivity().getWindow().setStatusBarColor(currentcolor);
 //                rotation = positionOffset;
-//                ((View)mPager.getChildAt(position)).setBackgroundColor(currentcolor);
+                if (position <= 2) {
+                    mPager.getChildAt(position).setBackgroundColor(currentcolor);
+                }
 //                bt_next.setBackgroundColor(currentcolor);
 //                skip.setBackgroundColor(currentcolor);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -28,7 +28,7 @@
             android:id="@+id/et_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4sp"
+            android:layout_margin="8dp"
             android:background="@drawable/rounded_rect"
             android:textColor="@android:color/black"
             android:hint="@string/enter_here"
@@ -122,23 +122,21 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_rect"
                 android:text="@string/done"
                 android:textSize="12sp"
-
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_gravity="bottom"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/bannerAdId"
-            ads:layout_anchorGravity="bottom">
+            ads:layout_anchorGravity="bottom"
+            />
 
-        </com.google.android.gms.ads.AdView>
+
 
     </LinearLayout>
 

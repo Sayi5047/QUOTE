@@ -108,7 +108,7 @@ public class Categoris_wallpaper_fragment extends Fragment {
         ImageView close;
         final RecyclerView result_rv;
         final ProgressBar loader;
-        AdView adView;
+        // AdView // AdView;
 
 
         close = dialog.findViewById(R.id.search_btn);
@@ -117,9 +117,9 @@ public class Categoris_wallpaper_fragment extends Fragment {
         loader = dialog.findViewById(R.id.loader);
         loader.setVisibility(View.VISIBLE);
 
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         dialog.findViewById(R.id.search_term);
-        AdUtils.loadBannerAd(adView, getActivity());
+        // AdUtils.loadBannerAd(adView, getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }

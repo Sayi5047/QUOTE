@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@color/bg">
 
 
     <TextView
@@ -20,7 +20,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/font2" />
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.startapp.android.publish.ads.banner.Banner xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         ads:adSize="SMART_BANNER"
         android:visibility="gone"
         ads:adUnitId="@string/bannerAdId">
-    </com.google.android.gms.ads.AdView>
+    </com.startapp.android.publish.ads.banner.Banner>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category_list"

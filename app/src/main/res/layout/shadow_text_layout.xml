@@ -53,7 +53,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="4"
                 android:text="@string/opacity"
-                android:textColor="@color/black_overlay" />
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
-                android:textColor="@color/black_overlay"
+                android:textColor="@color/colorAccent"
                 android:text="@string/radius" />
 
         </LinearLayout>
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
-                android:textColor="@color/black_overlay"
+                android:textColor="@color/colorAccent"
                 android:text="@string/x_pos" />
 
         </LinearLayout>
@@ -127,13 +127,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4"
-                android:textColor="@color/black_overlay"
+                android:textColor="@color/colorAccent"
                 android:text="@string/y_pos" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_shadow_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standardMargin"
@@ -153,18 +152,17 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/bannerAdId"
+
             ads:layout_anchorGravity="bottom">
 
-        </com.google.android.gms.ads.AdView>
+        </com.startapp.android.publish.ads.banner.Banner>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -37,7 +37,7 @@ public final class Constants {
     public static final String PER_PAGE = "&per_page=30";
     public static final String QUERY = "&query=";
     public static final String PAGE_NUMBER = "&page=";
-    public static final String END = UNSPLASH_CLIENT_ID + "&orientation=portrait&featured=true&order_by=popular" + PER_PAGE;
+    public static final String END = UNSPLASH_CLIENT_ID + "&orientation=all&featured=true&order_by=popular" + PER_PAGE;
 
 
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;
@@ -186,6 +186,7 @@ public final class Constants {
     public static String ALARM_INTENT__IS_DOWNLOAD_INTENT_FLAG = "is_download_intent_alarm_key";
     @NonNull
     public static String IS_QUOTES_LOADED_KEY = "is_quotes_loaded_to_db_key";
+//    public static String IS_QUOTES_LOADED_KEY = "is_quotes_loaded_to_db_key_2";
     @NonNull
     public static String INTRO_KEY_IS_VIEWPAGER_COMPLETED = "VIEW_PAGER_INTRO_COMPLETETION_KEY";
 

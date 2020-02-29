@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+@Deprecated
 public class MainFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";

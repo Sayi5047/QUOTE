@@ -30,7 +30,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,11 +41,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Executors.AppExecutor;
@@ -54,6 +48,9 @@ import com.hustler.quote.ui.adapters.InstallFontAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
 import com.hustler.quote.ui.textFeatures.TextFeatures;
+import com.startapp.android.publish.adsCommon.Ad;
+import com.startapp.android.publish.adsCommon.StartAppAd;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -144,12 +141,12 @@ public class FileUtils {
             dialog.setCancelable(false);
             RecyclerView recyclerView;
             Button btClose, btInstall;
-            AdView adView;
+            // AdView // AdView;
             recyclerView = dialog.findViewById(R.id.font_recycler);
             btClose = dialog.findViewById(R.id.bt_close);
             btInstall = dialog.findViewById(R.id.bt_save);
-            adView = dialog.findViewById(R.id.adView);
-            AdUtils.loadBannerAd(adView, activity);
+            // AdView = dialog.findViewById(R.id.adView);
+            // AdUtils.loadBannerAd(adView, activity);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
 
@@ -252,7 +249,7 @@ public class FileUtils {
         final String[] format = {null};
         final File[] filetoReturn = new File[1];
         final String[] projectname = new String[1];
-        AdView adView;
+        // AdView // AdView;
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(View.inflate(activity, R.layout.save_image_layout, null));
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
@@ -275,9 +272,9 @@ public class FileUtils {
         root = dialog.findViewById(R.id.root_Lo);
         btClose = dialog.findViewById(R.id.bt_close);
         btSave = dialog.findViewById(R.id.bt_save);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         gifBtn = dialog.findViewById(R.id.gif_btn);
-        AdUtils.loadBannerAd(adView, activity);
+        // AdUtils.loadBannerAd(adView, activity);
         TextUtils.findText_and_applyTypeface(root, activity);
         gifBtn.setVisibility(View.GONE);
         gifBtn.setOnClickListener(view -> {
@@ -433,108 +430,99 @@ public class FileUtils {
 
     public static void showPostSaveDialog(@NonNull final Activity activity, @Nullable final File savedFile) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RelativeLayout rootRl;
-                ImageView savedImage;
-                ImageView gradientImage;
-                LinearLayout shareLayoutImage;
-                ImageView facebook;
-                ImageView whatsapp;
-                ImageView instagram;
-                ImageView twitter;
-                ImageView others;
-                final TextView ratingbarText;
-                final RatingBar ratingBar;
-                Button closeBtn;
-                AdView adView;
-                final SharedPreferences sharedPreferences;
-                final Boolean isRating_clicked;
+        StartAppAd.showAd(activity);
+        new Thread(() -> {
+            ImageView savedImage;
+            ImageView facebook;
+            ImageView whatsapp;
+            ImageView instagram;
+            ImageView twitter;
+            ImageView others;
+            final TextView ratingbarText;
+            final RatingBar ratingBar;
+            Button closeBtn;
+            final SharedPreferences sharedPreferences;
+            final boolean isRating_clicked;
 
-                final Dialog dialog = new Dialog(activity);
-                dialog.setContentView(View.inflate(activity, R.layout.post_save_image_layout, null));
-                dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
-                dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-                dialog.setCancelable(false);
-                rootRl = dialog.findViewById(R.id.root_Rl);
-                savedImage = dialog.findViewById(R.id.saved_image);
-                gradientImage = dialog.findViewById(R.id.gradient_image);
-                shareLayoutImage = dialog.findViewById(R.id.share_layout_image);
-                facebook = dialog.findViewById(R.id.facebook);
-                whatsapp = dialog.findViewById(R.id.whatsapp);
-                instagram = dialog.findViewById(R.id.instagram);
-                twitter = dialog.findViewById(R.id.twitter);
-                others = dialog.findViewById(R.id.others);
-                ratingbarText = dialog.findViewById(R.id.ratingbar_text);
-                ratingBar = dialog.findViewById(R.id.rating_bar);
-                closeBtn = dialog.findViewById(R.id.close_btn);
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                isRating_clicked = sharedPreferences.getBoolean(IntentConstants.RATING_GIVEN, false);
-                final SharedPreferences.Editor editor = sharedPreferences.edit();
-                setListeners(facebook, "com.facebook.katana", activity, savedFile);
-                setListeners(whatsapp, "com.whatsapp", activity, savedFile);
-                setListeners(twitter, "com.twitter.android", activity, savedFile);
-                setListeners(instagram, "com.instagram.android", activity, savedFile);
-                closeBtn.setOnClickListener(v -> dialog.dismiss());
-                savedImage.setClipToOutline(true);
-                Glide.with(activity).load(savedFile).centerCrop().into(savedImage);
-                if (isRating_clicked) {
-                    ratingbarText.setText(activity.getString(R.string.thanks_for_rating));
-                } else {
-                    ratingbarText.setText(activity.getString(R.string.enjoying));
-                }
-                others.setOnClickListener(v -> {
-                    final Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.setType("image/jpeg");
-                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            final Dialog dialog = new Dialog(activity);
+            dialog.setContentView(View.inflate(activity, R.layout.post_save_image_layout, null));
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
+            dialog.setCancelable(false);
+            savedImage = dialog.findViewById(R.id.saved_image);
+            facebook = dialog.findViewById(R.id.facebook);
+            whatsapp = dialog.findViewById(R.id.whatsapp);
+            instagram = dialog.findViewById(R.id.instagram);
+            twitter = dialog.findViewById(R.id.twitter);
+            others = dialog.findViewById(R.id.others);
+            ratingbarText = dialog.findViewById(R.id.ratingbar_text);
+            ratingBar = dialog.findViewById(R.id.rating_bar);
+            closeBtn = dialog.findViewById(R.id.close_btn);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            isRating_clicked = sharedPreferences.getBoolean(IntentConstants.RATING_GIVEN, false);
+            final SharedPreferences.Editor editor = sharedPreferences.edit();
+            setListeners(facebook, "com.facebook.katana", activity, savedFile);
+            setListeners(whatsapp, "com.whatsapp", activity, savedFile);
+            setListeners(twitter, "com.twitter.android", activity, savedFile);
+            setListeners(instagram, "com.instagram.android", activity, savedFile);
+            closeBtn.setOnClickListener(v -> dialog.dismiss());
+            savedImage.setClipToOutline(true);
+            Glide.with(activity).load(savedFile).centerCrop().into(savedImage);
+            if (isRating_clicked) {
+                ratingbarText.setText(activity.getString(R.string.thanks_for_rating));
+            } else {
+                ratingbarText.setText(activity.getString(R.string.enjoying));
+            }
+            others.setOnClickListener(v -> {
+                final Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.setType("image/jpeg");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
 //                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
-                    Uri uri = null;
-                    if (savedFile != null) {
-                        if (Build.VERSION.SDK_INT >= 24) {
-                            uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
-                        } else {
-                            uri = Uri.fromFile(savedFile);
-                        }
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                        activity.startActivity(Intent.createChooser(shareIntent, "send"));
+                Uri uri = null;
+                if (savedFile != null) {
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
+                    } else {
+                        uri = Uri.fromFile(savedFile);
                     }
-                });
-                ratingBar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rateInPlayStore(activity, editor);
-                    }
-                });
-                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        rateInPlayStore(activity, editor);
-                    }
-                });
-                ratingbarText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rateInPlayStore(activity, editor);
-                    }
-                });
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                    activity.startActivity(Intent.createChooser(shareIntent, "send"));
+                }
+            });
+            ratingBar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rateInPlayStore(activity, editor);
+                }
+            });
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    rateInPlayStore(activity, editor);
+                }
+            });
+            ratingbarText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rateInPlayStore(activity, editor);
+                }
+            });
 
-                dialog.show();
-                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                    @Override
-                    public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
-                        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-                            dialog.dismiss();
-                            return true;
-                        } else {
-                            return false;
-                        }
+            dialog.show();
+            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+                        dialog.dismiss();
+                        return true;
+                    } else {
+                        return false;
                     }
-                });
+                }
+            });
 
-            }
         }).run();
     }
 
@@ -802,7 +790,7 @@ public class FileUtils {
         final String[] format = {null};
         final File[] filetoReturn = new File[1];
         final String[] projectname = new String[1];
-        AdView adView;
+        // AdView // AdView;
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(View.inflate(activity, R.layout.save_image_layout_ads, null));
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
@@ -815,87 +803,44 @@ public class FileUtils {
         final RadioButton rbPng;
         final LinearLayout adLayout;
         LinearLayout root;
-        final RewardedVideoAd mRewardedVideoAd;
         final Button btClose, btSave, remove_watermark, watch_ad, buy_pro;
-
 
         etProjectName = dialog.findViewById(R.id.et_project_name);
         rdGroup = dialog.findViewById(R.id.rd_group);
         rbJpeg = dialog.findViewById(R.id.rb_jpeg);
         rbPng = dialog.findViewById(R.id.rb_png);
         root = dialog.findViewById(R.id.root_Lo);
-        adLayout = dialog.findViewById(R.id.bt_ll_watch_Ad_layout);
-        adLayout.setVisibility(View.GONE);
         btClose = dialog.findViewById(R.id.bt_close);
         btSave = dialog.findViewById(R.id.bt_save);
         remove_watermark = dialog.findViewById(R.id.remove_watermark_bt);
         watch_ad = dialog.findViewById(R.id.bt_watch_ad);
         buy_pro = dialog.findViewById(R.id.bt_buy_pro);
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, activity);
         TextUtils.findText_and_applyTypeface(root, activity);
 
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity);
-        AdUtils.loadRewardAd(mRewardedVideoAd, activity);
-        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-            @Override
-            public void onRewardedVideoAdLoaded() {
-            }
 
-            @Override
-            public void onRewardedVideoAdOpened() {
-                Toast.makeText(activity, "Video OPened", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onRewardedVideoStarted() {
-
-            }
-
-            @Override
-            public void onRewardedVideoAdClosed() {
-                Toast.makeText(activity, "Video Closed", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onRewarded(@NonNull RewardItem rewardItem) {
-                Toast.makeText(activity, "onRewarded! currency: " + rewardItem.getType() + "  amount: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
-                sourceLayout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
-                Toast.makeText(activity, "Video Clicked", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int i) {
-
-            }
-
-            @Override
-            public void onRewardedVideoCompleted() {
-
-            }
-        });
-
-        remove_watermark.setOnClickListener(v -> {
-//                adLayout.setVisibility(View.VISIBLE);
+        StartAppAd rewardVideo = new StartAppAd(activity.getApplicationContext());
+        rewardVideo.setVideoListener(() -> {
             sourceLayout.findViewById(R.id.mark_quotzy_tv).setVisibility(View.GONE);
             sourceLayout.findViewById(R.id.quotzy).setVisibility(View.GONE);
             remove_watermark.setVisibility(View.GONE);
-
         });
-        watch_ad.setOnClickListener(v -> {
-//                if(mRewardedVideoAd.isLoaded()){
-            mRewardedVideoAd.show();
 
-        });
+
+        remove_watermark.setOnClickListener(v -> rewardVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+            @Override
+            public void onReceiveAd(Ad ad) {
+                rewardVideo.showAd();
+            }
+
+            @Override
+            public void onFailedToReceiveAd(Ad ad) {
+                Toast_Snack_Dialog_Utils.show_ShortToast(activity, ad.getErrorMessage());
+                Log.e("MainActivity", "Failed to load rewarded video with reason: " + ad.getErrorMessage());
+
+            }
+        }));
+        watch_ad.setOnClickListener(v -> remove_watermark.performClick());
         buy_pro.setOnClickListener(v -> {
-            // TODO: 07-01-2018 need to implement the PRO VERSION OF APP LINK
         });
 
         btSave.setOnClickListener(v -> {

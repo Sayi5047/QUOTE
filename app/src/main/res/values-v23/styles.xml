@@ -2,6 +2,6 @@
 <resources>
 
     <style name="lightstatusbar" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

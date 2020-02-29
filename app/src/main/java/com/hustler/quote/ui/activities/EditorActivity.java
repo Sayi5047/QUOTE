@@ -212,7 +212,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.bg));
         String called_from = getIntent().getStringExtra("called");
         if (!"add".equalsIgnoreCase(called_from)) {
             findViews();
@@ -539,7 +539,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         final TextView head_tv;
         final ImageView demo_icon;
-        AdView adView;
+        // AdView // AdView;
         SeekBar colors_rv;
         Button close, choose;
 
@@ -550,12 +550,12 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         close = dialog.findViewById(R.id.bt_color_close);
         choose = dialog.findViewById(R.id.bt_color_choose);
         dialog.findViewById(R.id.bt_color_shadow);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
 
         TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
 
         colors_rv.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -1099,8 +1099,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     /*COLONY BACKGROUND*/
     private void setBackground_features_rv() {
         current_module = Constants.BG;
-        text_layout.setTextColor(getResources().getColor(R.color.black_overlay));
-        background_layout.setTextColor(ContextCompat.getColor(EditorActivity.this, R.color.colorPrimary));
+        text_layout.setTextColor(getResources().getColor(R.color.colorPrimary1));
+        background_layout.setTextColor(ContextCompat.getColor(EditorActivity.this, R.color.colorAccent));
         background_layout.setTextSize(16.0f);
         text_layout.setTextSize(12.0f);
         featuresRecyclerview.setAdapter(null);
@@ -1123,8 +1123,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         text_layout.setTextSize(16.0f);
         background_layout.setTextSize(12.0f);
 
-        background_layout.setTextColor(getResources().getColor(R.color.black_overlay));
-        text_layout.setTextColor(ContextCompat.getColor(EditorActivity.this, R.color.colorPrimary));
+        background_layout.setTextColor(getResources().getColor(R.color.colorPrimary1));
+        text_layout.setTextColor(ContextCompat.getColor(EditorActivity.this, R.color.colorAccent));
 
         featuresRecyclerview.setAnimation(AnimationUtils.loadAnimation(this, R.anim.slidedown));
         featuresRecyclerview.setAdapter(null);
@@ -1223,9 +1223,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
 
         root = dialog.findViewById(R.id.root);
         sizesRv = dialog.findViewById(R.id.sizes_rv);
-        AdView adView;
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdView // AdView;
+        // AdView = dialog.findViewById(R.id.adView);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
         sizesRv.setLayoutManager(new GridLayoutManager(EditorActivity.this, 3));
         ArrayList<Integer> myImageList = new ArrayList<>();
@@ -1415,8 +1415,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
 
-        AdView adView;
-        adView = dialog.findViewById(R.id.adView);
+        // AdView // AdView;
+        // AdView = dialog.findViewById(R.id.adView);
 
 
         RelativeLayout scrool;
@@ -1439,7 +1439,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         searchButton = dialog.findViewById(R.id.search_button);
         progressBar = dialog.findViewById(R.id.progress_bar);
         imagesRecycler = dialog.findViewById(R.id.images_recycler);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         diclaimer = dialog.findViewById(R.id.diclaimer);
         getRandomImages("Hello", imagesRecycler, progressBar, dialog);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -1455,7 +1455,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         });
 
         TextUtils.findText_and_applyTypeface(root, EditorActivity.this);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         dialog.setCancelable(false);
         dialog.show();
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -1546,9 +1546,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
 
-        AdView adView;
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdView // AdView;
+        // AdView = dialog.findViewById(R.id.adView);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         LinearLayout root;
         final RadioGroup radioGroup;
         final RadioButton crop, fit, none;
@@ -1753,7 +1753,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.setContentView(View.inflate(this, R.layout.addtext, null));
         final TextView header, align_text;
         final EditText addingText;
-        AdView adView;
+        // AdView // AdView;
         final Button close, done, start, center, end, add_bg;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
@@ -1768,8 +1768,8 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         end = dialog.findViewById(R.id.bt_end);
         add_bg = dialog.findViewById(R.id.bt_add_bg);
 
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdView = dialog.findViewById(R.id.adView);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         TextUtils.setFont(this, header, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, addingText, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, align_text, Constants.FONT_CIRCULAR);
@@ -1879,7 +1879,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         final TextView header, align_text;
         final EditText addingText;
         final RecyclerView recyclerView;
-        AdView adView;
+        // AdView // AdView;
         final Button close, done, start, center, end, previewText, bold, underline, italic, strikethrough, highlight, colorText;
         try {
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
@@ -1899,9 +1899,9 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         end = dialog.findViewById(R.id.bt_end);
         previewText = dialog.findViewById(R.id.bt_add_bg);
         recyclerView = dialog.findViewById(R.id.color_rv);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         recyclerView.setLayoutManager(new LinearLayoutManager(EditorActivity.this, RecyclerView.HORIZONTAL, false));
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         bold = dialog.findViewById(R.id.bt_bold);
         underline = dialog.findViewById(R.id.bt_underline);
         italic = dialog.findViewById(R.id.bt_italic);
@@ -2205,13 +2205,13 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             Toast_Snack_Dialog_Utils.show_ShortToast(this, getString(R.string.please_select_text));
         } else {
             current_Text_feature = array[5];
-            final Dialog dialog = new Dialog(this);
+            final Dialog dialog = new Dialog(this,R.style.EditTextDialog);
             dialog.setContentView(R.layout.colors_dialog_layout);
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
             dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
             final TextView head_tv, demo_tv;
-            AdView adView;
+            // AdView // AdView;
             RecyclerView colors_rv;
             MaterialButton close, choose;
             ColorsAdapter colorsAdapter;
@@ -2224,11 +2224,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             close = dialog.findViewById(R.id.bt_color_close);
             choose = dialog.findViewById(R.id.bt_color_choose);
             dialog.findViewById(R.id.bt_color_shadow);
-            adView = dialog.findViewById(R.id.adView);
+            // AdView = dialog.findViewById(R.id.adView);
             TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
-            AdUtils.loadBannerAd(adView, EditorActivity.this);
+            // AdUtils.loadBannerAd(adView, EditorActivity.this);
             colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
             colorsAdapter = new ColorsAdapter(this, color -> {
@@ -2265,7 +2265,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
 
             final TextView head_tv, demo_tv;
-            AdView adView;
+            // AdView // AdView;
             RecyclerView colors_rv;
             Button close, choose;
             ColorsAdapter colorsAdapter;
@@ -2278,11 +2278,11 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
             close = dialog.findViewById(R.id.bt_color_close);
             choose = dialog.findViewById(R.id.bt_color_choose);
             dialog.findViewById(R.id.bt_color_shadow);
-            adView = dialog.findViewById(R.id.adView);
+            // AdView = dialog.findViewById(R.id.adView);
             TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
             TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
-            AdUtils.loadBannerAd(adView, EditorActivity.this);
+            // AdUtils.loadBannerAd(adView, EditorActivity.this);
             colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
             colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
@@ -2397,7 +2397,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
     private void colorbg(String[] array) {
 //        RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) selectedTextView.getLayoutParams());
 
-        final Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this,R.style.EditTextDialog);
         dialog.setContentView(R.layout.colors_dialog_layout);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 
@@ -2409,17 +2409,17 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         ColorsAdapter colorsAdapter;
         final int[] choosen_color = new int[1];
 
-        AdView adView;
+        // AdView // AdView;
         head_tv = dialog.findViewById(R.id.color_text);
         demo_tv = dialog.findViewById(R.id._demo_color_text);
         colors_rv = dialog.findViewById(R.id.colors_rv);
         close = dialog.findViewById(R.id.bt_color_close);
         choose = dialog.findViewById(R.id.bt_color_choose);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         TextUtils.setFont(this, head_tv, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, close, Constants.FONT_CIRCULAR);
         TextUtils.setFont(this, choose, Constants.FONT_CIRCULAR);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         colors_rv.setLayoutManager(new GridLayoutManager(this, 6));
 
         colorsAdapter = new ColorsAdapter(this, new ColorsAdapter.OnColorClickListener() {
@@ -2461,7 +2461,7 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
-        AdView adView;
+        // AdView // AdView;
         RelativeLayout relativeLayout;
         TextView headerTv;
         final TextView demoGradient;
@@ -2491,10 +2491,10 @@ public class EditorActivity extends BaseActivity implements View.OnClickListener
         preview = dialog.findViewById(R.id.preview);
         btCancel = dialog.findViewById(R.id.bt_cancel);
         btApply = dialog.findViewById(R.id.bt_apply);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
-        AdUtils.loadBannerAd(adView, EditorActivity.this);
+        // AdUtils.loadBannerAd(adView, EditorActivity.this);
         colorsRecycler.setLayoutManager(new LinearLayoutManager(EditorActivity.this, LinearLayoutManager.HORIZONTAL, false));
         TextUtils.findText_and_applyTypeface(relativeLayout, EditorActivity.this);
         colorsAdapter = new ColorsAdapter(EditorActivity.this, new ColorsAdapter.OnColorClickListener() {

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -20,22 +19,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
-import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.activities.EditorActivity;
 import com.hustler.quote.ui.adapters.UserWorkAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
-import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -43,7 +40,6 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -135,7 +131,7 @@ public class UserWorkFragment extends Fragment implements View.OnClickListener {
                 public void onImageClickListneer(int position, String imageName, @NonNull String imagepath) {
                     try {
                         ExifInterface exifInterface = new ExifInterface(imagepath);
-                        buildDialog(userWorkImages.getImagesPaths().length, rv, exifInterface, imageName, imagepath);
+                        buildDialog(rv, exifInterface, imageName, imagepath);
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.image_unavailable));
@@ -148,24 +144,22 @@ public class UserWorkFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void buildDialog(final int count, @NonNull final RecyclerView rv, ExifInterface exifInterface, String imageName, @NonNull final String imagepath) {
-        final Dialog dialog = new Dialog(getActivity(), R.style.EditTextDialog_non_floater);
+    private void buildDialog(@NonNull final RecyclerView rv, ExifInterface exifInterface, String imageName, @NonNull final String imagepath) {
+        final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()), R.style.EditTextDialog_non_floater);
         dialog.setContentView(View.inflate(getActivity().getApplicationContext(), R.layout.user_work_show_item, null));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 
         final RelativeLayout rootLayout;
         final TextView header;
         ImageView closeIv;
         ImageView ivWork;
-        AdView adView2;
         FloatingActionButton fabDelete;
         FloatingActionButton fabWallpaper;
         FloatingActionButton fabShare;
         TextView metaDataDateTv;
         TextView metaDataResolutionTv;
         TextView metaFileLocation, metaImageSize;
-        final ArrayList<Palette.Swatch> swatches = new ArrayList<>();
 
         rootLayout = dialog.findViewById(R.id.root_layout);
         header = dialog.findViewById(R.id.header);
@@ -179,34 +173,30 @@ public class UserWorkFragment extends Fragment implements View.OnClickListener {
         metaFileLocation = dialog.findViewById(R.id.meta_data_location_tv);
         metaImageSize = dialog.findViewById(R.id.meta_data_size_tv);
 
-        adView2 = dialog.findViewById(R.id.adView2);
-
-
-        AdUtils.loadBannerAd(adView2, getActivity());
-
         TextUtils.findText_and_applyTypeface(rootLayout, getActivity());
 
         header.setText(imageName);
 
         Glide.with(getActivity()).load(imagepath).fitCenter().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(ivWork);
 
-        Palette.from(BitmapFactory.decodeFile(imagepath)).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(@NonNull Palette palette) {
-                swatches.add(0, palette.getVibrantSwatch());
-                if (swatches.get(0) == null) {
-                    swatches.set(0, palette.getDominantSwatch());
-                }
-                TextUtils.findText_and_applycolor(rootLayout, getActivity(), swatches.get(0));
-                if (null != swatches.get(0)) {
-                    header.setBackgroundColor(swatches.get(0).getRgb());
-                    header.setTextColor(getActivity().getResources().getColor(android.R.color.white));
-                    dialog.getWindow().setStatusBarColor(swatches.get(0).getRgb());
+        dialog.getWindow().setStatusBarColor(ContextCompat.getColor(getContext(), R.color.bg));
 
-                }
-
-            }
-        });
+//        Palette.from(BitmapFactory.decodeFile(imagepath)).generate(new Palette.PaletteAsyncListener() {
+//            @Override
+//            public void onGenerated(@NonNull Palette palette) {
+//                swatches.add(0, palette.getVibrantSwatch());
+//                if (swatches.get(0) == null) {
+//                    swatches.set(0, palette.getDominantSwatch());
+//                }
+//                TextUtils.findText_and_applycolor(rootLayout, getActivity(), swatches.get(0));
+//                if (null != swatches.get(0)) {
+//                    header.setBackgroundColor(swatches.get(0).getRgb());
+//                    header.setTextColor(getActivity().getResources().getColor(android.R.color.white));
+//
+//                }
+//
+//            }
+//        });
 
 
         metaDataDateTv.setText(exifInterface.getAttribute(ExifInterface.TAG_DATETIME));

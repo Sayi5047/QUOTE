@@ -3,7 +3,6 @@
 
     <style name="AppTheme.NoActionBar.coldscreen" parent="AppTheme.NoActionBar" tools:keep="@style/AppTheme_NoActionBar_coldscreen">
         <item name="android:windowBackground">@drawable/coldscreen</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -18,5 +17,5 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="lightstatusbar" parent="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+    <style name="lightstatusbar" parent="AppTheme.NoActionBar" />
 </resources>

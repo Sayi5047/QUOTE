@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/textColor">
+    android:background="@color/bg">
 
     <ImageView
         android:id="@+id/search_btn"
@@ -152,7 +152,7 @@
             android:layout_height="48dp"
             android:layout_centerInParent="true" />
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
             ads:adSize="SMART_BANNER"
             ads:adUnitId="@string/bannerAdId">
 
-        </com.google.android.gms.ads.AdView>
+        </com.startapp.android.publish.ads.banner.Banner>
     </RelativeLayout>
 
 

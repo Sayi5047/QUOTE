@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
+    android:background="@color/bg"
     tools:context="com.hustler.quote.ui.activities.SplashActivity">
 
 
@@ -27,7 +28,7 @@
         android:padding="@dimen/elevation16"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textColor="@color/black_overlay"
+        android:textColor="@color/WHITE"
         android:textSize="35sp"
         android:textStyle="bold" />
     <LinearLayout

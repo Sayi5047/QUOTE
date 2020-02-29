@@ -1,22 +1,12 @@
 package com.hustler.quote.ui.fragments;
 
 import android.app.Dialog;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -25,16 +15,30 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hustler.quote.R;
 import com.hustler.quote.ui.Executors.AppExecutor;
+import com.hustler.quote.ui.ORM.AppDatabase;
+import com.hustler.quote.ui.ORM.Tables.QuotesTable;
+import com.hustler.quote.ui.activities.QuoteDetailsActivity;
 import com.hustler.quote.ui.adapters.CategoriesAdapter;
-import com.hustler.quote.ui.adapters.LocalAdapter;
+import com.hustler.quote.ui.adapters.QuotesAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Base.BaseResponse;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.ListnereInterfaces.QuotzyApiResponseListener;
 import com.hustler.quote.ui.apiRequestLauncher.ResponseQuotesService;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
-import com.hustler.quote.ui.utils.AdUtils;
+import com.hustler.quote.ui.pojo.Quote;
 import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.TextUtils;
 import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
@@ -42,13 +46,6 @@ import com.hustler.quote.ui.utils.Toast_Snack_Dialog_Utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import com.hustler.quote.R;
-
-import com.hustler.quote.ui.ORM.AppDatabase;
-import com.hustler.quote.ui.ORM.Tables.QuotesTable;
-import com.hustler.quote.ui.activities.QuoteDetailsActivity;
-import com.hustler.quote.ui.pojo.Quote;
 
 /**
  * Created by Sayi Manoj Sugavasi on 20/12/2017.
@@ -105,14 +102,14 @@ public class CategoriesFragment extends Fragment {
         dialog.setContentView(R.layout.dialog_category_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
         TextView catgory_name = null;
-        AdView adView;
+        // AdView // AdView;
         FloatingActionButton close_button;
         final LiveData<List<QuotesTable>> quoteslist;
         categories_rv.setNestedScrollingEnabled(true);
         categories_rv = dialog.findViewById(R.id.rv_category_list);
         close_button = dialog.findViewById(R.id.bt_close);
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, getActivity());
+        // AdView = dialog.findViewById(R.id.adView);
+        // AdUtils.loadBannerAd(adView, getActivity());
         catgory_name = dialog.findViewById(R.id.tv_category_name);
         TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
 
@@ -174,12 +171,10 @@ public class CategoriesFragment extends Fragment {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Objects.requireNonNull(dialog.getWindow()).setStatusBarColor(Color.WHITE);
                     categoryname.setBackgroundColor(Color.WHITE);
                     categoryname.setBackgroundColor(Objects.requireNonNull(gradientDrawable.getColors())[1]);
 
                 } else {
-                    Objects.requireNonNull(dialog.getWindow()).setStatusBarColor(Color.WHITE);
                     categoryname.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorAccent));
 
                 }
@@ -187,19 +182,14 @@ public class CategoriesFragment extends Fragment {
             }
 
 
-            categories_rv.setAdapter(new LocalAdapter(getActivity(), (ArrayList<QuotesTable>) quoteslist.getValue(), new LocalAdapter.OnQuoteClickListener() {
-                @Override
-                public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
-                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+            categories_rv.setAdapter(new QuotesAdapter(getActivity(), (ArrayList<QuotesTable>) quoteslist.getValue(), (position, color, quote, view) -> {
+                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
 
-                    } else {
-
-                    }
-                    startActivity(intent);
                 }
+                startActivity(intent);
             }));
 
             Log.i(TAG, "ADAPTER SET");
@@ -216,7 +206,7 @@ public class CategoriesFragment extends Fragment {
 
 
         TextView catgory_name;
-        AdView adView;
+        // AdView // AdView;
         FloatingActionButton close_button;
         dialog.show();
 
@@ -249,8 +239,8 @@ public class CategoriesFragment extends Fragment {
 //
 //            categories_rv = dialog.findViewById(R.id.rv_category_list);
 //            close_button = dialog.findViewById(R.id.bt_close);
-//            adView = dialog.findViewById(R.id.adView);
-//            AdUtils.loadBannerAd(adView, getActivity());
+//            // AdView = dialog.findViewById(R.id.adView);
+//            // AdUtils.loadBannerAd(adView, getActivity());
 //            TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
 //            if (cat2 == " ") {
 //                catgory_name.setText(String.format("%s", category));
@@ -260,14 +250,14 @@ public class CategoriesFragment extends Fragment {
 //
 //            }
 //            categories_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//            categories_rv.setAdapter(new LocalAdapter(getActivity(), quotesList, new LocalAdapter.OnQuoteClickListener() {
+//            categories_rv.setAdapter(new QuotesAdapter(getActivity(), quotesList, new QuotesAdapter.OnQuoteClickListener() {
 //                @Override
-//                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
+//                public void onQuoteClicked(int position, int color, Quote quote, View view) {
 //                    Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
 //                    Bundle bundle = makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))).toBundle();
 //                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+//                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
 //
 //                    }
 //                    startActivity(intent, bundle);

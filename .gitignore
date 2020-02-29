@@ -10,7 +10,7 @@
 /build
 /google-services.json
 /modules.xml
-*.xml
+
 .idea/modules.xml
 .idea/misc.xml
 Cred.properties

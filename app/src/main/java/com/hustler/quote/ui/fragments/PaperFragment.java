@@ -27,6 +27,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
@@ -74,6 +75,8 @@ public class PaperFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         this.textView = (Unsplash_Image) getArguments().getSerializable("IMAGEURL");
+        setEnterTransition(MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, false));
+        setExitTransition(MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true));
 
     }
 
@@ -110,6 +113,7 @@ public class PaperFragment extends Fragment {
 //        }
         return view;
     }
+
 
     private void updateSharedPreferences(int i) {
         loading_layout.setVisibility(View.VISIBLE);

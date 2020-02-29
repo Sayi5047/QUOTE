@@ -66,7 +66,7 @@
     <string name="permissin_granted">Permission granted now you can use the feature.</string>
     <string name="no_work">Nothing found,Click to show your creativity</string>
     <string name="no_permission">Storage permission not granted. Click to grant.</string>
-    <string name="set_wallpaer">Wallpaper</string>
+    <string name="set_wallpaer">Set Wall</string>
     <string name="share">Share</string>
     <string name="Resolution">Image Resolution: %1$d x %2$d</string>
     <string name="Path">File location : %1$s</string>
@@ -108,12 +108,11 @@
 
     <string name="rewardAdId">ca-app-pub-9653011938091807/9302547281</string>
     <string name="watermark">RemoveWatermark</string>
-    <string name="WatchAd">Watch Ad</string>
+    <string name="WatchAd">🙏🙏🙏🙏🙏Watch ad to support us🙏🙏🙏🙏🙏</string>
     <string name="pro">Buy Pro</string>
     <string name="gradient">Gradient Text</string>
     <string name="Linear">Linear</string>
     <string name="radial">Radial</string>
-    <string name="Fit">ImageFittype</string>
     <string name="LaunchGa">Launch Gallery</string>
     <string name="CenterCrop">CenterCrop</string>
     <string name="FitC">FitCenter</string>
@@ -375,4 +374,5 @@
     <string name="enter_here">Enter here</string>
     <string name="demo">Ab12</string>
     <string name="choose_gallery">Choose Image from Gallery</string>
+    <string name="ADS_ID_STARTAPPS">201712190</string>
 </resources>

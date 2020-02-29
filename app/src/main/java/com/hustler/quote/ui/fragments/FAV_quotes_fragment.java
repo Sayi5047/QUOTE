@@ -1,9 +1,8 @@
 package com.hustler.quote.ui.fragments;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
+
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.hustler.quote.ui.Executors.AppExecutor;
-import com.hustler.quote.ui.adapters.LocalAdapter;
+import com.hustler.quote.ui.adapters.QuotesAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 
 import java.util.ArrayList;
@@ -75,43 +74,32 @@ public class FAV_quotes_fragment extends Fragment {
 
     private void setAdapter(final RecyclerView recyclerView) {
         final LiveData<List<QuotesTable>> liveData = appDatabase.quotesDao().getlikedQuotes(true);
-        liveData.observe(Objects.requireNonNull(getActivity()), new Observer<List<QuotesTable>>() {
-            @Override
-            public void onChanged(@Nullable final List<QuotesTable> quotesTables) {
-                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (quotesTables.size() <= 0) {
-                            error_layout.setVisibility(View.VISIBLE);
-                            main_layout.setVisibility(View.GONE);
-                        } else {
-                            error_layout.setVisibility(View.GONE);
-                            main_layout.setVisibility(View.VISIBLE);
-                            setAdapterData(recyclerView, quotesTables);
+        liveData.observe(Objects.requireNonNull(getActivity()), quotesTables -> Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+            if (quotesTables.size() <= 0) {
+                error_layout.setVisibility(View.VISIBLE);
+                main_layout.setVisibility(View.GONE);
+            } else {
+                error_layout.setVisibility(View.GONE);
+                main_layout.setVisibility(View.VISIBLE);
+                setAdapterData(recyclerView, quotesTables);
 
-                        }
-
-                    }
-                });
             }
-        });
+
+        }));
 
 
     }
 
     private void setAdapterData(RecyclerView recyclerView, List<QuotesTable> liveData) {
-        recyclerView.setAdapter(new LocalAdapter(getActivity(), (ArrayList<QuotesTable>) liveData, new LocalAdapter.OnQuoteClickListener() {
-            @Override
-            public void onQuoteClicked(int position, @NonNull GradientDrawable color, QuotesTable quote, View view) {
-                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
-                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
-                }
-                Objects.requireNonNull(getActivity()).startActivity(intent);
-
-
+        recyclerView.setAdapter(new QuotesAdapter(getActivity(), (ArrayList<QuotesTable>) liveData, (position, color, quote, view) -> {
+            Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
+            intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote.getId());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
             }
+            Objects.requireNonNull(getActivity()).startActivity(intent);
+
+
         }));
     }
 

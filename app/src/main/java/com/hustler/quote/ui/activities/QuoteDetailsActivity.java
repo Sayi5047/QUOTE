@@ -17,25 +17,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
-import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Executors.AppExecutor;
 import com.hustler.quote.ui.ORM.AppDatabase;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
-import com.hustler.quote.ui.superclasses.BaseActivity;
-import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.FileUtils;
 import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.PermissionUtils;
@@ -46,7 +43,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/*   Copyright [2018] [Sayi Manoj Sugavasi]
+/*   Copyright [2018] [Sayi Manoj SugFavasi]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -59,7 +56,7 @@ import butterknife.ButterKnife;
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.*/
-public class QuoteDetailsActivity extends BaseActivity implements View.OnClickListener {
+public class QuoteDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int MY_PERMISSION_REQUEST_STORAGE = 1001;
     private static final int MY_PERMISSION_REQUEST_STORAGE_WALLPAPER = 1003;
     int quoteId;
@@ -80,8 +77,10 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg));
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setEnterTransition(MaterialSharedAxis.create(this, MaterialSharedAxis.X, true).addTarget(R.id.root));
+        getWindow().setAllowEnterTransitionOverlap(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
         appDatabase = AppDatabase.getmAppDatabaseInstance(this);
@@ -90,16 +89,9 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         initView();
         getIntentData();
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
-        toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_black_24dp)));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        toolbar.setTitle("");
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary1));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_white_24dp)));
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        toolbar.setTitle(null);
     }
 
     @Override
@@ -117,7 +109,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         RelativeLayout root = findViewById(R.id.root);
-        AdView mAdView = findViewById(R.id.adView);
+        // AdView mAdView = findViewById(R.id.adView);
         tv_Quote_Author = findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = findViewById(R.id.tv_Quote_Body);
 
@@ -137,7 +129,7 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         fab_set_wall.setOnClickListener(this);
         fab_set_like.setOnClickListener(this);
 
-        AdUtils.loadBannerAd(mAdView, QuoteDetailsActivity.this);
+        // AdUtils.loadBannerAd(mAdView, QuoteDetailsActivity.this);
 
     }
 
@@ -153,29 +145,22 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
             quote_bottom.setElevation(getResources().getDimension(R.dimen.elevation4));
         }
         quoteId = getIntent().getIntExtra(Constants.INTENT_QUOTE_OBJECT_KEY, -1);
-        appExecutor.getMainThreadExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
-                if (color1 != null) {
-                    quote_layout.setBackground(createDrawable(color1));
-                } else {
-                    int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-                    int color2 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_500");
-                    quote_layout.setBackground(createDrawable(new int[]{color1, color2}));
+        color1 = getIntent().getIntArrayExtra(IntentConstants.GRADIENT_COLOR1);
 
-                }
-            }
-        });
+        if (color1 != null) {
+            quote_layout.setBackgroundColor(color1[0]);
+        } else {
+            int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_100");
+            quote_layout.setBackgroundColor(color1);
+
+        }
+
         LiveData<QuotesTable> quotesTableLiveData = appDatabase.quotesDao().getQuotesById(quoteId);
         quoteFromTable = quotesTableLiveData.getValue();
-        quotesTableLiveData.observe(this, new Observer<QuotesTable>() {
-            @Override
-            public void onChanged(@Nullable QuotesTable quotesTable) {
-                quoteFromTable = quotesTable;
-                setUiData(quoteFromTable);
+        quotesTableLiveData.observe(this, quotesTable -> {
+            quoteFromTable = quotesTable;
+            setUiData(quoteFromTable);
 
-            }
         });
 
 
@@ -205,8 +190,8 @@ public class QuoteDetailsActivity extends BaseActivity implements View.OnClickLi
         }
         tv_Quote_Body.setText(quoteId.getQuotes());
         tv_Quote_Author.setText(quoteId.getAuthor());
-        tv_Quote_Body.setTextColor(Color.WHITE);
-        tv_Quote_Author.setTextColor(Color.WHITE);
+        tv_Quote_Body.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.textColor));
+        tv_Quote_Author.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.textColor));
         if (quoteId.isIsliked()) {
             IS_LIKED_FLAG = true;
             fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));

@@ -5,10 +5,11 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary1"
+    android:background="@color/bg"
     android:orientation="vertical"
-    android:transitionName="@string/quotes_author_transistion"
-    tools:context="com.hustler.quote.com.hustler.quote.ui.activities.QuoteDetailsActivity">
+    android:transitionName="@string/root_quote"
+
+    tools:context=".ui.activities.QuoteDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,7 +18,7 @@
         android:theme="@style/AppTheme"
         app:elevation="0dp"
         app:layout_collapseMode="pin"
-        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationIcon="@drawable/ic_keyboard_backspace_white_24dp"
         tools:targetApi="lollipop">
 
         <TextView
@@ -26,7 +27,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:gravity="center"
-            android:text="@string/app_name"
             android:textColor="@color/textColor"
             android:textSize="@dimen/font2"
             android:textStyle="bold" />
@@ -52,8 +52,9 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+
                 android:elevation="@dimen/elevation4"
                 app:cardCornerRadius="16dp"
 
@@ -84,27 +85,21 @@
                 <LinearLayout
                     android:id="@+id/quote_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#f5f5f5"
+                    android:layout_height="wrap_content"
                     android:elevation="@dimen/elevation4"
-
-                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_Quote_Body"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:gravity="center"
                         android:padding="16dp"
-                        android:textAlignment="viewStart"
-
-                        android:textColor="@android:color/black"
+                        android:textAlignment="center"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:textColor="@color/textColor"
                         android:textIsSelectable="true"
-
                         android:textSize="@dimen/font3_5"
                         android:transitionName="@string/quotes_body_transistion"
                         tools:text="hdsjkdsfsdhfhdjhfsjhfjhjdsfjk
@@ -121,7 +116,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_gravity="end"
+                            android:layout_gravity="center"
                             android:layout_margin="16dp"
                             android:src="@mipmap/ic_launcher" />
 
@@ -134,8 +129,8 @@
                             android:gravity="top"
                             android:padding="8dp"
 
-                            android:textAlignment="viewEnd"
-                            android:textColor="@android:color/white"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColor"
                             android:textSize="@dimen/font2"
                             tools:text="hdsjkdsfsdhfhdjhfsjhf" />
                     </LinearLayout>
@@ -212,17 +207,14 @@
 
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.startapp.android.publish.ads.banner.Banner
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            android:layout_weight="0.8"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="@string/bannerAdId"
-            ads:layout_anchorGravity="bottom" />
+            android:layout_weight="0.8" />
 
     </LinearLayout>
 

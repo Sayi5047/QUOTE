@@ -49,6 +49,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.gms.ads.AdView;
+import com.google.android.material.button.MaterialButton;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.CustomSpan.HollowSpan;
 import com.hustler.quote.ui.activities.EditorActivity;
@@ -102,7 +103,7 @@ public class TextFeatures {
         dialog.setContentView(R.layout.shadow_text_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
-        AdView adView;
+        // AdView // AdView;
         final TextView demoShadowText;
         AppCompatSeekBar opacitySeekbar;
         AppCompatSeekBar shadowRadiusSeekbar;
@@ -122,12 +123,12 @@ public class TextFeatures {
         final float[] opacity = {checkFornull(selectedTextView.getAlpha(), 1.0f)};
 
         demoShadowText = dialog.findViewById(R.id.demo_shadow_text);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         opacitySeekbar = dialog.findViewById(R.id.opacity_seekbar);
         shadowRadiusSeekbar = dialog.findViewById(R.id.shadow_radius_seekbar);
         posXSeekbar = dialog.findViewById(R.id.pos_x_seekbar);
         posYSeekbar = dialog.findViewById(R.id.pos_y_seekbar);
-        AdUtils.loadBannerAd(adView, activity);
+        // AdUtils.loadBannerAd(adView, activity);
         rvShadowColor = dialog.findViewById(R.id.rv_shadow_color);
         rvShadowColor.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
 
@@ -275,23 +276,23 @@ public class TextFeatures {
     //  METHOD TO APLLY FONT
     @NonNull
     public static FontSelected applyFont(@NonNull final Activity editorActivity, @NonNull final TextView selectedTextView) {
-        final Dialog dialog = new Dialog(editorActivity);
+        final Dialog dialog = new Dialog(editorActivity,R.style.EditTextDialog);
         dialog.setContentView(R.layout.apply_font_layout);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog_non_floater;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dialog.getWindow().setStatusBarColor(ContextCompat.getColor(editorActivity, R.color.colorAccent));
         }
-        AdView adView;
+        // AdView // AdView;
 
         final TextView demoText;
         RecyclerView rvAppFont;
         RecyclerView rvDownloadedFont;
         final LinearLayout help_layout;
         RecyclerView rvGoogleFont;
-        Button btShadowClose;
+        MaterialButton btShadowClose;
         final AutoCompleteTextView searchBox;
-        Button btShadowApply;
+        MaterialButton btShadowApply;
         final ImageView searchButton;
         final ArraySet<String> familyNameSet;
         LocalFontAdapter localFontAdapter;
@@ -303,8 +304,8 @@ public class TextFeatures {
 
 
         demoText = dialog.findViewById(R.id.tv_demo_text);
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, editorActivity);
+        // AdView = dialog.findViewById(R.id.adView);
+        // AdUtils.loadBannerAd(adView, editorActivity);
         rvGoogleFont = dialog.findViewById(R.id.rv_downloaded_font);
         rvAppFont = dialog.findViewById(R.id.rv_app_font);
         rvDownloadedFont = dialog.findViewById(R.id.rv_symbol_font);
@@ -566,7 +567,7 @@ public class TextFeatures {
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.setCancelable(false);
 
-        AdView adView;
+        // AdView // AdView;
         final TextView gradientText;
         final TextView gradientPreviewText;
         final RadioGroup rdGroup;
@@ -598,7 +599,7 @@ public class TextFeatures {
         rdGroup = dialog.findViewById(R.id.rd_group);
         rbJpeg = dialog.findViewById(R.id.rb_jpeg);
         preview = dialog.findViewById(R.id.preview);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         btCancel = dialog.findViewById(R.id.bt_cancel);
         btApply = dialog.findViewById(R.id.bt_apply);
         demoColor1 = dialog.findViewById(R.id.demo_color_1);
@@ -610,7 +611,7 @@ public class TextFeatures {
         demoColor2Tv = dialog.findViewById(R.id.demo_color_2_tv);
         colorsRecycler = dialog.findViewById(R.id.colors_recycler);
 
-        AdUtils.loadBannerAd(adView, editorActivity);
+        // AdUtils.loadBannerAd(adView, editorActivity);
         dialog.setCancelable(false);
         colorsRecycler.setVisibility(GONE);
         preview.setVisibility(GONE);
@@ -717,7 +718,7 @@ public class TextFeatures {
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
 
-        AdView adView;
+        // AdView // AdView;
         final TextView demoShadowText;
         AppCompatSeekBar lightingDirectionSeekBar;
         final AppCompatSeekBar lightingStrngthSeekbar;
@@ -744,13 +745,13 @@ public class TextFeatures {
         lighting_strngth_tv = dialog.findViewById(R.id.tv_shadow_radius);
         highlights_tv = dialog.findViewById(R.id.tv_x_pos);
         blurr_radius_tv = dialog.findViewById(R.id.tv_y_pos);
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         lightingDirectionSeekBar = dialog.findViewById(R.id.opacity_seekbar);
         lightingStrngthSeekbar = dialog.findViewById(R.id.shadow_radius_seekbar);
         highlightsSeekbar = dialog.findViewById(R.id.pos_x_seekbar);
         blurrRadius = dialog.findViewById(R.id.pos_y_seekbar);
         spinner = dialog.findViewById(R.id.fx_spinner);
-        AdUtils.loadBannerAd(adView, editorActivity);
+        // AdUtils.loadBannerAd(adView, editorActivity);
         rvShadowColor = dialog.findViewById(R.id.rv_shadow_color);
         rvShadowColor.setVisibility(GONE);
         rvShadowColor.setLayoutManager(new LinearLayoutManager(editorActivity, LinearLayoutManager.HORIZONTAL, false));
@@ -1004,7 +1005,7 @@ public class TextFeatures {
         TextView tvOpacity;
         Button btShadowClose;
         Button btShadowApply;
-        AdView adView;
+        // AdView // AdView;
         LinearLayout root;
 
 
@@ -1019,8 +1020,8 @@ public class TextFeatures {
         tvOpacity = dialog.findViewById(R.id.tv_opacity);
         btShadowClose = dialog.findViewById(R.id.bt_shadow_close);
         btShadowApply = dialog.findViewById(R.id.bt_shadow_apply);
-        adView = dialog.findViewById(R.id.adView);
-        AdUtils.loadBannerAd(adView, editorActivity);
+        // AdView = dialog.findViewById(R.id.adView);
+        // AdUtils.loadBannerAd(adView, editorActivity);
         TextUtils.findText_and_applyTypeface(root, editorActivity);
         pathEffects.add(getDashPathEffect(6));
         pathEffects.add(getCornerDashPathEffect(6));

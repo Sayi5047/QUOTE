@@ -103,15 +103,15 @@ public class UserFavuritesFragment extends Fragment {
 //                imageLists[0] = new ImagesDbHelper(getActivity()).getAllFav();
 //            }
 //        }).run();
-//        recyclerView.setAdapter(new LocalAdapter(getActivity(), arrayLists[0], new LocalAdapter.OnQuoteClickListener() {
+//        recyclerView.setAdapter(new QuotesAdapter(getActivity(), arrayLists[0], new QuotesAdapter.OnQuoteClickListener() {
 //            @Override
-//            public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
+//            public void onQuoteClicked(int position, int color, Quote quote, View view) {
 //                Intent intent = new Intent(getActivity(), QuoteDetailsActivity.class);
 //                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), new Pair<>(view, getString(R.string.root_quote))
 //                ).toBundle();
 //                intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+//                    intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
 //
 //                } else {
 //

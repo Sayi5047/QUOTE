@@ -47,6 +47,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.hustler.quote.ui.Recievers.DailyNotificationAlarmReceiver;
+import com.hustler.quote.ui.adapters.QuotesAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Shared_prefs_constants;
 
@@ -56,7 +57,6 @@ import java.util.Calendar;
 import com.hustler.quote.R;
 
 import com.hustler.quote.ui.Services.DailyNotificationJobService;
-import com.hustler.quote.ui.adapters.LocalAdapter;
 import com.hustler.quote.ui.adapters.TabsFragmentPagerAdapter;
 import com.hustler.quote.ui.adapters.WallpaperAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
@@ -100,10 +100,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     Toolbar toolbar;
     final String IMAGES = "images";
     final String QUOTES = "quotes";
-    private AdView mAdView;
+    private // AdView mAdView;
     String query;
     @Nullable
-    LocalAdapter adapter;
+    QuotesAdapter adapter;
     Menu menu;
     Intent alarm_intent, notif_alarm_intent;
     @Nullable
@@ -252,7 +252,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         tab_layout = findViewById(R.id.tab_layout);
         rootView = findViewById(R.id.root);
         tab_layout.setupWithViewPager(mainPager);
-        mAdView = findViewById(R.id.adView);
+//        mAdView = findViewById(R.id.adView);
         header_name = findViewById(R.id.header_name);
         TextUtils.setFont(HomeActivity.this, header_name, Constants.FONT_CIRCULAR);
         loadAds();
@@ -339,7 +339,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         final ProgressBar loader;
         final String[] selected_type = new String[1];
         selected_type[0] = IMAGES;
-        AdView adView;
+        // AdView // AdView;
         final TextView search_term;
 
 
@@ -353,9 +353,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         loader = dialog.findViewById(R.id.loader);
         loader.setVisibility(GONE);
 
-        adView = dialog.findViewById(R.id.adView);
+        // AdView = dialog.findViewById(R.id.adView);
         search_term = dialog.findViewById(R.id.search_term);
-        AdUtils.loadBannerAd(adView, HomeActivity.this);
+        // AdUtils.loadBannerAd(adView, HomeActivity.this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             result_rv.setClipToOutline(true);
         }
@@ -533,14 +533,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //            Toast_Snack_Dialog_Utils.show_ShortToast(HomeActivity.this, getString(R.string.no_quotes_available));
 //        } else {
 //            loader.setVisibility(GONE);
-//            adapter = (new LocalAdapter(HomeActivity.this, null, new LocalAdapter.OnQuoteClickListener() {
+//            adapter = (new QuotesAdapter(HomeActivity.this, null, new QuotesAdapter.OnQuoteClickListener() {
 //                @Override
-//                public void onQuoteClicked(int position, @NonNull GradientDrawable color, Quote quote, View view) {
+//                public void onQuoteClicked(int position, int color, Quote quote, View view) {
 //                    Intent intent = new Intent(HomeActivity.this, QuoteDetailsActivity.class);
 //                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, new Pair<View, String>(view, getString(R.string.root_quote))).toBundle();
 //                    intent.putExtra(Constants.INTENT_QUOTE_OBJECT_KEY, quote);
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color.getColors());
+//                        intent.putExtra(IntentConstants.GRADIENT_COLOR1, color);
 //
 //                    } else {
 //
@@ -568,7 +568,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private void loadAds() {
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
-        AdUtils.loadBannerAd(mAdView, HomeActivity.this);
+        // AdUtils.loadBannerAd(mAdView, HomeActivity.this);
 
     }
 

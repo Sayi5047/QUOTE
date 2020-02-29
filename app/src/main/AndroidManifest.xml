@@ -12,6 +12,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" tools:node="remove"/>
 
     <application
         android:allowBackup="true"
@@ -47,9 +51,9 @@
         </activity>
         <activity
             android:name="com.hustler.quote.ui.activities.QuoteDetailsActivity"
-            android:label=" "
+            android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/lightstatusbar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.hustler.quote.ui.activities.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -78,7 +82,7 @@
             android:label=""
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/lightstatusbar">
+            android:theme="@style/AppTheme.NoActionBar">
 
             <!-- <meta-data -->
             <!-- android:name="android.app.searchable" -->
@@ -194,11 +198,11 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.hustler.quote.ui.Services.MyFirebase_Messaging_service">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service> <!-- PROVIDERS AREA -->
+<!--        <service android:name="com.hustler.quote.ui.Services.MyFirebase_Messaging_service">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service> &lt;!&ndash; PROVIDERS AREA &ndash;&gt;-->
         <service
             android:name="com.hustler.quote.ui.Services.JobServices.WallaperFirebaseJobService"
             android:exported="false">
@@ -221,7 +225,7 @@
             android:name="com.hustler.quote.ui.activities.MainActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/lightstatusbar" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

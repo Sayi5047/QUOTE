@@ -3,12 +3,12 @@
     android:id="@+id/root_Lo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_rect"
+    android:background="@color/bg"
     android:clipToPadding="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <TextView
-        android:id="@+id/head_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -38,7 +38,6 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
-        android:id="@+id/bt_ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -67,16 +66,15 @@
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.startapp.android.publish.ads.banner.Banner xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/bannerAdId"
+
         ads:layout_anchorGravity="bottom">
 
-    </com.google.android.gms.ads.AdView>
+    </com.startapp.android.publish.ads.banner.Banner>
 </LinearLayout>

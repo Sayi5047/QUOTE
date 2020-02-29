@@ -1,28 +1,27 @@
 package com.hustler.quote.ui.ViewModels;
 
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.annotation.NonNull;
+import android.content.Context;
 
-import java.util.List;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.hustler.quote.ui.ORM.AppDatabase;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
 
-public class MainViewModel extends AndroidViewModel {
+import java.util.List;
 
-    public LiveData<List<QuotesTable>> mainFragmentQuotesList;
-    public LiveData<List<QuotesTable>> quotesListByCategory;
+public class MainViewModel extends ViewModel {
+
+    public LiveData<List<QuotesTable>> mainFragmentQuotesList = new MutableLiveData<>();
     AppDatabase appDatabase;
 
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-        appDatabase = AppDatabase.getmAppDatabaseInstance(application);
+
+    public void getQuotes(Context context) {
+        appDatabase = AppDatabase.getmAppDatabaseInstance(context);
         mainFragmentQuotesList = appDatabase.quotesDao().loadAllbyCategory("Attitude");
+
     }
 
-    public LiveData<List<QuotesTable>> getMainFragmentQuotes() {
-        return mainFragmentQuotesList;
-    }
+
 }
