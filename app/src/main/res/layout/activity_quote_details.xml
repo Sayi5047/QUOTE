@@ -7,9 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical"
-    android:transitionName="@string/root_quote"
-
-    tools:context=".ui.activities.QuoteDetailsActivity">
+    android:transitionName="@string/root_quote">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,76 +32,55 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar">
 
 
         <RelativeLayout
+            android:id="@+id/quote_layout_1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_weight="6"
             android:elevation="@dimen/elevation4"
             android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin_16"
             android:transitionName="@string/quotes_body_transistion">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-
                 android:elevation="@dimen/elevation4"
-                app:cardCornerRadius="16dp"
-
+                app:cardCornerRadius="@dimen/margin_8"
+                android:layout_margin="@dimen/margin_8"
                 app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:elevation="@dimen/elevation8"
-                    android:transitionName="transistion_bg"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:background="#d35"
-                        android:elevation="@dimen/elevation8"
-                        android:padding="25dp"
-                        android:text="Image hasbeen saved to your device"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textColor="@color/textColor"
-                        android:textSize="@dimen/font3_8" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/quote_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="@dimen/elevation4"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/standardPadding"
+                    android:layout_margin="@dimen/margin_8"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_Quote_Body"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
                         android:layout_weight="2"
-                        android:padding="16dp"
-                        android:textAlignment="center"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="@dimen/margin_8"
-                        android:textColor="@color/textColor"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
                         android:textIsSelectable="true"
                         android:textSize="@dimen/font3_5"
+                        android:layout_marginBottom="@dimen/margin_16"
                         android:transitionName="@string/quotes_body_transistion"
-                        tools:text="hdsjkdsfsdhfhdjhfsjhfjhjdsfjk
-            shdjfhsjhfjkhsdfhjsdhjs" />
+                        tools:text="Sayi Manoj Sugavasi Sayi Manoj Sugavasi Sayi Manoj Sugavasi Sayi Manoj Sugavasi Sayi Manoj Sugavasi" />
 
                     <LinearLayout
                         android:id="@+id/quote_bottom"
@@ -117,19 +94,18 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center"
-                            android:layout_margin="16dp"
+                            android:layout_marginBottom="@dimen/margin_16"
                             android:src="@mipmap/ic_launcher" />
 
                         <TextView
                             android:id="@+id/tv_Quote_Author"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="20dp"
                             android:gravity="top"
                             android:padding="8dp"
+                            android:layout_marginBottom="@dimen/margin_16"
 
-                            android:textAlignment="center"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/font2"
                             tools:text="hdsjkdsfsdhfhdjhfsjhf" />
@@ -146,8 +122,8 @@
             android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_below="@id/quote_layout_1">
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -164,18 +140,19 @@
                 android:id="@+id/fab_set_wall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-
+                android:visibility="gone"
                 android:src="@drawable/ic_crop_original_black_24dp"
                 app:backgroundTint="@android:color/white"
-                app:fabSize="normal" />
+                app:fabSize="normal"
+                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_download"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
 
                 android:src="@drawable/ic_archive_black_24dp"
@@ -186,7 +163,7 @@
                 android:id="@+id/fab_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_format_shapes_black_24dp"
                 app:backgroundTint="@android:color/white"
@@ -198,7 +175,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_share_black_24dp"
                 app:backgroundTint="@android:color/white"
@@ -210,13 +187,11 @@
         <com.startapp.android.publish.ads.banner.Banner
             android:id="@+id/adView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.8" />
+            android:layout_marginTop="@dimen/margin_16" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

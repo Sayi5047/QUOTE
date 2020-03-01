@@ -2,6 +2,7 @@ package com.hustler.quote.ui.Executors;
 
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.annotation.NonNull;
 
 import java.util.concurrent.Executor;
@@ -25,8 +26,11 @@ public class AppExecutor {
     public static AppExecutor getInstance() {
         if (mAppExecutorinstance == null) {
             synchronized (LOCK) {
-                mAppExecutorinstance = new AppExecutor(Executors.newFixedThreadPool(3),
-                        Executors.newSingleThreadExecutor(), new MainThreadExecutor(), Executors.newSingleThreadExecutor());
+                mAppExecutorinstance = new AppExecutor(
+                        Executors.newFixedThreadPool(3),
+                        Executors.newSingleThreadExecutor(),
+                        new MainThreadExecutor(),
+                        Executors.newSingleThreadExecutor());
             }
         }
         return mAppExecutorinstance;

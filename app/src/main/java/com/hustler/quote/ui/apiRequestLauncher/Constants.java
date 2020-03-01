@@ -53,6 +53,7 @@ public final class Constants {
 
     public static final String FONT_ZINGCURSIVE = "fonts/zingcursive.otf";
     public static final String FONT_CIRCULAR = "fonts/qanelasm.ttf";
+    public static final String FONT_AUTHOR = "fonts/author_font.otf";
 
 
     public static final String INTENT_QUOTE_OBJECT_KEY = "QUOTE_OBJECT_TRAVELLER_KEY";

@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -26,7 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -43,7 +40,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.crash.FirebaseCrash;
 import com.hustler.quote.R;
-import com.hustler.quote.ui.Executors.AppExecutor;
 import com.hustler.quote.ui.adapters.InstallFontAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.pojo.UserWorkImages;
@@ -55,7 +51,6 @@ import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -250,8 +245,8 @@ public class FileUtils {
         final File[] filetoReturn = new File[1];
         final String[] projectname = new String[1];
         // AdView // AdView;
-        final Dialog dialog = new Dialog(activity);
-        dialog.setContentView(View.inflate(activity, R.layout.save_image_layout, null));
+        final Dialog dialog = new Dialog(activity.getApplicationContext());
+        dialog.setContentView(View.inflate(activity.getApplicationContext(), R.layout.save_image_layout, null));
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.white_rounded_drawable);
         dialog.getWindow().getAttributes().windowAnimations = R.style.EditTextDialog;
         dialog.setCancelable(false);
@@ -276,53 +271,6 @@ public class FileUtils {
         gifBtn = dialog.findViewById(R.id.gif_btn);
         // AdUtils.loadBannerAd(adView, activity);
         TextUtils.findText_and_applyTypeface(root, activity);
-        gifBtn.setVisibility(View.GONE);
-        gifBtn.setOnClickListener(view -> {
-            ProgressBar progressBar = new ProgressBar(activity);
-            progressBar.setVisibility(View.VISIBLE);
-            final ArrayList<File> savedFilesList = new ArrayList<>();
-            for (int i = 0; i < gifFrameCount; i++) {
-                /*this should returns a value for every 100 milliseconds. so if there are 14 frames* then gif will be of length 1.4 sec/                             */
-
-                Handler handler = new Handler();
-                final int finalI = i;
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        savedFilesList.add(saveTempGifFrame(activity, sourceLayout, finalI));
-                    }
-                };
-                handler.removeCallbacks(runnable);
-                handler.postDelayed(runnable, 100);
-            }
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-//                        animatedGifEncoder.start(byteArrayOutputStream);
-//                        for (File currentFrame : savedFilesList) {
-//                            animatedGifEncoder.addFrame(BitmapFactory.decodeFile(currentFrame.getAbsoluteFile().getAbsolutePath()));
-//                        }
-//                        animatedGifEncoder.finish();
-
-            File file = new File(Constants.APP_SAVED_PICTURES_FOLDER + File.separator + DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2) + ".gif");
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath());
-                fileOutputStream.write(byteArrayOutputStream.toByteArray());
-                fileOutputStream.close();
-                onSaveCompleteListener.onImageSaveListener(file);
-                dialog.dismiss();
-                progressBar.setVisibility(View.GONE);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                progressBar.setVisibility(View.GONE);
-            } catch (IOException e) {
-                e.printStackTrace();
-                progressBar.setVisibility(View.GONE);
-
-            }
-
-        });
 
         btSave.setOnClickListener(v -> {
             if ((etProjectName.getText().length() <= 0)) {
@@ -355,70 +303,67 @@ public class FileUtils {
 
     private static void saveTask(@NonNull ViewGroup sourceLayout, @NonNull Activity activity, @NonNull onSaveComplete onSaveCompleteListener,
                                  String[] format, File[] filetoReturn, String[] projectname, Dialog dialog, RadioGroup rdGroup, RadioButton rbJpeg, RadioButton rbPng) {
-        AppExecutor.getInstance().getFileExecutor().execute(() -> {
 
-            File directoryChecker2;
-            File savingFile2;
-            Bitmap bitmap;
+        File directoryChecker2;
+        File savingFile2;
+        Bitmap bitmap;
 
-            directoryChecker2 = new File(Constants.APP_SAVED_PICTURES_FOLDER);
-            if (rbJpeg.getId() == rdGroup.getCheckedRadioButtonId()) {
-                format[0] = Constants.JPEG;
+        directoryChecker2 = new File(Constants.APP_SAVED_PICTURES_FOLDER);
+        if (rbJpeg.getId() == rdGroup.getCheckedRadioButtonId()) {
+            format[0] = Constants.JPEG;
 
-            } else if (rbPng.getId() == rdGroup.getCheckedRadioButtonId()) {
-                format[0] = Constants.PNG;
-            }
-            sourceLayout.buildDrawingCache(true);
-            bitmap = sourceLayout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
-            sourceLayout.destroyDrawingCache();
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            if (Constants.JPEG.equalsIgnoreCase(format[0])) {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        } else if (rbPng.getId() == rdGroup.getCheckedRadioButtonId()) {
+            format[0] = Constants.PNG;
+        }
+        sourceLayout.buildDrawingCache(true);
+        bitmap = sourceLayout.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+        sourceLayout.destroyDrawingCache();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        if (Constants.JPEG.equalsIgnoreCase(format[0])) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        } else {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        }
+
+
+        if (Constants.JPEG.equalsIgnoreCase(format[0])) {
+            if (directoryChecker2.isDirectory()) {
+                savingFile2 = getSavingFile(null, true, ".jpg", activity, projectname[0]);
             } else {
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + activity.getString(R.string.Qotzy) + File.separator + projectname[0] + ".jpg");
             }
-
-
-            if (Constants.JPEG.equalsIgnoreCase(format[0])) {
-                if (directoryChecker2.isDirectory()) {
-                    savingFile2 = getSavingFile(null, true, ".jpg", activity, projectname[0]);
-                } else {
-                    savingFile2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + activity.getString(R.string.Qotzy) + File.separator + projectname[0] + ".jpg");
-                }
+        } else {
+            if (directoryChecker2.isDirectory()) {
+                savingFile2 = getSavingFile(null, true, ".png", activity, projectname[0]);
             } else {
-                if (directoryChecker2.isDirectory()) {
-                    savingFile2 = getSavingFile(null, true, ".png", activity, projectname[0]);
-                } else {
-                    savingFile2 = getSavingFile(directoryChecker2, false, ".png", activity, projectname[0]);
-                }
+                savingFile2 = getSavingFile(directoryChecker2, false, ".png", activity, projectname[0]);
             }
+        }
 
-            filetoReturn[0] = savingFile2;
-            Log.d("ImageLocation -->", savingFile2.toString());
-            try {
-                savingFile2.createNewFile();
-                FileOutputStream fileOutputStream2 = new FileOutputStream(savingFile2);
-                fileOutputStream2.write(byteArrayOutputStream.toByteArray());
-                fileOutputStream2.close();
-                ContentValues contentValues = storeAndGetImageMetaData(savingFile2);
-                activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                ExifInterface exifInterface = new ExifInterface(filetoReturn[0].getAbsolutePath());
-                exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, filetoReturn[0].getName());
-                exifInterface.setAttribute(ExifInterface.TAG_DATETIME, DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2));
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-            onSaveCompleteListener.onImageSaveListener(filetoReturn[0]);
-            AppExecutor.getInstance().getMainThreadExecutor().execute(() -> {
-                Toast.makeText(Objects.requireNonNull(activity.getApplicationContext()), "File is Saved in  " + savingFile2, Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            });
+        filetoReturn[0] = savingFile2;
+        Log.d("ImageLocation -->", savingFile2.toString());
+        try {
+            savingFile2.createNewFile();
+            FileOutputStream fileOutputStream2 = new FileOutputStream(savingFile2);
+            fileOutputStream2.write(byteArrayOutputStream.toByteArray());
+            fileOutputStream2.close();
+            ContentValues contentValues = storeAndGetImageMetaData(savingFile2);
+            activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ExifInterface exifInterface = new ExifInterface(filetoReturn[0].getAbsolutePath());
+            exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, filetoReturn[0].getName());
+            exifInterface.setAttribute(ExifInterface.TAG_DATETIME, DateandTimeutils.convertDate(System.currentTimeMillis(), DateandTimeutils.DATE_FORMAT_2));
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        onSaveCompleteListener.onImageSaveListener(filetoReturn[0]);
+        Toast.makeText(Objects.requireNonNull(activity.getApplicationContext()), "File is Saved in  " + savingFile2, Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
 
-        });
+
     }
 
     private static File getSavingFile(@NonNull File directoryChecker2, boolean b, String format, @NonNull Activity activity, String name) {
@@ -430,8 +375,11 @@ public class FileUtils {
 
     public static void showPostSaveDialog(@NonNull final Activity activity, @Nullable final File savedFile) {
 
-        StartAppAd.showAd(activity);
-        new Thread(() -> {
+        if (null != activity) {
+
+
+            StartAppAd.showAd(activity);
+
             ImageView savedImage;
             ImageView facebook;
             ImageView whatsapp;
@@ -478,9 +426,8 @@ public class FileUtils {
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.setType("image/jpeg");
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, quote_editor_body.getText());
-//                shareIntent.putExtra(Intent.EXTRA_TITLE, quote_editor_author.getText());
-                Uri uri = null;
+
+                Uri uri;
                 if (savedFile != null) {
                     if (Build.VERSION.SDK_INT >= 24) {
                         uri = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), savedFile);
@@ -491,39 +438,21 @@ public class FileUtils {
                     activity.startActivity(Intent.createChooser(shareIntent, "send"));
                 }
             });
-            ratingBar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    rateInPlayStore(activity, editor);
-                }
-            });
-            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    rateInPlayStore(activity, editor);
-                }
-            });
-            ratingbarText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    rateInPlayStore(activity, editor);
-                }
-            });
+            ratingBar.setOnClickListener(v -> rateInPlayStore(activity, editor));
+            ratingBar.setOnRatingBarChangeListener((ratingBar1, rating, fromUser) -> rateInPlayStore(activity, editor));
+            ratingbarText.setOnClickListener(v -> rateInPlayStore(activity, editor));
 
             dialog.show();
-            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-                        dialog.dismiss();
-                        return true;
-                    } else {
-                        return false;
-                    }
+            dialog.setOnKeyListener((dialog1, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+                    dialog1.dismiss();
+                    return true;
+                } else {
+                    return false;
                 }
             });
 
-        }).run();
+        }
     }
 
     private static void rateInPlayStore(Activity activity, @NonNull SharedPreferences.Editor editor) {

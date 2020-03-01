@@ -1,7 +1,6 @@
 package com.hustler.quote.ui.adapters;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.View;
@@ -92,9 +91,9 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.LocalViewh
         genre = quote.getCategory();
 
         holder.tv.setText(quote.getQuotes());
-        holder.tv.setTextColor(ContextCompat.getColor(activity,R.color.textColor));
-        holder.tv2.setTextColor(ContextCompat.getColor(activity,R.color.textColor));
-        holder.tv3.setTextColor(ContextCompat.getColor(activity,R.color.textColor));
+        holder.tv.setTextColor(ContextCompat.getColor(activity, R.color.textColor));
+        holder.tv2.setTextColor(ContextCompat.getColor(activity, R.color.textColor));
+        holder.tv3.setTextColor(ContextCompat.getColor(activity, R.color.textColor));
         holder.tv2.setText(quote.getAuthor());
         holder.tv3.setText(genre);
         holder.itemView.setOnClickListener(v -> {
@@ -133,8 +132,8 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.LocalViewh
             tv2 = itemView.findViewById(R.id.author);
             tv3 = itemView.findViewById(R.id.quote_genre_end);
             TextUtils.setFont(activity, tv, Constants.FONT_CIRCULAR);
-            TextUtils.setFont(activity, tv2, Constants.FONT_CIRCULAR);
-            TextUtils.setFont(activity, tv3, Constants.FONT_CIRCULAR);
+            TextUtils.setFont(activity, tv2, Constants.FONT_AUTHOR);
+            TextUtils.setFont(activity, tv3, Constants.FONT_ZINGCURSIVE);
 
         }
     }

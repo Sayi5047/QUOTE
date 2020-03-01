@@ -4,7 +4,7 @@ import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -65,6 +66,7 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_Quote_Body;
     private TextView tv_Quote_Author;
     private FloatingActionButton fab_set_like;
+    private CardView cardView;
     private File savedFile;
     boolean IS_LIKED_FLAG;
     private final int MY_PERMISSION_REQUEST_STORAGE_FIRST = 1002;
@@ -77,10 +79,7 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg));
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-        getWindow().setEnterTransition(MaterialSharedAxis.create(this, MaterialSharedAxis.X, true).addTarget(R.id.root));
-        getWindow().setAllowEnterTransitionOverlap(true);
+        setupWindow();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote_details);
         appDatabase = AppDatabase.getmAppDatabaseInstance(this);
@@ -92,6 +91,13 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
         toolbar.setNavigationIcon(ContextCompat.getDrawable(getApplicationContext(), (R.drawable.ic_keyboard_backspace_white_24dp)));
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         toolbar.setTitle(null);
+    }
+
+    private void setupWindow() {
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg));
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setEnterTransition(MaterialSharedAxis.create(this, MaterialSharedAxis.X, true).addTarget(R.id.root));
+        getWindow().setAllowEnterTransitionOverlap(true);
     }
 
     @Override
@@ -110,12 +116,14 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
     private void initView() {
         RelativeLayout root = findViewById(R.id.root);
         // AdView mAdView = findViewById(R.id.adView);
+        cardView = findViewById(R.id.cardView);
         tv_Quote_Author = findViewById(R.id.tv_Quote_Author);
         tv_Quote_Body = findViewById(R.id.tv_Quote_Body);
 
         quote_layout = findViewById(R.id.quote_layout);
         quote_bottom = findViewById(R.id.quote_bottom);
-        TextUtils.findText_and_applyTypeface(root, QuoteDetailsActivity.this);
+        TextUtils.setFont(this, tv_Quote_Author, Constants.FONT_AUTHOR);
+        TextUtils.setFont(this, tv_Quote_Body, Constants.FONT_CIRCULAR);
 
         FloatingActionButton fab_edit = findViewById(R.id.fab_edit);
         FloatingActionButton fab_save = findViewById(R.id.fab_download);
@@ -149,9 +157,16 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
 
         if (color1 != null) {
             quote_layout.setBackgroundColor(color1[0]);
+            cardView.setBackgroundTintList(
+                    ColorStateList.valueOf(color1[0]));
+
+
         } else {
             int color1 = TextUtils.getMatColor(QuoteDetailsActivity.this, "mdcolor_100");
             quote_layout.setBackgroundColor(color1);
+            cardView.setBackgroundTintList(
+                    ColorStateList.valueOf(color1));
+
 
         }
 
@@ -190,8 +205,8 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
         }
         tv_Quote_Body.setText(quoteId.getQuotes());
         tv_Quote_Author.setText(quoteId.getAuthor());
-        tv_Quote_Body.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.textColor));
-        tv_Quote_Author.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.textColor));
+        tv_Quote_Body.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.textColor));
+        tv_Quote_Author.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.textColor));
         if (quoteId.isIsliked()) {
             IS_LIKED_FLAG = true;
             fab_set_like.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_black_24dp));
@@ -304,13 +319,13 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void checkpermissions_and_proceed() {
         if (PermissionUtils.isPermissionAvailable(QuoteDetailsActivity.this)) {
-            FileUtils.saveProjectToDevice(quote_layout, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
-                @Override
-                public void onImageSaveListener(File file) {
-                    savedFile = file;
+            FileUtils.saveProjectWithAds(quote_layout, QuoteDetailsActivity.this, file -> {
+                savedFile = file;
+                AppExecutor.getInstance().getMainThreadExecutor().execute(() -> {
                     FileUtils.showPostSaveDialog(QuoteDetailsActivity.this, savedFile);
-                }
-            }, 0);
+
+                });
+            });
         } else {
             requestAppPermissions();
         }
@@ -414,7 +429,7 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
                 uri[0] = Uri.fromFile(savedFile);
             }
         } else {
-            FileUtils.saveProjectToDevice(rootview, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
+            FileUtils.saveProjectWithAds(rootview, QuoteDetailsActivity.this, new FileUtils.onSaveComplete() {
                 @Override
                 public void onImageSaveListener(File file) {
                     savedFile = file;
@@ -424,11 +439,14 @@ public class QuoteDetailsActivity extends AppCompatActivity implements View.OnCl
                         uri[0] = Uri.fromFile(savedFile);
                     }
                     OnImageSaveListner.onImageSaved(uri[0]);
-                    FileUtils.showPostSaveDialog(QuoteDetailsActivity.this, savedFile);
+                    AppExecutor.getInstance().getMainThreadExecutor().execute(() -> {
+                        FileUtils.showPostSaveDialog(QuoteDetailsActivity.this, savedFile);
+
+                    });
 
 
                 }
-            }, 0);
+            });
         }
         return uri[0];
     }

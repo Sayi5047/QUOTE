@@ -46,8 +46,8 @@ android {
         applicationId "com.hustler.quote"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 16
-        versionName "1.000015"
+        versionCode 17
+        versionName "1.000017"
         resConfigs "en"
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
@@ -126,8 +126,8 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.8.6'
 
 
-    implementation 'androidx.room:room-runtime:2.2.3'
-    annotationProcessor 'androidx.room:room-compiler:2.2.3'
+    implementation 'androidx.room:room-runtime:2.2.4'
+    annotationProcessor 'androidx.room:room-compiler:2.2.4'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 

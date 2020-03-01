@@ -375,4 +375,7 @@
     <string name="demo">Ab12</string>
     <string name="choose_gallery">Choose Image from Gallery</string>
     <string name="ADS_ID_STARTAPPS">201712190</string>
+    <string name="INTENT_IS_LOGIN_KEY">IS_LOGIN</string>
+    <string name="something">Something</string>
+    <string name="image_hasbeen_saved_to_your_device">Image hasbeen saved to your device</string>
 </resources>
