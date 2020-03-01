@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,15 +53,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
 import com.hustler.quote.ui.ViewModels.SearchQuotesViewModel;
-import com.hustler.quote.ui.adapters.QuotesAdapter;
 import com.hustler.quote.ui.adapters.MainPagerAdapter;
+import com.hustler.quote.ui.adapters.QuotesAdapter;
 import com.hustler.quote.ui.adapters.SearchWallpaperAdapter;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.apiRequestLauncher.Restutility;
@@ -70,7 +68,6 @@ import com.hustler.quote.ui.fragments.HomeHolderFragments.QuotesHolderFragment;
 import com.hustler.quote.ui.pojo.ResGetSearchResultsDto;
 import com.hustler.quote.ui.pojo.listeners.SearchImagesResponseListener;
 import com.hustler.quote.ui.pojo.unspalsh.Unsplash_Image;
-import com.hustler.quote.ui.utils.AdUtils;
 import com.hustler.quote.ui.utils.IntentConstants;
 import com.hustler.quote.ui.utils.PermissionUtils;
 import com.hustler.quote.ui.utils.TextUtils;
@@ -164,7 +161,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final NavigationView navigationView = findViewById(R.id.nav_view);
         checkPermission_and_proceed();
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getApplicationContext(), getSupportFragmentManager());
-        launchFragmentAndAnimate(previousPixles, quotesIv);
+        launchFragmentAndAnimate(quotesIv);
 
         myViewPager.setAdapter(mainPagerAdapter);
         myViewPager.setNestedScrollingEnabled(true);
@@ -179,16 +176,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        launchFragmentAndAnimate(previousPixles, quotesIv);
+                        launchFragmentAndAnimate(quotesIv);
                         break;
                     case 1:
-                        launchFragmentAndAnimate(previousPixles, wallpaerIv);
+                        launchFragmentAndAnimate(wallpaerIv);
                         break;
                     case 2:
-                        launchFragmentAndAnimate(previousPixles, likeIv);
+                        launchFragmentAndAnimate(likeIv);
                         break;
                     case 3:
-                        launchFragmentAndAnimate(previousPixles, worksIv);
+                        launchFragmentAndAnimate(worksIv);
                         break;
 
 
@@ -203,12 +200,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
         TextUtils.setFont(MainActivity.this, header_name, Constants.FONT_CIRCULAR);
-        header_name.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                header_name.setVisibility(View.VISIBLE);
-            }
-        }, 1000);
+        header_name.postDelayed(() -> header_name.setVisibility(View.VISIBLE), 1000);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -264,6 +256,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.WHITE));
+        TextUtils.setFont(this, header_name, Constants.FONT_AUTHOR);
 
     }
 
@@ -287,22 +280,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
             break;
-            case R.id.action_rate: {
+            case R.id.action_rate:
+            case R.id.action_Pro_rate: {
                 taketoRate();
             }
             break;
-            case R.id.action_Pro_features: {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slideup, R.anim.slidedown);
-            }
-            break;
+            case R.id.action_Pro_features:
 
             case R.id.action_Pro_about: {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slideup, R.anim.slidedown);
-
             }
             break;
             case R.id.action_Pro_credits: {
@@ -315,11 +303,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Quotzy User");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
-
-            }
-            break;
-            case R.id.action_Pro_rate: {
-                taketoRate();
 
             }
             break;
@@ -375,19 +358,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (view.getId()) {
             case R.id.quotes_iv:
                 myViewPager.setCurrentItem(0);
-                launchFragmentAndAnimate(previousPixles, quotesIv);
+                launchFragmentAndAnimate(quotesIv);
                 break;
             case R.id.wallpaer_iv:
                 myViewPager.setCurrentItem(1);
-                launchFragmentAndAnimate(previousPixles, wallpaerIv);
+                launchFragmentAndAnimate(wallpaerIv);
                 break;
             case R.id.like_iv:
                 myViewPager.setCurrentItem(2);
-                launchFragmentAndAnimate(previousPixles, likeIv);
+                launchFragmentAndAnimate(likeIv);
                 break;
             case R.id.works_iv:
                 myViewPager.setCurrentItem(3);
-                launchFragmentAndAnimate(previousPixles, worksIv);
+                launchFragmentAndAnimate(worksIv);
                 break;
             case R.id.create_iv:
                 startActivity(new Intent(MainActivity.this, EditorActivity.class).putExtra(Constants.INTENT_IS_FROM_EDIT_KEY, 1));
@@ -460,26 +443,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
 
-    private void launchFragmentAndAnimate(final float start, final ImageView imageView) {
+    private void launchFragmentAndAnimate(final ImageView imageView) {
 
         if (previousImageView == null) {
             previousImageView = imageView;
-            return;
         } else {
             scaleIcon(previousImageView, 1);
             previousImageView = imageView;
         }
         scaleIcon(imageView, 1.4f);
-//        int currentPixels = getXlocationOfView(imageView)[0];
-//        ValueAnimator valueAnimator = ValueAnimator.ofFloat(start, currentPixels - 36);
-////        valueAnimator.setDuration(300);
-//        valueAnimator.addUpdateListener(valueAnimator1 -> {
-//            assert crownView != null;
-//            crownView.setTranslationX((Float) valueAnimator1.getAnimatedValue());
-//        });
-//        previousPixles = currentPixels;
-//        valueAnimator.start();
-
 
     }
 
@@ -777,24 +749,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-//            super.onBackPressed();
-            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-                getSupportFragmentManager().popBackStack();
-
-            } else {
-                Toast_Snack_Dialog_Utils.createDialog(MainActivity.this, getString(R.string.warning), getString(R.string.are_you_sure_close), getString(R.string.cancel), getString(R.string.close), new Toast_Snack_Dialog_Utils.Alertdialoglistener() {
-                    @Override
-                    public void onPositiveSelection() {
-                        finishAffinity();
-                        System.exit(0);
-                    }
-
-                    @Override
-                    public void onNegativeSelection() {
-
-                    }
-                });
-            }
+            finish();
         }
     }
 }

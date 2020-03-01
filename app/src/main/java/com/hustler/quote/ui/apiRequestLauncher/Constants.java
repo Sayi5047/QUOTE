@@ -37,7 +37,8 @@ public final class Constants {
     public static final String PER_PAGE = "&per_page=30";
     public static final String QUERY = "&query=";
     public static final String PAGE_NUMBER = "&page=";
-    public static final String END = UNSPLASH_CLIENT_ID + "&orientation=all&featured=true&order_by=popular" + PER_PAGE;
+
+    public static final String END = UNSPLASH_CLIENT_ID + "&orientation=portrait&featured=true&order_by=popular" + PER_PAGE;
 
 
     public static final String API_GET_IMAGES_FROM_PIXABAY = "https://pixabay.com/api/?key=" + API_IMAGES_TOKEN;

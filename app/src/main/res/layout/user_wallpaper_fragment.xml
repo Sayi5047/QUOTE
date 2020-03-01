@@ -13,14 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/red_100"
         android:padding="8dp"
         android:shadowDx="5"
         android:shadowDy="5"
         android:shadowRadius="5"
-        android:text="Photos by Unsplash"
+        android:text="@string/photos_by_unsplash"
         android:textAlignment="center"
-        android:textColor="@color/textColor"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold" />
 
     <LinearLayout

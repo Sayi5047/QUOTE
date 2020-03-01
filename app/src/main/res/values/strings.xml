@@ -378,4 +378,5 @@
     <string name="INTENT_IS_LOGIN_KEY">IS_LOGIN</string>
     <string name="something">Something</string>
     <string name="image_hasbeen_saved_to_your_device">Image hasbeen saved to your device</string>
+    <string name="photos_by_unsplash">Photos by Unsplash</string>
 </resources>

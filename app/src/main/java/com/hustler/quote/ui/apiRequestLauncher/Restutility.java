@@ -239,15 +239,12 @@ public class Restutility {
             logtheRequest(request);
         }
         JsonObjectRequest request1 = new JsonObjectRequestwithAuthHeader(Request.Method.GET, request, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(@NonNull JSONObject response) {
-                        if (BuildConfig.DEBUG) {
-                            Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
-                        }
-                        ResGetSearchResultsDto unspalshImage = new Gson().fromJson(response.toString(), ResGetSearchResultsDto.class);
-                        listener.onSuccess(unspalshImage);
+                response -> {
+                    if (BuildConfig.DEBUG) {
+                        Log.d("RESPONSE LENGTGH", String.valueOf(response.length()));
                     }
+                    ResGetSearchResultsDto unspalshImage = new Gson().fromJson(response.toString(), ResGetSearchResultsDto.class);
+                    listener.onSuccess(unspalshImage);
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(@NonNull VolleyError error) {

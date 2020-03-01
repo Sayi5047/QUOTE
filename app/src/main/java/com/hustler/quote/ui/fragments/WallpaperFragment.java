@@ -3,21 +3,20 @@ package com.hustler.quote.ui.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hustler.quote.ui.apiRequestLauncher.Constants;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.adapters.WallpaperPagerAdapter;
+import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.utils.TextUtils;
 
 /**
@@ -40,22 +39,19 @@ import com.hustler.quote.ui.utils.TextUtils;
 public class WallpaperFragment extends Fragment {
 
 
-    TextView credit;
+    private TabLayout walltabs;
 
-    TabLayout walltabs;
-    ViewPager wallPager;
-    WallpaperPagerAdapter adapter;
+    public WallpaperFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_wallpaper_fragment, container, false);
 
-        credit = view.findViewById(R.id.crdit);
-//        walltabs = view.findViewById(R.id.wall_tabLayout);
-        wallPager = view.findViewById(R.id.wall_viewPager);
-//        editTabLayout();
-        adapter = new WallpaperPagerAdapter(getActivity(), getChildFragmentManager());
+        TextView credit = view.findViewById(R.id.crdit);
+        ViewPager wallPager = view.findViewById(R.id.wall_viewPager);
+        WallpaperPagerAdapter adapter = new WallpaperPagerAdapter(getActivity(), getChildFragmentManager());
         wallPager.setAdapter(adapter);
 
 

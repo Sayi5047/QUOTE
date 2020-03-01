@@ -108,8 +108,7 @@ public class CategoriesFragment extends Fragment {
         categories_rv.setNestedScrollingEnabled(true);
         categories_rv = dialog.findViewById(R.id.rv_category_list);
         close_button = dialog.findViewById(R.id.bt_close);
-        // AdView = dialog.findViewById(R.id.adView);
-        // AdUtils.loadBannerAd(adView, getActivity());
+
         catgory_name = dialog.findViewById(R.id.tv_category_name);
         TextUtils.setFont(getActivity(), catgory_name, Constants.FONT_CIRCULAR);
 
@@ -124,38 +123,22 @@ public class CategoriesFragment extends Fragment {
 
         quoteslist = appDatabase.quotesDao().loadAllbyCategory(category);
         final TextView finalCatgory_name = catgory_name;
-        quoteslist.observe(this, new Observer<List<QuotesTable>>() {
-            @Override
-            public void onChanged(@Nullable List<QuotesTable> quotesTables) {
-                Log.i(TAG, "ON CHAGE CALLED");
-                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        setQuotesAdapter(gradientDrawable, dialog, quoteslist, finalCatgory_name);
-
-                    }
-                });
-            }
+        quoteslist.observe(this, quotesTables -> {
+            Log.i(TAG, "ON CHAGE CALLED");
+            Objects.requireNonNull(getActivity()).runOnUiThread(() -> setQuotesAdapter(gradientDrawable, dialog, quoteslist, finalCatgory_name));
         });
-        close_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categories_rv.setAdapter(null);
-                dialog.dismiss();
-            }
+        close_button.setOnClickListener(v -> {
+            categories_rv.setAdapter(null);
+            dialog.dismiss();
         });
         dialog.setCancelable(false);
 
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(@NonNull DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-                    dialog.dismiss();
-                    return true;
-                } else {
-                    return false;
-                }
+        dialog.setOnKeyListener((dialog1, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+                dialog1.dismiss();
+                return true;
+            } else {
+                return false;
             }
         });
 
@@ -169,17 +152,7 @@ public class CategoriesFragment extends Fragment {
             Toast_Snack_Dialog_Utils.show_ShortToast(getActivity(), getString(R.string.no_quotes_available));
         } else {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    categoryname.setBackgroundColor(Color.WHITE);
-                    categoryname.setBackgroundColor(Objects.requireNonNull(gradientDrawable.getColors())[1]);
 
-                } else {
-                    categoryname.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorAccent));
-
-                }
-
-            }
 
 
             categories_rv.setAdapter(new QuotesAdapter(getActivity(), (ArrayList<QuotesTable>) quoteslist.getValue(), (position, color, quote, view) -> {
