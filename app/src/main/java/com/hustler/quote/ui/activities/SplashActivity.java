@@ -15,18 +15,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.hustler.quote.BuildConfig;
 import com.hustler.quote.R;
 import com.hustler.quote.ui.Executors.AppExecutor;
 import com.hustler.quote.ui.ORM.AppDatabase;
 import com.hustler.quote.ui.ORM.Tables.QuotesTable;
+import com.hustler.quote.ui.ViewModels.SplashViewModel;
 import com.hustler.quote.ui.activities.v1.OnBoardActivity;
 import com.hustler.quote.ui.apiRequestLauncher.Constants;
 import com.hustler.quote.ui.utils.TextUtils;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.StartAppSDK;
 
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 
@@ -47,69 +49,120 @@ import java.util.ArrayList;
    See the License for the specific language governing permissions and
    limitations under the License.*/
 public class SplashActivity extends BaseActivity {
-    private final String TAG = this.getClass().getSimpleName();
     private TextView tv_splash_name_new;
     private SharedPreferences sharedPreferences;
     private TextView mTvProgressUpdate2;
-    private LinearLayout loading_layout;
     private AppExecutor appExecutor;
     private AppDatabase appDatabase;
-    private ArrayList<QuotesTable> quotesTableArrayList;
+    private SplashViewModel splashViewModel;
+    TextView tv;
+    ImageView iv;
+    TextView mTvProgressUpdate;
+    ProgressBar progressBar;
+    LinearLayout loading_layout;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        handleBaseUi();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        initialiseAds();
+        initialiseEssentials();
+        findViews();
+        setViewAnimations(tv, iv, progressBar);
+        setViewFonts(tv, mTvProgressUpdate);
+        setupObservers();
+        splashViewModel.getQuotesCount(appDatabase, appExecutor);
+
+    }
+
+    private void initialiseEssentials() {
+        splashViewModel = new ViewModelProvider(this).get(SplashViewModel.class);
+        appExecutor = AppExecutor.getInstance();
+        appDatabase = AppDatabase.getmAppDatabaseInstance(SplashActivity.this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
+
+    }
+
+    private void handleBaseUi() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rounded_rect));
             getWindow().setClipToOutline(true);
             getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.bg));
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+    }
 
+    private void setupObservers() {
+        splashViewModel.loadingLayoutObserver.observe(this, shouldShowLoad ->
+                loading_layout.setVisibility(shouldShowLoad ? View.VISIBLE : View.GONE));
+
+
+        splashViewModel.isQuotesLoaded.observe(this, isLoaded -> {
+            if (isLoaded) {
+                setCounter_and_launch();
+            } else {
+                splashViewModel.loadQuotesToDataBase(appDatabase, appExecutor, load_from_Arrays());
+            }
+        });
+
+
+        splashViewModel.launchNextActObserver.observe(this, canWeLaunch -> {
+            if (canWeLaunch) setCounter_and_launch();
+        });
+
+
+        splashViewModel.quotesLoadingProgress.observe(this, progressMessage -> {
+
+            if (BuildConfig.DEBUG) {
+                Log.d("SPLASH_ACTIVITY", "Percentage Updated " + progressMessage);
+            }
+            mTvProgressUpdate2.setText(progressMessage);
+        });
+
+
+        splashViewModel.saveToSharedPrefs.observe(this, canWeSave -> {
+            if (canWeSave) {
+                sharedPreferences.edit()
+                        .putBoolean(Constants.IS_QUOTES_LOADED_KEY, true)
+                        .apply();
+            }
+        });
+    }
+
+    private void initialiseAds() {
         StartAppSDK.init(this, getString(R.string.ADS_ID_STARTAPPS), true);
+        StartAppAd.disableSplash();
         if (true) {
             userAcceptedAds();
         } else {
             userRejectedAds();
         }
+    }
 
-        appExecutor = AppExecutor.getInstance();
-        appDatabase = AppDatabase.getmAppDatabaseInstance(SplashActivity.this);
-
-        TextView tv = findViewById(R.id.tv_splash_name);
+    private void findViews() {
+        tv = findViewById(R.id.tv_splash_name);
         loading_layout = findViewById(R.id.loading_layout);
         tv_splash_name_new = findViewById(R.id.tv_splash_name_new);
-        ImageView iv = findViewById(R.id.iv_logo);
-        ProgressBar progressBar = findViewById(R.id.mProgressBar);
-        TextView mTvProgressUpdate = findViewById(R.id.mTvProgressUpdate);
+        iv = findViewById(R.id.iv_logo);
+        progressBar = findViewById(R.id.mProgressBar);
+        mTvProgressUpdate = findViewById(R.id.mTvProgressUpdate);
         mTvProgressUpdate2 = findViewById(R.id.mTvProgressUpdate2);
+    }
 
+    private void setViewFonts(TextView tv, TextView mTvProgressUpdate) {
+        TextUtils.setFont(SplashActivity.this, tv, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(SplashActivity.this, mTvProgressUpdate, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(SplashActivity.this, mTvProgressUpdate2, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(SplashActivity.this, tv_splash_name_new, Constants.FONT_CIRCULAR);
+    }
+
+    private void setViewAnimations(TextView tv, ImageView iv, ProgressBar progressBar) {
         tv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         progressBar.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         iv.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
         tv_splash_name_new.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.slideup));
-
-        TextUtils.setFont(SplashActivity.this, tv, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(SplashActivity.this, mTvProgressUpdate, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(SplashActivity.this, mTvProgressUpdate2, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(SplashActivity.this, tv_splash_name_new, Constants.FONT_CIRCULAR);
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
-
-        if (sharedPreferences.getBoolean(Constants.IS_QUOTES_LOADED_KEY, false)) {
-            setCounter_and_launch();
-            progressBar.setVisibility(View.GONE);
-            mTvProgressUpdate.setVisibility(View.GONE);
-            mTvProgressUpdate2.setVisibility(View.GONE);
-        } else {
-            loadQuotesToDatabase();
-        }
-//        TODO: 12-02-2019 check if google user already exists
-//        PreferenceUtils preferenceUtils = new PreferenceUtils(SplashActivity.this);
-//        if (preferenceUtils.isIS_USER_LOGGED_IN() && preferenceUtils.isIS_GOOGLE_LOGIN()) {
-//        }
     }
 
     private void userAcceptedAds() {
@@ -128,47 +181,18 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private void loadQuotesToDatabase() {
-        tv_splash_name_new.setVisibility(View.GONE);
-        loading_layout.setVisibility(View.VISIBLE);
-        appExecutor.getDiskExecutor().execute(() -> {
-            load_from_Arrays();
-            int filledSize = 0;
-            String percentage = "NA";
 
-            int loadedSize = quotesTableArrayList.size();
-            for (QuotesTable quotesTable : quotesTableArrayList) {
-                appDatabase.quotesDao().insertUser(quotesTable);
-                filledSize++;
-                percentage = new DecimalFormat("0.00").format((filledSize * 100 / (double) loadedSize));
-                Log.d(TAG, "run: Completed Percentage " + percentage);
-            }
-            String finalPercentage = percentage;
-            runOnUiThread(() -> {
-                mTvProgressUpdate2.setText(MessageFormat.format("Completed {0}  %", finalPercentage));
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(Constants.IS_QUOTES_LOADED_KEY, true);
-                editor.apply();
-                setCounter_and_launch();
-            });
-        });
-
-    }
-
-
-    private void load_from_Arrays() {
-
+    private ArrayList<QuotesTable> load_from_Arrays() {
         String[] bodies = getResources().getStringArray(R.array.quote_bodies);
         String[] authors = getResources().getStringArray(R.array.quote_authors);
         String[] categories = getResources().getStringArray(R.array.quote_categories);
         final String[] languages = getResources().getStringArray(R.array.quote_languages);
-        quotesTableArrayList = new ArrayList<>();
+        ArrayList<QuotesTable> quotesTableArrayList = new ArrayList<>();
         for (int i = 0; i < bodies.length; i++) {
             QuotesTable quote = new QuotesTable(bodies[i], authors[i], categories[i], languages[0], false);
             quotesTableArrayList.add(quote);
         }
-
+        return quotesTableArrayList;
 
     }
 

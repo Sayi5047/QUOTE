@@ -67,7 +67,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/setting_up_things_for_first_time"
-
             android:padding="@dimen/elevation8"
             android:textColor="@color/colorAccent"
             android:textStyle="bold" />

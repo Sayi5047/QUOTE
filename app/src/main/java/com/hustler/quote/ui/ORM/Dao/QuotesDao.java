@@ -11,6 +11,8 @@ import com.hustler.quote.ui.ORM.Tables.QuotesTable;
 
 import java.util.List;
 
+import javax.inject.Qualifier;
+
 import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
@@ -20,6 +22,9 @@ public interface QuotesDao {
 
     @Insert(onConflict = REPLACE)
     void insertUser(QuotesTable mUser);
+
+    @Query("SELECT COUNT(*) FROM mstr_quotes")
+    Long getQuotesCount();
 
     @Insert
     void insertAllUser(QuotesTable... mUsersList);
