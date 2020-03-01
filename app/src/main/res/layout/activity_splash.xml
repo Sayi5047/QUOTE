@@ -31,6 +31,20 @@
         android:textColor="@color/WHITE"
         android:textSize="35sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:fontFamily="monospace"
+        android:gravity="bottom"
+        android:padding="@dimen/elevation16"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/WHITE"
+        android:textStyle="bold"
+        />
     <LinearLayout
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"

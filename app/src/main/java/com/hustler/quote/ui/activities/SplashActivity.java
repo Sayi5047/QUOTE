@@ -55,7 +55,7 @@ public class SplashActivity extends BaseActivity {
     private AppExecutor appExecutor;
     private AppDatabase appDatabase;
     private SplashViewModel splashViewModel;
-    TextView tv;
+    TextView tv, version;
     ImageView iv;
     TextView mTvProgressUpdate;
     ProgressBar progressBar;
@@ -144,6 +144,7 @@ public class SplashActivity extends BaseActivity {
         tv = findViewById(R.id.tv_splash_name);
         loading_layout = findViewById(R.id.loading_layout);
         tv_splash_name_new = findViewById(R.id.tv_splash_name_new);
+        version = findViewById(R.id.version);
         iv = findViewById(R.id.iv_logo);
         progressBar = findViewById(R.id.mProgressBar);
         mTvProgressUpdate = findViewById(R.id.mTvProgressUpdate);
@@ -154,7 +155,9 @@ public class SplashActivity extends BaseActivity {
         TextUtils.setFont(SplashActivity.this, tv, Constants.FONT_CIRCULAR);
         TextUtils.setFont(SplashActivity.this, mTvProgressUpdate, Constants.FONT_CIRCULAR);
         TextUtils.setFont(SplashActivity.this, mTvProgressUpdate2, Constants.FONT_CIRCULAR);
-        TextUtils.setFont(SplashActivity.this, tv_splash_name_new, Constants.FONT_CIRCULAR);
+        TextUtils.setFont(SplashActivity.this, tv_splash_name_new, Constants.FONT_AUTHOR);
+        TextUtils.setFont(SplashActivity.this, version, Constants.FONT_CIRCULAR);
+        version.setText("Version - " + BuildConfig.VERSION_NAME);
     }
 
     private void setViewAnimations(TextView tv, ImageView iv, ProgressBar progressBar) {
